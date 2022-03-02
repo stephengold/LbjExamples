@@ -18,6 +18,16 @@ tasks.withType(JavaCompile) { // Java compile-time options:
     options.encoding = 'UTF-8'
 }
 
+// run the apps
+
+task HelloLibbulletjme(type: JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.HelloLibbulletjme'
+}
+
+task HelloVehicle(type: JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.HelloVehicle'
+}
+
 tasks.withType(JavaExec) { // Java runtime options:
     classpath sourceSets.main.runtimeClasspath
     enableAssertions true
