@@ -14,7 +14,7 @@ jobs:
         with:
           java-version: 11
       - uses: gradle/wrapper-validation-action@v1.0.4
-      - run: wget https://github.com/stephengold/Libbulletjme/releases/download/13.0.0/Linux64DebugSp_libbulletjme.so
+      - run: wget https://github.com/stephengold/Libbulletjme/releases/download/13.0.0/Linux64ReleaseSp_libbulletjme.so
       - run: mkdir ~/Downloads
-      - run: mv Linux64DebugSp_libbulletjme.so ~/Downloads
+      - run: mv Linux64ReleaseSp_libbulletjme.so ~/Downloads
       - run: ./gradlew run --console=plain --no-daemon
