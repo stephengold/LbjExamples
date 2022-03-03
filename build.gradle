@@ -47,5 +47,5 @@ repositories {
 
 dependencies {
     // from mavenCentral (or mavenLocal) repositories:
-    implementation 'com.github.stephengold:Libbulletjme:13.0.0'
+    implementation 'com.github.stephengold:Libbulletjme:14.0.0'
 }
