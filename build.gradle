@@ -14,8 +14,11 @@ tasks.withType(JavaCompile) { // Java compile-time options:
         options.compilerArgs << '-Xlint:-options'
     }
     options.compilerArgs << '-Xlint:unchecked'
-    options.deprecation = true
+    options.deprecation = true // to provide detailed deprecation warnings
     options.encoding = 'UTF-8'
+    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_1_10)) {
+        options.release = 7
+    }
 }
 
 // run the apps
@@ -41,7 +44,7 @@ if (!hasProperty('mainClass')) {
 jar.manifest.attributes('Main-Class': mainClassName)
 
 repositories {
-    //mavenLocal()
+    //mavenLocal() // to find local SNAPSHOTs of libraries
     mavenCentral()
 }
 
