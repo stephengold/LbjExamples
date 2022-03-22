@@ -23,11 +23,11 @@ tasks.withType(JavaCompile) { // Java compile-time options:
 
 // run the apps
 
-task HelloLibbulletjme(type: JavaExec) {
+tasks.register('HelloLibbulletjme', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.HelloLibbulletjme'
 }
 
-task HelloVehicle(type: JavaExec) {
+tasks.register('HelloVehicle', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.HelloVehicle'
 }
 
