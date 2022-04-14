@@ -1,8 +1,22 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
 // Gradle script to build the LbjExamples project
 
 plugins {
     id 'application'
 }
+
+project.ext.lwjglVersion = "3.3.1"
+project.ext.lwjglNatives = "natives-macos"
+OperatingSystem os = DefaultNativePlatform.currentOperatingSystem;
+if(os.isWindows())
+    project.ext.lwjglNatives = "natives-windows"
+else if(os.isMacOsX())
+    project.ext.lwjglNatives = "natives-macos"
+else if(os.isLinux())
+    project.ext.lwjglNatives = "natives-linux"
+
+
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -19,12 +33,12 @@ tasks.withType(JavaCompile) { // Java compile-time options:
 
 // run the apps
 
-tasks.register('HelloLibbulletjme', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.HelloLibbulletjme'
+tasks.register('AppChooser', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.AppChooser'
 }
 
-tasks.register('HelloVehicle', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.HelloVehicle'
+tasks.register('HelloLibbulletjme', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
 }
 
 tasks.withType(JavaExec) { // Java runtime options:
@@ -33,7 +47,7 @@ tasks.withType(JavaExec) { // Java runtime options:
     jvmArgs '-XX:+UseG1GC', '-XX:MaxGCPauseMillis=10'
 }
 
-mainClassName = 'com.github.stephengold.lbjexamples.HelloLibbulletjme'
+mainClassName = 'com.github.stephengold.lbjexamples.apps.HelloLibbulletjme'
 if (!hasProperty('mainClass')) {
     ext.mainClass = mainClassName
 }
@@ -45,6 +59,17 @@ repositories {
 }
 
 dependencies {
-    // from mavenCentral (or mavenLocal) repositories:
     implementation 'com.github.stephengold:Libbulletjme:14.3.0'
+
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+
+    implementation "org.lwjgl:lwjgl"
+    implementation "org.lwjgl:lwjgl-glfw"
+    implementation "org.lwjgl:lwjgl-opengl"
+    implementation group: 'org.joml', name: 'joml', version: '1.10.4'
+    runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
 }
+
+
