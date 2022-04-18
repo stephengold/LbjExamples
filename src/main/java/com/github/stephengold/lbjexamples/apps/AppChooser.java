@@ -11,13 +11,12 @@ import java.util.List;
 
 public class AppChooser extends JFrame {
 
-    private JComboBox<String> appChooser = new JComboBox<>();
-    private JButton launchApp = new JButton("Start");
-
+    private final JComboBox<String> appChooser = new JComboBox<>();
     public static List<BaseApplication> apps = new ArrayList<>();
 
     public static void main(String[] args) {
-        Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
+        if (System.getProperty("os.name").startsWith("Mac"))
+            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         apps.add(new HelloRigidBody());
         new AppChooser();
     }
@@ -29,10 +28,9 @@ public class AppChooser extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        apps.forEach(baseApplication -> {
-            appChooser.addItem(baseApplication.getName());
-        });
+        apps.forEach(baseApplication -> appChooser.addItem(baseApplication.getName()));
 
+        JButton launchApp = new JButton("Start");
         launchApp.addActionListener(actionEvent -> {
             setVisible(false);
             apps.get(appChooser.getSelectedIndex()).run();
