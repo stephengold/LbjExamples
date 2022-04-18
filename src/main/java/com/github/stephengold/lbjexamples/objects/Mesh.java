@@ -17,21 +17,24 @@ import static org.lwjgl.opengl.GL30.*;
 public class Mesh {
 
     public int vaoId;
-
     public final List<Integer> vboIdList = new ArrayList<>();
-
-    private int vertexCount;
+    private final int vertexCount;
     private final float[] positions;
+    private final int drawMode;
+    public Mesh(float[] positions, int drawMode) {
+        this.positions = positions;
+        this.drawMode = drawMode;
+        vertexCount = positions.length;
+        uploadMesh();
+    }
 
     public Mesh(float[] positions) {
-        this.positions = positions;
-        uploadMesh();
+        this(positions, GL_TRIANGLES);
     }
 
     public Mesh(CollisionShape shape) {
         this(Utils.toArray(DebugShapeFactory.getDebugTriangles(shape, 1)));
     }
-
 
     public void uploadMesh() {
         FloatBuffer posBuffer = null;
@@ -72,7 +75,7 @@ public class Mesh {
     public void render() {
         glBindVertexArray(getVaoId());
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawArrays(drawMode, 0, getVertexCount());
 
         glBindVertexArray(0);
     }

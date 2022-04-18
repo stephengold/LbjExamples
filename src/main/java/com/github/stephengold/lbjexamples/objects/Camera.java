@@ -35,6 +35,10 @@ public class Camera {
         updateCameraVectors();
     }
 
+    public Camera(Vector3f position) {
+        this(position, YAW, PITCH);
+    }
+
     public Matrix4f getViewMatrix() {
         return new Matrix4f().lookAt(
                 Utils.toLwjglVector(position),
@@ -90,14 +94,20 @@ public class Camera {
         updateCameraVectors();
     }
 
+    public Vector3f getPosition() {
+        return position;
+    }
+
+    public Vector3f getFront() {
+        return front;
+    }
+
     private void updateCameraVectors() {
-        // calculate the new Front vector
         Vector3f localFront = new Vector3f();
         localFront.x = (float) (Math.cos(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)));
         localFront.y = (float) Math.sin(Math.toRadians(pitch));
         localFront.z = (float) (Math.sin(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)));
         front = localFront.normalize();
-        // also re-calculate the Right and Up vector
         right = new Vector3f(front).cross(worldUp).normalize();
         up = new Vector3f(right).cross(front).normalize();
     }

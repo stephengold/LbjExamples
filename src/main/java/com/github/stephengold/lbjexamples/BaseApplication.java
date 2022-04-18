@@ -1,6 +1,8 @@
 package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.lbjexamples.objects.AppObject;
 import com.github.stephengold.lbjexamples.objects.Camera;
+import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.math.Vector3f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -78,20 +80,23 @@ public abstract class BaseApplication {
             glViewport(0, 0, WIDTH, HEIGHT);
         });
 
+        glfwSetKeyCallback(window, this::input);
+
+        glfwSetMouseButtonCallback(window, this::mouseInput);
+
         glfwSetCursorPosCallback(window, (window1, xPos, yPos) -> mouseUpdate((float) xPos, (float) yPos));
 
         // Get the resolution of the primary monitor
-        GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+        GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         // Center our window
         glfwSetWindowPos(
                 window,
-                (vidmode.width() - WIDTH) / 2,
-                (vidmode.height() - HEIGHT) / 2
+                (videoMode.width() - WIDTH) / 2,
+                (videoMode.height() - HEIGHT) / 2
         );
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(window);
-
 
         // Make the window visible
         glfwShowWindow(window);
@@ -102,7 +107,6 @@ public abstract class BaseApplication {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glEnable(GL_DEPTH_TEST);
     }
-
     int counter;
     DecimalFormat df = new DecimalFormat("#.##");
 
@@ -119,10 +123,9 @@ public abstract class BaseApplication {
             counter = 0;
         }
 
-        input();
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        input(window, -1, -1, -1, -1);
         render();
 
         glfwSwapBuffers(window);
@@ -131,7 +134,7 @@ public abstract class BaseApplication {
     }
 
 
-    private void input() {
+    private void input(long windowId, int key, int scancode, int action, int mods) {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
             glfwSetWindowShouldClose(window, true);
         }
@@ -154,7 +157,11 @@ public abstract class BaseApplication {
             camera.processMovement(Camera.Movement.DOWN, deltaTime);
         }
 
-        updateKeyboard();
+        updateKeyboard(window, key, action);
+    }
+
+    private void mouseInput(long windowId, int button, int action, int mods){
+
     }
 
     private void mouseUpdate(float xPosIn, float yPosIn) {
@@ -182,7 +189,7 @@ public abstract class BaseApplication {
 
     public abstract void updateMouse();
 
-    public abstract void updateKeyboard();
+    public abstract void updateKeyboard(long window, int key, int action);
 
     public abstract String getName();
 

@@ -1,6 +1,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.objects.Camera;
 import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -8,11 +9,15 @@ import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
+import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
 
 public class HelloRigidBody extends BasePhysicsApp {
 
@@ -58,14 +63,13 @@ public class HelloRigidBody extends BasePhysicsApp {
 
     @Override
     public void renderBodies() {
+        baseShader.use();
+        baseShader.setUniform("modelMatrix", planeObject.getTransformMatrix());
+        baseShader.setUniform("color", new Vector4f(0.3f, 0.3f, 0.3f, 1));
+        planeObject.getMesh().render();
+        baseShader.unbind();
         for (AppObject object : cubes) {
             object.syncWithRender();
-
-            baseShader.use();
-            baseShader.setUniform("modelMatrix", planeObject.getTransformMatrix());
-            baseShader.setUniform("color", new Vector4f(0.3f, 0.3f, 0.3f, 1));
-            planeObject.getMesh().render();
-            baseShader.unbind();
 
             baseShader.use();
             baseShader.setUniform("modelMatrix", object.getTransformMatrix());
@@ -87,8 +91,18 @@ public class HelloRigidBody extends BasePhysicsApp {
     }
 
     @Override
-    public void updateKeyboard() {
+    public void updateKeyboard(long window, int key, int action) {
+        if (key == GLFW_KEY_E && action == GLFW_PRESS) {
 
+            BoxCollisionShape boxShape = new BoxCollisionShape(0.5f);
+            Mesh cubeMesh = new Mesh(boxShape);
+            AppObject object = new AppObject(new PhysicsRigidBody(boxShape, 10),cubeMesh);
+            object.setPosition(camera.getPosition());
+            object.getRigidBody().setLinearVelocity(new Vector3f(camera.getFront()).multLocal(30));
+            object.syncWithPhysics();
+            space.addCollisionObject(object.getRigidBody());
+            cubes.add(object);
+        }
     }
 
 
