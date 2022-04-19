@@ -1,0 +1,31 @@
+// Gradle script to build the LbjExamples/apps sub-project
+
+plugins {
+    id 'application'
+}
+
+// run the apps
+
+tasks.register('AppChooser', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.AppChooser'
+}
+
+tasks.register('HelloLibbulletjme', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
+}
+
+tasks.withType(JavaExec) { // Java runtime options:
+    classpath sourceSets.main.runtimeClasspath
+    enableAssertions true
+    jvmArgs '-XX:+UseG1GC', '-XX:MaxGCPauseMillis=10'
+}
+
+mainClassName = 'com.github.stephengold.lbjexamples.apps.HelloLibbulletjme'
+if (!hasProperty('mainClass')) {
+    ext.mainClass = mainClassName
+}
+jar.manifest.attributes('Main-Class': mainClassName)
+
+dependencies {
+    implementation project(':common')
+}
