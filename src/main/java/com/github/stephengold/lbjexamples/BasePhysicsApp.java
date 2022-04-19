@@ -1,11 +1,8 @@
-package com.github.stephengold.lbjexamples.apps;
+package com.github.stephengold.lbjexamples;
 
-import com.github.stephengold.lbjexamples.ShaderProgram;
 import com.github.stephengold.lbjexamples.objects.Camera;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.system.NativeLibraryLoader;
-import com.github.stephengold.lbjexamples.PhysicsThread;
-import com.github.stephengold.lbjexamples.BaseApplication;
 import org.joml.Matrix4f;
 
 import java.io.File;
