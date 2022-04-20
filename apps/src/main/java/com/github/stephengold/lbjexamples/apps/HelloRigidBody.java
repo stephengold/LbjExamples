@@ -10,6 +10,7 @@ import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
 import org.joml.Vector4f;
+import org.lwjgl.system.Configuration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,9 @@ public class HelloRigidBody extends BasePhysicsApp {
     public List<AppObject> cubes = new ArrayList<>();
 
     public static void main(String[] args) {
+        if (System.getProperty("os.name").startsWith("Mac")) {
+            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
+        }
         new HelloRigidBody().run();
     }
 
