@@ -11,6 +11,9 @@ tasks.register('AppChooser', JavaExec) {
 }
 
 tasks.register('HelloLibbulletjme', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloLibbulletjme'
+}
+tasks.register('HelloRigidBody', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
 }
 
