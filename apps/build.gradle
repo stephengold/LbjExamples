@@ -13,11 +13,11 @@ tasks.register('AppChooser', JavaExec) {
 tasks.register('HelloLibbulletjme', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloLibbulletjme'
 }
-tasks.register('HelloRigidBody', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
-}
 tasks.register('HelloVehicle', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloVehicle'
+}
+tasks.register('ThousandCubes', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.ThousandCubes'
 }
 
 tasks.withType(JavaExec) { // Java runtime options:

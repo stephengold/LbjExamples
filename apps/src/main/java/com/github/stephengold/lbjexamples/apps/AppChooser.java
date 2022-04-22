@@ -21,7 +21,7 @@ public class AppChooser extends JFrame {
         if (System.getProperty("os.name").startsWith("Mac"))
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
 
-        apps.add(new HelloRigidBody());
+        apps.add(new ThousandCubes());
         new AppChooser();
     }
 

@@ -21,7 +21,7 @@ import static org.lwjgl.glfw.GLFW.*;
 /**
  * Drop 1000 cubes onto a horizontal surface (graphical demo).
  */
-public class HelloRigidBody extends BasePhysicsApp {
+public class ThousandCubes extends BasePhysicsApp {
 
     public AppObject planeObject;
     public List<AppObject> cubes = new ArrayList<>();
@@ -30,7 +30,7 @@ public class HelloRigidBody extends BasePhysicsApp {
         if (System.getProperty("os.name").startsWith("Mac")) {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
-        new HelloRigidBody().run();
+        new ThousandCubes().run();
     }
 
     @Override
@@ -40,7 +40,6 @@ public class HelloRigidBody extends BasePhysicsApp {
 
         CollisionShape planeShape = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1));
         Mesh planeMesh = new Mesh(planeShape);
-
 
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
         planeObject = new AppObject(floor, planeMesh);
