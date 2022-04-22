@@ -40,6 +40,12 @@ import com.jme3.math.Vector3f;
 import com.jme3.system.NativeLibraryLoader;
 import java.io.File;
 
+/**
+ * Drop a dynamic sphere onto a horizontal surface (non-graphical illustrative
+ * example).
+ *
+ * @author Stephen Gold sgold@sonic.net
+ */
 public class HelloLibbulletjme {
 
     public static void main(String[] args) {
@@ -48,7 +54,8 @@ public class HelloLibbulletjme {
          */
         String homePath = System.getProperty("user.home");
         File downloadDirectory = new File(homePath, "Downloads");
-        NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Release", "Sp");
+        NativeLibraryLoader.loadLibbulletjme(
+                true, downloadDirectory, "Release", "Sp");
         /*
          * Create a PhysicsSpace using DBVT for broadphase.
          */
@@ -57,7 +64,7 @@ public class HelloLibbulletjme {
         /*
          * Add a static horizontal plane at y=-1.
          */
-        float planeY = -1;
+        float planeY = -1f;
         Plane plane = new Plane(Vector3f.UNIT_Y, planeY);
         CollisionShape planeShape = new PlaneCollisionShape(plane);
         float mass = PhysicsBody.massForStatic;

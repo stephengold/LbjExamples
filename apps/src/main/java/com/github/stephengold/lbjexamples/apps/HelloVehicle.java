@@ -42,6 +42,11 @@ import com.jme3.math.Vector3f;
 import com.jme3.system.NativeLibraryLoader;
 import java.io.File;
 
+/**
+ * Drive a vehicle on a horizontal surface (non-graphical illustrative example).
+ *
+ * @author Stephen Gold sgold@sonic.net
+ */
 public class HelloVehicle {
 
     public static void main(String[] args) {
@@ -50,7 +55,8 @@ public class HelloVehicle {
          */
         String homePath = System.getProperty("user.home");
         File downloadDirectory = new File(homePath, "Downloads");
-        NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Release", "Sp");
+        NativeLibraryLoader.loadLibbulletjme(
+                true, downloadDirectory, "Release", "Sp");
         /*
          * Create a PhysicsSpace using DBVT for broadphase.
          */

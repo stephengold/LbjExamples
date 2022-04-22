@@ -18,6 +18,9 @@ import java.util.Random;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+/**
+ * Drop 1000 cubes onto a horizontal surface (graphical demo).
+ */
 public class HelloRigidBody extends BasePhysicsApp {
 
     public AppObject planeObject;
@@ -106,7 +109,6 @@ public class HelloRigidBody extends BasePhysicsApp {
             cubes.add(object);
         }
     }
-
 
     @Override
     public String getName() {

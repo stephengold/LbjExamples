@@ -9,6 +9,9 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Choose an LbjExamples application to run.
+ */
 public class AppChooser extends JFrame {
 
     private final JComboBox<String> appChooser = new JComboBox<>();
@@ -17,6 +20,7 @@ public class AppChooser extends JFrame {
     public static void main(String[] args) {
         if (System.getProperty("os.name").startsWith("Mac"))
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
+
         apps.add(new HelloRigidBody());
         new AppChooser();
     }
