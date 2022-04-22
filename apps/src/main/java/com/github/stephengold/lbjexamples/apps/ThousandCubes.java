@@ -111,6 +111,6 @@ public class ThousandCubes extends BasePhysicsApp {
 
     @Override
     public String getName() {
-        return "Hello RigidBody";
+        return "ThousandCubes";
     }
 }
