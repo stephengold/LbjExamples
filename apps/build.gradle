@@ -16,6 +16,9 @@ tasks.register('HelloLibbulletjme', JavaExec) {
 tasks.register('HelloRigidBody', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
 }
+tasks.register('HelloVehicle', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloVehicle'
+}
 
 tasks.withType(JavaExec) { // Java runtime options:
     classpath sourceSets.main.runtimeClasspath
