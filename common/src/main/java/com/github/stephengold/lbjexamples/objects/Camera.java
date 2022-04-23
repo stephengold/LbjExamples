@@ -1,25 +1,21 @@
 package com.github.stephengold.lbjexamples.objects;
 
 
+import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.github.stephengold.lbjexamples.Utils;
 import org.joml.Matrix4f;
 
 public class Camera {
 
-    private final static float YAW = -90.0f;
-    private final static float PITCH = 0.0f;
     private final static float SPEED = 1.5f;
     private final static float SENSITIVITY = 0.1f;
     public final static float ZOOM = 45.0f;
 
-
-    // camera Attributes
     private Vector3f position = new Vector3f();
     private Vector3f front = new Vector3f(0, 0, -1);
     private Vector3f up = new Vector3f(0, 1, 0);
     private Vector3f right = new Vector3f();
-    private final Vector3f worldUp = up;
     // euler Angles
     private float yaw;
     private float pitch;
@@ -35,10 +31,6 @@ public class Camera {
         updateCameraVectors();
     }
 
-    public Camera(Vector3f position) {
-        this(position, YAW, PITCH);
-    }
-
     public Matrix4f getViewMatrix() {
         return new Matrix4f().lookAt(
                 Utils.toLwjglVector(position),
@@ -47,7 +39,6 @@ public class Camera {
     }
 
     public void processMovement(Movement movement, float deltaTime) {
-        // camera options
         Vector3f velocity = new Vector3f(SPEED * deltaTime, SPEED * deltaTime, SPEED * deltaTime);
         if (movement == Movement.FORWARD)
             position.addLocal(front.mult(velocity, null));
@@ -64,18 +55,16 @@ public class Camera {
     }
 
     public void processRotation(float offsetX, float offsetY) {
-        float movementSensitivity = SENSITIVITY;
-        offsetX *= movementSensitivity;
-        offsetY *= movementSensitivity;
+        offsetX *= SENSITIVITY;
+        offsetY *= SENSITIVITY;
 
         yaw += offsetX;
         pitch += offsetY;
 
-
-        if (pitch > 89.0f)
-            pitch = 89.0f;
-        if (pitch < -89.0f)
-            pitch = -89.0f;
+        if (Math.toDegrees(pitch) > 89.0f)
+            pitch = (float) Math.toRadians(89.0f);
+        if (Math.toDegrees(pitch) < -89.0f)
+            pitch = (float) Math.toRadians(-89.0f);
 
         updateCameraVectors();
     }
@@ -104,11 +93,11 @@ public class Camera {
 
     private void updateCameraVectors() {
         Vector3f localFront = new Vector3f();
-        localFront.x = (float) (Math.cos(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)));
-        localFront.y = (float) Math.sin(Math.toRadians(pitch));
-        localFront.z = (float) (Math.sin(Math.toRadians(yaw)) * Math.cos(Math.toRadians(pitch)));
+        localFront.x = (float) (Math.cos(yaw) * Math.cos(pitch));
+        localFront.y = (float) Math.sin(pitch);
+        localFront.z = (float) (Math.sin(yaw) * Math.cos(pitch));
         front = localFront.normalize();
-        right = new Vector3f(front).cross(worldUp).normalize();
+        right = new Vector3f(front).cross(up).normalize();
         up = new Vector3f(right).cross(front).normalize();
     }
 
