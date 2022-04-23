@@ -1,48 +1,58 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BaseApplication;
-import org.lwjgl.system.Configuration;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import org.lwjgl.system.Configuration;
 
 /**
  * Choose an LbjExamples application to run.
  */
 public class AppChooser extends JFrame {
 
-    private final JComboBox<String> appChooser = new JComboBox<>();
-    public static List<BaseApplication> apps = new ArrayList<>();
-
     public static void main(String[] args) {
-        if (System.getProperty("os.name").startsWith("Mac"))
+        if (System.getProperty("os.name").startsWith("Mac")) {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
+        }
 
+        List<BaseApplication> apps = new ArrayList<>();
         apps.add(new ThousandCubes());
-        new AppChooser();
+        new AppChooser(apps);
     }
 
-    public AppChooser(){
+    private AppChooser(List<BaseApplication> apps) {
         setTitle("LBJ Examples App Chooser");
         setSize(400, 300);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
-        apps.forEach(baseApplication -> appChooser.addItem(baseApplication.getClass().getSimpleName()));
-
-        JButton launchApp = new JButton("Start");
-        launchApp.addActionListener(actionEvent -> {
+        Container contentPane = getContentPane();
+        /*
+         * Add a ComboBox to select one app.
+         */
+        JComboBox<String> comboBox = new JComboBox<>();
+        for (BaseApplication app : apps) {
+            String appName = app.getClass().getSimpleName();
+            comboBox.addItem(appName);
+        }
+        contentPane.add(BorderLayout.CENTER, comboBox);
+        /*
+         * Add a JButton to start the selected app.
+         */
+        JButton startButton = new JButton("Start");
+        startButton.addActionListener(actionEvent -> {
             setVisible(false);
-            apps.get(appChooser.getSelectedIndex()).run();
+            int selectedIndex = comboBox.getSelectedIndex();
+            apps.get(selectedIndex).run();
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         });
-
-        getContentPane().add(BorderLayout.CENTER, appChooser);
-        getContentPane().add(BorderLayout.SOUTH, launchApp);
+        contentPane.add(BorderLayout.SOUTH, startButton);
 
         setVisible(true);
     }
