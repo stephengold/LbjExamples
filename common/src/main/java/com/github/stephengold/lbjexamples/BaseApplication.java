@@ -4,6 +4,7 @@ import com.github.stephengold.lbjexamples.objects.AppObject;
 import com.github.stephengold.lbjexamples.objects.Camera;
 import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.math.Vector3f;
+import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -11,6 +12,8 @@ import org.lwjgl.opengl.GL;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -29,7 +32,6 @@ public abstract class BaseApplication {
     private float lastX = WIDTH / 2.0f;
     private float lastY = HEIGHT / 2.0f;
     private boolean firstMouse = true;
-
     private float deltaTime;
     private float lastFrame;
 
@@ -107,6 +109,7 @@ public abstract class BaseApplication {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
         glEnable(GL_DEPTH_TEST);
     }
+
     int counter;
     DecimalFormat df = new DecimalFormat("#.##");
 
@@ -160,7 +163,7 @@ public abstract class BaseApplication {
         updateKeyboard(window, key, action);
     }
 
-    private void mouseInput(long windowId, int button, int action, int mods){
+    private void mouseInput(long windowId, int button, int action, int mods) {
 
     }
 

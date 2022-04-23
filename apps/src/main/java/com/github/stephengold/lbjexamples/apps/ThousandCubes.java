@@ -43,6 +43,7 @@ public class ThousandCubes extends BasePhysicsApp {
 
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
         planeObject = new AppObject(floor, planeMesh);
+        planeObject.setColor(new Vector4f(0.3f, 0.3f, 0.3f, 1));
         space.addCollisionObject(floor);
 
         Random random = new Random();
@@ -63,30 +64,6 @@ public class ThousandCubes extends BasePhysicsApp {
                 }
             }
         }
-    }
-
-    @Override
-    public void renderBodies() {
-        baseShader.use();
-        baseShader.setUniform("modelMatrix", planeObject.getTransformMatrix());
-        baseShader.setUniform("color", new Vector4f(0.3f, 0.3f, 0.3f, 1));
-        planeObject.getMesh().render();
-        baseShader.unbind();
-        for (AppObject object : cubes) {
-            object.syncWithRender();
-
-            baseShader.use();
-            baseShader.setUniform("modelMatrix", object.getTransformMatrix());
-            baseShader.setUniform("color", object.getColor());
-            object.getMesh().render();
-            baseShader.unbind();
-        }
-    }
-
-    @Override
-    public void cleanUpBodies() {
-        planeObject.getMesh().cleanUp();
-        cubes.forEach(object -> object.getMesh().cleanUp());
     }
 
     @Override

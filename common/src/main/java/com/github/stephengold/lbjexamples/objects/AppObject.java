@@ -1,5 +1,7 @@
 package com.github.stephengold.lbjexamples.objects;
 
+import com.github.stephengold.lbjexamples.BaseApplication;
+import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Utils;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.Quaternion;
@@ -17,14 +19,14 @@ public class AppObject {
     private Vector3f scale = new Vector3f(1, 1, 1);
     private Vector4f color = new Vector4f(1);
 
-
     public AppObject(Mesh mesh) {
         this.mesh = mesh;
+        BasePhysicsApp.APP_OBJECTS.add(this);
     }
 
     public AppObject(PhysicsRigidBody rigidBody, Mesh mesh) {
+        this(mesh);
         this.rigidBody = rigidBody;
-        this.mesh = mesh;
     }
 
     public Mesh getMesh() {

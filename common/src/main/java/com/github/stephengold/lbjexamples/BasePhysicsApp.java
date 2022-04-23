@@ -1,11 +1,15 @@
 package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.lbjexamples.objects.AppObject;
 import com.github.stephengold.lbjexamples.objects.Camera;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.system.NativeLibraryLoader;
 import org.joml.Matrix4f;
+import org.joml.Vector4f;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class BasePhysicsApp extends BaseApplication {
 
@@ -13,6 +17,8 @@ public abstract class BasePhysicsApp extends BaseApplication {
     public PhysicsSpace space;
     private PhysicsThread physicsThread;
     private float physicsSpeed = 1.0f;
+    public static final List<AppObject> APP_OBJECTS = new ArrayList<>();
+
 
     @Override
     public void initApp() {
@@ -49,13 +55,22 @@ public abstract class BasePhysicsApp extends BaseApplication {
         baseShader.setUniform("viewMatrix", camera.getViewMatrix());
         baseShader.unbind();
 
-        renderBodies();
+        APP_OBJECTS.forEach(appObject -> {
+            appObject.syncWithRender();
+            baseShader.use();
+            baseShader.setUniform("modelMatrix", appObject.getTransformMatrix());
+            baseShader.setUniform("color", appObject.getColor());
+            appObject.getMesh().render();
+            baseShader.unbind();
+        });
     }
 
     @Override
     public void cleanUp() {
         baseShader.cleanup();
-        cleanUpBodies();
+        APP_OBJECTS.forEach(appObject -> {
+            appObject.getMesh().cleanUp();
+        });
         //physicsThread.stop();
     }
 
@@ -68,9 +83,5 @@ public abstract class BasePhysicsApp extends BaseApplication {
     }
 
     public abstract void setupBodies();
-
-    public abstract void renderBodies();
-
-    public abstract void cleanUpBodies();
 
 }

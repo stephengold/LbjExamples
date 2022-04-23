@@ -75,31 +75,8 @@ public class HelloRigidBody extends BasePhysicsApp {
     // BasePhysicsApp methods
 
     @Override
-    public void cleanUpBodies() {
-        ball1Object.getMesh().cleanUp();
-        ball2Object.getMesh().cleanUp();
-    }
-
-    @Override
     public String getName() {
         return getClass().getSimpleName();
-    }
-
-    @Override
-    public void renderBodies() {
-        ball1Object.syncWithRender();
-        baseShader.use();
-        baseShader.setUniform("modelMatrix", ball1Object.getTransformMatrix());
-        baseShader.setUniform("color", new Vector4f(1f, 0f, 1f, 1f));
-        ball1Object.getMesh().render();
-        baseShader.unbind();
-
-        ball2Object.syncWithRender();
-        baseShader.use();
-        baseShader.setUniform("modelMatrix", ball2Object.getTransformMatrix());
-        baseShader.setUniform("color", new Vector4f(1f, 0f, 1f, 1f));
-        ball2Object.getMesh().render();
-        baseShader.unbind();
     }
 
     @Override
@@ -126,9 +103,11 @@ public class HelloRigidBody extends BasePhysicsApp {
         // visualization
         Mesh ballMesh = new Mesh(ballShape);
         ball1Object = new AppObject(ball1, ballMesh);
+        ball1Object.setColor(new Vector4f(1,0,1,1));
         ball2Object = new AppObject(ball2, ballMesh);
+        ball2Object.setColor(new Vector4f(1,0,1,1));
         camera.setPosition(new Vector3f(0f, 0f, 10f));
-        camera.setYaw(-90f); // angle in degrees!
+        camera.setYaw((float) (-Math.PI/2)); // angle in degrees!
     }
 
     @Override
