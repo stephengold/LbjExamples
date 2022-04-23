@@ -22,6 +22,7 @@ public class AppChooser extends JFrame {
         }
 
         List<BaseApplication> apps = new ArrayList<>();
+        apps.add(new HelloRigidBody());
         apps.add(new ThousandCubes());
         new AppChooser(apps);
     }
