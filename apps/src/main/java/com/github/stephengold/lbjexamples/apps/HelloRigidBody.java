@@ -32,6 +32,7 @@ import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
+import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
@@ -51,9 +52,6 @@ import org.lwjgl.system.Configuration;
  * @author Stephen Gold sgold@sonic.net
  */
 public class HelloRigidBody extends BasePhysicsApp {
-
-    private AppObject ball1Object;
-    private AppObject ball2Object;
     // *************************************************************************
     // new methods exposed
 
@@ -103,12 +101,13 @@ public class HelloRigidBody extends BasePhysicsApp {
 
         // visualization
         Mesh ballMesh = new Mesh(ballShape);
-        ball1Object = new AppObject(ball1, ballMesh);
-        ball1Object.setColor(new Vector4f(1,0,1,1));
-        ball2Object = new AppObject(ball2, ballMesh);
-        ball2Object.setColor(new Vector4f(1,0,1,1));
+        AppObject ball1Object = new AppObject(ball1, ballMesh);
+        ball1Object.setColor(new Vector4f(1f, 0f, 1f, 1f));
+        AppObject ball2Object = new AppObject(ball2, ballMesh);
+        ball2Object.setColor(new Vector4f(1f, 0f, 1f, 1f));
+
         camera.setPosition(new Vector3f(0f, 0f, 10f));
-        camera.setYaw((float) (-Math.PI/2)); // angle in degrees!
+        camera.setYaw(-FastMath.HALF_PI);
     }
 
     @Override
