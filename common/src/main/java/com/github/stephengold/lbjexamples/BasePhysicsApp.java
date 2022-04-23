@@ -12,6 +12,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
     public ShaderProgram baseShader;
     public PhysicsSpace space;
     private PhysicsThread physicsThread;
+    private float physicsSpeed = 1.0f;
 
     @Override
     public void initApp() {
@@ -37,10 +38,9 @@ public abstract class BasePhysicsApp extends BaseApplication {
         //physicsThread.start();
     }
 
-
     @Override
     public void render() {
-        space.update(0.02f, 0);
+        space.update(0.02f * physicsSpeed, 0);
         baseShader.use();
         Matrix4f projectionMatrix = new Matrix4f();
         projectionMatrix.setPerspective((float) Math.toRadians(Camera.ZOOM),
@@ -57,6 +57,14 @@ public abstract class BasePhysicsApp extends BaseApplication {
         baseShader.cleanup();
         cleanUpBodies();
         //physicsThread.stop();
+    }
+
+    public float getPhysicsSpeed() {
+        return physicsSpeed;
+    }
+
+    public void setPhysicsSpeed(float physicsSpeed) {
+        this.physicsSpeed = physicsSpeed;
     }
 
     public abstract void setupBodies();
