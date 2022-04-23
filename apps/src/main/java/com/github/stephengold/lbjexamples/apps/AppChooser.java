@@ -27,9 +27,8 @@ public class AppChooser extends JFrame {
     }
 
     private AppChooser(List<BaseApplication> apps) {
-        setTitle("LBJ Examples App Chooser");
-        setSize(400, 300);
-        setResizable(false);
+        setTitle("LbjExamples AppChooser");
+        setSize(500, 60);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         Container contentPane = getContentPane();
@@ -45,14 +44,14 @@ public class AppChooser extends JFrame {
         /*
          * Add a JButton to start the selected app.
          */
-        JButton startButton = new JButton("Start");
+        JButton startButton = new JButton("Start the selected app");
         startButton.addActionListener(actionEvent -> {
             setVisible(false);
             int selectedIndex = comboBox.getSelectedIndex();
             apps.get(selectedIndex).run();
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         });
-        contentPane.add(BorderLayout.SOUTH, startButton);
+        contentPane.add(BorderLayout.EAST, startButton);
 
         setVisible(true);
     }
