@@ -74,8 +74,14 @@ public class HelloRigidBody extends BasePhysicsApp {
     // *************************************************************************
     // BasePhysicsApp methods
 
+    /**
+     * Initialize this application.
+     */
     @Override
     public void setupBodies() {
+        // For clarity, simulate at 1/10th normal speed.
+        setPhysicsSpeed(0.1f);
+
         // Create a CollisionShape for balls.
         float ballRadius = 1f;
         CollisionShape ballShape = new SphereCollisionShape(ballRadius);
