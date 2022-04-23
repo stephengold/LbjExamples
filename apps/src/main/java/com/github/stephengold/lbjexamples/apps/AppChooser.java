@@ -32,7 +32,7 @@ public class AppChooser extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        apps.forEach(baseApplication -> appChooser.addItem(baseApplication.getName()));
+        apps.forEach(baseApplication -> appChooser.addItem(baseApplication.getClass().getSimpleName()));
 
         JButton launchApp = new JButton("Start");
         launchApp.addActionListener(actionEvent -> {

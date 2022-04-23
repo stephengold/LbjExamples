@@ -75,11 +75,6 @@ public class HelloRigidBody extends BasePhysicsApp {
     // BasePhysicsApp methods
 
     @Override
-    public String getName() {
-        return getClass().getSimpleName();
-    }
-
-    @Override
     public void setupBodies() {
         // Create a CollisionShape for balls.
         float ballRadius = 1f;

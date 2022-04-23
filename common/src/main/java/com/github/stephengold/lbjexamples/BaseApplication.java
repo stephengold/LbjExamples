@@ -18,6 +18,7 @@ import java.util.Scanner;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowTitle;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -71,7 +72,7 @@ public abstract class BaseApplication {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 
-        window = glfwCreateWindow(WIDTH, HEIGHT, getName(), NULL, NULL);
+        window = glfwCreateWindow(WIDTH, HEIGHT, getClass().getSimpleName(), NULL, NULL);
         if (window == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
 
@@ -120,7 +121,7 @@ public abstract class BaseApplication {
         if (deltaTime >= 1f / 10) {
             float fps = (1f / deltaTime) * counter;
             float ms = (deltaTime / counter) * 1000;
-            String title = getName() + " FPS : " + df.format(fps) + " / ms : " + df.format(ms);
+            String title =  getClass().getSimpleName() + " FPS : " + df.format(fps) + " / ms : " + df.format(ms);
             glfwSetWindowTitle(window, title);
             lastFrame = currentFrame;
             counter = 0;
@@ -194,8 +195,6 @@ public abstract class BaseApplication {
     public abstract void updateMouse();
 
     public abstract void updateKeyboard(long window, int key, int action);
-
-    public abstract String getName();
 
     public static String loadResource(String fileName) {
         String result = "";

@@ -88,8 +88,4 @@ public class ThousandCubes extends BasePhysicsApp {
         }
     }
 
-    @Override
-    public String getName() {
-        return "ThousandCubes";
-    }
 }
