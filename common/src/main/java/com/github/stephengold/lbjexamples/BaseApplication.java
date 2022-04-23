@@ -180,7 +180,8 @@ public abstract class BaseApplication {
         lastX = xPosIn;
         lastY = yPosIn;
 
-        camera.processRotation(xOffset, yOffset);
+        if(camera.isMouseMotionEnabled())
+            camera.processRotation(xOffset, yOffset);
         updateMouse();
     }
 

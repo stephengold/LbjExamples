@@ -35,6 +35,8 @@ public class ThousandCubes extends BasePhysicsApp {
 
     @Override
     public void setupBodies() {
+        camera.enableMouseMotion(false);
+
         BoxCollisionShape boxShape = new BoxCollisionShape(0.5f);
         Mesh cubeMesh = new Mesh(boxShape);
 

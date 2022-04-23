@@ -20,6 +20,8 @@ public class Camera {
     private float yaw;
     private float pitch;
 
+    private boolean mouseMotion;
+
     public Camera() {
         updateCameraVectors();
     }
@@ -89,6 +91,14 @@ public class Camera {
 
     public Vector3f getFront() {
         return front;
+    }
+
+    public boolean isMouseMotionEnabled() {
+        return mouseMotion;
+    }
+
+    public void enableMouseMotion(boolean mouseMotion) {
+        this.mouseMotion = mouseMotion;
     }
 
     private void updateCameraVectors() {
