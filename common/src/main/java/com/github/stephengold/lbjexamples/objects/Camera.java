@@ -58,8 +58,8 @@ public class Camera {
         offsetX *= SENSITIVITY;
         offsetY *= SENSITIVITY;
 
-        yaw += offsetX;
-        pitch += offsetY;
+        yaw += Math.toRadians(offsetX);
+        pitch += Math.toRadians(offsetY);
 
         if (Math.toDegrees(pitch) > 89.0f)
             pitch = (float) Math.toRadians(89.0f);
