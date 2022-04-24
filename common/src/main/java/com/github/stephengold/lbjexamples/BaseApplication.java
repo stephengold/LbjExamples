@@ -112,16 +112,14 @@ public abstract class BaseApplication {
     }
 
     int counter;
-    DecimalFormat df = new DecimalFormat("#.##");
-
     private void loop() {
         float currentFrame = (float) glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         counter++;
         if (deltaTime >= 1f / 10) {
-            float fps = (1f / deltaTime) * counter;
-            float ms = (deltaTime / counter) * 1000;
-            String title =  getClass().getSimpleName() + " FPS : " + df.format(fps) + " / ms : " + df.format(ms);
+            int fps = (int) ((1f / deltaTime) * counter);
+            int ms = (int) ((deltaTime / counter) * 1000);
+            String title =  getClass().getSimpleName() + " FPS : " + fps + " / ms : " + ms;
             glfwSetWindowTitle(window, title);
             lastFrame = currentFrame;
             counter = 0;
