@@ -31,7 +31,6 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.objects.AppObject;
-import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsBody;
@@ -95,10 +94,9 @@ public class HelloStaticBody extends BasePhysicsApp {
         statBall.setPhysicsLocation(new Vector3f(0.1f, 0f, 0f));
 
         // visualization
-        Mesh ballMesh = new Mesh(ballShape);
-        AppObject ball1Object = new AppObject(dynaBall, ballMesh);
+        AppObject ball1Object = new AppObject(dynaBall);
         ball1Object.setColor(new Vector4f(1f, 0f, 1f, 1f));
-        AppObject ball2Object = new AppObject(statBall, ballMesh);
+        AppObject ball2Object = new AppObject(statBall);
         ball2Object.setColor(new Vector4f(0f, 0f, 1f, 1f));
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));

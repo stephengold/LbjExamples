@@ -31,7 +31,6 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.objects.AppObject;
-import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
@@ -103,10 +102,9 @@ public class HelloRigidBody extends BasePhysicsApp {
         ball2.applyCentralImpulse(new Vector3f(-25f, 0f, 0f));
 
         // visualization
-        Mesh ballMesh = new Mesh(ballShape);
-        AppObject ball1Object = new AppObject(ball1, ballMesh);
+        AppObject ball1Object = new AppObject(ball1);
         ball1Object.setColor(new Vector4f(1f, 0f, 1f, 1f));
-        AppObject ball2Object = new AppObject(ball2, ballMesh);
+        AppObject ball2Object = new AppObject(ball2);
         ball2Object.setColor(new Vector4f(1f, 0f, 1f, 1f));
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
