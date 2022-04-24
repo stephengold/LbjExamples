@@ -66,7 +66,7 @@ public class HelloStaticBody extends BasePhysicsApp {
         }
 
         HelloStaticBody application = new HelloStaticBody();
-        application.run();
+        application.start();
     }
     // *************************************************************************
     // BasePhysicsApp methods

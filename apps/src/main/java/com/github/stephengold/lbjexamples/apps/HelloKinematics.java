@@ -80,7 +80,7 @@ public class HelloKinematics
         }
 
         HelloKinematics application = new HelloKinematics();
-        application.run();
+        application.start();
     }
     // *************************************************************************
     // BasePhysicsApp methods

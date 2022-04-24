@@ -1,19 +1,13 @@
 package com.github.stephengold.lbjexamples;
 
-import com.github.stephengold.lbjexamples.objects.AppObject;
 import com.github.stephengold.lbjexamples.objects.Camera;
-import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.math.Vector3f;
-import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -36,7 +30,7 @@ public abstract class BaseApplication {
     private float deltaTime;
     private float lastFrame;
 
-    public void run() {
+    public void start() {
         init();
 
         camera = new Camera(new Vector3f(-10, 2, 0), 0, 0);

@@ -51,7 +51,7 @@ public class AppChooser extends JFrame {
         startButton.addActionListener(actionEvent -> {
             setVisible(false);
             int selectedIndex = comboBox.getSelectedIndex();
-            apps.get(selectedIndex).run();
+            apps.get(selectedIndex).start();
             dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
         });
         contentPane.add(BorderLayout.EAST, startButton);

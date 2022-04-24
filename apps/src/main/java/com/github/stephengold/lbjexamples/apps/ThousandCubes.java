@@ -30,7 +30,7 @@ public class ThousandCubes extends BasePhysicsApp {
         if (System.getProperty("os.name").startsWith("Mac")) {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
-        new ThousandCubes().run();
+        new ThousandCubes().start();
     }
 
     @Override

@@ -70,7 +70,7 @@ public class HelloRigidBody extends BasePhysicsApp {
         }
 
         HelloRigidBody application = new HelloRigidBody();
-        application.run();
+        application.start();
     }
     // *************************************************************************
     // BasePhysicsApp methods
