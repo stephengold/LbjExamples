@@ -30,6 +30,5 @@ jobs:
           distribution: 'zulu'
           java-version: 17
       - run: wget https://github.com/stephengold/Libbulletjme/releases/download/14.3.0/MacOSX64ReleaseSp_libbulletjme.dylib
-      - run: mkdir ~/Downloads
       - run: mv MacOSX64ReleaseSp_libbulletjme.dylib ~/Downloads
       - run: ./gradlew run --console=plain --no-daemon
