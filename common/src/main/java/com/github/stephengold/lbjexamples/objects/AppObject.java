@@ -34,6 +34,10 @@ public class AppObject {
         this.rigidBody = rigidBody;
     }
 
+    public AppObject(float[] positions, int drawMode) {
+        this(new Mesh(positions, drawMode));
+    }
+
     public Mesh getMesh() {
         return mesh;
     }
