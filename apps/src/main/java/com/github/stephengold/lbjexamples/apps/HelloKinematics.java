@@ -31,7 +31,6 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.objects.AppObject;
-import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -109,10 +108,9 @@ public class HelloKinematics
         kineBall.setKinematic(true);
 
         // visualization
-        Mesh ballMesh = new Mesh(ballShape);
-        AppObject ball1Object = new AppObject(dynaBall, ballMesh);
+        AppObject ball1Object = new AppObject(dynaBall);
         ball1Object.setColor(new Vector4f(1f, 0f, 1f, 1f));
-        AppObject ball2Object = new AppObject(kineBall, ballMesh);
+        AppObject ball2Object = new AppObject(kineBall);
         ball2Object.setColor(new Vector4f(0f, 0f, 1f, 1f));
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));

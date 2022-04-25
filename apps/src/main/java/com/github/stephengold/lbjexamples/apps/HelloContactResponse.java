@@ -31,6 +31,7 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsBody;
@@ -40,21 +41,33 @@ import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
 import org.joml.Vector4f;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple example combining static and dynamic rigid bodies.
- *
- * Builds upon HelloRigidBody.
+ * A simple demonstration of contact response.
+ * <p>
+ * Press the spacebar to disable the ball's contact response. Once this happens,
+ * the blue (static) box no longer exerts any contact force on the ball. Gravity
+ * takes over, and the ball falls through.
+ * <p>
+ * Builds on HelloStaticBody.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
+public class HelloContactResponse extends BasePhysicsApp {
+    // *************************************************************************
+    // fields
+
+    /**
+     * collision object for the dynamic ball
+     */
+    private PhysicsRigidBody ball;
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the HelloStaticBody application.
+     * Main entry point for the HelloContactResponse application.
      *
      * @param ignored array of command-line arguments (not null)
      */
@@ -64,7 +77,7 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        HelloStaticBody application = new HelloStaticBody();
+        HelloContactResponse application = new HelloContactResponse();
         application.start();
     }
     // *************************************************************************
@@ -75,42 +88,43 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void setupBodies() {
-        // Create a CollisionShape for balls.
+        // Add a static box to the space, to serve as a horizontal platform.
+        float boxHalfExtent = 3f;
+        CollisionShape boxShape = new BoxCollisionShape(boxHalfExtent);
+        PhysicsRigidBody box
+                = new PhysicsRigidBody(boxShape, PhysicsBody.massForStatic);
+        space.addCollisionObject(box);
+        box.setPhysicsLocation(new Vector3f(0f, -4f, 0f));
+
+        // Add a dynamic ball to the space.
         float ballRadius = 1f;
         CollisionShape ballShape = new SphereCollisionShape(ballRadius);
+        float ballMass = 2f;
+        ball = new PhysicsRigidBody(ballShape, ballMass);
+        space.addCollisionObject(ball);
+        assert ball.isContactResponse();
 
-        // Create a dynamic body and add it to the space.
-        float mass = 2f;
-        PhysicsRigidBody dynaBall = new PhysicsRigidBody(ballShape, mass);
-        space.addCollisionObject(dynaBall);
-
-        // Create a static body and add it to the space.
-        PhysicsRigidBody statBall
-                = new PhysicsRigidBody(ballShape, PhysicsBody.massForStatic);
-        space.addCollisionObject(statBall);
-
-        // Position the balls in physics space.
-        dynaBall.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
-        statBall.setPhysicsLocation(new Vector3f(0.1f, 0f, 0f));
+        // Position the ball directly above the box.
+        ball.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
 
         // visualization
-        AppObject ball1Object = new AppObject(dynaBall);
-        ball1Object.setColor(new Vector4f(1f, 0f, 1f, 1f));
-        AppObject ball2Object = new AppObject(statBall);
-        ball2Object.setColor(new Vector4f(0f, 0f, 1f, 1f));
+        AppObject ballObject = new AppObject(ball);
+        ballObject.setColor(new Vector4f(1f, 0f, 1f, 1f));
+        AppObject boxObject = new AppObject(box);
+        boxObject.setColor(new Vector4f(0f, 0f, 1f, 1f));
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
     }
 
     @Override
-    public PhysicsSpace initPhysicsSpace() {
-        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
-    }
-
-    @Override
     public void updateKeyboard(long window, int key, int action) {
-        // do nothing
+        if (action == GLFW.GLFW_PRESS) {
+            if (key == GLFW.GLFW_KEY_E) {
+                // Disable the ball's contact response.
+                ball.setContactResponse(false);
+            }
+        }
     }
 
     @Override

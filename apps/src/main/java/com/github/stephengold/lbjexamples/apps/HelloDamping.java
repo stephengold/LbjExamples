@@ -31,9 +31,8 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.bullet.collision.shapes.SphereCollisionShape;
-import com.jme3.bullet.objects.PhysicsBody;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
@@ -43,18 +42,18 @@ import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple example combining static and dynamic rigid bodies.
- *
+ * A simple example illustrating the effect of damping on dynamic rigid bodies.
+ * <p>
  * Builds upon HelloRigidBody.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
+public class HelloDamping extends BasePhysicsApp {
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the HelloStaticBody application.
+     * Main entry point for the HelloDamping application.
      *
      * @param ignored array of command-line arguments (not null)
      */
@@ -64,7 +63,7 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        HelloStaticBody application = new HelloStaticBody();
+        HelloDamping application = new HelloDamping();
         application.start();
     }
     // *************************************************************************
@@ -75,37 +74,53 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void setupBodies() {
-        // Create a CollisionShape for balls.
-        float ballRadius = 1f;
-        CollisionShape ballShape = new SphereCollisionShape(ballRadius);
+        // For clarity, disable gravity.
+        space.setGravity(Vector3f.ZERO);
 
-        // Create a dynamic body and add it to the space.
-        float mass = 2f;
-        PhysicsRigidBody dynaBall = new PhysicsRigidBody(ballShape, mass);
-        space.addCollisionObject(dynaBall);
+        // Create a CollisionShape for unit cubes.
+        float cubeHalfExtent = 0.5f;
+        CollisionShape cubeShape = new BoxCollisionShape(cubeHalfExtent);
 
-        // Create a static body and add it to the space.
-        PhysicsRigidBody statBall
-                = new PhysicsRigidBody(ballShape, PhysicsBody.massForStatic);
-        space.addCollisionObject(statBall);
+        // Create 4 cubes (dynamic rigid bodies) and add them to the space.
+        int numCubes = 4;
+        float cubeMass = 2f;
+        PhysicsRigidBody[] cube = new PhysicsRigidBody[4];
+        for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
+            cube[cubeIndex] = new PhysicsRigidBody(cubeShape, cubeMass);
+            space.addCollisionObject(cube[cubeIndex]);
 
-        // Position the balls in physics space.
-        dynaBall.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
-        statBall.setPhysicsLocation(new Vector3f(0.1f, 0f, 0f));
+            // Disable sleep (deactivation) for clarity.
+            cube[cubeIndex].setEnableSleep(false);
+        }
+
+        // Locate the cubes 4 psu apart, center to center.
+        cube[0].setPhysicsLocation(new Vector3f(0f, +2f, 0f));
+        cube[1].setPhysicsLocation(new Vector3f(4f, +2f, 0f));
+        cube[2].setPhysicsLocation(new Vector3f(0f, -2f, 0f));
+        cube[3].setPhysicsLocation(new Vector3f(4f, -2f, 0f));
+
+        // Give each cube its own set of damping parameters.
+        cube[0].setDamping(0f, 0f);
+        cube[1].setDamping(0f, 0.9f);
+        cube[2].setDamping(0.9f, 0f);
+        cube[3].setDamping(0.9f, 0.9f);
+
+        // Apply an off-center impulse to each cube,
+        // causing it to drift and spin.
+        Vector3f impulse = new Vector3f(-1f, 0f, 0f);
+        Vector3f offset = new Vector3f(0f, 1f, 1f);
+        for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
+            cube[cubeIndex].applyImpulse(impulse, offset);
+        }
 
         // visualization
-        AppObject ball1Object = new AppObject(dynaBall);
-        ball1Object.setColor(new Vector4f(1f, 0f, 1f, 1f));
-        AppObject ball2Object = new AppObject(statBall);
-        ball2Object.setColor(new Vector4f(0f, 0f, 1f, 1f));
+        for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
+            AppObject cubeObject = new AppObject(cube[cubeIndex]);
+            cubeObject.setColor(new Vector4f(1f, 0f, 1f, 1f));
+        }
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
-    }
-
-    @Override
-    public PhysicsSpace initPhysicsSpace() {
-        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
     }
 
     @Override

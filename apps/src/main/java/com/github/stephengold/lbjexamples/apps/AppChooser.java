@@ -22,6 +22,8 @@ public class AppChooser extends JFrame {
         }
 
         List<BaseApplication> apps = new ArrayList<>();
+        apps.add(new HelloContactResponse());
+        apps.add(new HelloDamping());
         apps.add(new HelloKinematics());
         apps.add(new HelloRigidBody());
         apps.add(new HelloStaticBody());

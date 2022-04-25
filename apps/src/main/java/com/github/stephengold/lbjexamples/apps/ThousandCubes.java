@@ -3,7 +3,6 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.objects.AppObject;
 import com.github.stephengold.lbjexamples.objects.Mesh;
-import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
@@ -38,23 +37,19 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     public void setupBodies() {
         camera.enableMouseMotion(false);
 
-        BoxCollisionShape boxShape = new BoxCollisionShape(0.5f);
-        Mesh cubeMesh = new Mesh(boxShape);
-
         CollisionShape planeShape = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1));
-        Mesh planeMesh = new Mesh(planeShape);
-
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
-        planeObject = new AppObject(floor, planeMesh);
+        planeObject = new AppObject(floor);
         planeObject.setColor(new Vector4f(0.3f, 0.3f, 0.3f, 1));
         space.addCollisionObject(floor);
 
+        BoxCollisionShape boxShape = new BoxCollisionShape(0.5f);
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 for (int k = 0; k < 10; k++) {
                     PhysicsRigidBody box = new PhysicsRigidBody(boxShape, 10);
-                    AppObject cubeObject = new AppObject(box, cubeMesh);
+                    AppObject cubeObject = new AppObject(box);
                     cubeObject.setPosition(new Vector3f((i * 2) + 0.5f, (j * 2), (k * 2) + 0.5f));
                     float r = random.nextFloat();
                     float g = random.nextFloat();
@@ -84,8 +79,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         if (key == GLFW_KEY_E && action == GLFW_PRESS) {
 
             BoxCollisionShape boxShape = new BoxCollisionShape(0.5f);
-            Mesh cubeMesh = new Mesh(boxShape);
-            AppObject object = new AppObject(new PhysicsRigidBody(boxShape, 10),cubeMesh);
+            AppObject object = new AppObject(new PhysicsRigidBody(boxShape, 10));
             object.setPosition(camera.getPosition());
             object.getRigidBody().setLinearVelocity(new Vector3f(camera.getFront()).multLocal(30));
             object.syncWithPhysics();

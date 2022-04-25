@@ -19,3 +19,16 @@ jobs:
       - run: mkdir ~/Downloads
       - run: mv Linux64ReleaseSp_libbulletjme.so ~/Downloads
       - run: ./gradlew run --console=plain --no-daemon
+
+  Java17-MacOS:
+    if: contains(toJson(github.event.commits), '[ci skip] ') == false
+    runs-on: macOS-11
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: 17
+      - run: wget https://github.com/stephengold/Libbulletjme/releases/download/14.3.0/MacOSX64ReleaseSp_libbulletjme.dylib
+      - run: mv MacOSX64ReleaseSp_libbulletjme.dylib ~/Downloads
+      - run: ./gradlew run --console=plain --no-daemon
