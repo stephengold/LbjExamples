@@ -31,6 +31,7 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
@@ -55,7 +56,7 @@ import org.lwjgl.system.Configuration;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloContactResponse extends BasePhysicsApp {
+public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
     // *************************************************************************
     // fields
 
@@ -115,6 +116,11 @@ public class HelloContactResponse extends BasePhysicsApp {
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
+    }
+
+    @Override
+    public PhysicsSpace initPhysicsSpace() {
+        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
     }
 
     @Override
