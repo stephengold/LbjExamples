@@ -146,10 +146,10 @@ public abstract class BaseApplication {
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
             camera.processMovement(Camera.Movement.RIGHT, deltaTime);
         }
-        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
             camera.processMovement(Camera.Movement.UP, deltaTime);
         }
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS|| glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
             camera.processMovement(Camera.Movement.DOWN, deltaTime);
         }
 
