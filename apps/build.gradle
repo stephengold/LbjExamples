@@ -35,6 +35,12 @@ tasks.register('ThousandCubes', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.ThousandCubes'
 }
 
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+OperatingSystem os = DefaultNativePlatform.currentOperatingSystem
+Boolean includeLinux = os.isLinux()
+Boolean includeMacOsX = os.isMacOsX()
+Boolean includeWindows = os.isWindows()
+
 tasks.withType(JavaExec) { // Java runtime options:
     classpath sourceSets.main.runtimeClasspath
     enableAssertions true
@@ -49,4 +55,38 @@ jar.manifest.attributes('Main-Class': mainClassName)
 
 dependencies {
     implementation project(':common')
+
+    if (includeLinux) {
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux"
+
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux-arm32"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux-arm32"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux-arm32"
+
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux-arm64"
+    }
+
+    if (includeMacOsX) {
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos"
+
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos-arm64"
+    }
+
+    if (includeWindows) {
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows"
+
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows-x86"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows-x86"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows-x86"
+    }
 }
