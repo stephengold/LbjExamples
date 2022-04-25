@@ -128,14 +128,4 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
     public PhysicsSpace initPhysicsSpace() {
         return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
     }
-
-    @Override
-    public void updateKeyboard(long window, int key, int action) {
-        // do nothing
-    }
-
-    @Override
-    public void updateMouse() {
-        // do nothing
-    }
 }

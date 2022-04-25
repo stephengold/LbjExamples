@@ -184,9 +184,9 @@ public abstract class BaseApplication {
 
     public abstract void render();
 
-    public abstract void updateMouse();
+    public void updateMouse(){}
 
-    public abstract void updateKeyboard(long window, int key, int action);
+    public void updateKeyboard(long window, int key, int action){}
 
     public static String loadResource(String fileName) {
         String result = "";

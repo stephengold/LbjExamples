@@ -71,11 +71,6 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     }
 
     @Override
-    public void updateMouse() {
-
-    }
-
-    @Override
     public void updateKeyboard(long window, int key, int action) {
         if (key == GLFW_KEY_E && action == GLFW_PRESS) {
 

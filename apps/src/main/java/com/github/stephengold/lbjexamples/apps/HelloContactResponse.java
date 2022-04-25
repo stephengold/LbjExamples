@@ -133,8 +133,4 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         }
     }
 
-    @Override
-    public void updateMouse() {
-        // do nothing
-    }
 }
