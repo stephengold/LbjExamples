@@ -14,10 +14,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 8
-      - run: wget https://github.com/stephengold/Libbulletjme/releases/download/14.3.0/Linux64ReleaseSp_libbulletjme.so
-      - run: mkdir ~/Downloads
-      - run: mv Windows64ReleaseSp_libbulletjme.so ~/Downloads
       - run: ./gradlew run --console=plain --no-daemon
+        shell: bash
 
   Java11-Linux:
     if: contains(toJson(github.event.commits), '[ci skip] ') == false
@@ -29,9 +27,7 @@ jobs:
           distribution: 'zulu'
           java-version: 11
       - uses: gradle/wrapper-validation-action@v1.0.4
-      - run: wget https://github.com/stephengold/Libbulletjme/releases/download/14.3.0/Linux64ReleaseSp_libbulletjme.so
       - run: mkdir ~/Downloads
-      - run: mv Linux64ReleaseSp_libbulletjme.so ~/Downloads
       - run: ./gradlew run --console=plain --no-daemon
 
   Java17-MacOS:
@@ -43,6 +39,4 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
-      - run: wget https://github.com/stephengold/Libbulletjme/releases/download/14.3.0/MacOSX64ReleaseSp_libbulletjme.dylib
-      - run: mv MacOSX64ReleaseSp_libbulletjme.dylib ~/Downloads
       - run: ./gradlew run --console=plain --no-daemon
