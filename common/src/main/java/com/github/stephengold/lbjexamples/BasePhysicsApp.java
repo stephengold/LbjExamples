@@ -5,16 +5,15 @@ import com.github.stephengold.lbjexamples.objects.Camera;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.system.NativeLibraryLoader;
 import org.joml.Matrix4f;
-import org.joml.Vector4f;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BasePhysicsApp extends BaseApplication {
+public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplication {
 
     public ShaderProgram baseShader;
-    public PhysicsSpace space;
+    public T space;
     private PhysicsThread physicsThread;
     private float physicsSpeed = 1.0f;
     public static final List<AppObject> APP_OBJECTS = new ArrayList<>();
@@ -27,7 +26,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
         File downloadDirectory = new File(homePath, "Downloads");
         NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Release", "Sp");
 
-        space = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+        space = initPhysicsSpace();
 
         //physicsThread = new PhysicsThread(space);
 
@@ -83,5 +82,7 @@ public abstract class BasePhysicsApp extends BaseApplication {
     }
 
     public abstract void setupBodies();
+
+    public abstract T initPhysicsSpace();
 
 }

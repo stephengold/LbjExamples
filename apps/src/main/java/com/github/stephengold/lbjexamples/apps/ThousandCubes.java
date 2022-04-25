@@ -3,6 +3,7 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.objects.AppObject;
 import com.github.stephengold.lbjexamples.objects.Mesh;
+import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
@@ -21,7 +22,7 @@ import static org.lwjgl.glfw.GLFW.*;
 /**
  * Drop 1000 cubes onto a horizontal surface (graphical demo).
  */
-public class ThousandCubes extends BasePhysicsApp {
+public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
 
     public AppObject planeObject;
     public List<AppObject> cubes = new ArrayList<>();
@@ -66,6 +67,11 @@ public class ThousandCubes extends BasePhysicsApp {
                 }
             }
         }
+    }
+
+    @Override
+    public PhysicsSpace initPhysicsSpace() {
+        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
     }
 
     @Override

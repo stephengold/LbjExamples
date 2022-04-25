@@ -52,7 +52,7 @@ import org.lwjgl.system.Configuration;
  * @author Stephen Gold sgold@sonic.net
  */
 public class HelloKinematics
-        extends BasePhysicsApp
+        extends BasePhysicsApp<PhysicsSpace>
         implements PhysicsTickListener {
     // *************************************************************************
     // fields
@@ -117,6 +117,11 @@ public class HelloKinematics
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
+    }
+
+    @Override
+    public PhysicsSpace initPhysicsSpace() {
+        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
     }
 
     @Override
