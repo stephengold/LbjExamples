@@ -33,6 +33,9 @@ tasks.register('HelloKinematics', JavaExec) {
 tasks.register('HelloLibbulletjme', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloLibbulletjme'
 }
+tasks.register('HelloNonUniformGravity', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloNonUniformGravity'
+}
 tasks.register('HelloRigidBody', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
 }
