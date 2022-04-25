@@ -80,6 +80,9 @@ public class AppObject {
     }
 
     public void syncWithRender() {
+        if (rigidBody == null) {
+            return;
+        }
         position = rigidBody.getMotionState().getLocation(null);
         Quaternion physicsRotation = rigidBody.getMotionState().getOrientation(new Quaternion());
         Quaternionf quat = new Quaternionf(physicsRotation.getX(), physicsRotation.getY(), physicsRotation.getZ(), physicsRotation.getW());
