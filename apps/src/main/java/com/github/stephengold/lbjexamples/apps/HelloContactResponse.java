@@ -85,6 +85,16 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
+     * Create the PhysicsSpace.
+     *
+     * @return a new instance
+     */
+    @Override
+    public PhysicsSpace initPhysicsSpace() {
+        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+    }
+
+    /**
      * Initialize this application.
      */
     @Override
@@ -119,18 +129,15 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
     }
 
     @Override
-    public PhysicsSpace initPhysicsSpace() {
-        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
-    }
-
-    @Override
     public void updateKeyboard(long window, int key, int action) {
         if (action == GLFW.GLFW_PRESS) {
             if (key == GLFW.GLFW_KEY_E) {
                 // Disable the ball's contact response.
                 ball.setContactResponse(false);
+
+                // Activate the ball in case it got deactivated.
+                ball.activate();
             }
         }
     }
-
 }
