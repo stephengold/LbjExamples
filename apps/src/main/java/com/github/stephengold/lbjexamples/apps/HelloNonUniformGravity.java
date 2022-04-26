@@ -43,7 +43,6 @@ import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
 import jme3utilities.math.MyVector3f;
-import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
 /**
@@ -123,7 +122,7 @@ public class HelloNonUniformGravity
 
         // visualization
         AppObject planetObject = new AppObject(planet);
-        planetObject.setColor(new Vector4f(Constants.MAGENTA));
+        planetObject.setColor(Constants.MAGENTA);
 
         new Arrow(0f, FastMath.HALF_PI, 0f, Constants.RED);    // +X axis
         new Arrow(-FastMath.HALF_PI, 0f, 0f, Constants.GREEN); // +Y axis

@@ -30,6 +30,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
+import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.objects.AppObject;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -41,7 +42,6 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
-import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.Configuration;
 
@@ -120,9 +120,9 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
 
         // visualization
         AppObject ballObject = new AppObject(ball);
-        ballObject.setColor(new Vector4f(1f, 0f, 1f, 1f));
+        ballObject.setColor(Constants.MAGENTA);
         AppObject boxObject = new AppObject(box);
-        boxObject.setColor(new Vector4f(0f, 0f, 1f, 1f));
+        boxObject.setColor(Constants.BLUE);
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
