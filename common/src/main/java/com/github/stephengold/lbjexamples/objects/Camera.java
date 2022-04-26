@@ -8,7 +8,6 @@ import org.joml.Matrix4f;
 
 public class Camera {
 
-    private final static float SPEED = 1.5f;
     private final static float SENSITIVITY = 0.1f;
     public final static float ZOOM = 45.0f;
 
@@ -16,7 +15,7 @@ public class Camera {
     private Vector3f front = new Vector3f(0, 0, -1);
     private Vector3f up = new Vector3f(0, 1, 0);
     private Vector3f right = new Vector3f();
-    // euler Angles
+    private float speed = 1.5f;
     private float yaw;
     private float pitch;
 
@@ -41,7 +40,7 @@ public class Camera {
     }
 
     public void processMovement(Movement movement, float deltaTime) {
-        Vector3f velocity = new Vector3f(SPEED * deltaTime, SPEED * deltaTime, SPEED * deltaTime);
+        Vector3f velocity = new Vector3f(speed * deltaTime, speed * deltaTime, speed * deltaTime);
         if (movement == Movement.FORWARD)
             position.addLocal(front.mult(velocity, null));
         if (movement == Movement.BACKWARD)
@@ -99,6 +98,14 @@ public class Camera {
 
     public float getPitch() {
         return pitch;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 
     public Vector3f getPosition() {
