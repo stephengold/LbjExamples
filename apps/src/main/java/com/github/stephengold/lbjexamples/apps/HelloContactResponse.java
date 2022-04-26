@@ -121,10 +121,8 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         ball.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
 
         // visualization
-        AppObject ballObject = new AppObject(ball);
-        ballObject.setColor(Constants.MAGENTA);
-        AppObject boxObject = new AppObject(box);
-        boxObject.setColor(Constants.BLUE);
+        new AppObject(ball).setColor(Constants.MAGENTA);
+        new AppObject(box).setColor(Constants.BLUE);
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);

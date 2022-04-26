@@ -121,8 +121,7 @@ public class HelloNonUniformGravity
         planet.applyCentralImpulse(new Vector3f(0f, -1f, 0f));
 
         // visualization
-        AppObject planetObject = new AppObject(planet);
-        planetObject.setColor(Constants.MAGENTA);
+        new AppObject(planet).setColor(Constants.MAGENTA);
 
         new Arrow(0f, FastMath.HALF_PI, 0f, Constants.RED);    // +X axis
         new Arrow(-FastMath.HALF_PI, 0f, 0f, Constants.GREEN); // +Y axis

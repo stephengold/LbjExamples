@@ -33,6 +33,8 @@ import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.objects.AppObject;
 import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.PhysicsTickListener;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsBody;
@@ -44,18 +46,25 @@ import com.jme3.system.Platform;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple example combining static and dynamic rigid bodies.
+ * A simple example of rigid-body deactivation.
  * <p>
- * Builds upon HelloRigidBody.
+ * Builds upon HelloStaticBody.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
+public class HelloDeactivation
+        extends BasePhysicsApp<PhysicsSpace>
+        implements PhysicsTickListener {
+    // *************************************************************************
+    // fields
+
+    private static PhysicsRigidBody dynamicCube;
+    private static PhysicsRigidBody supportCube;
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the HelloStaticBody application.
+     * Main entry point for the HelloDeactivation application.
      *
      * @param ignored array of command-line arguments (not null)
      */
@@ -65,7 +74,7 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        HelloStaticBody application = new HelloStaticBody();
+        HelloDeactivation application = new HelloDeactivation();
         application.start();
     }
     // *************************************************************************
@@ -80,6 +89,10 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
     public PhysicsSpace initPhysicsSpace() {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+
+        // To enable the callbacks, add this application as a tick listener.
+        result.addTickListener(this);
+
         return result;
     }
 
@@ -88,29 +101,66 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void setupBodies() {
-        // Create a CollisionShape for balls.
-        float ballRadius = 1f;
+        // Create a dynamic cube and add it to the space.
+        float boxHalfExtent = 0.5f;
+        CollisionShape smallCubeShape = new BoxCollisionShape(boxHalfExtent);
+        float boxMass = 1f;
+        dynamicCube = new PhysicsRigidBody(smallCubeShape, boxMass);
+        physicsSpace.addCollisionObject(dynamicCube);
+        dynamicCube.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
+
+        // Create 2 static bodies and add them to the space...
+        // The top body serves as a temporary support.
+        float cubeHalfExtent = 1f;
+        CollisionShape largeCubeShape = new BoxCollisionShape(cubeHalfExtent);
+        supportCube = new PhysicsRigidBody(
+                largeCubeShape, PhysicsBody.massForStatic);
+        physicsSpace.addCollisionObject(supportCube);
+
+        // The bottom body serves as a visual reference point.
+        float ballRadius = 0.5f;
         CollisionShape ballShape = new SphereCollisionShape(ballRadius);
+        PhysicsRigidBody bottomBody = new PhysicsRigidBody(
+                ballShape, PhysicsBody.massForStatic);
+        bottomBody.setPhysicsLocation(new Vector3f(0f, -2f, 0f));
+        physicsSpace.addCollisionObject(bottomBody);
 
-        // Create a dynamic body and add it to the space.
-        float mass = 2f;
-        PhysicsRigidBody dynaBall = new PhysicsRigidBody(ballShape, mass);
-        physicsSpace.addCollisionObject(dynaBall);
-
-        // Create a static body and add it to the space.
-        PhysicsRigidBody statBall
-                = new PhysicsRigidBody(ballShape, PhysicsBody.massForStatic);
-        physicsSpace.addCollisionObject(statBall);
-
-        // Position the balls in physics space.
-        dynaBall.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
-        statBall.setPhysicsLocation(new Vector3f(0.1f, 0f, 0f));
-
-        // Customize the debug visualization of each object.
-        new AppObject(dynaBall).setColor(Constants.MAGENTA);
-        new AppObject(statBall).setColor(Constants.BLUE);
+        // visualization
+        new AppObject(dynamicCube).setColor(Constants.MAGENTA);
+        new AppObject(supportCube).setColor(Constants.BLUE);
+        new AppObject(bottomBody).setColor(Constants.BLUE);
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
+    }
+    // *************************************************************************
+    // PhysicsTickListener methods
+
+    /**
+     * Callback from Bullet, invoked just before the simulation is stepped.
+     *
+     * @param space ignored
+     * @param timeStep the time per physics step (in seconds, &ge;0)
+     */
+    @Override
+    public void prePhysicsTick(PhysicsSpace space, float timeStep) {
+        // do nothing
+    }
+
+    /**
+     * Callback from Bullet, invoked just after the simulation has been stepped.
+     *
+     * @param space the space that was stepped (not null)
+     * @param timeStep ignored
+     */
+    @Override
+    public void physicsTick(PhysicsSpace space, float timeStep) {
+        /*
+         * Once the dynamic cube gets deactivated,
+         * remove the supporting cube from the PhysicsSpace.
+         */
+        if (!dynamicCube.isActive() && space.contains(supportCube)) {
+            space.removeCollisionObject(supportCube);
+        }
     }
 }
