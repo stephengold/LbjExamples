@@ -1,6 +1,7 @@
 package com.github.stephengold.lbjexamples;
 
 import com.github.stephengold.lbjexamples.objects.Camera;
+import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -33,7 +34,7 @@ public abstract class BaseApplication {
     public void start() {
         init();
 
-        camera = new Camera(new Vector3f(-10, 2, 0), 0, 0);
+        camera = new Camera(new Vector3f(0, 0,10), -FastMath.HALF_PI, 0);
         initApp();
 
         while (!glfwWindowShouldClose(window)) {
