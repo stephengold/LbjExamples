@@ -1,0 +1,41 @@
+* xref:implementation.adoc[Implementation]
+* Library tutorials
+** xref:add.adoc[Add to existing project]
+** xref:rigidbody.adoc[Rigid bodies]
+** xref:shape.adoc[Collision shapes]
+** xref:character.adoc[Characters]
+** xref:vehicle.adoc[Vehicles]
+** xref:new6dof.adoc[New6Dof constraints]
+** xref:detect.adoc[Collision detection]
+** xref:softbody.adoc[Soft bodies]
+** xref:misc.adoc[Miscellany]
+* xref:build.adoc[Build procedures]
+* xref:demos.adoc[Demo apps]
+* https://github.com/stephengold/Libbulletjme[Git repository]
+** https://github.com/stephengold/Libbulletjme/releases/latest[Latest release]
+** https://github.com/stephengold/Libbulletjme/releases[Recent releases]
+** https://github.com/stephengold/Libbulletjme/blob/master/README.md[Read-me file]
+** https://raw.githubusercontent.com/stephengold/Libbulletjme/master/LICENSE[License]
+** https://github.com/stephengold/Libbulletjme/blob/master/release-notes.md[Release log]
+** https://github.com/stephengold/Libbulletjme/commits/master[Recent commits]
+** https://github.com/stephengold/Libbulletjme/issues[Issue tracker]
+** https://github.com/stephengold/Libbulletjme/issues/new[File an issue]
+* Library APIs (javadoc)
+** https://stephengold.github.io/Libbulletjme/javadoc/master[Master branch]
+* Libbulletjme at other sites
+** https://repo1.maven.org/maven2/com/github/stephengold/Libbulletjme[Maven Central download]
+** https://search.maven.org/artifact/com.github.stephengold/Libbulletjme[Maven Central search]
+** https://jitpack.io/#stephengold/Libbulletjme[JitPack (unofficial)]
+* Projects using Libbulletjme
+** https://stephengold.github.io/Minie[Minie]
+** https://dynamx.fr/[DynamX]
+* Other related projects
+** https://pybullet.org/wordpress[Bullet]
+** https://jmonkeyengine.org[JMonkeyEngine]
+** https://github.com/stephengold/LbjExamples[Example apps]
+** https://github.com/Simsilica/SimMath[SimMath]
+** https://github.com/kmammou/v-hacd[V-HACD]
+** https://github.com/stephengold/antora-ui-bundle[Website UI bundle]
+* People
+** https://stephengold.github.io[Stephen Gold]
+** Yanis Boudiaf

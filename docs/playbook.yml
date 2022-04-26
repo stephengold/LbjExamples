@@ -1,0 +1,19 @@
+---
+# configure Antora for local testing with the published bundle
+
+site:
+  title: The Libbulletjme project (local test using the published bundle)
+  start_page: lbj-en:ROOT:overview.adoc
+  url: /home/sgold/NetBeansProjects/LbjExamples/docs/build/site
+content:
+  sources:
+    - url: /home/sgold/NetBeansProjects/LbjExamples
+      branches: master
+      start_path: docs/en
+ui:
+  bundle:
+    url: https://github.com/stephengold/antora-ui-bundle/releases/download/v-sgold220125a/ui-bundle.zip
+    snapshot: true
+output:
+  clean: true
+  dir: docs/build/site
