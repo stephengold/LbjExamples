@@ -93,6 +93,14 @@ public class Camera {
         updateCameraVectors();
     }
 
+    public float getYaw() {
+        return yaw;
+    }
+
+    public float getPitch() {
+        return pitch;
+    }
+
     public Vector3f getPosition() {
         return position;
     }
