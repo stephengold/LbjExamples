@@ -27,6 +27,9 @@ tasks.register('HelloContactResponse', JavaExec) {
 tasks.register('HelloDamping', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDamping'
 }
+tasks.register('HelloDeactivation', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDeactivation'
+}
 tasks.register('HelloKinematics', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloKinematics'
 }
