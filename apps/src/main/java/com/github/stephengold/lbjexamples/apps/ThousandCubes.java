@@ -2,7 +2,6 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.objects.AppObject;
-import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -10,6 +9,8 @@ import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
+import com.jme3.system.JmeSystem;
+import com.jme3.system.Platform;
 import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
@@ -23,21 +24,30 @@ import static org.lwjgl.glfw.GLFW.*;
  * Drop 1000 cubes onto a horizontal surface (graphical demo).
  */
 public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
+    // *************************************************************************
+    // fields
 
-    public AppObject planeObject;
-    public List<AppObject> cubes = new ArrayList<>();
+    private AppObject planeObject;
+    final private List<AppObject> cubes = new ArrayList<>();
+    // *************************************************************************
+    // new methods exposed
 
     public static void main(String[] args) {
-        if (System.getProperty("os.name").startsWith("Mac")) {
+        Platform platform = JmeSystem.getPlatform();
+        if (platform.getOs() == Platform.Os.MacOS) {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
+
         new ThousandCubes().start();
     }
+    // *************************************************************************
+    // BasePhysicsApp methods
 
+    /**
+     * Initialize this application.
+     */
     @Override
     public void setupBodies() {
-        camera.enableMouseMotion(false);
-
         CollisionShape planeShape = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1));
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
         planeObject = new AppObject(floor);
@@ -65,6 +75,11 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         }
     }
 
+    /**
+     * Create the PhysicsSpace.
+     *
+     * @return a new instance
+     */
     @Override
     public PhysicsSpace initPhysicsSpace() {
         return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
@@ -83,5 +98,4 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
             cubes.add(object);
         }
     }
-
 }

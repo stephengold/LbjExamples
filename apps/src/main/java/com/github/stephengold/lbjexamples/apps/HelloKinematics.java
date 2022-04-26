@@ -89,9 +89,6 @@ public class HelloKinematics
      */
     @Override
     public void setupBodies() {
-        // To enable the callbacks, add this application as a tick listener.
-        space.addTickListener(this);
-
         // Create a CollisionShape for balls.
         float ballRadius = 1f;
         CollisionShape ballShape = new SphereCollisionShape(ballRadius);
@@ -117,9 +114,20 @@ public class HelloKinematics
         camera.setYaw(-FastMath.HALF_PI);
     }
 
+    /**
+     * Create the PhysicsSpace.
+     *
+     * @return a new instance
+     */
     @Override
     public PhysicsSpace initPhysicsSpace() {
-        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+        PhysicsSpace result
+                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+
+        // To enable the callbacks, add this application as a tick listener.
+        result.addTickListener(this);
+
+        return result;
     }
     // *************************************************************************
     // PhysicsTickListener methods

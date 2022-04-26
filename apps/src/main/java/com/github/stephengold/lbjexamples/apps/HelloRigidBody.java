@@ -112,9 +112,16 @@ public class HelloRigidBody extends BasePhysicsApp<PhysicsSpace> {
         camera.setYaw(-FastMath.HALF_PI);
     }
 
+    /**
+     * Create the PhysicsSpace.
+     *
+     * @return a new instance
+     */
     @Override
     public PhysicsSpace initPhysicsSpace() {
-        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+        PhysicsSpace result
+                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+        return result;
     }
 
 }

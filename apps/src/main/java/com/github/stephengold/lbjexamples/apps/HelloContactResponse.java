@@ -91,7 +91,9 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public PhysicsSpace initPhysicsSpace() {
-        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+        PhysicsSpace result
+                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+        return result;
     }
 
     /**

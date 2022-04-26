@@ -106,7 +106,7 @@ public class HelloVehicle {
                 suspensionDirection, axleDirection, restLength, radius,
                 false);
 
-        space.add(vehicle);
+        space.addCollisionObject(vehicle);
         vehicle.accelerate(500f);
         /*
          * 150 iterations with a 20-msec timestep

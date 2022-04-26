@@ -75,9 +75,6 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void setupBodies() {
-        // For clarity, disable gravity.
-        space.setGravity(Vector3f.ZERO);
-
         // Create a CollisionShape for unit cubes.
         float cubeHalfExtent = 0.5f;
         CollisionShape cubeShape = new BoxCollisionShape(cubeHalfExtent);
@@ -124,8 +121,19 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
         camera.setYaw(-FastMath.HALF_PI);
     }
 
+    /**
+     * Create the PhysicsSpace.
+     *
+     * @return a new instance
+     */
     @Override
     public PhysicsSpace initPhysicsSpace() {
-        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+        PhysicsSpace result
+                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+
+        // For clarity, disable gravity.
+        result.setGravity(Vector3f.ZERO);
+
+        return result;
     }
 }
