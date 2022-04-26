@@ -75,6 +75,14 @@ public class Camera {
         this.position = position;
     }
 
+    public void setYawDeg(float yawInDeg){
+        setYaw((float) Math.toRadians(yawInDeg));
+    }
+
+    public void setPitchDeg(float pitchInDeg){
+        setPitch((float) Math.toRadians(pitchInDeg));
+    }
+
     public void setYaw(float yaw) {
         this.yaw = yaw;
         updateCameraVectors();
