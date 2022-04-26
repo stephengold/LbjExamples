@@ -42,6 +42,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         //physicsThread.start();
     }
 
+    private static final List<AppObject> OBJECTS_TO_REMOVE = new ArrayList<>();
+
     @Override
     public void render() {
         physicsSpace.update(0.02f * physicsSpeed, 0);
@@ -54,6 +56,10 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         baseShader.unbind();
 
         APP_OBJECTS.forEach(appObject -> {
+            if (appObject.getRigidBody() != null && !physicsSpace.contains(appObject.getRigidBody())) {
+                OBJECTS_TO_REMOVE.add(appObject);
+                return;
+            }
             appObject.syncWithRender();
             baseShader.use();
             baseShader.setUniform("modelMatrix", appObject.getTransformMatrix());
@@ -61,14 +67,14 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
             appObject.getMesh().render();
             baseShader.unbind();
         });
+
+        APP_OBJECTS.removeAll(OBJECTS_TO_REMOVE);
     }
 
     @Override
     public void cleanUp() {
         baseShader.cleanup();
-        APP_OBJECTS.forEach(appObject -> {
-            appObject.getMesh().cleanUp();
-        });
+        APP_OBJECTS.forEach(appObject -> appObject.getMesh().cleanUp());
         //physicsThread.stop();
     }
 
