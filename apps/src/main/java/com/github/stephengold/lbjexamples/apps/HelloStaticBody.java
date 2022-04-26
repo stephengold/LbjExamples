@@ -109,8 +109,5 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
         // Customize the debug visualization of each object.
         new AppObject(dynaBall).setColor(Constants.MAGENTA);
         new AppObject(statBall).setColor(Constants.BLUE);
-
-        camera.setPosition(new Vector3f(0f, 0f, 10f));
-        camera.setYaw(-FastMath.HALF_PI);
     }
 }

@@ -129,9 +129,6 @@ public class HelloDeactivation
         new AppObject(dynamicCube).setColor(Constants.MAGENTA);
         new AppObject(supportCube).setColor(Constants.BLUE);
         new AppObject(bottomBody).setColor(Constants.BLUE);
-
-        camera.setPosition(new Vector3f(0f, 0f, 10f));
-        camera.setYaw(-FastMath.HALF_PI);
     }
     // *************************************************************************
     // PhysicsTickListener methods

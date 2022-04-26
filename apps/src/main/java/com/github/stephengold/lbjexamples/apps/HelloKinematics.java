@@ -123,9 +123,6 @@ public class HelloKinematics
         // visualization
         new AppObject(dynaBall).setColor(Constants.MAGENTA);
         new AppObject(kineBall).setColor(Constants.BLUE);
-
-        camera.setPosition(new Vector3f(0f, 0f, 10f));
-        camera.setYaw(-FastMath.HALF_PI);
     }
     // *************************************************************************
     // PhysicsTickListener methods

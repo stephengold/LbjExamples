@@ -123,9 +123,6 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         // visualization
         new AppObject(ball).setColor(Constants.MAGENTA);
         new AppObject(box).setColor(Constants.BLUE);
-
-        camera.setPosition(new Vector3f(0f, 0f, 10f));
-        camera.setYaw(-FastMath.HALF_PI);
     }
 
     @Override

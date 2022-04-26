@@ -131,8 +131,5 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
         for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
             new AppObject(cube[cubeIndex]).setColor(Constants.MAGENTA);
         }
-
-        camera.setPosition(new Vector3f(0f, 0f, 10f));
-        camera.setYaw(-FastMath.HALF_PI);
     }
 }

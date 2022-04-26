@@ -117,8 +117,5 @@ public class HelloRigidBody extends BasePhysicsApp<PhysicsSpace> {
         // visualization
         new AppObject(ball1).setColor(Constants.MAGENTA);
         new AppObject(ball2).setColor(Constants.MAGENTA);
-
-        camera.setPosition(new Vector3f(0f, 0f, 10f));
-        camera.setYaw(-FastMath.HALF_PI);
     }
 }
