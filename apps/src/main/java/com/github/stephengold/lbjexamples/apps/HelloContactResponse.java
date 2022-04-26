@@ -38,7 +38,6 @@ import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsBody;
 import com.jme3.bullet.objects.PhysicsRigidBody;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
@@ -70,9 +69,9 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Main entry point for the HelloContactResponse application.
      *
-     * @param ignored array of command-line arguments (not null)
+     * @param arguments ignored
      */
-    public static void main(String[] ignored) {
+    public static void main(String[] arguments) {
         Platform platform = JmeSystem.getPlatform();
         if (platform.getOs() == Platform.Os.MacOS) {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
@@ -125,10 +124,18 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         new AppObject(box).setColor(Constants.BLUE);
     }
 
+    /**
+     * Callback invoked after a keyboard key is pressed, repeated or released.
+     *
+     * @param windowId the window that received the event
+     * @param keyCode the keyboard key
+     * @param action the key action (either {@link GLFW#GLFW_PRESS PRESS} or
+     * {@link GLFW#GLFW_RELEASE RELEASE} or {@link GLFW#GLFW_REPEAT REPEAT})
+     */
     @Override
-    public void updateKeyboard(long window, int key, int action) {
+    public void updateKeyboard(long windowId, int keyCode, int action) {
         if (action == GLFW.GLFW_PRESS) {
-            if (key == GLFW.GLFW_KEY_E) {
+            if (keyCode == GLFW.GLFW_KEY_E) {
                 // Disable the ball's contact response.
                 ball.setContactResponse(false);
 
