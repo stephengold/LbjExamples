@@ -1,6 +1,5 @@
 package com.github.stephengold.lbjexamples.objects;
 
-import com.github.stephengold.lbjexamples.BaseApplication;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Utils;
 import com.jme3.bullet.objects.PhysicsRigidBody;
@@ -9,6 +8,7 @@ import com.jme3.math.Vector3f;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector4f;
+import org.joml.Vector4fc;
 
 public class AppObject {
 
@@ -100,6 +100,10 @@ public class AppObject {
 
     public void setColor(Vector4f color) {
         this.color = color;
+    }
+
+    public void setColor(Vector4fc color) {
+        this.color = new Vector4f(color);
     }
 
     public Matrix4f getTransformMatrix() {
