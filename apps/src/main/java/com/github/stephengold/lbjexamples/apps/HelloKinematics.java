@@ -45,7 +45,7 @@ import org.lwjgl.system.Configuration;
 
 /**
  * A simple example combining kinematic and dynamic rigid bodies.
- *
+ * <p>
  * Builds upon HelloStaticBody.
  *
  * @author Stephen Gold sgold@sonic.net
@@ -121,10 +121,8 @@ public class HelloKinematics
         kineBall.setKinematic(true);
 
         // visualization
-        AppObject ball1Object = new AppObject(dynaBall);
-        ball1Object.setColor(Constants.MAGENTA);
-        AppObject ball2Object = new AppObject(kineBall);
-        ball2Object.setColor(Constants.BLUE);
+        new AppObject(dynaBall).setColor(Constants.MAGENTA);
+        new AppObject(kineBall).setColor(Constants.BLUE);
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);

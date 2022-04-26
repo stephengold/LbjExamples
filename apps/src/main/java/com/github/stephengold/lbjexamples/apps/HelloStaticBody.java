@@ -45,7 +45,7 @@ import org.lwjgl.system.Configuration;
 
 /**
  * A simple example combining static and dynamic rigid bodies.
- *
+ * <p>
  * Builds upon HelloRigidBody.
  *
  * @author Stephen Gold sgold@sonic.net

@@ -129,8 +129,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
 
         // visualization
         for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
-            AppObject cubeObject = new AppObject(cube[cubeIndex]);
-            cubeObject.setColor(Constants.MAGENTA);
+            new AppObject(cube[cubeIndex]).setColor(Constants.MAGENTA);
         }
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));

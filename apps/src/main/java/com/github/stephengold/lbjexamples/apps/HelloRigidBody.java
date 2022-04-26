@@ -115,10 +115,8 @@ public class HelloRigidBody extends BasePhysicsApp<PhysicsSpace> {
         ball2.applyCentralImpulse(new Vector3f(-25f, 0f, 0f));
 
         // visualization
-        AppObject ball1Object = new AppObject(ball1);
-        ball1Object.setColor(Constants.MAGENTA);
-        AppObject ball2Object = new AppObject(ball2);
-        ball2Object.setColor(Constants.MAGENTA);
+        new AppObject(ball1).setColor(Constants.MAGENTA);
+        new AppObject(ball2).setColor(Constants.MAGENTA);
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
