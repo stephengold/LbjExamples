@@ -20,8 +20,8 @@ public abstract class BaseApplication {
 
     private long window;
     public Camera camera;
-    public static final float Z_NEAR = 0.1f;
-    public static final float Z_FAR = 100.f;
+    private static float Z_NEAR = 0.1f;
+    private static float Z_FAR = 100.f;
     public static int WIDTH = 800;
     public static int HEIGHT = 600;
     private float lastX = WIDTH / 2.0f;
@@ -187,6 +187,22 @@ public abstract class BaseApplication {
     public void updateMouse(){}
 
     public void updateKeyboard(long window, int key, int action){}
+
+    public static float getZNear() {
+        return Z_NEAR;
+    }
+
+    public static void setZNear(float zNear) {
+        Z_NEAR = zNear;
+    }
+
+    public static float getZFar() {
+        return Z_FAR;
+    }
+
+    public static void setZFar(float zFar) {
+        Z_FAR = zFar;
+    }
 
     public static String loadResource(String fileName) {
         String result = "";
