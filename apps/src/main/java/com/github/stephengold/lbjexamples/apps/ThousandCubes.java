@@ -44,6 +44,16 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
+     * Create the PhysicsSpace.
+     *
+     * @return a new instance
+     */
+    @Override
+    public PhysicsSpace initPhysicsSpace() {
+        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+    }
+
+    /**
      * Initialize this application.
      */
     @Override
@@ -73,16 +83,6 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                 }
             }
         }
-    }
-
-    /**
-     * Create the PhysicsSpace.
-     *
-     * @return a new instance
-     */
-    @Override
-    public PhysicsSpace initPhysicsSpace() {
-        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
     }
 
     @Override

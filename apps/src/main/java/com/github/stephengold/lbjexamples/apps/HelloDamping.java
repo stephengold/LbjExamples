@@ -71,6 +71,22 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
+     * Create the PhysicsSpace.
+     *
+     * @return a new instance
+     */
+    @Override
+    public PhysicsSpace initPhysicsSpace() {
+        PhysicsSpace result
+                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+
+        // For clarity, disable gravity.
+        result.setGravity(Vector3f.ZERO);
+
+        return result;
+    }
+
+    /**
      * Initialize this application.
      */
     @Override
@@ -119,21 +135,5 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
-    }
-
-    /**
-     * Create the PhysicsSpace.
-     *
-     * @return a new instance
-     */
-    @Override
-    public PhysicsSpace initPhysicsSpace() {
-        PhysicsSpace result
-                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
-
-        // For clarity, disable gravity.
-        result.setGravity(Vector3f.ZERO);
-
-        return result;
     }
 }

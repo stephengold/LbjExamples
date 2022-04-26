@@ -85,6 +85,22 @@ public class HelloKinematics
     // BasePhysicsApp methods
 
     /**
+     * Create the PhysicsSpace.
+     *
+     * @return a new instance
+     */
+    @Override
+    public PhysicsSpace initPhysicsSpace() {
+        PhysicsSpace result
+                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+
+        // To enable the callbacks, add this application as a tick listener.
+        result.addTickListener(this);
+
+        return result;
+    }
+
+    /**
      * Initialize this application.
      */
     @Override
@@ -112,22 +128,6 @@ public class HelloKinematics
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
-    }
-
-    /**
-     * Create the PhysicsSpace.
-     *
-     * @return a new instance
-     */
-    @Override
-    public PhysicsSpace initPhysicsSpace() {
-        PhysicsSpace result
-                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
-
-        // To enable the callbacks, add this application as a tick listener.
-        result.addTickListener(this);
-
-        return result;
     }
     // *************************************************************************
     // PhysicsTickListener methods
