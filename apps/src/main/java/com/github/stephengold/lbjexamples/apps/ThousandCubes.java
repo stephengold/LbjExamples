@@ -8,6 +8,7 @@ import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
+import com.jme3.math.FastMath;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
@@ -71,7 +72,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                 for (int k = 0; k < 10; k++) {
                     PhysicsRigidBody box = new PhysicsRigidBody(boxShape, 10);
                     AppObject cubeObject = new AppObject(box, cubeMesh);
-                    cubeObject.setPosition(new Vector3f((i * 2) + 0.5f, (j * 2), (k * 2) + 0.5f));
+                    cubeObject.setPosition(new Vector3f((i * 2), (j * 2), (k * 2) - 2.5f));
                     float r = random.nextFloat();
                     float g = random.nextFloat();
                     float b = random.nextFloat();
@@ -82,12 +83,14 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                 }
             }
         }
+        camera.setPosition(new Vector3f(-22f, 22f, -18f));
+        camera.setYawDeg(35f);
+        camera.setPitchDeg(-30f);
     }
 
     @Override
     public void updateKeyboard(long window, int key, int action) {
         if (key == GLFW_KEY_E && action == GLFW_PRESS) {
-
             BoxCollisionShape boxShape = new BoxCollisionShape(0.5f);
             AppObject object = new AppObject(new PhysicsRigidBody(boxShape, 10), cubeMesh);
             object.setPosition(camera.getPosition());
