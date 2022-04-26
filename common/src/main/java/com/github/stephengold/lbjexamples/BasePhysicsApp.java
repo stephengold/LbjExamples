@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplication {
 
     public ShaderProgram baseShader;
-    public T space;
+    public T physicsSpace;
     private PhysicsThread physicsThread;
     private float physicsSpeed = 1.0f;
     public static final List<AppObject> APP_OBJECTS = new ArrayList<>();
@@ -25,7 +25,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         File downloadDirectory = new File(homePath, "Downloads");
         NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Release", "Sp");
 
-        space = initPhysicsSpace();
+        physicsSpace = initPhysicsSpace();
 
         //physicsThread = new PhysicsThread(space);
 
@@ -44,7 +44,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
 
     @Override
     public void render() {
-        space.update(0.02f * physicsSpeed, 0);
+        physicsSpace.update(0.02f * physicsSpeed, 0);
         baseShader.use();
         Matrix4f projectionMatrix = new Matrix4f();
         projectionMatrix.setPerspective((float) Math.toRadians(Camera.ZOOM),

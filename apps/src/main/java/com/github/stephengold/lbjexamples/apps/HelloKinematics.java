@@ -112,12 +112,12 @@ public class HelloKinematics
         // Create a dynamic body and add it to the space.
         float mass = 2f;
         PhysicsRigidBody dynaBall = new PhysicsRigidBody(ballShape, mass);
-        space.addCollisionObject(dynaBall);
+        physicsSpace.addCollisionObject(dynaBall);
         dynaBall.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
 
         // Create a kinematic body and add it to the space.
         kineBall = new PhysicsRigidBody(ballShape);
-        space.addCollisionObject(kineBall);
+        physicsSpace.addCollisionObject(kineBall);
         kineBall.setKinematic(true);
 
         // visualization

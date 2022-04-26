@@ -14,8 +14,6 @@ import com.jme3.system.Platform;
 import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -62,7 +60,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
         planeObject = new AppObject(floor);
         planeObject.setColor(new Vector4f(0.3f, 0.3f, 0.3f, 1));
-        space.addCollisionObject(floor);
+        physicsSpace.addCollisionObject(floor);
 
         BoxCollisionShape boxShape = new BoxCollisionShape(0.5f);
         Random random = new Random();
@@ -78,7 +76,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
 
                     cubeObject.setColor(new Vector4f(r, g, b, 1));
                     cubeObject.syncWithPhysics();
-                    space.addCollisionObject(box);
+                    physicsSpace.addCollisionObject(box);
                 }
             }
         }
@@ -93,7 +91,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
             object.setPosition(camera.getPosition());
             object.getRigidBody().setLinearVelocity(new Vector3f(camera.getFront()).multLocal(30));
             object.syncWithPhysics();
-            space.addCollisionObject(object.getRigidBody());
+            physicsSpace.addCollisionObject(object.getRigidBody());
         }
     }
 }

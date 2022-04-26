@@ -111,7 +111,7 @@ public class HelloNonUniformGravity
         // Create a planet (dynamic rigid body) and add it to the space.
         float planetMass = 1f; // physics mass unit = 10^25 kg
         planet = new PhysicsRigidBody(planetShape, planetMass);
-        space.addCollisionObject(planet);
+        physicsSpace.addCollisionObject(planet);
 
         // Prevent deactivation of the planet.
         planet.setEnableSleep(false);
