@@ -106,11 +106,9 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
         dynaBall.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
         statBall.setPhysicsLocation(new Vector3f(0.1f, 0f, 0f));
 
-        // visualization
-        AppObject ball1Object = new AppObject(dynaBall);
-        ball1Object.setColor(Constants.MAGENTA);
-        AppObject ball2Object = new AppObject(statBall);
-        ball2Object.setColor(Constants.BLUE);
+        // Customize the debug visualization of each object.
+        new AppObject(dynaBall).setColor(Constants.MAGENTA);
+        new AppObject(statBall).setColor(Constants.BLUE);
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
