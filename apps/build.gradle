@@ -4,14 +4,43 @@ plugins {
     id 'application'
 }
 
-// run the apps
+ext {
+    // which BTF (buildType + flavor) of the native physics library to use:
+    btf = 'ReleaseSp'
+
+    fs = System.getProperty('file.separator')
+    downloadsDir = System.getProperty('user.home') + fs + 'Downloads' + fs
+
+    // the URL from which native physics libraries should be copied:
+    libbulletjmeUrl = 'https://github.com/stephengold/Libbulletjme/releases/download/14.3.0/'
+}
+
+// tasks to run individual apps:
 
 tasks.register('AppChooser', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.AppChooser'
 }
 
+tasks.register('HelloContactResponse', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloContactResponse'
+}
+tasks.register('HelloDamping', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDamping'
+}
+tasks.register('HelloKinematics', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloKinematics'
+}
 tasks.register('HelloLibbulletjme', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloLibbulletjme'
+}
+tasks.register('HelloNonUniformGravity', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloNonUniformGravity'
+}
+tasks.register('HelloRigidBody', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
+}
+tasks.register('HelloStaticBody', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloStaticBody'
 }
 tasks.register('HelloVehicle', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloVehicle'
@@ -20,13 +49,33 @@ tasks.register('ThousandCubes', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.ThousandCubes'
 }
 
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+OperatingSystem os = DefaultNativePlatform.currentOperatingSystem
+Boolean includeLinux = os.isLinux()
+Boolean includeMacOsX = os.isMacOsX()
+Boolean includeWindows = os.isWindows()
+
 tasks.withType(JavaExec) { // Java runtime options:
     classpath sourceSets.main.runtimeClasspath
     enableAssertions true
     jvmArgs '-XX:+UseG1GC', '-XX:MaxGCPauseMillis=10'
+
+    if (includeLinux) {
+        dependsOn 'downloadLinux64'
+        dependsOn 'downloadLinux_ARM32'
+        dependsOn 'downloadLinux_ARM64'
+    }
+    if (includeMacOsX) {
+        dependsOn 'downloadMacOSX64'
+        dependsOn 'downloadMacOSX_ARM64'
+    }
+    if (includeWindows) {
+        dependsOn 'downloadWindows32'
+        dependsOn 'downloadWindows64'
+    }
 }
 
-mainClassName = 'com.github.stephengold.lbjexamples.apps.HelloLibbulletjme'
+mainClassName = 'com.github.stephengold.lbjexamples.apps.AppChooser'
 if (!hasProperty('mainClass')) {
     ext.mainClass = mainClassName
 }
@@ -34,4 +83,83 @@ jar.manifest.attributes('Main-Class': mainClassName)
 
 dependencies {
     implementation project(':common')
+
+    if (includeLinux) {
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux"
+
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux-arm32"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux-arm32"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux-arm32"
+
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux-arm64"
+    }
+
+    if (includeMacOsX) {
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos"
+
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos-arm64"
+    }
+
+    if (includeWindows) {
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows"
+
+        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows-x86"
+        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows-x86"
+        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows-x86"
+    }
+}
+
+// tasks to download/clean the native physics library for each platform:
+
+registerPlatformTasks('Linux64',     '_libbulletjme.so')
+registerPlatformTasks('Linux_ARM32', '_libbulletjme.so')
+registerPlatformTasks('Linux_ARM64', '_libbulletjme.so')
+
+registerPlatformTasks('MacOSX64',     '_libbulletjme.dylib')
+registerPlatformTasks('MacOSX_ARM64', '_libbulletjme.dylib')
+
+registerPlatformTasks('Windows32', '_bulletjme.dll')
+registerPlatformTasks('Windows64', '_bulletjme.dll')
+
+// helper method to register 'download' and 'clean' tasks:
+
+void registerPlatformTasks(String platform, String suffix) {
+    String filename = platform + btf + suffix
+
+    String cleanTaskName = 'clean' + platform
+    clean.dependsOn(cleanTaskName)
+    tasks.register(cleanTaskName, Delete) {
+        delete downloadsDir + filename
+    }
+
+    tasks.register('download' + platform, MyDownload) {
+        sourceUrl = libbulletjmeUrl + filename
+        target = file(downloadsDir + filename)
+    }
+}
+
+// helper class to wrap Ant download task:
+
+class MyDownload extends DefaultTask {
+    @Input
+    String sourceUrl
+
+    @OutputFile
+    File target
+
+    @TaskAction
+    void download() {
+        ant.get(src: sourceUrl, dest: target)
+        println sourceUrl
+    }
 }

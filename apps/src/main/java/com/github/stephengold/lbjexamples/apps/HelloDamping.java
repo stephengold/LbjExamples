@@ -30,6 +30,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
+import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.objects.AppObject;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -39,7 +40,6 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
-import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
 /**
@@ -71,13 +71,26 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
+     * Create the PhysicsSpace.
+     *
+     * @return a new instance
+     */
+    @Override
+    public PhysicsSpace initPhysicsSpace() {
+        PhysicsSpace result
+                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+
+        // For clarity, disable gravity.
+        result.setGravity(Vector3f.ZERO);
+
+        return result;
+    }
+
+    /**
      * Initialize this application.
      */
     @Override
     public void setupBodies() {
-        // For clarity, disable gravity.
-        space.setGravity(Vector3f.ZERO);
-
         // Create a CollisionShape for unit cubes.
         float cubeHalfExtent = 0.5f;
         CollisionShape cubeShape = new BoxCollisionShape(cubeHalfExtent);
@@ -117,15 +130,10 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
         // visualization
         for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
             AppObject cubeObject = new AppObject(cube[cubeIndex]);
-            cubeObject.setColor(new Vector4f(1f, 0f, 1f, 1f));
+            cubeObject.setColor(Constants.MAGENTA);
         }
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
-    }
-
-    @Override
-    public PhysicsSpace initPhysicsSpace() {
-        return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
     }
 }

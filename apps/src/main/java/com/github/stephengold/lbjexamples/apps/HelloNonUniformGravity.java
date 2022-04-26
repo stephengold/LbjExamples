@@ -32,6 +32,7 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.objects.Arrow;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -41,34 +42,29 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
+import jme3utilities.math.MyVector3f;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple example combining kinematic and dynamic rigid bodies.
- *
- * Builds upon HelloStaticBody.
+ * A simple example of non-uniform gravity.
+ * <p>
+ * Builds upon HelloRigidBody.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloKinematics
+public class HelloNonUniformGravity
         extends BasePhysicsApp<PhysicsSpace>
         implements PhysicsTickListener {
     // *************************************************************************
     // fields
 
-    /**
-     * physics-simulation time (in seconds, &ge;0)
-     */
-    private static float elapsedTime = 0f;
-    /**
-     * kinematic ball, orbiting the origin
-     */
-    private PhysicsRigidBody kineBall;
+    private static PhysicsRigidBody planet;
+    final private static Vector3f tmpVector = new Vector3f();
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the HelloKinematics application.
+     * Main entry point for the HelloNonUniformGravity application.
      *
      * @param ignored array of command-line arguments (not null)
      */
@@ -78,7 +74,7 @@ public class HelloKinematics
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        HelloKinematics application = new HelloKinematics();
+        HelloNonUniformGravity application = new HelloNonUniformGravity();
         application.start();
     }
     // *************************************************************************
@@ -94,8 +90,11 @@ public class HelloKinematics
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, add this application as a tick listener.
+        // To enable the callbacks, add this app as a tick listener.
         result.addTickListener(this);
+
+        // Reduce the time step for better accuracy.
+        result.setAccuracy(0.005f);
 
         return result;
     }
@@ -105,26 +104,29 @@ public class HelloKinematics
      */
     @Override
     public void setupBodies() {
-        // Create a CollisionShape for balls.
-        float ballRadius = 1f;
-        CollisionShape ballShape = new SphereCollisionShape(ballRadius);
+        // Create a CollisionShape for the planet.
+        float planetRadius = 0.1f;
+        CollisionShape planetShape = new SphereCollisionShape(planetRadius);
 
-        // Create a dynamic body and add it to the space.
-        float mass = 2f;
-        PhysicsRigidBody dynaBall = new PhysicsRigidBody(ballShape, mass);
-        space.addCollisionObject(dynaBall);
-        dynaBall.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
+        // Create a planet (dynamic rigid body) and add it to the space.
+        float planetMass = 1f; // physics mass unit = 10^25 kg
+        planet = new PhysicsRigidBody(planetShape, planetMass);
+        space.addCollisionObject(planet);
 
-        // Create a kinematic body and add it to the space.
-        kineBall = new PhysicsRigidBody(ballShape);
-        space.addCollisionObject(kineBall);
-        kineBall.setKinematic(true);
+        // Prevent deactivation of the planet.
+        planet.setEnableSleep(false);
+
+        // Kick the planet into orbit around the central black hole.
+        planet.setPhysicsLocation(new Vector3f(2f, 0f, 0f));
+        planet.applyCentralImpulse(new Vector3f(0f, -1f, 0f));
 
         // visualization
-        AppObject ball1Object = new AppObject(dynaBall);
-        ball1Object.setColor(Constants.MAGENTA);
-        AppObject ball2Object = new AppObject(kineBall);
-        ball2Object.setColor(Constants.BLUE);
+        AppObject planetObject = new AppObject(planet);
+        planetObject.setColor(Constants.MAGENTA);
+
+        new Arrow(0f, FastMath.HALF_PI, 0f, Constants.RED);    // +X axis
+        new Arrow(-FastMath.HALF_PI, 0f, 0f, Constants.GREEN); // +Y axis
+        new Arrow(0f, 0f, 0f, Constants.BLUE);                 // +Z axis
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
@@ -135,24 +137,19 @@ public class HelloKinematics
     /**
      * Callback from Bullet, invoked just before the simulation is stepped.
      *
-     * @param ignored the space that is about to be stepped (not null)
+     * @param space the space that is about to be stepped (not null)
      * @param timeStep the time per physics step (in seconds, &ge;0)
      */
     @Override
-    public void prePhysicsTick(PhysicsSpace ignored, float timeStep) {
+    public void prePhysicsTick(PhysicsSpace space, float timeStep) {
         /*
-         * Make the kinematic ball orbit the origin.
+         * Calculate the gravitational acceleration GM/r^2.
          */
-        float orbitalPeriod = 0.8f; // seconds
-        float phaseAngle = elapsedTime * 2f * FastMath.PI / orbitalPeriod;
-
-        float orbitRadius = 0.4f; // physics-space units
-        float x = orbitRadius * FastMath.sin(phaseAngle);
-        float y = orbitRadius * FastMath.cos(phaseAngle);
-        Vector3f location = new Vector3f(x, y, 0f);
-        kineBall.setPhysicsLocation(location);
-
-        elapsedTime += timeStep;
+        planet.getPhysicsLocation(tmpVector);
+        float r2 = tmpVector.lengthSquared(); //squared distance from black hole
+        MyVector3f.normalizeLocal(tmpVector);
+        tmpVector.multLocal(-3f / r2);
+        planet.setGravity(tmpVector);
     }
 
     /**

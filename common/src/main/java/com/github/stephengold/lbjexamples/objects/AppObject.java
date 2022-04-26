@@ -1,6 +1,5 @@
 package com.github.stephengold.lbjexamples.objects;
 
-import com.github.stephengold.lbjexamples.BaseApplication;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Utils;
 import com.jme3.bullet.objects.PhysicsRigidBody;
@@ -9,6 +8,7 @@ import com.jme3.math.Vector3f;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector4f;
+import org.joml.Vector4fc;
 
 public class AppObject {
 
@@ -31,6 +31,10 @@ public class AppObject {
 
     public AppObject(PhysicsRigidBody rigidBody) {
         this(rigidBody, new Mesh(rigidBody.getCollisionShape()));
+    }
+
+    public AppObject(float[] positions, int drawMode) {
+        this(new Mesh(positions, drawMode));
     }
 
     public Mesh getMesh() {
@@ -79,6 +83,9 @@ public class AppObject {
     }
 
     public void syncWithRender() {
+        if (rigidBody == null) {
+            return;
+        }
         position = rigidBody.getMotionState().getLocation(null);
         Quaternion physicsRotation = rigidBody.getMotionState().getOrientation(new Quaternion());
         Quaternionf quat = new Quaternionf(physicsRotation.getX(), physicsRotation.getY(), physicsRotation.getZ(), physicsRotation.getW());
@@ -92,6 +99,10 @@ public class AppObject {
 
     public void setColor(Vector4f color) {
         this.color = color;
+    }
+
+    public void setColor(Vector4fc color) {
+        this.color = new Vector4f(color);
     }
 
     public Matrix4f getTransformMatrix() {
