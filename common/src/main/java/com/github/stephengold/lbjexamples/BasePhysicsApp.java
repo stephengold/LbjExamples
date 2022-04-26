@@ -18,7 +18,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
     private float physicsSpeed = 1.0f;
     public static final List<AppObject> APP_OBJECTS = new ArrayList<>();
 
-
     @Override
     public void initApp() {
 
@@ -49,7 +48,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         baseShader.use();
         Matrix4f projectionMatrix = new Matrix4f();
         projectionMatrix.setPerspective((float) Math.toRadians(Camera.ZOOM),
-                (float) (WIDTH / HEIGHT), Z_NEAR, Z_FAR);
+                (float) WIDTH / (float) HEIGHT, Z_NEAR, Z_FAR);
         baseShader.setUniform("projectionMatrix", projectionMatrix);
         baseShader.setUniform("viewMatrix", camera.getViewMatrix());
         baseShader.unbind();
