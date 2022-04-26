@@ -25,7 +25,6 @@ import static org.lwjgl.glfw.GLFW.*;
 public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
 
     public AppObject planeObject;
-    public List<AppObject> cubes = new ArrayList<>();
 
     public static void main(String[] args) {
         if (System.getProperty("os.name").startsWith("Mac")) {
@@ -59,7 +58,6 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                     cubeObject.setColor(new Vector4f(r, g, b, 1));
                     cubeObject.syncWithPhysics();
                     space.addCollisionObject(box);
-                    cubes.add(cubeObject);
                 }
             }
         }
@@ -80,7 +78,6 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
             object.getRigidBody().setLinearVelocity(new Vector3f(camera.getFront()).multLocal(30));
             object.syncWithPhysics();
             space.addCollisionObject(object.getRigidBody());
-            cubes.add(object);
         }
     }
 

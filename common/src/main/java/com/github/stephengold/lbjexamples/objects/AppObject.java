@@ -30,8 +30,7 @@ public class AppObject {
     }
 
     public AppObject(PhysicsRigidBody rigidBody) {
-        this(new Mesh(rigidBody.getCollisionShape()));
-        this.rigidBody = rigidBody;
+        this(rigidBody, new Mesh(rigidBody.getCollisionShape()));
     }
 
     public Mesh getMesh() {
