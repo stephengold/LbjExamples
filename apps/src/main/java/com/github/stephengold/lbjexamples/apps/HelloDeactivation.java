@@ -36,6 +36,7 @@ import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsBody;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.FastMath;
@@ -100,29 +101,34 @@ public class HelloDeactivation
      */
     @Override
     public void setupBodies() {
-        // Create a CollisionShape for unit cubes.
-        float cubeHalfExtent = 0.5f;
-        CollisionShape cubeShape = new BoxCollisionShape(cubeHalfExtent);
-
-        // Create a dynamic body and add it to the space.
-        float cubeMass = 1f;
-        dynamicCube = new PhysicsRigidBody(cubeShape, cubeMass);
+        // Create a dynamic cube and add it to the space.
+        float boxHalfExtent = 0.5f;
+        CollisionShape smallCubeShape = new BoxCollisionShape(boxHalfExtent);
+        float boxMass = 1f;
+        dynamicCube = new PhysicsRigidBody(smallCubeShape, boxMass);
         physicsSpace.addCollisionObject(dynamicCube);
         dynamicCube.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
 
-        // Create 2 static cubes and add them to the space.
-        // The bottom cube serves as a visual reference point.
-        supportCube = new PhysicsRigidBody(cubeShape, PhysicsBody.massForStatic);
+        // Create 2 static bodies and add them to the space...
+        // The top body serves as a temporary support.
+        float cubeHalfExtent = 1f;
+        CollisionShape largeCubeShape = new BoxCollisionShape(cubeHalfExtent);
+        supportCube = new PhysicsRigidBody(
+                largeCubeShape, PhysicsBody.massForStatic);
         physicsSpace.addCollisionObject(supportCube);
-        PhysicsRigidBody bottomCube = new PhysicsRigidBody(
-                cubeShape, PhysicsBody.massForStatic);
-        bottomCube.setPhysicsLocation(new Vector3f(0f, -2f, 0f));
-        physicsSpace.addCollisionObject(bottomCube);
+
+        // The bottom body serves as a visual reference point.
+        float ballRadius = 0.5f;
+        CollisionShape ballShape = new SphereCollisionShape(ballRadius);
+        PhysicsRigidBody bottomBody = new PhysicsRigidBody(
+                ballShape, PhysicsBody.massForStatic);
+        bottomBody.setPhysicsLocation(new Vector3f(0f, -2f, 0f));
+        physicsSpace.addCollisionObject(bottomBody);
 
         // visualization
         new AppObject(dynamicCube).setColor(Constants.MAGENTA);
         new AppObject(supportCube).setColor(Constants.BLUE);
-        new AppObject(bottomCube).setColor(Constants.BLUE);
+        new AppObject(bottomBody).setColor(Constants.BLUE);
 
         camera.setPosition(new Vector3f(0f, 0f, 10f));
         camera.setYaw(-FastMath.HALF_PI);
