@@ -68,7 +68,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
             baseShader.unbind();
         });
 
-        APP_OBJECTS.removeAll(OBJECTS_TO_REMOVE);
+        OBJECTS_TO_REMOVE.forEach(AppObject::destroy);
     }
 
     @Override

@@ -105,6 +105,17 @@ public class AppObject {
         this.color = new Vector4f(color);
     }
 
+    public void removeFromWorld() {
+        if (rigidBody != null) {
+            rigidBody.getCollisionSpace().remove(rigidBody);
+        }
+    }
+
+    public void destroy(){
+        BasePhysicsApp.APP_OBJECTS.remove(this);
+        mesh.cleanUp();
+    }
+
     public Matrix4f getTransformMatrix() {
         Matrix4f modelMatrix = new Matrix4f();
         modelMatrix.identity().translate(Utils.toLwjglVector(position)).
