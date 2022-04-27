@@ -52,11 +52,11 @@ Here's the recommended procedure:
 
 After a successful build,
 Maven artifacts and native libraries will be found
-in the "dist" directory/folder.
+in the "dist" directory.
 
 === Install artifacts
 
-You can install the artifacts to your local Maven repository:
+You can install the built artifacts to your local Maven repository:
 
 * using Bash or PowerShell or Zsh: `./gradlew install`
 * using Windows Command Prompt: `.\gradlew install`
