@@ -131,6 +131,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         new AppObject(mallet).setColor(Constants.MAGENTA);
         new AppObject(disc).setColor(Constants.BLUE);
 
+        // Re-position the camera for a better view.
         camera.setPosition(new Vector3f(10f, -2.75f, 0f));
         camera.setPitch(0.05f);
         camera.setYaw(-3.05f);

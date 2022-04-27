@@ -154,7 +154,7 @@ public class HelloDeactivation
     public void physicsTick(PhysicsSpace space, float timeStep) {
         /*
          * Once the dynamic cube gets deactivated,
-         * remove the supporting cube from the PhysicsSpace.
+         * remove the support cube from the PhysicsSpace.
          */
         if (!dynamicCube.isActive() && space.contains(supportCube)) {
             space.removeCollisionObject(supportCube);

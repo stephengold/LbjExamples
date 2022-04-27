@@ -123,6 +123,7 @@ public class HelloNonUniformGravity
         // visualization
         new AppObject(planet).setColor(Constants.MAGENTA);
 
+        // Add axes to indicate the black hole's location.
         new Arrow(0f, FastMath.HALF_PI, 0f, Constants.RED);    // +X axis
         new Arrow(-FastMath.HALF_PI, 0f, 0f, Constants.GREEN); // +Y axis
         new Arrow(0f, 0f, 0f, Constants.BLUE);                 // +Z axis
