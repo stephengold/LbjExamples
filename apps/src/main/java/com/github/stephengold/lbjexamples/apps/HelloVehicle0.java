@@ -47,7 +47,7 @@ import java.io.File;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloVehicle {
+public class HelloVehicle0 {
 
     public static void main(String[] args) {
         /*
