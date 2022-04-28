@@ -1,6 +1,7 @@
 = How to build Libbulletjme from source
+:Project: Libbulletjme
 
-Libbulletjme is open-source software.
+{Project} is open-source software.
 
 While pre-built artifacts (including JARs and native libraries)
 can be downloaded from GitHub and the Maven Central Repository,
@@ -25,10 +26,10 @@ Here's the recommended procedure:
   (The path might be something like "C:\Program Files\Java\jre1.8.0_301"
   or "/usr/lib/jvm/java-8-openjdk-amd64/" or
   "/Library/Java/JavaVirtualMachines/liberica-jdk-17-full.jdk/Contents/Home" .)
-.. using Bash or Zsh:  `export JAVA_HOME="` *path to installation* `"`
-.. using Windows Command Prompt:  `set JAVA_HOME="` *path to installation* `"`
+.. using Bash or Zsh: `export JAVA_HOME="` *path to installation* `"`
+.. using Windows Command Prompt: `set JAVA_HOME="` *path to installation* `"`
 .. using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
-. Download and extract the Libbulletjme source code from GitHub:
+. Download and extract the {Project} source code from GitHub:
 .. using Git:
 ... `git clone https://github.com/stephengold/Libbulletjme.git`
 ... `cd Libbulletjme`
@@ -38,10 +39,10 @@ Here's the recommended procedure:
 ... follow the "Source code (zip)" link
 ... save the ZIP file
 ... extract the contents of the saved ZIP file
-... `cd` to the extracted directory/folder
+... `cd` to the extracted directory
 . Run the Gradle wrapper on the desktop build script:
-.. using Bash or PowerShell or Zsh:  `./gradlew build`
-.. using Windows Command Prompt:  `.\gradlew build`
+.. using Bash or PowerShell or Zsh: `./gradlew build`
+.. using Windows Command Prompt: `.\gradlew build`
 . Building Android native libraries requires additional software:
 .. the Android SDK Tools
 .. the Android SDK Patch Applier (patcher)
@@ -80,4 +81,4 @@ After a build, you can restore the project to a pristine state:
 .. `npx antora docs/playbook.yml`
 
 After a successful build,
-the local version of the site will be found in the "docs/build/site" directory.
+the local copy of the site will be found in the "docs/build/site" directory.
