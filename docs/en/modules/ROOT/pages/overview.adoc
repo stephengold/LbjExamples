@@ -1,7 +1,8 @@
 = Project overview
+:Project: Libbulletjme
 :url-enwiki: https://en.wikipedia.org/wiki
 
-_Libbulletjme_ is a 3-D {url-enwiki}/Physics_engine[physics simulation] library
+_{Project}_ is a 3-D {url-enwiki}/Physics_engine[physics simulation] library
 for {url-enwiki}/Java_(programming_language)[Java].
 
 Use it to:
@@ -14,14 +15,14 @@ Use it to:
 
 Tutorials and example apps are provided to help you get started.
 
-All software in the Libbulletjme project is free and open-source,
+All software in the {Project} project is free and open-source,
 including the Java library, the native libraries, the demo and tutorial apps,
 and the software used to build, test, and run them.
 
 The underlying simulation software comes from
 https://pybullet.org/wordpress[_Bullet_], a mature real-time physics simulator.
 But although Bullet is written in {url-enwiki}/C%2B%2B[C&#43;&#43;],
-you won't need any knowledge of C&#43;&#43; to use Libbulletjme.
+you won't need any knowledge of C&#43;&#43; to use {Project}.
 
 Libbulletjme also incorporates source code from
 https://github.com/kmammou/v-hacd[the V-HACD project] and 
@@ -29,14 +30,14 @@ https://github.com/Simsilica/SimMath[the SimMath library].
 
 == Caveats
 
-Libbulletjme's focus is on simulating
+{Project}'s focus is on simulating
 {url-enwiki}/Classical_mechanics[classical mechanics]
 in just enough detail to add verisimilitude to 3-D games.
 It's not intended for 2-D physics simulations,
 nor for scientific research.
 For 2-D physics, consider using http://www.dyn4j.org/[dyn4j] instead.
 
-Libbulletjme and its documentation
+{Project} and its documentation
 assume a certain level of proficiency with
 the Java programming language.
 This project isn't aimed at non-programmers,
@@ -64,7 +65,7 @@ on https://stephengold.github.io/[my homepage] and in the source code.
 
 == Next steps
 
-If you're curious how Libbulletjme works,
+If you're curious how {Project} works,
 proceed to xref:implementation.adoc[the Implementation page].
 
 To gain hands-on experience,
