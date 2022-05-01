@@ -1,0 +1,151 @@
+= How to add Libbulletjme to an existing project
+:Project: Libbulletjme
+:experimental:
+:page-pagination:
+:url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
+
+Adding {Project} to an existing Java project is a 6-step process:
+
+. Add the Java library to the classpath.
+. Download an appropriate native library.
+. Load the native library.
+. Create and configure a {url-api}/PhysicsSpace.html[`PhysicsSpace`].
+. Create collision objects
+  and joints and add them to the physics space.
+. Test and tune as necessary.
+
+== Add the Java library to the classpath
+
+=== Gradle-built projects
+
+Add to the project's "build.gradle" file:
+
+[source,groovy]
+----
+repositories {
+    mavenCentral()
+}
+dependencies {
+    implementation 'com.github.stephengold:Libbulletjme:14.3.0'
+}
+----
+
+For some older versions of Gradle,
+it's necessary to replace `implementation` with `compile`.
+
+=== Maven-built projects
+
+Add to the project's "pom.xml" file:
+
+[source,xml]
+----
+<repositories>
+    <repository>
+      <id>mvnrepository</id>
+      <url>https://repo1.maven.org/maven2/</url>
+    </repository>
+</repositories>
+
+<dependency>
+  <groupId>com.github.stephengold</groupId>
+  <artifactId>Libbulletjme</artifactId>
+  <version>14.3.0</version>
+</dependency>
+----
+
+=== Ant-built projects
+
+Download the {Project} library from GitHub:
+
+* https://github.com/stephengold/Libbulletjme/releases/latest
+
+You'll want the class JAR ("Libbulletjme-14.3.0.jar")
+and probably the "-sources" and "-javadoc" JARs as well.
+
+Open the project's properties in the IDE (JME SDK or NetBeans):
+
+. Right-click on the project (not its assets) in the "Projects" window.
+. Select menu:Properties[] to open the "Project Properties" dialog.
+. Under "Categories:", click on btn:[Libraries].
+. Click on the btn:[Compile] tab.
+. Add the Heart class JAR:
+.. Click on the btn:[Add JAR/Folder] button.
+.. Navigate to the download directory.
+.. Select the "Libbulletjme-14.3.0" file.
+.. Click on the btn:[Open] button.
+. (optional) Add JARs for javadoc and sources:
+.. Click on the btn:[Edit] button.
+.. Click on the btn:[Browse...] button to the right of "Javadoc:"
+.. Select the "Libbulletjme-14.3.0-javadoc.jar" file.
+.. Click on the btn:[Open] button.
+.. Click on the btn:[Browse...] button to the right of "Sources:"
+.. Select the "Libbulletjme-14.3.0-sources.jar" file.
+.. Click on the btn:[Open] button button again.
+.. Click on the btn:[OK] button to close the "Edit Jar Reference" dialog.
+. Click on the btn:[OK] button to exit the "Project Properties" dialog.
+
+== Download an appropriate native library
+
+Pre-build native libraries can be downloaded from GitHub:
+
+* https://github.com/stephengold/Libbulletjme/releases/latest
+
+You don't need all 56 native libraries.
+Start with the "DebugSp" library for your development environment,
+for instance:
+
+* "Linux64DebugSp_libbulletjme.so" for Linux on x86_64
+* "Windows64DebugSp_libbulletjme.so" for 64-bit Windows
+
+== Load the native library
+
+Load Libbulletjme's native library before instantiating any physics objects:
+
+[source,java]
+----
+import com.jme3.system.NativeLibraryLoader;
+NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Debug", "Sp");
+----
+
+== Create and configure the PhysicsSpace
+
+There are many constructors and options.
+Here's the simplest way:
+
+[source,java]
+----
+import com.jme3.bullet.PhysicsSpace;
+PhysicsSpace space = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+----
+
+== Create collision objects
+
+Collision objects come in several different types:
+
+* bodies (`PhysicsBody`)
+** soft bodies (`PhysicsSoftBody`)
+** rigid bodies (`PhysicsRigidBody`)
+*** vehicles (`PhysicsVehicle`)
+* ghost objects (`PhysicsGhostObject`)
+* characters (`PhysicsCharacter`)
+* colliders (`MultiBodyCollider`)
+
+Here's a code fragment that creates 2 objects, a ghost object and a rigid body
+that share a common shape:
+
+[source,java]
+----
+float radius = 2f;
+CollisionShape sphere2 = new SphereCollisionShape(radius);
+PhysicsGhostObject ghost1 = new PhysicsGhostObject(sphere2);
+float mass = 1f;
+PhysicsRigidBody body1 = new PhysicsRigidBody(sphere2, mass);
+----
+
+Collision objects
+aren't simulated unless they're added to a space.
+
+== Summary
+
+* Two libraries are required: a Java library and a native library.
+* Collision objects aren't simulated unless they're added to a space.
