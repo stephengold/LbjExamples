@@ -27,38 +27,19 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples.objects;
+package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.lbjexamples.ArrowMesh;
 import com.github.stephengold.lbjexamples.Geometry;
 import com.jme3.math.Vector3f;
-import org.joml.Vector4f;
 import org.joml.Vector4fc;
-import org.lwjgl.opengl.GL11;
 
 /**
- * A Geometry to render a crude arrow in GL_LINES mode.
+ * A Geometry to render a crude arrow.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class Arrow extends Geometry {
-    // *************************************************************************
-    // constants
-
-    /**
-     * vertex positions
-     */
-    final private static float[] positions = new float[]{
-        0f, 0f, 0f, // tail
-        0f, 0f, 1f, // tip
-        0.05f, 0f, 0.9f, // +X vane
-        0f, 0f, 1f, // tip
-        -0.05f, 0f, 0.9f, // -X vane
-        0f, 0f, 1f, // tip
-        0f, 0.05f, 0.9f, // +Y vane
-        0f, 0f, 1f, // tip
-        0f, -0.05f, 0.9f, // -Y vane
-        0f, 0f, 1f // tip
-    };
+public class ArrowGeometry extends Geometry {
     // *************************************************************************
     // constructors
 
@@ -71,13 +52,11 @@ public class Arrow extends Geometry {
      * @param rotZ the Z-axis rotation (in radians)
      * @param color the desired color (not null)
      */
-    public Arrow(float rotX, float rotY, float rotZ, Vector4fc color) {
-        super(positions, GL11.GL_LINES);
+    public ArrowGeometry(float rotX, float rotY, float rotZ, Vector4fc color) {
+        super(new ArrowMesh());
 
+        super.setColor(color);
         Vector3f rotation = new Vector3f(rotX, rotY, rotZ);
         super.setRotation(rotation);
-
-        Vector4f colorClone = new Vector4f(color);
-        super.setColor(colorClone);
     }
 }

@@ -29,10 +29,10 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
+import com.github.stephengold.lbjexamples.ArrowGeometry;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
-import com.github.stephengold.lbjexamples.objects.Arrow;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -135,9 +135,9 @@ public class HelloNonUniformGravity
         new RigidBodyShapeGeometry(planet).setColor(Constants.MAGENTA);
 
         // Add axes to indicate the black hole's location.
-        new Arrow(0f, FastMath.HALF_PI, 0f, Constants.RED);    // +X axis
-        new Arrow(-FastMath.HALF_PI, 0f, 0f, Constants.GREEN); // +Y axis
-        new Arrow(0f, 0f, 0f, Constants.BLUE);                 // +Z axis
+        new ArrowGeometry(0f, FastMath.HALF_PI, 0f, Constants.RED);    // +X axis
+        new ArrowGeometry(-FastMath.HALF_PI, 0f, 0f, Constants.GREEN); // +Y axis
+        new ArrowGeometry(0f, 0f, 0f, Constants.BLUE);                 // +Z axis
     }
     // *************************************************************************
     // PhysicsTickListener methods
