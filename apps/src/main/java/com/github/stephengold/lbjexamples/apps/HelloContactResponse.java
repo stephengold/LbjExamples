@@ -31,7 +31,7 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -131,8 +131,8 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         ball.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
 
         // visualization
-        new AppObject(ball).setColor(Constants.MAGENTA);
-        new AppObject(box).setColor(Constants.BLUE);
+        new RigidBodyShapeGeometry(ball).setColor(Constants.MAGENTA);
+        new RigidBodyShapeGeometry(box).setColor(Constants.BLUE);
     }
 
     /**

@@ -31,7 +31,7 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -132,8 +132,8 @@ public class HelloKinematics
         kineBall.setKinematic(true);
 
         // visualization
-        new AppObject(dynaBall).setColor(Constants.MAGENTA);
-        new AppObject(kineBall).setColor(Constants.BLUE);
+        new RigidBodyShapeGeometry(dynaBall).setColor(Constants.MAGENTA);
+        new RigidBodyShapeGeometry(kineBall).setColor(Constants.BLUE);
     }
     // *************************************************************************
     // PhysicsTickListener methods

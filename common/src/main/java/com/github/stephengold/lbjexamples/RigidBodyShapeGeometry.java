@@ -1,6 +1,6 @@
-package com.github.stephengold.lbjexamples.objects;
+package com.github.stephengold.lbjexamples;
 
-import com.github.stephengold.lbjexamples.Geometry;
+import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
@@ -9,7 +9,7 @@ import com.jme3.bullet.objects.infos.RigidBodyMotionState;
 /**
  * Visualize a rigid body based on its collision shape.
  */
-public class AppObject extends Geometry {
+public class RigidBodyShapeGeometry extends Geometry {
     // *************************************************************************
     // fields
 
@@ -25,7 +25,7 @@ public class AppObject extends Geometry {
      *
      * @param rigidBody the body to be visualized (not null, alias created)
      */
-    public AppObject(PhysicsRigidBody rigidBody) {
+    public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody) {
         super();
 
         CollisionShape shape = rigidBody.getCollisionShape();

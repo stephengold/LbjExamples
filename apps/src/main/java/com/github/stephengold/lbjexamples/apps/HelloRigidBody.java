@@ -31,7 +31,7 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
@@ -124,7 +124,7 @@ public class HelloRigidBody extends BasePhysicsApp<PhysicsSpace> {
         ball2.applyCentralImpulse(new Vector3f(-25f, 0f, 0f));
 
         // visualization
-        new AppObject(ball1).setColor(Constants.MAGENTA);
-        new AppObject(ball2).setColor(Constants.MAGENTA);
+        new RigidBodyShapeGeometry(ball1).setColor(Constants.MAGENTA);
+        new RigidBodyShapeGeometry(ball2).setColor(Constants.MAGENTA);
     }
 }

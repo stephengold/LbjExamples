@@ -31,7 +31,7 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -139,7 +139,8 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
 
         // visualization
         for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
-            new AppObject(cube[cubeIndex]).setColor(Constants.MAGENTA);
+            new RigidBodyShapeGeometry(cube[cubeIndex])
+                    .setColor(Constants.MAGENTA);
         }
     }
 }

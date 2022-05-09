@@ -30,7 +30,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.joints.Point2PointJoint;
@@ -198,7 +198,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
         result.setRestitution(1f);
         physicsSpace.addCollisionObject(result);
 
-        new AppObject(result).setColor(BALL_COLOR);
+        new RigidBodyShapeGeometry(result).setColor(BALL_COLOR);
 
         float wireLength = 80f;
         float yOffset = wireLength * ROOT_HALF;

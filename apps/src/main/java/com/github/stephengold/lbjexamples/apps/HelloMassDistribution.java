@@ -31,7 +31,7 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
@@ -160,8 +160,8 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         disc.setPhysicsLocation(new Vector3f(0f, -3f, 0f));
 
         // Customize the debug visualization of each object.
-        new AppObject(mallet).setColor(Constants.MAGENTA);
-        new AppObject(disc).setColor(Constants.BLUE);
+        new RigidBodyShapeGeometry(mallet).setColor(Constants.MAGENTA);
+        new RigidBodyShapeGeometry(disc).setColor(Constants.BLUE);
 
         // Re-position the camera for a better view.
         camera.setPosition(new Vector3f(10f, -2.75f, 0f));

@@ -31,7 +31,7 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -136,9 +136,9 @@ public class HelloDeactivation
         physicsSpace.addCollisionObject(bottomBody);
 
         // visualization
-        new AppObject(dynamicCube).setColor(Constants.MAGENTA);
-        new AppObject(supportCube).setColor(Constants.BLUE);
-        new AppObject(bottomBody).setColor(Constants.BLUE);
+        new RigidBodyShapeGeometry(dynamicCube).setColor(Constants.MAGENTA);
+        new RigidBodyShapeGeometry(supportCube).setColor(Constants.BLUE);
+        new RigidBodyShapeGeometry(bottomBody).setColor(Constants.BLUE);
     }
     // *************************************************************************
     // PhysicsTickListener methods

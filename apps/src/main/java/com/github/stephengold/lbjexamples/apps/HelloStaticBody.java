@@ -31,7 +31,7 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
@@ -117,7 +117,7 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
         statBall.setPhysicsLocation(new Vector3f(0.1f, 0f, 0f));
 
         // Customize the debug visualization of each object.
-        new AppObject(dynaBall).setColor(Constants.MAGENTA);
-        new AppObject(statBall).setColor(Constants.BLUE);
+        new RigidBodyShapeGeometry(dynaBall).setColor(Constants.MAGENTA);
+        new RigidBodyShapeGeometry(statBall).setColor(Constants.BLUE);
     }
 }

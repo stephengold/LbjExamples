@@ -31,7 +31,7 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.objects.Arrow;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
@@ -132,7 +132,7 @@ public class HelloNonUniformGravity
         planet.applyCentralImpulse(new Vector3f(0f, -1f, 0f));
 
         // visualization
-        new AppObject(planet).setColor(Constants.MAGENTA);
+        new RigidBodyShapeGeometry(planet).setColor(Constants.MAGENTA);
 
         // Add axes to indicate the black hole's location.
         new Arrow(0f, FastMath.HALF_PI, 0f, Constants.RED);    // +X axis

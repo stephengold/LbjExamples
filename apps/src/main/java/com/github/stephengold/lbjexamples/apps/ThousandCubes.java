@@ -1,7 +1,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.objects.AppObject;
+import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -30,7 +30,6 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
 
     // *************************************************************************
     // new methods exposed
-
     public static void main(String[] args) {
         Platform platform = JmeSystem.getPlatform();
         if (platform.getOs() == Platform.Os.MacOS) {
@@ -70,7 +69,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     public void setupBodies() {
         CollisionShape planeShape = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1));
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
-        AppObject planeObject = new AppObject(floor);
+        RigidBodyShapeGeometry planeObject = new RigidBodyShapeGeometry(floor);
         planeObject.setColor(new Vector4f(0.3f, 0.3f, 0.3f, 1));
         physicsSpace.addCollisionObject(floor);
 
@@ -89,7 +88,8 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                     float r = random.nextFloat();
                     float g = random.nextFloat();
                     float b = random.nextFloat();
-                    new AppObject(box).setColor(new Vector4f(r, g, b, 1));
+                    new RigidBodyShapeGeometry(box)
+                            .setColor(new Vector4f(r, g, b, 1));
                 }
             }
         }
@@ -115,7 +115,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
             missile.setPhysicsLocation(camera.getPosition());
             physicsSpace.addCollisionObject(missile);
 
-            new AppObject(missile);
+            new RigidBodyShapeGeometry(missile);
         }
     }
 }
