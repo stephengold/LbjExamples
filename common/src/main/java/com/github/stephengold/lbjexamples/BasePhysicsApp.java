@@ -15,8 +15,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
     public ShaderProgram baseShader;
     public T physicsSpace;
     private PhysicsThread physicsThread;
-    private float physicsSpeed = 1.0f;
     public static final List<AppObject> APP_OBJECTS = new ArrayList<>();
+    private Long lastNanosecond;
 
     @Override
     public void initApp() {
@@ -46,7 +46,14 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
 
     @Override
     public void render() {
-        physicsSpace.update(0.02f * physicsSpeed, 0);
+        long nanosecond = System.nanoTime();
+        if (lastNanosecond != null) { // not the first invocation of render()
+            long intervalNanoseconds = nanosecond - lastNanosecond;
+            float intervalSeconds = 1e-9f * intervalNanoseconds;
+            advancePhysics(intervalSeconds);
+        }
+        lastNanosecond = nanosecond;
+
         baseShader.use();
         Matrix4f projectionMatrix = new Matrix4f();
         projectionMatrix.setPerspective((float) Math.toRadians(Camera.ZOOM),
@@ -79,13 +86,13 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         //physicsThread.stop();
     }
 
-    public float getPhysicsSpeed() {
-        return physicsSpeed;
-    }
-
-    public void setPhysicsSpeed(float physicsSpeed) {
-        this.physicsSpeed = physicsSpeed;
-    }
+    /**
+     * Advance the physics simulation by the specified amount.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code advancePhysics} (in seconds, &ge;0)
+     */
+    public abstract void advancePhysics(float intervalSeconds);
 
     public abstract void setupBodies();
 

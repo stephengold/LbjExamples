@@ -85,6 +85,17 @@ public class HelloKinematics
     // BasePhysicsApp methods
 
     /**
+     * Advance the physics simulation by the specified amount.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code advancePhysics} (in seconds, &ge;0)
+     */
+    @Override
+    public void advancePhysics(float intervalSeconds) {
+        physicsSpace.update(intervalSeconds);
+    }
+
+    /**
      * Create the PhysicsSpace.
      *
      * @return a new instance

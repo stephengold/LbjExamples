@@ -70,6 +70,13 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     final private static Vector4fc BALL_COLOR
             = new Vector4f(0.01f, 0.01f, 0.01f, 1f);
     // *************************************************************************
+    // fields
+
+    /**
+     * simulation speed (simulated seconds per wall-clock second)
+     */
+    private static float physicsSpeed = 1f;
+    // *************************************************************************
     // new methods exposed
 
     /**
@@ -88,6 +95,18 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     }
     // *************************************************************************
     // BasePhysicsApp methods
+
+    /**
+     * Advance the physics simulation by the specified amount.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code advancePhysics} (in seconds, &ge;0)
+     */
+    @Override
+    public void advancePhysics(float intervalSeconds) {
+        float simSeconds = physicsSpeed * intervalSeconds;
+        physicsSpace.update(simSeconds);
+    }
 
     /**
      * Create the PhysicsSpace.
@@ -215,7 +234,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
      */
     private void restartSimulation(int numBalls) {
         physicsSpace.destroy();
-        setPhysicsSpeed(PAUSED_SPEED);
+        physicsSpeed = PAUSED_SPEED;
 
         float xSeparation = 20f;
 
@@ -234,11 +253,10 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     }
 
     private void togglePause() {
-        float speed = getPhysicsSpeed();
-        if (speed <= PAUSED_SPEED) {
-            setPhysicsSpeed(1f);
+        if (physicsSpeed <= PAUSED_SPEED) {
+            physicsSpeed = 1f;
         } else {
-            setPhysicsSpeed(PAUSED_SPEED);
+            physicsSpeed = PAUSED_SPEED;
         }
     }
 }
