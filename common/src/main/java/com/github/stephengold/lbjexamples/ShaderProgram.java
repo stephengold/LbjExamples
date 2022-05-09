@@ -1,8 +1,8 @@
 package com.github.stephengold.lbjexamples;
 
-import org.joml.Matrix4f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
+import org.joml.Matrix4fc;
+import org.joml.Vector3fc;
+import org.joml.Vector4fc;
 import org.lwjgl.system.MemoryStack;
 
 import static org.lwjgl.opengl.GL20.*;
@@ -55,20 +55,20 @@ public class ShaderProgram {
         return shaderId;
     }
 
-    public void setUniform(String uniformName, Matrix4f value) {
+    public void setUniform(String uniformName, Matrix4fc value) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             glUniformMatrix4fv(glGetUniformLocation(programId, uniformName), false,
                     value.get(stack.mallocFloat(16)));
         }
     }
 
-    public void setUniform(String uniformName, Vector3f value) {
+    public void setUniform(String uniformName, Vector3fc value) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             glUniform3fv(glGetUniformLocation(programId, uniformName), value.get(stack.mallocFloat(3)));
         }
     }
 
-    public void setUniform(String uniformName, Vector4f value) {
+    public void setUniform(String uniformName, Vector4fc value) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             glUniform4fv(glGetUniformLocation(programId, uniformName), value.get(stack.mallocFloat(4)));
         }
