@@ -29,17 +29,18 @@
  */
 package com.github.stephengold.lbjexamples.objects;
 
+import com.github.stephengold.lbjexamples.Geometry;
 import com.jme3.math.Vector3f;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL11;
 
 /**
- * An AppObject to render a crude arrow in GL_LINES mode.
+ * A Geometry to render a crude arrow in GL_LINES mode.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class Arrow extends AppObject {
+public class Arrow extends Geometry {
     // *************************************************************************
     // constants
 

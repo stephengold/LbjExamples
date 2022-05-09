@@ -1,6 +1,5 @@
 package com.github.stephengold.lbjexamples;
 
-import com.github.stephengold.lbjexamples.objects.AppObject;
 import com.github.stephengold.lbjexamples.objects.Camera;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.system.NativeLibraryLoader;
@@ -15,7 +14,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
     public ShaderProgram baseShader;
     public T physicsSpace;
     private PhysicsThread physicsThread;
-    public static final List<AppObject> APP_OBJECTS = new ArrayList<>();
+    public static final List<Geometry> GEOMETRIES = new ArrayList<>();
     private Long lastNanosecond;
 
     @Override
@@ -42,7 +41,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         //physicsThread.start();
     }
 
-    private static final List<AppObject> OBJECTS_TO_REMOVE = new ArrayList<>();
+    private static final List<Geometry> OBJECTS_TO_REMOVE = new ArrayList<>();
 
     @Override
     public void render() {
@@ -62,27 +61,27 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         baseShader.setUniform("viewMatrix", camera.getViewMatrix());
         baseShader.unbind();
 
-        APP_OBJECTS.forEach(appObject -> {
-            if (appObject.getRigidBody() != null && !physicsSpace.contains(appObject.getRigidBody())) {
-                OBJECTS_TO_REMOVE.add(appObject);
+        GEOMETRIES.forEach(geometry -> {
+            if (geometry.wasRemovedFrom(physicsSpace)) {
+                OBJECTS_TO_REMOVE.add(geometry);
                 return;
             }
-            appObject.syncWithRender();
+            geometry.update();
             baseShader.use();
-            baseShader.setUniform("modelMatrix", appObject.getTransformMatrix());
-            baseShader.setUniform("color", appObject.getColor());
-            appObject.getMesh().render();
+            baseShader.setUniform("modelMatrix", geometry);
+            baseShader.setUniform("color", geometry.getColor());
+            geometry.getMesh().render();
             baseShader.unbind();
         });
 
-        OBJECTS_TO_REMOVE.forEach(AppObject::destroy);
+        OBJECTS_TO_REMOVE.forEach(Geometry::destroy);
         OBJECTS_TO_REMOVE.clear();
     }
 
     @Override
     public void cleanUp() {
         baseShader.cleanup();
-        APP_OBJECTS.forEach(appObject -> appObject.getMesh().cleanUp());
+        GEOMETRIES.forEach(appObject -> appObject.getMesh().cleanUp());
         //physicsThread.stop();
     }
 

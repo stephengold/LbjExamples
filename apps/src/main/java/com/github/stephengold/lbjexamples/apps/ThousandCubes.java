@@ -8,7 +8,6 @@ import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
-import com.jme3.math.FastMath;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
@@ -78,19 +77,19 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         BoxCollisionShape boxShape = new BoxCollisionShape(0.5f);
         cubeMesh = new Mesh(boxShape);
         Random random = new Random();
+        Vector3f location = new Vector3f();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 for (int k = 0; k < 10; k++) {
                     PhysicsRigidBody box = new PhysicsRigidBody(boxShape, 10);
-                    AppObject cubeObject = new AppObject(box, cubeMesh);
-                    cubeObject.setPosition(new Vector3f((i * 2), (j * 2), (k * 2) - 2.5f));
+                    location.set(2f * i, 2f * j, 2f * k - 2.5f);
+                    box.setPhysicsLocation(location);
+                    physicsSpace.addCollisionObject(box);
+
                     float r = random.nextFloat();
                     float g = random.nextFloat();
                     float b = random.nextFloat();
-
-                    cubeObject.setColor(new Vector4f(r, g, b, 1));
-                    cubeObject.syncWithPhysics();
-                    physicsSpace.addCollisionObject(box);
+                    new AppObject(box).setColor(new Vector4f(r, g, b, 1));
                 }
             }
         }
@@ -102,12 +101,21 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     @Override
     public void updateKeyboard(long window, int key, int action) {
         if (key == GLFW_KEY_E && action == GLFW_PRESS) {
-            BoxCollisionShape boxShape = new BoxCollisionShape(0.5f);
-            AppObject object = new AppObject(new PhysicsRigidBody(boxShape, 10), cubeMesh);
-            object.setPosition(camera.getPosition());
-            object.getRigidBody().setLinearVelocity(new Vector3f(camera.getFront()).multLocal(30));
-            object.syncWithPhysics();
-            physicsSpace.addCollisionObject(object.getRigidBody());
+            float radius = 0.5f;
+            BoxCollisionShape boxShape = new BoxCollisionShape(radius);
+            float mass = 10f;
+            PhysicsRigidBody missile = new PhysicsRigidBody(boxShape, mass);
+            missile.setCcdMotionThreshold(radius);
+            missile.setCcdSweptSphereRadius(radius);
+
+            float speed = 100f;
+            Vector3f velocity = camera.getFront().mult(speed, speed, speed);
+            missile.setLinearVelocity(velocity);
+
+            missile.setPhysicsLocation(camera.getPosition());
+            physicsSpace.addCollisionObject(missile);
+
+            new AppObject(missile);
         }
     }
 }

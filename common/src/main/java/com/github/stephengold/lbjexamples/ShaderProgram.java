@@ -1,5 +1,6 @@
 package com.github.stephengold.lbjexamples;
 
+import java.nio.FloatBuffer;
 import org.joml.Matrix4fc;
 import org.joml.Vector3fc;
 import org.joml.Vector4fc;
@@ -53,6 +54,15 @@ public class ShaderProgram {
         glAttachShader(programId, shaderId);
 
         return shaderId;
+    }
+
+    public void setUniform(String uniformName, Geometry geometry) {
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            FloatBuffer buffer = stack.mallocFloat(16);
+            geometry.writeTransformMatrix(buffer);
+            int location = glGetUniformLocation(programId, uniformName);
+            glUniformMatrix4fv(location, false, buffer);
+        }
     }
 
     public void setUniform(String uniformName, Matrix4fc value) {
