@@ -130,7 +130,11 @@ public class Camera {
         localFront.y = (float) Math.sin(pitch);
         localFront.z = (float) (Math.sin(yaw) * Math.cos(pitch));
         front = localFront.normalize();
-        right = new Vector3f(front).cross(up).normalize();
+
+        float rightX = -FastMath.sin(yaw);
+        float rightZ = FastMath.cos(yaw);
+        right = new Vector3f(rightX, 0f, rightZ);
+
         up = new Vector3f(right).cross(front).normalize();
     }
 
