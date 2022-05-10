@@ -41,7 +41,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         //physicsThread.start();
     }
 
-    private static final List<Geometry> OBJECTS_TO_REMOVE = new ArrayList<>();
+    private static final List<Geometry> OBJECTS_TO_REMOVE = new ArrayList<>(16);
 
     @Override
     public void render() {
