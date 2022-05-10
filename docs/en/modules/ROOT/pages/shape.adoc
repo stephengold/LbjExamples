@@ -1,5 +1,5 @@
 = Choosing collision shapes
-:Project: Minie
+:Project: Libbulletjme
 :item: &rarr;
 :page-pagination:
 :url-enwiki: https://en.wikipedia.org/wiki
