@@ -104,7 +104,7 @@ public abstract class BaseApplication {
         glEnable(GL_DEPTH_TEST);
     }
 
-    int counter;
+    private int counter;
     private void loop() {
         float currentFrame = (float) glfwGetTime();
         deltaTime = currentFrame - lastFrame;
