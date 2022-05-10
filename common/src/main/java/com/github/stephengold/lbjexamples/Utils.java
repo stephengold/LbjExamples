@@ -2,7 +2,6 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 
 import java.nio.FloatBuffer;
