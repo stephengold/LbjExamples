@@ -32,8 +32,37 @@ public class Mesh {
         this(positions, GL_TRIANGLES);
     }
 
+    /**
+     * Instantiate a TRIANGLES-mode mesh using the positions in the specified
+     * buffer.
+     *
+     * @param positions the buffer to use (not null, unaffected)
+     */
+    public Mesh(FloatBuffer positions) {
+        this(Utils.toArray(positions), GL_TRIANGLES);
+    }
+
+    /**
+     * Instantiate a TRIANGLES-mode mesh for the specified collision shape and
+     * resolution.
+     *
+     * @param shape the shape to use (not null, unaffected)
+     * @param resolution either
+     * {@link com.jme3.bullet.util.DebugShapeFactory#lowResolution} (0) or
+     * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
+     */
+    public Mesh(CollisionShape shape, int resolution) {
+        this(DebugShapeFactory.getDebugTriangles(shape, resolution));
+    }
+
+    /**
+     * Instantiate a low-resolution, TRIANGLES-mode mesh for the specified
+     * collision shape.
+     *
+     * @param shape the shape to use (not null, unaffected)
+     */
     public Mesh(CollisionShape shape) {
-        this(Utils.toArray(DebugShapeFactory.getDebugTriangles(shape, 1)));
+        this(shape, DebugShapeFactory.lowResolution);
     }
 
     public void uploadMesh() {
