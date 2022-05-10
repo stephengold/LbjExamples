@@ -30,6 +30,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
+import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.ConstraintGeometry;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
@@ -44,7 +45,6 @@ import com.jme3.system.Platform;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.Configuration;
 
 /**
@@ -131,10 +131,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     @Override
     public void setupBodies() {
         configureCamera();
-
-        // Set the background to sky blue.
-        GL11.glClearColor(0.35f, 0.48f, 0.66f, 1f);
-
+        setBackgroundColor(Constants.SKY_BLUE);
         restartSimulation(5);
     }
 

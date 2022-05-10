@@ -5,16 +5,17 @@ import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.bullet.objects.infos.RigidBodyMotionState;
+import jme3utilities.Validate;
 
 /**
- * Visualize a rigid body based on its collision shape.
+ * Visualize the shape of a rigid body.
  */
 public class RigidBodyShapeGeometry extends Geometry {
     // *************************************************************************
     // fields
 
     /**
-     * body to be visualized
+     * body to visualize
      */
     final private PhysicsRigidBody rigidBody;
     // *************************************************************************
@@ -23,14 +24,16 @@ public class RigidBodyShapeGeometry extends Geometry {
     /**
      * Instantiate a Geometry to visualize the specified rigid body.
      *
-     * @param rigidBody the body to be visualized (not null, alias created)
+     * @param rigidBody the body to visualize (not null, alias created)
      */
     public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody) {
         super();
+        Validate.nonNull(rigidBody, "body");
 
         CollisionShape shape = rigidBody.getCollisionShape();
         Mesh mesh = new Mesh(shape);
-        setMesh(mesh);
+        super.setMesh(mesh);
+        // TODO what if the shape changes?
 
         this.rigidBody = rigidBody;
     }
@@ -47,9 +50,9 @@ public class RigidBodyShapeGeometry extends Geometry {
     }
 
     /**
-     * Test whether the body has been removed from the specified CollisionSpace.
+     * Test whether the body has been removed from the specified PhysicsSpace.
      *
-     * @param space the CollisionSpace to test (not null)
+     * @param space the space to test (not null)
      * @return true if removed, otherwise false
      */
     @Override

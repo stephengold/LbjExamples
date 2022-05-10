@@ -29,13 +29,11 @@
  */
 package com.github.stephengold.lbjexamples;
 
-import com.github.stephengold.lbjexamples.ArrowMesh;
-import com.github.stephengold.lbjexamples.Geometry;
 import com.jme3.math.Vector3f;
 import org.joml.Vector4fc;
 
 /**
- * A Geometry to render a crude arrow.
+ * Visualize a crude arrow based on ArrowMesh.
  *
  * @author Stephen Gold sgold@sonic.net
  */

@@ -47,13 +47,13 @@ public class ArrowMesh extends Mesh {
     final private static float[] positions = new float[]{
         0f, 0f, 0f, // tail
         0f, 0f, 1f, // tip
-        0.05f, 0f, 0.9f, // +X vane
+        0.05f, 0f, 0.9f, // +X barb
         0f, 0f, 1f, // tip
-        -0.05f, 0f, 0.9f, // -X vane
+        -0.05f, 0f, 0.9f, // -X barb
         0f, 0f, 1f, // tip
-        0f, 0.05f, 0.9f, // +Y vane
+        0f, 0.05f, 0.9f, // +Y barb
         0f, 0f, 1f, // tip
-        0f, -0.05f, 0.9f, // -Y vane
+        0f, -0.05f, 0.9f, // -Y barb
         0f, 0f, 1f // tip
     };
     // *************************************************************************
