@@ -3,6 +3,7 @@ package com.github.stephengold.lbjexamples;
 import com.github.stephengold.lbjexamples.objects.Camera;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
+import org.joml.Vector4fc;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -100,9 +101,7 @@ public abstract class BaseApplication {
         glfwShowWindow(window);
 
         GL.createCapabilities();
-
-        // Set the clear color
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        setBackgroundColor(Constants.DARK_GRAY);
         glEnable(GL_DEPTH_TEST);
     }
 
@@ -184,6 +183,19 @@ public abstract class BaseApplication {
     public abstract void cleanUp();
 
     public abstract void render();
+
+    /**
+     * Alter the window's background color.
+     *
+     * @param newColor the desired color (not null)
+     */
+    public void setBackgroundColor(Vector4fc newColor) {
+        float r = newColor.x();
+        float g = newColor.y();
+        float b = newColor.z();
+        float a = newColor.w();
+        glClearColor(r, g, b, a);
+    }
 
     public void updateMouse(){}
 
