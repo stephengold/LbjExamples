@@ -255,11 +255,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
         balls[0].applyCentralImpulse(kick);
     }
 
-    private void togglePause() {
-        if (physicsSpeed <= PAUSED_SPEED) {
-            physicsSpeed = 1f;
-        } else {
-            physicsSpeed = PAUSED_SPEED;
-        }
+    private static void togglePause() {
+        physicsSpeed = (physicsSpeed <= PAUSED_SPEED) ? 1f: PAUSED_SPEED;
     }
 }
