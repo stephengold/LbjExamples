@@ -30,9 +30,11 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
+import com.github.stephengold.lbjexamples.ConstraintGeometry;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
+import com.jme3.bullet.joints.JointEnd;
 import com.jme3.bullet.joints.Point2PointJoint;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.FastMath;
@@ -207,9 +209,13 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
         Point2PointJoint joint1 = new Point2PointJoint(result, offset);
         physicsSpace.addJoint(joint1);
 
+        new ConstraintGeometry(joint1, JointEnd.A);
+
         offset.set(0f, yOffset, -yOffset);
         Point2PointJoint joint2 = new Point2PointJoint(result, offset);
         physicsSpace.addJoint(joint2);
+
+        new ConstraintGeometry(joint2, JointEnd.A);
 
         return result;
     }
