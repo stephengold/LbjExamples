@@ -151,32 +151,33 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
                 case GLFW.GLFW_KEY_F1:
                 case GLFW.GLFW_KEY_KP_1:
                     restartSimulation(1);
-                    break;
+                    return;
 
                 case GLFW.GLFW_KEY_2:
                 case GLFW.GLFW_KEY_F2:
                 case GLFW.GLFW_KEY_KP_2:
                     restartSimulation(2);
-                    break;
+                    return;
 
                 case GLFW.GLFW_KEY_3:
                 case GLFW.GLFW_KEY_F3:
                 case GLFW.GLFW_KEY_KP_3:
                     restartSimulation(3);
-                    break;
+                    return;
 
                 case GLFW.GLFW_KEY_4:
                 case GLFW.GLFW_KEY_F4:
                 case GLFW.GLFW_KEY_KP_4:
                     restartSimulation(4);
-                    break;
+                    return;
 
                 case GLFW.GLFW_KEY_PAUSE:
                 case GLFW.GLFW_KEY_PERIOD:
                     togglePause();
-                    break;
+                    return;
             }
         }
+        super.updateKeyboard(windowId, keyCode, action);
     }
     // *************************************************************************
     // private methods
@@ -256,6 +257,6 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     }
 
     private static void togglePause() {
-        physicsSpeed = (physicsSpeed <= PAUSED_SPEED) ? 1f: PAUSED_SPEED;
+        physicsSpeed = (physicsSpeed <= PAUSED_SPEED) ? 1f : PAUSED_SPEED;
     }
 }

@@ -152,7 +152,9 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
 
                 // Activate the ball in case it got deactivated.
                 ball.activate();
+                return;
             }
         }
+        super.updateKeyboard(windowId, keyCode, action);
     }
 }
