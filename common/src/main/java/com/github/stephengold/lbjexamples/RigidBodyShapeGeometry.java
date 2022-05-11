@@ -34,6 +34,7 @@ import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.bullet.objects.infos.RigidBodyMotionState;
+import com.jme3.bullet.util.DebugShapeFactory;
 import jme3utilities.Validate;
 
 /**
@@ -56,11 +57,24 @@ public class RigidBodyShapeGeometry extends Geometry {
      * @param rigidBody the body to visualize (not null, alias created)
      */
     public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody) {
+        this(rigidBody, DebugShapeFactory.lowResolution);
+    }
+
+    /**
+     * Instantiate a Geometry to visualize the specified body at the specified
+     * resolution.
+     *
+     * @param rigidBody the body to visualize (not null, alias created)
+     * @param resolution either
+     * {@link com.jme3.bullet.util.DebugShapeFactory#lowResolution} (0) or
+     * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
+     */
+    public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody, int resolution) {
         super();
         Validate.nonNull(rigidBody, "body");
 
         CollisionShape shape = rigidBody.getCollisionShape();
-        Mesh mesh = new Mesh(shape);
+        Mesh mesh = new Mesh(shape, resolution);
         super.setMesh(mesh);
         // TODO what if the shape changes?
 

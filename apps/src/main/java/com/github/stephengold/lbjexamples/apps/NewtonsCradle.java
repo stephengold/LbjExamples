@@ -38,6 +38,7 @@ import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.joints.JointEnd;
 import com.jme3.bullet.joints.Point2PointJoint;
 import com.jme3.bullet.objects.PhysicsRigidBody;
+import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
@@ -59,7 +60,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     // constants
 
     /**
-     * square root of 1/2
+     * square root of 1/2 TODO use MyMath
      */
     final private static float ROOT_HALF = FastMath.sqrt(0.5f);
     /**
@@ -198,7 +199,8 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
         result.setRestitution(1f);
         physicsSpace.addCollisionObject(result);
 
-        new RigidBodyShapeGeometry(result).setColor(BALL_COLOR);
+        new RigidBodyShapeGeometry(result, DebugShapeFactory.highResolution)
+                .setColor(BALL_COLOR);
 
         float wireLength = 80f;
         float yOffset = wireLength * ROOT_HALF;
