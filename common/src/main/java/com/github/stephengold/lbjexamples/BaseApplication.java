@@ -218,11 +218,11 @@ public abstract class BaseApplication {
      * @param newColor the desired color (not null)
      */
     public void setBackgroundColor(Vector4fc newColor) {
-        float r = newColor.x();
-        float g = newColor.y();
-        float b = newColor.z();
-        float a = newColor.w();
-        glClearColor(r, g, b, a);
+        float red = newColor.x();
+        float green = newColor.y();
+        float blue = newColor.z();
+        float alpha = newColor.w();
+        glClearColor(red, green, blue, alpha);
     }
 
     public void updateMouse(){}
