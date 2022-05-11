@@ -37,9 +37,11 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
+import javax.imageio.ImageIO;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -243,6 +245,31 @@ public abstract class BaseApplication {
 
     public static void setZFar(float zFar) {
         Z_FAR = zFar;
+    }
+
+    /**
+     * Load a BufferedImage from the named resource.
+     *
+     * @param resourceName the name of the resource (not null)
+     * @return a new instance
+     */
+    public static BufferedImage loadImage(String resourceName) {
+        InputStream inputStream
+                = BaseApplication.class.getResourceAsStream(resourceName);
+        if (inputStream == null) {
+            throw new RuntimeException("resource not found:  " + resourceName);
+        }
+
+        ImageIO.setUseCache(false);
+
+        BufferedImage result;
+        try {
+            result = ImageIO.read(inputStream);
+        } catch (IOException exception) {
+            throw new RuntimeException("unable to read " + resourceName);
+        }
+
+        return result;
     }
 
     public static String loadResource(String fileName) {
