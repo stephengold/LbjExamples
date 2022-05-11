@@ -114,11 +114,11 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                     box.setPhysicsLocation(location);
                     physicsSpace.addCollisionObject(box);
 
-                    float r = random.nextFloat();
-                    float g = random.nextFloat();
-                    float b = random.nextFloat();
+                    float red = random.nextFloat();
+                    float green = random.nextFloat();
+                    float blue = random.nextFloat();
                     new RigidBodyShapeGeometry(box)
-                            .setColor(new Vector4f(r, g, b, 1));
+                            .setColor(new Vector4f(red, green, blue, 1));
                 }
             }
         }
