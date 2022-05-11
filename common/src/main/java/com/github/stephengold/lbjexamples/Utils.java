@@ -33,6 +33,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import org.joml.Quaternionf;
 
+import java.awt.image.BufferedImage;
 import java.nio.FloatBuffer;
 
 public class Utils {
@@ -55,5 +56,45 @@ public class Utils {
 
     public static Quaternionf toLwjglQuat(Quaternion quat) {
         return new Quaternionf(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
+    }
+
+    /**
+     * Convert a BufferedImage to an array of heights.
+     *
+     * @param image the image to use (not null, unaffected)
+     * @param maxHeight the vertical scaling factor
+     * @return a new array of values in the range [0, maxHeight], one element
+     * for each pixel in the image
+     */
+    public static float[] toHeightArray(BufferedImage image, float maxHeight) {
+        int imageWidth = image.getWidth();
+        int imageHeight = image.getHeight();
+        int numSamples = imageWidth * imageHeight;
+        float[] result = new float[numSamples];
+
+        int index = 0;
+        for (int y = 0; y < imageHeight; ++y) {
+            for (int x = 0; x < imageWidth; ++x) {
+                int sRGB = image.getRGB(x, y);
+                double alpha = ((sRGB >> 24) & 0xFF) / 255.0;
+                assert alpha == 1 : alpha;
+                double red = ((sRGB >> 16) & 0xFF) / 255.0;
+                double green = ((sRGB >> 8) & 0xFF) / 255.0;
+                double blue = (sRGB & 0xFF) / 255.0;
+                /*
+                 * linearize the pixel's color
+                 */
+                red = Math.pow(red, 2.2);
+                green = Math.pow(green, 2.2);
+                blue = Math.pow(blue, 2.2);
+
+                double height = 0.299 * red + 0.587 * green + 0.114 * blue;
+                result[index] = maxHeight * (float) height;
+
+                ++index;
+            }
+        }
+
+        return result;
     }
 }
