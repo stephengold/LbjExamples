@@ -65,7 +65,7 @@ public abstract class BaseApplication {
     public void start() {
         init();
 
-        camera = new Camera(new Vector3f(0, 0,10), -FastMath.HALF_PI, 0);
+        camera = new Camera(new Vector3f(0, 0, 10), -FastMath.HALF_PI, 0);
         initApp();
 
         while (!glfwWindowShouldClose(window)) {
@@ -81,9 +81,7 @@ public abstract class BaseApplication {
         glfwSetErrorCallback(null).free();
     }
 
-
     private void init() {
-
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!glfwInit())
@@ -96,7 +94,6 @@ public abstract class BaseApplication {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
 
         window = glfwCreateWindow(WIDTH, HEIGHT, getClass().getSimpleName(), NULL, NULL);
         if (window == NULL)
@@ -136,6 +133,7 @@ public abstract class BaseApplication {
     }
 
     private int counter;
+
     private void loop() {
         float currentFrame = (float) glfwGetTime();
         deltaTime = currentFrame - lastFrame;
@@ -143,7 +141,7 @@ public abstract class BaseApplication {
         if (deltaTime >= 1f / 10) {
             int fps = (int) ((1f / deltaTime) * counter);
             int ms = (int) ((deltaTime / counter) * 1000);
-            String title =  getClass().getSimpleName() + " FPS : " + fps + " / ms : " + ms;
+            String title = getClass().getSimpleName() + " FPS : " + fps + " / ms : " + ms;
             glfwSetWindowTitle(window, title);
             lastFrame = currentFrame;
             counter = 0;
@@ -156,9 +154,7 @@ public abstract class BaseApplication {
 
         glfwSwapBuffers(window);
         glfwPollEvents();
-
     }
-
 
     private void input(long windowId, int key, int scancode, int action, int mods) {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
@@ -179,7 +175,7 @@ public abstract class BaseApplication {
         if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
             camera.processMovement(Camera.Movement.UP, deltaTime);
         }
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS|| glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
             camera.processMovement(Camera.Movement.DOWN, deltaTime);
         }
 
@@ -203,7 +199,7 @@ public abstract class BaseApplication {
         lastX = xPosIn;
         lastY = yPosIn;
 
-        if(camera.isMouseMotionEnabled())
+        if (camera.isMouseMotionEnabled())
             camera.processRotation(xOffset, yOffset);
         updateMouse();
     }
@@ -227,9 +223,11 @@ public abstract class BaseApplication {
         glClearColor(red, green, blue, alpha);
     }
 
-    public void updateMouse(){}
+    public void updateMouse() {
+    }
 
-    public void updateKeyboard(long window, int key, int action){}
+    public void updateKeyboard(long window, int key, int action) {
+    }
 
     public static float getZNear() {
         return Z_NEAR;
@@ -275,12 +273,11 @@ public abstract class BaseApplication {
     public static String loadResource(String fileName) {
         String result = "";
         try (InputStream in = BaseApplication.class.getResourceAsStream(fileName);
-             Scanner scanner = new Scanner(in, java.nio.charset.StandardCharsets.UTF_8.name())) {
+                Scanner scanner = new Scanner(in, java.nio.charset.StandardCharsets.UTF_8.name())) {
             result = scanner.useDelimiter("\\A").next();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return result;
     }
-
 }
