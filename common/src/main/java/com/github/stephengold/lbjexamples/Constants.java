@@ -63,6 +63,10 @@ final public class Constants {
      */
     final public static Vector4fc MAGENTA = new Vector4f(1f, 0f, 1f, 1f);
     /**
+     * The color pink (1, 0.68, 0.68).
+     */
+    final public static Vector4fc PINK = new Vector4f(1f, 0.68f, 0.68f, 1f);
+    /**
      * The color red (1, 0, 0).
      */
     final public static Vector4fc RED = new Vector4f(1f, 0f, 0f, 1f);
