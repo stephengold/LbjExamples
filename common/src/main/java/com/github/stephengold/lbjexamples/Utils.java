@@ -29,6 +29,7 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import org.joml.Quaternionf;
@@ -96,5 +97,27 @@ public class Utils {
         }
 
         return result;
+    }
+
+    /**
+     * Translate a name to the corresponding mesh resolution for convex shapes.
+     *
+     * @param resolutionName the name to translate (either "high" or "low" or
+     * null)
+     * @return 0 for "low" or null; 1 for "hi"
+     */
+    public static int toResolution(String resolutionName) {
+        if (resolutionName == null) {
+            return DebugShapeFactory.lowResolution;
+        }
+        switch (resolutionName) {
+            case "high":
+                return DebugShapeFactory.highResolution;
+            case "low":
+                return DebugShapeFactory.lowResolution;
+            default:
+                String message = "resolutionName = " + resolutionName;
+                throw new IllegalArgumentException(message);
+        }
     }
 }
