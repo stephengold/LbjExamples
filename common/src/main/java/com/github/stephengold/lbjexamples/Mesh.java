@@ -62,7 +62,13 @@ public class Mesh {
     // *************************************************************************
     // constructors
 
-    public Mesh(float[] positions, int drawMode) {
+    /**
+     * Instantiate a mesh with the specified mode and vertex positions.
+     *
+     * @param drawMode the desired draw mode
+     * @param positions the desired vertex positions (not null, alias created)
+     */
+    public Mesh(int drawMode, float[] positions) {
         this.positions = positions;
         this.drawMode = drawMode;
         vertexCount = positions.length;
@@ -76,7 +82,7 @@ public class Mesh {
      * @param positions the buffer to use (not null, unaffected)
      */
     public Mesh(FloatBuffer positions) {
-        this(Utils.toArray(positions), GL_TRIANGLES);
+        this(GL_TRIANGLES, Utils.toArray(positions));
     }
 
     /**

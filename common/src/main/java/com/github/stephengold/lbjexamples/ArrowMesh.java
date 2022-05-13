@@ -62,6 +62,6 @@ public class ArrowMesh extends Mesh {
      * Instantiate an arrow with its tip at (0, 0, 1) and its tail at (0, 0, 0).
      */
     public ArrowMesh() {
-        super(positions, GL11.GL_LINES);
+        super(GL11.GL_LINES, positions);
     }
 }

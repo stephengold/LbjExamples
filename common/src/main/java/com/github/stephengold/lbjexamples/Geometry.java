@@ -75,15 +75,15 @@ public class Geometry {
     }
 
     /**
-     * Instantiate a Geometry based on mesh positions and a draw mode.
+     * Instantiate a Geometry with the specified draw mode and vertex positions.
      *
-     * @param positions the desired mesh positions (not null, alias created)
      * @param drawMode the desired draw mode
+     * @param positions the desired mesh positions (not null, alias created)
      */
-    public Geometry(float[] positions, int drawMode) {
+    public Geometry(int drawMode, float[] positions) {
         this();
         Validate.nonNull(positions, "positions");
-        this.mesh = new Mesh(positions, drawMode);
+        this.mesh = new Mesh(drawMode, positions);
     }
 
     /**
