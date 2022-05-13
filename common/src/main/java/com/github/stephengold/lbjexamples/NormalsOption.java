@@ -30,11 +30,11 @@
 package com.github.stephengold.lbjexamples;
 
 /**
- * Enumerate algorithms for auto-generating mesh normals from position data.
+ * Enumerate options for auto-generating mesh normals from vertex positions.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public enum MeshNormals {
+public enum NormalsOption {
     // *************************************************************************
     // values
 
