@@ -64,7 +64,8 @@ public class ShaderProgram {
         this.name = programName;
         this.programId = glCreateProgram();
         if (programId == 0) {
-            throw new RuntimeException("Could not create Shader");
+            throw new RuntimeException(
+                    "Couldn't create program:  " + programName);
         }
 
         String vertexShaderName = "/Shaders/" + programName + ".vert";
@@ -75,7 +76,8 @@ public class ShaderProgram {
 
         glLinkProgram(programId);
         if (glGetProgrami(programId, GL_LINK_STATUS) == 0) {
-            throw new RuntimeException("Error linking Shader code: " + glGetProgramInfoLog(programId, 1024));
+            throw new RuntimeException("Error linking shader program: "
+                    + glGetProgramInfoLog(programId, 1024));
         }
 
         if (vertexShaderId != 0) {
@@ -87,7 +89,8 @@ public class ShaderProgram {
 
         /*glValidateProgram(programId);
         if (glGetProgrami(programId, GL_VALIDATE_STATUS) == 0) {
-            System.err.println("Warning validating Shader code: " + glGetProgramInfoLog(programId, 1024));
+            throw new RuntimeException("Error validating shader program: "
+                    + glGetProgramInfoLog(programId, 1024));
         }*/
     }
     // *************************************************************************
