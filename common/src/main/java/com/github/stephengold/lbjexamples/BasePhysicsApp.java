@@ -55,13 +55,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         physicsSpace = createSpace();
 
         //physicsThread = new PhysicsThread(space);
-
-        try {
-            baseShader = new ShaderProgram("/base.vs", "/base.fs");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        baseShader = new ShaderProgram("UnshadedMonochrome");
         populateSpace();
 
         //physicsThread.start();
@@ -85,7 +79,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
                 (float) WIDTH / (float) HEIGHT, getZNear(), getZFar());
         baseShader.setUniform("projectionMatrix", projectionMatrix);
         baseShader.setUniform("viewMatrix", camera.getViewMatrix());
-        baseShader.unbind();
 
         GEOMETRIES.forEach(geometry -> {
             if (geometry.wasRemovedFrom(physicsSpace)) {
@@ -97,7 +90,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
             baseShader.setUniform("modelMatrix", geometry);
             baseShader.setUniform("color", geometry.getColor());
             geometry.getMesh().render();
-            baseShader.unbind();
         });
 
         OBJECTS_TO_REMOVE.forEach(Geometry::destroy);

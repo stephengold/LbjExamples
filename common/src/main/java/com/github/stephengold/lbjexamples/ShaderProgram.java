@@ -47,20 +47,35 @@ public class ShaderProgram {
     // fields
 
     private final int programId;
+    /**
+     * base name of the shader files
+     */
+    private final String name;
     // *************************************************************************
     // constructors
 
-    public ShaderProgram(String vertexShaderName, String fragmentShaderName) throws Exception {
+    /**
+     * Instantiate a program with the specified name.
+     *
+     * @param programName (not null)
+     */
+    ShaderProgram(String programName) {
+        assert programName != null;
+        this.name = programName;
         this.programId = glCreateProgram();
         if (programId == 0) {
-            throw new Exception("Could not create Shader");
+            throw new RuntimeException("Could not create Shader");
         }
+
+        String vertexShaderName = "/Shaders/" + programName + ".vert";
         int vertexShaderId = createShader(vertexShaderName, GL_VERTEX_SHADER);
+
+        String fragmentShaderName = "/Shaders/" + programName + ".frag";
         int fragmentShaderId = createShader(fragmentShaderName, GL_FRAGMENT_SHADER);
 
         glLinkProgram(programId);
         if (glGetProgrami(programId, GL_LINK_STATUS) == 0) {
-            throw new Exception("Error linking Shader code: " + glGetProgramInfoLog(programId, 1024));
+            throw new RuntimeException("Error linking Shader code: " + glGetProgramInfoLog(programId, 1024));
         }
 
         if (vertexShaderId != 0) {
@@ -78,7 +93,17 @@ public class ShaderProgram {
     // *************************************************************************
     // new methods exposed
 
-    public void setUniform(String uniformName, Geometry geometry) {
+    /**
+     * Return the program's name.
+     *
+     * @return the base name of the shader files (not null)
+     */
+    public String getName() {
+        return name;
+    }
+
+    void setUniform(String uniformName, Geometry geometry) {
+        use();
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(16);
             geometry.writeTransformMatrix(buffer);
@@ -87,36 +112,39 @@ public class ShaderProgram {
         }
     }
 
-    public void setUniform(String uniformName, Matrix4fc value) {
+    void setUniform(String uniformName, Matrix4fc value) {
+        use();
         try (MemoryStack stack = MemoryStack.stackPush()) {
             glUniformMatrix4fv(glGetUniformLocation(programId, uniformName), false,
                     value.get(stack.mallocFloat(16)));
         }
     }
 
-    public void setUniform(String uniformName, Vector3fc value) {
+    void setUniform(String uniformName, Vector3fc value) {
+        use();
         try (MemoryStack stack = MemoryStack.stackPush()) {
             glUniform3fv(glGetUniformLocation(programId, uniformName), value.get(stack.mallocFloat(3)));
         }
     }
 
-    public void setUniform(String uniformName, Vector4fc value) {
+    void setUniform(String uniformName, Vector4fc value) {
+        use();
         try (MemoryStack stack = MemoryStack.stackPush()) {
             glUniform4fv(glGetUniformLocation(programId, uniformName), value.get(stack.mallocFloat(4)));
         }
     }
 
-    public void use() {
+    void use() {
         GL20.glUseProgram(programId);
     }
 
-    public void unbind() {
-        glUseProgram(0);
-    }
-
-    public void cleanup() {
-        unbind();
+    void cleanup() {
         if (programId != 0) {
+            /*
+             * Ensure the program object is not in use.
+             */
+            GL20.glUseProgram(0);
+
             glDeleteProgram(programId);
         }
     }
