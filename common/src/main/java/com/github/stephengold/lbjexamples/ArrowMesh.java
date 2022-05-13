@@ -29,7 +29,6 @@
  */
 package com.github.stephengold.lbjexamples;
 
-import com.github.stephengold.lbjexamples.objects.Mesh;
 import org.lwjgl.opengl.GL11;
 
 /**

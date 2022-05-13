@@ -29,7 +29,6 @@
  */
 package com.github.stephengold.lbjexamples;
 
-import com.github.stephengold.lbjexamples.objects.Mesh;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.math.Matrix4f;
 import com.jme3.math.Quaternion;
