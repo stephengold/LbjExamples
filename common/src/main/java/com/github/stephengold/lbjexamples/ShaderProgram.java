@@ -78,24 +78,6 @@ public class ShaderProgram {
     // *************************************************************************
     // new methods exposed
 
-    protected int createShader(String shaderCode, int shaderType) throws Exception {
-        int shaderId = glCreateShader(shaderType);
-        if (shaderId == 0) {
-            throw new Exception("Error creating shader. Type: " + shaderType);
-        }
-
-        glShaderSource(shaderId, shaderCode);
-        glCompileShader(shaderId);
-
-        if (glGetShaderi(shaderId, GL_COMPILE_STATUS) == 0) {
-            throw new Exception("Error compiling Shader code: " + glGetShaderInfoLog(shaderId, 1024));
-        }
-
-        glAttachShader(programId, shaderId);
-
-        return shaderId;
-    }
-
     public void setUniform(String uniformName, Geometry geometry) {
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(16);
@@ -137,5 +119,38 @@ public class ShaderProgram {
         if (programId != 0) {
             glDeleteProgram(programId);
         }
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Create, compile, and attach a shader.
+     *
+     * @param resourceName the name of the shader resource (not null)
+     * @param shaderType one of: GL_VERTEX_SHADER, GL_FRAGMENT_SHADER,
+     * GL_GEOMETRY_SHADER, GL_TESS_CONTROL_SHADER, or GL_TESS_EVALUATION_SHADER
+     * @return the ID of the new shader
+     */
+    private int createShader(String resourceName, int shaderType) {
+        int shaderId = glCreateShader(shaderType);
+        if (shaderId == 0) {
+            throw new RuntimeException(
+                    "Error creating shader. type=" + shaderType);
+        }
+
+        String sourceCode = BaseApplication.loadResource(resourceName);
+        glShaderSource(shaderId, sourceCode);
+        glCompileShader(shaderId);
+
+        int compileStatus = glGetShaderi(shaderId, GL_COMPILE_STATUS);
+        if (compileStatus == 0) {
+            String log = glGetShaderInfoLog(shaderId, 1024);
+            throw new RuntimeException(
+                    "Error compiling shader " + resourceName + ": " + log);
+        }
+
+        glAttachShader(programId, shaderId);
+
+        return shaderId;
     }
 }

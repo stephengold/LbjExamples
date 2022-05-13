@@ -57,9 +57,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         //physicsThread = new PhysicsThread(space);
 
         try {
-            baseShader = new ShaderProgram(
-                    BaseApplication.loadResource("/base.vs"),
-                    BaseApplication.loadResource("/base.fs"));
+            baseShader = new ShaderProgram("/base.vs", "/base.fs");
         } catch (Exception e) {
             e.printStackTrace();
         }
