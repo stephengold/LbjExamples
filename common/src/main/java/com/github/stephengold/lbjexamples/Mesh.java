@@ -40,13 +40,25 @@ import java.util.List;
 
 import static org.lwjgl.opengl.GL30.*;
 
+/**
+ * Encapsulate a vertex array object (VAO), to which vertex buffer objects
+ * (VBOs) are attached.
+ */
 public class Mesh {
+    // *************************************************************************
+    // fields
 
+    /**
+     * ID of the VAO
+     */
     public int vaoId;
     public final List<Integer> vboIdList = new ArrayList<>();
     private final int vertexCount;
     private final float[] positions;
     private final int drawMode;
+    // *************************************************************************
+    // constructors
+
     public Mesh(float[] positions, int drawMode) {
         this.positions = positions;
         this.drawMode = drawMode;
@@ -90,6 +102,8 @@ public class Mesh {
     public Mesh(CollisionShape shape) {
         this(shape, DebugShapeFactory.lowResolution);
     }
+    // *************************************************************************
+    // new methods exposed
 
     public void uploadMesh() {
         FloatBuffer posBuffer = null;
@@ -108,7 +122,6 @@ public class Mesh {
             glEnableVertexAttribArray(0);
             glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
 
-
             glBindBuffer(GL_ARRAY_BUFFER, 0);
             glBindVertexArray(0);
         } finally {
@@ -125,7 +138,6 @@ public class Mesh {
     public int getVertexCount() {
         return vertexCount;
     }
-
 
     public void render() {
         glBindVertexArray(getVaoId());
