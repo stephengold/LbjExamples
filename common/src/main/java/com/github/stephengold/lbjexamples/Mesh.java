@@ -51,8 +51,11 @@ public class Mesh {
     /**
      * ID of the VAO
      */
-    public int vaoId;
-    public final List<Integer> vboIdList = new ArrayList<>();
+    private int vaoId;
+    /**
+     * map attribute indices to VBOs
+     */
+    private final List<Integer> vboIdList = new ArrayList<>();
     private final int vertexCount;
     private final float[] positions;
     private final int drawMode;
@@ -64,10 +67,6 @@ public class Mesh {
         this.drawMode = drawMode;
         vertexCount = positions.length;
         uploadMesh();
-    }
-
-    public Mesh(float[] positions) {
-        this(positions, GL_TRIANGLES);
     }
 
     /**
@@ -105,7 +104,7 @@ public class Mesh {
     // *************************************************************************
     // new methods exposed
 
-    public void uploadMesh() {
+    private void uploadMesh() {
         FloatBuffer posBuffer = null;
         try {
 
@@ -131,23 +130,19 @@ public class Mesh {
         }
     }
 
-    public int getVaoId() {
-        return vaoId;
-    }
-
     public int getVertexCount() {
         return vertexCount;
     }
 
     public void render() {
-        glBindVertexArray(getVaoId());
+        glBindVertexArray(vaoId);
 
         glDrawArrays(drawMode, 0, getVertexCount());
 
         glBindVertexArray(0);
     }
 
-    public void cleanUp() {
+    void cleanUp() {
         glDisableVertexAttribArray(0);
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
