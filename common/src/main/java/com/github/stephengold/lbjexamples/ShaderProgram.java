@@ -33,21 +33,30 @@ import java.nio.FloatBuffer;
 import org.joml.Matrix4fc;
 import org.joml.Vector3fc;
 import org.joml.Vector4fc;
+import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryStack;
 
 import static org.lwjgl.opengl.GL20.*;
 
+/**
+ * Encapsulate a program object, to which a vertex shader and a fragment shader
+ * are attached.
+ */
 public class ShaderProgram {
+    // *************************************************************************
+    // fields
 
     private final int programId;
+    // *************************************************************************
+    // constructors
 
-    public ShaderProgram(String vertexShaderName, String fragmentShaderCode) throws Exception {
-        programId = glCreateProgram();
+    public ShaderProgram(String vertexShaderName, String fragmentShaderName) throws Exception {
+        this.programId = glCreateProgram();
         if (programId == 0) {
             throw new Exception("Could not create Shader");
         }
         int vertexShaderId = createShader(vertexShaderName, GL_VERTEX_SHADER);
-        int fragmentShaderId = createShader(fragmentShaderCode, GL_FRAGMENT_SHADER);
+        int fragmentShaderId = createShader(fragmentShaderName, GL_FRAGMENT_SHADER);
 
         glLinkProgram(programId);
         if (glGetProgrami(programId, GL_LINK_STATUS) == 0) {
@@ -66,6 +75,8 @@ public class ShaderProgram {
             System.err.println("Warning validating Shader code: " + glGetProgramInfoLog(programId, 1024));
         }*/
     }
+    // *************************************************************************
+    // new methods exposed
 
     protected int createShader(String shaderCode, int shaderType) throws Exception {
         int shaderId = glCreateShader(shaderType);
@@ -114,7 +125,7 @@ public class ShaderProgram {
     }
 
     public void use() {
-        glUseProgram(programId);
+        GL20.glUseProgram(programId);
     }
 
     public void unbind() {
