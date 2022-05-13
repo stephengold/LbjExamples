@@ -97,6 +97,20 @@ public class ShaderProgram {
     // new methods exposed
 
     /**
+     * Delete the program object during cleanup.
+     */
+    void cleanUp() {
+        if (programId != 0) {
+            /*
+             * Ensure the program object is not in use.
+             */
+            GL20.glUseProgram(0);
+
+            glDeleteProgram(programId);
+        }
+    }
+
+    /**
      * Return the program's name.
      *
      * @return the base name of the shader files (not null)
@@ -139,17 +153,6 @@ public class ShaderProgram {
 
     void use() {
         GL20.glUseProgram(programId);
-    }
-
-    void cleanup() {
-        if (programId != 0) {
-            /*
-             * Ensure the program object is not in use.
-             */
-            GL20.glUseProgram(0);
-
-            glDeleteProgram(programId);
-        }
     }
     // *************************************************************************
     // private methods

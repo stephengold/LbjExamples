@@ -98,7 +98,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
 
     @Override
     public void cleanUp() {
-        baseShader.cleanup();
+        baseShader.cleanUp();
         GEOMETRIES.forEach(appObject -> appObject.getMesh().cleanUp());
         //physicsThread.stop();
     }
