@@ -87,11 +87,11 @@ public class ShaderProgram {
             glDetachShader(programId, fragmentShaderId);
         }
 
-        /*glValidateProgram(programId);
+        glValidateProgram(programId);
         if (glGetProgrami(programId, GL_VALIDATE_STATUS) == 0) {
             throw new RuntimeException("Error validating shader program: "
                     + glGetProgramInfoLog(programId, 1024));
-        }*/
+        }
     }
     // *************************************************************************
     // new methods exposed
