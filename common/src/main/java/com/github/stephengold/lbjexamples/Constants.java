@@ -75,6 +75,10 @@ final public class Constants {
      * The color white (1, 1, 1).
      */
     final public static Vector4fc WHITE = new Vector4f(1f, 1f, 1f, 1f);
+    /**
+     * The color yellow (1, 1, 0).
+     */
+    final public static Vector4fc YELLOW = new Vector4f(1f, 1f, 0f, 1f);
     // *************************************************************************
     // constructors
 
