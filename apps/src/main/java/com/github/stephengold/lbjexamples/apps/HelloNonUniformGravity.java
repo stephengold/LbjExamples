@@ -84,10 +84,10 @@ public class HelloNonUniformGravity
      * Advance the physics simulation by the specified amount.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code advancePhysics} (in seconds, &ge;0)
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void advancePhysics(float intervalSeconds) {
+    public void updatePhysics(float intervalSeconds) {
         physicsSpace.update(intervalSeconds);
     }
 
@@ -97,7 +97,7 @@ public class HelloNonUniformGravity
      * @return a new instance
      */
     @Override
-    public PhysicsSpace initPhysicsSpace() {
+    public PhysicsSpace createSpace() {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
@@ -114,7 +114,7 @@ public class HelloNonUniformGravity
      * Initialize this application.
      */
     @Override
-    public void setupBodies() {
+    public void populateSpace() {
         // Create a CollisionShape for the planet.
         float planetRadius = 0.1f;
         CollisionShape planetShape = new SphereCollisionShape(planetRadius);

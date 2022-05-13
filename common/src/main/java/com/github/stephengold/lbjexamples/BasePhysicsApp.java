@@ -53,7 +53,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         File downloadDirectory = new File(homePath, "Downloads");
         NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Release", "Sp");
 
-        physicsSpace = initPhysicsSpace();
+        physicsSpace = createSpace();
 
         //physicsThread = new PhysicsThread(space);
 
@@ -65,7 +65,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
             e.printStackTrace();
         }
 
-        setupBodies();
+        populateSpace();
 
         //physicsThread.start();
     }
@@ -78,7 +78,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         if (lastNanosecond != null) { // not the first invocation of render()
             long intervalNanoseconds = nanosecond - lastNanosecond;
             float intervalSeconds = 1e-9f * intervalNanoseconds;
-            advancePhysics(intervalSeconds);
+            updatePhysics(intervalSeconds);
         }
         lastNanosecond = nanosecond;
 
@@ -118,12 +118,12 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
      * Advance the physics simulation by the specified amount.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code advancePhysics} (in seconds, &ge;0)
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
-    public abstract void advancePhysics(float intervalSeconds);
+    public abstract void updatePhysics(float intervalSeconds);
 
-    public abstract void setupBodies();
+    public abstract void populateSpace();
 
-    public abstract T initPhysicsSpace();
+    public abstract T createSpace();
 
 }

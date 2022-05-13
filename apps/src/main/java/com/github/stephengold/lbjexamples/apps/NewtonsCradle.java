@@ -103,10 +103,10 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
      * Advance the physics simulation by the specified amount.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code advancePhysics} (in seconds, &ge;0)
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void advancePhysics(float intervalSeconds) {
+    public void updatePhysics(float intervalSeconds) {
         float simSeconds = physicsSpeed * intervalSeconds;
         physicsSpace.update(simSeconds);
     }
@@ -117,7 +117,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
      * @return a new instance
      */
     @Override
-    public PhysicsSpace initPhysicsSpace() {
+    public PhysicsSpace createSpace() {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
         result.setAccuracy(0.01f);
@@ -130,7 +130,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
      * Initialize this application.
      */
     @Override
-    public void setupBodies() {
+    public void populateSpace() {
         configureCamera();
         setBackgroundColor(Constants.SKY_BLUE);
         restartSimulation(5);

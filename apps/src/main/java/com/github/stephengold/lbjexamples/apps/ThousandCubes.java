@@ -74,10 +74,10 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      * Advance the physics simulation by the specified amount.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code advancePhysics} (in seconds, &ge;0)
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void advancePhysics(float intervalSeconds) {
+    public void updatePhysics(float intervalSeconds) {
         physicsSpace.update(intervalSeconds);
     }
 
@@ -87,7 +87,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      * @return a new instance
      */
     @Override
-    public PhysicsSpace initPhysicsSpace() {
+    public PhysicsSpace createSpace() {
         return new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
     }
 
@@ -95,7 +95,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      * Initialize this application.
      */
     @Override
-    public void setupBodies() {
+    public void populateSpace() {
         CollisionShape planeShape = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1));
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
         RigidBodyShapeGeometry planeObject = new RigidBodyShapeGeometry(floor);

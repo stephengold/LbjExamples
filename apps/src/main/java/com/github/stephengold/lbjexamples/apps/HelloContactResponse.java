@@ -87,10 +87,10 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
      * Advance the physics simulation by the specified amount.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code advancePhysics} (in seconds, &ge;0)
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void advancePhysics(float intervalSeconds) {
+    public void updatePhysics(float intervalSeconds) {
         physicsSpace.update(intervalSeconds);
     }
 
@@ -100,7 +100,7 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
      * @return a new instance
      */
     @Override
-    public PhysicsSpace initPhysicsSpace() {
+    public PhysicsSpace createSpace() {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
         return result;
@@ -110,7 +110,7 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
      * Initialize this application.
      */
     @Override
-    public void setupBodies() {
+    public void populateSpace() {
         // Add a static box to the space, to serve as a horizontal platform.
         float boxHalfExtent = 3f;
         CollisionShape boxShape = new BoxCollisionShape(boxHalfExtent);

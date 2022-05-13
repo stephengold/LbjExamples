@@ -83,10 +83,10 @@ public class HelloDeactivation
      * Advance the physics simulation by the specified amount.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code advancePhysics} (in seconds, &ge;0)
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void advancePhysics(float intervalSeconds) {
+    public void updatePhysics(float intervalSeconds) {
         physicsSpace.update(intervalSeconds);
     }
 
@@ -96,7 +96,7 @@ public class HelloDeactivation
      * @return a new instance
      */
     @Override
-    public PhysicsSpace initPhysicsSpace() {
+    public PhysicsSpace createSpace() {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
@@ -110,7 +110,7 @@ public class HelloDeactivation
      * Initialize this application.
      */
     @Override
-    public void setupBodies() {
+    public void populateSpace() {
         // Create a dynamic cube and add it to the space.
         float boxHalfExtent = 0.5f;
         CollisionShape smallCubeShape = new BoxCollisionShape(boxHalfExtent);

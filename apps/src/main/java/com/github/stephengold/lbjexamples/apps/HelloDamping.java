@@ -73,10 +73,10 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
      * Advance the physics simulation by the specified amount.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code advancePhysics} (in seconds, &ge;0)
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void advancePhysics(float intervalSeconds) {
+    public void updatePhysics(float intervalSeconds) {
         physicsSpace.update(intervalSeconds);
     }
 
@@ -86,7 +86,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
      * @return a new instance
      */
     @Override
-    public PhysicsSpace initPhysicsSpace() {
+    public PhysicsSpace createSpace() {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
@@ -100,7 +100,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
      * Initialize this application.
      */
     @Override
-    public void setupBodies() {
+    public void populateSpace() {
         // Create a CollisionShape for unit cubes.
         float cubeHalfExtent = 0.5f;
         CollisionShape cubeShape = new BoxCollisionShape(cubeHalfExtent);

@@ -75,10 +75,10 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
      * Advance the physics simulation by the specified amount.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code advancePhysics} (in seconds, &ge;0)
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void advancePhysics(float intervalSeconds) {
+    public void updatePhysics(float intervalSeconds) {
         // For clarity, simulate at 1/10th normal speed.
         float simSeconds = 0.1f * intervalSeconds;
         physicsSpace.update(simSeconds);
@@ -90,7 +90,7 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
      * @return a new instance
      */
     @Override
-    public PhysicsSpace initPhysicsSpace() {
+    public PhysicsSpace createSpace() {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
@@ -104,7 +104,7 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
      * Initialize this application.
      */
     @Override
-    public void setupBodies() {
+    public void populateSpace() {
         // Create a CollisionShape for balls.
         float ballRadius = 0.1f;
         CollisionShape ballShape = new SphereCollisionShape(ballRadius);
