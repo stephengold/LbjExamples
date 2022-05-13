@@ -31,8 +31,8 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
+import com.jme3.util.BufferUtils;
 import com.github.stephengold.lbjexamples.Utils;
-import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
@@ -49,6 +49,10 @@ public class Mesh {
     // fields
 
     /**
+     * vertex positions
+     */
+    private FloatBuffer positions;
+    /**
      * ID of the VAO
      */
     private int vaoId;
@@ -57,7 +61,6 @@ public class Mesh {
      */
     private final List<Integer> vboIdList = new ArrayList<>();
     private final int vertexCount;
-    private final float[] positions;
     private final int drawMode;
     // *************************************************************************
     // constructors
@@ -66,12 +69,12 @@ public class Mesh {
      * Instantiate a mesh with the specified mode and vertex positions.
      *
      * @param drawMode the desired draw mode
-     * @param positions the desired vertex positions (not null, alias created)
+     * @param positionsArray the desired vertex positions (not null, unaffected)
      */
-    public Mesh(int drawMode, float[] positions) {
-        this.positions = positions;
+    public Mesh(int drawMode, float[] positionsArray) {
         this.drawMode = drawMode;
-        vertexCount = positions.length;
+        this.vertexCount = positionsArray.length;
+        this.positions = BufferUtils.createFloatBuffer(positionsArray);
         uploadMesh();
     }
 
@@ -111,29 +114,24 @@ public class Mesh {
     // new methods exposed
 
     private void uploadMesh() {
-        FloatBuffer posBuffer = null;
-        try {
+        vaoId = glGenVertexArrays();
+        glBindVertexArray(vaoId);
 
-            vaoId = glGenVertexArrays();
-            glBindVertexArray(vaoId);
+        // Position VBO
+        int vboId = glGenBuffers();
+        vboIdList.add(vboId);
 
-            // Position VBO
-            int vboId = glGenBuffers();
-            vboIdList.add(vboId);
-            posBuffer = MemoryUtil.memAllocFloat(positions.length);
-            posBuffer.put(positions).flip();
-            glBindBuffer(GL_ARRAY_BUFFER, vboId);
-            glBufferData(GL_ARRAY_BUFFER, posBuffer, GL_STATIC_DRAW);
-            glEnableVertexAttribArray(0);
-            glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+        positions.rewind();
+        int numFloats = positions.capacity();
+        positions.limit(numFloats);
 
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            glBindVertexArray(0);
-        } finally {
-            if (posBuffer != null) {
-                MemoryUtil.memFree(posBuffer);
-            }
-        }
+        glBindBuffer(GL_ARRAY_BUFFER, vboId);
+        glBufferData(GL_ARRAY_BUFFER, positions, GL_STATIC_DRAW);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glBindVertexArray(0);
     }
 
     public int getVertexCount() {
