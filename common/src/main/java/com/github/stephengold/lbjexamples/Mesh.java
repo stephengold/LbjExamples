@@ -56,6 +56,10 @@ public class Mesh {
      */
     private int vaoId;
     /**
+     * map attribute indices to number of floats-per-vertex
+     */
+    private final List<Integer> fpvList = new ArrayList<>();
+    /**
      * map attribute indices to VBOs
      */
     private final List<Integer> vboIdList = new ArrayList<>();
@@ -142,7 +146,7 @@ public class Mesh {
         glDeleteVertexArrays(vaoId);
     }
     // *************************************************************************
-    // new methods exposed
+    // private methods
 
     /**
      * @param data the data for initialization, or {@code NULL} if no data is to
@@ -150,6 +154,7 @@ public class Mesh {
      * @param fpv the number of float values per vertex (&ge;1, &le;4)
      */
     private void addFloatVbo(FloatBuffer data, int fpv) {
+        fpvList.add(fpv);
         int vboId = glGenBuffers();
         vboIdList.add(vboId);
 
@@ -167,7 +172,7 @@ public class Mesh {
         int vboId = vboIdList.get(attributeIndex);
         glBindBuffer(GL_ARRAY_BUFFER, vboId);
 
-        int fpv = 3;
+        int fpv = fpvList.get(attributeIndex);
         boolean normalized = false;
         int stride = 0; // tightly packed
         int startOffset = 0;
