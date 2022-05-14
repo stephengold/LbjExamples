@@ -33,6 +33,7 @@ import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.objects.PhysicsCharacter;
 import com.jme3.bullet.util.DebugShapeFactory;
+import com.jme3.math.Transform;
 import jme3utilities.Validate;
 
 /**
@@ -95,6 +96,7 @@ public class CharacterShapeGeometry extends Geometry {
      */
     @Override
     public void updateAndRender() {
+        Transform meshToWorld = getMeshToWorldTransform();
         character.getTransform(meshToWorld);
         meshToWorld.setScale(1f);
 

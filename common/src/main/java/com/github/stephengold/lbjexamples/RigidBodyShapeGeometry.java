@@ -34,6 +34,7 @@ import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.bullet.objects.infos.RigidBodyMotionState;
 import com.jme3.bullet.util.DebugShapeFactory;
+import com.jme3.math.Transform;
 import jme3utilities.Validate;
 
 /**
@@ -95,6 +96,7 @@ public class RigidBodyShapeGeometry extends Geometry {
     @Override
     public void updateAndRender() {
         RigidBodyMotionState state = rigidBody.getMotionState();
+        Transform meshToWorld = getMeshToWorldTransform();
         state.physicsTransform(meshToWorld);
 
         super.updateAndRender();

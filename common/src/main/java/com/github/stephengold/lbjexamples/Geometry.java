@@ -63,7 +63,7 @@ public class Geometry {
     /**
      * mesh-to-world coordinate transform
      */
-    final protected Transform meshToWorld = new Transform();
+    final private Transform meshToWorld = new Transform();
     /**
      * color that's passed to the program
      */
@@ -308,5 +308,16 @@ public class Geometry {
         storeBuffer.put(tm.m03).put(tm.m13).put(tm.m23).put(tm.m33); // column 3
 
         storeBuffer.position(startPosition);
+    }
+    // *************************************************************************
+    // new protected methods
+
+    /**
+     * Directly access the mesh-to-world transform.
+     *
+     * @return the pre-existing instance
+     */
+    protected Transform getMeshToWorldTransform() {
+        return meshToWorld;
     }
 }
