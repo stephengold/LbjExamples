@@ -80,17 +80,6 @@ public class HelloDeactivation
     // BasePhysicsApp methods
 
     /**
-     * Advance the physics simulation by the specified amount.
-     *
-     * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    @Override
-    public void updatePhysics(float intervalSeconds) {
-        physicsSpace.update(intervalSeconds);
-    }
-
-    /**
      * Create the PhysicsSpace.
      *
      * @return a new instance
@@ -139,6 +128,17 @@ public class HelloDeactivation
         new RigidBodyShapeGeometry(dynamicCube).setColor(Constants.MAGENTA);
         new RigidBodyShapeGeometry(supportCube).setColor(Constants.BLUE);
         new RigidBodyShapeGeometry(bottomBody).setColor(Constants.BLUE);
+    }
+
+    /**
+     * Advance the physics simulation by the specified amount.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
+     */
+    @Override
+    public void updatePhysics(float intervalSeconds) {
+        physicsSpace.update(intervalSeconds);
     }
     // *************************************************************************
     // PhysicsTickListener methods

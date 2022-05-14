@@ -53,6 +53,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     // *************************************************************************
     // new methods exposed
+
     public static void main(String[] args) {
         Platform platform = JmeSystem.getPlatform();
         if (platform.getOs() == Platform.Os.MacOS) {
@@ -63,17 +64,6 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     }
     // *************************************************************************
     // BasePhysicsApp methods
-
-    /**
-     * Advance the physics simulation by the specified amount.
-     *
-     * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    @Override
-    public void updatePhysics(float intervalSeconds) {
-        physicsSpace.update(intervalSeconds);
-    }
 
     /**
      * Create the PhysicsSpace.
@@ -141,5 +131,16 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
 
             new RigidBodyShapeGeometry(missile);
         }
+    }
+
+    /**
+     * Advance the physics simulation by the specified amount.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
+     */
+    @Override
+    public void updatePhysics(float intervalSeconds) {
+        physicsSpace.update(intervalSeconds);
     }
 }

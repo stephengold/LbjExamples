@@ -71,17 +71,6 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
-     * Advance the physics simulation by the specified amount.
-     *
-     * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    @Override
-    public void updatePhysics(float intervalSeconds) {
-        physicsSpace.update(intervalSeconds);
-    }
-
-    /**
      * Create the PhysicsSpace.
      *
      * @return a new instance
@@ -119,5 +108,16 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
         // Customize the debug visualization of each object.
         new RigidBodyShapeGeometry(dynaBall).setColor(Constants.MAGENTA);
         new RigidBodyShapeGeometry(statBall).setColor(Constants.BLUE);
+    }
+
+    /**
+     * Advance the physics simulation by the specified amount.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
+     */
+    @Override
+    public void updatePhysics(float intervalSeconds) {
+        physicsSpace.update(intervalSeconds);
     }
 }

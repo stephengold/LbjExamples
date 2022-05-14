@@ -100,18 +100,6 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
-     * Advance the physics simulation by the specified amount.
-     *
-     * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    @Override
-    public void updatePhysics(float intervalSeconds) {
-        float simSeconds = physicsSpeed * intervalSeconds;
-        physicsSpace.update(simSeconds);
-    }
-
-    /**
      * Create the PhysicsSpace.
      *
      * @return a new instance
@@ -179,6 +167,18 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
             }
         }
         super.updateKeyboard(windowId, keyCode, action);
+    }
+
+    /**
+     * Advance the physics simulation by the specified amount.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
+     */
+    @Override
+    public void updatePhysics(float intervalSeconds) {
+        float simSeconds = physicsSpeed * intervalSeconds;
+        physicsSpace.update(simSeconds);
     }
     // *************************************************************************
     // private methods

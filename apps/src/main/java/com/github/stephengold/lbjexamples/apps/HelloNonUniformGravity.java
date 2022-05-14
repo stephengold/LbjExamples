@@ -81,17 +81,6 @@ public class HelloNonUniformGravity
     // BasePhysicsApp methods
 
     /**
-     * Advance the physics simulation by the specified amount.
-     *
-     * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    @Override
-    public void updatePhysics(float intervalSeconds) {
-        physicsSpace.update(intervalSeconds);
-    }
-
-    /**
      * Create the PhysicsSpace.
      *
      * @return a new instance
@@ -138,6 +127,17 @@ public class HelloNonUniformGravity
         new ArrowGeometry(0f, FastMath.HALF_PI, 0f, Constants.RED);    // +X axis
         new ArrowGeometry(-FastMath.HALF_PI, 0f, 0f, Constants.GREEN); // +Y axis
         new ArrowGeometry(0f, 0f, 0f, Constants.BLUE);                 // +Z axis
+    }
+
+    /**
+     * Advance the physics simulation by the specified amount.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
+     */
+    @Override
+    public void updatePhysics(float intervalSeconds) {
+        physicsSpace.update(intervalSeconds);
     }
     // *************************************************************************
     // PhysicsTickListener methods

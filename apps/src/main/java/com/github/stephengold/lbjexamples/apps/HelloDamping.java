@@ -70,17 +70,6 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
-     * Advance the physics simulation by the specified amount.
-     *
-     * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    @Override
-    public void updatePhysics(float intervalSeconds) {
-        physicsSpace.update(intervalSeconds);
-    }
-
-    /**
      * Create the PhysicsSpace.
      *
      * @return a new instance
@@ -142,5 +131,16 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
             new RigidBodyShapeGeometry(cube[cubeIndex])
                     .setColor(Constants.MAGENTA);
         }
+    }
+
+    /**
+     * Advance the physics simulation by the specified amount.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
+     */
+    @Override
+    public void updatePhysics(float intervalSeconds) {
+        physicsSpace.update(intervalSeconds);
     }
 }
