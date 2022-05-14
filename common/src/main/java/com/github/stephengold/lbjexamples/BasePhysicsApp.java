@@ -55,7 +55,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
      */
     private long lastPhysicsUpdate;
     //private PhysicsThread physicsThread;
-    public ShaderProgram baseShader;
     public T physicsSpace;
     // *************************************************************************
     // new methods exposed
@@ -84,7 +83,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
 
     @Override
     public void cleanUp() {
-        baseShader.cleanUp();
         visibleGeometries.forEach(appObject -> appObject.getMesh().cleanUp());
         //physicsThread.stop();
     }
@@ -97,8 +95,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
 
         physicsSpace = createSpace();
         populateSpace();
-
-        baseShader = getDefaultProgram();
 
         //physicsThread = new PhysicsThread(space);
         //physicsThread.start();
@@ -119,8 +115,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         lastPhysicsUpdate = nanoTime;
 
         cleanUpGeometries();
-
-        baseShader.use();
         /*
          * Camera uniforms are identical for every ShaderProgram.
          */
