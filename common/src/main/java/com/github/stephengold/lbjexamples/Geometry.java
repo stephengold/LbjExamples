@@ -40,8 +40,8 @@ import org.joml.Vector4f;
 import org.joml.Vector4fc;
 
 /**
- * A 3-D object rendered by the BasePhysicsApp, including a Mesh, a coordinate
- * transform, and a color.
+ * A 3-D object rendered by a BaseApplication, including a Mesh, a
+ * ShaderProgram, a coordinate transform, and a color.
  */
 public class Geometry {
     // *************************************************************************
@@ -57,20 +57,25 @@ public class Geometry {
      */
     private Mesh mesh;
     /**
+     * rendering program
+     */
+    private ShaderProgram program;
+    /**
      * mesh-to-world coordinate transform
      */
     final protected Transform meshToWorld = new Transform();
     /**
-     * color that's passed to the shader
+     * color that's passed to the program
      */
     final private Vector4f color = new Vector4f(1f);
     // *************************************************************************
     // constructors
 
     /**
-     * Instantiate a Geometry without any Mesh.
+     * Instantiate a Geometry with no Mesh and default ShaderProgram.
      */
     protected Geometry() {
+        this.program = BasePhysicsApp.getDefaultProgram();
         BasePhysicsApp.GEOMETRIES.add(this);
     }
 
@@ -87,7 +92,7 @@ public class Geometry {
     }
 
     /**
-     * Instantiate a Geometry with the specified Mesh.
+     * Instantiate a Geometry with the specified Mesh and default ShaderProgram.
      *
      * @param mesh the desired Mesh (not null, alias created)
      */
@@ -160,6 +165,15 @@ public class Geometry {
     }
 
     /**
+     * Access the ShaderProgram.
+     *
+     * @return the pre-existing instance (not null)
+     */
+    ShaderProgram getProgram() {
+        return program;
+    }
+
+    /**
      * Return the scale factors applied to the mesh.
      *
      * @param storeResult storage for the result (modified if not null)
@@ -223,6 +237,23 @@ public class Geometry {
 
         meshToWorld.setRotation(newOrientation);
         meshToWorld.getRotation().normalizeLocal();
+
+        return this;
+    }
+
+    /**
+     * Return the named ShaderProgram, or if the name is null, return the
+     * default program.
+     *
+     * @param name (may be null)
+     * @return a valid program
+     */
+    public Geometry setProgramByName(String name) {
+        if (name == null) {
+            program = BasePhysicsApp.getDefaultProgram();
+        } else {
+            program = BasePhysicsApp.getProgram(name);
+        }
 
         return this;
     }
