@@ -83,7 +83,6 @@ public class CharacterShapeGeometry extends Geometry {
         this.summary = new ShapeSummary(shape, NormalsOption.None, resolution);
         Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
-        // TODO what if the shape changes?
 
         this.character = character;
         BasePhysicsApp.makeVisible(this);
@@ -96,7 +95,9 @@ public class CharacterShapeGeometry extends Geometry {
      */
     @Override
     public void updateAndRender() {
+        updateMesh();
         updateTransform();
+
         super.updateAndRender();
     }
 
@@ -114,6 +115,20 @@ public class CharacterShapeGeometry extends Geometry {
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * Update the Mesh.
+     */
+    private void updateMesh() {
+        CollisionShape shape = character.getCollisionShape();
+        if (!summary.matches(shape)) {
+            NormalsOption normalsOption = summary.normalsOption();
+            int resolution = summary.resolution();
+            summary = new ShapeSummary(shape, normalsOption, resolution);
+            Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
+            super.setMesh(mesh);
+        }
+    }
 
     /**
      * Update the mesh-to-world transform.
