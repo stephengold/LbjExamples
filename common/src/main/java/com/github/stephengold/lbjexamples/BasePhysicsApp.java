@@ -47,9 +47,13 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
      */
     public static final List<Geometry> visibleGeometries = new ArrayList<>();
     /**
-     * timestamp of the previous render()
+     * how many times render() has been invoked
      */
-    private Long lastPhysicsUpdate;
+    private int renderCount;
+    /**
+     * timestamp of the previous render() if renderCount > 0
+     */
+    private long lastPhysicsUpdate;
     //private PhysicsThread physicsThread;
     public ShaderProgram baseShader;
     public T physicsSpace;
@@ -102,8 +106,12 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
 
     @Override
     public void render() {
+        ++renderCount;
+        /*
+         * Advance the physics, but not during the first render().
+         */
         long nanoTime = System.nanoTime();
-        if (lastPhysicsUpdate != null) { // not the first invocation of render()
+        if (renderCount > 0) {
             long nanoseconds = nanoTime - lastPhysicsUpdate;
             float seconds = 1e-9f * nanoseconds;
             updatePhysics(seconds);
