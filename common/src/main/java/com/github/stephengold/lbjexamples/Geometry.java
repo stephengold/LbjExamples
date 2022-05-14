@@ -80,18 +80,6 @@ public class Geometry {
     }
 
     /**
-     * Instantiate a Geometry with the specified draw mode and vertex positions.
-     *
-     * @param drawMode the desired draw mode
-     * @param positions the desired mesh positions (not null, alias created)
-     */
-    public Geometry(int drawMode, float[] positions) {
-        this();
-        Validate.nonNull(positions, "positions");
-        this.mesh = new Mesh(drawMode, positions);
-    }
-
-    /**
      * Instantiate a Geometry with the specified Mesh and default ShaderProgram.
      *
      * @param mesh the desired Mesh (not null, alias created)
@@ -103,17 +91,6 @@ public class Geometry {
     }
     // *************************************************************************
     // new methods exposed
-
-    /**
-     * Remove from the render.
-     */
-    public void destroy() {
-        BasePhysicsApp.visibleGeometries.remove(this);
-        if (mesh != null) {
-            mesh.cleanUp(); // TODO Mesh might be shared with other geometries
-            this.mesh = null;
-        }
-    }
 
     /**
      * Access the color.
