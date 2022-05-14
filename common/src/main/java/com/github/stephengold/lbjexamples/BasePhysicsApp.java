@@ -98,7 +98,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         physicsSpace = createSpace();
         populateSpace();
 
-        baseShader = new ShaderProgram("UnshadedMonochrome");
+        baseShader = getDefaultProgram();
 
         //physicsThread = new PhysicsThread(space);
         //physicsThread.start();
