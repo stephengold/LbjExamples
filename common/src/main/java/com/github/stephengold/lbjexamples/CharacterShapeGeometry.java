@@ -48,6 +48,10 @@ public class CharacterShapeGeometry extends Geometry {
      * character to visualize
      */
     final private PhysicsCharacter character;
+    /**
+     * data used to generate the current Mesh
+     */
+    private ShapeSummary summary;
     // *************************************************************************
     // constructors
 
@@ -74,7 +78,8 @@ public class CharacterShapeGeometry extends Geometry {
         Validate.nonNull(character, "character");
 
         CollisionShape shape = character.getCollisionShape();
-        Mesh mesh = new Mesh(shape, NormalsOption.None, resolution);
+        this.summary = new ShapeSummary(shape, NormalsOption.None, resolution);
+        Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
         // TODO what if the shape changes?
 

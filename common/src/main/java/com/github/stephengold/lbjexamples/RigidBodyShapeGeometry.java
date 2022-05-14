@@ -47,6 +47,10 @@ public class RigidBodyShapeGeometry extends Geometry {
      * body to visualize
      */
     final private PhysicsRigidBody rigidBody;
+    /**
+     * data used to generate the current Mesh
+     */
+    private ShapeSummary summary;
     // *************************************************************************
     // constructors
 
@@ -73,7 +77,8 @@ public class RigidBodyShapeGeometry extends Geometry {
         Validate.nonNull(rigidBody, "body");
 
         CollisionShape shape = rigidBody.getCollisionShape();
-        Mesh mesh = new Mesh(shape, NormalsOption.None, resolution);
+        this.summary = new ShapeSummary(shape, NormalsOption.None, resolution);
+        Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
         // TODO what if the shape changes?
 

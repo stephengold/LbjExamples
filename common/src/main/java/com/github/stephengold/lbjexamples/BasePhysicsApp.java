@@ -30,6 +30,7 @@
 package com.github.stephengold.lbjexamples;
 
 import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.system.NativeLibraryLoader;
 import org.joml.Matrix4f;
 
@@ -37,6 +38,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplication {
     // *************************************************************************
@@ -54,6 +57,11 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
      * timestamp of the previous render() if renderCount > 0
      */
     private long lastPhysicsUpdate;
+    /**
+     * map summaries to auto-generated meshes, for reuse
+     */
+    final private static Map<ShapeSummary, Mesh> meshCache
+            = new WeakHashMap<>(200);
     //private PhysicsThread physicsThread;
     public T physicsSpace;
     // *************************************************************************
@@ -65,6 +73,29 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
      * @return a new instance
      */
     public abstract T createSpace();
+
+    /**
+     * Return a Mesh to visualize the summarized CollisionShape.
+     *
+     * @param shape the shape to visualize (not null, unaffected)
+     * @param summary a summary of the shape (not null)
+     * @return a valid Mesh (not null)
+     */
+    static Mesh meshForShape(CollisionShape shape, ShapeSummary summary) {
+        Mesh result;
+
+        if (meshCache.containsKey(summary)) {
+            result = meshCache.get(summary);
+
+        } else {
+            NormalsOption option = summary.normalsOption();
+            int resolution = summary.resolution();
+            result = new Mesh(shape, option, resolution);
+            meshCache.put(summary, result);
+        }
+
+        return result;
+    }
 
     /**
      * Add physics objects to the PhysicsSpace during initialization.
@@ -85,7 +116,11 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
     public void cleanUp() {
         physicsSpace.destroy();
         cleanUpGeometries();
-        visibleGeometries.forEach(appObject -> appObject.getMesh().cleanUp());
+
+        for (Mesh mesh : meshCache.values()) {
+            mesh.cleanUp();
+        }
+        meshCache.clear();
         //physicsThread.stop();
     }
 
