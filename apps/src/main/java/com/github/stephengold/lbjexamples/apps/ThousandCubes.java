@@ -31,7 +31,6 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
-import com.github.stephengold.lbjexamples.Mesh;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -52,11 +51,6 @@ import static org.lwjgl.glfw.GLFW.*;
  * Drop 1000 cubes onto a horizontal surface (graphical demo).
  */
 public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
-    // *************************************************************************
-    // fields
-
-    private Mesh cubeMesh;
-
     // *************************************************************************
     // new methods exposed
     public static void main(String[] args) {
@@ -103,7 +97,6 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(floor);
 
         BoxCollisionShape boxShape = new BoxCollisionShape(0.5f);
-        cubeMesh = new Mesh(boxShape);
         Random random = new Random();
         Vector3f location = new Vector3f();
         for (int i = 0; i < 10; i++) {
