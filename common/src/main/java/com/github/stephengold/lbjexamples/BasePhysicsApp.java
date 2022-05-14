@@ -39,11 +39,32 @@ import java.util.List;
 
 public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplication {
 
+    public static final List<Geometry> GEOMETRIES = new ArrayList<>();
+    private static final List<Geometry> OBJECTS_TO_REMOVE = new ArrayList<>(16);
+    private Long lastNanosecond;
+    private PhysicsThread physicsThread;
     public ShaderProgram baseShader;
     public T physicsSpace;
-    private PhysicsThread physicsThread;
-    public static final List<Geometry> GEOMETRIES = new ArrayList<>();
-    private Long lastNanosecond;
+
+
+    public abstract T createSpace();
+
+    public abstract void populateSpace();
+
+    /**
+     * Advance the physics simulation by the specified amount.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
+     */
+    public abstract void updatePhysics(float intervalSeconds);
+
+    @Override
+    public void cleanUp() {
+        baseShader.cleanUp();
+        GEOMETRIES.forEach(appObject -> appObject.getMesh().cleanUp());
+        //physicsThread.stop();
+    }
 
     @Override
     public void initApp() {
@@ -60,8 +81,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
 
         //physicsThread.start();
     }
-
-    private static final List<Geometry> OBJECTS_TO_REMOVE = new ArrayList<>(16);
 
     @Override
     public void render() {
@@ -95,24 +114,4 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         OBJECTS_TO_REMOVE.forEach(Geometry::destroy);
         OBJECTS_TO_REMOVE.clear();
     }
-
-    @Override
-    public void cleanUp() {
-        baseShader.cleanUp();
-        GEOMETRIES.forEach(appObject -> appObject.getMesh().cleanUp());
-        //physicsThread.stop();
-    }
-
-    /**
-     * Advance the physics simulation by the specified amount.
-     *
-     * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    public abstract void updatePhysics(float intervalSeconds);
-
-    public abstract void populateSpace();
-
-    public abstract T createSpace();
-
 }
