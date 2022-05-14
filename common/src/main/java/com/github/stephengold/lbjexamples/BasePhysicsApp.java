@@ -38,17 +38,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplication {
+    // *************************************************************************
+    // fields
 
+    /**
+     * visible geometries
+     */
     public static final List<Geometry> GEOMETRIES = new ArrayList<>();
     private static final List<Geometry> OBJECTS_TO_REMOVE = new ArrayList<>(16);
     private Long lastNanosecond;
     private PhysicsThread physicsThread;
     public ShaderProgram baseShader;
     public T physicsSpace;
+    // *************************************************************************
+    // new methods exposed
 
-
+    /**
+     * Create the PhysicsSpace during initialization.
+     *
+     * @return a new instance
+     */
     public abstract T createSpace();
 
+    /**
+     * Add physics objects to the PhysicsSpace during initialization.
+     */
     public abstract void populateSpace();
 
     /**
@@ -58,6 +72,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     public abstract void updatePhysics(float intervalSeconds);
+    // *************************************************************************
+    // BaseApplication methods
 
     @Override
     public void cleanUp() {
