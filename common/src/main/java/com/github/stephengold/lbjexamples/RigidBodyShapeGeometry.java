@@ -95,10 +95,7 @@ public class RigidBodyShapeGeometry extends Geometry {
      */
     @Override
     public void updateAndRender() {
-        RigidBodyMotionState state = rigidBody.getMotionState();
-        Transform meshToWorld = getMeshToWorldTransform();
-        state.physicsTransform(meshToWorld);
-
+        updateTransform();
         super.updateAndRender();
     }
 
@@ -112,5 +109,16 @@ public class RigidBodyShapeGeometry extends Geometry {
     public boolean wasRemovedFrom(CollisionSpace space) {
         boolean result = !space.contains(rigidBody);
         return result;
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Update the mesh-to-world transform.
+     */
+    private void updateTransform() {
+        RigidBodyMotionState state = rigidBody.getMotionState();
+        Transform meshToWorld = getMeshToWorldTransform();
+        state.physicsTransform(meshToWorld);
     }
 }

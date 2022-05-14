@@ -96,10 +96,7 @@ public class CharacterShapeGeometry extends Geometry {
      */
     @Override
     public void updateAndRender() {
-        Transform meshToWorld = getMeshToWorldTransform();
-        character.getTransform(meshToWorld);
-        meshToWorld.setScale(1f);
-
+        updateTransform();
         super.updateAndRender();
     }
 
@@ -114,5 +111,16 @@ public class CharacterShapeGeometry extends Geometry {
     public boolean wasRemovedFrom(CollisionSpace space) {
         boolean result = !space.contains(character);
         return result;
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Update the mesh-to-world transform.
+     */
+    private void updateTransform() {
+        Transform meshToWorld = getMeshToWorldTransform();
+        character.getTransform(meshToWorld);
+        meshToWorld.setScale(1f);
     }
 }
