@@ -39,7 +39,9 @@ import org.lwjgl.opengl.GL;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 import javax.imageio.ImageIO;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -60,6 +62,40 @@ public abstract class BaseApplication {
     private boolean firstMouse = true;
     private float deltaTime;
     private float lastFrame;
+    /**
+     * map program names to programs
+     */
+    final private static Map<String, ShaderProgram> PROGRAM_MAP
+            = new TreeMap<>();
+    // *************************************************************************
+    // new methods exposed
+
+    /**
+     * Return the default ShaderProgram.
+     *
+     * @return a valid program (not null)
+     */
+    static ShaderProgram getDefaultProgram() {
+        ShaderProgram result = getProgram("UnshadedMonochrome");
+        return result;
+    }
+
+    /**
+     * Return the named ShaderProgram.
+     *
+     * @param name (not null)
+     * @return a valid program (not null)
+     */
+    static ShaderProgram getProgram(String name) {
+        if (!PROGRAM_MAP.containsKey(name)) {
+            ShaderProgram program = new ShaderProgram(name);
+            PROGRAM_MAP.put(name, program);
+        }
+
+        ShaderProgram result = PROGRAM_MAP.get(name);
+        assert result != null;
+        return result;
+    }
 
     public void start() {
         init();
