@@ -69,19 +69,19 @@ public class Mesh {
     private FloatBuffer positions;
     private final int drawMode;
     /**
-     * ID of the VAO
-     */
-    private int vaoId;
-    /**
      * number of vertices
      */
     private final int vertexCount;
+    /**
+     * ID of the VAO, or null if not created yet
+     */
+    private Integer vaoId;
     /**
      * map attribute indices to number of floats-per-vertex
      */
     private final List<Integer> fpvList = new ArrayList<>();
     /**
-     * map attribute indices to VBOs
+     * map attribute indices to VBO IDs
      */
     private final List<Integer> vboIdList = new ArrayList<>();
     // *************************************************************************
@@ -177,12 +177,19 @@ public class Mesh {
     }
 
     void enableAttributes() {
-        this.vaoId = glGenVertexArrays();
-        GL30.glBindVertexArray(vaoId);
+        if (vaoId == null) {
+            this.vaoId = glGenVertexArrays();
+            GL30.glBindVertexArray(vaoId);
 
-        addFloatVbo(positions, numAxes);
-        if (normals != null) {
-            addFloatVbo(normals, numAxes);
+            // Create a VBO for each attribute.
+            addFloatVbo(positions, numAxes);
+            if (normals != null) {
+                addFloatVbo(normals, numAxes);
+            }
+
+        } else {
+            // Re-use the existing VBOs.
+            GL30.glBindVertexArray(vaoId);
         }
 
         for (int index = 0; index < vboIdList.size(); ++index) {
