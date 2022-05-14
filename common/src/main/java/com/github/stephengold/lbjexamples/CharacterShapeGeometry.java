@@ -35,6 +35,7 @@ import com.jme3.bullet.objects.PhysicsCharacter;
 import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.Transform;
 import jme3utilities.Validate;
+import org.joml.Vector4fc;
 
 /**
  * Visualize the shape of a PhysicsCharacter.
@@ -45,6 +46,11 @@ public class CharacterShapeGeometry extends Geometry {
     // *************************************************************************
     // fields
 
+    /**
+     * true to automatically update the color based on the properties of the
+     * character, false for constant color
+     */
+    private boolean automaticColor = true;
     /**
      * character to visualize
      */
@@ -91,10 +97,25 @@ public class CharacterShapeGeometry extends Geometry {
     // Geometry methods
 
     /**
+     * Alter the color and disable automatic updating of it.
+     *
+     * @param newColor the desired color (not null)
+     * @return the (modified) current instance (for chaining)
+     */
+    @Override
+    public Geometry setColor(Vector4fc newColor) {
+        automaticColor = false;
+        super.setColor(newColor);
+
+        return this;
+    }
+
+    /**
      * Update properties based on the PhysicsCharacter and then render.
      */
     @Override
     public void updateAndRender() {
+        updateColor();
         updateMesh();
         updateTransform();
 
@@ -115,6 +136,19 @@ public class CharacterShapeGeometry extends Geometry {
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * Update the color.
+     */
+    private void updateColor() {
+        if (automaticColor) {
+            if (character.isContactResponse()) {
+                super.setColor(Constants.PINK);
+            } else {
+                super.setColor(Constants.YELLOW);
+            }
+        }
+    }
 
     /**
      * Update the Mesh.

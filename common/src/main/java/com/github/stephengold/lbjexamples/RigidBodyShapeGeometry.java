@@ -36,6 +36,7 @@ import com.jme3.bullet.objects.infos.RigidBodyMotionState;
 import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.Transform;
 import jme3utilities.Validate;
+import org.joml.Vector4fc;
 
 /**
  * Visualize the shape of a rigid body.
@@ -44,6 +45,11 @@ public class RigidBodyShapeGeometry extends Geometry {
     // *************************************************************************
     // fields
 
+    /**
+     * true to automatically update the color based on the properties of the
+     * rigid body, false for constant color
+     */
+    private boolean automaticColor = true;
     /**
      * body to visualize
      */
@@ -90,10 +96,25 @@ public class RigidBodyShapeGeometry extends Geometry {
     // Geometry methods
 
     /**
+     * Alter the color and disable automatic updating of it.
+     *
+     * @param newColor the desired color (not null)
+     * @return the (modified) current instance (for chaining)
+     */
+    @Override
+    public Geometry setColor(Vector4fc newColor) {
+        automaticColor = false;
+        super.setColor(newColor);
+
+        return this;
+    }
+
+    /**
      * Update properties based on the body and then render.
      */
     @Override
     public void updateAndRender() {
+        updateColor();
         updateMesh();
         updateTransform();
 
@@ -113,6 +134,21 @@ public class RigidBodyShapeGeometry extends Geometry {
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * Update the color.
+     */
+    private void updateColor() {
+        if (automaticColor) {
+            if (!rigidBody.isContactResponse()) {
+                super.setColor(Constants.YELLOW);
+            } else if (rigidBody.isDynamic() && rigidBody.isActive()) {
+                super.setColor(Constants.MAGENTA);
+            } else {
+                super.setColor(Constants.BLUE);
+            }
+        }
+    }
 
     /**
      * Update the Mesh.
