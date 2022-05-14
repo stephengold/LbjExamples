@@ -31,11 +31,17 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
+import com.jme3.math.Vector3f;
 import com.jme3.util.BufferUtils;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import jme3utilities.math.MyBuffer;
+import jme3utilities.math.MyVector3f;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 
 import static org.lwjgl.opengl.GL30.*;
@@ -49,11 +55,16 @@ public class Mesh {
     // constants
 
     private static final int numAxes = 3;
+    private static final int vpt = 3;
     // *************************************************************************
     // fields
 
     /**
-     * vertex positions
+     * vertex normals (3 floats per vertex)
+     */
+    private FloatBuffer normals;
+    /**
+     * vertex positions (3 floats per vertex)
      */
     private FloatBuffer positions;
     private final int drawMode;
@@ -100,32 +111,61 @@ public class Mesh {
     }
 
     /**
-     * Instantiate a TRIANGLES-mode mesh for the specified collision shape and
-     * resolution.
+     * Instantiate a TRIANGLES-mode mesh for the specified collision shape.
      *
      * @param shape the shape to use (not null, unaffected)
+     * @param normalsOption (not null)
      * @param resolution either
      * {@link com.jme3.bullet.util.DebugShapeFactory#lowResolution} (0) or
      * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
      */
-    public Mesh(CollisionShape shape, int resolution) {
-        this(DebugShapeFactory.getDebugTriangles(shape, resolution));
+    Mesh(CollisionShape shape, NormalsOption normalsOption, int resolution) {
+        this.drawMode = GL11.GL_TRIANGLES;
+        assert normalsOption != null;
+        assert resolution == 0 || resolution == 1 : resolution;
+
+        this.positions = DebugShapeFactory.getDebugTriangles(shape, resolution);
+        this.vertexCount = positions.capacity() / numAxes;
+        /*
+         * Add a normal buffer, if requested.
+         */
+        switch (normalsOption) {
+            case Facet:
+                makeFaceNormals();
+                break;
+            case None:
+                this.normals = null;
+                break;
+            case Smooth:
+                makeFaceNormals();
+                smoothNormals();
+                break;
+            case Sphere:
+                makeSphereNormals();
+                break;
+            default:
+                String message = "normalsOption = " + normalsOption;
+                throw new IllegalArgumentException(message);
+        }
     }
 
     /**
-     * Instantiate a low-resolution, TRIANGLES-mode mesh for the specified
+     * Auto-generate a low-resolution, TRIANGLES-mode mesh for the specified
      * collision shape.
      *
      * @param shape the shape to use (not null, unaffected)
+     * @param normalsOption (not null)
      */
-    public Mesh(CollisionShape shape) {
-        this(shape, DebugShapeFactory.lowResolution);
+    Mesh(CollisionShape shape, NormalsOption normalsOption) {
+        this(shape, normalsOption, DebugShapeFactory.lowResolution);
     }
     // *************************************************************************
     // new methods exposed
 
     void cleanUp() {
-        glDisableVertexAttribArray(0);
+        for (int index = 0; index < vboIdList.size(); ++index) {
+            glDisableVertexAttribArray(index);
+        }
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         for (int vboId : vboIdList) {
@@ -141,8 +181,13 @@ public class Mesh {
         GL30.glBindVertexArray(vaoId);
 
         addFloatVbo(positions, numAxes);
+        if (normals != null) {
+            addFloatVbo(normals, numAxes);
+        }
 
-        enableAttribute(0);
+        for (int index = 0; index < vboIdList.size(); ++index) {
+            enableAttribute(index);
+        }
     }
 
     public int getVertexCount() {
@@ -196,5 +241,103 @@ public class Mesh {
         int startOffset = 0;
         glVertexAttribPointer(
                 attributeIndex, fpv, GL_FLOAT, normalized, stride, startOffset);
+    }
+
+    private void makeFaceNormals() {
+        assert drawMode == GL11.GL_TRIANGLES;
+        int numTriangles = vertexCount / vpt;
+        assert vertexCount == vpt * numTriangles;
+
+        Vector3f posA = new Vector3f();
+        Vector3f posB = new Vector3f();
+        Vector3f posC = new Vector3f();
+        Vector3f ac = new Vector3f();
+        Vector3f normal = new Vector3f();
+
+        normals = BufferUtils.createFloatBuffer(numAxes * vertexCount);
+        for (int triIndex = 0; triIndex < numTriangles; ++triIndex) {
+            int trianglePosition = triIndex * vpt * numAxes;
+            MyBuffer.get(positions, trianglePosition, posA);
+            MyBuffer.get(positions, trianglePosition + numAxes, posB);
+            MyBuffer.get(positions, trianglePosition + 2 * numAxes, posC);
+
+            posB.subtract(posA, normal);
+            posC.subtract(posA, ac);
+            normal.cross(ac, normal);
+            MyVector3f.normalizeLocal(normal);
+
+            for (int j = 0; j < vpt; ++j) {
+                normals.put(normal.x);
+                normals.put(normal.y);
+                normals.put(normal.z);
+            }
+        }
+        normals.flip();
+    }
+
+    private void makeSphereNormals() {
+        Vector3f tmpVector = new Vector3f();
+
+        normals = BufferUtils.createFloatBuffer(numAxes * vertexCount);
+        for (int vertIndex = 0; vertIndex < vertexCount; ++vertIndex) {
+            int vPosition = vertIndex * numAxes;
+            MyBuffer.get(positions, vPosition, tmpVector);
+            MyVector3f.normalizeLocal(tmpVector);
+
+            normals.put(tmpVector.x);
+            normals.put(tmpVector.y);
+            normals.put(tmpVector.z);
+        }
+        normals.flip();
+    }
+
+    private void smoothNormals() {
+        Map<Vector3f, Integer> mapPosToDpid = new HashMap<>(vertexCount);
+        int numDistinctPositions = 0;
+        for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
+            int start = vertexIndex * numAxes;
+            Vector3f position = new Vector3f();
+            MyBuffer.get(positions, start, position);
+            MyVector3f.standardize(position, position);
+            if (!mapPosToDpid.containsKey(position)) {
+                mapPosToDpid.put(position, numDistinctPositions);
+                ++numDistinctPositions;
+            }
+        }
+        /*
+         * Initialize the normal sum for each distinct position.
+         */
+        Vector3f[] normalSums = new Vector3f[numDistinctPositions];
+        for (int dpid = 0; dpid < numDistinctPositions; ++dpid) {
+            normalSums[dpid] = new Vector3f();
+        }
+
+        Vector3f tmpPosition = new Vector3f();
+        Vector3f tmpNormal = new Vector3f();
+        for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
+            int start = vertexIndex * numAxes;
+            MyBuffer.get(positions, start, tmpPosition);
+            MyVector3f.standardize(tmpPosition, tmpPosition);
+            int dpid = mapPosToDpid.get(tmpPosition);
+
+            MyBuffer.get(normals, start, tmpNormal);
+            normalSums[dpid].addLocal(tmpNormal);
+        }
+        /*
+         * Re-normalize the normal sum for each distinct position.
+         */
+        for (Vector3f normal : normalSums) {
+            MyVector3f.normalizeLocal(normal);
+        }
+        /*
+         * Write new normals to the buffer.
+         */
+        for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
+            int start = vertexIndex * numAxes;
+            MyBuffer.get(positions, start, tmpPosition);
+            MyVector3f.standardize(tmpPosition, tmpPosition);
+            int dpid = mapPosToDpid.get(tmpPosition);
+            MyBuffer.put(normals, start, normalSums[dpid]);
+        }
     }
 }

@@ -74,7 +74,7 @@ public class CharacterShapeGeometry extends Geometry {
         Validate.nonNull(character, "character");
 
         CollisionShape shape = character.getCollisionShape();
-        Mesh mesh = new Mesh(shape, resolution);
+        Mesh mesh = new Mesh(shape, NormalsOption.None, resolution);
         super.setMesh(mesh);
         // TODO what if the shape changes?
 

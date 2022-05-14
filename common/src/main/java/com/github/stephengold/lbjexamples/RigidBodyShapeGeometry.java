@@ -73,7 +73,7 @@ public class RigidBodyShapeGeometry extends Geometry {
         Validate.nonNull(rigidBody, "body");
 
         CollisionShape shape = rigidBody.getCollisionShape();
-        Mesh mesh = new Mesh(shape, resolution);
+        Mesh mesh = new Mesh(shape, NormalsOption.None, resolution);
         super.setMesh(mesh);
         // TODO what if the shape changes?
 
