@@ -97,7 +97,6 @@ public class Mesh {
         this.drawMode = drawMode;
         this.vertexCount = positionsArray.length / numAxes;
         this.positions = BufferUtils.createFloatBuffer(positionsArray);
-        enableAttributes();
     }
 
     /**
