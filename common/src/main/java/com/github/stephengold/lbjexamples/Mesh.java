@@ -73,7 +73,7 @@ public class Mesh {
      */
     public Mesh(int drawMode, float[] positionsArray) {
         this.drawMode = drawMode;
-        this.vertexCount = positionsArray.length;
+        this.vertexCount = positionsArray.length / 3;
         this.positions = BufferUtils.createFloatBuffer(positionsArray);
         uploadMesh();
     }
