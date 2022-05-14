@@ -36,6 +36,7 @@ import com.jme3.util.BufferUtils;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import org.lwjgl.opengl.GL30;
 
 import static org.lwjgl.opengl.GL30.*;
 
@@ -44,6 +45,10 @@ import static org.lwjgl.opengl.GL30.*;
  * (VBOs) are attached.
  */
 public class Mesh {
+    // *************************************************************************
+    // constants
+
+    private static final int numAxes = 3;
     // *************************************************************************
     // fields
 
@@ -79,15 +84,9 @@ public class Mesh {
      */
     public Mesh(int drawMode, float[] positionsArray) {
         this.drawMode = drawMode;
-        this.vertexCount = positionsArray.length / 3;
+        this.vertexCount = positionsArray.length / numAxes;
         this.positions = BufferUtils.createFloatBuffer(positionsArray);
-
-        vaoId = glGenVertexArrays();
-        glBindVertexArray(vaoId);
-
-        // Position VBO
-        addFloatVbo(positions, 3);
-        enableAttribute(0);
+        enableAttributes();
     }
 
     /**
@@ -137,14 +136,24 @@ public class Mesh {
         glDeleteVertexArrays(vaoId);
     }
 
+    void enableAttributes() {
+        this.vaoId = glGenVertexArrays();
+        GL30.glBindVertexArray(vaoId);
+
+        addFloatVbo(positions, numAxes);
+
+        enableAttribute(0);
+    }
+
     public int getVertexCount() {
         return vertexCount;
     }
 
     public void render() {
-        glBindVertexArray(vaoId);
+        GL30.glBindVertexArray(vaoId);
 
-        glDrawArrays(drawMode, 0, getVertexCount());
+        int startVertex = 0;
+        glDrawArrays(drawMode, startVertex, vertexCount);
 
         glBindVertexArray(0);
     }
