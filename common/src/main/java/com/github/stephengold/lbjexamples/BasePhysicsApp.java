@@ -50,7 +50,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
      * timestamp of the previous render()
      */
     private Long lastPhysicsUpdate;
-    private PhysicsThread physicsThread;
+    //private PhysicsThread physicsThread;
     public ShaderProgram baseShader;
     public T physicsSpace;
     // *************************************************************************
