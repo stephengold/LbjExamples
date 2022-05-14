@@ -292,7 +292,7 @@ public class Geometry {
      * Update properties based on the physics object (if any). Meant to be
      * overridden.
      */
-    void update() {
+    void updateAndRender() {
         // do nothing
     }
 

@@ -88,10 +88,10 @@ public class ConstraintGeometry extends Geometry {
     // Geometry methods
 
     /**
-     * Update properties based on the Constraint.
+     * Update properties based on the Constraint and then render.
      */
     @Override
-    public void update() {
+    public void updateAndRender() {
         meshToWorld.getTranslation().zero();
 
         Vector3f zDir = constraint.getPivot(end, null); // TODO garbage
@@ -111,6 +111,8 @@ public class ConstraintGeometry extends Geometry {
         state.physicsTransform(bodyToWorld);
 
         meshToWorld.combineWithParent(bodyToWorld);
+
+        super.updateAndRender();
     }
 
     /**

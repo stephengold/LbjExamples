@@ -84,12 +84,14 @@ public class CharacterShapeGeometry extends Geometry {
     // Geometry methods
 
     /**
-     * Update properties based on the PhysicsCharacter.
+     * Update properties based on the PhysicsCharacter and then render.
      */
     @Override
-    public void update() {
+    public void updateAndRender() {
         character.getTransform(meshToWorld);
         meshToWorld.setScale(1f);
+
+        super.updateAndRender();
     }
 
     /**

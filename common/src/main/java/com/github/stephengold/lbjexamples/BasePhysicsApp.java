@@ -128,7 +128,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         baseShader.setUniform("viewMatrix", camera.getViewMatrix());
 
         for (Geometry geometry : visibleGeometries) {
-            geometry.update();
+            geometry.updateAndRender();
             baseShader.use();
             baseShader.setUniform("modelMatrix", geometry);
             baseShader.setUniform("color", geometry.getColor());

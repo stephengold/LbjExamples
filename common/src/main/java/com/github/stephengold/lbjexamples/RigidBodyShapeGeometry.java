@@ -83,12 +83,14 @@ public class RigidBodyShapeGeometry extends Geometry {
     // Geometry methods
 
     /**
-     * Update properties based on the body.
+     * Update properties based on the body and then render.
      */
     @Override
-    public void update() {
+    public void updateAndRender() {
         RigidBodyMotionState state = rigidBody.getMotionState();
         state.physicsTransform(meshToWorld);
+
+        super.updateAndRender();
     }
 
     /**
