@@ -32,6 +32,7 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.CharacterShapeGeometry;
 import com.github.stephengold.lbjexamples.Constants;
+import com.github.stephengold.lbjexamples.NormalsOption;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
@@ -113,7 +114,7 @@ public class HelloCharacter
         PhysicsRigidBody ground = addSquare(halfExtent, y, physicsSpace);
 
         // Customize the debug visualization of each object.
-        new CharacterShapeGeometry(character, DebugShapeFactory.highResolution)
+        new CharacterShapeGeometry(character, NormalsOption.Smooth, DebugShapeFactory.highResolution)
                 .setColor(Constants.RED);
         new RigidBodyShapeGeometry(ground).setColor(Constants.GREEN);
 

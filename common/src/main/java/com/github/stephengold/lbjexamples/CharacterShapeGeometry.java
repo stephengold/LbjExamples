@@ -69,24 +69,28 @@ public class CharacterShapeGeometry extends Geometry {
      * @param character the character to visualize (not null, alias created)
      */
     public CharacterShapeGeometry(PhysicsCharacter character) {
-        this(character, DebugShapeFactory.lowResolution);
+        this(character, NormalsOption.None, DebugShapeFactory.lowResolution);
     }
 
     /**
-     * Instantiate a Geometry to visualize the specified character at the
-     * specified resolution and make it visible.
+     * Instantiate a Geometry to visualize the specified character and make it
+     * visible.
      *
      * @param character the character to visualize (not null, alias created)
+     * @param normalsOption how to generate mesh normals (not null)
      * @param resolution either
      * {@link com.jme3.bullet.util.DebugShapeFactory#lowResolution} (0) or
      * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
      */
-    public CharacterShapeGeometry(PhysicsCharacter character, int resolution) {
+    public CharacterShapeGeometry(PhysicsCharacter character,
+            NormalsOption normalsOption, int resolution) {
         super();
         Validate.nonNull(character, "character");
+        Validate.nonNull(normalsOption, "normals option");
+        Validate.inRange(resolution, "resolution", 0, 1);
 
         CollisionShape shape = character.getCollisionShape();
-        this.summary = new ShapeSummary(shape, NormalsOption.None, resolution);
+        this.summary = new ShapeSummary(shape, normalsOption, resolution);
         Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
 
