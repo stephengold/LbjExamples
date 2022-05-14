@@ -96,11 +96,11 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Release", "Sp");
 
         physicsSpace = createSpace();
-
-        //physicsThread = new PhysicsThread(space);
-        baseShader = new ShaderProgram("UnshadedMonochrome");
         populateSpace();
 
+        baseShader = new ShaderProgram("UnshadedMonochrome");
+
+        //physicsThread = new PhysicsThread(space);
         //physicsThread.start();
     }
 
@@ -127,13 +127,13 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         baseShader.setUniform("projectionMatrix", projectionMatrix);
         baseShader.setUniform("viewMatrix", camera.getViewMatrix());
 
-        visibleGeometries.forEach(geometry -> {
+        for (Geometry geometry : visibleGeometries) {
             geometry.update();
             baseShader.use();
             baseShader.setUniform("modelMatrix", geometry);
             baseShader.setUniform("color", geometry.getColor());
             geometry.getMesh().render();
-        });
+        }
     }
     // *************************************************************************
     // private methods
