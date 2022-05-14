@@ -201,8 +201,6 @@ public class Mesh {
 
         int startVertex = 0;
         glDrawArrays(drawMode, startVertex, vertexCount);
-
-        glBindVertexArray(0);
     }
     // *************************************************************************
     // private methods
