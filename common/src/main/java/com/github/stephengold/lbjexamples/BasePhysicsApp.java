@@ -104,9 +104,9 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
     public void render() {
         long nanoTime = System.nanoTime();
         if (lastPhysicsUpdate != null) { // not the first invocation of render()
-            long intervalNanoseconds = nanoTime - lastPhysicsUpdate;
-            float intervalSeconds = 1e-9f * intervalNanoseconds;
-            updatePhysics(intervalSeconds);
+            long nanoseconds = nanoTime - lastPhysicsUpdate;
+            float seconds = 1e-9f * nanoseconds;
+            updatePhysics(seconds);
         }
         lastPhysicsUpdate = nanoTime;
 
