@@ -32,7 +32,6 @@ package com.github.stephengold.lbjexamples;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.util.BufferUtils;
-import com.github.stephengold.lbjexamples.Utils;
 
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
@@ -75,7 +74,13 @@ public class Mesh {
         this.drawMode = drawMode;
         this.vertexCount = positionsArray.length / 3;
         this.positions = BufferUtils.createFloatBuffer(positionsArray);
-        uploadMesh();
+
+        vaoId = glGenVertexArrays();
+        glBindVertexArray(vaoId);
+
+        // Position VBO
+        addFloatVbo(positions, 3);
+        enableAttribute(0);
     }
 
     /**
@@ -113,27 +118,6 @@ public class Mesh {
     // *************************************************************************
     // new methods exposed
 
-    private void uploadMesh() {
-        vaoId = glGenVertexArrays();
-        glBindVertexArray(vaoId);
-
-        // Position VBO
-        int vboId = glGenBuffers();
-        vboIdList.add(vboId);
-
-        positions.rewind();
-        int numFloats = positions.capacity();
-        positions.limit(numFloats);
-
-        glBindBuffer(GL_ARRAY_BUFFER, vboId);
-        glBufferData(GL_ARRAY_BUFFER, positions, GL_STATIC_DRAW);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glBindVertexArray(0);
-    }
-
     public int getVertexCount() {
         return vertexCount;
     }
@@ -156,5 +140,38 @@ public class Mesh {
 
         glBindVertexArray(0);
         glDeleteVertexArrays(vaoId);
+    }
+    // *************************************************************************
+    // new methods exposed
+
+    /**
+     * @param data the data for initialization, or {@code NULL} if no data is to
+     * be copied
+     * @param fpv the number of float values per vertex (&ge;1, &le;4)
+     */
+    private void addFloatVbo(FloatBuffer data, int fpv) {
+        int vboId = glGenBuffers();
+        vboIdList.add(vboId);
+
+        data.rewind();
+        int numFloats = vertexCount * fpv;
+        data.limit(numFloats);
+
+        glBindBuffer(GL_ARRAY_BUFFER, vboId);
+        glBufferData(GL_ARRAY_BUFFER, data, GL_STATIC_DRAW);
+    }
+
+    private void enableAttribute(int attributeIndex) {
+        glEnableVertexAttribArray(attributeIndex);
+
+        int vboId = vboIdList.get(attributeIndex);
+        glBindBuffer(GL_ARRAY_BUFFER, vboId);
+
+        int fpv = 3;
+        boolean normalized = false;
+        int stride = 0; // tightly packed
+        int startOffset = 0;
+        glVertexAttribPointer(
+                attributeIndex, fpv, GL_FLOAT, normalized, stride, startOffset);
     }
 }
