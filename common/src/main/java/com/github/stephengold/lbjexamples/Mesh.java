@@ -100,16 +100,6 @@ public class Mesh {
     }
 
     /**
-     * Instantiate a TRIANGLES-mode mesh using the positions in the specified
-     * buffer.
-     *
-     * @param positions the buffer to use (not null, unaffected)
-     */
-    public Mesh(FloatBuffer positions) {
-        this(GL_TRIANGLES, Utils.toArray(positions));
-    }
-
-    /**
      * Instantiate a TRIANGLES-mode mesh for the specified collision shape.
      *
      * @param shape the shape to use (not null, unaffected)
