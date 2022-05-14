@@ -42,6 +42,8 @@ import java.util.Map;
 import jme3utilities.math.MyBuffer;
 import jme3utilities.math.MyVector3f;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import static org.lwjgl.opengl.GL30.*;
@@ -165,24 +167,20 @@ public class Mesh {
      * Delete the VAO and all its VBOs.
      */
     void cleanUp() {
-        // TODO bind VAO or use glDisableVertexArrayAttrib
-        for (int index = 0; index < vboIdList.size(); ++index) {
-            glDisableVertexAttribArray(index);
+        if (vaoId == null) {
+            return;
         }
 
-        // Ensure none of the VBOs is bound.
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        GL30.glBindVertexArray(vaoId);
+        for (int index = 0; index < vboIdList.size(); ++index) {
+            GL20.glDisableVertexAttribArray(index);
+        }
 
         for (int vboId : vboIdList) {
-            glDeleteBuffers(vboId);
+            GL15.glDeleteBuffers(vboId);
         }
 
-        if (vaoId != null) {
-            // Ensure the VAO isn't bound.
-            GL30.glBindVertexArray(0);
-
-            GL30.glDeleteVertexArrays(vaoId);
-        }
+        GL30.glDeleteVertexArrays(vaoId);
     }
 
     /**
