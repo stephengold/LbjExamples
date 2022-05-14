@@ -32,6 +32,7 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.ConstraintGeometry;
+import com.github.stephengold.lbjexamples.NormalsOption;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
@@ -199,7 +200,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
         result.setRestitution(1f);
         physicsSpace.addCollisionObject(result);
 
-        new RigidBodyShapeGeometry(result, DebugShapeFactory.highResolution)
+        new RigidBodyShapeGeometry(result, NormalsOption.Sphere, DebugShapeFactory.highResolution)
                 .setColor(BALL_COLOR);
 
         float wireLength = 80f;

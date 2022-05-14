@@ -68,24 +68,26 @@ public class RigidBodyShapeGeometry extends Geometry {
      * @param rigidBody the body to visualize (not null, alias created)
      */
     public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody) {
-        this(rigidBody, DebugShapeFactory.lowResolution);
+        this(rigidBody, NormalsOption.None, DebugShapeFactory.lowResolution);
     }
 
     /**
-     * Instantiate a Geometry to visualize the specified body at the specified
-     * resolution and make it visible.
+     * Instantiate a Geometry to visualize the specified rigid body and make it
+     * visible.
      *
      * @param rigidBody the body to visualize (not null, alias created)
+     * @param normalsOption how to generate mesh normals (not null)
      * @param resolution either
      * {@link com.jme3.bullet.util.DebugShapeFactory#lowResolution} (0) or
      * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
      */
-    public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody, int resolution) {
+    public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody,
+            NormalsOption normalsOption, int resolution) {
         super();
         Validate.nonNull(rigidBody, "body");
 
         CollisionShape shape = rigidBody.getCollisionShape();
-        this.summary = new ShapeSummary(shape, NormalsOption.None, resolution);
+        this.summary = new ShapeSummary(shape, normalsOption, resolution);
         Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
 
