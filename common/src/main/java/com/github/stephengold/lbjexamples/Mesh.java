@@ -54,7 +54,13 @@ public class Mesh {
     // *************************************************************************
     // constants
 
+    /**
+     * number of axes in a vector
+     */
     private static final int numAxes = 3;
+    /**
+     * number of vertices per triangle
+     */
     private static final int vpt = 3;
     // *************************************************************************
     // fields
@@ -67,21 +73,25 @@ public class Mesh {
      * vertex positions (3 floats per vertex)
      */
     private FloatBuffer positions;
+    /**
+     * kind of geometric primitives contained in this Mesh, such as:
+     * GL_TRIANGLES, GL_LINE_LOOP, or GL_POINTS
+     */
     private final int drawMode;
     /**
      * number of vertices
      */
     private final int vertexCount;
     /**
-     * ID of the VAO, or null if not created yet
+     * ID of the VAO, or null if it hasn't been created yet
      */
     private Integer vaoId;
     /**
-     * map attribute indices to number of floats-per-vertex
+     * map vertex attribute indices to numbers of floats-per-vertex
      */
     private final List<Integer> fpvList = new ArrayList<>();
     /**
-     * map attribute indices to VBO IDs
+     * map vertex attribute indices to VBO IDs
      */
     private final List<Integer> vboIdList = new ArrayList<>();
     // *************************************************************************
@@ -100,7 +110,7 @@ public class Mesh {
     }
 
     /**
-     * Instantiate a TRIANGLES-mode mesh for the specified collision shape.
+     * Auto-generate a TRIANGLES-mode mesh for the specified collision shape.
      *
      * @param shape the shape to use (not null, unaffected)
      * @param normalsOption (not null)
@@ -151,7 +161,11 @@ public class Mesh {
     // *************************************************************************
     // new methods exposed
 
+    /**
+     * Delete the VAO and all its VBOs.
+     */
     void cleanUp() {
+        // TODO bind VAO or use glDisableVertexArrayAttrib
         for (int index = 0; index < vboIdList.size(); ++index) {
             glDisableVertexAttribArray(index);
         }
@@ -171,6 +185,11 @@ public class Mesh {
         }
     }
 
+    /**
+     * Prepare all vertex attributes for rendering.
+     * <p>
+     * If the VAO doesn't already exist, it and its VBOs are created.
+     */
     void enableAttributes() {
         if (vaoId == null) {
             this.vaoId = glGenVertexArrays();
@@ -192,6 +211,11 @@ public class Mesh {
         }
     }
 
+    /**
+     * Count how many vertices this Mesh contains.
+     *
+     * @return the count (&ge;0)
+     */
     public int getVertexCount() {
         return vertexCount;
     }
@@ -229,6 +253,11 @@ public class Mesh {
         glBufferData(GL_ARRAY_BUFFER, data, GL_STATIC_DRAW);
     }
 
+    /**
+     * Prepare the specified vertex attribute for rendering.
+     *
+     * @param attributeIndex the index of the vertex attribute to prepare
+     */
     private void enableAttribute(int attributeIndex) {
         glEnableVertexAttribArray(attributeIndex);
 
@@ -243,6 +272,10 @@ public class Mesh {
                 attributeIndex, fpv, GL_FLOAT, normalized, stride, startOffset);
     }
 
+    /**
+     * Generate flat normals on a triangle-by-triangle basis for a
+     * triangles-mode Mesh. Any pre-existing normals are discarded.
+     */
     private void makeFaceNormals() {
         assert drawMode == GL11.GL_TRIANGLES;
         int numTriangles = vertexCount / vpt;
@@ -275,6 +308,10 @@ public class Mesh {
         normals.flip();
     }
 
+    /**
+     * Generate normals on a vertex-by-vertex basis for an outward-facing
+     * sphere. Any pre-existing normals are discarded.
+     */
     private void makeSphereNormals() {
         Vector3f tmpVector = new Vector3f();
 
@@ -291,7 +328,13 @@ public class Mesh {
         normals.flip();
     }
 
+    /**
+     * Smooth the pre-existing normals by averaging them across all uses of each
+     * distinct vertex position.
+     */
     private void smoothNormals() {
+        assert normals != null;
+
         Map<Vector3f, Integer> mapPosToDpid = new HashMap<>(vertexCount);
         int numDistinctPositions = 0;
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
