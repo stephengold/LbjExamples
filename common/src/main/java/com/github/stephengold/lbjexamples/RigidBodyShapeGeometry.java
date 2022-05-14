@@ -66,6 +66,22 @@ public class RigidBodyShapeGeometry extends Geometry {
      * visible.
      *
      * @param rigidBody the body to visualize (not null, alias created)
+     * @param normalsName how to generate mesh normals (either "Facet" or "None"
+     * or "Smooth" or "Sphere")
+     * @param resolutionName mesh resolution for convex shapes (either "high" or
+     * "low" or null)
+     */
+    public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody,
+            String normalsName, String resolutionName) {
+        this(rigidBody, NormalsOption.valueOf(normalsName),
+                Utils.toResolution(resolutionName));
+    }
+
+    /**
+     * Instantiate a Geometry to visualize the specified rigid body and make it
+     * visible.
+     *
+     * @param rigidBody the body to visualize (not null, alias created)
      */
     public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody) {
         this(rigidBody, NormalsOption.None, DebugShapeFactory.lowResolution);
