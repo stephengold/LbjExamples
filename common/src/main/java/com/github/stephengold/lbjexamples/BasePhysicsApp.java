@@ -35,6 +35,7 @@ import org.joml.Matrix4f;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplication {
@@ -45,7 +46,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
      * visible geometries
      */
     public static final List<Geometry> visibleGeometries = new ArrayList<>();
-    private static final List<Geometry> OBJECTS_TO_REMOVE = new ArrayList<>(16);
     /**
      * timestamp of the previous render()
      */
@@ -110,6 +110,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         }
         lastPhysicsUpdate = nanoTime;
 
+        cleanUpGeometries();
+
         baseShader.use();
         Matrix4f projectionMatrix = new Matrix4f();
         projectionMatrix.setPerspective((float) Math.toRadians(Camera.ZOOM),
@@ -118,18 +120,30 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         baseShader.setUniform("viewMatrix", camera.getViewMatrix());
 
         visibleGeometries.forEach(geometry -> {
-            if (geometry.wasRemovedFrom(physicsSpace)) {
-                OBJECTS_TO_REMOVE.add(geometry);
-                return;
-            }
             geometry.update();
             baseShader.use();
             baseShader.setUniform("modelMatrix", geometry);
             baseShader.setUniform("color", geometry.getColor());
             geometry.getMesh().render();
         });
+    }
+    // *************************************************************************
+    // private methods
 
-        OBJECTS_TO_REMOVE.forEach(Geometry::destroy);
-        OBJECTS_TO_REMOVE.clear();
+    /**
+     * Remove any geometries associated with physics objects that are no longer
+     * in the PhysicsSpace.
+     */
+    private void cleanUpGeometries() {
+        Collection<Geometry> geometriesToRemove = new ArrayList<>();
+        for (Geometry geometry : visibleGeometries) {
+            if (geometry.wasRemovedFrom(physicsSpace)) {
+                geometriesToRemove.add(geometry);
+            }
+        }
+
+        for (Geometry geometry : geometriesToRemove) {
+            visibleGeometries.remove(geometry);
+        }
     }
 }
