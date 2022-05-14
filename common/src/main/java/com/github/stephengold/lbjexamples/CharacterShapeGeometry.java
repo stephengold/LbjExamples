@@ -67,6 +67,21 @@ public class CharacterShapeGeometry extends Geometry {
      * visible.
      *
      * @param character the character to visualize (not null, alias created)
+     * @param normalsName how to generate mesh normals (either "Facet" or "None"
+     * or "Smooth" or "Sphere")
+     * @param resolutionName mesh resolution (either "high" or "low" or null)
+     */
+    public CharacterShapeGeometry(PhysicsCharacter character,
+            String normalsName, String resolutionName) {
+        this(character, NormalsOption.valueOf(normalsName),
+                Utils.toResolution(resolutionName));
+    }
+
+    /**
+     * Instantiate a Geometry to visualize the specified character and make it
+     * visible.
+     *
+     * @param character the character to visualize (not null, alias created)
      */
     public CharacterShapeGeometry(PhysicsCharacter character) {
         this(character, NormalsOption.None, DebugShapeFactory.lowResolution);
