@@ -156,13 +156,19 @@ public class Mesh {
             glDisableVertexAttribArray(index);
         }
 
+        // Ensure none of the VBOs is bound.
         glBindBuffer(GL_ARRAY_BUFFER, 0);
+
         for (int vboId : vboIdList) {
             glDeleteBuffers(vboId);
         }
 
-        glBindVertexArray(0);
-        glDeleteVertexArrays(vaoId);
+        if (vaoId != null) {
+            // Ensure the VAO isn't bound.
+            GL30.glBindVertexArray(0);
+
+            GL30.glDeleteVertexArrays(vaoId);
+        }
     }
 
     void enableAttributes() {
