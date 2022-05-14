@@ -48,7 +48,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
     /**
      * visible geometries
      */
-    public static final List<Geometry> visibleGeometries = new ArrayList<>();
+    private static final List<Geometry> visibleGeometries = new ArrayList<>();
     /**
      * how many times render() has been invoked
      */
@@ -73,6 +73,17 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
      * @return a new instance
      */
     public abstract T createSpace();
+
+    /**
+     * Make the specified Geometry visible.
+     *
+     * @param geometry the Geometry to visualize (not null, unaffected)
+     */
+    static void makeVisible(Geometry geometry) {
+        assert geometry.getMesh() != null;
+        assert geometry.getProgram() != null;
+        visibleGeometries.add(geometry);
+    }
 
     /**
      * Return a Mesh to visualize the summarized CollisionShape.

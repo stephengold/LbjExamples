@@ -56,7 +56,8 @@ public class CharacterShapeGeometry extends Geometry {
     // constructors
 
     /**
-     * Instantiate a Geometry to visualize the specified character.
+     * Instantiate a Geometry to visualize the specified character and make it
+     * visible.
      *
      * @param character the character to visualize (not null, alias created)
      */
@@ -66,7 +67,7 @@ public class CharacterShapeGeometry extends Geometry {
 
     /**
      * Instantiate a Geometry to visualize the specified character at the
-     * specified resolution.
+     * specified resolution and make it visible.
      *
      * @param character the character to visualize (not null, alias created)
      * @param resolution either
@@ -84,6 +85,7 @@ public class CharacterShapeGeometry extends Geometry {
         // TODO what if the shape changes?
 
         this.character = character;
+        BasePhysicsApp.makeVisible(this);
     }
     // *************************************************************************
     // Geometry methods

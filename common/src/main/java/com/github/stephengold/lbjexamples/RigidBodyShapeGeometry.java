@@ -55,7 +55,8 @@ public class RigidBodyShapeGeometry extends Geometry {
     // constructors
 
     /**
-     * Instantiate a Geometry to visualize the specified rigid body.
+     * Instantiate a Geometry to visualize the specified rigid body and make it
+     * visible.
      *
      * @param rigidBody the body to visualize (not null, alias created)
      */
@@ -65,7 +66,7 @@ public class RigidBodyShapeGeometry extends Geometry {
 
     /**
      * Instantiate a Geometry to visualize the specified body at the specified
-     * resolution.
+     * resolution and make it visible.
      *
      * @param rigidBody the body to visualize (not null, alias created)
      * @param resolution either
@@ -83,6 +84,7 @@ public class RigidBodyShapeGeometry extends Geometry {
         // TODO what if the shape changes?
 
         this.rigidBody = rigidBody;
+        BasePhysicsApp.makeVisible(this);
     }
     // *************************************************************************
     // Geometry methods

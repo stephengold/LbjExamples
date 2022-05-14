@@ -72,22 +72,25 @@ public class Geometry {
     // constructors
 
     /**
-     * Instantiate a Geometry with no Mesh and default ShaderProgram.
+     * Instantiate a Geometry with no Mesh and default ShaderProgram. Don't make
+     * it visible.
      */
     protected Geometry() {
         this.program = BasePhysicsApp.getDefaultProgram();
-        BasePhysicsApp.visibleGeometries.add(this);
     }
 
     /**
-     * Instantiate a Geometry with the specified Mesh and default ShaderProgram.
+     * Instantiate a Geometry with the specified Mesh and default ShaderProgram
+     * and make it visible.
      *
      * @param mesh the desired Mesh (not null, alias created)
      */
     public Geometry(Mesh mesh) {
         this();
         Validate.nonNull(mesh, "mesh");
+
         this.mesh = mesh;
+        BasePhysicsApp.makeVisible(this);
     }
     // *************************************************************************
     // new methods exposed
