@@ -44,9 +44,12 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
     /**
      * visible geometries
      */
-    public static final List<Geometry> GEOMETRIES = new ArrayList<>();
+    public static final List<Geometry> visibleGeometries = new ArrayList<>();
     private static final List<Geometry> OBJECTS_TO_REMOVE = new ArrayList<>(16);
-    private Long lastNanosecond;
+    /**
+     * timestamp of the previous render()
+     */
+    private Long lastPhysicsUpdate;
     private PhysicsThread physicsThread;
     public ShaderProgram baseShader;
     public T physicsSpace;
@@ -78,13 +81,12 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
     @Override
     public void cleanUp() {
         baseShader.cleanUp();
-        GEOMETRIES.forEach(appObject -> appObject.getMesh().cleanUp());
+        visibleGeometries.forEach(appObject -> appObject.getMesh().cleanUp());
         //physicsThread.stop();
     }
 
     @Override
     public void initApp() {
-
         String homePath = System.getProperty("user.home");
         File downloadDirectory = new File(homePath, "Downloads");
         NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Release", "Sp");
@@ -100,13 +102,13 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
 
     @Override
     public void render() {
-        long nanosecond = System.nanoTime();
-        if (lastNanosecond != null) { // not the first invocation of render()
-            long intervalNanoseconds = nanosecond - lastNanosecond;
+        long nanoTime = System.nanoTime();
+        if (lastPhysicsUpdate != null) { // not the first invocation of render()
+            long intervalNanoseconds = nanoTime - lastPhysicsUpdate;
             float intervalSeconds = 1e-9f * intervalNanoseconds;
             updatePhysics(intervalSeconds);
         }
-        lastNanosecond = nanosecond;
+        lastPhysicsUpdate = nanoTime;
 
         baseShader.use();
         Matrix4f projectionMatrix = new Matrix4f();
@@ -115,7 +117,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         baseShader.setUniform("projectionMatrix", projectionMatrix);
         baseShader.setUniform("viewMatrix", camera.getViewMatrix());
 
-        GEOMETRIES.forEach(geometry -> {
+        visibleGeometries.forEach(geometry -> {
             if (geometry.wasRemovedFrom(physicsSpace)) {
                 OBJECTS_TO_REMOVE.add(geometry);
                 return;

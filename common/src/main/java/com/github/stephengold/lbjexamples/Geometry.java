@@ -76,7 +76,7 @@ public class Geometry {
      */
     protected Geometry() {
         this.program = BasePhysicsApp.getDefaultProgram();
-        BasePhysicsApp.GEOMETRIES.add(this);
+        BasePhysicsApp.visibleGeometries.add(this);
     }
 
     /**
@@ -108,7 +108,7 @@ public class Geometry {
      * Remove from the render.
      */
     public void destroy() {
-        BasePhysicsApp.GEOMETRIES.remove(this);
+        BasePhysicsApp.visibleGeometries.remove(this);
         if (mesh != null) {
             mesh.cleanUp(); // TODO Mesh might be shared with other geometries
             this.mesh = null;
