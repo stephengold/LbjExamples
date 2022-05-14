@@ -51,10 +51,15 @@ public class Mesh {
      * vertex positions
      */
     private FloatBuffer positions;
+    private final int drawMode;
     /**
      * ID of the VAO
      */
     private int vaoId;
+    /**
+     * number of vertices
+     */
+    private final int vertexCount;
     /**
      * map attribute indices to number of floats-per-vertex
      */
@@ -63,8 +68,6 @@ public class Mesh {
      * map attribute indices to VBOs
      */
     private final List<Integer> vboIdList = new ArrayList<>();
-    private final int vertexCount;
-    private final int drawMode;
     // *************************************************************************
     // constructors
 
@@ -122,18 +125,6 @@ public class Mesh {
     // *************************************************************************
     // new methods exposed
 
-    public int getVertexCount() {
-        return vertexCount;
-    }
-
-    public void render() {
-        glBindVertexArray(vaoId);
-
-        glDrawArrays(drawMode, 0, getVertexCount());
-
-        glBindVertexArray(0);
-    }
-
     void cleanUp() {
         glDisableVertexAttribArray(0);
 
@@ -144,6 +135,18 @@ public class Mesh {
 
         glBindVertexArray(0);
         glDeleteVertexArrays(vaoId);
+    }
+
+    public int getVertexCount() {
+        return vertexCount;
+    }
+
+    public void render() {
+        glBindVertexArray(vaoId);
+
+        glDrawArrays(drawMode, 0, getVertexCount());
+
+        glBindVertexArray(0);
     }
     // *************************************************************************
     // private methods
