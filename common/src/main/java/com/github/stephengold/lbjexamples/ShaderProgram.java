@@ -48,6 +48,11 @@ public class ShaderProgram {
 
     private final int programId;
     /**
+     * last render iteration on which the camera uniforms were set, or null if
+     * never set
+     */
+    private Integer lastRenderIteration;
+    /**
      * base name of the shader files
      */
     private final String name;
@@ -128,6 +133,18 @@ public class ShaderProgram {
      */
     void setCameraUniforms(int renderIteration, Matrix4fc projectionMatrix,
             Matrix4fc viewMatrix) {
+        if (lastRenderIteration != null) {
+            if (renderIteration == lastRenderIteration) {
+                /*
+                 * The camera uniforms have already been set
+                 * for this render iteration.
+                 */
+                return;
+            }
+            assert renderIteration == lastRenderIteration + 1;
+        }
+        lastRenderIteration = renderIteration;
+
         setUniform("projectionMatrix", projectionMatrix);
         setUniform("viewMatrix", viewMatrix);
     }
