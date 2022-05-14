@@ -119,6 +119,19 @@ public class ShaderProgram {
         return name;
     }
 
+    /**
+     * Update the camera uniforms for the current render iteration.
+     *
+     * @param renderIteration the current iteration of the render loop
+     * @param projectionMatrix the desired view-to-projection matrix (not null)
+     * @param viewMatrix the world-to-view transform matrix (not null)
+     */
+    void setCameraUniforms(int renderIteration, Matrix4fc projectionMatrix,
+            Matrix4fc viewMatrix) {
+        setUniform("projectionMatrix", projectionMatrix);
+        setUniform("viewMatrix", viewMatrix);
+    }
+
     void setUniform(String uniformName, Geometry geometry) {
         use();
         try (MemoryStack stack = MemoryStack.stackPush()) {

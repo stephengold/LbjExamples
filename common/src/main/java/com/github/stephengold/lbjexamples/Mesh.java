@@ -149,7 +149,13 @@ public class Mesh {
         return vertexCount;
     }
 
-    public void render() {
+    /**
+     * Render using the specified ShaderProgram.
+     *
+     * @param program the program to use (not null)
+     */
+    void renderUsing(ShaderProgram program) {
+        program.use();
         GL30.glBindVertexArray(vaoId);
 
         int startVertex = 0;

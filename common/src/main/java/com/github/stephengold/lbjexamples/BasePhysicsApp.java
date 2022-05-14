@@ -121,18 +121,21 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
         cleanUpGeometries();
 
         baseShader.use();
+        /*
+         * Camera uniforms are identical for every ShaderProgram.
+         */
         Matrix4f projectionMatrix = new Matrix4f();
         projectionMatrix.setPerspective((float) Math.toRadians(Camera.ZOOM),
                 (float) WIDTH / (float) HEIGHT, getZNear(), getZFar());
-        baseShader.setUniform("projectionMatrix", projectionMatrix);
-        baseShader.setUniform("viewMatrix", camera.getViewMatrix());
+        Matrix4f viewMatrix = camera.getViewMatrix();
+        for (Geometry geometry : visibleGeometries) {
+            ShaderProgram program = geometry.getProgram();
+            program.setCameraUniforms(
+                    renderCount, projectionMatrix, viewMatrix);
+        }
 
         for (Geometry geometry : visibleGeometries) {
             geometry.updateAndRender();
-            baseShader.use();
-            baseShader.setUniform("modelMatrix", geometry);
-            baseShader.setUniform("color", geometry.getColor());
-            geometry.getMesh().render();
         }
     }
     // *************************************************************************

@@ -289,11 +289,14 @@ public class Geometry {
     }
 
     /**
-     * Update properties based on the physics object (if any). Meant to be
-     * overridden.
+     * Update properties and then render this Geometry. Meant to be overridden.
      */
     void updateAndRender() {
-        // do nothing
+        program.setUniform("modelMatrix", this); // mesh-to-world transform
+        program.setUniform("color", color);
+
+        mesh.enableAttributes();
+        mesh.renderUsing(program);
     }
 
     /**
