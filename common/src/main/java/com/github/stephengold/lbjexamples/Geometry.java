@@ -272,7 +272,7 @@ public class Geometry {
      * Update properties and then render this Geometry. Meant to be overridden.
      */
     void updateAndRender() {
-        program.setUniform("modelMatrix", this); // mesh-to-world transform
+        program.setModelMatrix(this); // mesh-to-world transform
         program.setUniform("color", color);
 
         mesh.enableAttributes();

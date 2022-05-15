@@ -36,8 +36,6 @@ import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryStack;
 
-import static org.lwjgl.opengl.GL20.*;
-
 /**
  * Encapsulate a program object, to which a vertex shader and a fragment shader
  * are attached.
@@ -60,42 +58,45 @@ public class ShaderProgram {
     // constructors
 
     /**
-     * Instantiate a program with the specified name.
+     * Instantiate the named program.
      *
-     * @param programName (not null)
+     * @param programName the base name of the shader files to load (not null)
      */
     ShaderProgram(String programName) {
         assert programName != null;
+
         this.name = programName;
-        this.programId = glCreateProgram();
+        this.programId = GL20.glCreateProgram();
         if (programId == 0) {
-            throw new RuntimeException(
-                    "Couldn't create program:  " + programName);
+            String message = "Couldn't create program:  " + programName;
+            throw new RuntimeException(message);
         }
 
         String vertexShaderName = "/Shaders/" + programName + ".vert";
-        int vertexShaderId = createShader(vertexShaderName, GL_VERTEX_SHADER);
+        int vertexShaderId
+                = createShader(vertexShaderName, GL20.GL_VERTEX_SHADER);
 
         String fragmentShaderName = "/Shaders/" + programName + ".frag";
-        int fragmentShaderId = createShader(fragmentShaderName, GL_FRAGMENT_SHADER);
+        int fragmentShaderId
+                = createShader(fragmentShaderName, GL20.GL_FRAGMENT_SHADER);
 
-        glLinkProgram(programId);
-        if (glGetProgrami(programId, GL_LINK_STATUS) == 0) {
+        GL20.glLinkProgram(programId);
+        if (GL20.glGetProgrami(programId, GL20.GL_LINK_STATUS) == 0) {
             throw new RuntimeException("Error linking shader program: "
-                    + glGetProgramInfoLog(programId, 1024));
+                    + GL20.glGetProgramInfoLog(programId, 1024));
         }
 
         if (vertexShaderId != 0) {
-            glDetachShader(programId, vertexShaderId);
+            GL20.glDetachShader(programId, vertexShaderId);
         }
         if (fragmentShaderId != 0) {
-            glDetachShader(programId, fragmentShaderId);
+            GL20.glDetachShader(programId, fragmentShaderId);
         }
 
-        glValidateProgram(programId);
-        if (glGetProgrami(programId, GL_VALIDATE_STATUS) == 0) {
+        GL20.glValidateProgram(programId);
+        if (GL20.glGetProgrami(programId, GL20.GL_VALIDATE_STATUS) == 0) {
             throw new RuntimeException("Error validating shader program: "
-                    + glGetProgramInfoLog(programId, 1024));
+                    + GL20.glGetProgramInfoLog(programId, 1024));
         }
     }
     // *************************************************************************
@@ -107,11 +108,11 @@ public class ShaderProgram {
     void cleanUp() {
         if (programId != 0) {
             /*
-             * Ensure the program object is not in use.
+             * Ensure the program object isn't in use.
              */
             GL20.glUseProgram(0);
 
-            glDeleteProgram(programId);
+            GL20.glDeleteProgram(programId);
         }
     }
 
@@ -129,7 +130,7 @@ public class ShaderProgram {
      *
      * @param renderIteration the current iteration of the render loop
      * @param projectionMatrix the desired view-to-projection matrix (not null)
-     * @param viewMatrix the world-to-view transform matrix (not null)
+     * @param viewMatrix the desired world-to-view transform matrix (not null)
      */
     void setCameraUniforms(int renderIteration, Matrix4fc projectionMatrix,
             Matrix4fc viewMatrix) {
@@ -149,35 +150,90 @@ public class ShaderProgram {
         setUniform("viewMatrix", viewMatrix);
     }
 
-    void setUniform(String uniformName, Geometry geometry) {
+    /**
+     * Alter the value of a float uniform variable.
+     *
+     * @param uniformName the name of the variable to modify (not null)
+     * @param value the desired value
+     */
+    void setUniform(String uniformName, float value) {
+        int location = locateUniform(uniformName);
+
         use();
+        GL20.glUniform1f(location, value);
+    }
+
+    /**
+     * Write the mesh-to-world transform matrix of the specified Geometry to the
+     * "modelMatrix" uniform variable.
+     *
+     * @param geometry (not null, unaffected)
+     */
+    void setModelMatrix(Geometry geometry) {
+        int location = locateUniform("modelMatrix");
+
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(16);
             geometry.writeTransformMatrix(buffer);
-            int location = glGetUniformLocation(programId, uniformName);
-            glUniformMatrix4fv(location, false, buffer);
+
+            use();
+            boolean transpose = false;
+            GL20.glUniformMatrix4fv(location, transpose, buffer);
         }
     }
 
+    /**
+     * Alter the value of a mat4 uniform variable.
+     *
+     * @param uniformName the name of the variable to modify (not null)
+     * @param value the desired value (not null)
+     */
     void setUniform(String uniformName, Matrix4fc value) {
-        use();
+        int location = locateUniform(uniformName);
+
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            glUniformMatrix4fv(glGetUniformLocation(programId, uniformName), false,
-                    value.get(stack.mallocFloat(16)));
+            FloatBuffer buffer = stack.mallocFloat(16);
+            value.get(buffer);
+
+            use();
+            boolean transpose = false;
+            GL20.glUniformMatrix4fv(location, transpose, buffer);
         }
     }
 
+    /**
+     * Alter the value of a vec3 uniform variable.
+     *
+     * @param uniformName the name of the variable to modify (not null)
+     * @param value the desired value (not null)
+     */
     void setUniform(String uniformName, Vector3fc value) {
-        use();
+        int location = locateUniform(uniformName);
+
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            glUniform3fv(glGetUniformLocation(programId, uniformName), value.get(stack.mallocFloat(3)));
+            FloatBuffer buffer = stack.mallocFloat(3);
+            value.get(buffer);
+
+            use();
+            GL20.glUniform3fv(location, buffer);
         }
     }
 
+    /**
+     * Alter the value of a vec4 uniform variable.
+     *
+     * @param uniformName the name of the variable to modify (not null)
+     * @param value the desired value (not null)
+     */
     void setUniform(String uniformName, Vector4fc value) {
-        use();
+        int location = locateUniform(uniformName);
+
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            glUniform4fv(glGetUniformLocation(programId, uniformName), value.get(stack.mallocFloat(4)));
+            FloatBuffer buffer = stack.mallocFloat(4);
+            value.get(buffer);
+
+            use();
+            GL20.glUniform4fv(location, buffer);
         }
     }
 
@@ -196,25 +252,35 @@ public class ShaderProgram {
      * @return the ID of the new shader
      */
     private int createShader(String resourceName, int shaderType) {
-        int shaderId = glCreateShader(shaderType);
+        int shaderId = GL20.glCreateShader(shaderType);
         if (shaderId == 0) {
             throw new RuntimeException(
                     "Error creating shader. type=" + shaderType);
         }
 
         String sourceCode = BaseApplication.loadResource(resourceName);
-        glShaderSource(shaderId, sourceCode);
-        glCompileShader(shaderId);
-
-        int compileStatus = glGetShaderi(shaderId, GL_COMPILE_STATUS);
+        GL20.glShaderSource(shaderId, sourceCode);
+        GL20.glCompileShader(shaderId);
+        int compileStatus = GL20.glGetShaderi(shaderId, GL20.GL_COMPILE_STATUS);
         if (compileStatus == 0) {
-            String log = glGetShaderInfoLog(shaderId, 1024);
+            String log = GL20.glGetShaderInfoLog(shaderId, 1024);
             throw new RuntimeException(
                     "Error compiling shader " + resourceName + ": " + log);
         }
 
-        glAttachShader(programId, shaderId);
+        GL20.glAttachShader(programId, shaderId);
 
         return shaderId;
+    }
+
+    /**
+     * Returns the location of the named uniform variable.
+     *
+     * @param name the name of the variable to locate (not null)
+     * @return the location within this program
+     */
+    private int locateUniform(String name) {
+        int location = GL20.glGetUniformLocation(programId, name);
+        return location;
     }
 }
