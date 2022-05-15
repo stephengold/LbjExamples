@@ -121,7 +121,7 @@ public class HelloNonUniformGravity
         planet.applyCentralImpulse(new Vector3f(0f, -1f, 0f));
 
         // visualization
-        new RigidBodyShapeGeometry(planet).setColor(Constants.MAGENTA);
+        new RigidBodyShapeGeometry(planet, "Sphere", "low");
 
         // Add axes to indicate the black hole's location.
         new ArrowGeometry(0f, FastMath.HALF_PI, 0f, Constants.RED);    // +X axis

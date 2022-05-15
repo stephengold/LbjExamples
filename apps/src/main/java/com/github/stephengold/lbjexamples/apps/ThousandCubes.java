@@ -100,7 +100,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                     float red = random.nextFloat();
                     float green = random.nextFloat();
                     float blue = random.nextFloat();
-                    new RigidBodyShapeGeometry(box)
+                    new RigidBodyShapeGeometry(box, "Facet", "low")
                             .setColor(new Vector4f(red, green, blue, 1));
                 }
             }
@@ -129,7 +129,8 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
             missile.setPhysicsLocation(camera.getPosition());
             physicsSpace.addCollisionObject(missile);
 
-            new RigidBodyShapeGeometry(missile);
+            new RigidBodyShapeGeometry(missile, "Facet", "low")
+                        .setColor(Constants.WHITE);;
         }
     }
 

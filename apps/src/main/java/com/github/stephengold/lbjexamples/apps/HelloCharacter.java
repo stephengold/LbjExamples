@@ -32,7 +32,6 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.CharacterShapeGeometry;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.NormalsOption;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
@@ -41,7 +40,6 @@ import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.objects.PhysicsBody;
 import com.jme3.bullet.objects.PhysicsCharacter;
 import com.jme3.bullet.objects.PhysicsRigidBody;
-import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -114,9 +112,10 @@ public class HelloCharacter
         PhysicsRigidBody ground = addSquare(halfExtent, y, physicsSpace);
 
         // Customize the debug visualization of each object.
-        new CharacterShapeGeometry(character, NormalsOption.Smooth, DebugShapeFactory.highResolution)
+        new CharacterShapeGeometry(character, "Smooth", "high")
                 .setColor(Constants.RED);
-        new RigidBodyShapeGeometry(ground).setColor(Constants.GREEN);
+        new RigidBodyShapeGeometry(ground, "Facet", "low")
+                .setColor(Constants.GREEN);
 
         setBackgroundColor(Constants.SKY_BLUE);
     }

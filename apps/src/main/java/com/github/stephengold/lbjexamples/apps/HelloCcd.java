@@ -29,9 +29,8 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.Constants;
+import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.CylinderCollisionShape;
@@ -119,9 +118,9 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(disc);
 
         // visualization
-        new RigidBodyShapeGeometry(ccdBall).setColor(Constants.MAGENTA);
-        new RigidBodyShapeGeometry(controlBall).setColor(Constants.MAGENTA);
-        new RigidBodyShapeGeometry(disc).setColor(Constants.BLUE);
+        new RigidBodyShapeGeometry(ccdBall, "Sphere", "high");
+        new RigidBodyShapeGeometry(controlBall, "Sphere", "high");
+        new RigidBodyShapeGeometry(disc, "Smooth", "low");
     }
 
     /**
