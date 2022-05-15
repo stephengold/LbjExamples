@@ -246,6 +246,8 @@ public class ShaderProgram {
      * @return the ID of the new shader
      */
     private int createShader(String resourceName, int shaderType) {
+        assert resourceName != null;
+
         int shaderId = GL20.glCreateShader(shaderType);
         if (shaderId == 0) {
             throw new RuntimeException(
@@ -274,7 +276,14 @@ public class ShaderProgram {
      * @return the location within this program
      */
     private int locateUniform(String name) {
+        assert name != null;
+
         int location = GL20.glGetUniformLocation(programId, name);
+        if (location == -1) {
+            String message = "Uniform variable not found: " + name;
+            throw new IllegalArgumentException(message);
+        }
+
         return location;
     }
 }
