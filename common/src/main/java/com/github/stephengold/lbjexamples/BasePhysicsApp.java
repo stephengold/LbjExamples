@@ -168,7 +168,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
          */
         Matrix4f projectionMatrix = new Matrix4f();
         projectionMatrix.setPerspective((float) Math.toRadians(Camera.ZOOM),
-                (float) WIDTH / (float) HEIGHT, getZNear(), getZFar());
+                WIDTH / (float) HEIGHT, getZNear(), getZFar());
         Matrix4f viewMatrix = cam.getViewMatrix();
         for (Geometry geometry : visibleGeometries) {
             ShaderProgram program = geometry.getProgram();

@@ -101,13 +101,16 @@ public class RigidBodyShapeGeometry extends Geometry {
             NormalsOption normalsOption, int resolution) {
         super();
         Validate.nonNull(rigidBody, "body");
+        Validate.nonNull(normalsOption, "normals option");
+        Validate.inRange(resolution, "resolution", 0, 1);
+
+        this.rigidBody = rigidBody;
 
         CollisionShape shape = rigidBody.getCollisionShape();
         this.summary = new ShapeSummary(shape, normalsOption, resolution);
         Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
 
-        this.rigidBody = rigidBody;
         BasePhysicsApp.makeVisible(this);
     }
     // *************************************************************************

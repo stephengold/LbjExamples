@@ -104,12 +104,13 @@ public class CharacterShapeGeometry extends Geometry {
         Validate.nonNull(normalsOption, "normals option");
         Validate.inRange(resolution, "resolution", 0, 1);
 
+        this.character = character;
+
         CollisionShape shape = character.getCollisionShape();
         this.summary = new ShapeSummary(shape, normalsOption, resolution);
         Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
 
-        this.character = character;
         BasePhysicsApp.makeVisible(this);
     }
     // *************************************************************************
