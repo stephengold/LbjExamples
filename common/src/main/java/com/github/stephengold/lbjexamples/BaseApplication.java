@@ -122,6 +122,9 @@ public abstract class BaseApplication {
         }
 
         cleanUp();
+        for (ShaderProgram program : PROGRAM_MAP.values()) {
+            program.cleanUp();
+        }
 
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
