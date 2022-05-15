@@ -30,6 +30,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
+import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -130,7 +131,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
             physicsSpace.addCollisionObject(missile);
 
             new RigidBodyShapeGeometry(missile, "Facet", "low")
-                        .setColor(Constants.WHITE);;
+                        .setColor(Constants.WHITE);
         }
     }
 
