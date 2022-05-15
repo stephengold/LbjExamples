@@ -86,12 +86,8 @@ public class ShaderProgram {
                     + GL20.glGetProgramInfoLog(programId, 1024));
         }
 
-        if (vertexShaderId != 0) {
-            GL20.glDetachShader(programId, vertexShaderId);
-        }
-        if (fragmentShaderId != 0) {
-            GL20.glDetachShader(programId, fragmentShaderId);
-        }
+        GL20.glDetachShader(programId, vertexShaderId);
+        GL20.glDetachShader(programId, fragmentShaderId);
 
         GL20.glValidateProgram(programId);
         if (GL20.glGetProgrami(programId, GL20.GL_VALIDATE_STATUS) == 0) {
@@ -106,14 +102,12 @@ public class ShaderProgram {
      * Delete the program object during cleanup.
      */
     void cleanUp() {
-        if (programId != 0) {
-            /*
-             * Ensure the program object isn't in use.
-             */
-            GL20.glUseProgram(0);
+        /*
+         * Ensure the program object isn't in use.
+         */
+        GL20.glUseProgram(0);
 
-            GL20.glDeleteProgram(programId);
-        }
+        GL20.glDeleteProgram(programId);
     }
 
     /**
