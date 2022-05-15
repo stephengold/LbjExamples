@@ -273,7 +273,7 @@ public class Geometry {
      */
     void updateAndRender() {
         program.setModelMatrix(this); // mesh-to-world transform
-        program.setUniform("color", color);
+        program.setUniform("MaterialColor", color);
 
         mesh.enableAttributes();
         mesh.renderUsing(program);

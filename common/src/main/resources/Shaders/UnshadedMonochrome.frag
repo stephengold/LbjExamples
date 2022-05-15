@@ -4,8 +4,8 @@
 #version 330
 
 out vec4 fragColor;
-uniform vec4 color;
+uniform vec4 MaterialColor;
 
 void main() {
-    fragColor = color;
+    fragColor = MaterialColor;
 }
