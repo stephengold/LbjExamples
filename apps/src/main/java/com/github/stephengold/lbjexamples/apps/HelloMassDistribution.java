@@ -152,9 +152,9 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         new RigidBodyShapeGeometry(disc, "Smooth", "low");
 
         // Re-position the camera for a better view.
-        camera.setPosition(new Vector3f(10f, -2.75f, 0f));
-        camera.setPitch(0.05f);
-        camera.setYaw(-3.05f);
+        cam.setPosition(new Vector3f(10f, -2.75f, 0f));
+        cam.setPitch(0.05f);
+        cam.setYaw(-3.05f);
     }
 
     /**

@@ -50,9 +50,14 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public abstract class BaseApplication {
+    // *************************************************************************
+    // fields
 
+    /**
+     * camera used for rendering
+     */
+    protected Camera cam;
     private long window;
-    public Camera camera;
     private static float Z_NEAR = 0.1f;
     private static float Z_FAR = 100.f;
     public static int WIDTH = 800;
@@ -69,6 +74,15 @@ public abstract class BaseApplication {
             = new TreeMap<>();
     // *************************************************************************
     // new methods exposed
+
+    /**
+     * Return the Camera used for rendering.
+     *
+     * @return the pre-existing instance
+     */
+    public Camera getCamera() {
+        return cam;
+    }
 
     /**
      * Return the default ShaderProgram.
@@ -100,7 +114,7 @@ public abstract class BaseApplication {
     public void start() {
         init();
 
-        camera = new Camera(new Vector3f(0, 0, 10), -FastMath.HALF_PI, 0);
+        this.cam = new Camera(new Vector3f(0, 0, 10), -FastMath.HALF_PI, 0);
         initApp();
 
         while (!glfwWindowShouldClose(window)) {
@@ -196,22 +210,22 @@ public abstract class BaseApplication {
             glfwSetWindowShouldClose(window, true);
         }
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-            camera.processMovement(Camera.Movement.FORWARD, deltaTime);
+            cam.processMovement(Camera.Movement.FORWARD, deltaTime);
         }
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-            camera.processMovement(Camera.Movement.BACKWARD, deltaTime);
+            cam.processMovement(Camera.Movement.BACKWARD, deltaTime);
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-            camera.processMovement(Camera.Movement.LEFT, deltaTime);
+            cam.processMovement(Camera.Movement.LEFT, deltaTime);
         }
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-            camera.processMovement(Camera.Movement.RIGHT, deltaTime);
+            cam.processMovement(Camera.Movement.RIGHT, deltaTime);
         }
         if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
-            camera.processMovement(Camera.Movement.UP, deltaTime);
+            cam.processMovement(Camera.Movement.UP, deltaTime);
         }
         if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
-            camera.processMovement(Camera.Movement.DOWN, deltaTime);
+            cam.processMovement(Camera.Movement.DOWN, deltaTime);
         }
 
         updateKeyboard(window, key, action);
@@ -234,8 +248,8 @@ public abstract class BaseApplication {
         lastX = xPosIn;
         lastY = yPosIn;
 
-        if (camera.isMouseMotionEnabled())
-            camera.processRotation(xOffset, yOffset);
+        if (cam.isMouseMotionEnabled())
+            cam.processRotation(xOffset, yOffset);
         updateMouse();
     }
 

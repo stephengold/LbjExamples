@@ -223,13 +223,13 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
      * Configure the camera during startup.
      */
     private void configureCamera() {
-        camera.enableMouseMotion(true);
-        camera.setSpeed(30f);
+        cam.enableMouseMotion(true);
+        cam.setSpeed(30f);
         setZFar(1_000f);
 
-        camera.setPosition(new Vector3f(72f, 35f, 140f));
-        camera.setPitch(-0.2f);
-        camera.setYaw(-2f);
+        cam.setPosition(new Vector3f(72f, 35f, 140f));
+        cam.setPitch(-0.2f);
+        cam.setYaw(-2f);
     }
 
     /**
