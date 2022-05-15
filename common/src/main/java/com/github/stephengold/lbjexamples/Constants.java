@@ -55,6 +55,11 @@ final public class Constants {
     final public static Vector4fc DARK_GRAY
             = new Vector4f(0.1f, 0.1f, 0.1f, 1f);
     /**
+     * The opaque color gray: (0.3, 0.3, 0.3).
+     */
+    final public static Vector4fc GRAY
+            = new Vector4f(0.3f, 0.3f, 0.3f, 1f);
+    /**
      * The opaque color green: (0, 1, 0).
      */
     final public static Vector4fc GREEN = new Vector4f(0f, 1f, 0f, 1f);
