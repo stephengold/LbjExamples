@@ -275,7 +275,15 @@ public abstract class BaseApplication {
     public void updateMouse() {
     }
 
-    public void updateKeyboard(long window, int key, int action) {
+    /**
+     * Callback invoked after a keyboard key is pressed, repeated or released. Meant to be overridden.
+     *
+     * @param windowId the window that received the event
+     * @param keyCode the keyboard key
+     * @param action the key action (either {@link GLFW#GLFW_PRESS PRESS} or
+     * {@link GLFW#GLFW_RELEASE RELEASE} or {@link GLFW#GLFW_REPEAT REPEAT})
+     */
+    public void updateKeyboard(long windowId, int keyCode, int action) {
     }
 
     public static float getZNear() {
