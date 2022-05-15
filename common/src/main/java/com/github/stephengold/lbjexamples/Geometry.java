@@ -65,7 +65,7 @@ public class Geometry {
      */
     final private Transform meshToWorld = new Transform();
     /**
-     * color that's passed to the program
+     * base color (in the Linear colorspace)
      */
     final private Vector4f color = new Vector4f(1f);
     // *************************************************************************
@@ -96,7 +96,7 @@ public class Geometry {
     // new methods exposed
 
     /**
-     * Access the color.
+     * Return the base color in the Linear colorspace.
      *
      * @return the pre-existing object (not null)
      */
@@ -169,9 +169,9 @@ public class Geometry {
     }
 
     /**
-     * Alter the color.
+     * Alter the base color.
      *
-     * @param newColor the desired color (not null)
+     * @param newColor the desired color (in the Linear colorspace, not null)
      * @return the (modified) current instance (for chaining)
      */
     public Geometry setColor(Vector4fc newColor) {

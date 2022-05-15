@@ -35,6 +35,7 @@ import org.joml.Vector4fc;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -180,6 +181,14 @@ public abstract class BaseApplication {
         glfwShowWindow(window);
 
         GL.createCapabilities();
+        /*
+         * Encode fragment colors for sRGB before writing to the framebuffer.
+         * This displays reasonably accurate colors
+         * when fragment colors are generated in the Linear colorspace.
+         */
+        int GL_FRAMEBUFFER_SRGB_EXT = 0x8DB9;
+        GL11.glEnable(GL_FRAMEBUFFER_SRGB_EXT);
+
         setBackgroundColor(Constants.DARK_GRAY);
         glEnable(GL_DEPTH_TEST);
     }
