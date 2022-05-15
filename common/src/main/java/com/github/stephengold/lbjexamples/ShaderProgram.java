@@ -33,6 +33,7 @@ import java.nio.FloatBuffer;
 import org.joml.Matrix4fc;
 import org.joml.Vector3fc;
 import org.joml.Vector4fc;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryStack;
 
@@ -81,7 +82,8 @@ public class ShaderProgram {
                 = createShader(fragmentShaderName, GL20.GL_FRAGMENT_SHADER);
 
         GL20.glLinkProgram(programId);
-        if (GL20.glGetProgrami(programId, GL20.GL_LINK_STATUS) == 0) {
+        int success = GL20.glGetProgrami(programId, GL20.GL_LINK_STATUS);
+        if (success == GL11.GL_FALSE) {
             throw new RuntimeException("Error linking shader program: "
                     + GL20.glGetProgramInfoLog(programId, 1024));
         }
@@ -90,7 +92,8 @@ public class ShaderProgram {
         GL20.glDetachShader(programId, fragmentShaderId);
 
         GL20.glValidateProgram(programId);
-        if (GL20.glGetProgrami(programId, GL20.GL_VALIDATE_STATUS) == 0) {
+        success = GL20.glGetProgrami(programId, GL20.GL_LINK_STATUS);
+        if (success == GL11.GL_FALSE) {
             throw new RuntimeException("Error validating shader program: "
                     + GL20.glGetProgramInfoLog(programId, 1024));
         }
