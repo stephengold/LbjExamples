@@ -42,45 +42,45 @@ final public class Constants {
     // constants
 
     /**
-     * The color black (0, 0, 0).
+     * The opaque color black: (0, 0, 0).
      */
     final public static Vector4fc BLACK = new Vector4f(0f, 0f, 0f, 1f);
     /**
-     * The color blue (0, 0, 1).
+     * The opaque color blue: (0, 0, 1).
      */
     final public static Vector4fc BLUE = new Vector4f(0f, 0f, 1f, 1f);
     /**
-     * The opaque color "dark gray" (0.1, 0.1, 0.1).
+     * The opaque color "dark gray": (0.1, 0.1, 0.1).
      */
     final public static Vector4fc DARK_GRAY
             = new Vector4f(0.1f, 0.1f, 0.1f, 1f);
     /**
-     * The color green (0, 1, 0).
+     * The opaque color green: (0, 1, 0).
      */
     final public static Vector4fc GREEN = new Vector4f(0f, 1f, 0f, 1f);
     /**
-     * The color magenta (1, 0, 1).
+     * The opaque color magenta (1, 0, 1).
      */
     final public static Vector4fc MAGENTA = new Vector4f(1f, 0f, 1f, 1f);
     /**
-     * The color pink (1, 0.68, 0.68).
+     * The opaque color pink: (1, 0.68, 0.68).
      */
     final public static Vector4fc PINK = new Vector4f(1f, 0.68f, 0.68f, 1f);
     /**
-     * The color red (1, 0, 0).
+     * The opaque color red: (1, 0, 0).
      */
     final public static Vector4fc RED = new Vector4f(1f, 0f, 0f, 1f);
     /**
-     * The opaque color "sky blue" (0.35, 0.48, 0.66).
+     * The opaque color "sky blue": (0.35, 0.48, 0.66).
      */
     final public static Vector4fc SKY_BLUE
             = new Vector4f(0.35f, 0.48f, 0.66f, 1f);
     /**
-     * The color white (1, 1, 1).
+     * The opaque color white: (1, 1, 1).
      */
     final public static Vector4fc WHITE = new Vector4f(1f, 1f, 1f, 1f);
     /**
-     * The color yellow (1, 1, 0).
+     * The opaque color yellow: (1, 1, 0).
      */
     final public static Vector4fc YELLOW = new Vector4f(1f, 1f, 0f, 1f);
     // *************************************************************************
