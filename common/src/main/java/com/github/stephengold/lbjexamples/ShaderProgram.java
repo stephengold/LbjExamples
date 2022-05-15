@@ -151,19 +151,6 @@ public class ShaderProgram {
     }
 
     /**
-     * Alter the value of a float uniform variable.
-     *
-     * @param uniformName the name of the variable to modify (not null)
-     * @param value the desired value
-     */
-    void setUniform(String uniformName, float value) {
-        int location = locateUniform(uniformName);
-
-        use();
-        GL20.glUniform1f(location, value);
-    }
-
-    /**
      * Write the mesh-to-world transform matrix of the specified Geometry to the
      * "modelMatrix" uniform variable.
      *
@@ -180,6 +167,19 @@ public class ShaderProgram {
             boolean transpose = false;
             GL20.glUniformMatrix4fv(location, transpose, buffer);
         }
+    }
+
+    /**
+     * Alter the value of a float uniform variable.
+     *
+     * @param uniformName the name of the variable to modify (not null)
+     * @param value the desired value
+     */
+    void setUniform(String uniformName, float value) {
+        int location = locateUniform(uniformName);
+
+        use();
+        GL20.glUniform1f(location, value);
     }
 
     /**
