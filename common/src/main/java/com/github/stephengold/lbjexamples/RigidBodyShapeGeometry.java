@@ -131,7 +131,7 @@ public class RigidBodyShapeGeometry extends Geometry {
      * Update properties based on the body and then render.
      */
     @Override
-    public void updateAndRender() {
+    void updateAndRender() {
         updateColor();
         updateMesh();
         updateTransform();
@@ -142,11 +142,11 @@ public class RigidBodyShapeGeometry extends Geometry {
     /**
      * Test whether the body has been removed from the specified PhysicsSpace.
      *
-     * @param space the space to test (not null)
+     * @param space the space to test (not null, unaffected)
      * @return true if removed, otherwise false
      */
     @Override
-    public boolean wasRemovedFrom(CollisionSpace space) {
+    boolean wasRemovedFrom(CollisionSpace space) {
         boolean result = !space.contains(rigidBody);
         return result;
     }

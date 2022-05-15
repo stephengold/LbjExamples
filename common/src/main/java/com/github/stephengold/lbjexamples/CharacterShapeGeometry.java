@@ -133,7 +133,7 @@ public class CharacterShapeGeometry extends Geometry {
      * Update properties based on the PhysicsCharacter and then render.
      */
     @Override
-    public void updateAndRender() {
+    void updateAndRender() {
         updateColor();
         updateMesh();
         updateTransform();
@@ -145,11 +145,11 @@ public class CharacterShapeGeometry extends Geometry {
      * Test whether the character has been removed from the specified
      * PhysicsSpace.
      *
-     * @param space the space to test (not null)
+     * @param space the space to test (not null, unaffected)
      * @return true if removed, otherwise false
      */
     @Override
-    public boolean wasRemovedFrom(CollisionSpace space) {
+    boolean wasRemovedFrom(CollisionSpace space) {
         boolean result = !space.contains(character);
         return result;
     }
