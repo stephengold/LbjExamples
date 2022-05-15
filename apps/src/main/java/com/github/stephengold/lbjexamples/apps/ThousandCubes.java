@@ -115,24 +115,28 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
 
     @Override
     public void updateKeyboard(long window, int key, int action) {
-        if (key == GLFW_KEY_E && action == GLFW_PRESS) {
-            float radius = 0.5f;
-            BoxCollisionShape boxShape = new BoxCollisionShape(radius);
-            float mass = 10f;
-            PhysicsRigidBody missile = new PhysicsRigidBody(boxShape, mass);
-            missile.setCcdMotionThreshold(radius);
-            missile.setCcdSweptSphereRadius(radius);
+        if (key == GLFW_KEY_E) {
+            if (action == GLFW_PRESS) {
+                float radius = 0.5f;
+                BoxCollisionShape boxShape = new BoxCollisionShape(radius);
+                float mass = 10f;
+                PhysicsRigidBody missile = new PhysicsRigidBody(boxShape, mass);
+                missile.setCcdMotionThreshold(radius);
+                missile.setCcdSweptSphereRadius(radius);
 
-            float speed = 100f;
-            Vector3f velocity = cam.getFront().mult(speed, speed, speed);
-            missile.setLinearVelocity(velocity);
+                float speed = 100f;
+                Vector3f velocity = cam.getFront().mult(speed, speed, speed); // TODO use mult(float)
+                missile.setLinearVelocity(velocity);
 
-            missile.setPhysicsLocation(cam.getPosition());
-            physicsSpace.addCollisionObject(missile);
+                missile.setPhysicsLocation(cam.getPosition());
+                physicsSpace.addCollisionObject(missile);
 
-            new RigidBodyShapeGeometry(missile, "Facet", "low")
+                new RigidBodyShapeGeometry(missile, "Facet", "low")
                         .setColor(Constants.WHITE);
+            }
+            return;
         }
+        super.updateKeyboard(window, key, action);
     }
 
     /**
