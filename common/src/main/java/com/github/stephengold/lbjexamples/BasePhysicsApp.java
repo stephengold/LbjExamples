@@ -37,18 +37,20 @@ import org.joml.Matrix4f;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplication {
+public abstract class BasePhysicsApp<T extends PhysicsSpace>
+        extends BaseApplication {
     // *************************************************************************
     // fields
 
     /**
      * visible geometries
      */
-    private static final List<Geometry> visibleGeometries = new ArrayList<>();
+    private static final Collection<Geometry> visibleGeometries
+            = new HashSet<>(256);
     /**
      * how many times render() has been invoked
      */
@@ -195,8 +197,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace> extends BaseApplica
             }
         }
 
-        for (Geometry geometry : geometriesToRemove) {
-            visibleGeometries.remove(geometry);
-        }
+        visibleGeometries.removeAll(geometriesToRemove);
     }
 }
