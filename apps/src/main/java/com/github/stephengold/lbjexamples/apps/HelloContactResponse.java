@@ -133,15 +133,15 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void updateKeyboard(long windowId, int keyCode, int action) {
-        if (action == GLFW.GLFW_PRESS) {
-            if (keyCode == GLFW.GLFW_KEY_E) {
+        if (keyCode == GLFW.GLFW_KEY_E) {
+            if (action == GLFW.GLFW_PRESS) {
                 // Disable the ball's contact response.
                 ball.setContactResponse(false);
 
                 // Activate the ball in case it got deactivated.
                 ball.activate();
-                return;
             }
+            return;
         }
         super.updateKeyboard(windowId, keyCode, action);
     }

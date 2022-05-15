@@ -133,37 +133,45 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void updateKeyboard(long windowId, int keyCode, int action) {
-        if (action == GLFW.GLFW_PRESS) {
-            switch (keyCode) {
-                case GLFW.GLFW_KEY_1:
-                case GLFW.GLFW_KEY_F1:
-                case GLFW.GLFW_KEY_KP_1:
+        switch (keyCode) {
+            case GLFW.GLFW_KEY_1:
+            case GLFW.GLFW_KEY_F1:
+            case GLFW.GLFW_KEY_KP_1:
+                if (action == GLFW.GLFW_PRESS) {
                     restartSimulation(1);
-                    return;
+                }
+                return;
 
-                case GLFW.GLFW_KEY_2:
-                case GLFW.GLFW_KEY_F2:
-                case GLFW.GLFW_KEY_KP_2:
+            case GLFW.GLFW_KEY_2:
+            case GLFW.GLFW_KEY_F2:
+            case GLFW.GLFW_KEY_KP_2:
+                if (action == GLFW.GLFW_PRESS) {
                     restartSimulation(2);
-                    return;
+                }
+                return;
 
-                case GLFW.GLFW_KEY_3:
-                case GLFW.GLFW_KEY_F3:
-                case GLFW.GLFW_KEY_KP_3:
+            case GLFW.GLFW_KEY_3:
+            case GLFW.GLFW_KEY_F3:
+            case GLFW.GLFW_KEY_KP_3:
+                if (action == GLFW.GLFW_PRESS) {
                     restartSimulation(3);
-                    return;
+                }
+                return;
 
-                case GLFW.GLFW_KEY_4:
-                case GLFW.GLFW_KEY_F4:
-                case GLFW.GLFW_KEY_KP_4:
+            case GLFW.GLFW_KEY_4:
+            case GLFW.GLFW_KEY_F4:
+            case GLFW.GLFW_KEY_KP_4:
+                if (action == GLFW.GLFW_PRESS) {
                     restartSimulation(4);
-                    return;
+                }
+                return;
 
-                case GLFW.GLFW_KEY_PAUSE:
-                case GLFW.GLFW_KEY_PERIOD:
+            case GLFW.GLFW_KEY_PAUSE:
+            case GLFW.GLFW_KEY_PERIOD:
+                if (action == GLFW.GLFW_PRESS) {
                     togglePause();
-                    return;
-            }
+                }
+                return;
         }
         super.updateKeyboard(windowId, keyCode, action);
     }
