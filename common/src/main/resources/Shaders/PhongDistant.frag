@@ -45,6 +45,6 @@ void main() {
     float cosAlpha8 = cosAlpha4 * cosAlpha4;
 
     vec3 color = (ambientStrength + cosTheta) * BaseMaterialColor.rgb;
-    color = color + cosAlpha4 * SpecularMaterialColor.rgb;
+    color = color + cosAlpha8 * SpecularMaterialColor.rgb;
     fragColor = color * LightColor.rgb;
 }
