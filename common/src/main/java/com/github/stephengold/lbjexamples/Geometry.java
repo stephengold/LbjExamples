@@ -67,7 +67,7 @@ public class Geometry {
     /**
      * base color (in the Linear colorspace)
      */
-    final private Vector4f color = new Vector4f(1f);
+    final private Vector4f baseColor = new Vector4f(1f);
     // *************************************************************************
     // constructors
 
@@ -101,7 +101,7 @@ public class Geometry {
      * @return the pre-existing object (not null)
      */
     public Vector4fc getColor() {
-        return color;
+        return baseColor;
     }
 
     /**
@@ -176,7 +176,7 @@ public class Geometry {
      */
     public Geometry setColor(Vector4fc newColor) {
         Validate.nonNull(newColor, "new color");
-        color.set(newColor);
+        baseColor.set(newColor);
         return this;
     }
 
@@ -273,7 +273,9 @@ public class Geometry {
      */
     void updateAndRender() {
         program.setModelMatrix(this); // mesh-to-world transform
-        program.setUniform("MaterialColor", color);
+
+        // material uniforms
+        program.setUniform("MaterialColor", baseColor);
 
         mesh.enableAttributes();
         mesh.renderUsing(program);
