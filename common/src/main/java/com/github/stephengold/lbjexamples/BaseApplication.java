@@ -52,20 +52,22 @@ public abstract class BaseApplication {
     // *************************************************************************
     // fields
 
+    private boolean firstMouse = true;
     /**
      * current camera for rendering
      */
     protected static Camera cam;
-    private long windowId;
-    private static float zNear = 0.1f;
-    private static float zFar = 100.f;
-    private static int frameBufferWidth = 800;
-    private static int frameBufferHeight = 600;
-    private float lastX = frameBufferWidth / 2.0f;
-    private float lastY = frameBufferHeight / 2.0f;
-    private boolean firstMouse = true;
+
     private float deltaTime;
     private float lastFrame;
+    private float lastX = frameBufferWidth / 2.0f;
+    private float lastY = frameBufferHeight / 2.0f;
+    private static float zFar = 100.f;
+    private static float zNear = 0.1f;
+    private int counter;
+    private static int frameBufferWidth = 800;
+    private static int frameBufferHeight = 600;
+    private long windowId;
     /**
      * map program names to programs
      */
@@ -203,8 +205,6 @@ public abstract class BaseApplication {
         setBackgroundColor(Constants.DARK_GRAY);
         glEnable(GL_DEPTH_TEST);
     }
-
-    private int counter;
 
     private void updateBase() {
         float currentFrame = (float) glfwGetTime();
