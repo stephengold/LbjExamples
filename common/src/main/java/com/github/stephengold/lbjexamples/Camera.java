@@ -323,11 +323,11 @@ public class Camera {
      * @param newUpAngleInDegrees the desired upward angle of the look direction
      * (in degrees)
      */
-    public void setUpAngleDegrees(float newPitchInDegrees) {
-        setUpAngle((float) Math.toRadians(newPitchInDegrees));
+    public void setUpAngleDegrees(float newUpAngleInDegrees) {
+        setUpAngle((float) Math.toRadians(newUpAngleInDegrees));
     }
 
-   /**
+    /**
      * Return the altitude/climb/elevation/pitch angle.
      *
      * @return the upward angle of the look direction (in radians)
