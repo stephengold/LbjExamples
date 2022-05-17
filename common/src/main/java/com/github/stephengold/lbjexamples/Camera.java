@@ -36,18 +36,20 @@ import org.joml.Vector3fc;
 
 public class Camera {
 
-    private final static float rotationRate = 0.1f;
-    public final static float fovy = 45.0f;
-
-    private Vector3f eyeLocation = new Vector3f();
-    private Vector3f lookDirection = new Vector3f(0, 0, -1);
-    private Vector3f upDirection = new Vector3f(0, 1, 0);
-    private Vector3f rightDirection = new Vector3f();
-    private float speed = 1.5f;
-    private float azimuthRadians;
-    private float upAngleRadians;
+    public enum Movement {
+        FORWARD, BACKWARD, LEFT, RIGHT, UP, DOWN
+    }
 
     private boolean enableMouseRotation;
+    private float azimuthRadians;
+    public final static float fovy = 45.0f;
+    private final static float rotationRate = 0.1f;
+    private float speed = 1.5f;
+    private float upAngleRadians;
+    private Vector3f eyeLocation = new Vector3f();
+    private Vector3f lookDirection = new Vector3f(0, 0, -1);
+    private Vector3f rightDirection = new Vector3f();
+    private Vector3f upDirection = new Vector3f(0, 1, 0);
 
     public Camera() {
         updateCameraVectors();
@@ -58,6 +60,14 @@ public class Camera {
         this.azimuthRadians = yaw;
         this.upAngleRadians = pitch;
         updateCameraVectors();
+    }
+
+    public float azimuthAngle() {
+        return azimuthRadians;
+    }
+
+    public void enableMouseMotion(boolean mouseMotion) {
+        this.enableMouseRotation = mouseMotion;
     }
 
     /**
@@ -73,10 +83,26 @@ public class Camera {
         return result;
     }
 
+    public Vector3f getDirection() {
+        return lookDirection;
+    }
+
+    public Vector3f getLocation() {
+        return eyeLocation;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
     public Matrix4f getViewMatrix() {
         return new Matrix4f().lookAt(Utils.toLwjglVector(eyeLocation),
                 Utils.toLwjglVector(eyeLocation.add(lookDirection)),
                 Utils.toLwjglVector(upDirection));
+    }
+
+    public boolean isMouseRotationEnabled() {
+        return enableMouseRotation;
     }
 
     /**
@@ -101,18 +127,24 @@ public class Camera {
 
     public void move(Movement movement, float deltaTime) {
         Vector3f velocity = new Vector3f(speed * deltaTime, speed * deltaTime, speed * deltaTime);
-        if (movement == Movement.FORWARD)
+        if (movement == Movement.FORWARD) {
             eyeLocation.addLocal(lookDirection.mult(velocity, null));
-        if (movement == Movement.BACKWARD)
+        }
+        if (movement == Movement.BACKWARD) {
             eyeLocation.subtractLocal(lookDirection.mult(velocity, null));
-        if (movement == Movement.LEFT)
+        }
+        if (movement == Movement.LEFT) {
             eyeLocation.subtractLocal(rightDirection.mult(velocity, null));
-        if (movement == Movement.RIGHT)
+        }
+        if (movement == Movement.RIGHT) {
             eyeLocation.addLocal(rightDirection.mult(velocity, null));
-        if (movement == Movement.UP)
+        }
+        if (movement == Movement.UP) {
             eyeLocation.addLocal(upDirection.mult(velocity, null));
-        if (movement == Movement.DOWN)
+        }
+        if (movement == Movement.DOWN) {
             eyeLocation.subtractLocal(upDirection.mult(velocity, null));
+        }
     }
 
     public void processMouseMotion(float offsetX, float offsetY) {
@@ -122,24 +154,14 @@ public class Camera {
         azimuthRadians += Math.toRadians(offsetX);
         upAngleRadians += Math.toRadians(offsetY);
 
-        if (Math.toDegrees(upAngleRadians) > 89.0f)
+        if (Math.toDegrees(upAngleRadians) > 89.0f) {
             upAngleRadians = (float) Math.toRadians(89.0f);
-        if (Math.toDegrees(upAngleRadians) < -89.0f)
+        }
+        if (Math.toDegrees(upAngleRadians) < -89.0f) {
             upAngleRadians = (float) Math.toRadians(-89.0f);
+        }
 
         updateCameraVectors();
-    }
-
-    public void setLocation(Vector3f position) {
-        this.eyeLocation = position;
-    }
-
-    public void setAzimuthDegrees(float yawInDeg) {
-        setAzimuth((float) Math.toRadians(yawInDeg));
-    }
-
-    public void setUpAngleDegrees(float pitchInDeg) {
-        setUpAngle((float) Math.toRadians(pitchInDeg));
     }
 
     public void setAzimuth(float yaw) {
@@ -147,41 +169,39 @@ public class Camera {
         updateCameraVectors();
     }
 
-    public void setUpAngle(float pitch) {
-        this.upAngleRadians = pitch;
-        updateCameraVectors();
+    public void setAzimuthDegrees(float yawInDeg) {
+        setAzimuth((float) Math.toRadians(yawInDeg));
     }
 
-    public float azimuthAngle() {
-        return azimuthRadians;
-    }
-
-    public float upAngle() {
-        return upAngleRadians;
-    }
-
-    public float getSpeed() {
-        return speed;
+    public void setLocation(Vector3f position) {
+        this.eyeLocation = position;
     }
 
     public void setSpeed(float speed) {
         this.speed = speed;
     }
 
-    public Vector3f getLocation() {
-        return eyeLocation;
+    public void setUpAngle(float pitch) {
+        this.upAngleRadians = pitch;
+        updateCameraVectors();
     }
 
-    public Vector3f getDirection() {
-        return lookDirection;
+    public void setUpAngleDegrees(float pitchInDeg) {
+        setUpAngle((float) Math.toRadians(pitchInDeg));
     }
 
-    public boolean isMouseRotationEnabled() {
-        return enableMouseRotation;
+    public float upAngle() {
+        return upAngleRadians;
     }
 
-    public void enableMouseMotion(boolean mouseMotion) {
-        this.enableMouseRotation = mouseMotion;
+    /**
+     * Return the camera's "up" direction.
+     *
+     * @return a new unit vector in world coordinates
+     */
+    Vector3fc upDirectionJoml() {
+        Vector3fc result = Utils.toLwjglVector(upDirection);
+        return result;
     }
 
     private void updateCameraVectors() {
@@ -196,19 +216,5 @@ public class Camera {
         rightDirection = new Vector3f(rightX, 0f, rightZ);
 
         upDirection = new Vector3f(rightDirection).cross(lookDirection).normalize();
-    }
-
-    /**
-     * Return the camera's "up" direction.
-     *
-     * @return a new unit vector in world coordinates
-     */
-    Vector3fc upDirectionJoml() {
-        Vector3fc result = Utils.toLwjglVector(upDirection);
-        return result;
-    }
-
-    public enum Movement {
-        FORWARD, BACKWARD, LEFT, RIGHT, UP, DOWN
     }
 }
