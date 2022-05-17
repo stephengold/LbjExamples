@@ -31,6 +31,8 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
+import jme3utilities.Validate;
+import jme3utilities.math.MyMath;
 import org.joml.Matrix4f;
 import org.joml.Vector3fc;
 
@@ -252,6 +254,16 @@ public class Camera {
     }
 
     /**
+     * Alter the vertical field-of-view angle.
+     *
+     * @param newFovy the desired angle (in radians, &gt;0, &lt;PI)
+     */
+    public void setFovy(float newFovy) {
+        Validate.inRange(newFovy, "new fovy", Float.MIN_VALUE, FastMath.PI);
+        this.fovy = newFovy;
+    }
+
+    /**
      * Teleport the eye to a new location without changing its orientation.
      *
      * @param newLocation the desired location (in world coordinates, not null,
@@ -259,6 +271,35 @@ public class Camera {
      */
     public void setLocation(Vector3f newLocation) {
         eyeLocation.set(newLocation);
+    }
+
+    /**
+     * Teleport the eye to a new location and orient it to look at the specified
+     * location.
+     *
+     * @param newLocation the desired eye location (in world coordinates, not
+     * null, unaffected)
+     * @param targetLocation the location to look at (in world coordinates, not
+     * null, unaffected)
+     */
+    public void setLocation(Vector3f newLocation, Vector3f targetLocation) {
+        eyeLocation.set(newLocation);
+
+        Vector3f direction = newLocation.subtract(targetLocation);
+        setLookDirection(direction);
+    }
+
+    /**
+     * Re-orient the camera to look in the specified direction.
+     *
+     * @param direction the desired direction (not null, unaffected)
+     */
+    public void setLookDirection(Vector3f direction) {
+        azimuthRadians = FastMath.atan2(direction.z, direction.x);
+        float nxz = MyMath.hypotenuse(direction.x, direction.z);
+        upAngleRadians = FastMath.atan2(direction.y, nxz);
+
+        updateDirectionVectors();
     }
 
     public void setSpeed(float newSpeed) {
