@@ -52,7 +52,7 @@ public class Camera {
      * the +X axis (in radians)
      */
     private float azimuthRadians;
-    public final static float fovy = 45.0f;
+    private final static float fovy = 45.0f;
     private final static float rotationRate = 0.1f;
     private float speed = 1.5f;
     /**

@@ -169,7 +169,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
          * Camera uniforms are identical for every ShaderProgram.
          */
         Matrix4f projectionMatrix = new Matrix4f();
-        projectionMatrix.setPerspective((float) Math.toRadians(Camera.fovy),
+        projectionMatrix.setPerspective((float) Math.toRadians(cam.fovy()),
                 WIDTH / (float) HEIGHT, getZNear(), getZFar());
         Matrix4f viewMatrix = cam.getViewMatrix();
         for (Geometry geometry : visibleGeometries) {
