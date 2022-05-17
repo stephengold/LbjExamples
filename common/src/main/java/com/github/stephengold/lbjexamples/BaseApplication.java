@@ -48,6 +48,9 @@ import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
+/**
+ * An abstract application using LWJGL and OpenGL.
+ */
 public abstract class BaseApplication {
     // *************************************************************************
     // fields
@@ -62,11 +65,26 @@ public abstract class BaseApplication {
     private float lastFrame;
     private float lastX = frameBufferWidth / 2.0f;
     private float lastY = frameBufferHeight / 2.0f;
+    /**
+     * distance from the camera to the far clipping plane (in world units)
+     */
     private static float zFar = 100.f;
+    /**
+     * distance from the camera to the near clipping plane (in world units)
+     */
     private static float zNear = 0.1f;
     private int counter;
+    /**
+     * width of the displayed frame buffer (in pixels)
+     */
     private static int frameBufferWidth = 800;
+    /**
+     * height of the displayed frame buffer (in pixels)
+     */
     private static int frameBufferHeight = 600;
+    /**
+     * ID of the main GLFW window used for display
+     */
     private long windowId;
     /**
      * map program names to programs
@@ -88,6 +106,9 @@ public abstract class BaseApplication {
         return ratio;
     }
 
+    /**
+     * Callback invoked after the main update loop terminates.
+     */
     public abstract void cleanUp();
 
     /**
@@ -101,7 +122,7 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Return the default ShaderProgram.
+     * Return the default ShaderProgram for new geometries.
      *
      * @return a valid program (not null)
      */
@@ -127,14 +148,27 @@ public abstract class BaseApplication {
         return result;
     }
 
+    /**
+     * Return the distance from the camera to the far clipping plane.
+     *
+     * @return the distance (in world units, &gt;0)
+     */
     public static float getZFar() {
         return zFar;
     }
 
+    /**
+     * Return the distance from the camera to the near clipping plane.
+     *
+     * @return the distance (in world units, &gt;0)
+     */
     public static float getZNear() {
         return zNear;
     }
 
+    /**
+     * Callback invoked before the main update loop begins.
+     */
     public abstract void initApp();
 
     /**
@@ -162,6 +196,12 @@ public abstract class BaseApplication {
         return result;
     }
 
+    /**
+     * Load UTF-8 text from the named resource.
+     *
+     * @param resourceName the name of the resource (not null)
+     * @return the text (possibly multiple lines)
+     */
     public static String loadResource(String fileName) {
         String result = "";
         try (InputStream in = BaseApplication.class.getResourceAsStream(fileName);
@@ -173,10 +213,13 @@ public abstract class BaseApplication {
         return result;
     }
 
+    /**
+     * Callback invoked on during each iteration of the main update loop.
+     */
     public abstract void render();
 
     /**
-     * Alter the window's background color.
+     * Alter the background color of the displayed window.
      *
      * @param newColor the desired color (not null)
      */
@@ -188,24 +231,39 @@ public abstract class BaseApplication {
         glClearColor(red, green, blue, alpha);
     }
 
+    /**
+     * Alter the distance from the camera to the far clipping plane.
+     *
+     * @param newZFar (in world units, &gt;zNear)
+     */
     public static void setZFar(float newZFar) {
         zFar = newZFar;
     }
 
+    /**
+     * Alter the distance from the camera to the near clipping plane.
+     *
+     * @param newZNear (in world units, &gt;0, &lt;zFar)
+     */
     public static void setZNear(float newZNear) {
         zNear = newZNear;
     }
 
     public void start() {
+        // Initialize this class.
         initializeBase();
 
+        // Create the initial camera at z=10 looking toward the origin.
         this.cam = new Camera(new Vector3f(0, 0, 10), -FastMath.HALF_PI, 0);
+        // Initialize the subclass.
         initApp();
 
+        // main update loop
         while (!glfwWindowShouldClose(windowId)) {
             updateBase();
         }
 
+        // Clean up the subclass.
         cleanUp();
         for (ShaderProgram program : programMap.values()) {
             program.cleanUp();
@@ -232,6 +290,8 @@ public abstract class BaseApplication {
 
     public void updateMouse() {
     }
+    // *************************************************************************
+    // private methods
 
     private void initializeBase() {
         GLFWErrorCallback.createPrint(System.err).set();
@@ -253,7 +313,7 @@ public abstract class BaseApplication {
             throw new RuntimeException("Failed to create the GLFW window");
         }
 
-        // Setup resize callback
+        // Set up the resize callback.
         glfwSetFramebufferSizeCallback(windowId, (window, width, height) -> {
             frameBufferWidth = width;
             frameBufferHeight = height;
@@ -266,24 +326,25 @@ public abstract class BaseApplication {
 
         glfwSetCursorPosCallback(windowId, (window1, xPos, yPos) -> mouseUpdate((float) xPos, (float) yPos));
 
-        // Get the resolution of the primary monitor
+        // Center the window.
         GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        // Center our window
         glfwSetWindowPos(
                 windowId,
                 (videoMode.width() - frameBufferWidth) / 2,
                 (videoMode.height() - frameBufferHeight) / 2
         );
 
-        // Make the OpenGL context current
+        // Use the new window as the current OpenGL context.
         glfwMakeContextCurrent(windowId);
 
-        // Make the window visible
+        // Make the window visible.
         glfwShowWindow(windowId);
 
         GL.createCapabilities();
         /*
-         * Encode fragment colors for sRGB before writing to the framebuffer.
+         * Encode fragment colors for sRGB
+         * before writing them to the framebuffer.
+         *
          * This displays reasonably accurate colors
          * when fragment colors are generated in the Linear colorspace.
          */
@@ -343,6 +404,9 @@ public abstract class BaseApplication {
         updateMouse();
     }
 
+    /**
+     * The body of the main update loop.
+     */
     private void updateBase() {
         float currentFrame = (float) glfwGetTime();
         deltaTime = currentFrame - lastFrame;
