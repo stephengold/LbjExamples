@@ -126,13 +126,13 @@ public abstract class BaseApplication {
     }
 
     public void start() {
-        init();
+        initializeBase();
 
         this.cam = new Camera(new Vector3f(0, 0, 10), -FastMath.HALF_PI, 0);
         initApp();
 
         while (!glfwWindowShouldClose(windowId)) {
-            loop();
+            updateBase();
         }
 
         cleanUp();
@@ -147,7 +147,7 @@ public abstract class BaseApplication {
         glfwSetErrorCallback(null).free();
     }
 
-    private void init() {
+    private void initializeBase() {
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!glfwInit())
@@ -208,7 +208,7 @@ public abstract class BaseApplication {
 
     private int counter;
 
-    private void loop() {
+    private void updateBase() {
         float currentFrame = (float) glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         counter++;
