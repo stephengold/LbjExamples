@@ -301,16 +301,20 @@ public class Camera {
     // private methods
 
     private void updateDirectionVectors() {
-        Vector3f localFront = new Vector3f();
-        localFront.x = (float) (Math.cos(azimuthRadians) * Math.cos(upAngleRadians));
-        localFront.y = (float) Math.sin(upAngleRadians);
-        localFront.z = (float) (Math.sin(azimuthRadians) * Math.cos(upAngleRadians));
-        lookDirection = localFront.normalize();
+        float cosAzimuth = FastMath.cos(azimuthRadians);
+        float sinAzimuth = FastMath.sin(azimuthRadians);
+        float cosAltitude = FastMath.cos(upAngleRadians);
+        float sinAltitude = FastMath.sin(upAngleRadians);
 
-        float rightX = -FastMath.sin(azimuthRadians);
-        float rightZ = FastMath.cos(azimuthRadians);
-        rightDirection = new Vector3f(rightX, 0f, rightZ);
+        float forwardX = cosAzimuth * cosAltitude;
+        float forwardY = sinAltitude;
+        float forwardZ = sinAzimuth * cosAltitude;
+        lookDirection.set(forwardX, forwardY, forwardZ);
 
-        upDirection = new Vector3f(rightDirection).cross(lookDirection).normalize();
+        float rightX = -sinAzimuth;
+        float rightZ = cosAzimuth;
+        rightDirection.set(rightX, 0f, rightZ);
+
+        rightDirection.cross(lookDirection, upDirection);
     }
 }
