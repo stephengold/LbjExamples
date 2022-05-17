@@ -29,11 +29,11 @@
  */
 package com.github.stephengold.lbjexamples;
 
-
+import com.github.stephengold.lbjexamples.Utils;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
-import com.github.stephengold.lbjexamples.Utils;
 import org.joml.Matrix4f;
+import org.joml.Vector3fc;
 
 public class Camera {
 
@@ -61,11 +61,44 @@ public class Camera {
         updateCameraVectors();
     }
 
+    /**
+     * Return the vertical field-of-view angle.
+     *
+     * @return the angle (in radians, &gt;0, &lt;PI)
+     */
+    public float fovy() {
+        float result = ZOOM;
+
+        assert result > 0f : result;
+        assert result < FastMath.PI : result;
+        return result;
+    }
+
     public Matrix4f getViewMatrix() {
         return new Matrix4f().lookAt(
                 Utils.toLwjglVector(position),
                 Utils.toLwjglVector(position.add(front)),
                 Utils.toLwjglVector(up));
+    }
+
+    /**
+     * Return the eye location.
+     *
+     * @return a new location vector in world coordinates
+     */
+    Vector3fc locationJoml() {
+        Vector3fc result = Utils.toLwjglVector(position);
+        return result;
+    }
+
+    /**
+     * Return the camera's look direction.
+     *
+     * @return a new unit vector in world coordinates
+     */
+    Vector3fc lookDirectionJoml() {
+        Vector3fc result = Utils.toLwjglVector(front);
+        return result;
     }
 
     public void processMovement(Movement movement, float deltaTime) {
@@ -103,11 +136,11 @@ public class Camera {
         this.position = position;
     }
 
-    public void setYawDeg(float yawInDeg){
+    public void setYawDeg(float yawInDeg) {
         setYaw((float) Math.toRadians(yawInDeg));
     }
 
-    public void setPitchDeg(float pitchInDeg){
+    public void setPitchDeg(float pitchInDeg) {
         setPitch((float) Math.toRadians(pitchInDeg));
     }
 
@@ -165,6 +198,16 @@ public class Camera {
         right = new Vector3f(rightX, 0f, rightZ);
 
         up = new Vector3f(right).cross(front).normalize();
+    }
+
+    /**
+     * Return the camera's "up" direction.
+     *
+     * @return a new unit vector in world coordinates
+     */
+    Vector3fc upDirectionJoml() {
+        Vector3fc result = Utils.toLwjglVector(up);
+        return result;
     }
 
     public enum Movement {
