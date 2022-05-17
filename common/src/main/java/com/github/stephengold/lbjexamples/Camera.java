@@ -85,15 +85,17 @@ public class Camera {
     /**
      * Instantiate a camera with the specified initial position.
      *
-     * @param position the desired initial location (in world coordinates,
+     * @param initLocation the desired initial location (in world coordinates,
      * not null)
-     * @param yaw the desired initial azimuth angle (in radians)
-     * @param pitch the desired initial altitude angle (in radians)
+     * @param initAzimuthRadians the desired initial azimuth angle (in radians)
+     * @param initUpAngleRadians the desired initial altitude angle (in radians)
      */
-    public Camera(Vector3f position, float yaw, float pitch) {
-        this.eyeLocation = position;
-        this.azimuthRadians = yaw;
-        this.upAngleRadians = pitch;
+    public Camera(Vector3f initLocation, float initAzimuthRadians,
+            float initUpAngleRadians) {
+        this.eyeLocation = initLocation;
+
+        this.azimuthRadians = initAzimuthRadians;
+        this.upAngleRadians = initUpAngleRadians;
         updateCameraVectors();
     }
     // *************************************************************************
@@ -229,57 +231,57 @@ public class Camera {
     /**
      * Alter the azimuth/heading/yaw angle.
      *
-     * @param yaw the desired rightward angle of the X-Z
+     * @param newAzimuthInRadians the desired rightward angle of the X-Z
      * component of the look direction relative to the +X axis (in radians)
      */
-    public void setAzimuth(float yaw) {
-        this.azimuthRadians = yaw;
+    public void setAzimuth(float newAzimuthInRadians) {
+        this.azimuthRadians = newAzimuthInRadians;
         updateCameraVectors();
     }
 
     /**
      * Alter the azimuth/heading/yaw angle.
      *
-     * @param yawInDeg the desired rightward angle of the X-Z
+     * @param newAzimuthInDegrees the desired rightward angle of the X-Z
      * component of the look direction relative to the +X axis (in degrees)
      */
-    public void setAzimuthDegrees(float yawInDeg) {
-        setAzimuth((float) Math.toRadians(yawInDeg));
+    public void setAzimuthDegrees(float newAzimuthInDegrees) {
+        setAzimuth((float) Math.toRadians(newAzimuthInDegrees));
     }
 
     /**
      * Teleport the eye to a new location without changing its orientation.
      *
-     * @param position the desired location (in world coordinates, not null,
+     * @param newLocation the desired location (in world coordinates, not null,
      * unaffected)
      */
-    public void setLocation(Vector3f position) {
-        this.eyeLocation = position;
+    public void setLocation(Vector3f newLocation) {
+        eyeLocation.set(newLocation);
     }
 
-    public void setSpeed(float speed) {
-        this.speed = speed;
+    public void setSpeed(float newSpeed) {
+        this.speed = newSpeed;
     }
 
     /**
      * Alter the altitude/climb/elevation/pitch angle.
      *
-     * @param pitch the desired upward angle of the look direction
+     * @param newUpAngleRadians the desired upward angle of the look direction
      * (in radians)
      */
-    public void setUpAngle(float pitch) {
-        this.upAngleRadians = pitch;
+    public void setUpAngle(float newUpAngleRadians) {
+        this.upAngleRadians = newUpAngleRadians;
         updateCameraVectors();
     }
 
     /**
      * Alter the altitude/climb/elevation/pitch angle.
      *
-     * @param pitchInDeg the desired upward angle of the look direction
+     * @param newUpAngleInDegrees the desired upward angle of the look direction
      * (in degrees)
      */
-    public void setUpAngleDegrees(float pitchInDeg) {
-        setUpAngle((float) Math.toRadians(pitchInDeg));
+    public void setUpAngleDegrees(float newPitchInDegrees) {
+        setUpAngle((float) Math.toRadians(newPitchInDegrees));
     }
 
     public float upAngle() {
