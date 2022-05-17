@@ -52,7 +52,11 @@ public class Camera {
      * the +X axis (in radians)
      */
     private float azimuthRadians;
-    private float fovy = 45.0f;
+    /**
+     * vertical field-of-view angle (in radians, &gt;0, &lt;PI)
+     */
+    private float fovy = FastMath.PI / 4;
+
     private float rotationRate = 0.1f;
     private float speed = 1.5f;
     /**
@@ -120,11 +124,9 @@ public class Camera {
      * @return the angle (in radians, &gt;0, &lt;PI)
      */
     public float fovy() {
-        float result = (float) Math.toRadians(fovy);
-
-        assert result > 0f : result;
-        assert result < FastMath.PI : result;
-        return result;
+        assert fovy > 0f : fovy;
+        assert fovy < FastMath.PI : fovy;
+        return fovy;
     }
 
     /**
