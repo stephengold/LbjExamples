@@ -52,8 +52,8 @@ public class Camera {
      * the +X axis (in radians)
      */
     private float azimuthRadians;
-    private final float fovy = 45.0f;
-    private final float rotationRate = 0.1f;
+    private float fovy = 45.0f;
+    private float rotationRate = 0.1f;
     private float speed = 1.5f;
     /**
      * angle of the look direction above the X-Z plane (in radians)
