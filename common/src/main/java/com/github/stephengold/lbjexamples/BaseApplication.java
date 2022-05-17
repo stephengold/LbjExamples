@@ -75,13 +75,13 @@ public abstract class BaseApplication {
     private static float zNear = 0.1f;
     private int counter;
     /**
-     * width of the displayed frame buffer (in pixels)
-     */
-    private static int frameBufferWidth = 800;
-    /**
      * height of the displayed frame buffer (in pixels)
      */
     private static int frameBufferHeight = 600;
+    /**
+     * width of the displayed frame buffer (in pixels)
+     */
+    private static int frameBufferWidth = 800;
     /**
      * ID of the main GLFW window used for display
      */
@@ -210,6 +210,7 @@ public abstract class BaseApplication {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return result;
     }
 
@@ -265,13 +266,13 @@ public abstract class BaseApplication {
 
         // Clean up the subclass.
         cleanUp();
+
         for (ShaderProgram program : programMap.values()) {
             program.cleanUp();
         }
 
         glfwFreeCallbacks(windowId);
         glfwDestroyWindow(windowId);
-
         glfwTerminate();
         glfwSetErrorCallback(null).free();
     }
@@ -308,7 +309,8 @@ public abstract class BaseApplication {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-        windowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight, getClass().getSimpleName(), NULL, NULL);
+        windowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight,
+            getClass().getSimpleName(), NULL, NULL);
         if (windowId == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
@@ -328,8 +330,7 @@ public abstract class BaseApplication {
 
         // Center the window.
         GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        glfwSetWindowPos(
-                windowId,
+        glfwSetWindowPos(windowId,
                 (videoMode.width() - frameBufferWidth) / 2,
                 (videoMode.height() - frameBufferHeight) / 2
         );
@@ -371,10 +372,12 @@ public abstract class BaseApplication {
         if (glfwGetKey(windowId, GLFW_KEY_D) == GLFW_PRESS) {
             cam.move(Camera.Movement.RIGHT, deltaTime);
         }
-        if (glfwGetKey(windowId, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(windowId, GLFW_KEY_Q) == GLFW_PRESS) {
+        if (glfwGetKey(windowId, GLFW_KEY_SPACE) == GLFW_PRESS
+                || glfwGetKey(windowId, GLFW_KEY_Q) == GLFW_PRESS) {
             cam.move(Camera.Movement.UP, deltaTime);
         }
-        if (glfwGetKey(windowId, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(windowId, GLFW_KEY_Z) == GLFW_PRESS) {
+        if (glfwGetKey(windowId, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS
+                || glfwGetKey(windowId, GLFW_KEY_Z) == GLFW_PRESS) {
             cam.move(Camera.Movement.DOWN, deltaTime);
         }
 
