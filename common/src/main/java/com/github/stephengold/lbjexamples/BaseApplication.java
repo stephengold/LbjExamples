@@ -58,20 +58,20 @@ public abstract class BaseApplication {
      * current camera for rendering
      */
     protected static Camera cam;
-    private long window;
-    private static float Z_NEAR = 0.1f;
-    private static float Z_FAR = 100.f;
-    private static int WIDTH = 800;
-    private static int HEIGHT = 600;
-    private float lastX = WIDTH / 2.0f;
-    private float lastY = HEIGHT / 2.0f;
+    private long windowId;
+    private static float zNear = 0.1f;
+    private static float zFar = 100.f;
+    private static int frameBufferWidth = 800;
+    private static int frameBufferHeight = 600;
+    private float lastX = frameBufferWidth / 2.0f;
+    private float lastY = frameBufferHeight / 2.0f;
     private boolean firstMouse = true;
     private float deltaTime;
     private float lastFrame;
     /**
      * map program names to programs
      */
-    final private static Map<String, ShaderProgram> PROGRAM_MAP
+    final private static Map<String, ShaderProgram> programMap
             = new TreeMap<>();
     // *************************************************************************
     // new methods exposed
@@ -82,7 +82,7 @@ public abstract class BaseApplication {
      * @return the width divided by the height (&gt;0)
      */
     static float aspectRatio() {
-        float ratio = WIDTH / (float) HEIGHT;
+        float ratio = frameBufferWidth / (float) frameBufferHeight;
 
         assert ratio > 0f : ratio;
         return ratio;
@@ -115,12 +115,12 @@ public abstract class BaseApplication {
      * @return a valid program (not null)
      */
     static ShaderProgram getProgram(String name) {
-        if (!PROGRAM_MAP.containsKey(name)) {
+        if (!programMap.containsKey(name)) {
             ShaderProgram program = new ShaderProgram(name);
-            PROGRAM_MAP.put(name, program);
+            programMap.put(name, program);
         }
 
-        ShaderProgram result = PROGRAM_MAP.get(name);
+        ShaderProgram result = programMap.get(name);
         assert result != null;
         return result;
     }
@@ -131,17 +131,17 @@ public abstract class BaseApplication {
         this.cam = new Camera(new Vector3f(0, 0, 10), -FastMath.HALF_PI, 0);
         initApp();
 
-        while (!glfwWindowShouldClose(window)) {
+        while (!glfwWindowShouldClose(windowId)) {
             loop();
         }
 
         cleanUp();
-        for (ShaderProgram program : PROGRAM_MAP.values()) {
+        for (ShaderProgram program : programMap.values()) {
             program.cleanUp();
         }
 
-        glfwFreeCallbacks(window);
-        glfwDestroyWindow(window);
+        glfwFreeCallbacks(windowId);
+        glfwDestroyWindow(windowId);
 
         glfwTerminate();
         glfwSetErrorCallback(null).free();
@@ -161,37 +161,37 @@ public abstract class BaseApplication {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-        window = glfwCreateWindow(WIDTH, HEIGHT, getClass().getSimpleName(), NULL, NULL);
-        if (window == NULL)
+        windowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight, getClass().getSimpleName(), NULL, NULL);
+        if (windowId == NULL)
             throw new RuntimeException("Failed to create the GLFW window");
 
         // Setup resize callback
-        glfwSetFramebufferSizeCallback(window, (window, width, height) -> {
-            WIDTH = width;
-            HEIGHT = height;
-            glViewport(0, 0, WIDTH, HEIGHT);
+        glfwSetFramebufferSizeCallback(windowId, (window, width, height) -> {
+            frameBufferWidth = width;
+            frameBufferHeight = height;
+            glViewport(0, 0, frameBufferWidth, frameBufferHeight);
         });
 
-        glfwSetKeyCallback(window, this::input);
+        glfwSetKeyCallback(windowId, this::input);
 
-        glfwSetMouseButtonCallback(window, this::mouseInput);
+        glfwSetMouseButtonCallback(windowId, this::mouseInput);
 
-        glfwSetCursorPosCallback(window, (window1, xPos, yPos) -> mouseUpdate((float) xPos, (float) yPos));
+        glfwSetCursorPosCallback(windowId, (window1, xPos, yPos) -> mouseUpdate((float) xPos, (float) yPos));
 
         // Get the resolution of the primary monitor
         GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         // Center our window
         glfwSetWindowPos(
-                window,
-                (videoMode.width() - WIDTH) / 2,
-                (videoMode.height() - HEIGHT) / 2
+                windowId,
+                (videoMode.width() - frameBufferWidth) / 2,
+                (videoMode.height() - frameBufferHeight) / 2
         );
 
         // Make the OpenGL context current
-        glfwMakeContextCurrent(window);
+        glfwMakeContextCurrent(windowId);
 
         // Make the window visible
-        glfwShowWindow(window);
+        glfwShowWindow(windowId);
 
         GL.createCapabilities();
         /*
@@ -216,44 +216,44 @@ public abstract class BaseApplication {
             int fps = (int) ((1f / deltaTime) * counter);
             int ms = (int) ((deltaTime / counter) * 1000);
             String title = getClass().getSimpleName() + " FPS : " + fps + " / ms : " + ms;
-            glfwSetWindowTitle(window, title);
+            glfwSetWindowTitle(windowId, title);
             lastFrame = currentFrame;
             counter = 0;
         }
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        input(window, -1, -1, -1, -1);
+        input(windowId, -1, -1, -1, -1);
         render();
 
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(windowId);
         glfwPollEvents();
     }
 
     private void input(long windowId, int key, int scancode, int action, int mods) {
-        if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-            glfwSetWindowShouldClose(window, true);
+        if (glfwGetKey(windowId, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+            glfwSetWindowShouldClose(windowId, true);
         }
-        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+        if (glfwGetKey(windowId, GLFW_KEY_W) == GLFW_PRESS) {
             cam.move(Camera.Movement.FORWARD, deltaTime);
         }
-        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+        if (glfwGetKey(windowId, GLFW_KEY_S) == GLFW_PRESS) {
             cam.move(Camera.Movement.BACKWARD, deltaTime);
         }
-        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
+        if (glfwGetKey(windowId, GLFW_KEY_A) == GLFW_PRESS) {
             cam.move(Camera.Movement.LEFT, deltaTime);
         }
-        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
+        if (glfwGetKey(windowId, GLFW_KEY_D) == GLFW_PRESS) {
             cam.move(Camera.Movement.RIGHT, deltaTime);
         }
-        if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
+        if (glfwGetKey(windowId, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(windowId, GLFW_KEY_Q) == GLFW_PRESS) {
             cam.move(Camera.Movement.UP, deltaTime);
         }
-        if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
+        if (glfwGetKey(windowId, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(windowId, GLFW_KEY_Z) == GLFW_PRESS) {
             cam.move(Camera.Movement.DOWN, deltaTime);
         }
 
-        updateKeyboard(window, key, action);
+        updateKeyboard(windowId, key, action);
     }
 
     private void mouseInput(long windowId, int button, int action, int mods) {
@@ -312,19 +312,19 @@ public abstract class BaseApplication {
     }
 
     public static float getZNear() {
-        return Z_NEAR;
+        return zNear;
     }
 
     public static void setZNear(float zNear) {
-        Z_NEAR = zNear;
+        zNear = zNear;
     }
 
     public static float getZFar() {
-        return Z_FAR;
+        return zFar;
     }
 
     public static void setZFar(float zFar) {
-        Z_FAR = zFar;
+        zFar = zFar;
     }
 
     /**
