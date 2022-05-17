@@ -55,9 +55,9 @@ public abstract class BaseApplication {
     // fields
 
     /**
-     * camera used for rendering
+     * current camera for rendering
      */
-    protected Camera cam;
+    protected static Camera cam;
     private long window;
     private static float Z_NEAR = 0.1f;
     private static float Z_FAR = 100.f;
@@ -77,11 +77,24 @@ public abstract class BaseApplication {
     // new methods exposed
 
     /**
-     * Return the Camera used for rendering.
+     * Return the aspect ratio of the displayed frame buffer.
      *
-     * @return the pre-existing instance
+     * @return the width divided by the height (&gt;0)
      */
-    public Camera getCamera() {
+    static float aspectRatio() {
+        float ratio = WIDTH / (float) HEIGHT;
+
+        assert ratio > 0f : ratio;
+        return ratio;
+    }
+
+    /**
+     * Return the current camera for rendering.
+     *
+     * @return the pre-existing instance (not null)
+     */
+    public static Camera getCamera() {
+        assert cam != null;
         return cam;
     }
 
