@@ -79,7 +79,7 @@ public class Camera {
     // constructors
 
     public Camera() {
-        updateCameraVectors();
+        updateDirectionVectors();
     }
 
     /**
@@ -96,7 +96,7 @@ public class Camera {
 
         this.azimuthRadians = initAzimuthRadians;
         this.upAngleRadians = initUpAngleRadians;
-        updateCameraVectors();
+        updateDirectionVectors();
     }
     // *************************************************************************
     // new methods exposed
@@ -225,7 +225,7 @@ public class Camera {
             upAngleRadians = (float) Math.toRadians(-89.0f);
         }
 
-        updateCameraVectors();
+        updateDirectionVectors();
     }
 
     /**
@@ -236,7 +236,7 @@ public class Camera {
      */
     public void setAzimuth(float newAzimuthInRadians) {
         this.azimuthRadians = newAzimuthInRadians;
-        updateCameraVectors();
+        updateDirectionVectors();
     }
 
     /**
@@ -271,7 +271,7 @@ public class Camera {
      */
     public void setUpAngle(float newUpAngleRadians) {
         this.upAngleRadians = newUpAngleRadians;
-        updateCameraVectors();
+        updateDirectionVectors();
     }
 
     /**
@@ -300,7 +300,7 @@ public class Camera {
     // *************************************************************************
     // private methods
 
-    private void updateCameraVectors() {
+    private void updateDirectionVectors() {
         Vector3f localFront = new Vector3f();
         localFront.x = (float) (Math.cos(azimuthRadians) * Math.cos(upAngleRadians));
         localFront.y = (float) Math.sin(upAngleRadians);
