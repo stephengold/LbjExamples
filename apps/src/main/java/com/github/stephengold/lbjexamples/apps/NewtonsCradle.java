@@ -235,9 +235,9 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
         cam.setSpeed(30f);
         setZFar(1_000f);
 
-        cam.setPosition(new Vector3f(72f, 35f, 140f));
-        cam.setPitch(-0.2f);
-        cam.setYaw(-2f);
+        cam.setLocation(new Vector3f(72f, 35f, 140f));
+        cam.setUpAngle(-0.2f);
+        cam.setAzimuth(-2f);
     }
 
     /**

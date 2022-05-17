@@ -101,7 +101,7 @@ public class Camera {
         return result;
     }
 
-    public void processMovement(Movement movement, float deltaTime) {
+    public void move(Movement movement, float deltaTime) {
         Vector3f velocity = new Vector3f(speed * deltaTime, speed * deltaTime, speed * deltaTime);
         if (movement == Movement.FORWARD)
             position.addLocal(front.mult(velocity, null));
@@ -117,7 +117,7 @@ public class Camera {
             position.subtractLocal(up.mult(velocity, null));
     }
 
-    public void processRotation(float offsetX, float offsetY) {
+    public void processMouseMotion(float offsetX, float offsetY) {
         offsetX *= SENSITIVITY;
         offsetY *= SENSITIVITY;
 
@@ -132,24 +132,24 @@ public class Camera {
         updateCameraVectors();
     }
 
-    public void setPosition(Vector3f position) {
+    public void setLocation(Vector3f position) {
         this.position = position;
     }
 
-    public void setYawDeg(float yawInDeg) {
-        setYaw((float) Math.toRadians(yawInDeg));
+    public void setAzimuthDegrees(float yawInDeg) {
+        setAzimuth((float) Math.toRadians(yawInDeg));
     }
 
-    public void setPitchDeg(float pitchInDeg) {
-        setPitch((float) Math.toRadians(pitchInDeg));
+    public void setUpAngleDegrees(float pitchInDeg) {
+        setUpAngle((float) Math.toRadians(pitchInDeg));
     }
 
-    public void setYaw(float yaw) {
+    public void setAzimuth(float yaw) {
         this.yaw = yaw;
         updateCameraVectors();
     }
 
-    public void setPitch(float pitch) {
+    public void setUpAngle(float pitch) {
         this.pitch = pitch;
         updateCameraVectors();
     }

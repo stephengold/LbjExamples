@@ -108,9 +108,9 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         }
 
         cam.enableMouseMotion(true);
-        cam.setPosition(new Vector3f(-22f, 22f, -18f));
-        cam.setYawDeg(35f);
-        cam.setPitchDeg(-30f);
+        cam.setLocation(new Vector3f(-22f, 22f, -18f));
+        cam.setAzimuthDegrees(35f);
+        cam.setUpAngleDegrees(-30f);
     }
 
     @Override

@@ -235,22 +235,22 @@ public abstract class BaseApplication {
             glfwSetWindowShouldClose(window, true);
         }
         if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-            cam.processMovement(Camera.Movement.FORWARD, deltaTime);
+            cam.move(Camera.Movement.FORWARD, deltaTime);
         }
         if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-            cam.processMovement(Camera.Movement.BACKWARD, deltaTime);
+            cam.move(Camera.Movement.BACKWARD, deltaTime);
         }
         if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-            cam.processMovement(Camera.Movement.LEFT, deltaTime);
+            cam.move(Camera.Movement.LEFT, deltaTime);
         }
         if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-            cam.processMovement(Camera.Movement.RIGHT, deltaTime);
+            cam.move(Camera.Movement.RIGHT, deltaTime);
         }
         if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
-            cam.processMovement(Camera.Movement.UP, deltaTime);
+            cam.move(Camera.Movement.UP, deltaTime);
         }
         if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_Z) == GLFW_PRESS) {
-            cam.processMovement(Camera.Movement.DOWN, deltaTime);
+            cam.move(Camera.Movement.DOWN, deltaTime);
         }
 
         updateKeyboard(window, key, action);
@@ -274,7 +274,7 @@ public abstract class BaseApplication {
         lastY = yPosIn;
 
         if (cam.isMouseMotionEnabled())
-            cam.processRotation(xOffset, yOffset);
+            cam.processMouseMotion(xOffset, yOffset);
         updateMouse();
     }
 

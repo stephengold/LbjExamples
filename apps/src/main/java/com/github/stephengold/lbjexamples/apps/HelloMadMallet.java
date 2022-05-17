@@ -131,9 +131,9 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         new RigidBodyShapeGeometry(disc, "Smooth", "low");
 
         // Re-position the camera for a better view.
-        cam.setPosition(new Vector3f(10f, -2.75f, 0f));
-        cam.setPitch(0.05f);
-        cam.setYaw(-3.05f);
+        cam.setLocation(new Vector3f(10f, -2.75f, 0f));
+        cam.setUpAngle(0.05f);
+        cam.setAzimuth(-3.05f);
     }
 
     /**
