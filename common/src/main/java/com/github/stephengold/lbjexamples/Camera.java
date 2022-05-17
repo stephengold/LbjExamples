@@ -98,7 +98,7 @@ public class Camera {
      */
     public Camera(Vector3f initLocation, float initAzimuthRadians,
             float initUpAngleRadians) {
-        this.eyeLocation.set(initLocation);
+        eyeLocation.set(initLocation);
 
         this.azimuthRadians = initAzimuthRadians;
         this.upAngleRadians = initUpAngleRadians;
@@ -215,12 +215,12 @@ public class Camera {
         }
     }
 
-    public void processMouseMotion(float offsetX, float offsetY) {
-        offsetX *= rotationRate;
-        offsetY *= rotationRate;
+    public void processMouseMotion(float deltaX, float deltaY) {
+        deltaX *= rotationRate;
+        deltaY *= rotationRate;
 
-        azimuthRadians += Math.toRadians(offsetX);
-        upAngleRadians += Math.toRadians(offsetY);
+        azimuthRadians += Math.toRadians(deltaX);
+        upAngleRadians += Math.toRadians(deltaY);
 
         if (Math.toDegrees(upAngleRadians) > 89.0f) {
             upAngleRadians = (float) Math.toRadians(89.0f);
@@ -327,6 +327,11 @@ public class Camera {
         setUpAngle((float) Math.toRadians(newPitchInDegrees));
     }
 
+   /**
+     * Return the altitude/climb/elevation/pitch angle.
+     *
+     * @return the upward angle of the look direction (in radians)
+     */
     public float upAngle() {
         return upAngleRadians;
     }
