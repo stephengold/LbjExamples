@@ -31,12 +31,6 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
-import org.joml.Vector4fc;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL11;
-
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,9 +38,13 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 import javax.imageio.ImageIO;
-
+import org.joml.Vector4fc;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
