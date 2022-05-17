@@ -132,19 +132,19 @@ public class Camera {
     /**
      * Return the look direction.
      *
-     * @return a pre-existing unit vector in world coordinates
+     * @return a new unit vector in world coordinates
      */
     public Vector3f getDirection() {
-        return lookDirection;
+        return lookDirection.clone();
     }
 
     /**
      * Return the eye location.
      *
-     * @return a pre-existing location vector in world coordinates
+     * @return a new location vector in world coordinates
      */
     public Vector3f getLocation() {
-        return eyeLocation;
+        return eyeLocation.clone();
     }
 
     /**
