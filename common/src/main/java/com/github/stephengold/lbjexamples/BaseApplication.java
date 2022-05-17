@@ -273,7 +273,7 @@ public abstract class BaseApplication {
         lastX = xPosIn;
         lastY = yPosIn;
 
-        if (cam.isMouseMotionEnabled())
+        if (cam.isMouseRotationEnabled())
             cam.processMouseMotion(xOffset, yOffset);
         updateMouse();
     }

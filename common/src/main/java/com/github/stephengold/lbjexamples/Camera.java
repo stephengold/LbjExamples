@@ -29,7 +29,6 @@
  */
 package com.github.stephengold.lbjexamples;
 
-import com.github.stephengold.lbjexamples.Utils;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import org.joml.Matrix4f;
@@ -153,11 +152,11 @@ public class Camera {
         updateCameraVectors();
     }
 
-    public float getYaw() {
+    public float azimuthAngle() {
         return azimuthRadians;
     }
 
-    public float getPitch() {
+    public float upAngle() {
         return upAngleRadians;
     }
 
@@ -169,15 +168,15 @@ public class Camera {
         this.speed = speed;
     }
 
-    public Vector3f getPosition() {
+    public Vector3f getLocation() {
         return eyeLocation;
     }
 
-    public Vector3f getFront() {
+    public Vector3f getDirection() {
         return lookDirection;
     }
 
-    public boolean isMouseMotionEnabled() {
+    public boolean isMouseRotationEnabled() {
         return enableMouseRotation;
     }
 

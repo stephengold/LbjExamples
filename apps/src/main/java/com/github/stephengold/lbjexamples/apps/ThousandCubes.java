@@ -125,10 +125,10 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                 missile.setCcdSweptSphereRadius(radius);
 
                 float speed = 100f;
-                Vector3f velocity = cam.getFront().mult(speed, speed, speed); // TODO use mult(float)
+                Vector3f velocity = cam.getDirection().mult(speed, speed, speed); // TODO use mult(float)
                 missile.setLinearVelocity(velocity);
 
-                missile.setPhysicsLocation(cam.getPosition());
+                missile.setPhysicsLocation(cam.getLocation());
                 physicsSpace.addCollisionObject(missile);
 
                 new RigidBodyShapeGeometry(missile, "Facet", "low")
