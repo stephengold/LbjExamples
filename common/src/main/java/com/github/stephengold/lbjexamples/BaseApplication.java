@@ -61,8 +61,8 @@ public abstract class BaseApplication {
     private long window;
     private static float Z_NEAR = 0.1f;
     private static float Z_FAR = 100.f;
-    public static int WIDTH = 800;
-    public static int HEIGHT = 600;
+    private static int WIDTH = 800;
+    private static int HEIGHT = 600;
     private float lastX = WIDTH / 2.0f;
     private float lastY = HEIGHT / 2.0f;
     private boolean firstMouse = true;
