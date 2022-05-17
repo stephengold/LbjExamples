@@ -37,27 +37,27 @@ import org.joml.Vector3fc;
 
 public class Camera {
 
-    private final static float SENSITIVITY = 0.1f;
-    public final static float ZOOM = 45.0f;
+    private final static float rotationRate = 0.1f;
+    public final static float fovy = 45.0f;
 
-    private Vector3f position = new Vector3f();
-    private Vector3f front = new Vector3f(0, 0, -1);
-    private Vector3f up = new Vector3f(0, 1, 0);
-    private Vector3f right = new Vector3f();
+    private Vector3f eyeLocation = new Vector3f();
+    private Vector3f lookDirection = new Vector3f(0, 0, -1);
+    private Vector3f upDirection = new Vector3f(0, 1, 0);
+    private Vector3f rightDirection = new Vector3f();
     private float speed = 1.5f;
-    private float yaw;
-    private float pitch;
+    private float azimuthRadians;
+    private float upAngleRadians;
 
-    private boolean mouseMotion;
+    private boolean enableMouseRotation;
 
     public Camera() {
         updateCameraVectors();
     }
 
     public Camera(Vector3f position, float yaw, float pitch) {
-        this.position = position;
-        this.yaw = yaw;
-        this.pitch = pitch;
+        this.eyeLocation = position;
+        this.azimuthRadians = yaw;
+        this.upAngleRadians = pitch;
         updateCameraVectors();
     }
 
@@ -67,7 +67,7 @@ public class Camera {
      * @return the angle (in radians, &gt;0, &lt;PI)
      */
     public float fovy() {
-        float result = ZOOM;
+        float result = fovy;
 
         assert result > 0f : result;
         assert result < FastMath.PI : result;
@@ -75,10 +75,9 @@ public class Camera {
     }
 
     public Matrix4f getViewMatrix() {
-        return new Matrix4f().lookAt(
-                Utils.toLwjglVector(position),
-                Utils.toLwjglVector(position.add(front)),
-                Utils.toLwjglVector(up));
+        return new Matrix4f().lookAt(Utils.toLwjglVector(eyeLocation),
+                Utils.toLwjglVector(eyeLocation.add(lookDirection)),
+                Utils.toLwjglVector(upDirection));
     }
 
     /**
@@ -87,7 +86,7 @@ public class Camera {
      * @return a new location vector in world coordinates
      */
     Vector3fc locationJoml() {
-        Vector3fc result = Utils.toLwjglVector(position);
+        Vector3fc result = Utils.toLwjglVector(eyeLocation);
         return result;
     }
 
@@ -97,43 +96,43 @@ public class Camera {
      * @return a new unit vector in world coordinates
      */
     Vector3fc lookDirectionJoml() {
-        Vector3fc result = Utils.toLwjglVector(front);
+        Vector3fc result = Utils.toLwjglVector(lookDirection);
         return result;
     }
 
     public void move(Movement movement, float deltaTime) {
         Vector3f velocity = new Vector3f(speed * deltaTime, speed * deltaTime, speed * deltaTime);
         if (movement == Movement.FORWARD)
-            position.addLocal(front.mult(velocity, null));
+            eyeLocation.addLocal(lookDirection.mult(velocity, null));
         if (movement == Movement.BACKWARD)
-            position.subtractLocal(front.mult(velocity, null));
+            eyeLocation.subtractLocal(lookDirection.mult(velocity, null));
         if (movement == Movement.LEFT)
-            position.subtractLocal(right.mult(velocity, null));
+            eyeLocation.subtractLocal(rightDirection.mult(velocity, null));
         if (movement == Movement.RIGHT)
-            position.addLocal(right.mult(velocity, null));
+            eyeLocation.addLocal(rightDirection.mult(velocity, null));
         if (movement == Movement.UP)
-            position.addLocal(up.mult(velocity, null));
+            eyeLocation.addLocal(upDirection.mult(velocity, null));
         if (movement == Movement.DOWN)
-            position.subtractLocal(up.mult(velocity, null));
+            eyeLocation.subtractLocal(upDirection.mult(velocity, null));
     }
 
     public void processMouseMotion(float offsetX, float offsetY) {
-        offsetX *= SENSITIVITY;
-        offsetY *= SENSITIVITY;
+        offsetX *= rotationRate;
+        offsetY *= rotationRate;
 
-        yaw += Math.toRadians(offsetX);
-        pitch += Math.toRadians(offsetY);
+        azimuthRadians += Math.toRadians(offsetX);
+        upAngleRadians += Math.toRadians(offsetY);
 
-        if (Math.toDegrees(pitch) > 89.0f)
-            pitch = (float) Math.toRadians(89.0f);
-        if (Math.toDegrees(pitch) < -89.0f)
-            pitch = (float) Math.toRadians(-89.0f);
+        if (Math.toDegrees(upAngleRadians) > 89.0f)
+            upAngleRadians = (float) Math.toRadians(89.0f);
+        if (Math.toDegrees(upAngleRadians) < -89.0f)
+            upAngleRadians = (float) Math.toRadians(-89.0f);
 
         updateCameraVectors();
     }
 
     public void setLocation(Vector3f position) {
-        this.position = position;
+        this.eyeLocation = position;
     }
 
     public void setAzimuthDegrees(float yawInDeg) {
@@ -145,21 +144,21 @@ public class Camera {
     }
 
     public void setAzimuth(float yaw) {
-        this.yaw = yaw;
+        this.azimuthRadians = yaw;
         updateCameraVectors();
     }
 
     public void setUpAngle(float pitch) {
-        this.pitch = pitch;
+        this.upAngleRadians = pitch;
         updateCameraVectors();
     }
 
     public float getYaw() {
-        return yaw;
+        return azimuthRadians;
     }
 
     public float getPitch() {
-        return pitch;
+        return upAngleRadians;
     }
 
     public float getSpeed() {
@@ -171,33 +170,33 @@ public class Camera {
     }
 
     public Vector3f getPosition() {
-        return position;
+        return eyeLocation;
     }
 
     public Vector3f getFront() {
-        return front;
+        return lookDirection;
     }
 
     public boolean isMouseMotionEnabled() {
-        return mouseMotion;
+        return enableMouseRotation;
     }
 
     public void enableMouseMotion(boolean mouseMotion) {
-        this.mouseMotion = mouseMotion;
+        this.enableMouseRotation = mouseMotion;
     }
 
     private void updateCameraVectors() {
         Vector3f localFront = new Vector3f();
-        localFront.x = (float) (Math.cos(yaw) * Math.cos(pitch));
-        localFront.y = (float) Math.sin(pitch);
-        localFront.z = (float) (Math.sin(yaw) * Math.cos(pitch));
-        front = localFront.normalize();
+        localFront.x = (float) (Math.cos(azimuthRadians) * Math.cos(upAngleRadians));
+        localFront.y = (float) Math.sin(upAngleRadians);
+        localFront.z = (float) (Math.sin(azimuthRadians) * Math.cos(upAngleRadians));
+        lookDirection = localFront.normalize();
 
-        float rightX = -FastMath.sin(yaw);
-        float rightZ = FastMath.cos(yaw);
-        right = new Vector3f(rightX, 0f, rightZ);
+        float rightX = -FastMath.sin(azimuthRadians);
+        float rightZ = FastMath.cos(azimuthRadians);
+        rightDirection = new Vector3f(rightX, 0f, rightZ);
 
-        up = new Vector3f(right).cross(front).normalize();
+        upDirection = new Vector3f(rightDirection).cross(lookDirection).normalize();
     }
 
     /**
@@ -206,7 +205,7 @@ public class Camera {
      * @return a new unit vector in world coordinates
      */
     Vector3fc upDirectionJoml() {
-        Vector3fc result = Utils.toLwjglVector(up);
+        Vector3fc result = Utils.toLwjglVector(upDirection);
         return result;
     }
 
