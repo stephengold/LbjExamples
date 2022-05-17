@@ -88,6 +88,8 @@ public abstract class BaseApplication {
         return ratio;
     }
 
+    public abstract void cleanUp();
+
     /**
      * Return the current camera for rendering.
      *
@@ -125,6 +127,75 @@ public abstract class BaseApplication {
         return result;
     }
 
+    public static float getZFar() {
+        return zFar;
+    }
+
+    public static float getZNear() {
+        return zNear;
+    }
+
+    public abstract void initApp();
+
+    /**
+     * Load a BufferedImage from the named resource.
+     *
+     * @param resourceName the name of the resource (not null)
+     * @return a new instance
+     */
+    public static BufferedImage loadImage(String resourceName) {
+        InputStream inputStream
+                = BaseApplication.class.getResourceAsStream(resourceName);
+        if (inputStream == null) {
+            throw new RuntimeException("resource not found:  " + resourceName);
+        }
+
+        ImageIO.setUseCache(false);
+
+        BufferedImage result;
+        try {
+            result = ImageIO.read(inputStream);
+        } catch (IOException exception) {
+            throw new RuntimeException("unable to read " + resourceName);
+        }
+
+        return result;
+    }
+
+    public static String loadResource(String fileName) {
+        String result = "";
+        try (InputStream in = BaseApplication.class.getResourceAsStream(fileName);
+                Scanner scanner = new Scanner(in, java.nio.charset.StandardCharsets.UTF_8.name())) {
+            result = scanner.useDelimiter("\\A").next();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public abstract void render();
+
+    /**
+     * Alter the window's background color.
+     *
+     * @param newColor the desired color (not null)
+     */
+    public void setBackgroundColor(Vector4fc newColor) {
+        float red = newColor.x();
+        float green = newColor.y();
+        float blue = newColor.z();
+        float alpha = newColor.w();
+        glClearColor(red, green, blue, alpha);
+    }
+
+    public static void setZFar(float newZFar) {
+        zFar = newZFar;
+    }
+
+    public static void setZNear(float newZNear) {
+        zNear = newZNear;
+    }
+
     public void start() {
         initializeBase();
 
@@ -147,11 +218,27 @@ public abstract class BaseApplication {
         glfwSetErrorCallback(null).free();
     }
 
+    /**
+     * Callback invoked after a keyboard key is pressed, repeated or released.
+     * Meant to be overridden.
+     *
+     * @param windowId the window that received the event
+     * @param keyCode the keyboard key
+     * @param action the key action (either {@link GLFW#GLFW_PRESS PRESS} or
+     * {@link GLFW#GLFW_RELEASE RELEASE} or {@link GLFW#GLFW_REPEAT REPEAT})
+     */
+    public void updateKeyboard(long windowId, int keyCode, int action) {
+    }
+
+    public void updateMouse() {
+    }
+
     private void initializeBase() {
         GLFWErrorCallback.createPrint(System.err).set();
 
-        if (!glfwInit())
+        if (!glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
+        }
 
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
@@ -162,8 +249,9 @@ public abstract class BaseApplication {
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
         windowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight, getClass().getSimpleName(), NULL, NULL);
-        if (windowId == NULL)
+        if (windowId == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
+        }
 
         // Setup resize callback
         glfwSetFramebufferSizeCallback(windowId, (window, width, height) -> {
@@ -204,28 +292,6 @@ public abstract class BaseApplication {
 
         setBackgroundColor(Constants.DARK_GRAY);
         glEnable(GL_DEPTH_TEST);
-    }
-
-    private void updateBase() {
-        float currentFrame = (float) glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        counter++;
-        if (deltaTime >= 1f / 10) {
-            int fps = (int) ((1f / deltaTime) * counter);
-            int ms = (int) ((deltaTime / counter) * 1000);
-            String title = getClass().getSimpleName() + " FPS : " + fps + " / ms : " + ms;
-            glfwSetWindowTitle(windowId, title);
-            lastFrame = currentFrame;
-            counter = 0;
-        }
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        input(windowId, -1, -1, -1, -1);
-        render();
-
-        glfwSwapBuffers(windowId);
-        glfwPollEvents();
     }
 
     private void input(long windowId, int key, int scancode, int action, int mods) {
@@ -271,93 +337,31 @@ public abstract class BaseApplication {
         lastX = xPosIn;
         lastY = yPosIn;
 
-        if (cam.isMouseRotationEnabled())
+        if (cam.isMouseRotationEnabled()) {
             cam.processMouseMotion(xOffset, yOffset);
+        }
         updateMouse();
     }
 
-    public abstract void initApp();
-
-    public abstract void cleanUp();
-
-    public abstract void render();
-
-    /**
-     * Alter the window's background color.
-     *
-     * @param newColor the desired color (not null)
-     */
-    public void setBackgroundColor(Vector4fc newColor) {
-        float red = newColor.x();
-        float green = newColor.y();
-        float blue = newColor.z();
-        float alpha = newColor.w();
-        glClearColor(red, green, blue, alpha);
-    }
-
-    public void updateMouse() {
-    }
-
-    /**
-     * Callback invoked after a keyboard key is pressed, repeated or released. Meant to be overridden.
-     *
-     * @param windowId the window that received the event
-     * @param keyCode the keyboard key
-     * @param action the key action (either {@link GLFW#GLFW_PRESS PRESS} or
-     * {@link GLFW#GLFW_RELEASE RELEASE} or {@link GLFW#GLFW_REPEAT REPEAT})
-     */
-    public void updateKeyboard(long windowId, int keyCode, int action) {
-    }
-
-    public static float getZNear() {
-        return zNear;
-    }
-
-    public static void setZNear(float zNear) {
-        zNear = zNear;
-    }
-
-    public static float getZFar() {
-        return zFar;
-    }
-
-    public static void setZFar(float zFar) {
-        zFar = zFar;
-    }
-
-    /**
-     * Load a BufferedImage from the named resource.
-     *
-     * @param resourceName the name of the resource (not null)
-     * @return a new instance
-     */
-    public static BufferedImage loadImage(String resourceName) {
-        InputStream inputStream
-                = BaseApplication.class.getResourceAsStream(resourceName);
-        if (inputStream == null) {
-            throw new RuntimeException("resource not found:  " + resourceName);
+    private void updateBase() {
+        float currentFrame = (float) glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        counter++;
+        if (deltaTime >= 1f / 10) {
+            int fps = (int) ((1f / deltaTime) * counter);
+            int ms = (int) ((deltaTime / counter) * 1000);
+            String title = getClass().getSimpleName() + " FPS : " + fps + " / ms : " + ms;
+            glfwSetWindowTitle(windowId, title);
+            lastFrame = currentFrame;
+            counter = 0;
         }
 
-        ImageIO.setUseCache(false);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        BufferedImage result;
-        try {
-            result = ImageIO.read(inputStream);
-        } catch (IOException exception) {
-            throw new RuntimeException("unable to read " + resourceName);
-        }
+        input(windowId, -1, -1, -1, -1);
+        render();
 
-        return result;
-    }
-
-    public static String loadResource(String fileName) {
-        String result = "";
-        try (InputStream in = BaseApplication.class.getResourceAsStream(fileName);
-                Scanner scanner = new Scanner(in, java.nio.charset.StandardCharsets.UTF_8.name())) {
-            result = scanner.useDelimiter("\\A").next();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
+        glfwSwapBuffers(windowId);
+        glfwPollEvents();
     }
 }
