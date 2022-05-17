@@ -66,19 +66,19 @@ public class Camera {
     /**
      * eye location (in world coordinates)
      */
-    private Vector3f eyeLocation = new Vector3f();
+    final private Vector3f eyeLocation = new Vector3f();
     /**
      * look direction (unit vector in world coordinates)
      */
-    private Vector3f lookDirection = new Vector3f(0, 0, -1);
+    final private Vector3f lookDirection = new Vector3f(0, 0, -1);
     /**
      * right direction (unit vector in world coordinates)
      */
-    private Vector3f rightDirection = new Vector3f();
+    final private Vector3f rightDirection = new Vector3f();
     /**
      * "up" direction (unit vector in world coordinates)
      */
-    private Vector3f upDirection = new Vector3f(0, 1, 0);
+    final private Vector3f upDirection = new Vector3f(0, 1, 0);
     // *************************************************************************
     // constructors
 
@@ -96,7 +96,7 @@ public class Camera {
      */
     public Camera(Vector3f initLocation, float initAzimuthRadians,
             float initUpAngleRadians) {
-        this.eyeLocation = initLocation;
+        this.eyeLocation.set(initLocation);
 
         this.azimuthRadians = initAzimuthRadians;
         this.upAngleRadians = initUpAngleRadians;
