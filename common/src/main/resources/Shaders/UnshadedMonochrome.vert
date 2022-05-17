@@ -1,7 +1,7 @@
 /*
  * vertex shader for the UnshadedMonochrome program
  */
-#version 330
+#version 330 core
 
 layout (location = 0) in vec3 vertexPosition_modelspace;
 

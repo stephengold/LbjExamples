@@ -1,7 +1,7 @@
 /*
  * fragment shader for the DebugLocalNormals program
  */
-#version 330
+#version 330 core
 
 in vec3 n;
 out vec4 fragColor;
