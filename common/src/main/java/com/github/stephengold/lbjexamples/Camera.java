@@ -66,19 +66,19 @@ public class Camera {
     /**
      * eye location (in world coordinates)
      */
-    final private Vector3f eyeLocation = new Vector3f();
+    final private Vector3f eyeLocation = new Vector3f(0f, 0f, 10f);
     /**
      * look direction (unit vector in world coordinates)
      */
-    final private Vector3f lookDirection = new Vector3f(0, 0, -1);
+    final private Vector3f lookDirection = new Vector3f(0f, 0f, -1f);
     /**
      * right direction (unit vector in world coordinates)
      */
-    final private Vector3f rightDirection = new Vector3f();
+    final private Vector3f rightDirection = new Vector3f(1f, 0f, 0f);
     /**
      * "up" direction (unit vector in world coordinates)
      */
-    final private Vector3f upDirection = new Vector3f(0, 1, 0);
+    final private Vector3f upDirection = new Vector3f(0f, 1f, 0f);
     // *************************************************************************
     // constructors
 
