@@ -76,6 +76,10 @@ public class Mesh {
      */
     private FloatBuffer positions;
     /**
+     * texture coordinates (2 floats per vertex)
+     */
+    private FloatBuffer textureCoordinates;
+    /**
      * kind of geometric primitives contained in this Mesh, such as:
      * GL_TRIANGLES, GL_LINE_LOOP, or GL_POINTS
      */
@@ -197,6 +201,9 @@ public class Mesh {
             addFloatVbo(positions, numAxes);
             if (normals != null) {
                 addFloatVbo(normals, numAxes);
+            }
+            if (textureCoordinates != null) {
+                addFloatVbo(textureCoordinates, 2);
             }
 
         } else {
