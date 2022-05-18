@@ -119,9 +119,9 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         launchShape = new SphereCollisionShape(0.5f);
 
         getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
-        cam.setLocation(new Vector3f(-22f, 22f, -18f));
-        cam.setAzimuthDegrees(35f);
-        cam.setUpAngleDegrees(-30f);
+        cam.setLocation(new Vector3f(60f, 15f, 28f))
+                .setAzimuth(-2.7f)
+                .setUpAngle(-0.25f);
 
         setBackgroundColor(Constants.SKY_BLUE);
 
