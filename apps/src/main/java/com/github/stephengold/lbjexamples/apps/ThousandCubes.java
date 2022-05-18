@@ -31,6 +31,8 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
+import com.github.stephengold.lbjexamples.CrosshairsMesh;
+import com.github.stephengold.lbjexamples.Geometry;
 import com.github.stephengold.lbjexamples.InputProcessor;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.RotateMode;
@@ -124,6 +126,12 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                 .setUpAngle(-0.25f);
 
         setBackgroundColor(Constants.SKY_BLUE);
+
+        float crossWidth = 0.1f;
+        float crossHeight = crossWidth * aspectRatio();
+        new Geometry(new CrosshairsMesh(crossWidth, crossHeight))
+                .setColor(Constants.YELLOW)
+                .setProgramByName("ScreenSpace");
 
         addInputProcessor(new InputProcessor() {
             @Override
