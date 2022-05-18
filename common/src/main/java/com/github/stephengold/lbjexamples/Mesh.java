@@ -104,15 +104,14 @@ public class Mesh {
     // constructors
 
     /**
-     * Instantiate a mesh with the specified mode and vertex positions.
+     * Auto-generate a low-resolution, TRIANGLES-mode mesh for the specified
+     * collision shape.
      *
-     * @param drawMode the desired draw mode
-     * @param positionsArray the desired vertex positions (not null, unaffected)
+     * @param shape the shape to use (not null, unaffected)
+     * @param normalsOption (not null)
      */
-    public Mesh(int drawMode, float[] positionsArray) {
-        this.drawMode = drawMode;
-        this.vertexCount = positionsArray.length / numAxes;
-        this.positions = BufferUtils.createFloatBuffer(positionsArray);
+    Mesh(CollisionShape shape, NormalsOption normalsOption) {
+        this(shape, normalsOption, DebugShapeFactory.lowResolution);
     }
 
     /**
@@ -155,14 +154,15 @@ public class Mesh {
     }
 
     /**
-     * Auto-generate a low-resolution, TRIANGLES-mode mesh for the specified
-     * collision shape.
+     * Instantiate a mesh with the specified mode and vertex positions.
      *
-     * @param shape the shape to use (not null, unaffected)
-     * @param normalsOption (not null)
+     * @param drawMode the desired draw mode
+     * @param positionsArray the desired vertex positions (not null, unaffected)
      */
-    Mesh(CollisionShape shape, NormalsOption normalsOption) {
-        this(shape, normalsOption, DebugShapeFactory.lowResolution);
+    public Mesh(int drawMode, float[] positionsArray) {
+        this.drawMode = drawMode;
+        this.vertexCount = positionsArray.length / numAxes;
+        this.positions = BufferUtils.createFloatBuffer(positionsArray);
     }
     // *************************************************************************
     // new methods exposed
