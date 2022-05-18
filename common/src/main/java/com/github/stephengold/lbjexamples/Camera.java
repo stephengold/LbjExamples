@@ -360,6 +360,22 @@ public class Camera {
         return result;
     }
     // *************************************************************************
+    // Object methods
+
+    /**
+     * Represent this camera as a text string.
+     *
+     * @return descriptive string of text (not null)
+     */
+    @Override
+    public String toString() {
+        String result = String.format(
+                "loc=%s az=%.2f upAng=%.2f fovy=%.2f look=%s up=%s right=%s",
+                eyeLocation, azimuthRadians, upAngleRadians, fovy,
+                lookDirection, upDirection, rightDirection);
+        return result;
+    }
+    // *************************************************************************
     // private methods
 
     private void updateDirectionVectors() {
