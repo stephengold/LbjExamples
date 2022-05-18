@@ -161,7 +161,7 @@ public class Mesh {
      * @param drawMode the desired draw mode
      * @param positionsArray the desired vertex positions (not null, unaffected)
      */
-    public Mesh(int drawMode, float[] positionsArray) {
+    public Mesh(int drawMode, float... positionsArray) {
         this.drawMode = drawMode;
         this.vertexCount = positionsArray.length / numAxes;
         this.positions = BufferUtils.createFloatBuffer(positionsArray);
