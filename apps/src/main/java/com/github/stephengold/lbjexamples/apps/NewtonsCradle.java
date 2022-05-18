@@ -62,13 +62,13 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     // constants
 
     /**
-     * square root of 1/2 TODO use MyMath
-     */
-    final private static float ROOT_HALF = FastMath.sqrt(0.5f);
-    /**
      * simulation speed when "paused"
      */
     final private static float PAUSED_SPEED = 1e-9f;
+    /**
+     * square root of 1/2 TODO use MyMath
+     */
+    final private static float ROOT_HALF = FastMath.sqrt(0.5f);
     /**
      * color to visualize the balls
      */
