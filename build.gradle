@@ -7,3 +7,13 @@ plugins {
 subprojects {
     apply from: rootProject.file('common.gradle')
 }
+
+// cleanup tasks:
+
+clean.dependsOn('cleanDocsBuild', 'cleanNodeModules')
+tasks.register('cleanDocsBuild', Delete) {
+    delete 'docs/build'
+}
+tasks.register('cleanNodeModules', Delete) {
+    delete 'node_modules'
+}
