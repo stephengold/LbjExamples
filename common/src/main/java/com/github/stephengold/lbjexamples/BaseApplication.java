@@ -294,6 +294,7 @@ public abstract class BaseApplication {
      * @param newZFar (in world units, &gt;zNear)
      */
     public static void setZFar(float newZFar) {
+        Validate.inRange(newZFar, "new zFar", zNear, Float.MAX_VALUE);
         zFar = newZFar;
     }
 
@@ -303,6 +304,7 @@ public abstract class BaseApplication {
      * @param newZNear (in world units, &gt;0, &lt;zFar)
      */
     public static void setZNear(float newZNear) {
+        Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, zNear);
         zNear = newZNear;
     }
 
@@ -357,6 +359,8 @@ public abstract class BaseApplication {
      * window's content area (in screen units)
      */
     private void glfwCursorPosCallback(long windowId, double x, double y) {
+        assert windowId == mainWindowId;
+
         if (mousePosition == null) {
             mousePosition = new Vector2d(x, y);
         }
@@ -379,6 +383,8 @@ public abstract class BaseApplication {
      */
     private void glfwKeyCallback(long windowId, int keyId, int scancode,
             int action, int mods) {
+        assert windowId == mainWindowId;
+
         if (action != GLFW_REPEAT && firstInputProcessor != null) {
             boolean isPress = (action == GLFW_PRESS);
             firstInputProcessor.onKeyboard(keyId, isPress);
@@ -390,6 +396,8 @@ public abstract class BaseApplication {
      */
     private void glfwMouseButtonCallback(long windowId, int buttonId,
             int action, int mods) {
+        assert windowId == mainWindowId;
+
         boolean isPress = (action == GLFW_PRESS);
         if (firstInputProcessor != null) {
             firstInputProcessor.onMouseButton(buttonId, isPress);

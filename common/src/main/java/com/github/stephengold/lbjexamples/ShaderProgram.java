@@ -215,6 +215,7 @@ public class ShaderProgram {
      * @param value the desired value
      */
     void setUniform(String uniformName, float value) {
+        assert uniformName != null;
         int location = locateUniform(uniformName);
 
         use();
@@ -250,6 +251,7 @@ public class ShaderProgram {
      * @param value the desired value (not null)
      */
     void setUniform(String uniformName, Matrix4fc value) {
+        assert uniformName != null;
         int location = locateUniform(uniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
@@ -291,6 +293,7 @@ public class ShaderProgram {
      * @param value the desired value (not null)
      */
     void setUniform(String uniformName, Vector3fc value) {
+        assert uniformName != null;
         int location = locateUniform(uniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
@@ -310,6 +313,7 @@ public class ShaderProgram {
      * @param value the desired value (not null)
      */
     void setUniform(String uniformName, Vector4fc value) {
+        assert uniformName != null;
         int location = locateUniform(uniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
@@ -393,8 +397,11 @@ public class ShaderProgram {
      */
     private int locateUniform(String name) {
         assert name != null;
+        assert !name.isEmpty();
 
         int location = uniformLocations.get(name);
+
+        assert location >= 0 : location;
         return location;
     }
 }
