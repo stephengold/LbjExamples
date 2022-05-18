@@ -32,8 +32,6 @@ package com.github.stephengold.lbjexamples;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.system.NativeLibraryLoader;
-import org.joml.Matrix4f;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,6 +49,16 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      */
     private static final Collection<Geometry> visibleGeometries
             = new HashSet<>(256);
+    /**
+     * currently active global uniforms
+     */
+    private static final Collection<GlobalUniform> activeGlobalUniforms
+            = new HashSet<>(16);
+    /**
+     * shader programs that are currently in use
+     */
+    private static final Collection<ShaderProgram> programsInUse
+            = new HashSet<>(16);
     /**
      * how many times render() has been invoked
      */
@@ -165,18 +173,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
         lastPhysicsUpdate = nanoTime;
 
         cleanUpGeometries();
-        /*
-         * Camera uniforms are identical for every ShaderProgram.
-         */
-        Matrix4f projectionMatrix = new Matrix4f();
-        projectionMatrix.setPerspective(cam.fovy(),
-                BaseApplication.aspectRatio(), getZNear(), getZFar());
-        Matrix4f viewMatrix = cam.getViewMatrix();
-        for (Geometry geometry : visibleGeometries) {
-            ShaderProgram program = geometry.getProgram();
-            program.setCameraUniforms(
-                    renderCount, projectionMatrix, viewMatrix);
-        }
+        updateGlobalUniforms();
 
         for (Geometry geometry : visibleGeometries) {
             geometry.updateAndRender();
@@ -198,5 +195,37 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
         }
 
         visibleGeometries.removeAll(geometriesToRemove);
+    }
+
+    /**
+     * Update the global uniform variables of all active programs.
+     */
+    private static void updateGlobalUniforms() {
+        // Update the collection of active programs.
+        programsInUse.clear();
+        for (Geometry geometry : visibleGeometries) {
+            ShaderProgram program = geometry.getProgram();
+            programsInUse.add(program);
+        }
+
+        // Update the collection of active global uniforms.
+        activeGlobalUniforms.clear();
+        for (ShaderProgram program : programsInUse) {
+            Collection<GlobalUniform> uniform = program.listAgus();
+            activeGlobalUniforms.addAll(uniform);
+        }
+
+        // Recalculate the values of the global uniforms.
+        for (GlobalUniform uniform : activeGlobalUniforms) {
+            uniform.updateValue();
+        }
+
+        // Update each program with the latest values.
+        for (ShaderProgram program : programsInUse) {
+            Collection<GlobalUniform> agus = program.listAgus();
+            for (GlobalUniform uniform : agus) {
+                uniform.sendValueTo(program);
+            }
+        }
     }
 }

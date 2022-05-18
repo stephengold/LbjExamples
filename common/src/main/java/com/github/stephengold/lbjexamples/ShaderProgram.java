@@ -42,6 +42,7 @@ import org.joml.Vector3fc;
 import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL43C;
 import org.lwjgl.system.MemoryStack;
 
 /**
@@ -117,6 +118,8 @@ public class ShaderProgram {
             throw new RuntimeException("Error validating shader program: "
                     + GL20.glGetProgramInfoLog(programId, 1024));
         }
+
+        collectActiveUniforms();
     }
     // *************************************************************************
     // new methods exposed
@@ -347,6 +350,28 @@ public class ShaderProgram {
     // private methods
 
     /**
+     * Enumerate the active uniforms and record their locations. Also determine
+     * which ones are global.
+     */
+    private void collectActiveUniforms() {
+        int count = GL20.glGetProgrami(programId, GL20.GL_ACTIVE_UNIFORMS);
+        for (int i = 0; i < count; ++i) {
+            String name = GL43C.glGetProgramResourceName(
+                    programId, GL43C.GL_UNIFORM, i);
+            int location = GL20.glGetUniformLocation(programId, name);
+            assert location != -1;
+            uniformLocations.put(name, location);
+
+            // Is it a global uniform?
+            GlobalUniform globalUniform
+                    = BaseApplication.findGlobalUniform(name);
+            if (globalUniform != null) {
+                globalUniforms.add(globalUniform);
+            }
+        }
+    }
+
+    /**
      * Create, compile, and attach a shader.
      *
      * @param resourceName the name of the shader resource (not null)
@@ -388,12 +413,7 @@ public class ShaderProgram {
     private int locateUniform(String name) {
         assert name != null;
 
-        int location = GL20.glGetUniformLocation(programId, name);
-        if (location == -1) {
-            String message = "Uniform variable not found: " + name;
-            throw new IllegalArgumentException(message);
-        }
-
+        int location = uniformLocations.get(name);
         return location;
     }
 }

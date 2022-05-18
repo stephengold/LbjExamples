@@ -269,13 +269,19 @@ public class Geometry {
     }
 
     /**
-     * Update properties and then render this Geometry. Meant to be overridden.
+     * Update properties and then render this Geometry. Assumes that the
+     * program's global uniforms have already been set! Meant to be overridden.
      */
     void updateAndRender() {
-        program.setModelMatrix(this); // mesh-to-world transform
+        // mesh-to-world transform uniforms
+        if (program.hasActiveUniform("modelMatrix")) {
+            program.setModelMatrix(this);
+        }
 
         // material uniforms
-        program.setUniform("MaterialColor", baseColor);
+        if (program.hasActiveUniform("BaseMaterialColor")) {
+            program.setUniform("BaseMaterialColor", baseColor);
+        }
 
         mesh.enableAttributes();
         mesh.renderUsing(program);
