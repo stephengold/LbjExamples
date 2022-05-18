@@ -67,7 +67,11 @@ public class Geometry {
     /**
      * material base color (in the Linear colorspace)
      */
-    final private Vector4f baseColor = new Vector4f(1f);
+    final private Vector4f baseColor = new Vector4f(Constants.WHITE);
+    /**
+     * material specular color (in the Linear colorspace)
+     */
+    final private Vector4f specularColor = new Vector4f(Constants.WHITE);
     // *************************************************************************
     // constructors
 
@@ -273,7 +277,10 @@ public class Geometry {
      * program's global uniforms have already been set! Meant to be overridden.
      */
     void updateAndRender() {
-        // mesh-to-world transform uniforms
+         // mesh-to-world transform uniforms
+        if (program.hasActiveUniform("modelRotationMatrix")) {
+            program.setModelRotationMatrix(this);
+        }
         if (program.hasActiveUniform("modelMatrix")) {
             program.setModelMatrix(this);
         }
@@ -281,6 +288,9 @@ public class Geometry {
         // material uniforms
         if (program.hasActiveUniform("BaseMaterialColor")) {
             program.setUniform("BaseMaterialColor", baseColor);
+        }
+        if (program.hasActiveUniform("SpecularMaterialColor")) {
+            program.setUniform("SpecularMaterialColor", specularColor);
         }
 
         mesh.enableAttributes();
