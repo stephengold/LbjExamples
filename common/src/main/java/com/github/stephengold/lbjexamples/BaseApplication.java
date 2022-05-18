@@ -94,7 +94,7 @@ public abstract class BaseApplication {
     /**
      * ID of the main GLFW window used for display
      */
-    private long windowId;
+    private long mainWindowId;
     /**
      * map variable names to global uniforms
      */
@@ -315,7 +315,7 @@ public abstract class BaseApplication {
         initApp();
 
         // main update loop
-        while (!glfwWindowShouldClose(windowId)) {
+        while (!glfwWindowShouldClose(mainWindowId)) {
             updateBase();
         }
 
@@ -326,8 +326,8 @@ public abstract class BaseApplication {
             program.cleanUp();
         }
 
-        glfwFreeCallbacks(windowId);
-        glfwDestroyWindow(windowId);
+        glfwFreeCallbacks(mainWindowId);
+        glfwDestroyWindow(mainWindowId);
         glfwTerminate();
         glfwSetErrorCallback(null).free();
     }
@@ -412,36 +412,36 @@ public abstract class BaseApplication {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-        windowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight,
-            getClass().getSimpleName(), NULL, NULL);
-        if (windowId == NULL) {
+        mainWindowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight,
+                getClass().getSimpleName(), NULL, NULL);
+        if (mainWindowId == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
 
         // Set up the resize callback.
-        glfwSetFramebufferSizeCallback(windowId, (window, width, height) -> {
+        glfwSetFramebufferSizeCallback(mainWindowId, (window, width, height) -> {
             frameBufferWidth = width;
             frameBufferHeight = height;
             glViewport(0, 0, frameBufferWidth, frameBufferHeight);
         });
 
         // Set up the user input callbacks.
-        glfwSetCursorPosCallback(windowId, this::glfwCursorPosCallback);
-        glfwSetKeyCallback(windowId, this::glfwKeyCallback);
-        glfwSetMouseButtonCallback(windowId, this::glfwMouseButtonCallback);
+        glfwSetCursorPosCallback(mainWindowId, this::glfwCursorPosCallback);
+        glfwSetKeyCallback(mainWindowId, this::glfwKeyCallback);
+        glfwSetMouseButtonCallback(mainWindowId, this::glfwMouseButtonCallback);
 
         // Center the window.
         GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        glfwSetWindowPos(windowId,
+        glfwSetWindowPos(mainWindowId,
                 (videoMode.width() - frameBufferWidth) / 2,
                 (videoMode.height() - frameBufferHeight) / 2
         );
 
         // Use the new window as the current OpenGL context.
-        glfwMakeContextCurrent(windowId);
+        glfwMakeContextCurrent(mainWindowId);
 
         // Make the window visible.
-        glfwShowWindow(windowId);
+        glfwShowWindow(mainWindowId);
 
         GL.createCapabilities();
         /*
@@ -465,14 +465,14 @@ public abstract class BaseApplication {
                 new ViewMatrix()
         );
 
-        cameraInputProcessor = new CameraInputProcessor(windowId);
+        cameraInputProcessor = new CameraInputProcessor(mainWindowId);
         addInputProcessor(cameraInputProcessor);
 
         addInputProcessor(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPress) {
                 if (keyId == GLFW_KEY_ESCAPE) { // stop the application
-                    glfwSetWindowShouldClose(windowId, true);
+                    glfwSetWindowShouldClose(mainWindowId, true);
                     return;
                 }
                 super.onKeyboard(keyId, isPress);
@@ -491,7 +491,7 @@ public abstract class BaseApplication {
             int fps = (int) ((1f / deltaTime) * counter);
             int ms = (int) ((deltaTime / counter) * 1000);
             String title = getClass().getSimpleName() + " FPS : " + fps + " / ms : " + ms;
-            glfwSetWindowTitle(windowId, title);
+            glfwSetWindowTitle(mainWindowId, title);
             lastFrame = currentFrame;
             counter = 0;
         }
@@ -500,7 +500,7 @@ public abstract class BaseApplication {
 
         render();
 
-        glfwSwapBuffers(windowId);
+        glfwSwapBuffers(mainWindowId);
         glfwPollEvents();
 
         cameraInputProcessor.update();
