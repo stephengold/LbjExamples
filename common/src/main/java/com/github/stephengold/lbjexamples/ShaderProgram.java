@@ -30,6 +30,11 @@
 package com.github.stephengold.lbjexamples;
 
 import java.nio.FloatBuffer;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import org.joml.Matrix4fc;
 import org.joml.Vector3fc;
 import org.joml.Vector4fc;
@@ -45,12 +50,21 @@ public class ShaderProgram {
     // *************************************************************************
     // fields
 
+    /**
+     * collect all active global uniforms
+     */
+    final private Collection<GlobalUniform> globalUniforms = new HashSet<>(16);
+
     private final int programId;
     /**
      * last render iteration on which the camera uniforms were set, or null if
      * never set
      */
     private Integer lastRenderIteration;
+    /**
+     * map active uniform variables to their locations
+     */
+    final private Map<String, Integer> uniformLocations = new HashMap<>(16);
     /**
      * base name of the shader files
      */
@@ -120,6 +134,26 @@ public class ShaderProgram {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * Test whether the named uniform variable exists and is active.
+     *
+     * @param name the name of the variable to test (not null)
+     * @return true if the uniform exists and is active, otherwise false
+     */
+    boolean hasActiveUniform(String name) {
+        boolean result = uniformLocations.containsKey(name);
+        return result;
+    }
+
+    /**
+     * Enumerate all active global uniforms in this program.
+     *
+     * @return a new unmodifiable collection of pre-existing elements
+     */
+    Collection<GlobalUniform> listAgus() {
+        return Collections.unmodifiableCollection(globalUniforms);
     }
 
     /**
