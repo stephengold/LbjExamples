@@ -51,6 +51,17 @@ import org.lwjgl.system.MemoryStack;
  */
 public class ShaderProgram {
     // *************************************************************************
+    // constants and loggers
+
+    /**
+     * name of the uniform for the model-to-world transform matrix
+     */
+    final static String modelMatrixUniformName = "modelMatrix";
+    /**
+     * name of the uniform for the model-to-world rotation matrix
+     */
+    final static String modelRotationMatrixUniformName = "modelRotationMatrix";
+    // *************************************************************************
     // fields
 
     /**
@@ -68,7 +79,7 @@ public class ShaderProgram {
     /**
      * base name of the shader files
      */
-    private final String name;
+    final private String programName;
     // *************************************************************************
     // constructors
 
@@ -80,7 +91,7 @@ public class ShaderProgram {
     ShaderProgram(String programName) {
         assert programName != null;
 
-        this.name = programName;
+        this.programName = programName;
         this.programId = GL20.glCreateProgram();
         if (programId == 0) {
             String message = "Couldn't create program:  " + programName;
@@ -137,7 +148,7 @@ public class ShaderProgram {
      * @return the base name of the shader files (not null)
      */
     public String getName() {
-        return name;
+        return programName;
     }
 
     /**
@@ -166,7 +177,7 @@ public class ShaderProgram {
      * @param geometry (not null, unaffected)
      */
     void setModelMatrix(Geometry geometry) {
-        int location = locateUniform("modelMatrix");
+        int location = locateUniform(modelMatrixUniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(16);
@@ -184,7 +195,7 @@ public class ShaderProgram {
      * @param geometry (not null, unaffected)
      */
     void setModelRotationMatrix(Geometry geometry) {
-        int location = locateUniform("modelRotationMatrix");
+        int location = locateUniform(modelRotationMatrixUniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(9);

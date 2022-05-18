@@ -277,11 +277,11 @@ public class Geometry {
      * program's global uniforms have already been set! Meant to be overridden.
      */
     void updateAndRender() {
-         // mesh-to-world transform uniforms
-        if (program.hasActiveUniform("modelRotationMatrix")) {
+        // mesh-to-world transform uniforms
+        if (program.hasActiveUniform(ShaderProgram.modelRotationMatrixUniformName)) {
             program.setModelRotationMatrix(this);
         }
-        if (program.hasActiveUniform("modelMatrix")) {
+        if (program.hasActiveUniform(ShaderProgram.modelMatrixUniformName)) {
             program.setModelMatrix(this);
         }
 

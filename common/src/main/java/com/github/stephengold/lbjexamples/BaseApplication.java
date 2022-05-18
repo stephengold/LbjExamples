@@ -34,22 +34,21 @@ import com.jme3.math.Vector3f;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
 import javax.imageio.ImageIO;
 import jme3utilities.Validate;
 import org.joml.Vector2d;
 import org.joml.Vector4fc;
-import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
+import org.lwjgl.glfw.Callbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryUtil.NULL;
+import org.lwjgl.system.MemoryUtil;
 
 /**
  * An abstract application using LWJGL and OpenGL.
@@ -72,7 +71,7 @@ public abstract class BaseApplication {
     /**
      * distance from the camera to the far clipping plane (in world units)
      */
-    private static float zFar = 100.f;
+    private static float zFar = 100f;
     /**
      * distance from the camera to the near clipping plane (in world units)
      */
@@ -104,7 +103,7 @@ public abstract class BaseApplication {
      * map program names to programs
      */
     final private static Map<String, ShaderProgram> programMap
-            = new TreeMap<>();
+            = new HashMap<>(16);
     /**
      * mouse position relative to the top-left corner of the content area (in
      * screen units) or null if no mouse updates have been received
@@ -257,14 +256,16 @@ public abstract class BaseApplication {
      * @param resourceName the name of the resource (not null)
      * @return the text (possibly multiple lines)
      */
-    public static String loadResource(String fileName) {
-        String result = "";
-        try (InputStream in = BaseApplication.class.getResourceAsStream(fileName);
-                Scanner scanner = new Scanner(in, java.nio.charset.StandardCharsets.UTF_8.name())) {
-            result = scanner.useDelimiter("\\A").next();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public static String loadResource(String resourceName) {
+        InputStream inputStream
+                = BaseApplication.class.getResourceAsStream(resourceName);
+        if (inputStream == null) {
+            throw new RuntimeException("resource not found:  " + resourceName);
         }
+
+        Scanner scanner
+                = new Scanner(inputStream, StandardCharsets.UTF_8.name());
+        String result = scanner.useDelimiter("\\A").next();
 
         return result;
     }
@@ -284,7 +285,7 @@ public abstract class BaseApplication {
         float green = newColor.y();
         float blue = newColor.z();
         float alpha = newColor.w();
-        glClearColor(red, green, blue, alpha);
+        GL11.glClearColor(red, green, blue, alpha);
     }
 
     /**
@@ -309,8 +310,6 @@ public abstract class BaseApplication {
         // Initialize this class.
         initializeBase();
 
-        // Create the initial camera at z=10 looking toward the origin.
-        this.cam = new Camera(new Vector3f(0, 0, 10), -FastMath.HALF_PI, 0);
         // Initialize the subclass.
         initApp();
 
@@ -326,7 +325,7 @@ public abstract class BaseApplication {
             program.cleanUp();
         }
 
-        glfwFreeCallbacks(mainWindowId);
+        Callbacks.glfwFreeCallbacks(mainWindowId);
         glfwDestroyWindow(mainWindowId);
         glfwTerminate();
         glfwSetErrorCallback(null).free();
@@ -410,11 +409,12 @@ public abstract class BaseApplication {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11.GL_TRUE);
 
+        String initialTitle = getClass().getSimpleName();
         mainWindowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight,
-                getClass().getSimpleName(), NULL, NULL);
-        if (mainWindowId == NULL) {
+                initialTitle, MemoryUtil.NULL, MemoryUtil.NULL);
+        if (mainWindowId == MemoryUtil.NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
 
@@ -422,7 +422,7 @@ public abstract class BaseApplication {
         glfwSetFramebufferSizeCallback(mainWindowId, (window, width, height) -> {
             frameBufferWidth = width;
             frameBufferHeight = height;
-            glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+            GL11.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
         });
 
         // Set up the user input callbacks.
@@ -444,6 +444,7 @@ public abstract class BaseApplication {
         glfwShowWindow(mainWindowId);
 
         GL.createCapabilities();
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
         /*
          * Encode fragment colors for sRGB
          * before writing them to the framebuffer.
@@ -455,7 +456,9 @@ public abstract class BaseApplication {
         GL11.glEnable(GL_FRAMEBUFFER_SRGB_EXT);
 
         setBackgroundColor(Constants.DARK_GRAY);
-        glEnable(GL_DEPTH_TEST);
+
+        // Create the initial camera at z=10 looking toward the origin.
+        this.cam = new Camera(new Vector3f(0f, 0f, 10f), -FastMath.HALF_PI, 0f);
 
         addGlobalUniforms(
                 new AmbientStrength(),
@@ -496,7 +499,7 @@ public abstract class BaseApplication {
             counter = 0;
         }
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
         render();
 
