@@ -143,6 +143,26 @@ public class ShaderProgram {
     }
 
     /**
+     * Return the number of active GLOBAL uniforms.
+     *
+     * @return the count (&ge;0)
+     */
+    int countGlobalUniforms() {
+        int count = globalUniforms.size();
+        return count;
+    }
+
+    /**
+     * Return the number of active uniforms.
+     *
+     * @return the count (&ge;0)
+     */
+    int countUniforms() {
+        int count = uniformLocations.size();
+        return count;
+    }
+
+    /**
      * Return the program's name.
      *
      * @return the base name of the shader files (not null)
