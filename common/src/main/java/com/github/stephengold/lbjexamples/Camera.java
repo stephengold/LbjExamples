@@ -127,7 +127,7 @@ public class Camera {
      * @return a new unit vector in world coordinates
      */
     public Vector3f getDirection() {
-        return lookDirection.clone();
+        return lookDirection(null);
     }
 
     /**
@@ -136,7 +136,21 @@ public class Camera {
      * @return a new location vector in world coordinates
      */
     public Vector3f getLocation() {
-        return eyeLocation.clone();
+        return location(null);
+    }
+
+    /**
+     * Return the eye location.
+     *
+     * @return a location vector in world coordinates (either storeResult or a new
+     * vector)
+     */
+    public Vector3f location(Vector3f storeResult) {
+        if (storeResult == null) {
+            return eyeLocation.clone();
+        } else {
+            return storeResult.set(eyeLocation);
+        }
     }
 
     /**
@@ -147,6 +161,20 @@ public class Camera {
     Vector3fc locationJoml() {
         Vector3fc result = Utils.toLwjglVector(eyeLocation);
         return result;
+    }
+
+    /**
+     * Return the camera's look direction.
+     *
+     * @return a unit vector in world coordinates (either storeResult or a new
+     * vector)
+     */
+    public Vector3f lookDirection(Vector3f storeResult) {
+        if (storeResult == null) {
+            return lookDirection.clone();
+        } else {
+            return storeResult.set(lookDirection);
+        }
     }
 
     /**
@@ -306,6 +334,20 @@ public class Camera {
      */
     public float upAngle() {
         return upAngleRadians;
+    }
+
+    /**
+     * Return the camera's "up" direction.
+     *
+     * @return a unit vector in world coordinates (either storeResult or a new
+     * vector)
+     */
+    public Vector3f upDirection(Vector3f storeResult) {
+        if (storeResult == null) {
+            return upDirection.clone();
+        } else {
+            return storeResult.set(upDirection);
+        }
     }
 
     /**
