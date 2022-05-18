@@ -215,6 +215,17 @@ public class Camera {
         }
     }
 
+    /**
+     * Teleport the eye by the specified offset without changing its
+     * orientation.
+     *
+     * @param offset the desired offset (in world coordinates, not null,
+     * unaffected)
+     */
+    public void move(Vector3f offset) {
+        eyeLocation.addLocal(offset);
+    }
+
     public void processMouseMotion(float deltaX, float deltaY) {
         deltaX *= rotationRate;
         deltaY *= rotationRate;
@@ -227,6 +238,43 @@ public class Camera {
         }
         if (Math.toDegrees(upAngleRadians) < -89.0f) {
             upAngleRadians = (float) Math.toRadians(-89.0f);
+        }
+
+        updateDirectionVectors();
+    }
+
+    /**
+     * Return the camera's right direction.
+     *
+     * @return a unit vector in world coordinates (either storeResult or a new
+     * vector)
+     */
+    public Vector3f rightDirection(Vector3f storeResult) {
+        if (storeResult == null) {
+            return rightDirection.clone();
+        } else {
+            return storeResult.set(rightDirection);
+        }
+    }
+
+    /**
+     * Increase azimuth by {@code rightRadians} and increase the up angle by
+     * {@code upRadians}. The magnitude of the resulting up angle cannot exceed
+     * {@code maxUpAngleRadians}.
+     *
+     * @param rightRadians (in radians)
+     * @param upRadians (in radians)
+     * @param maxUpAngleRadians (in radians)
+     */
+    public void rotateLimited(float rightRadians, float upRadians,
+            float maxUpAngleRadians) {
+        azimuthRadians += rightRadians;
+
+        upAngleRadians += upRadians;
+        if (upAngleRadians > maxUpAngleRadians) {
+            upAngleRadians = maxUpAngleRadians;
+        } else if (upAngleRadians < -maxUpAngleRadians) {
+            upAngleRadians = -maxUpAngleRadians;
         }
 
         updateDirectionVectors();
