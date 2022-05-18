@@ -21,6 +21,12 @@ tasks.register('AppChooser', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.AppChooser'
 }
 
+tasks.register('HelloCcd', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCcd'
+}
+tasks.register('HelloCharacter', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCharacter'
+}
 tasks.register('HelloContactResponse', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloContactResponse'
 }
@@ -53,6 +59,9 @@ tasks.register('HelloStaticBody', JavaExec) {
 }
 tasks.register('HelloVehicle0', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloVehicle0'
+}
+tasks.register('HelloWalk', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWalk'
 }
 tasks.register('NewtonsCradle', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.NewtonsCradle'
