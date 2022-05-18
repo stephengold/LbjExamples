@@ -66,8 +66,8 @@ public abstract class BaseApplication {
      */
     private static CameraInputProcessor cameraInputProcessor;
 
-    private float deltaTime;
-    private float lastFrame;
+    private static float deltaTime;
+    private static float lastFrame;
     /**
      * distance from the camera to the far clipping plane (in world units)
      */
@@ -81,7 +81,7 @@ public abstract class BaseApplication {
      */
     private static InputProcessor firstInputProcessor;
 
-    private int counter;
+    private static int counter;
     /**
      * height of the displayed frame buffer (in pixels)
      */
@@ -93,7 +93,7 @@ public abstract class BaseApplication {
     /**
      * GLFW ID of the window used to render geometries
      */
-    private long mainWindowId;
+    private static long mainWindowId;
     /**
      * map variable names to global uniforms
      */
@@ -108,7 +108,7 @@ public abstract class BaseApplication {
      * mouse position relative to the top-left corner of the content area (in
      * screen units) or null if no mouse updates have been received
      */
-    private Vector2d mousePosition;
+    private static Vector2d mousePosition;
     // *************************************************************************
     // new methods exposed
 
@@ -336,14 +336,8 @@ public abstract class BaseApplication {
         // Clean up the subclass.
         cleanUp();
 
-        for (ShaderProgram program : programMap.values()) {
-            program.cleanUp();
-        }
-
-        Callbacks.glfwFreeCallbacks(mainWindowId);
-        glfwDestroyWindow(mainWindowId);
-        glfwTerminate();
-        glfwSetErrorCallback(null).free();
+        // Clean up this class.
+        cleanUpBase();
     }
     // *************************************************************************
     // private methods
@@ -361,6 +355,20 @@ public abstract class BaseApplication {
 
             globalUniformMap.put(variableName, uniform);
         }
+    }
+
+    /**
+     * Clean up this class.
+     */
+    private static void cleanUpBase() {
+        for (ShaderProgram program : programMap.values()) {
+            program.cleanUp();
+        }
+
+        Callbacks.glfwFreeCallbacks(mainWindowId);
+        glfwDestroyWindow(mainWindowId);
+        glfwTerminate();
+        glfwSetErrorCallback(null).free();
     }
 
     /**
@@ -417,6 +425,9 @@ public abstract class BaseApplication {
         }
     }
 
+    /**
+     * Initialize this class.
+     */
     private void initializeBase() {
         GLFWErrorCallback.createPrint(System.err).set();
 

@@ -93,7 +93,8 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 for (int k = 0; k < 10; k++) {
-                    PhysicsRigidBody box = new PhysicsRigidBody(boxShape, 10);
+                    float mass = 10f;
+                    PhysicsRigidBody box = new PhysicsRigidBody(boxShape, mass);
                     location.set(2f * i, 2f * j, 2f * k - 2.5f);
                     box.setPhysicsLocation(location);
                     physicsSpace.addCollisionObject(box);
