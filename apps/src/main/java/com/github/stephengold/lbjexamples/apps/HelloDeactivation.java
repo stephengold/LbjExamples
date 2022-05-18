@@ -126,7 +126,7 @@ public class HelloDeactivation
         // visualization
         new RigidBodyShapeGeometry(dynamicCube, "Facet", "low");
         new RigidBodyShapeGeometry(supportCube, "Facet", "low");
-        new RigidBodyShapeGeometry(bottomBody, "Facet", "low");
+        new RigidBodyShapeGeometry(bottomBody, "Sphere", "high");
     }
 
     /**

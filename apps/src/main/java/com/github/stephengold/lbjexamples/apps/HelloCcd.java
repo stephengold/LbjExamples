@@ -120,7 +120,8 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
         // visualization
         new RigidBodyShapeGeometry(ccdBall, "Sphere", "high");
         new RigidBodyShapeGeometry(controlBall, "Sphere", "high");
-        new RigidBodyShapeGeometry(disc, "Smooth", "low");
+        new RigidBodyShapeGeometry(disc, "None", "high")
+                .setProgramByName("UnshadedMonochrome");
     }
 
     /**

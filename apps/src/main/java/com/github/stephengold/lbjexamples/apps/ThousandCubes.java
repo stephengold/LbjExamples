@@ -112,6 +112,8 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         cam.setAzimuthDegrees(35f);
         cam.setUpAngleDegrees(-30f);
 
+        setBackgroundColor(Constants.SKY_BLUE);
+
         addInputProcessor(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPress) {

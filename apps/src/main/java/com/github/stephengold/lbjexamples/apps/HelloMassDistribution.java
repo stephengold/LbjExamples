@@ -148,8 +148,10 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         disc.setPhysicsLocation(new Vector3f(0f, -3f, 0f));
 
         // Customize the debug visualization of each object.
-        new RigidBodyShapeGeometry(mallet, "Smooth", "high");
-        new RigidBodyShapeGeometry(disc, "Smooth", "low");
+        new RigidBodyShapeGeometry(mallet, "None", "high")
+                .setProgramByName("UnshadedMonochrome");
+        new RigidBodyShapeGeometry(disc, "None", "high")
+                .setProgramByName("UnshadedMonochrome");
 
         // Re-position the camera for a better view.
         cam.setLocation(new Vector3f(10f, -2.75f, 0f));

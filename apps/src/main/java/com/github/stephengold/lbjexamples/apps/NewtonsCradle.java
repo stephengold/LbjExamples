@@ -213,13 +213,15 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
         Point2PointJoint joint1 = new Point2PointJoint(result, offset);
         physicsSpace.addJoint(joint1);
 
-        new ConstraintGeometry(joint1, JointEnd.A);
+        new ConstraintGeometry(joint1, JointEnd.A)
+                .setProgramByName("UnshadedMonochrome");
 
         offset.set(0f, yOffset, -yOffset);
         Point2PointJoint joint2 = new Point2PointJoint(result, offset);
         physicsSpace.addJoint(joint2);
 
-        new ConstraintGeometry(joint2, JointEnd.A);
+        new ConstraintGeometry(joint2, JointEnd.A)
+                .setProgramByName("UnshadedMonochrome");
 
         return result;
     }
