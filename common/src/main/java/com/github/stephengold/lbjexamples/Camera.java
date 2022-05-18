@@ -362,23 +362,6 @@ public class Camera {
     // *************************************************************************
     // private methods
 
-    /**
-     * Accumulate a linear combination of vectors. TODO use MyVector3f
-     *
-     * @param total sum of the scaled inputs so far (not null, modified)
-     * @param input the vector to scale and add (not null, unaffected)
-     * @param scale scale factor to apply to the input
-     */
-    private static void accumulateScaled(Vector3f total, Vector3f input,
-            float scale) {
-        assert Validate.nonNull(total, "total");
-        assert Validate.nonNull(input, "input");
-
-        total.x += input.x * scale;
-        total.y += input.y * scale;
-        total.z += input.z * scale;
-    }
-
     private void updateDirectionVectors() {
         float cosAzimuth = FastMath.cos(azimuthRadians);
         float sinAzimuth = FastMath.sin(azimuthRadians);
