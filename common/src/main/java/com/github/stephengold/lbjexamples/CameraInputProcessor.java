@@ -1,0 +1,332 @@
+/*
+ Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+ 3. Neither the name of the copyright holder nor the names of its
+    contributors may be used to endorse or promote products derived from
+    this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package com.github.stephengold.lbjexamples;
+
+import com.jme3.math.Vector3f;
+import java.util.HashSet;
+import java.util.Set;
+import jme3utilities.Validate;
+import jme3utilities.math.MyVector3f;
+import static org.lwjgl.glfw.GLFW.*;
+
+/**
+ * User control of the main Camera.
+ *
+ * @author Stephen Gold sgold@sonic.net
+ */
+public class CameraInputProcessor extends InputProcessor {
+    // *************************************************************************
+    // constants
+
+    /**
+     * maximum magnitude of the camera's up angle after the rotate() method is
+     * applied. This prevents the camera from looking to straight up or straight
+     * down. However, setUpAngle() and setUpAngleDegrees() lack this
+     * restriction.
+     */
+    final private static float maxUpAngleRadians
+            = (float) Math.toRadians(85f); //  TODO MyMath
+    // *************************************************************************
+    // fields
+
+    /**
+     * true if mouse-driven camera rotation is active, otherwise false
+     */
+    private boolean isRotationActive;
+    /**
+     * rate of translation (in world units per second)
+     */
+    private float moveSpeed = 10f;
+    /**
+     * rate of rotation (in radians per window height)
+     */
+    private float rotationRate = 1f;
+    /**
+     * cursor-input mode before rotation was activated
+     */
+    private int savedCursorInputMode = GLFW_CURSOR_NORMAL;
+    /**
+     * GLFW ID of the main window
+     */
+    final private long windowId;
+    /**
+     * time of the previous moveCamera() in nanoseconds, or null if not invoked
+     */
+    private Long lastMove;
+    /**
+     * rotation mode
+     */
+    private RotateMode rotationMode;
+    /**
+     * track which of camera-movement keys are visible to this processor
+     */
+    final private Set<Integer> keyIdsSeen;
+    // *************************************************************************
+    // constructors
+
+    /**
+     * Instantiate a processor for the specified window.
+     *
+     * @param windowId the GLFW ID of the main window
+     */
+    CameraInputProcessor(long windowId) {
+        this.rotationMode = RotateMode.None;
+        this.windowId = windowId;
+        this.keyIdsSeen = new HashSet<>(99);
+    }
+    // *************************************************************************
+    // new methods exposed
+
+    /**
+     * Test whether the specified camera-movement key is both visible to this
+     * InputProcessor AND currently pressed.
+     *
+     * @param keyId the GLFW ID of the key to test for
+     * @return true if seen and pressed, otherwise false
+     */
+    public boolean pollKey(int keyId) {
+        boolean seen = keyIdsSeen.contains(keyId);
+        int state = glfwGetKey(windowId, keyId);
+        boolean result = seen && (state == GLFW_PRESS);
+
+        return result;
+    }
+
+    /**
+     * Alter the movement speed.
+     *
+     * @param newSpeed
+     */
+    public void setMoveSpeed(float newSpeed) {
+        this.moveSpeed = newSpeed;
+    }
+
+    /**
+     * Alter the rotation mode.
+     *
+     * @param newMode (not null)
+     */
+    public void setRotationMode(RotateMode newMode) {
+        Validate.nonNull(newMode, "new mode");
+
+        rotationMode = newMode;
+        updateRotationActive();
+    }
+
+    /**
+     * Alter the rotation rate.
+     *
+     * @param newRate
+     */
+    public void setRotationRate(float newRate) {
+        this.rotationRate = newRate;
+    }
+
+    /**
+     * Poll each camera-movement key and move the camera accordingly.
+     */
+    public void update() {
+        int forwardSignal = 0;
+        int rightSignal = 0;
+        int upSignal = 0;
+
+        if (pollKey(GLFW_KEY_W)) {
+            ++forwardSignal;
+        }
+        if (pollKey(GLFW_KEY_A)) {
+            --rightSignal;
+        }
+        if (pollKey(GLFW_KEY_S)) {
+            --forwardSignal;
+        }
+        if (pollKey(GLFW_KEY_D)) {
+            ++rightSignal;
+        }
+        if (pollKey(GLFW_KEY_Q)) {
+            ++upSignal;
+        }
+        if (pollKey(GLFW_KEY_Z)) {
+            --upSignal;
+        }
+
+        moveCamera(forwardSignal, upSignal, rightSignal);
+    }
+    // *************************************************************************
+    // InputProcessor methods
+
+    /**
+     * A keyboard key has been pressed or released.
+     *
+     * @param keyId the GLFW ID of the key
+     * @param isPress true for GLFW_PRESS, false for GLFW_RELEASE
+     */
+    @Override
+    public void onKeyboard(int keyId, boolean isPress) {
+        switch (keyId) {
+            case GLFW_KEY_W:
+            case GLFW_KEY_A:
+            case GLFW_KEY_S:
+            case GLFW_KEY_D:
+            case GLFW_KEY_Q:
+            case GLFW_KEY_Z:
+                keyIdsSeen.add(keyId);
+                return;
+        }
+        super.onKeyboard(keyId, isPress);
+    }
+
+    /**
+     * A mouse button has been pressed or released.
+     *
+     * @param buttonId the GLFW ID of the button
+     * @param isPress true for GLFW_PRESS, false for GLFW_RELEASE
+     */
+    @Override
+    public void onMouseButton(int buttonId, boolean isPress) {
+        updateRotationActive();
+        super.onMouseButton(buttonId, isPress);
+    }
+
+    /**
+     * Handle mouse-cursor movement.
+     *
+     * @param rightFraction the rightward motion (as a fraction of the window
+     * height)
+     * @param upFraction the upward motion (as a fraction of the window height)
+     */
+    @Override
+    public void onMouseMotion(double rightFraction, double upFraction) {
+        if (isRotationActive) {
+            float rightRadians = (float) (rightFraction * rotationRate);
+            float upRadians = (float) (upFraction * rotationRate);
+            BaseApplication.getCamera()
+                    .rotateLimited(rightRadians, upRadians, maxUpAngleRadians);
+        }
+
+        super.onMouseMotion(rightFraction, upFraction);
+    }
+    // *************************************************************************
+    // private methods
+
+    private void activateRotation() {
+        savedCursorInputMode = glfwGetInputMode(windowId, GLFW_CURSOR);
+        glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        isRotationActive = true;
+    }
+
+    /**
+     * Accumulate a linear combination of vectors. TODO use MyVector3f
+     *
+     * @param total sum of the scaled inputs so far (not null, modified)
+     * @param input the vector to scale and add (not null, unaffected)
+     * @param scale scale factor to apply to the input
+     */
+    private static void accumulateScaled(Vector3f total, Vector3f input,
+            float scale) {
+        assert Validate.nonNull(total, "total");
+        assert Validate.nonNull(input, "input");
+
+        total.x += input.x * scale;
+        total.y += input.y * scale;
+        total.z += input.z * scale;
+    }
+
+    private void deactivateRotation() {
+        glfwSetInputMode(windowId, GLFW_CURSOR, savedCursorInputMode);
+        isRotationActive = false;
+    }
+
+    private boolean isLmbPressed() {
+        int state = glfwGetMouseButton(windowId, GLFW_MOUSE_BUTTON_LEFT);
+        boolean isPressed = (state == GLFW_PRESS);
+
+        return isPressed;
+    }
+
+    /**
+     * Move the camera based on user input.
+     *
+     * @param forwardSignal the sign of the desired movement in the camera's
+     * look direction (+1, 0, or -1)
+     * @param upSignal the sign of the desired movement in the world's up
+     * direction (+1, 0, or -1)
+     * @param rightSignal the sign of the desired movement in the camera's right
+     * direction (+1, 0, or -1)
+     */
+    private void moveCamera(int forwardSignal, int upSignal, int rightSignal) {
+        long nanoTime = System.nanoTime();
+        if (lastMove != null) {
+            Camera camera = BaseApplication.getCamera();
+            Vector3f lookDirection = camera.getDirection(); // TODO trash
+            Vector3f rightDirection = camera.rightDirection(null); // TODO trash
+
+            Vector3f sum = new Vector3f(); // TODO trash
+            accumulateScaled(sum, lookDirection, forwardSignal);
+            accumulateScaled(sum, Vector3f.UNIT_Y, upSignal);
+            accumulateScaled(sum, rightDirection, rightSignal);
+            if (!MyVector3f.isZero(sum)) {
+
+                long nanoseconds = nanoTime - lastMove;
+                float seconds = 1e-9f * nanoseconds;
+                float distance = moveSpeed * seconds;
+
+                MyVector3f.normalizeLocal(sum);
+                sum.multLocal(distance); // convert from direction to offset
+                camera.move(sum);
+            }
+        }
+        lastMove = nanoTime;
+    }
+
+    private void updateRotationActive() {
+        boolean makeActive;
+
+        switch (rotationMode) {
+            case DragLMB:
+                makeActive = isLmbPressed();
+                break;
+            case Immediate:
+                makeActive = true;
+                break;
+            case None:
+                makeActive = false;
+                break;
+            default:
+                String message = "rotationMode = " + rotationMode;
+                throw new IllegalStateException(message);
+        }
+
+        if (makeActive && !isRotationActive) {
+            activateRotation();
+        } else if (!makeActive && isRotationActive) {
+            deactivateRotation();
+        }
+    }
+}
