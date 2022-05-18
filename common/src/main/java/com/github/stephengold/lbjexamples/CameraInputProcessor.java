@@ -219,12 +219,6 @@ public class CameraInputProcessor extends InputProcessor {
     // *************************************************************************
     // private methods
 
-    private void activateRotation() {
-        savedCursorInputMode = glfwGetInputMode(windowId, GLFW_CURSOR);
-        glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        isRotationActive = true;
-    }
-
     /**
      * Accumulate a linear combination of vectors. TODO use MyVector3f
      *
@@ -240,6 +234,12 @@ public class CameraInputProcessor extends InputProcessor {
         total.x += input.x * scale;
         total.y += input.y * scale;
         total.z += input.z * scale;
+    }
+
+    private void activateRotation() {
+        savedCursorInputMode = glfwGetInputMode(windowId, GLFW_CURSOR);
+        glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        isRotationActive = true;
     }
 
     private void deactivateRotation() {
