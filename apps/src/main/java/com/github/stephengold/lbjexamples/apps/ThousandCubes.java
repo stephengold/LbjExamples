@@ -52,19 +52,37 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.Configuration;
 
 /**
- * Drop 1000 cubes onto a horizontal surface (graphical demo).
+ * Drop 1000 cubes onto a horizontal surface and launch balls at them (graphical
+ * demo).
  */
 public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     // *************************************************************************
     // fields
 
     /**
-     * shape to be launched when the E key is pressed
+     * shape for stacked boxes
+     */
+    private BoxCollisionShape boxShape;
+    /**
+     * shape for bodies launched when the E key is pressed
      */
     private CollisionShape launchShape;
+    /**
+     * generate random colors
+     */
+    final private Random random = new Random();
+    /**
+     * temporary storage for location vectors
+     */
+    final private Vector3f tmpLocation = new Vector3f();
     // *************************************************************************
     // new methods exposed
 
+    /**
+     * Main entry point for the ThousandCubes application.
+     *
+     * @param args array of command-line arguments (not null)
+     */
     public static void main(String[] args) {
         Platform platform = JmeSystem.getPlatform();
         if (platform.getOs() == Platform.Os.MacOS) {
@@ -77,7 +95,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSpace.
+     * Create the PhysicsSpace. Invoked during initialization.
      *
      * @return a new instance
      */
@@ -90,49 +108,88 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      * Initialize this application.
      */
     @Override
+    public void initialize() {
+        super.initialize();
+
+        addCrosshairs();
+        configureCamera();
+        configureInput();
+        setBackgroundColor(Constants.SKY_BLUE);
+    }
+
+    /**
+     * Populate the PhysicsSpace. Invoked during initialization.
+     */
+    @Override
     public void populateSpace() {
+        this.boxShape = new BoxCollisionShape(0.5f);
+        this.launchShape = new SphereCollisionShape(0.5f);
+
         CollisionShape planeShape = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1));
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
         RigidBodyShapeGeometry planeObject = new RigidBodyShapeGeometry(floor);
         planeObject.setColor(Constants.GRAY);
         physicsSpace.addCollisionObject(floor);
 
-        BoxCollisionShape boxShape = new BoxCollisionShape(0.5f);
-        Random random = new Random();
-        Vector3f location = new Vector3f();
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 for (int k = 0; k < 10; k++) {
-                    float mass = 10f;
-                    PhysicsRigidBody box = new PhysicsRigidBody(boxShape, mass);
-                    location.set(2f * i, 2f * j, 2f * k - 2.5f);
-                    box.setPhysicsLocation(location);
-                    physicsSpace.addCollisionObject(box);
-
-                    float red = random.nextFloat();
-                    float green = random.nextFloat();
-                    float blue = random.nextFloat();
-                    new RigidBodyShapeGeometry(box, "Facet", "low")
-                            .setColor(new Vector4f(red, green, blue, 1));
+                    addBox(2f * i, 2f * j, 2f * k - 2.5f);
                 }
             }
         }
+    }
 
-        launchShape = new SphereCollisionShape(0.5f);
+    /**
+     * Advance the physics simulation by the specified amount. Invoked during
+     * each update.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
+     */
+    @Override
+    public void updatePhysics(float intervalSeconds) {
+        physicsSpace.update(intervalSeconds);
+    }
+    // *************************************************************************
+    // private methods
 
-        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
-        cam.setLocation(new Vector3f(60f, 15f, 28f))
-                .setAzimuth(-2.7f)
-                .setUpAngle(-0.25f);
+    private void addBox(float x, float y, float z) {
+        float mass = 10f;
+        PhysicsRigidBody box = new PhysicsRigidBody(boxShape, mass);
+        tmpLocation.set(x, y, z);
+        box.setPhysicsLocation(tmpLocation);
+        physicsSpace.addCollisionObject(box);
 
-        setBackgroundColor(Constants.SKY_BLUE);
+        float red = random.nextFloat();
+        float green = random.nextFloat();
+        float blue = random.nextFloat();
+        new RigidBodyShapeGeometry(box, "Facet", "low")
+                .setColor(new Vector4f(red, green, blue, 1));
+    }
 
+    private void addCrosshairs() {
         float crossWidth = 0.1f;
         float crossHeight = crossWidth * aspectRatio();
         new Geometry(new CrosshairsMesh(crossWidth, crossHeight))
                 .setColor(Constants.YELLOW)
                 .setProgramByName("ScreenSpace");
+    }
 
+    /**
+     * Configure the Camera and CIP during startup.
+     */
+    private void configureCamera() {
+        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
+        cam.setLocation(new Vector3f(60f, 15f, 28f))
+                .setAzimuth(-2.7f)
+                .setUpAngle(-0.25f);
+    }
+
+    /**
+     * Configure keyboard input during startup.
+     */
+    private void configureInput() {
         addInputProcessor(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPress) {
@@ -146,19 +203,6 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
             }
         });
     }
-
-    /**
-     * Advance the physics simulation by the specified amount.
-     *
-     * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    @Override
-    public void updatePhysics(float intervalSeconds) {
-        physicsSpace.update(intervalSeconds);
-    }
-    // *************************************************************************
-    // private method
 
     private void launchRedBall() {
         float mass = 10f;
