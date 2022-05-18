@@ -225,7 +225,7 @@ public class Camera {
      * component of the look direction relative to the +X axis (in degrees)
      */
     public void setAzimuthDegrees(float newAzimuthInDegrees) {
-        setAzimuth((float) Math.toRadians(newAzimuthInDegrees));
+        setAzimuth((float) Math.toRadians(newAzimuthInDegrees)); // TODO MyMath
     }
 
     /**
@@ -296,7 +296,7 @@ public class Camera {
      * (in degrees)
      */
     public void setUpAngleDegrees(float newUpAngleInDegrees) {
-        setUpAngle((float) Math.toRadians(newUpAngleInDegrees));
+        setUpAngle((float) Math.toRadians(newUpAngleInDegrees)); // TODO MyMath
     }
 
     /**

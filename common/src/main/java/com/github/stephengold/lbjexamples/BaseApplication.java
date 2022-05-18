@@ -91,7 +91,7 @@ public abstract class BaseApplication {
      */
     private static int frameBufferWidth = 800;
     /**
-     * ID of the main GLFW window used for display
+     * GLFW ID of the window used to render geometries
      */
     private long mainWindowId;
     /**

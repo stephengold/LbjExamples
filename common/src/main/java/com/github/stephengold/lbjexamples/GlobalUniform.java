@@ -52,7 +52,7 @@ abstract class GlobalUniform {
      * @param name the desired name (not null, not empty)
      */
     protected GlobalUniform(String name) {
-        assert name != null;
+        assert name != null; // TODO Validate
         assert !name.isEmpty();
 
         this.variableName = name;
