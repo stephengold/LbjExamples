@@ -63,9 +63,9 @@ class ShapeSummary {
      */
     final private float margin;
     /**
-     * requested mesh resolution
+     * option for generating vertex positions
      */
-    final private int resolution;
+    final private int positionsOption;
     /**
      * object ID of the CollisionShape
      */
@@ -90,26 +90,26 @@ class ShapeSummary {
      *
      * @param shape the shape to summarize (not null, unaffected)
      * @param normalsOption (not null)
-     * @param resolution 0 or 1
+     * @param positionsOption the option for generating positions (0 or 1)
      */
     ShapeSummary(CollisionShape shape, NormalsOption normalsOption,
-            int resolution) {
+            int positionsOption) {
         assert normalsOption != null;
-        assert resolution == 0 || resolution == 1 : resolution;
+        assert positionsOption == 0 || positionsOption == 1 : positionsOption;
 
         this.margin = shape.getMargin();
         this.normalsOption = normalsOption;
         this.scale = shape.getScale(null);
         this.shapeId = shape.nativeId();
-        this.resolution = shape.isConvex()
-                ? resolution : DebugShapeFactory.lowResolution;
+        this.positionsOption = shape.isConvex()
+                ? positionsOption : DebugShapeFactory.lowResolution;
 
         if (shape instanceof CompoundCollisionShape) {
             CompoundCollisionShape compoundShape
                     = (CompoundCollisionShape) shape;
             ChildCollisionShape[] ccsArray = compoundShape.listChildren();
-            this.childSummaryList
-                    = new ChildSummaryList(ccsArray, normalsOption, resolution);
+            this.childSummaryList = new ChildSummaryList(
+                    ccsArray, normalsOption, positionsOption);
         } else {
             this.childSummaryList = null;
         }
@@ -164,12 +164,12 @@ class ShapeSummary {
     }
 
     /**
-     * Return requested mesh resolution.
+     * Return the option for generating vertex positions.
      *
-     * @return the requested mesh resolution (either 0 or 1)
+     * @return the option code (either 0 or 1)
      */
-    int resolution() {
-        return resolution;
+    int positionsOption() {
+        return positionsOption;
     }
     // *************************************************************************
     // Object methods
@@ -193,7 +193,7 @@ class ShapeSummary {
                     && scale.equals(otherKey.scale)
                     && (Float.compare(margin, otherKey.margin) == 0)
                     && (normalsOption == otherKey.normalsOption)
-                    && (resolution == otherKey.resolution);
+                    && (positionsOption == otherKey.positionsOption);
             if (result && childSummaryList != null) {
                 result = childSummaryList.equals(otherKey.childSummaryList);
             }
@@ -215,7 +215,7 @@ class ShapeSummary {
         int hash = (int) (shapeId >> 4);
         hash = 7 * hash + scale.hashCode();
         hash = 7 * hash + Float.floatToIntBits(margin);
-        hash = 7 * hash + resolution;
+        hash = 7 * hash + positionsOption;
         hash = 7 * hash + normalsOption.ordinal();
         if (childSummaryList != null) {
             hash = 7 * hash + childSummaryList.hashCode();

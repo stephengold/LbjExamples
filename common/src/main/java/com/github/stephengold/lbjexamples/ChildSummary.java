@@ -81,17 +81,17 @@ class ChildSummary {
      *
      * @param child the child shape to summarize (not null, unaffected)
      * @param option (not null)
-     * @param resolution 0 or 1
+     * @param positionsOption the option for generating positions (0 or 1)
      */
     ChildSummary(ChildCollisionShape child, NormalsOption option,
-            int resolution) {
+            int positionsOption) {
         assert option != null;
-        assert resolution == 0 || resolution == 1 : resolution;
+        assert positionsOption == 0 || positionsOption == 1 : positionsOption;
 
         child.copyOffset(offset);
         child.copyRotationMatrix(rotationMatrix);
         CollisionShape shape = child.getShape();
-        this.summary = new ShapeSummary(shape, option, resolution);
+        this.summary = new ShapeSummary(shape, option, positionsOption);
     }
     // *************************************************************************
     // new methods exposed

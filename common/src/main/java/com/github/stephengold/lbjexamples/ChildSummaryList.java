@@ -62,20 +62,20 @@ class ChildSummaryList {
      *
      * @param array the array of child shapes (not null, unaffected)
      * @param normalsOption (not null)
-     * @param resolution 0 or 1
+     * @param positionsOption the option for generating positions (0 or 1)
      */
     ChildSummaryList(ChildCollisionShape[] array, NormalsOption normalsOption,
-            int resolution) {
+            int positionsOption) {
         assert normalsOption != null;
-        assert resolution == 0 || resolution == 1 : resolution;
+        assert positionsOption == 0 || positionsOption == 1 : positionsOption;
 
         int numChildren = array.length;
         summaries = new ChildSummary[numChildren];
 
         for (int childIndex = 0; childIndex < numChildren; ++childIndex) {
             ChildCollisionShape childShape = array[childIndex];
-            summaries[childIndex]
-                    = new ChildSummary(childShape, normalsOption, resolution);
+            summaries[childIndex] = new ChildSummary(
+                    childShape, normalsOption, positionsOption);
         }
     }
     // *************************************************************************

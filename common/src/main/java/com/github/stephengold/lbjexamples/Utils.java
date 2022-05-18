@@ -149,13 +149,14 @@ public class Utils {
     }
 
     /**
-     * Translate a name to the corresponding mesh resolution for convex shapes.
+     * Translate a name to the corresponding option for generating vertex
+     * positions.
      *
      * @param resolutionName the name to translate (either "high" or "low" or
      * null)
      * @return 0 for "low" or null; 1 for "hi"
      */
-    public static int toResolution(String resolutionName) {
+    public static int toPositionsOption(String resolutionName) {
         if (resolutionName == null) {
             return DebugShapeFactory.lowResolution;
         }

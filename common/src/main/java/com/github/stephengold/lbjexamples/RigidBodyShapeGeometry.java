@@ -74,7 +74,7 @@ public class RigidBodyShapeGeometry extends Geometry {
     public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody,
             String normalsName, String resolutionName) {
         this(rigidBody, NormalsOption.valueOf(normalsName),
-                Utils.toResolution(resolutionName));
+                Utils.toPositionsOption(resolutionName));
     }
 
     /**
@@ -93,21 +93,21 @@ public class RigidBodyShapeGeometry extends Geometry {
      *
      * @param rigidBody the body to visualize (not null, alias created)
      * @param normalsOption how to generate mesh normals (not null)
-     * @param resolution either
+     * @param positionsOption the option for generating vertex positions, either
      * {@link com.jme3.bullet.util.DebugShapeFactory#lowResolution} (0) or
      * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
      */
     public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody,
-            NormalsOption normalsOption, int resolution) {
+            NormalsOption normalsOption, int positionsOption) {
         super();
         Validate.nonNull(rigidBody, "body");
         Validate.nonNull(normalsOption, "normals option");
-        Validate.inRange(resolution, "resolution", 0, 1);
+        Validate.inRange(positionsOption, "positions option", 0, 1);
 
         this.rigidBody = rigidBody;
 
         CollisionShape shape = rigidBody.getCollisionShape();
-        this.summary = new ShapeSummary(shape, normalsOption, resolution);
+        this.summary = new ShapeSummary(shape, normalsOption, positionsOption);
         Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
 
@@ -178,8 +178,8 @@ public class RigidBodyShapeGeometry extends Geometry {
         CollisionShape shape = rigidBody.getCollisionShape();
         if (!summary.matches(shape)) {
             NormalsOption normalsOption = summary.normalsOption();
-            int resolution = summary.resolution();
-            summary = new ShapeSummary(shape, normalsOption, resolution);
+            int positionsOption = summary.positionsOption();
+            summary = new ShapeSummary(shape, normalsOption, positionsOption);
             Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
             super.setMesh(mesh);
         }

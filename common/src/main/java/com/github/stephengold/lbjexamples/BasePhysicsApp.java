@@ -110,8 +110,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
 
         } else {
             NormalsOption option = summary.normalsOption();
-            int resolution = summary.resolution();
-            result = new Mesh(shape, option, resolution);
+            int po = summary.positionsOption();
+            result = new Mesh(shape, option, po);
             meshCache.put(summary, result);
         }
 
