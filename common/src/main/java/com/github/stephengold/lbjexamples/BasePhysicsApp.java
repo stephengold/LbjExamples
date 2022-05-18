@@ -146,7 +146,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     }
 
     @Override
-    public void initApp() {
+    public void initialize() {
         String homePath = System.getProperty("user.home");
         File downloadDirectory = new File(homePath, "Downloads");
         NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Release", "Sp");

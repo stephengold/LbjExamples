@@ -217,7 +217,7 @@ public abstract class BaseApplication {
     /**
      * Callback invoked before the main update loop begins.
      */
-    public abstract void initApp();
+    public abstract void initialize();
 
     /**
      * Callback invoked on during each iteration of the main update loop.
@@ -275,7 +275,7 @@ public abstract class BaseApplication {
         initializeBase();
 
         // Initialize the subclass.
-        initApp();
+        initialize();
 
         // main update loop
         while (!glfwWindowShouldClose(mainWindowId)) {
