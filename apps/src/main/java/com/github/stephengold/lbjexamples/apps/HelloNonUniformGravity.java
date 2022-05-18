@@ -124,9 +124,12 @@ public class HelloNonUniformGravity
         new RigidBodyShapeGeometry(planet, "Sphere", "low");
 
         // Add axes to indicate the black hole's location.
-        new ArrowGeometry(0f, FastMath.HALF_PI, 0f, Constants.RED);    // +X axis
-        new ArrowGeometry(-FastMath.HALF_PI, 0f, 0f, Constants.GREEN); // +Y axis
-        new ArrowGeometry(0f, 0f, 0f, Constants.BLUE);                 // +Z axis
+        new ArrowGeometry(0f, FastMath.HALF_PI, 0f, Constants.RED) // +X axis
+                .setProgramByName("UnshadedMonochrome");
+        new ArrowGeometry(-FastMath.HALF_PI, 0f, 0f, Constants.GREEN) // +Y axis
+                .setProgramByName("UnshadedMonochrome");
+        new ArrowGeometry(0f, 0f, 0f, Constants.BLUE) // +Z axis
+                .setProgramByName("UnshadedMonochrome");
     }
 
     /**
