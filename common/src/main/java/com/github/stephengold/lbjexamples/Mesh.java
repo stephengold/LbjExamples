@@ -119,16 +119,18 @@ public class Mesh {
      *
      * @param shape the shape to use (not null, unaffected)
      * @param normalsOption (not null)
-     * @param resolution either
+     * @param positionsOption either
      * {@link com.jme3.bullet.util.DebugShapeFactory#lowResolution} (0) or
      * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
      */
-    Mesh(CollisionShape shape, NormalsOption normalsOption, int resolution) {
+    Mesh(CollisionShape shape, NormalsOption normalsOption,
+            int positionsOption) {
         this.drawMode = GL11.GL_TRIANGLES;
         assert normalsOption != null;
-        assert resolution == 0 || resolution == 1 : resolution;
+        assert positionsOption == 0 || positionsOption == 1 : positionsOption;
 
-        this.positions = DebugShapeFactory.getDebugTriangles(shape, resolution);
+        this.positions
+                = DebugShapeFactory.getDebugTriangles(shape, positionsOption);
         this.vertexCount = positions.capacity() / numAxes;
         /*
          * Add a normal buffer, if requested.
