@@ -293,8 +293,27 @@ public class Geometry {
     }
 
     /**
-     * Write the mesh-to-world 4x4 transform matrix in column-major order into
-     * the specified FloatBuffer, starting at the current buffer position. The
+     * Write the mesh-to-world 3x3 rotation matrix in column-major order to the
+     * specified FloatBuffer, starting at the current buffer position. The
+     * buffer position is unaffected.
+     *
+     * @param storeBuffer the buffer to modify (not null)
+     */
+    void writeRotationMatrix(FloatBuffer storeBuffer) {
+        meshToWorld.getRotation().toRotationMatrix(tm);
+
+        int startPosition = storeBuffer.position();
+
+        storeBuffer.put(tm.m00).put(tm.m10).put(tm.m20); // column 0
+        storeBuffer.put(tm.m01).put(tm.m11).put(tm.m21); // column 1
+        storeBuffer.put(tm.m02).put(tm.m12).put(tm.m22); // column 2
+
+        storeBuffer.position(startPosition);
+    }
+
+    /**
+     * Write the mesh-to-world 4x4 transform matrix in column-major order to the
+     * specified FloatBuffer, starting at the current buffer position. The
      * buffer position is unaffected.
      *
      * @param storeBuffer the buffer to modify (not null)
