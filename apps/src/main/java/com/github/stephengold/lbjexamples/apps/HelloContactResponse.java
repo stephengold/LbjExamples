@@ -30,6 +30,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
+import com.github.stephengold.lbjexamples.InputProcessor;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -121,29 +122,24 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         // visualization
         new RigidBodyShapeGeometry(ball, "Sphere", "high");
         new RigidBodyShapeGeometry(box, "Facet", "low");
-    }
 
-    /**
-     * Callback invoked after a keyboard key is pressed, repeated or released.
-     *
-     * @param windowId the window that received the event
-     * @param keyCode the keyboard key
-     * @param action the key action (either {@link GLFW#GLFW_PRESS PRESS} or
-     * {@link GLFW#GLFW_RELEASE RELEASE} or {@link GLFW#GLFW_REPEAT REPEAT})
-     */
-    @Override
-    public void updateKeyboard(long windowId, int keyCode, int action) {
-        if (keyCode == GLFW.GLFW_KEY_E) {
-            if (action == GLFW.GLFW_PRESS) {
-                // Disable the ball's contact response.
-                ball.setContactResponse(false);
+        // user input
+        addInputProcessor(new InputProcessor() {
+            @Override
+            public void onKeyboard(int glfwKeyId, boolean isPressed) {
+                if (glfwKeyId == GLFW.GLFW_KEY_E) {
+                    if (isPressed) {
+                        // Disable the ball's contact response.
+                        ball.setContactResponse(false);
 
-                // Activate the ball in case it got deactivated.
-                ball.activate();
+                        // Activate the ball in case it got deactivated.
+                        ball.activate();
+                    }
+                    return;
+                }
+                super.onKeyboard(glfwKeyId, isPressed);
             }
-            return;
-        }
-        super.updateKeyboard(windowId, keyCode, action);
+        });
     }
 
     /**

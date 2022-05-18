@@ -30,9 +30,12 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
+import com.github.stephengold.lbjexamples.CameraInputProcessor;
 import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.ConstraintGeometry;
+import com.github.stephengold.lbjexamples.InputProcessor;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
+import com.github.stephengold.lbjexamples.RotateMode;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.joints.JointEnd;
@@ -121,59 +124,53 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
         configureCamera();
         setBackgroundColor(Constants.SKY_BLUE);
         restartSimulation(5);
-    }
 
-    /**
-     * Callback invoked after a keyboard key is pressed, repeated or released.
-     *
-     * @param windowId the window that received the event
-     * @param keyCode the keyboard key
-     * @param action the key action (either {@link GLFW#GLFW_PRESS PRESS} or
-     * {@link GLFW#GLFW_RELEASE RELEASE} or {@link GLFW#GLFW_REPEAT REPEAT})
-     */
-    @Override
-    public void updateKeyboard(long windowId, int keyCode, int action) {
-        switch (keyCode) {
-            case GLFW.GLFW_KEY_1:
-            case GLFW.GLFW_KEY_F1:
-            case GLFW.GLFW_KEY_KP_1:
-                if (action == GLFW.GLFW_PRESS) {
-                    restartSimulation(1);
-                }
-                return;
+        addInputProcessor(new InputProcessor() {
+            @Override
+            public void onKeyboard(int keyId, boolean isPressed) {
+                switch (keyId) {
+                    case GLFW.GLFW_KEY_1:
+                    case GLFW.GLFW_KEY_F1:
+                    case GLFW.GLFW_KEY_KP_1:
+                        if (isPressed) {
+                            restartSimulation(1);
+                        }
+                        return;
 
-            case GLFW.GLFW_KEY_2:
-            case GLFW.GLFW_KEY_F2:
-            case GLFW.GLFW_KEY_KP_2:
-                if (action == GLFW.GLFW_PRESS) {
-                    restartSimulation(2);
-                }
-                return;
+                    case GLFW.GLFW_KEY_2:
+                    case GLFW.GLFW_KEY_F2:
+                    case GLFW.GLFW_KEY_KP_2:
+                        if (isPressed) {
+                            restartSimulation(2);
+                        }
+                        return;
 
-            case GLFW.GLFW_KEY_3:
-            case GLFW.GLFW_KEY_F3:
-            case GLFW.GLFW_KEY_KP_3:
-                if (action == GLFW.GLFW_PRESS) {
-                    restartSimulation(3);
-                }
-                return;
+                    case GLFW.GLFW_KEY_3:
+                    case GLFW.GLFW_KEY_F3:
+                    case GLFW.GLFW_KEY_KP_3:
+                        if (isPressed) {
+                            restartSimulation(3);
+                        }
+                        return;
 
-            case GLFW.GLFW_KEY_4:
-            case GLFW.GLFW_KEY_F4:
-            case GLFW.GLFW_KEY_KP_4:
-                if (action == GLFW.GLFW_PRESS) {
-                    restartSimulation(4);
-                }
-                return;
+                    case GLFW.GLFW_KEY_4:
+                    case GLFW.GLFW_KEY_F4:
+                    case GLFW.GLFW_KEY_KP_4:
+                        if (isPressed) {
+                            restartSimulation(4);
+                        }
+                        return;
 
-            case GLFW.GLFW_KEY_PAUSE:
-            case GLFW.GLFW_KEY_PERIOD:
-                if (action == GLFW.GLFW_PRESS) {
-                    togglePause();
+                    case GLFW.GLFW_KEY_PAUSE:
+                    case GLFW.GLFW_KEY_PERIOD:
+                        if (isPressed) {
+                            togglePause();
+                        }
+                        return;
                 }
-                return;
-        }
-        super.updateKeyboard(windowId, keyCode, action);
+                super.onKeyboard(keyId, isPressed);
+            }
+        });
     }
 
     /**
@@ -231,8 +228,10 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
      * Configure the camera during startup.
      */
     private void configureCamera() {
-        cam.enableMouseMotion(true);
-        cam.setSpeed(30f);
+        CameraInputProcessor cip = getCameraInputProcessor();
+        cip.setRotationMode(RotateMode.Immediate);
+        cip.setMoveSpeed(30f);
+
         setZFar(1_000f);
 
         cam.setLocation(new Vector3f(72f, 35f, 140f));

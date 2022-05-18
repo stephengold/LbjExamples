@@ -31,7 +31,9 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
+import com.github.stephengold.lbjexamples.InputProcessor;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
+import com.github.stephengold.lbjexamples.RotateMode;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -41,12 +43,10 @@ import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
-import org.joml.Vector4f;
-import org.lwjgl.system.Configuration;
-
 import java.util.Random;
-
-import static org.lwjgl.glfw.GLFW.*;
+import org.joml.Vector4f;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.system.Configuration;
 
 /**
  * Drop 1000 cubes onto a horizontal surface (graphical demo).
@@ -107,36 +107,23 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
             }
         }
 
-        cam.enableMouseMotion(true);
+        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         cam.setLocation(new Vector3f(-22f, 22f, -18f));
         cam.setAzimuthDegrees(35f);
         cam.setUpAngleDegrees(-30f);
-    }
 
-    @Override
-    public void updateKeyboard(long window, int key, int action) {
-        if (key == GLFW_KEY_E) {
-            if (action == GLFW_PRESS) {
-                float radius = 0.5f;
-                BoxCollisionShape boxShape = new BoxCollisionShape(radius);
-                float mass = 10f;
-                PhysicsRigidBody missile = new PhysicsRigidBody(boxShape, mass);
-                missile.setCcdMotionThreshold(radius);
-                missile.setCcdSweptSphereRadius(radius);
-
-                float speed = 100f;
-                Vector3f velocity = cam.getDirection().mult(speed, speed, speed); // TODO use mult(float)
-                missile.setLinearVelocity(velocity);
-
-                missile.setPhysicsLocation(cam.getLocation());
-                physicsSpace.addCollisionObject(missile);
-
-                new RigidBodyShapeGeometry(missile, "Facet", "low")
-                        .setColor(Constants.WHITE);
+        addInputProcessor(new InputProcessor() {
+            @Override
+            public void onKeyboard(int keyId, boolean isPress) {
+                if (keyId == GLFW.GLFW_KEY_E) {
+                    if (isPress) {
+                        launchWhiteCube();
+                    }
+                    return;
+                }
+                super.onKeyboard(keyId, isPress);
             }
-            return;
-        }
-        super.updateKeyboard(window, key, action);
+        });
     }
 
     /**
@@ -148,5 +135,26 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     @Override
     public void updatePhysics(float intervalSeconds) {
         physicsSpace.update(intervalSeconds);
+    }
+    // *************************************************************************
+    // private method
+
+    private void launchWhiteCube() {
+        float radius = 0.5f;
+        BoxCollisionShape boxShape = new BoxCollisionShape(radius);
+        float mass = 10f;
+        PhysicsRigidBody missile = new PhysicsRigidBody(boxShape, mass);
+        missile.setCcdMotionThreshold(radius);
+        missile.setCcdSweptSphereRadius(radius);
+
+        float speed = 100f;
+        Vector3f velocity = cam.getDirection().mult(speed, speed, speed); // TODO use mult(float)
+        missile.setLinearVelocity(velocity);
+
+        missile.setPhysicsLocation(cam.getLocation());
+        physicsSpace.addCollisionObject(missile);
+
+        new RigidBodyShapeGeometry(missile, "Facet", "low")
+                .setColor(Constants.WHITE);
     }
 }

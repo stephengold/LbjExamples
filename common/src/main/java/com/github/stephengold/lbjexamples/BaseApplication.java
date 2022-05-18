@@ -38,6 +38,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 import javax.imageio.ImageIO;
+import jme3utilities.Validate;
+import org.joml.Vector2d;
 import org.joml.Vector4fc;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -55,16 +57,17 @@ public abstract class BaseApplication {
     // *************************************************************************
     // fields
 
-    private boolean firstMouse = true;
     /**
      * current camera for rendering
      */
     protected static Camera cam;
+    /**
+     * process user input for the camera
+     */
+    private static CameraInputProcessor cameraInputProcessor;
 
     private float deltaTime;
     private float lastFrame;
-    private float lastX = frameBufferWidth / 2.0f;
-    private float lastY = frameBufferHeight / 2.0f;
     /**
      * distance from the camera to the far clipping plane (in world units)
      */
@@ -73,6 +76,11 @@ public abstract class BaseApplication {
      * distance from the camera to the near clipping plane (in world units)
      */
     private static float zNear = 0.1f;
+    /**
+     * process user input
+     */
+    private static InputProcessor firstInputProcessor;
+
     private int counter;
     /**
      * height of the displayed frame buffer (in pixels)
@@ -91,8 +99,25 @@ public abstract class BaseApplication {
      */
     final private static Map<String, ShaderProgram> programMap
             = new TreeMap<>();
+    /**
+     * mouse position relative to the top-left corner of the content area (in
+     * screen units) or null if no mouse updates have been received
+     */
+    private Vector2d mousePosition;
     // *************************************************************************
     // new methods exposed
+
+    /**
+     * Add an InputProcessor, making it the first in the series.
+     *
+     * @param processor the processor to add (not null)
+     */
+    public static void addInputProcessor(InputProcessor processor) {
+        Validate.nonNull(processor, "processor");
+
+        processor.setNext(firstInputProcessor);
+        firstInputProcessor = processor;
+    }
 
     /**
      * Return the aspect ratio of the displayed frame buffer.
@@ -119,6 +144,16 @@ public abstract class BaseApplication {
     public static Camera getCamera() {
         assert cam != null;
         return cam;
+    }
+
+    /**
+     * Return the camera's input processor.
+     *
+     * @return the pre-existing instance (not null)
+     */
+    public static CameraInputProcessor getCameraInputProcessor() {
+        assert cameraInputProcessor != null;
+        return cameraInputProcessor;
     }
 
     /**
@@ -276,23 +311,56 @@ public abstract class BaseApplication {
         glfwTerminate();
         glfwSetErrorCallback(null).free();
     }
-
-    /**
-     * Callback invoked after a keyboard key is pressed, repeated or released.
-     * Meant to be overridden.
-     *
-     * @param windowId the window that received the event
-     * @param keyCode the keyboard key
-     * @param action the key action (either {@link GLFW#GLFW_PRESS PRESS} or
-     * {@link GLFW#GLFW_RELEASE RELEASE} or {@link GLFW#GLFW_REPEAT REPEAT})
-     */
-    public void updateKeyboard(long windowId, int keyCode, int action) {
-    }
-
-    public void updateMouse() {
-    }
     // *************************************************************************
     // private methods
+
+    /**
+     * Callback invoked by GLFW each time the mouse cursor is moved.
+     *
+     * @param x the horizontal offset of the cursor from the left edge of the
+     * window's content area (in screen units)
+     * @param y the vertical offset of the cursor from the top edge of the
+     * window's content area (in screen units)
+     */
+    private void glfwCursorPosCallback(long windowId, double x, double y) {
+        if (mousePosition == null) {
+            mousePosition = new Vector2d(x, y);
+        }
+
+        int[] windowHeight = new int[1];
+        int[] windowWidth = new int[1];
+        glfwGetWindowSize(windowId, windowWidth, windowHeight);
+
+        double rightFraction = (x - mousePosition.x) / windowHeight[0]; // sic
+        double upFraction = (mousePosition.y - y) / windowHeight[0];
+        mousePosition.set(x, y);
+
+        if (firstInputProcessor != null) {
+            firstInputProcessor.onMouseMotion(rightFraction, upFraction);
+        }
+    }
+
+    /**
+     * Callback invoked by GLFW for every keyboard event.
+     */
+    private void glfwKeyCallback(long windowId, int keyId, int scancode,
+            int action, int mods) {
+        if (action != GLFW_REPEAT && firstInputProcessor != null) {
+            boolean isPress = (action == GLFW_PRESS);
+            firstInputProcessor.onKeyboard(keyId, isPress);
+        }
+    }
+
+    /**
+     * Callback invoked by GLFW for every mouse button event.
+     */
+    private void glfwMouseButtonCallback(long windowId, int buttonId,
+            int action, int mods) {
+        boolean isPress = (action == GLFW_PRESS);
+        if (firstInputProcessor != null) {
+            firstInputProcessor.onMouseButton(buttonId, isPress);
+        }
+    }
 
     private void initializeBase() {
         GLFWErrorCallback.createPrint(System.err).set();
@@ -322,11 +390,10 @@ public abstract class BaseApplication {
             glViewport(0, 0, frameBufferWidth, frameBufferHeight);
         });
 
-        glfwSetKeyCallback(windowId, this::input);
-
-        glfwSetMouseButtonCallback(windowId, this::mouseInput);
-
-        glfwSetCursorPosCallback(windowId, (window1, xPos, yPos) -> mouseUpdate((float) xPos, (float) yPos));
+        // Set up the user input callbacks.
+        glfwSetCursorPosCallback(windowId, this::glfwCursorPosCallback);
+        glfwSetKeyCallback(windowId, this::glfwKeyCallback);
+        glfwSetMouseButtonCallback(windowId, this::glfwMouseButtonCallback);
 
         // Center the window.
         GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -354,57 +421,20 @@ public abstract class BaseApplication {
 
         setBackgroundColor(Constants.DARK_GRAY);
         glEnable(GL_DEPTH_TEST);
-    }
 
-    private void input(long windowId, int key, int scancode, int action, int mods) {
-        if (glfwGetKey(windowId, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-            glfwSetWindowShouldClose(windowId, true);
-        }
-        if (glfwGetKey(windowId, GLFW_KEY_W) == GLFW_PRESS) {
-            cam.move(Camera.Movement.FORWARD, deltaTime);
-        }
-        if (glfwGetKey(windowId, GLFW_KEY_S) == GLFW_PRESS) {
-            cam.move(Camera.Movement.BACKWARD, deltaTime);
-        }
-        if (glfwGetKey(windowId, GLFW_KEY_A) == GLFW_PRESS) {
-            cam.move(Camera.Movement.LEFT, deltaTime);
-        }
-        if (glfwGetKey(windowId, GLFW_KEY_D) == GLFW_PRESS) {
-            cam.move(Camera.Movement.RIGHT, deltaTime);
-        }
-        if (glfwGetKey(windowId, GLFW_KEY_SPACE) == GLFW_PRESS
-                || glfwGetKey(windowId, GLFW_KEY_Q) == GLFW_PRESS) {
-            cam.move(Camera.Movement.UP, deltaTime);
-        }
-        if (glfwGetKey(windowId, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS
-                || glfwGetKey(windowId, GLFW_KEY_Z) == GLFW_PRESS) {
-            cam.move(Camera.Movement.DOWN, deltaTime);
-        }
+        cameraInputProcessor = new CameraInputProcessor(windowId);
+        addInputProcessor(cameraInputProcessor);
 
-        updateKeyboard(windowId, key, action);
-    }
-
-    private void mouseInput(long windowId, int button, int action, int mods) {
-
-    }
-
-    private void mouseUpdate(float xPosIn, float yPosIn) {
-        if (firstMouse) {
-            lastX = xPosIn;
-            lastY = yPosIn;
-            firstMouse = false;
-        }
-
-        float xOffset = xPosIn - lastX;
-        float yOffset = lastY - yPosIn;
-
-        lastX = xPosIn;
-        lastY = yPosIn;
-
-        if (cam.isMouseRotationEnabled()) {
-            cam.processMouseMotion(xOffset, yOffset);
-        }
-        updateMouse();
+        addInputProcessor(new InputProcessor() {
+            @Override
+            public void onKeyboard(int keyId, boolean isPress) {
+                if (keyId == GLFW_KEY_ESCAPE) { // stop the application
+                    glfwSetWindowShouldClose(windowId, true);
+                    return;
+                }
+                super.onKeyboard(keyId, isPress);
+            }
+        });
     }
 
     /**
@@ -425,10 +455,11 @@ public abstract class BaseApplication {
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        input(windowId, -1, -1, -1, -1);
         render();
 
         glfwSwapBuffers(windowId);
         glfwPollEvents();
+
+        cameraInputProcessor.update();
     }
 }

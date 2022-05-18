@@ -37,18 +37,16 @@ import org.joml.Matrix4f;
 import org.joml.Vector3fc;
 
 /**
- * A viewpoint for use in 3-D rendering in a Y-up environment. When its azimuth
- * and up angle are both zero, it looks in +X direction.
+ * A viewpoint for 3-D rendering, including its eye location, look direction,
+ * and (vertical) field-of-view.
+ * <p>
+ * Intended for a Y-up environment. When the camera's azimuth and up angle are
+ * both zero, it looks in +X direction.
  */
 public class Camera {
-
-    public enum Movement {
-        FORWARD, BACKWARD, LEFT, RIGHT, UP, DOWN
-    }
     // *************************************************************************
     // fields
 
-    private boolean enableMouseRotation;
     /**
      * rightward angle of the X-Z component of the look direction relative to
      * the +X axis (in radians)
@@ -58,9 +56,6 @@ public class Camera {
      * vertical field-of-view angle (in radians, &gt;0, &lt;PI)
      */
     private float fovy = FastMath.PI / 4;
-
-    private float rotationRate = 0.1f;
-    private float speed = 1.5f;
     /**
      * angle of the look direction above the X-Z plane (in radians)
      */
@@ -116,10 +111,6 @@ public class Camera {
         return azimuthRadians;
     }
 
-    public void enableMouseMotion(boolean mouseMotion) {
-        this.enableMouseRotation = mouseMotion;
-    }
-
     /**
      * Return the vertical field-of-view angle.
      *
@@ -150,30 +141,6 @@ public class Camera {
     }
 
     /**
-     * Return the translation speed.
-     *
-     * @return the speed (in world units per second)
-     */
-    public float getSpeed() {
-        return speed;
-    }
-
-    public Matrix4f getViewMatrix() {
-        return new Matrix4f().lookAt(Utils.toLwjglVector(eyeLocation),
-                Utils.toLwjglVector(eyeLocation.add(lookDirection)),
-                Utils.toLwjglVector(upDirection));
-    }
-
-    /**
-     * Test whether rotation based on mouse motion is enabled.
-     *
-     * @return true if enabled, otherwise false
-     */
-    public boolean isMouseRotationEnabled() {
-        return enableMouseRotation;
-    }
-
-    /**
      * Return the eye location.
      *
      * @return a new location vector in world coordinates
@@ -193,28 +160,6 @@ public class Camera {
         return result;
     }
 
-    public void move(Movement movement, float deltaTime) {
-        Vector3f velocity = new Vector3f(speed * deltaTime, speed * deltaTime, speed * deltaTime);
-        if (movement == Movement.FORWARD) {
-            eyeLocation.addLocal(lookDirection.mult(velocity, null));
-        }
-        if (movement == Movement.BACKWARD) {
-            eyeLocation.subtractLocal(lookDirection.mult(velocity, null));
-        }
-        if (movement == Movement.LEFT) {
-            eyeLocation.subtractLocal(rightDirection.mult(velocity, null));
-        }
-        if (movement == Movement.RIGHT) {
-            eyeLocation.addLocal(rightDirection.mult(velocity, null));
-        }
-        if (movement == Movement.UP) {
-            eyeLocation.addLocal(upDirection.mult(velocity, null));
-        }
-        if (movement == Movement.DOWN) {
-            eyeLocation.subtractLocal(upDirection.mult(velocity, null));
-        }
-    }
-
     /**
      * Teleport the eye by the specified offset without changing its
      * orientation.
@@ -226,21 +171,10 @@ public class Camera {
         eyeLocation.addLocal(offset);
     }
 
-    public void processMouseMotion(float deltaX, float deltaY) {
-        deltaX *= rotationRate;
-        deltaY *= rotationRate;
-
-        azimuthRadians += Math.toRadians(deltaX);
-        upAngleRadians += Math.toRadians(deltaY);
-
-        if (Math.toDegrees(upAngleRadians) > 89.0f) {
-            upAngleRadians = (float) Math.toRadians(89.0f);
-        }
-        if (Math.toDegrees(upAngleRadians) < -89.0f) {
-            upAngleRadians = (float) Math.toRadians(-89.0f);
-        }
-
-        updateDirectionVectors();
+    public Matrix4f getViewMatrix() {
+        return new Matrix4f().lookAt(Utils.toLwjglVector(eyeLocation),
+                Utils.toLwjglVector(eyeLocation.add(lookDirection)),
+                Utils.toLwjglVector(upDirection));
     }
 
     /**
@@ -350,10 +284,6 @@ public class Camera {
         updateDirectionVectors();
     }
 
-    public void setSpeed(float newSpeed) {
-        this.speed = newSpeed;
-    }
-
     /**
      * Alter the altitude/climb/elevation/pitch angle.
      *
@@ -395,6 +325,23 @@ public class Camera {
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * Accumulate a linear combination of vectors. TODO use MyVector3f
+     *
+     * @param total sum of the scaled inputs so far (not null, modified)
+     * @param input the vector to scale and add (not null, unaffected)
+     * @param scale scale factor to apply to the input
+     */
+    private static void accumulateScaled(Vector3f total, Vector3f input,
+            float scale) {
+        assert Validate.nonNull(total, "total");
+        assert Validate.nonNull(input, "input");
+
+        total.x += input.x * scale;
+        total.y += input.y * scale;
+        total.z += input.z * scale;
+    }
 
     private void updateDirectionVectors() {
         float cosAzimuth = FastMath.cos(azimuthRadians);
