@@ -289,6 +289,19 @@ public abstract class BaseApplication {
     }
 
     /**
+     * Alter both the near and far clipping planes.
+     *
+     * @param newZNear (&gt;0, &lt;zFar)
+     * @param newZFar (&gt;zFar)
+     */
+    public static void setZClip(float newZNear, float newZFar) {
+        Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, newZFar);
+
+        zNear = newZNear;
+        zFar = newZNear;
+    }
+
+    /**
      * Alter the distance from the camera to the far clipping plane.
      *
      * @param newZFar (in world units, &gt;zNear)
