@@ -190,6 +190,15 @@ public class Mesh {
     }
 
     /**
+     * Count how many vertices this Mesh contains.
+     *
+     * @return the count (&ge;0)
+     */
+    public int countVertices() {
+        return vertexCount;
+    }
+
+    /**
      * Prepare all vertex attributes for rendering.
      * <p>
      * If the VAO doesn't already exist, it and its VBOs are created.
@@ -216,15 +225,6 @@ public class Mesh {
         for (int index = 0; index < vboIdList.size(); ++index) {
             enableAttribute(index);
         }
-    }
-
-    /**
-     * Count how many vertices this Mesh contains.
-     *
-     * @return the count (&ge;0)
-     */
-    public int getVertexCount() {
-        return vertexCount;
     }
 
     /**
