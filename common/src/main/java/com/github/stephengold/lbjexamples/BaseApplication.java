@@ -123,7 +123,7 @@ public abstract class BaseApplication {
      *
      * @return the width divided by the height (&gt;0)
      */
-    static float aspectRatio() {
+    public static float aspectRatio() {
         float ratio = frameBufferWidth / (float) frameBufferHeight;
 
         assert ratio > 0f : ratio;
