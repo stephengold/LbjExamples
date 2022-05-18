@@ -122,7 +122,7 @@ public class ConstraintGeometry extends Geometry {
      * Test whether the Constraint has been removed from the specified
      * PhysicsSpace.
      *
-     * @param space the space to test (not null)
+     * @param space the space to test (not null, unaffected)
      * @return true if removed, otherwise false
      */
     @Override

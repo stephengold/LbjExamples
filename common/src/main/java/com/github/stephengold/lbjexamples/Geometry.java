@@ -65,7 +65,7 @@ public class Geometry {
      */
     final private Transform meshToWorld = new Transform();
     /**
-     * base color (in the Linear colorspace)
+     * material base color (in the Linear colorspace)
      */
     final private Vector4f baseColor = new Vector4f(1f);
     // *************************************************************************

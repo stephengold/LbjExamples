@@ -246,7 +246,8 @@ public class Camera {
     }
 
     /**
-     * Teleport the eye to a new location without changing its orientation.
+     * Teleport the eye to the specified location without changing its
+     * orientation.
      *
      * @param newLocation the desired location (in world coordinates, not null,
      * unaffected)
@@ -256,8 +257,8 @@ public class Camera {
     }
 
     /**
-     * Teleport the eye to a new location and orient it to look at the specified
-     * location.
+     * Teleport the eye to {@code newLocation} and orient it to look at
+     * {@code targetLocation}.
      *
      * @param newLocation the desired eye location (in world coordinates, not
      * null, unaffected)

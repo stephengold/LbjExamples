@@ -30,8 +30,8 @@
 package com.github.stephengold.lbjexamples;
 
 /**
- * A uniform variable whose name and value are identical for every program that
- * uses it.
+ * A uniform variable whose value is the same for every Geometry and whose name
+ * is the same in every ShaderProgram that uses it.
  *
  * @author Stephen Gold sgold@sonic.net
  */

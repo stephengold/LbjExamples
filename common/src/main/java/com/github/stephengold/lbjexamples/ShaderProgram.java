@@ -45,7 +45,7 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.system.MemoryStack;
 
 /**
- * Encapsulate a program object, to which a vertex shader and a fragment shader
+ * Encapsulate a program object to which a vertex shader and a fragment shader
  * are attached.
  */
 public class ShaderProgram {
@@ -56,7 +56,9 @@ public class ShaderProgram {
      * collect all active global uniforms
      */
     final private Collection<GlobalUniform> globalUniforms = new HashSet<>(16);
-
+    /**
+     * ID of the program object
+     */
     private final int programId;
     /**
      * last render iteration on which the camera uniforms were set, or null if
@@ -97,6 +99,7 @@ public class ShaderProgram {
         int fragmentShaderId
                 = createShader(fragmentShaderName, GL20.GL_FRAGMENT_SHADER);
 
+        // Link the program object.
         GL20.glLinkProgram(programId);
         int success = GL20.glGetProgrami(programId, GL20.GL_LINK_STATUS);
         if (success == GL11.GL_FALSE) {
@@ -107,6 +110,7 @@ public class ShaderProgram {
         GL20.glDetachShader(programId, vertexShaderId);
         GL20.glDetachShader(programId, fragmentShaderId);
 
+        // Validate the program object.
         GL20.glValidateProgram(programId);
         success = GL20.glGetProgrami(programId, GL20.GL_LINK_STATUS);
         if (success == GL11.GL_FALSE) {
@@ -118,7 +122,7 @@ public class ShaderProgram {
     // new methods exposed
 
     /**
-     * Delete the program object during cleanup.
+     * Delete the program object.
      */
     void cleanUp() {
         /*
@@ -222,7 +226,8 @@ public class ShaderProgram {
     /**
      * Set the value of a float uniform variable.
      *
-     * @param uniformName the name of the variable to modify (not null)
+     * @param uniformName the name of the uniform to specify (not null, not
+     * empty)
      * @param value the desired value
      */
     void setUniform(String uniformName, float value) {
@@ -256,7 +261,8 @@ public class ShaderProgram {
     /**
      * Set the value of a mat4 uniform variable.
      *
-     * @param uniformName the name of the variable to modify (not null)
+     * @param uniformName the name of the uniform to specify (not null, not
+     * empty)
      * @param value the desired value (not null)
      */
     void setUniform(String uniformName, Matrix4fc value) {
@@ -296,7 +302,8 @@ public class ShaderProgram {
     /**
      * Set the value of a vec3 uniform variable using a JOML Vector3f.
      *
-     * @param uniformName the name of the variable to modify (not null)
+     * @param uniformName the name of the uniform to specify (not null, not
+     * empty)
      * @param value the desired value (not null)
      */
     void setUniform(String uniformName, Vector3fc value) {
@@ -312,9 +319,10 @@ public class ShaderProgram {
     }
 
     /**
-     * Alter the value of a vec4 uniform variable.
+     * Set the value of a vec4 uniform variable.
      *
-     * @param uniformName the name of the variable to modify (not null)
+     * @param uniformName the name of the uniform to specify (not null, not
+     * empty)
      * @param value the desired value (not null)
      */
     void setUniform(String uniformName, Vector4fc value) {
@@ -329,6 +337,9 @@ public class ShaderProgram {
         }
     }
 
+    /**
+     * Make this ShaderProgram the current one for rendering.
+     */
     void use() {
         GL20.glUseProgram(programId);
     }
@@ -370,7 +381,8 @@ public class ShaderProgram {
     /**
      * Returns the location of the named uniform variable.
      *
-     * @param name the name of the variable to locate (not null)
+     * @param name the name of the variable to locate (not null, not empty, no
+     * whitespace)
      * @return the location within this program
      */
     private int locateUniform(String name) {
