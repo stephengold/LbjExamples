@@ -182,7 +182,7 @@ public abstract class BaseApplication {
      * @return a valid program (not null)
      */
     static ShaderProgram getDefaultProgram() {
-        ShaderProgram result = getProgram("UnshadedMonochrome");
+        ShaderProgram result = getProgram("PhongDistant");
         return result;
     }
 
