@@ -34,6 +34,7 @@ import com.jme3.math.Vector3f;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -94,6 +95,11 @@ public abstract class BaseApplication {
      * ID of the main GLFW window used for display
      */
     private long windowId;
+    /**
+     * map variable names to global uniforms
+     */
+    final private static Map<String, GlobalUniform> globalUniformMap
+            = new HashMap<>(16);
     /**
      * map program names to programs
      */
@@ -315,6 +321,21 @@ public abstract class BaseApplication {
     // private methods
 
     /**
+     * Add a global uniforms to the map during initialization.
+     *
+     * @param list the list of objects to add (not null, unaffected)
+     */
+    private static void addGlobalUniforms(GlobalUniform... list) {
+        for (GlobalUniform uniform : list) {
+            String variableName = uniform.getVariableName();
+            assert !globalUniformMap.containsKey(variableName);
+            assert !globalUniformMap.containsValue(uniform);
+
+            globalUniformMap.put(variableName, uniform);
+        }
+    }
+
+    /**
      * Callback invoked by GLFW each time the mouse cursor is moved.
      *
      * @param x the horizontal offset of the cursor from the left edge of the
@@ -421,6 +442,14 @@ public abstract class BaseApplication {
 
         setBackgroundColor(Constants.DARK_GRAY);
         glEnable(GL_DEPTH_TEST);
+
+        addGlobalUniforms(
+                new AmbientStrength(),
+                new LightColor(),
+                new LightDirection(),
+                new ProjectionMatrix(),
+                new ViewMatrix()
+        );
 
         cameraInputProcessor = new CameraInputProcessor(windowId);
         addInputProcessor(cameraInputProcessor);
