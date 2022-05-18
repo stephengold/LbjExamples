@@ -38,6 +38,7 @@ import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
+import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
@@ -52,6 +53,13 @@ import org.lwjgl.system.Configuration;
  * Drop 1000 cubes onto a horizontal surface (graphical demo).
  */
 public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
+    // *************************************************************************
+    // fields
+
+    /**
+     * shape to be launched when the E key is pressed
+     */
+    private CollisionShape launchShape;
     // *************************************************************************
     // new methods exposed
 
@@ -108,6 +116,8 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
             }
         }
 
+        launchShape = new SphereCollisionShape(0.5f);
+
         getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         cam.setLocation(new Vector3f(-22f, 22f, -18f));
         cam.setAzimuthDegrees(35f);
@@ -120,7 +130,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
             public void onKeyboard(int keyId, boolean isPress) {
                 if (keyId == GLFW.GLFW_KEY_E) {
                     if (isPress) {
-                        launchWhiteCube();
+                        launchRedBall();
                     }
                     return;
                 }
@@ -142,11 +152,10 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     // *************************************************************************
     // private method
 
-    private void launchWhiteCube() {
-        float radius = 0.5f;
-        BoxCollisionShape boxShape = new BoxCollisionShape(radius);
+    private void launchRedBall() {
         float mass = 10f;
-        PhysicsRigidBody missile = new PhysicsRigidBody(boxShape, mass);
+        PhysicsRigidBody missile = new PhysicsRigidBody(launchShape, mass);
+        float radius = launchShape.maxRadius();
         missile.setCcdMotionThreshold(radius);
         missile.setCcdSweptSphereRadius(radius);
 
@@ -157,7 +166,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         missile.setPhysicsLocation(cam.getLocation());
         physicsSpace.addCollisionObject(missile);
 
-        new RigidBodyShapeGeometry(missile, "Facet", "low")
-                .setColor(Constants.WHITE);
+        new RigidBodyShapeGeometry(missile, "Sphere", "high")
+                .setColor(Constants.RED);
     }
 }
