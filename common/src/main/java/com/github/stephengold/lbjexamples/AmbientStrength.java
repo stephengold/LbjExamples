@@ -41,7 +41,7 @@ class AmbientStrength extends GlobalUniform {
     /**
      * current strength
      */
-    final private float value = 0.4f;
+    final private float value = 0.1f;
     // *************************************************************************
     // constructors
 
