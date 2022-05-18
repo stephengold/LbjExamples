@@ -462,6 +462,20 @@ public abstract class BaseApplication {
                 super.onKeyboard(keyId, isPress);
             }
         });
+        addInputProcessor(new InputProcessor() {
+            @Override
+            public void onKeyboard(int keyId, boolean isPressed) {
+                switch (keyId) {
+                    case GLFW_KEY_C:
+                        if (isPressed) {
+                            System.out.println(cam);
+                            System.out.flush();
+                        }
+                        return;
+                }
+                super.onKeyboard(keyId, isPressed);
+            }
+        });
     }
 
     /**
