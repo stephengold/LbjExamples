@@ -48,8 +48,7 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * maximum magnitude of the camera's up angle after the rotate() method is
      * applied. This prevents the camera from looking to straight up or straight
-     * down. However, setUpAngle() and setUpAngleDegrees() lack this
-     * restriction.
+     * down.
      */
     final private static float maxUpAngleRadians
             = (float) Math.toRadians(85f); //  TODO MyMath
@@ -105,21 +104,6 @@ public class CameraInputProcessor extends InputProcessor {
     // new methods exposed
 
     /**
-     * Test whether the specified camera-movement key is both visible to this
-     * InputProcessor AND currently pressed.
-     *
-     * @param keyId the GLFW ID of the key to test for
-     * @return true if seen and pressed, otherwise false
-     */
-    public boolean pollKey(int keyId) {
-        boolean seen = keyIdsSeen.contains(keyId);
-        int state = glfwGetKey(windowId, keyId);
-        boolean result = seen && (state == GLFW_PRESS);
-
-        return result;
-    }
-
-    /**
      * Alter the movement speed.
      *
      * @param newSpeed
@@ -152,7 +136,7 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * Poll each camera-movement key and move the camera accordingly.
      */
-    public void update() {
+    void update() {
         int forwardSignal = 0;
         int rightSignal = 0;
         int upSignal = 0;
@@ -303,6 +287,21 @@ public class CameraInputProcessor extends InputProcessor {
             }
         }
         lastMove = nanoTime;
+    }
+
+    /**
+     * Test whether the specified camera-movement key is both visible to this
+     * InputProcessor AND currently pressed.
+     *
+     * @param keyId the GLFW ID of the key to test for
+     * @return true if seen and pressed, otherwise false
+     */
+    private boolean pollKey(int keyId) {
+        boolean seen = keyIdsSeen.contains(keyId);
+        int state = glfwGetKey(windowId, keyId);
+        boolean result = seen && (state == GLFW_PRESS);
+
+        return result;
     }
 
     private void updateRotationActive() {
