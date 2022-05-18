@@ -29,12 +29,14 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.jme3.math.Vector3f;
 import java.nio.FloatBuffer;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import org.joml.Matrix3fc;
 import org.joml.Matrix4fc;
 import org.joml.Vector3fc;
 import org.joml.Vector4fc;
@@ -182,8 +184,7 @@ public class ShaderProgram {
     }
 
     /**
-     * Write the mesh-to-world transform matrix of the specified Geometry to the
-     * "modelMatrix" uniform variable.
+     * Set the mesh-to-world transform matrix based on the specified Geometry.
      *
      * @param geometry (not null, unaffected)
      */
@@ -201,7 +202,25 @@ public class ShaderProgram {
     }
 
     /**
-     * Alter the value of a float uniform variable.
+     * Set the mesh-to-world rotation matrix based on the specified Geometry.
+     *
+     * @param geometry (not null, unaffected)
+     */
+    void setModelRotationMatrix(Geometry geometry) {
+        int location = locateUniform("modelRotationMatrix");
+
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            FloatBuffer buffer = stack.mallocFloat(9);
+            geometry.writeRotationMatrix(buffer);
+
+            use();
+            boolean transpose = false;
+            GL20.glUniformMatrix3fv(location, transpose, buffer);
+        }
+    }
+
+    /**
+     * Set the value of a float uniform variable.
      *
      * @param uniformName the name of the variable to modify (not null)
      * @param value the desired value
@@ -214,7 +233,28 @@ public class ShaderProgram {
     }
 
     /**
-     * Alter the value of a mat4 uniform variable.
+     * Set the value of a mat3 uniform variable.
+     *
+     * @param uniformName the name of the uniform to specify (not null, not
+     * empty)
+     * @param value the desired value (not null)
+     */
+    void setUniform(String uniformName, Matrix3fc value) {
+        assert uniformName != null;
+        int location = locateUniform(uniformName);
+
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            FloatBuffer buffer = stack.mallocFloat(9);
+            value.get(buffer);
+
+            use();
+            boolean transpose = false;
+            GL20.glUniformMatrix3fv(location, transpose, buffer);
+        }
+    }
+
+    /**
+     * Set the value of a mat4 uniform variable.
      *
      * @param uniformName the name of the variable to modify (not null)
      * @param value the desired value (not null)
@@ -233,7 +273,28 @@ public class ShaderProgram {
     }
 
     /**
-     * Alter the value of a vec3 uniform variable.
+     * Set the value of a vec3 uniform variable using a JME Vector3f.
+     *
+     * @param uniformName the name of the uniform to specify (not null, not
+     * empty)
+     * @param value the desired value (not null)
+     */
+    void setUniform(String uniformName, Vector3f value) {
+        assert uniformName != null;
+        int location = locateUniform(uniformName);
+
+        try (MemoryStack stack = MemoryStack.stackPush()) {
+            FloatBuffer buffer = stack.mallocFloat(3);
+            buffer.put(value.x).put(value.y).put(value.z);
+            buffer.flip();
+
+            use();
+            GL20.glUniform3fv(location, buffer);
+        }
+    }
+
+    /**
+     * Set the value of a vec3 uniform variable using a JOML Vector3f.
      *
      * @param uniformName the name of the variable to modify (not null)
      * @param value the desired value (not null)
