@@ -288,6 +288,24 @@ public abstract class BaseApplication {
         // Clean up this class.
         cleanUpBase();
     }
+
+    /**
+     * Invoked before each render to update the window title. Meant to be
+     * overridden.
+     */
+    public void updateWindowTitle() {
+        float currentFrame = (float) glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        counter++;
+        if (deltaTime >= 1f / 10) {
+            int fps = (int) ((1f / deltaTime) * counter);
+            int ms = (int) ((deltaTime / counter) * 1000);
+            String title = getClass().getSimpleName() + " FPS : " + fps + " / ms : " + ms;
+            glfwSetWindowTitle(mainWindowId, title);
+            lastFrame = currentFrame;
+            counter = 0;
+        }
+    }
     // *************************************************************************
     // private methods
 
@@ -483,22 +501,10 @@ public abstract class BaseApplication {
      * The body of the main update loop.
      */
     private void updateBase() {
-        float currentFrame = (float) glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        counter++;
-        if (deltaTime >= 1f / 10) {
-            int fps = (int) ((1f / deltaTime) * counter);
-            int ms = (int) ((deltaTime / counter) * 1000);
-            String title = getClass().getSimpleName() + " FPS : " + fps + " / ms : " + ms;
-            glfwSetWindowTitle(mainWindowId, title);
-            lastFrame = currentFrame;
-            counter = 0;
-        }
+        updateWindowTitle();
 
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-
         render();
-
         glfwSwapBuffers(mainWindowId);
         glfwPollEvents();
 
