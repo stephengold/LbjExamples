@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jme3utilities.Validate;
 import jme3utilities.math.MyBuffer;
 import jme3utilities.math.MyVector3f;
 import org.lwjgl.opengl.GL11;
@@ -166,6 +167,20 @@ public class Mesh {
         this.vertexCount = positionsArray.length / numAxes;
         this.positions = BufferUtils.createFloatBuffer(positionsArray);
     }
+
+    /**
+     * Instantiate a mesh with the specified mode and number of vertices, but no
+     * positions or normals.
+     *
+     * @param drawMode the desired draw mode, such as GL_TRIANGLES
+     * @param vertexCount the desired number of vertices (&ge;1)
+     */
+    protected Mesh(int drawMode, int vertexCount) {
+        Validate.positive(vertexCount, "vertexCount");
+
+        this.drawMode = drawMode;
+        this.vertexCount = vertexCount;
+    }
     // *************************************************************************
     // new methods exposed
 
@@ -238,6 +253,22 @@ public class Mesh {
 
         int startVertex = 0;
         glDrawArrays(drawMode, startVertex, vertexCount);
+    }
+    // *************************************************************************
+    // protected methods
+
+    /**
+     * Set new positions for the vertices.
+     *
+     * @param positionsArray the desired vertex positions (not null,
+     * length=3*vertexCount, unaffected)
+     */
+    protected void setPositions(float... positionArray) {
+        assert vaoId == null;
+        Validate.require(positionArray.length == vertexCount * numAxes,
+                "correct length");
+
+        this.positions = BufferUtils.createFloatBuffer(positionArray);
     }
     // *************************************************************************
     // private methods
