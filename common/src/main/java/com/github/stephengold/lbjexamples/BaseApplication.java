@@ -247,7 +247,7 @@ public abstract class BaseApplication {
         Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, newZFar);
 
         zNear = newZNear;
-        zFar = newZNear;
+        zFar = newZFar;
     }
 
     /**
