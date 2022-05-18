@@ -62,6 +62,7 @@ public class AppChooser extends JFrame {
         apps.add(new HelloNonUniformGravity());
         apps.add(new HelloRigidBody());
         apps.add(new HelloStaticBody());
+        apps.add(new HelloWalk());
         apps.add(new NewtonsCradle());
         apps.add(new ThousandCubes());
         new AppChooser(apps);
