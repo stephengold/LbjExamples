@@ -273,6 +273,18 @@ public class Geometry {
     }
 
     /**
+     * Alter the specular color.
+     *
+     * @param newColor the desired color (in the Linear colorspace, not null)
+     * @return the (modified) current instance (for chaining)
+     */
+    public Geometry setSpecularColor(Vector4fc newColor) {
+        Validate.nonNull(newColor, "new color");
+        specularColor.set(newColor);
+        return this;
+    }
+
+    /**
      * Update properties and then render this Geometry. Assumes that the
      * program's global uniforms have already been set! Meant to be overridden.
      */
