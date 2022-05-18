@@ -143,6 +143,20 @@ public abstract class BaseApplication {
     public abstract void cleanUp();
 
     /**
+     * Find the global uniform with the specified name.
+     *
+     * @param variableName the name of the uniform to find (not null, not empty)
+     * @return the pre-existing object, or null if not found
+     */
+    static GlobalUniform findGlobalUniform(String variableName) {
+        assert variableName != null;
+        assert !variableName.isEmpty();
+
+        GlobalUniform result = globalUniformMap.get(variableName);
+        return result;
+    }
+
+    /**
      * Return the current camera for rendering.
      *
      * @return the pre-existing instance (not null)
