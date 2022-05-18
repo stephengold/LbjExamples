@@ -29,32 +29,16 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.jme3.math.FastMath;
+import jme3utilities.Validate;
 import org.lwjgl.opengl.GL11;
 
 /**
- * A Mesh to render a crude arrow in GL_LINES mode.
+ * A GL_LINES mesh that renders a crude 3-D arrow.
  *
  * @author Stephen Gold sgold@sonic.net
  */
 public class ArrowMesh extends Mesh {
-    // *************************************************************************
-    // constants
-
-    /**
-     * vertex positions
-     */
-    final private static float[] positions = new float[]{
-        0f, 0f, 0f, // tail
-        0f, 0f, 1f, // tip
-        0.05f, 0f, 0.9f, // +X barb
-        0f, 0f, 1f, // tip
-        -0.05f, 0f, 0.9f, // -X barb
-        0f, 0f, 1f, // tip
-        0f, 0.05f, 0.9f, // +Y barb
-        0f, 0f, 1f, // tip
-        0f, -0.05f, 0.9f, // -Y barb
-        0f, 0f, 1f // tip
-    };
     // *************************************************************************
     // constructors
 
@@ -62,6 +46,34 @@ public class ArrowMesh extends Mesh {
      * Instantiate an arrow with its tip at (0, 0, 1) and its tail at (0, 0, 0).
      */
     public ArrowMesh() {
-        super(GL11.GL_LINES, positions);
+        this(0.46f, 0.11f);
+    }
+
+    /**
+     * Instantiate an arrow with its tip at (0, 0, 1) and its tail at (0, 0, 0).
+     *
+     * @param barbAngle the angle between each barb and the shaft (in radians,
+     * &ge;0, &le;PI)
+     * @param barbLength the length of each barb (in local units, &ge;0)
+     */
+    public ArrowMesh(float barbAngle, float barbLength) {
+        super(GL11.GL_LINES, 10);
+        Validate.inRange(barbAngle, "barb angle", 0, FastMath.PI);
+        Validate.nonNegative(barbLength, "barb length");
+
+        float z = 1f - barbLength * FastMath.cos(barbAngle);
+        float xy = barbLength * FastMath.sin(barbAngle);
+
+        super.setPositions(
+                0f, 0f, 0f, // tail
+                0f, 0f, 1f, // tip
+                xy, 0f, z, // +X barb
+                0f, 0f, 1f, // tip
+                -xy, 0f, z, // -X barb
+                0f, 0f, 1f, // tip
+                0f, xy, z, // +Y barb
+                0f, 0f, 1f, // tip
+                0f, -xy, z, // -Y barb
+                0f, 0f, 1f); // tip
     }
 }
