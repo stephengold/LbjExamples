@@ -142,8 +142,8 @@ public class Camera {
     /**
      * Return the eye location.
      *
-     * @return a location vector in world coordinates (either storeResult or a new
-     * vector)
+     * @return a location vector in world coordinates (either storeResult or a
+     * new vector)
      */
     public Vector3f location(Vector3f storeResult) {
         if (storeResult == null) {
@@ -223,7 +223,7 @@ public class Camera {
      */
     public void rotateLimited(float rightRadians, float upRadians,
             float maxUpAngleRadians) {
-        azimuthRadians += rightRadians;
+        azimuthRadians += rightRadians; // TODO standardize the angle
 
         upAngleRadians += upRadians;
         if (upAngleRadians > maxUpAngleRadians) {
@@ -270,6 +270,18 @@ public class Camera {
     public Camera setFovy(float newFovy) {
         Validate.inRange(newFovy, "new fovy", Float.MIN_VALUE, FastMath.PI);
         this.fovy = newFovy;
+        return this;
+    }
+
+    /**
+     * Alter the vertical field-of-view angle.
+     *
+     * @param newFovyInDegrees the desired angle (in degrees, &gt;0, &lt;180)
+     * @return the (modified) current instance (for chaining)
+     */
+    public Camera setFovyDegrees(float newFovyInDegrees) {
+        Validate.inRange(newFovyInDegrees, "new fovy", Float.MIN_VALUE, 180f);
+        setFovy((float) Math.toRadians(newFovyInDegrees)); // TODO MyMath
         return this;
     }
 
