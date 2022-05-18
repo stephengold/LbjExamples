@@ -240,10 +240,13 @@ public class Camera {
      *
      * @param newAzimuthInRadians the desired rightward angle of the X-Z
      * component of the look direction relative to the +X axis (in radians)
+     * @return the (modified) current instance (for chaining)
      */
-    public void setAzimuth(float newAzimuthInRadians) {
+    public Camera setAzimuth(float newAzimuthInRadians) {
         this.azimuthRadians = newAzimuthInRadians;
         updateDirectionVectors();
+
+        return this;
     }
 
     /**
@@ -251,19 +254,23 @@ public class Camera {
      *
      * @param newAzimuthInDegrees the desired rightward angle of the X-Z
      * component of the look direction relative to the +X axis (in degrees)
+     * @return the (modified) current instance (for chaining)
      */
-    public void setAzimuthDegrees(float newAzimuthInDegrees) {
+    public Camera setAzimuthDegrees(float newAzimuthInDegrees) {
         setAzimuth((float) Math.toRadians(newAzimuthInDegrees)); // TODO MyMath
+        return this;
     }
 
     /**
      * Alter the vertical field-of-view angle.
      *
      * @param newFovy the desired angle (in radians, &gt;0, &lt;PI)
+     * @return the (modified) current instance (for chaining)
      */
-    public void setFovy(float newFovy) {
+    public Camera setFovy(float newFovy) {
         Validate.inRange(newFovy, "new fovy", Float.MIN_VALUE, FastMath.PI);
         this.fovy = newFovy;
+        return this;
     }
 
     /**
@@ -272,9 +279,11 @@ public class Camera {
      *
      * @param newLocation the desired location (in world coordinates, not null,
      * unaffected)
+     * @return the (modified) current instance (for chaining)
      */
-    public void setLocation(Vector3f newLocation) {
+    public Camera setLocation(Vector3f newLocation) {
         eyeLocation.set(newLocation);
+        return this;
     }
 
     /**
@@ -285,25 +294,30 @@ public class Camera {
      * null, unaffected)
      * @param targetLocation the location to look at (in world coordinates, not
      * null, unaffected)
+     * @return the (modified) current instance (for chaining)
      */
-    public void setLocation(Vector3f newLocation, Vector3f targetLocation) {
+    public Camera setLocation(Vector3f newLocation, Vector3f targetLocation) {
         eyeLocation.set(newLocation);
 
         Vector3f direction = newLocation.subtract(targetLocation);
         setLookDirection(direction);
+
+        return this;
     }
 
     /**
      * Re-orient the camera to look in the specified direction.
      *
      * @param direction the desired direction (not null, unaffected)
+     * @return the (modified) current instance (for chaining)
      */
-    public void setLookDirection(Vector3f direction) {
+    public Camera setLookDirection(Vector3f direction) {
         azimuthRadians = FastMath.atan2(direction.z, direction.x);
         float nxz = MyMath.hypotenuse(direction.x, direction.z);
         upAngleRadians = FastMath.atan2(direction.y, nxz);
-
         updateDirectionVectors();
+
+        return this;
     }
 
     /**
@@ -311,10 +325,13 @@ public class Camera {
      *
      * @param newUpAngleRadians the desired upward angle of the look direction
      * (in radians)
+     * @return the (modified) current instance (for chaining)
      */
-    public void setUpAngle(float newUpAngleRadians) {
+    public Camera setUpAngle(float newUpAngleRadians) {
         this.upAngleRadians = newUpAngleRadians;
         updateDirectionVectors();
+
+        return this;
     }
 
     /**
@@ -322,9 +339,11 @@ public class Camera {
      *
      * @param newUpAngleInDegrees the desired upward angle of the look direction
      * (in degrees)
+     * @return the (modified) current instance (for chaining)
      */
-    public void setUpAngleDegrees(float newUpAngleInDegrees) {
+    public Camera setUpAngleDegrees(float newUpAngleInDegrees) {
         setUpAngle((float) Math.toRadians(newUpAngleInDegrees)); // TODO MyMath
+        return this;
     }
 
     /**
