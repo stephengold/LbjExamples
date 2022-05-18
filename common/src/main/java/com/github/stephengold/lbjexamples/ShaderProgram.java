@@ -393,7 +393,7 @@ public class ShaderProgram {
                     "Error creating shader. type=" + shaderType);
         }
 
-        String sourceCode = BaseApplication.loadResource(resourceName);
+        String sourceCode = Utils.loadResource(resourceName);
         GL20.glShaderSource(shaderId, sourceCode);
         GL20.glCompileShader(shaderId);
         int compileStatus = GL20.glGetShaderi(shaderId, GL20.GL_COMPILE_STATUS);

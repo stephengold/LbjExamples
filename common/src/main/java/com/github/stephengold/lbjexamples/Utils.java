@@ -32,12 +32,61 @@ package com.github.stephengold.lbjexamples;
 import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.FloatBuffer;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
+import javax.imageio.ImageIO;
 import org.joml.Quaternionf;
 
-import java.awt.image.BufferedImage;
-import java.nio.FloatBuffer;
-
 public class Utils {
+
+    /**
+     * Load a BufferedImage from the named resource.
+     *
+     * @param resourceName the name of the resource (not null)
+     * @return a new instance
+     */
+    public static BufferedImage loadImage(String resourceName) {
+        InputStream inputStream
+                = BaseApplication.class.getResourceAsStream(resourceName);
+        if (inputStream == null) {
+            throw new RuntimeException("resource not found:  " + resourceName);
+        }
+
+        ImageIO.setUseCache(false);
+
+        BufferedImage result;
+        try {
+            result = ImageIO.read(inputStream);
+        } catch (IOException exception) {
+            throw new RuntimeException("unable to read " + resourceName);
+        }
+
+        return result;
+    }
+
+    /**
+     * Load UTF-8 text from the named resource.
+     *
+     * @param resourceName the name of the resource (not null)
+     * @return the text (possibly multiple lines)
+     */
+    public static String loadResource(String resourceName) {
+        InputStream inputStream
+                = BaseApplication.class.getResourceAsStream(resourceName);
+        if (inputStream == null) {
+            throw new RuntimeException("resource not found:  " + resourceName);
+        }
+
+        Scanner scanner
+                = new Scanner(inputStream, StandardCharsets.UTF_8.name());
+        String result = scanner.useDelimiter("\\A").next();
+
+        return result;
+    }
 
     public static float[] toArray(FloatBuffer buffer) {
         float[] array = new float[buffer.limit()];
