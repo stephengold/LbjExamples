@@ -33,7 +33,6 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
-import org.joml.Matrix4f;
 import org.joml.Vector3fc;
 
 /**
@@ -169,12 +168,6 @@ public class Camera {
      */
     public void move(Vector3f offset) {
         eyeLocation.addLocal(offset);
-    }
-
-    public Matrix4f getViewMatrix() {
-        return new Matrix4f().lookAt(Utils.toLwjglVector(eyeLocation),
-                Utils.toLwjglVector(eyeLocation.add(lookDirection)),
-                Utils.toLwjglVector(upDirection));
     }
 
     /**

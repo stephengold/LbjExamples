@@ -62,11 +62,6 @@ public class ShaderProgram {
      */
     private final int programId;
     /**
-     * last render iteration on which the camera uniforms were set, or null if
-     * never set
-     */
-    private Integer lastRenderIteration;
-    /**
      * map active uniform variables to their locations
      */
     final private Map<String, Integer> uniformLocations = new HashMap<>(16);
@@ -163,31 +158,6 @@ public class ShaderProgram {
      */
     Collection<GlobalUniform> listAgus() {
         return Collections.unmodifiableCollection(globalUniforms);
-    }
-
-    /**
-     * Update the camera uniforms for the current render iteration.
-     *
-     * @param renderIteration the current iteration of the render loop
-     * @param projectionMatrix the desired view-to-projection matrix (not null)
-     * @param viewMatrix the desired world-to-view transform matrix (not null)
-     */
-    void setCameraUniforms(int renderIteration, Matrix4fc projectionMatrix,
-            Matrix4fc viewMatrix) {
-        if (lastRenderIteration != null) {
-            if (renderIteration == lastRenderIteration) {
-                /*
-                 * The camera uniforms have already been set
-                 * for this render iteration.
-                 */
-                return;
-            }
-            assert renderIteration == lastRenderIteration + 1;
-        }
-        lastRenderIteration = renderIteration;
-
-        setUniform("projectionMatrix", projectionMatrix);
-        setUniform("viewMatrix", viewMatrix);
     }
 
     /**
