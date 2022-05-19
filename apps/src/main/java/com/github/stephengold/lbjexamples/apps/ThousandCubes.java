@@ -161,9 +161,9 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         box.setPhysicsLocation(tmpLocation);
         physicsSpace.addCollisionObject(box);
 
-        float red = random.nextFloat();
-        float green = random.nextFloat();
-        float blue = random.nextFloat();
+        float red = (float) Math.pow(random.nextDouble(), 2.2); // TODO FastMath
+        float green = (float) Math.pow(random.nextDouble(), 2.2);
+        float blue = (float) Math.pow(random.nextDouble(), 2.2);
         new RigidBodyShapeGeometry(box, "Facet", "low")
                 .setColor(new Vector4f(red, green, blue, 1));
     }
