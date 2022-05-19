@@ -38,7 +38,8 @@ import jme3utilities.Validate;
 import org.joml.Vector4fc;
 
 /**
- * Visualize one of the local axes of a collision object.
+ * Visualize one of the local axes of a collision object or else a "floating"
+ * arrow.
  */
 public class LocalAxisGeometry extends Geometry {
     // *************************************************************************
@@ -68,14 +69,14 @@ public class LocalAxisGeometry extends Geometry {
      * Instantiate a Geometry to visualize the specified local axis of the
      * specified collision object.
      *
-     * @param pco the collision object (not null, alias created)
+     * @param pco the collision object (alias created) or null for a "floating"
+     * arrow
      * @param axisIndex which axis: 0&rarr;X, 1&rarr;Y, 2&rarr;Z
      * @param length the length of the axis (in world units, &ge;0)
      */
     public LocalAxisGeometry(
-            PhysicsRigidBody pco, int axisIndex, float length) {
+            PhysicsCollisionObject pco, int axisIndex, float length) {
         super();
-        Validate.nonNull(pco, "collision object");
         Validate.inRange(axisIndex, "axisIndex", 0, 2); // TODO
         Validate.nonNegative(length, "length");
 
@@ -100,7 +101,9 @@ public class LocalAxisGeometry extends Geometry {
      */
     @Override
     void updateAndRender() {
-        updateTransform();
+        if (pco != null) {
+            updateTransform();
+        }
         super.updateAndRender();
     }
 
@@ -112,7 +115,7 @@ public class LocalAxisGeometry extends Geometry {
      */
     @Override
     boolean wasRemovedFrom(CollisionSpace space) {
-        boolean result = !space.contains(pco);
+        boolean result = (pco != null) && !space.contains(pco);
         return result;
     }
     // *************************************************************************
