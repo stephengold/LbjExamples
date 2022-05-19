@@ -115,7 +115,7 @@ public class Geometry {
      * @return a location vector in world coordinates (either
      * {@code storeResult} or a new instance)
      */
-    Vector3f getLocation(Vector3f storeResult) {
+    public Vector3f getLocation(Vector3f storeResult) {
         Vector3f location = meshToWorld.getTranslation(); // an alias
         if (storeResult == null) {
             return location.clone();
@@ -139,7 +139,7 @@ public class Geometry {
      * @param storeResult storage for the result (modified if not null)
      * @return a unit quaternion (either {@code storeResult} or a new instance)
      */
-    Quaternion getOrientation(Quaternion storeResult) {
+    public Quaternion getOrientation(Quaternion storeResult) {
         Quaternion orientation = meshToWorld.getRotation(); // an alias
         if (storeResult == null) {
             return orientation.clone();
@@ -163,7 +163,7 @@ public class Geometry {
      * @param storeResult storage for the result (modified if not null)
      * @return a scale vector (either {@code storeResult} or a new instance)
      */
-    Vector3f getScale(Vector3f storeResult) {
+    public Vector3f getScale(Vector3f storeResult) {
         Vector3f scale = meshToWorld.getScale(); // an alias
         if (storeResult == null) {
             return scale.clone();
@@ -191,7 +191,7 @@ public class Geometry {
      * unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    Geometry setLocation(Vector3f newLocation) {
+    public Geometry setLocation(Vector3f newLocation) {
         Validate.nonNull(newLocation, "new location");
         meshToWorld.setTranslation(newLocation);
         return this;
@@ -216,7 +216,7 @@ public class Geometry {
      * unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    Geometry setOrientation(Quaternion newOrientation) {
+    public Geometry setOrientation(Quaternion newOrientation) {
         Validate.nonZero(newOrientation, "new orientation");
 
         meshToWorld.setRotation(newOrientation);
@@ -249,7 +249,7 @@ public class Geometry {
      * extrinsic order or y-z'-x" intrinsic order (not null, unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    Geometry setRotation(Vector3f newAngles) {
+    public Geometry setRotation(Vector3f newAngles) {
         Validate.nonNull(newAngles, "new angles");
 
         Quaternion newOrientation = new Quaternion();
@@ -266,7 +266,7 @@ public class Geometry {
      * unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    Geometry setScale(Vector3f newScale) {
+    public Geometry setScale(Vector3f newScale) {
         Validate.nonNull(newScale, "new scale");
         meshToWorld.getScale().set(newScale);
         return this;
