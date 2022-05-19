@@ -29,21 +29,23 @@
  */
 package com.github.stephengold.lbjexamples;
 
-import org.joml.Vector3f;
+import com.jme3.math.Vector3f;
+import jme3utilities.Validate;
+import jme3utilities.math.MyVector3f;
 
 /**
- * Provide the direction of the distant light, for use in shaders.
+ * Provide the direction to the distant light, for use in shaders.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-class LightDirection extends GlobalUniform {
+public class LightDirection extends GlobalUniform {
     // *************************************************************************
     // fields
 
     /**
      * current direction (in world coordinates)
      */
-    final private Vector3f value = new Vector3f(1f, 3f, 2f).normalize();
+    final private static Vector3f value = new Vector3f(1f, 3f, 2f).normalize();
     // *************************************************************************
     // constructors
 
@@ -52,6 +54,20 @@ class LightDirection extends GlobalUniform {
      */
     LightDirection() {
         super("LightDirection_worldspace");
+    }
+    // *************************************************************************
+    // new methods exposed
+
+    /**
+     * Alter the direction to the distant light.
+     *
+     * @param newDirection the desired value (not null, not zero, unaffected)
+     */
+    public static void set(Vector3f newDirection) {
+        Validate.nonZero(newDirection, "new direction");
+
+        value.set(newDirection);
+        MyVector3f.normalizeLocal(value);
     }
     // *************************************************************************
     // GlobalUniform methods

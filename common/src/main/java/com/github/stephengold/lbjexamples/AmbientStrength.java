@@ -34,14 +34,14 @@ package com.github.stephengold.lbjexamples;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-class AmbientStrength extends GlobalUniform {
+public class AmbientStrength extends GlobalUniform {
     // *************************************************************************
     // fields
 
     /**
      * current strength
      */
-    final private float value = 0.1f;
+    private static float value = 0.1f;
     // *************************************************************************
     // constructors
 
@@ -50,6 +50,17 @@ class AmbientStrength extends GlobalUniform {
      */
     AmbientStrength() {
         super("ambientStrength");
+    }
+    // *************************************************************************
+    // new methods exposed
+
+    /**
+     * Alter the strength of the ambient light.
+     *
+     * @param newStrength the desired value
+     */
+    public static void set(float newStrength) {
+        value = newStrength;
     }
     // *************************************************************************
     // GlobalUniform methods

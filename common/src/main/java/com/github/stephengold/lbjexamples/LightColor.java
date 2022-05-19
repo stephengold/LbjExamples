@@ -29,21 +29,23 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import jme3utilities.Validate;
 import org.joml.Vector4f;
+import org.joml.Vector4fc;
 
 /**
  * Provide the color of the main light, for use in shaders.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-class LightColor extends GlobalUniform {
+public class LightColor extends GlobalUniform {
     // *************************************************************************
     // fields
 
     /**
      * current color
      */
-    final private Vector4f value = new Vector4f(Constants.WHITE);
+    final private static Vector4f value = new Vector4f(Constants.WHITE);
     // *************************************************************************
     // constructors
 
@@ -52,6 +54,18 @@ class LightColor extends GlobalUniform {
      */
     LightColor() {
         super("LightColor");
+    }
+    // *************************************************************************
+    // new methods exposed
+
+    /**
+     * Alter the color of the main light.
+     *
+     * @param newColor the desired value (not null)
+     */
+    public static void set(Vector4fc newColor) {
+        Validate.nonNull(newColor, "new color");
+        value.set(newColor);
     }
     // *************************************************************************
     // GlobalUniform methods
