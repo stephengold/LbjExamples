@@ -216,6 +216,16 @@ public class Mesh {
     }
 
     /**
+     * Return the draw mode, which indicates the kind of geometric primitives
+     * contained in this Mesh.
+     *
+     * @return the mode, such as: GL_TRIANGLES, GL_LINE_LOOP, or GL_POINTS
+     */
+    public int drawMode() {
+        return drawMode;
+    }
+
+    /**
      * Prepare all vertex attributes for rendering.
      * <p>
      * If the VAO doesn't already exist, it and its VBOs are created.
