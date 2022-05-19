@@ -105,7 +105,7 @@ public class Mesh {
     // constructors
 
     /**
-     * Auto-generate a low-resolution, TRIANGLES-mode mesh for the specified
+     * Auto-generate a low-resolution, GL_TRIANGLES mesh for the specified
      * collision shape.
      *
      * @param shape the shape to use (not null, unaffected)
@@ -116,7 +116,7 @@ public class Mesh {
     }
 
     /**
-     * Auto-generate a TRIANGLES-mode mesh for the specified collision shape.
+     * Auto-generate a GL_TRIANGLES mesh for the specified collision shape.
      *
      * @param shape the shape to use (not null, unaffected)
      * @param normalsOption (not null)
@@ -157,10 +157,12 @@ public class Mesh {
     }
 
     /**
-     * Instantiate a mesh with the specified mode and vertex positions.
+     * Instantiate a mesh with the specified mode and vertex positions, but no
+     * normals.
      *
-     * @param drawMode the desired draw mode
-     * @param positionsArray the desired vertex positions (not null, unaffected)
+     * @param drawMode the desired draw mode, such as GL_TRIANGLES
+     * @param positionsArray the desired vertex positions (not null, not empty,
+     * length a multiple of 3, unaffected)
      */
     public Mesh(int drawMode, float... positionsArray) {
         this.drawMode = drawMode;
