@@ -44,6 +44,15 @@ import jme3utilities.Validate;
  */
 public class LocalAxisGeometry extends Geometry {
     // *************************************************************************
+    // constants
+
+    /**
+     * map axis indices to colors
+     */
+    final private static Vector4fc[] colors = {
+        Constants.RED, Constants.GREEN, Constants.BLUE
+    };
+    // *************************************************************************
     // fields
 
     /**
@@ -54,14 +63,6 @@ public class LocalAxisGeometry extends Geometry {
      * collision object to visualize
      */
     final private PhysicsCollisionObject pco;
-    /**
-     * mesh-to-local rotation
-     */
-    final private Quaternion meshToLocal = new Quaternion();
-    /**
-     * local-to-world coordinate transform
-     */
-    final private Transform localToWorld = new Transform();
     // *************************************************************************
     // constructors
 
@@ -83,27 +84,12 @@ public class LocalAxisGeometry extends Geometry {
         this.pco = pco;
         this.length = length;
 
-        switch (axisIndex) {
-            case PhysicsSpace.AXIS_X:
-                meshToLocal.fromAngles(0f, FastMath.HALF_PI, 0f);
-                super.setColor(Constants.RED);
-                break;
+        Vector4fc color = colors[axisIndex];
+        super.setColor(color);
 
-            case PhysicsSpace.AXIS_Y:
-                meshToLocal.fromAngles(-FastMath.HALF_PI, 0f, 0f);
-                super.setColor(Constants.GREEN);
-                break;
-
-            case PhysicsSpace.AXIS_Z:
-                super.setColor(Constants.BLUE);
-                break;
-
-            default:
-                throw new RuntimeException("axisIndex = " + axisIndex);
-        }
-
-        Mesh mesh = new ArrowMesh();
+        Mesh mesh = ArrowMesh.getMesh(axisIndex);
         super.setMesh(mesh);
+
         super.setProgramByName("UnshadedMonochrome");
 
         BasePhysicsApp.makeVisible(this);
@@ -138,19 +124,14 @@ public class LocalAxisGeometry extends Geometry {
      * Update the mesh-to-world transform.
      */
     private void updateTransform() {
+        Transform meshToWorld = getMeshToWorldTransform();
         if (pco instanceof PhysicsRigidBody) {
             PhysicsRigidBody body = (PhysicsRigidBody) pco;
             RigidBodyMotionState state = body.getMotionState();
-            state.physicsTransform(localToWorld);
+            state.physicsTransform(meshToWorld);
         } else {
-            pco.getTransform(localToWorld);
+            pco.getTransform(meshToWorld);
         }
-        localToWorld.setScale(length);
-
-        Transform meshToWorld = getMeshToWorldTransform();
-        meshToWorld.getTranslation().zero();
-        meshToWorld.setRotation(meshToLocal);
-        meshToWorld.setScale(1f);
-        meshToWorld.combineWithParent(localToWorld);
+        meshToWorld.setScale(length);
     }
 }
