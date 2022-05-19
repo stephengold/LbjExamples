@@ -82,7 +82,7 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Initialize this application.
+     * Populate the PhysicsSpace. Invoked during initialization.
      */
     @Override
     public void populateSpace() {
