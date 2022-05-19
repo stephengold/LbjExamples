@@ -34,7 +34,6 @@ import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import com.jme3.util.BufferUtils;
-
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,8 +46,6 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
-
-import static org.lwjgl.opengl.GL30.*;
 
 /**
  * Encapsulate a vertex array object (VAO), to which vertex buffer objects
@@ -237,7 +234,7 @@ public class Mesh {
      */
     void enableAttributes() {
         if (vaoId == null) {
-            this.vaoId = glGenVertexArrays();
+            this.vaoId = GL30.glGenVertexArrays();
             GL30.glBindVertexArray(vaoId);
 
             // Create a VBO for each attribute.
@@ -317,15 +314,15 @@ public class Mesh {
      */
     private void addFloatVbo(FloatBuffer data, int fpv) {
         fpvList.add(fpv);
-        int vboId = glGenBuffers();
+        int vboId = GL30.glGenBuffers();
         vboIdList.add(vboId);
 
         data.rewind();
         int numFloats = vertexCount * fpv;
         data.limit(numFloats);
 
-        glBindBuffer(GL_ARRAY_BUFFER, vboId);
-        glBufferData(GL_ARRAY_BUFFER, data, GL_STATIC_DRAW);
+        GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, vboId);
+        GL30.glBufferData(GL30.GL_ARRAY_BUFFER, data, GL30.GL_STATIC_DRAW);
     }
 
     /**
@@ -334,17 +331,17 @@ public class Mesh {
      * @param attributeIndex the index of the vertex attribute to prepare
      */
     private void enableAttribute(int attributeIndex) {
-        glEnableVertexAttribArray(attributeIndex);
+        GL30.glEnableVertexAttribArray(attributeIndex);
 
         int vboId = vboIdList.get(attributeIndex);
-        glBindBuffer(GL_ARRAY_BUFFER, vboId);
+        GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, vboId);
 
         int fpv = fpvList.get(attributeIndex);
         boolean normalized = false;
         int stride = 0; // tightly packed
         int startOffset = 0;
-        glVertexAttribPointer(
-                attributeIndex, fpv, GL_FLOAT, normalized, stride, startOffset);
+        GL30.glVertexAttribPointer(attributeIndex, fpv, GL30.GL_FLOAT,
+                normalized, stride, startOffset);
     }
 
     /**
