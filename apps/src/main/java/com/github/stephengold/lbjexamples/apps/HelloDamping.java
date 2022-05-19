@@ -54,9 +54,9 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Main entry point for the HelloDamping application.
      *
-     * @param ignored array of command-line arguments (not null)
+     * @param arguments array of command-line arguments (not null)
      */
-    public static void main(String[] ignored) {
+    public static void main(String[] arguments) {
         Platform platform = JmeSystem.getPlatform();
         if (platform.getOs() == Platform.Os.MacOS) {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
