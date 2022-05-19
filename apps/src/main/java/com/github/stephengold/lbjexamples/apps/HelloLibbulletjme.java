@@ -48,6 +48,11 @@ import java.io.File;
  */
 public class HelloLibbulletjme {
 
+    /**
+     * Main entry point for the HelloLibbulletjme application.
+     *
+     * @param arguments array of command-line arguments (not null)
+     */
     public static void main(String[] args) {
         /*
          * Load a native library from ~/Downloads directory.
@@ -60,7 +65,7 @@ public class HelloLibbulletjme {
          * Create a PhysicsSpace using DBVT for broadphase.
          */
         PhysicsSpace.BroadphaseType bPhase = PhysicsSpace.BroadphaseType.DBVT;
-        PhysicsSpace space = new PhysicsSpace(bPhase);
+        PhysicsSpace physicsSpace = new PhysicsSpace(bPhase);
         /*
          * Add a static horizontal plane at y=-1.
          */
@@ -69,7 +74,7 @@ public class HelloLibbulletjme {
         CollisionShape planeShape = new PlaneCollisionShape(plane);
         float mass = PhysicsBody.massForStatic;
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, mass);
-        space.addCollisionObject(floor);
+        physicsSpace.addCollisionObject(floor);
         /*
          * Add a sphere-shaped, dynamic, rigid body at the origin.
          */
@@ -77,14 +82,14 @@ public class HelloLibbulletjme {
         CollisionShape ballShape = new SphereCollisionShape(radius);
         mass = 1f;
         PhysicsRigidBody ball = new PhysicsRigidBody(ballShape, mass);
-        space.addCollisionObject(ball);
+        physicsSpace.addCollisionObject(ball);
         /*
          * 50 iterations with a 20-msec timestep
          */
         float timeStep = 0.02f;
         Vector3f location = new Vector3f();
         for (int i = 0; i < 50; ++i) {
-            space.update(timeStep, 0);
+            physicsSpace.update(timeStep, 0);
             ball.getPhysicsLocation(location);
             System.out.println(location);
         }
