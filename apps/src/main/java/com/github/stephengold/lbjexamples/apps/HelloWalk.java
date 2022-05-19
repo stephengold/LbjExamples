@@ -29,7 +29,6 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import static com.github.stephengold.lbjexamples.BaseApplication.addInputProcessor;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.InputProcessor;
@@ -84,9 +83,9 @@ public class HelloWalk
     /**
      * Main entry point for the HelloWalk application.
      *
-     * @param ignored array of command-line arguments (not null)
+     * @param args array of command-line arguments (not null)
      */
-    public static void main(String[] ignored) {
+    public static void main(String[] args) {
         Platform platform = JmeSystem.getPlatform();
         if (platform.getOs() == Platform.Os.MacOS) {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
@@ -115,7 +114,7 @@ public class HelloWalk
     }
 
     /**
-     * Callback invoked before the main update loop begins.
+     * Initialize this application.
      */
     @Override
     public void initialize() {
@@ -167,9 +166,9 @@ public class HelloWalk
     public void updateWindowTitle() {
         // do nothing
     }
-
     // *************************************************************************
     // PhysicsTickListener methods
+
     /**
      * Callback from Bullet, invoked just before the physics is stepped.
      *
@@ -212,7 +211,7 @@ public class HelloWalk
     // private methods
 
     /**
-     * Add lighting and shadows and set the background color.
+     * Add lighting and set the background color.
      */
     private void addLighting() {
         //       AmbientStrength.set(0.1f);
@@ -253,7 +252,7 @@ public class HelloWalk
     }
 
     /**
-     * Configure the Camera during startup.
+     * Configure the Camera and CIP during startup.
      */
     private void configureCamera() {
         getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
@@ -267,7 +266,7 @@ public class HelloWalk
      * Configure keyboard input during startup.
      */
     private void configureInput() {
-        InputProcessor processor = new InputProcessor() {
+        addInputProcessor(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPressed) {
                 switch (keyId) {
@@ -282,7 +281,6 @@ public class HelloWalk
                 }
                 super.onKeyboard(keyId, isPressed);
             }
-        };
-        addInputProcessor(processor);
+        });
     }
 }
