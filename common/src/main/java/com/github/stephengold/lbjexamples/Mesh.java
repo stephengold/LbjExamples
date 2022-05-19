@@ -132,7 +132,9 @@ public class Mesh {
 
         this.positions
                 = DebugShapeFactory.getDebugTriangles(shape, positionsOption);
-        this.vertexCount = positions.capacity() / numAxes;
+        int numFloats = positions.capacity();
+        assert numFloats % numAxes == 0 : numFloats;
+        this.vertexCount = numFloats / numAxes;
         /*
          * Add a normal buffer, if requested.
          */
@@ -165,8 +167,10 @@ public class Mesh {
      * length a multiple of 3, unaffected)
      */
     public Mesh(int drawMode, float... positionsArray) {
-        this.drawMode = drawMode;
-        this.vertexCount = positionsArray.length / numAxes;
+        this(drawMode, positionsArray.length / numAxes);
+        Validate.require(
+                positionsArray.length % numAxes == 0, "length a multiple of 3");
+
         this.positions = BufferUtils.createFloatBuffer(positionsArray);
     }
 
