@@ -29,16 +29,14 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import com.github.stephengold.lbjexamples.ArrowGeometry;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.Constants;
+import com.github.stephengold.lbjexamples.LocalAxisGeometry;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
@@ -124,12 +122,9 @@ public class HelloNonUniformGravity
         new RigidBodyShapeGeometry(planet, "Sphere", "low");
 
         // Add axes to indicate the black hole's location.
-        new ArrowGeometry(0f, FastMath.HALF_PI, 0f, Constants.RED) // +X axis
-                .setProgramByName("UnshadedMonochrome");
-        new ArrowGeometry(-FastMath.HALF_PI, 0f, 0f, Constants.GREEN) // +Y axis
-                .setProgramByName("UnshadedMonochrome");
-        new ArrowGeometry(0f, 0f, 0f, Constants.BLUE) // +Z axis
-                .setProgramByName("UnshadedMonochrome");
+        new LocalAxisGeometry(null, MyVector3f.xAxis, 1f);
+        new LocalAxisGeometry(null, MyVector3f.yAxis, 1f);
+        new LocalAxisGeometry(null, MyVector3f.zAxis, 1f);
     }
 
     /**
