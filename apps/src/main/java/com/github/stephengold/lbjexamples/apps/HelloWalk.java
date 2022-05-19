@@ -32,6 +32,8 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.InputProcessor;
+import com.github.stephengold.lbjexamples.LightColor;
+import com.github.stephengold.lbjexamples.LightDirection;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.RotateMode;
 import com.github.stephengold.lbjexamples.Utils;
@@ -47,7 +49,6 @@ import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
 import java.awt.image.BufferedImage;
-import jme3utilities.math.MyVector3f;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
 import org.lwjgl.glfw.GLFW;
@@ -120,9 +121,9 @@ public class HelloWalk
     public void initialize() {
         super.initialize();
 
-        addLighting();
         configureCamera();
         configureInput();
+        configureLighting();
     }
 
     /**
@@ -211,22 +212,6 @@ public class HelloWalk
     // private methods
 
     /**
-     * Add lighting and set the background color.
-     */
-    private void addLighting() {
-        //       AmbientStrength.set(0.1f);
-
-        Vector4fc directColor = new Vector4f(0.3f, 0.3f, 0.3f, 1f);
-        //      LightColor.set(directColor);
-        Vector3f direction = new Vector3f(-7f, -3f, -5f);
-        MyVector3f.normalizeLocal(direction);
-        //      LightDirection.set(direction);
-
-        // Set the background color to light blue.
-        setBackgroundColor(Constants.SKY_BLUE);
-    }
-
-    /**
      * Add a heightfield body to the PhysicsSpace.
      */
     private void addTerrain() {
@@ -282,5 +267,19 @@ public class HelloWalk
                 super.onKeyboard(keyId, isPressed);
             }
         });
+    }
+
+    /**
+     * Configure lighting and the background color.
+     */
+    private void configureLighting() {
+        Vector4fc directColor = new Vector4f(0.3f, 0.3f, 0.3f, 1f);
+        LightColor.set(directColor);
+
+        Vector3f direction = new Vector3f(7f, 3f, 5f);
+        LightDirection.set(direction);
+
+        // Set the background color to light blue.
+        setBackgroundColor(Constants.SKY_BLUE);
     }
 }
