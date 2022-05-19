@@ -30,6 +30,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
+import com.github.stephengold.lbjexamples.LocalAxisGeometry;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -150,6 +151,12 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         // Customize the debug visualization of each object.
         new RigidBodyShapeGeometry(mallet, "None", "high")
                 .setProgramByName("UnshadedMonochrome");
+
+        float length = 5f;
+        new LocalAxisGeometry(mallet, 0, length);
+        new LocalAxisGeometry(mallet, 1, length);
+        new LocalAxisGeometry(mallet, 2, length);
+
         new RigidBodyShapeGeometry(disc, "None", "high")
                 .setProgramByName("UnshadedMonochrome");
 
