@@ -76,7 +76,7 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSpace.
+     * Create the PhysicsSpace. Invoked once during initialization.
      *
      * @return a new instance
      */
@@ -167,7 +167,8 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Advance the physics simulation by the specified amount.
+     * Advance the physics simulation by the specified amount. Invoked during
+     * each update.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)

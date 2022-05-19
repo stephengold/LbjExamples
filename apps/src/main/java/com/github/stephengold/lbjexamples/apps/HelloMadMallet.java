@@ -72,7 +72,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSpace.
+     * Create the PhysicsSpace. Invoked once during initialization.
      *
      * @return a new instance
      */
@@ -127,7 +127,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(disc);
         disc.setPhysicsLocation(new Vector3f(0f, -3f, 0f));
 
-        // Customize the debug visualization of each object.
+        // visualization
         new RigidBodyShapeGeometry(mallet, "None", "high")
                 .setProgramByName("UnshadedMonochrome");
 
@@ -146,7 +146,8 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Advance the physics simulation by the specified amount.
+     * Advance the physics simulation by the specified amount. Invoked during
+     * each update.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)

@@ -84,7 +84,7 @@ public class HelloKinematics
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSpace.
+     * Create the PhysicsSpace. Invoked once during initialization.
      *
      * @return a new instance
      */
@@ -100,7 +100,7 @@ public class HelloKinematics
     }
 
     /**
-     * Initialize this application.
+     * Populate the PhysicsSpace. Invoked once during initialization.
      */
     @Override
     public void populateSpace() {
@@ -125,7 +125,8 @@ public class HelloKinematics
     }
 
     /**
-     * Advance the physics simulation by the specified amount.
+     * Advance the physics simulation by the specified amount. Invoked during
+     * each update.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
@@ -138,7 +139,7 @@ public class HelloKinematics
     // PhysicsTickListener methods
 
     /**
-     * Callback from Bullet, invoked just before the simulation is stepped.
+     * Callback from Bullet, invoked just before each simulation step.
      *
      * @param ignored the space that is about to be stepped (not null)
      * @param timeStep the time per physics step (in seconds, &ge;0)
@@ -161,10 +162,10 @@ public class HelloKinematics
     }
 
     /**
-     * Callback from Bullet, invoked just after the simulation has been stepped.
+     * Callback from Bullet, invoked just after each simulation step.
      *
-     * @param space ignored
-     * @param timeStep ignored
+     * @param space the space that was just stepped (not null)
+     * @param timeStep the time per step (in seconds, &ge;0)
      */
     @Override
     public void physicsTick(PhysicsSpace space, float timeStep) {

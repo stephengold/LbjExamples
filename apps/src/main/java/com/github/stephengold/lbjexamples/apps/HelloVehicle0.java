@@ -49,6 +49,11 @@ import java.io.File;
  */
 public class HelloVehicle0 {
 
+    /**
+     * Main entry point for the HelloVehicle0 application.
+     *
+     * @param arguments array of command-line arguments (not null)
+     */
     public static void main(String[] args) {
         /*
          * Load a native library from ~/Downloads directory.

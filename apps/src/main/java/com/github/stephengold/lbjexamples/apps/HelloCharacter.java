@@ -82,7 +82,7 @@ public class HelloCharacter
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSpace.
+     * Create the PhysicsSpace. Invoked once during initialization.
      *
      * @return a new instance
      */
@@ -111,7 +111,7 @@ public class HelloCharacter
         float y = -2f;
         PhysicsRigidBody ground = addSquare(halfExtent, y, physicsSpace);
 
-        // Customize the debug visualization of each object.
+        // visualization
         new CharacterShapeGeometry(character, "Smooth", "high")
                 .setColor(Constants.RED);
         new RigidBodyShapeGeometry(ground, "Facet", "low")
@@ -121,7 +121,8 @@ public class HelloCharacter
     }
 
     /**
-     * Advance the physics simulation by the specified amount.
+     * Advance the physics simulation by the specified amount. Invoked during
+     * each update.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
@@ -134,9 +135,9 @@ public class HelloCharacter
     // PhysicsTickListener methods
 
     /**
-     * Callback from Bullet, invoked just before the physics is stepped.
+     * Callback from Bullet, invoked just before each simulation step.
      *
-     * @param space the space that is about to be stepped (not null)
+     * @param space the space that's about to be stepped (not null)
      * @param timeStep the time per physics step (in seconds, &ge;0)
      */
     @Override

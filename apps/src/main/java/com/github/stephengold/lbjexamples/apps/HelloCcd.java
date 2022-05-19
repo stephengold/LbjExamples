@@ -71,7 +71,7 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSpace.
+     * Create the PhysicsSpace. Invoked once during initialization.
      *
      * @return a new instance
      */
@@ -87,7 +87,7 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Initialize this application.
+     * Populate the PhysicsSpace. Invoked once during initialization.
      */
     @Override
     public void populateSpace() {
@@ -125,7 +125,8 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Advance the physics simulation by the specified amount.
+     * Advance the physics simulation by the specified amount. Invoked during
+     * each update.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)

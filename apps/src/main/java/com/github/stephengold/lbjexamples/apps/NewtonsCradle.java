@@ -102,7 +102,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSpace. Invoked during initialization.
+     * Create the PhysicsSpace. Invoked once during initialization.
      *
      * @return a new instance
      */

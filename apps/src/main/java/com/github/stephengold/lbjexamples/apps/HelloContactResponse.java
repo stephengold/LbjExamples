@@ -84,7 +84,7 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSpace.
+     * Create the PhysicsSpace. Invoked once during initialization.
      *
      * @return a new instance
      */
@@ -122,7 +122,15 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         // visualization
         new RigidBodyShapeGeometry(ball, "Sphere", "high");
         new RigidBodyShapeGeometry(box, "Facet", "low");
+    }
 
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Configure keyboard input during startup.
+     */
+    private void configureInput() {
         // user input
         addInputProcessor(new InputProcessor() {
             @Override

@@ -98,7 +98,7 @@ public class HelloWalk
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSpace. Invoked during initialization.
+     * Create the PhysicsSpace. Invoked once during initialization.
      *
      * @return a new instance
      */
@@ -126,7 +126,7 @@ public class HelloWalk
     }
 
     /**
-     * Populate the PhysicsSpace. Invoked during initialization.
+     * Populate the PhysicsSpace. Invoked once during initialization.
      */
     @Override
     public void populateSpace() {
@@ -170,9 +170,9 @@ public class HelloWalk
     // PhysicsTickListener methods
 
     /**
-     * Callback from Bullet, invoked just before the physics is stepped.
+     * Callback from Bullet, invoked just before each physics step.
      *
-     * @param space the space that is about to be stepped (not null)
+     * @param space the space that's about to be stepped (not null)
      * @param timeStep the time per physics step (in seconds, &ge;0)
      */
     @Override
@@ -197,7 +197,7 @@ public class HelloWalk
     }
 
     /**
-     * Callback from Bullet, invoked just after the physics has been stepped.
+     * Callback from Bullet, invoked just after each physics step.
      *
      * @param space the space that was just stepped (not null)
      * @param timeStep the time per physics step (in seconds, &ge;0)
@@ -244,7 +244,7 @@ public class HelloWalk
 
         physicsSpace.addCollisionObject(body);
 
-        // Customize its debug visualization.
+        // visualization
         Vector4fc darkGreen = new Vector4f(0f, 0.3f, 0f, 1f);
         new RigidBodyShapeGeometry(body, "Smooth", null)
                 .setColor(darkGreen)

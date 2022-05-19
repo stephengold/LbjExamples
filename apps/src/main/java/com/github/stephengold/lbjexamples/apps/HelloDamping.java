@@ -69,7 +69,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSpace.
+     * Create the PhysicsSpace. Invoked once during initialization.
      *
      * @return a new instance
      */
@@ -85,7 +85,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Initialize this application.
+     * Populate the PhysicsSpace. Invoked during initialization.
      */
     @Override
     public void populateSpace() {
@@ -111,7 +111,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
         cube[2].setPhysicsLocation(new Vector3f(0f, -2f, 0f));
         cube[3].setPhysicsLocation(new Vector3f(4f, -2f, 0f));
 
-        // Give each cube its own set of damping parameters.
+        // Give each cube its own set of damping parameters (linear, angular).
         cube[0].setDamping(0f, 0f);
         cube[1].setDamping(0f, 0.9f);
         cube[2].setDamping(0.9f, 0f);
@@ -132,7 +132,8 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Advance the physics simulation by the specified amount.
+     * Advance the physics simulation by the specified amount. Invoked during
+     * each update.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
