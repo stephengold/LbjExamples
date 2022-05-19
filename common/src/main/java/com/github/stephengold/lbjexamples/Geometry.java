@@ -387,7 +387,8 @@ public class Geometry {
      */
     void updateAndRender() {
         // mesh-to-world transform uniforms
-        if (program.hasActiveUniform(ShaderProgram.modelRotationMatrixUniformName)) {
+        if (program.hasActiveUniform(
+                ShaderProgram.modelRotationMatrixUniformName)) {
             program.setModelRotationMatrix(this);
         }
         if (program.hasActiveUniform(ShaderProgram.modelMatrixUniformName)) {
