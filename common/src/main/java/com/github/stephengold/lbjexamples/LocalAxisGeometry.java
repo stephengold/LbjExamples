@@ -30,14 +30,12 @@
 package com.github.stephengold.lbjexamples;
 
 import com.jme3.bullet.CollisionSpace;
-import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.bullet.objects.infos.RigidBodyMotionState;
-import com.jme3.math.FastMath;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Transform;
 import jme3utilities.Validate;
+import org.joml.Vector4fc;
 
 /**
  * Visualize one of the local axes of a collision object.
