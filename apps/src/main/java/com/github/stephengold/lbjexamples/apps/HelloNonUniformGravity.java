@@ -124,7 +124,6 @@ public class HelloNonUniformGravity
         // Add axes to indicate the black hole's location.
         new LocalAxisGeometry(null, MyVector3f.xAxis, 1f);
         new LocalAxisGeometry(null, MyVector3f.yAxis, 1f);
-        new LocalAxisGeometry(null, MyVector3f.zAxis, 1f);
     }
 
     /**
