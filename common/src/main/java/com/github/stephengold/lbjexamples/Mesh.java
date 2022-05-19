@@ -31,6 +31,7 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
+import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import com.jme3.util.BufferUtils;
 
@@ -268,7 +269,27 @@ public class Mesh {
         GL30.glBindVertexArray(vaoId);
 
         int startVertex = 0;
-        glDrawArrays(drawMode, startVertex, vertexCount);
+        GL30.glDrawArrays(drawMode, startVertex, vertexCount);
+    }
+
+    /**
+     * Apply the specified transform to all vertices.
+     *
+     * @param transform the transform to apply (not null, unaffected)
+     */
+    public void transform(Transform transform) {
+        assert vaoId == null;
+
+        int numFloats = vertexCount * numAxes;
+        MyBuffer.transform(positions, 0, numFloats, transform);
+
+        if (normals != null) {
+            Transform normalsTransform = transform.clone();
+            normalsTransform.getTranslation().zero();
+            normalsTransform.setScale(1f);
+
+            MyBuffer.transform(normals, 0, numFloats, normalsTransform);
+        }
     }
     // *************************************************************************
     // protected methods
