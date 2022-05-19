@@ -33,6 +33,7 @@ import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.CharacterShapeGeometry;
 import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
+import com.github.stephengold.lbjexamples.RotateMode;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.Box2dShape;
@@ -98,6 +99,7 @@ public class HelloCharacter
     @Override
     public void initialize() {
         super.initialize();
+        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         setBackgroundColor(Constants.SKY_BLUE);
     }
 

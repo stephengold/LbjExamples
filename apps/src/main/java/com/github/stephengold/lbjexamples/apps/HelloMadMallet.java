@@ -33,6 +33,7 @@ import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.LocalAxisGeometry;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
+import com.github.stephengold.lbjexamples.RotateMode;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
@@ -92,6 +93,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
     @Override
     public void initialize() {
         super.initialize();
+        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
 
         // Position the camera for a good view.
         cam.setLocation(new Vector3f(10f, -2.75f, 0f));
