@@ -175,8 +175,18 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
         cleanUpGeometries();
         updateGlobalUniforms();
 
+        // Render the depth-test geometries first.
         for (Geometry geometry : visibleGeometries) {
-            geometry.updateAndRender();
+            if (geometry.isDepthTestEnabled()) {
+                geometry.updateAndRender();
+            }
+        }
+
+        // Render the no-depth-test geometries last.
+        for (Geometry geometry : visibleGeometries) {
+            if (!geometry.isDepthTestEnabled()) {
+                geometry.updateAndRender();
+            }
         }
     }
     // *************************************************************************
