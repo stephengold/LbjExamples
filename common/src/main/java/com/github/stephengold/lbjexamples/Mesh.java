@@ -50,6 +50,7 @@ import org.lwjgl.opengl.GL30;
 /**
  * Encapsulate a vertex array object (VAO), to which vertex buffer objects
  * (VBOs) are attached. The VAO is created lazily, the first time
+ * {@link #enableAttributes()} is invoked.
  */
 public class Mesh {
     // *************************************************************************
@@ -393,9 +394,7 @@ public class Mesh {
             MyBuffer.get(positions, vPosition, tmpVector);
             MyVector3f.normalizeLocal(tmpVector);
 
-            normals.put(tmpVector.x);
-            normals.put(tmpVector.y);
-            normals.put(tmpVector.z);
+            normals.put(tmpVector.x).put(tmpVector.y).put(tmpVector.z);
         }
         normals.flip();
     }
@@ -405,6 +404,7 @@ public class Mesh {
      * distinct vertex position.
      */
     private void smoothNormals() {
+        assert vaoId == null;
         assert normals != null;
 
         Map<Vector3f, Integer> mapPosToDpid = new HashMap<>(vertexCount);
