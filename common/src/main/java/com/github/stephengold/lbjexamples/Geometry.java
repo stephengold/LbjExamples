@@ -38,6 +38,7 @@ import java.nio.FloatBuffer;
 import jme3utilities.Validate;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
+import org.lwjgl.opengl.GL11;
 
 /**
  * A 3-D object rendered by a BaseApplication, including a Mesh, a
@@ -47,6 +48,22 @@ public class Geometry {
     // *************************************************************************
     // fields
 
+    /**
+     * true to enable back-face culling, false to disable it
+     */
+    private boolean cullBack = true;
+    /**
+     * true to enable front-face culling, false to disable it
+     */
+    private boolean cullFront;
+    /**
+     * true to enable depth test, false to disable it
+     */
+    private boolean depthTest = true;
+    /**
+     * true to enable wireframe rendering, false to disable it
+     */
+    private boolean wireframe;
     /**
      * temporary storage used in
      * {@link #writeTransformMatrix(java.nio.FloatBuffer)}
@@ -173,6 +190,53 @@ public class Geometry {
     }
 
     /**
+     * Test whether back-face culling is enabled.
+     *
+     * @return true if enabled, otherwise false
+     */
+    public boolean isBackCullingEnabled() {
+        return cullBack;
+    }
+
+    /**
+     * Test whether front-face culling is enabled.
+     *
+     * @return true if enabled, otherwise false
+     */
+    public boolean isFrontCullingEnabled() {
+        return cullFront;
+    }
+
+    /**
+     * Test whether depth test is enabled.
+     *
+     * @return true if enabled, otherwise false
+     */
+    public boolean isDepthTestEnabled() {
+        return depthTest;
+    }
+
+    /**
+     * Test whether wireframe is enabled.
+     *
+     * @return true if enabled, otherwise false
+     */
+    public boolean isWireframeEnabled() {
+        return wireframe;
+    }
+
+    /**
+     * Enable or disable back-face culling.
+     *
+     * @param newSetting true to enable, false to disable
+     * @return the (modified) current instance (for chaining)
+     */
+    public Geometry setBackCullingEnabled(boolean newSetting) {
+        this.cullBack = newSetting;
+        return this;
+    }
+
+    /**
      * Alter the base color.
      *
      * @param newColor the desired color (in the Linear colorspace, not null)
@@ -181,6 +245,28 @@ public class Geometry {
     public Geometry setColor(Vector4fc newColor) {
         Validate.nonNull(newColor, "new color");
         baseColor.set(newColor);
+        return this;
+    }
+
+    /**
+     * Enable or disable depth test.
+     *
+     * @param newSetting true to enable, false to disable
+     * @return the (modified) current instance (for chaining)
+     */
+    public Geometry setDepthTestEnabled(boolean newSetting) {
+        this.depthTest = newSetting;
+        return this;
+    }
+
+    /**
+     * Enable or disable front-face culling.
+     *
+     * @param newSetting true to enable, false to disable
+     * @return the (modified) current instance (for chaining)
+     */
+    public Geometry setFrontCullingEnabled(boolean newSetting) {
+        this.cullFront = newSetting;
         return this;
     }
 
@@ -285,6 +371,17 @@ public class Geometry {
     }
 
     /**
+     * Enable or disable wireframe.
+     *
+     * @param newSetting true to enable, false to disable
+     * @return the (modified) current instance (for chaining)
+     */
+    public Geometry setWireframeEnabled(boolean newSetting) {
+        this.wireframe = newSetting;
+        return this;
+    }
+
+    /**
      * Update properties and then render this Geometry. Assumes that the
      * program's global uniforms have already been set! Meant to be overridden.
      */
@@ -303,6 +400,31 @@ public class Geometry {
         }
         if (program.hasActiveUniform("SpecularMaterialColor")) {
             program.setUniform("SpecularMaterialColor", specularColor);
+        }
+
+        GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK,
+                wireframe ? GL11.GL_LINE : GL11.GL_FILL);
+
+        if (depthTest) {
+            GL11.glEnable(GL11.GL_DEPTH_TEST);
+        } else {
+            GL11.glDisable(GL11.GL_DEPTH_TEST);
+        }
+
+        if (cullBack && cullFront) {
+            GL11.glEnable(GL11.GL_CULL_FACE);
+            GL11.glCullFace(GL11.GL_FRONT_AND_BACK);
+
+        } else if (cullBack) {
+            GL11.glEnable(GL11.GL_CULL_FACE);
+            GL11.glCullFace(GL11.GL_BACK);
+
+        } else if (cullFront) {
+            GL11.glEnable(GL11.GL_CULL_FACE);
+            GL11.glCullFace(GL11.GL_FRONT);
+
+        } else {
+            GL11.glDisable(GL11.GL_CULL_FACE);
         }
 
         mesh.enableAttributes();
