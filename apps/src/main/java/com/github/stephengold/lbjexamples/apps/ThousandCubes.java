@@ -81,9 +81,9 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Main entry point for the ThousandCubes application.
      *
-     * @param args array of command-line arguments (not null)
+     * @param arguments array of command-line arguments (not null)
      */
-    public static void main(String[] args) {
+    public static void main(String[] arguments) {
         Platform platform = JmeSystem.getPlatform();
         if (platform.getOs() == Platform.Os.MacOS) {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
@@ -154,6 +154,13 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     // *************************************************************************
     // private methods
 
+    /**
+     * Add a dynamic box to the PhysicsSpace, at the specified coordinates.
+     *
+     * @param x the X coordinate
+     * @param y the Y coordinate
+     * @param z the Z coordinate
+     */
     private void addBox(float x, float y, float z) {
         float mass = 10f;
         PhysicsRigidBody box = new PhysicsRigidBody(boxShape, mass);
@@ -192,14 +199,14 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     private void configureInput() {
         addInputProcessor(new InputProcessor() {
             @Override
-            public void onKeyboard(int keyId, boolean isPress) {
+            public void onKeyboard(int keyId, boolean isPressed) {
                 if (keyId == GLFW.GLFW_KEY_E) {
-                    if (isPress) {
+                    if (isPressed) {
                         launchRedBall();
                     }
                     return;
                 }
-                super.onKeyboard(keyId, isPress);
+                super.onKeyboard(keyId, isPressed);
             }
         });
     }
