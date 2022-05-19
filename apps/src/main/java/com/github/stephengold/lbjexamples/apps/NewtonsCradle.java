@@ -87,7 +87,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Main entry point for the NewtonsCradle application.
      *
-     * @param arguments ignored
+     * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         Platform platform = JmeSystem.getPlatform();
@@ -102,7 +102,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     // BasePhysicsApp methods
 
     /**
-     * Create the PhysicsSpace.
+     * Create the PhysicsSpace. Invoked during initialization.
      *
      * @return a new instance
      */
@@ -120,61 +120,25 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
      * Initialize this application.
      */
     @Override
-    public void populateSpace() {
+    public void initialize() {
+        super.initialize();
+
         configureCamera();
+        configureInput();
         setBackgroundColor(Constants.SKY_BLUE);
-        restartSimulation(5);
-
-        addInputProcessor(new InputProcessor() {
-            @Override
-            public void onKeyboard(int keyId, boolean isPressed) {
-                switch (keyId) {
-                    case GLFW.GLFW_KEY_1:
-                    case GLFW.GLFW_KEY_F1:
-                    case GLFW.GLFW_KEY_KP_1:
-                        if (isPressed) {
-                            restartSimulation(1);
-                        }
-                        return;
-
-                    case GLFW.GLFW_KEY_2:
-                    case GLFW.GLFW_KEY_F2:
-                    case GLFW.GLFW_KEY_KP_2:
-                        if (isPressed) {
-                            restartSimulation(2);
-                        }
-                        return;
-
-                    case GLFW.GLFW_KEY_3:
-                    case GLFW.GLFW_KEY_F3:
-                    case GLFW.GLFW_KEY_KP_3:
-                        if (isPressed) {
-                            restartSimulation(3);
-                        }
-                        return;
-
-                    case GLFW.GLFW_KEY_4:
-                    case GLFW.GLFW_KEY_F4:
-                    case GLFW.GLFW_KEY_KP_4:
-                        if (isPressed) {
-                            restartSimulation(4);
-                        }
-                        return;
-
-                    case GLFW.GLFW_KEY_PAUSE:
-                    case GLFW.GLFW_KEY_PERIOD:
-                        if (isPressed) {
-                            togglePause();
-                        }
-                        return;
-                }
-                super.onKeyboard(keyId, isPressed);
-            }
-        });
     }
 
     /**
-     * Advance the physics simulation by the specified amount.
+     * Populate the PhysicsSpace. Invoked during initialization.
+     */
+    @Override
+    public void populateSpace() {
+        restartSimulation(5);
+    }
+
+    /**
+     * Advance the physics simulation by the specified amount. Invoked during
+     * each update.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
@@ -227,7 +191,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Configure the camera during startup.
+     * Configure the Camera and CIP during startup.
      */
     private void configureCamera() {
         CameraInputProcessor cip = getCameraInputProcessor();
@@ -236,9 +200,61 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
 
         setZFar(1_000f);
 
-        cam.setLocation(new Vector3f(72f, 35f, 140f));
-        cam.setUpAngle(-0.2f);
-        cam.setAzimuth(-2f);
+        cam.setLocation(new Vector3f(72f, 35f, 140f))
+                .setAzimuth(-2f)
+                .setUpAngle(-0.2f);
+    }
+
+    /**
+     * Configure keyboard input during startup.
+     */
+    private void configureInput() {
+        addInputProcessor(new InputProcessor() {
+            @Override
+            public void onKeyboard(int keyId, boolean isPressed) {
+                switch (keyId) {
+                    case GLFW.GLFW_KEY_1:
+                    case GLFW.GLFW_KEY_F1:
+                    case GLFW.GLFW_KEY_KP_1:
+                        if (isPressed) {
+                            restartSimulation(1);
+                        }
+                        return;
+
+                    case GLFW.GLFW_KEY_2:
+                    case GLFW.GLFW_KEY_F2:
+                    case GLFW.GLFW_KEY_KP_2:
+                        if (isPressed) {
+                            restartSimulation(2);
+                        }
+                        return;
+
+                    case GLFW.GLFW_KEY_3:
+                    case GLFW.GLFW_KEY_F3:
+                    case GLFW.GLFW_KEY_KP_3:
+                        if (isPressed) {
+                            restartSimulation(3);
+                        }
+                        return;
+
+                    case GLFW.GLFW_KEY_4:
+                    case GLFW.GLFW_KEY_F4:
+                    case GLFW.GLFW_KEY_KP_4:
+                        if (isPressed) {
+                            restartSimulation(4);
+                        }
+                        return;
+
+                    case GLFW.GLFW_KEY_PAUSE:
+                    case GLFW.GLFW_KEY_PERIOD:
+                        if (isPressed) {
+                            togglePause();
+                        }
+                        return;
+                }
+                super.onKeyboard(keyId, isPressed);
+            }
+        });
     }
 
     /**
