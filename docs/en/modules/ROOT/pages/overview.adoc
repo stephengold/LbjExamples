@@ -59,9 +59,9 @@ xref:add.adoc[the tutorials],
 https://stephengold.github.io/Libbulletjme/javadoc/master[the javadoc], and
 https://github.com/stephengold/Libbulletjme[the source code].
 
-For issues that are best handled privately, contact me by e-mail.
-My personal e-mail address appears
-on https://stephengold.github.io/[my homepage] and in the source code.
+For issues that are best handled privately, contact Stephen by e-mail.
+His personal e-mail address appears
+on https://stephengold.github.io/[his homepage] and in the source code.
 
 == Next steps
 
