@@ -29,10 +29,10 @@
 * Projects using Libbulletjme
 ** https://stephengold.github.io/Minie[Minie]
 ** https://dynamx.fr/[DynamX]
+** https://github.com/stephengold/LbjExamples[LbjExamples]
 * Other related projects
 ** https://pybullet.org/wordpress[Bullet]
 ** https://jmonkeyengine.org[JMonkeyEngine]
-** https://github.com/stephengold/LbjExamples[Example apps]
 ** https://github.com/Simsilica/SimMath[SimMath]
 ** https://github.com/kmammou/v-hacd[V-HACD]
 ** https://github.com/stephengold/antora-ui-bundle[Website UI bundle]
