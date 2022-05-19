@@ -30,6 +30,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
+import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.LocalAxisGeometry;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
@@ -141,16 +142,19 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         disc.setPhysicsLocation(new Vector3f(0f, -3f, 0f));
 
         // visualization
-        new RigidBodyShapeGeometry(mallet, "None", "high")
-                .setProgramByName("UnshadedMonochrome");
+        new RigidBodyShapeGeometry(mallet, "Facet", "high")
+                .setColor(Constants.YELLOW);
 
-        float length = 5f;
-        new LocalAxisGeometry(mallet, 0, length);
-        new LocalAxisGeometry(mallet, 1, length);
-        new LocalAxisGeometry(mallet, 2, length);
+        float debugAxisLength = 1f;
+        new LocalAxisGeometry(mallet, 0, debugAxisLength)
+                .setDepthTestEnabled(false);
+        new LocalAxisGeometry(mallet, 1, debugAxisLength)
+                .setDepthTestEnabled(false);
+        new LocalAxisGeometry(mallet, 2, debugAxisLength)
+                .setDepthTestEnabled(false);
 
         new RigidBodyShapeGeometry(disc, "None", "high")
-                .setProgramByName("UnshadedMonochrome");
+                .setColor(Constants.GRAY);
     }
 
     /**
