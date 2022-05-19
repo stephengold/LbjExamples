@@ -125,11 +125,12 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         this.boxShape = new BoxCollisionShape(0.5f);
         this.launchShape = new SphereCollisionShape(0.5f);
 
-        CollisionShape planeShape = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1));
+        CollisionShape planeShape
+                = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1));
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
-        RigidBodyShapeGeometry planeObject = new RigidBodyShapeGeometry(floor);
-        planeObject.setColor(Constants.GRAY);
         physicsSpace.addCollisionObject(floor);
+
+        new RigidBodyShapeGeometry(floor).setColor(Constants.GRAY);
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
