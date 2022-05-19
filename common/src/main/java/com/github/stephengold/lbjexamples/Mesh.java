@@ -51,7 +51,7 @@ import static org.lwjgl.opengl.GL30.*;
 
 /**
  * Encapsulate a vertex array object (VAO), to which vertex buffer objects
- * (VBOs) are attached.
+ * (VBOs) are attached. The VAO is created lazily, the first time
  */
 public class Mesh {
     // *************************************************************************
@@ -276,7 +276,7 @@ public class Mesh {
     /**
      * Set new positions for the vertices.
      *
-     * @param positionsArray the desired vertex positions (not null,
+     * @param positionArray the desired vertex positions (not null,
      * length=3*vertexCount, unaffected)
      */
     protected void setPositions(float... positionArray) {
