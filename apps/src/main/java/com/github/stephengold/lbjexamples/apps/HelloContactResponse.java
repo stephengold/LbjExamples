@@ -99,6 +99,15 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
      * Initialize this application.
      */
     @Override
+    public void initialize() {
+        super.initialize();
+        configureInput();
+    }
+
+    /**
+     * Populate the PhysicsSpace. Invoked during initialization.
+     */
+    @Override
     public void populateSpace() {
         // Add a static box to the space, to serve as a horizontal platform.
         float boxHalfExtent = 3f;
@@ -124,6 +133,17 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         new RigidBodyShapeGeometry(box, "Facet", "low");
     }
 
+    /**
+     * Advance the physics simulation by the specified amount. Invoked during
+     * each update.
+     *
+     * @param intervalSeconds the elapsed (real) time since the previous
+     * invocation of {@code updatePhysics} (in seconds, &ge;0)
+     */
+    @Override
+    public void updatePhysics(float intervalSeconds) {
+        physicsSpace.update(intervalSeconds);
+    }
     // *************************************************************************
     // private methods
 
@@ -148,16 +168,5 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
                 super.onKeyboard(glfwKeyId, isPressed);
             }
         });
-    }
-
-    /**
-     * Advance the physics simulation by the specified amount.
-     *
-     * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    @Override
-    public void updatePhysics(float intervalSeconds) {
-        physicsSpace.update(intervalSeconds);
     }
 }

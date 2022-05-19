@@ -89,6 +89,19 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
      * Initialize this application.
      */
     @Override
+    public void initialize() {
+        super.initialize();
+
+        // Position the camera for a good view.
+        cam.setLocation(new Vector3f(10f, -2.75f, 0f));
+        cam.setUpAngle(0.05f);
+        cam.setAzimuth(-3.05f);
+    }
+
+    /**
+     * Populate the PhysicsSpace. Invoked during initialization.
+     */
+    @Override
     public void populateSpace() {
         // Construct a compound shape for the mallet.
         float headLength = 1f;
@@ -138,11 +151,6 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
 
         new RigidBodyShapeGeometry(disc, "None", "high")
                 .setProgramByName("UnshadedMonochrome");
-
-        // Re-position the camera for a better view.
-        cam.setLocation(new Vector3f(10f, -2.75f, 0f));
-        cam.setUpAngle(0.05f);
-        cam.setAzimuth(-3.05f);
     }
 
     /**

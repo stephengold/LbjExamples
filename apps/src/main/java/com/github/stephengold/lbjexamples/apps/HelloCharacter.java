@@ -96,6 +96,15 @@ public class HelloCharacter
      * Initialize this application.
      */
     @Override
+    public void initialize() {
+        super.initialize();
+        setBackgroundColor(Constants.SKY_BLUE);
+    }
+
+    /**
+     * Populate the PhysicsSpace. Invoked once during initialization.
+     */
+    @Override
     public void populateSpace() {
         // Create a character with a capsule shape and add it to the space.
         float capsuleRadius = 0.5f;
@@ -116,8 +125,6 @@ public class HelloCharacter
                 .setColor(Constants.RED);
         new RigidBodyShapeGeometry(ground, "Facet", "low")
                 .setColor(Constants.GREEN);
-
-        setBackgroundColor(Constants.SKY_BLUE);
     }
 
     /**
