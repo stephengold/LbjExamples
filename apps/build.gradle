@@ -57,6 +57,9 @@ tasks.register('HelloRigidBody', JavaExec) {
 tasks.register('HelloStaticBody', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloStaticBody'
 }
+tasks.register('HelloVehicle', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloVehicle'
+}
 tasks.register('HelloVehicle0', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloVehicle0'
 }
