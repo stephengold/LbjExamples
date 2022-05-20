@@ -30,17 +30,19 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.jme3.bullet.PhysicsSpace;
-import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
+import com.jme3.bullet.collision.shapes.HullCollisionShape;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.objects.PhysicsBody;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.bullet.objects.PhysicsVehicle;
+import com.jme3.math.FastMath;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
 import com.jme3.system.NativeLibraryLoader;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Drive a vehicle on a horizontal surface (non-graphical illustrative example).
@@ -66,60 +68,72 @@ public class HelloVehicle0 {
          * Create a PhysicsSpace using DBVT for broadphase.
          */
         PhysicsSpace.BroadphaseType bPhase = PhysicsSpace.BroadphaseType.DBVT;
-        PhysicsSpace space = new PhysicsSpace(bPhase);
+        PhysicsSpace physicsSpace = new PhysicsSpace(bPhase);
         /*
          * Add a static horizontal plane at y=-1.
          */
-        float planeY = -1f;
+        float planeY = -0.65f;
         Plane plane = new Plane(Vector3f.UNIT_Y, planeY);
         CollisionShape planeShape = new PlaneCollisionShape(plane);
         float mass = PhysicsBody.massForStatic;
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, mass);
-        space.addCollisionObject(floor);
-        /*
-         * Add a vehicle with a boxy chassis.
-         */
-        CompoundCollisionShape chassisShape = new CompoundCollisionShape();
-        BoxCollisionShape box = new BoxCollisionShape(1.2f, 0.5f, 2.4f);
-        chassisShape.addChildShape(box, 0f, 1f, 0f);
-        mass = 400f;
-        PhysicsVehicle vehicle = new PhysicsVehicle(chassisShape, mass);
-        vehicle.setMaxSuspensionForce(9e9f);
-        vehicle.setSuspensionCompression(4f);
-        vehicle.setSuspensionDamping(6f);
-        vehicle.setSuspensionStiffness(50f);
-        /*
-         * Add 4 wheels, 2 in front (for steering) and 2 in back.
-         */
-        Vector3f axleDirection = new Vector3f(-1, 0, 0);
-        Vector3f suspensionDirection = new Vector3f(0, -1, 0);
-        float restLength = 0.3f;
-        float radius = 0.5f;
-        float xOffset = 1f;
-        float yOffset = 0.5f;
-        float zOffset = 2f;
-        vehicle.addWheel(new Vector3f(-xOffset, yOffset, zOffset),
-                suspensionDirection, axleDirection, restLength, radius,
-                true);
-        vehicle.addWheel(new Vector3f(xOffset, yOffset, zOffset),
-                suspensionDirection, axleDirection, restLength, radius,
-                true);
-        vehicle.addWheel(new Vector3f(-xOffset, yOffset, -zOffset),
-                suspensionDirection, axleDirection, restLength, radius,
-                false);
-        vehicle.addWheel(new Vector3f(xOffset, yOffset, -zOffset),
-                suspensionDirection, axleDirection, restLength, radius,
-                false);
+        physicsSpace.addCollisionObject(floor);
 
-        space.addCollisionObject(vehicle);
-        vehicle.accelerate(500f);
+        // Create a wedge-shaped vehicle with a low center of gravity.
+        // The local forward direction is +Z.
+        float noseZ = 1.4f;           // offset from chassis center
+        float spoilerY = 0.5f;        // offset from chassis center
+        float tailZ = -0.7f;          // offset from chassis center
+        float undercarriageY = -0.1f; // offset from chassis center
+        float halfWidth = 0.4f;
+        Collection<Vector3f> cornerLocations = new ArrayList<>(6);
+        cornerLocations.add(new Vector3f(+halfWidth, undercarriageY, noseZ));
+        cornerLocations.add(new Vector3f(-halfWidth, undercarriageY, noseZ));
+        cornerLocations.add(new Vector3f(+halfWidth, undercarriageY, tailZ));
+        cornerLocations.add(new Vector3f(-halfWidth, undercarriageY, tailZ));
+        cornerLocations.add(new Vector3f(+halfWidth, spoilerY, tailZ));
+        cornerLocations.add(new Vector3f(-halfWidth, spoilerY, tailZ));
+        HullCollisionShape wedgeShape
+                = new HullCollisionShape(cornerLocations);
+        mass = 5f;
+        PhysicsVehicle vehicle = new PhysicsVehicle(wedgeShape, mass);
+        vehicle.setSuspensionCompression(6f); // default=0.83
+        vehicle.setSuspensionDamping(7f); // default=0.88
+        vehicle.setSuspensionStiffness(150f); // default=5.88
+
+        // Add 4 wheels, 2 in the front (for steering) and 2 in the rear.
+        boolean front = true;
+        boolean rear = false;
+        float frontAxisZ = 0.7f * noseZ; // offset from chassis center
+        float rearAxisZ = 0.8f * tailZ; // offset from chassis center
+        float radius = 0.3f; // of each tire
+        float restLength = 0.2f; // of the suspension
+        float xOffset = 0.9f * halfWidth;
+        Vector3f axleDirection = new Vector3f(-1f, 0f, 0f);
+        Vector3f suspensionDirection = new Vector3f(0f, -1f, 0f);
+        vehicle.addWheel(new Vector3f(-xOffset, 0f, frontAxisZ),
+                suspensionDirection, axleDirection, restLength, radius, front);
+        vehicle.addWheel(new Vector3f(xOffset, 0f, frontAxisZ),
+                suspensionDirection, axleDirection, restLength, radius, front);
+        vehicle.addWheel(new Vector3f(-xOffset, 0f, rearAxisZ),
+                suspensionDirection, axleDirection, restLength, radius, rear);
+        vehicle.addWheel(new Vector3f(xOffset, 0f, rearAxisZ),
+                suspensionDirection, axleDirection, restLength, radius, rear);
+
+        physicsSpace.addCollisionObject(vehicle);
+
+        // Apply a steering angle of 6 degrees left (to the front wheels).
+        vehicle.steer(FastMath.PI / 30f);
+
+        // Apply a constant acceleration (to the chassis).
+        vehicle.accelerate(1f);
         /*
-         * 150 iterations with a 20-msec timestep
+         * 150 iterations with a 16.7-msec timestep
          */
-        float timeStep = 0.02f;
+        float timeStep = 1 / 60f;
         Vector3f location = new Vector3f();
         for (int i = 0; i < 150; ++i) {
-            space.update(timeStep, 0);
+            physicsSpace.update(timeStep, 0);
             vehicle.getPhysicsLocation(location);
             System.out.println(location);
         }
