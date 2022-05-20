@@ -85,7 +85,7 @@ public class Mesh {
      */
     private final int drawMode;
     /**
-     * number of vertices
+     * number of vertices (based on buffer sizes, unmodified by indexing)
      */
     private final int vertexCount;
     /**
@@ -210,7 +210,113 @@ public class Mesh {
     }
 
     /**
-     * Count how many vertices this Mesh contains.
+     * Count how many line primitives this Mesh contains.
+     *
+     * @return the count (&ge;0)
+     */
+    public int countLines() {
+        int numIndices = vertexCount; // TODO indexing
+        int result;
+        switch (drawMode) {
+            case GL11.GL_LINES:
+                result = numIndices / 2;
+                break;
+
+            case GL11.GL_LINE_LOOP:
+                result = numIndices;
+                break;
+
+            case GL11.GL_LINE_STRIP:
+                result = numIndices - 1;
+                break;
+
+            case GL11.GL_POINTS:
+            case GL11.GL_TRIANGLES:
+            case GL11.GL_TRIANGLE_STRIP:
+            case GL11.GL_TRIANGLE_FAN:
+            case GL11.GL_QUADS:
+            case GL11.GL_QUAD_STRIP:
+            case GL11.GL_POLYGON:
+                result = 0;
+                break;
+
+            default:
+                throw new IllegalStateException("drawMode = " + drawMode);
+        }
+
+        return result;
+    }
+
+    /**
+     * Count how many point primitives this Mesh contains.
+     *
+     * @return the count (&ge;0)
+     */
+    public int countPoints() {
+        int numIndices = vertexCount; // TODO indexing
+        int result;
+        switch (drawMode) {
+            case GL11.GL_POINTS:
+                result = numIndices;
+                break;
+
+            case GL11.GL_LINES:
+            case GL11.GL_LINE_LOOP:
+            case GL11.GL_LINE_STRIP:
+            case GL11.GL_TRIANGLES:
+            case GL11.GL_TRIANGLE_STRIP:
+            case GL11.GL_TRIANGLE_FAN:
+            case GL11.GL_QUADS:
+            case GL11.GL_QUAD_STRIP:
+            case GL11.GL_POLYGON:
+                result = 0;
+                break;
+
+            default:
+                throw new IllegalStateException("drawMode = " + drawMode);
+        }
+
+        return result;
+    }
+
+    /**
+     * Count how many triangle primitives this Mesh contains.
+     *
+     * @return the count (&ge;0)
+     */
+    public int countTriangles() {
+        int numIndices = vertexCount; // TODO indexing
+        int result;
+        switch (drawMode) {
+            case GL11.GL_POINTS:
+            case GL11.GL_LINES:
+            case GL11.GL_LINE_LOOP:
+            case GL11.GL_LINE_STRIP:
+            case GL11.GL_QUADS:
+            case GL11.GL_QUAD_STRIP:
+            case GL11.GL_POLYGON:
+                result = 0;
+                break;
+
+            case GL11.GL_TRIANGLES:
+                result = numIndices / 3;
+                break;
+
+            case GL11.GL_TRIANGLE_STRIP:
+            case GL11.GL_TRIANGLE_FAN:
+                result = numIndices - 2;
+                break;
+
+            default:
+                throw new IllegalStateException("drawMode = " + drawMode);
+        }
+
+        return result;
+    }
+
+    /**
+     * Count how many vertices this Mesh contains, based on buffer sizes,
+     * unmodified by indexing.
      *
      * @return the count (&ge;0)
      */
@@ -291,6 +397,20 @@ public class Mesh {
     }
     // *************************************************************************
     // protected methods
+
+    /**
+     * Create a buffer for putting vertex positions.
+     *
+     * @return a new buffer
+     */
+    protected FloatBuffer createPositionsBuffer() {
+        assert vaoId == null;
+
+        int numFloats = vertexCount * numAxes;
+        this.positions = BufferUtils.createFloatBuffer(numFloats);
+
+        return positions;
+    }
 
     /**
      * Set new positions for the vertices.
