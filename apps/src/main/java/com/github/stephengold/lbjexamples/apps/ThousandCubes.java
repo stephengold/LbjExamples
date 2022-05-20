@@ -34,6 +34,7 @@ import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.CrosshairsMesh;
 import com.github.stephengold.lbjexamples.Geometry;
 import com.github.stephengold.lbjexamples.InputProcessor;
+import com.github.stephengold.lbjexamples.LoopMesh;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.RotateMode;
 import com.jme3.bullet.PhysicsSpace;
@@ -179,7 +180,11 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     private void addCrosshairs() {
         float crossWidth = 0.1f;
         float crossHeight = crossWidth * aspectRatio();
+
         new Geometry(new CrosshairsMesh(crossWidth, crossHeight))
+                .setColor(Constants.YELLOW)
+                .setProgramByName("ScreenSpace");
+        new Geometry(new LoopMesh(32, 0.3f * crossWidth, 0.3f * crossHeight))
                 .setColor(Constants.YELLOW)
                 .setProgramByName("ScreenSpace");
     }
