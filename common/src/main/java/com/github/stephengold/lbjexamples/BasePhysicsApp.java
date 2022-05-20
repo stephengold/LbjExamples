@@ -147,9 +147,13 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
 
     @Override
     public void initialize() {
+        // Load the Libbulletjme native library for this platform.
         String homePath = System.getProperty("user.home");
         File downloadDirectory = new File(homePath, "Downloads");
-        NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Release", "Sp");
+        boolean distFilename = true;
+        boolean success = NativeLibraryLoader.loadLibbulletjme(
+                distFilename, downloadDirectory, "Release", "Sp");
+        assert success;
 
         physicsSpace = createSpace();
         populateSpace();
