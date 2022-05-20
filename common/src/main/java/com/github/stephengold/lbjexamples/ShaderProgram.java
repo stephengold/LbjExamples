@@ -42,7 +42,6 @@ import org.joml.Vector3fc;
 import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL43C;
 import org.lwjgl.system.MemoryStack;
 
 /**
@@ -61,6 +60,15 @@ public class ShaderProgram {
      * name of the uniform for the model-to-world rotation matrix
      */
     final static String modelRotationMatrixUniformName = "modelRotationMatrix";
+    /**
+     * enumerate known non-global uniforms
+     */
+    final private static String[] nonglobalUniformNames = {
+        modelMatrixUniformName,
+        modelRotationMatrixUniformName,
+        "BaseMaterialColor",
+        "SpecularMaterialColor"
+    };
     // *************************************************************************
     // fields
 
@@ -392,18 +400,20 @@ public class ShaderProgram {
      * which ones are global.
      */
     private void collectActiveUniforms() {
-        int count = GL20.glGetProgrami(programId, GL20.GL_ACTIVE_UNIFORMS);
-        for (int i = 0; i < count; ++i) {
-            String name = GL43C.glGetProgramResourceName(
-                    programId, GL43C.GL_UNIFORM, i);
+        for (String name : nonglobalUniformNames) {
             int location = GL20.glGetUniformLocation(programId, name);
-            assert location != -1;
-            uniformLocations.put(name, location);
+            if (location != -1) {
+                uniformLocations.put(name, location);
+            }
+        }
 
-            // Is it a global uniform?
-            GlobalUniform globalUniform = globalUniformMap.get(name);
-            if (globalUniform != null) {
-                globalUniforms.add(globalUniform);
+        for (String name : globalUniformMap.keySet()) {
+            int location = GL20.glGetUniformLocation(programId, name);
+            if (location != -1) {
+                uniformLocations.put(name, location);
+
+                GlobalUniform gu = globalUniformMap.get(name);
+                globalUniforms.add(gu);
             }
         }
     }
