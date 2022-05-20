@@ -89,11 +89,6 @@ public abstract class BaseApplication {
      */
     private static long mainWindowId;
     /**
-     * map variable names to global uniforms
-     */
-    final private static Map<String, GlobalUniform> globalUniformMap
-            = new HashMap<>(16);
-    /**
      * map program names to programs
      */
     final private static Map<String, ShaderProgram> programMap
@@ -134,20 +129,6 @@ public abstract class BaseApplication {
      * Callback invoked after the main update loop terminates.
      */
     public abstract void cleanUp();
-
-    /**
-     * Find the global uniform with the specified name.
-     *
-     * @param variableName the name of the uniform to find (not null, not empty)
-     * @return the pre-existing object, or null if not found
-     */
-    static GlobalUniform findGlobalUniform(String variableName) {
-        assert variableName != null;
-        assert !variableName.isEmpty();
-
-        GlobalUniform result = globalUniformMap.get(variableName);
-        return result;
-    }
 
     /**
      * Return the current camera for rendering.
@@ -310,21 +291,6 @@ public abstract class BaseApplication {
     // private methods
 
     /**
-     * Add a global uniforms to the map during initialization.
-     *
-     * @param list the list of objects to add (not null, unaffected)
-     */
-    private static void addGlobalUniforms(GlobalUniform... list) {
-        for (GlobalUniform uniform : list) {
-            String variableName = uniform.getVariableName();
-            assert !globalUniformMap.containsKey(variableName);
-            assert !globalUniformMap.containsValue(uniform);
-
-            globalUniformMap.put(variableName, uniform);
-        }
-    }
-
-    /**
      * Clean up this class.
      */
     private static void cleanUpBase() {
@@ -455,18 +421,12 @@ public abstract class BaseApplication {
         int GL_FRAMEBUFFER_SRGB_EXT = 0x8DB9;
         GL11.glEnable(GL_FRAMEBUFFER_SRGB_EXT);
 
+        ShaderProgram.initialize();
+
         setBackgroundColor(Constants.DARK_GRAY);
 
         // Create the initial camera at z=10 looking toward the origin.
         this.cam = new Camera(new Vector3f(0f, 0f, 10f), -FastMath.HALF_PI, 0f);
-
-        addGlobalUniforms(
-                new AmbientStrength(),
-                new LightColor(),
-                new LightDirection(),
-                new ProjectionMatrix(),
-                new ViewMatrix()
-        );
 
         cameraInputProcessor = new CameraInputProcessor(mainWindowId);
         addInputProcessor(cameraInputProcessor);

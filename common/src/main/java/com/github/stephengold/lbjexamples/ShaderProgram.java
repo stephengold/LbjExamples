@@ -65,13 +65,18 @@ public class ShaderProgram {
     // fields
 
     /**
-     * collect all active global uniforms
+     * global uniforms that are active in the program object
      */
     final private Collection<GlobalUniform> globalUniforms = new HashSet<>(16);
     /**
      * ID of the program object
      */
     private final int programId;
+    /**
+     * map variable names to global uniforms
+     */
+    final private static Map<String, GlobalUniform> globalUniformMap
+            = new HashMap<>(16);
     /**
      * map active uniform variables to their locations
      */
@@ -180,6 +185,19 @@ public class ShaderProgram {
     boolean hasActiveUniform(String name) {
         boolean result = uniformLocations.containsKey(name);
         return result;
+    }
+
+    /**
+     * Initialize static data before the update loop begins.
+     */
+    static void initialize() {
+        addGlobalUniforms(
+                new AmbientStrength(),
+                new LightColor(),
+                new LightDirection(),
+                new ProjectionMatrix(),
+                new ViewMatrix()
+        );
     }
 
     /**
@@ -355,6 +373,21 @@ public class ShaderProgram {
     // private methods
 
     /**
+     * Add a global uniforms to the map during initialization.
+     *
+     * @param list the list of objects to add (not null, unaffected)
+     */
+    private static void addGlobalUniforms(GlobalUniform... list) {
+        for (GlobalUniform uniform : list) {
+            String variableName = uniform.getVariableName();
+            assert !globalUniformMap.containsKey(variableName);
+            assert !globalUniformMap.containsValue(uniform);
+
+            globalUniformMap.put(variableName, uniform);
+        }
+    }
+
+    /**
      * Enumerate the active uniforms and record their locations. Also determine
      * which ones are global.
      */
@@ -368,8 +401,7 @@ public class ShaderProgram {
             uniformLocations.put(name, location);
 
             // Is it a global uniform?
-            GlobalUniform globalUniform
-                    = BaseApplication.findGlobalUniform(name);
+            GlobalUniform globalUniform = globalUniformMap.get(name);
             if (globalUniform != null) {
                 globalUniforms.add(globalUniform);
             }
