@@ -403,13 +403,13 @@ public abstract class BaseApplication {
         }
 
         glfwDefaultWindowHints();
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-        glfwWindowHint(GLFW_SAMPLES, 8);
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);      // default=GLFW_TRUE
+//        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);    // default=GLFW_TRUE
+        glfwWindowHint(GLFW_SAMPLES, 8);               // default=0
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11.GL_TRUE);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // default=GLFW_OPENGL_ANY_PROFILE
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11.GL_TRUE); // default=GLFW_FALSE
 
         String initialTitle = getClass().getSimpleName();
         mainWindowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight,
