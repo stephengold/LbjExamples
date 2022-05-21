@@ -223,7 +223,8 @@ public class Camera {
      */
     public void rotateLimited(float rightRadians, float upRadians,
             float maxUpAngleRadians) {
-        azimuthRadians += rightRadians; // TODO standardize the angle
+        azimuthRadians += rightRadians;
+        azimuthRadians = MyMath.standardizeAngle(azimuthRadians);
 
         upAngleRadians += upRadians;
         if (upAngleRadians > maxUpAngleRadians) {
@@ -257,7 +258,7 @@ public class Camera {
      * @return the (modified) current instance (for chaining)
      */
     public Camera setAzimuthDegrees(float newAzimuthInDegrees) {
-        setAzimuth((float) Math.toRadians(newAzimuthInDegrees)); // TODO MyMath
+        setAzimuth(MyMath.toRadians(newAzimuthInDegrees));
         return this;
     }
 
@@ -281,7 +282,7 @@ public class Camera {
      */
     public Camera setFovyDegrees(float newFovyInDegrees) {
         Validate.inRange(newFovyInDegrees, "new fovy", Float.MIN_VALUE, 180f);
-        setFovy((float) Math.toRadians(newFovyInDegrees)); // TODO MyMath
+        setFovy(MyMath.toRadians(newFovyInDegrees));
         return this;
     }
 
@@ -354,7 +355,7 @@ public class Camera {
      * @return the (modified) current instance (for chaining)
      */
     public Camera setUpAngleDegrees(float newUpAngleInDegrees) {
-        setUpAngle((float) Math.toRadians(newUpAngleInDegrees)); // TODO MyMath
+        setUpAngle(MyMath.toRadians(newUpAngleInDegrees));
         return this;
     }
 

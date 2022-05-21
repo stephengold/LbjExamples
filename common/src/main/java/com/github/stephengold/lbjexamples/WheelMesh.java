@@ -55,7 +55,7 @@ public class WheelMesh extends Mesh {
         // circle
         int numCircleEdges = numEdges - 3;
         float radius = 1f;
-        float thetaStep = 2f * FastMath.PI / numCircleEdges; // TODO
+        float thetaStep = FastMath.TWO_PI / numCircleEdges;
         for (int edgeIndex = 0; edgeIndex < numCircleEdges; ++edgeIndex) {
             float theta = thetaStep * edgeIndex;
             putPolarYZ(positionBuffer, radius, theta);

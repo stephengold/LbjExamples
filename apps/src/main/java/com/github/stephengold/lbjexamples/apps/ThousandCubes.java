@@ -43,6 +43,7 @@ import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
+import com.jme3.math.FastMath;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
@@ -170,9 +171,9 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         box.setPhysicsLocation(tmpLocation);
         physicsSpace.addCollisionObject(box);
 
-        float red = (float) Math.pow(random.nextDouble(), 2.2); // TODO FastMath
-        float green = (float) Math.pow(random.nextDouble(), 2.2);
-        float blue = (float) Math.pow(random.nextDouble(), 2.2);
+        float red = FastMath.pow(random.nextFloat(), 2.2f);
+        float green = FastMath.pow(random.nextFloat(), 2.2f);
+        float blue = FastMath.pow(random.nextFloat(), 2.2f);
         new RigidBodyShapeGeometry(box, "Facet", "low")
                 .setColor(new Vector4f(red, green, blue, 1));
     }
@@ -225,7 +226,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         missile.setCcdSweptSphereRadius(radius);
 
         float speed = 100f;
-        Vector3f velocity = cam.getDirection().mult(speed, speed, speed); // TODO use mult(float)
+        Vector3f velocity = cam.getDirection().mult(speed);
         missile.setLinearVelocity(velocity);
 
         missile.setPhysicsLocation(cam.getLocation());

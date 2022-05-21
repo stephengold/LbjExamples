@@ -41,10 +41,10 @@ import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.joints.JointEnd;
 import com.jme3.bullet.joints.Point2PointJoint;
 import com.jme3.bullet.objects.PhysicsRigidBody;
-import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
+import jme3utilities.math.MyMath;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
 import org.lwjgl.glfw.GLFW;
@@ -65,10 +65,6 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
      * simulation speed when "paused"
      */
     final private static float PAUSED_SPEED = 1e-9f;
-    /**
-     * square root of 1/2 TODO use MyMath
-     */
-    final private static float ROOT_HALF = FastMath.sqrt(0.5f);
     /**
      * color to visualize the balls
      */
@@ -171,7 +167,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
                 .setColor(BALL_COLOR);
 
         float wireLength = 80f;
-        float yOffset = wireLength * ROOT_HALF;
+        float yOffset = wireLength * MyMath.rootHalf;
 
         Vector3f offset = new Vector3f(0f, yOffset, +yOffset);
         Point2PointJoint joint1 = new Point2PointJoint(result, offset);

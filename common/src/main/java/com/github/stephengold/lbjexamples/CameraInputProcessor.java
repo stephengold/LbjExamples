@@ -33,6 +33,7 @@ import com.jme3.math.Vector3f;
 import java.util.HashSet;
 import java.util.Set;
 import jme3utilities.Validate;
+import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -50,8 +51,7 @@ public class CameraInputProcessor extends InputProcessor {
      * applied. This prevents the camera from looking to straight up or straight
      * down.
      */
-    final private static float maxUpAngleRadians
-            = (float) Math.toRadians(85f); //  TODO MyMath
+    final private static float maxUpAngleRadians = MyMath.toRadians(85f);
     // *************************************************************************
     // fields
 
@@ -219,23 +219,6 @@ public class CameraInputProcessor extends InputProcessor {
     // *************************************************************************
     // private methods
 
-    /**
-     * Accumulate a linear combination of vectors. TODO use MyVector3f
-     *
-     * @param total sum of the scaled inputs so far (not null, modified)
-     * @param input the vector to scale and add (not null, unaffected)
-     * @param scale scale factor to apply to the input
-     */
-    private static void accumulateScaled(Vector3f total, Vector3f input,
-            float scale) {
-        assert Validate.nonNull(total, "total");
-        assert Validate.nonNull(input, "input");
-
-        total.x += input.x * scale;
-        total.y += input.y * scale;
-        total.z += input.z * scale;
-    }
-
     private void activateRotation() {
         savedCursorInputMode = glfwGetInputMode(windowId, GLFW_CURSOR);
         glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -272,9 +255,9 @@ public class CameraInputProcessor extends InputProcessor {
             Vector3f rightDirection = camera.rightDirection(null); // TODO trash
 
             Vector3f sum = new Vector3f(); // TODO trash
-            accumulateScaled(sum, lookDirection, forwardSignal);
-            accumulateScaled(sum, Vector3f.UNIT_Y, upSignal);
-            accumulateScaled(sum, rightDirection, rightSignal);
+            MyVector3f.accumulateScaled(sum, lookDirection, forwardSignal);
+            MyVector3f.accumulateScaled(sum, Vector3f.UNIT_Y, upSignal);
+            MyVector3f.accumulateScaled(sum, rightDirection, rightSignal);
             if (!MyVector3f.isZero(sum)) {
 
                 long nanoseconds = nanoTime - lastMove;

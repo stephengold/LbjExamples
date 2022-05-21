@@ -77,7 +77,7 @@ public class LocalAxisGeometry extends Geometry {
     public LocalAxisGeometry(
             PhysicsCollisionObject pco, int axisIndex, float length) {
         super();
-        Validate.inRange(axisIndex, "axisIndex", 0, 2); // TODO
+        Validate.axisIndex(axisIndex, "axisIndex");
         Validate.nonNegative(length, "length");
 
         this.pco = pco;

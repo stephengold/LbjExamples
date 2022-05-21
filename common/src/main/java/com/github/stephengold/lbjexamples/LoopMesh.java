@@ -85,7 +85,7 @@ public class LoopMesh extends Mesh {
 
         FloatBuffer positionBuffer = createPositionsBuffer();
 
-        float increment = 2f * FastMath.PI / numLines; // TODO
+        float increment = FastMath.TWO_PI / numLines;
         for (int vertexIndex = 0; vertexIndex < numLines; ++vertexIndex) {
             float theta = increment * vertexIndex;
             float x = xRadius * FastMath.cos(theta);

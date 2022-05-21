@@ -29,6 +29,8 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import jme3utilities.Validate;
+
 /**
  * A uniform variable whose value is the same for every Geometry and whose name
  * is the same in every ShaderProgram that uses it.
@@ -52,9 +54,7 @@ abstract class GlobalUniform {
      * @param name the desired name (not null, not empty)
      */
     protected GlobalUniform(String name) {
-        assert name != null; // TODO Validate
-        assert !name.isEmpty();
-
+        Validate.nonEmpty(name, "name");
         this.variableName = name;
     }
     // *************************************************************************
