@@ -109,9 +109,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
             result = meshCache.get(summary);
 
         } else {
-            NormalsOption option = summary.normalsOption();
-            int po = summary.positionsOption();
-            result = new Mesh(shape, option, po);
+            MeshingStrategy strategy = summary.meshingStrategy();
+            result = strategy.applyTo(shape);
             meshCache.put(summary, result);
         }
 

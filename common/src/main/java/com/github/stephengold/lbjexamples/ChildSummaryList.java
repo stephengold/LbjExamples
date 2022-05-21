@@ -61,21 +61,17 @@ class ChildSummaryList {
      * Instantiate a new list.
      *
      * @param array the array of child shapes (not null, unaffected)
-     * @param normalsOption (not null)
-     * @param positionsOption the option for generating positions (0 or 1)
+     * @param strategy how to generate meshes (not null)
      */
-    ChildSummaryList(ChildCollisionShape[] array, NormalsOption normalsOption,
-            int positionsOption) {
-        assert normalsOption != null;
-        assert positionsOption == 0 || positionsOption == 1 : positionsOption;
+    ChildSummaryList(ChildCollisionShape[] array, MeshingStrategy strategy) {
+        assert strategy != null;
 
         int numChildren = array.length;
         summaries = new ChildSummary[numChildren];
 
         for (int childIndex = 0; childIndex < numChildren; ++childIndex) {
             ChildCollisionShape childShape = array[childIndex];
-            summaries[childIndex] = new ChildSummary(
-                    childShape, normalsOption, positionsOption);
+            summaries[childIndex] = new ChildSummary(childShape, strategy);
         }
     }
     // *************************************************************************

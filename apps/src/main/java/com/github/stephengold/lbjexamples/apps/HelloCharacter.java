@@ -123,9 +123,9 @@ public class HelloCharacter
         PhysicsRigidBody ground = addSquare(halfExtent, y, physicsSpace);
 
         // visualization
-        new CharacterShapeGeometry(character, "Smooth", "high")
+        new CharacterShapeGeometry(character, "high,Smooth")
                 .setColor(Constants.RED);
-        new RigidBodyShapeGeometry(ground, "Facet", "low")
+        new RigidBodyShapeGeometry(ground, "low,Facet")
                 .setColor(Constants.GREEN);
     }
 

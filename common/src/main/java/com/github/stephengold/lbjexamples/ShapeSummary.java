@@ -32,7 +32,6 @@ package com.github.stephengold.lbjexamples;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.bullet.collision.shapes.infos.ChildCollisionShape;
-import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.Vector3f;
 import java.util.logging.Logger;
 
@@ -63,17 +62,13 @@ class ShapeSummary {
      */
     final private float margin;
     /**
-     * option for generating vertex positions
-     */
-    final private int positionsOption;
-    /**
-     * object ID of the CollisionShape
+     * native ID of the CollisionShape
      */
     final private long shapeId;
     /**
-     * how to generate normals, if any
+     * strategy for mesh generation
      */
-    final private NormalsOption normalsOption;
+    final private MeshingStrategy meshingStrategy;
     /**
      * scale factors of the CollisionShape
      */
@@ -89,27 +84,22 @@ class ShapeSummary {
      * Instantiate a new summary.
      *
      * @param shape the shape to summarize (not null, unaffected)
-     * @param normalsOption (not null)
-     * @param positionsOption the option for generating positions (0 or 1)
+     * @param strategy how to generate meshes (not null)
      */
-    ShapeSummary(CollisionShape shape, NormalsOption normalsOption,
-            int positionsOption) {
-        assert normalsOption != null;
-        assert positionsOption == 0 || positionsOption == 1 : positionsOption;
+    ShapeSummary(CollisionShape shape, MeshingStrategy strategy) {
+        assert strategy != null;
 
         this.margin = shape.getMargin();
-        this.normalsOption = normalsOption;
+        this.meshingStrategy = strategy;
         this.scale = shape.getScale(null);
         this.shapeId = shape.nativeId();
-        this.positionsOption = shape.isConvex()
-                ? positionsOption : DebugShapeFactory.lowResolution;
 
         if (shape instanceof CompoundCollisionShape) {
             CompoundCollisionShape compoundShape
                     = (CompoundCollisionShape) shape;
             ChildCollisionShape[] ccsArray = compoundShape.listChildren();
-            this.childSummaryList = new ChildSummaryList(
-                    ccsArray, normalsOption, positionsOption);
+            this.childSummaryList
+                    = new ChildSummaryList(ccsArray, meshingStrategy);
         } else {
             this.childSummaryList = null;
         }
@@ -159,17 +149,8 @@ class ShapeSummary {
      *
      * @return the enum value (not null)
      */
-    NormalsOption normalsOption() {
-        return normalsOption;
-    }
-
-    /**
-     * Return the option for generating vertex positions.
-     *
-     * @return the option code (either 0 or 1)
-     */
-    int positionsOption() {
-        return positionsOption;
+    MeshingStrategy meshingStrategy() {
+        return meshingStrategy;
     }
     // *************************************************************************
     // Object methods
@@ -192,8 +173,7 @@ class ShapeSummary {
             result = (shapeId == otherKey.shapeId)
                     && scale.equals(otherKey.scale)
                     && (Float.compare(margin, otherKey.margin) == 0)
-                    && (normalsOption == otherKey.normalsOption)
-                    && (positionsOption == otherKey.positionsOption);
+                    && meshingStrategy.equals(otherKey.meshingStrategy());
             if (result && childSummaryList != null) {
                 result = childSummaryList.equals(otherKey.childSummaryList);
             }
@@ -215,8 +195,7 @@ class ShapeSummary {
         int hash = (int) (shapeId >> 4);
         hash = 7 * hash + scale.hashCode();
         hash = 7 * hash + Float.floatToIntBits(margin);
-        hash = 7 * hash + positionsOption;
-        hash = 7 * hash + normalsOption.ordinal();
+        hash = 7 * hash + meshingStrategy.hashCode();
         if (childSummaryList != null) {
             hash = 7 * hash + childSummaryList.hashCode();
         }

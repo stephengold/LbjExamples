@@ -33,7 +33,6 @@ import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.bullet.objects.infos.RigidBodyMotionState;
-import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.Transform;
 import jme3utilities.Validate;
 import org.joml.Vector4fc;
@@ -66,15 +65,11 @@ public class RigidBodyShapeGeometry extends Geometry {
      * visible.
      *
      * @param rigidBody the body to visualize (not null, alias created)
-     * @param normalsName how to generate mesh normals (either "Facet" or "None"
-     * or "Smooth" or "Sphere")
-     * @param resolutionName mesh resolution for convex shapes (either "high" or
-     * "low" or null)
+     * @param meshingStrategy how to generate meshes (not null)
      */
     public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody,
-            String normalsName, String resolutionName) {
-        this(rigidBody, NormalsOption.valueOf(normalsName),
-                Utils.toPositionsOption(resolutionName));
+            String meshingStrategy) {
+        this(rigidBody, new MeshingStrategy(meshingStrategy));
     }
 
     /**
@@ -84,7 +79,7 @@ public class RigidBodyShapeGeometry extends Geometry {
      * @param rigidBody the body to visualize (not null, alias created)
      */
     public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody) {
-        this(rigidBody, NormalsOption.None, DebugShapeFactory.lowResolution);
+        this(rigidBody, new MeshingStrategy("low"));
     }
 
     /**
@@ -92,22 +87,18 @@ public class RigidBodyShapeGeometry extends Geometry {
      * visible.
      *
      * @param rigidBody the body to visualize (not null, alias created)
-     * @param normalsOption how to generate mesh normals (not null)
-     * @param positionsOption the option for generating vertex positions, either
-     * {@link com.jme3.bullet.util.DebugShapeFactory#lowResolution} (0) or
-     * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
+     * @param meshingStrategy how to generate meshes (not null)
      */
-    public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody,
-            NormalsOption normalsOption, int positionsOption) {
+    RigidBodyShapeGeometry(PhysicsRigidBody rigidBody,
+            MeshingStrategy meshingStrategy) {
         super();
-        Validate.nonNull(rigidBody, "body");
-        Validate.nonNull(normalsOption, "normals option");
-        Validate.inRange(positionsOption, "positions option", 0, 1);
+        Validate.nonNull(rigidBody, "rigid body");
+        Validate.nonNull(meshingStrategy, "meshing strategy");
 
         this.rigidBody = rigidBody;
 
         CollisionShape shape = rigidBody.getCollisionShape();
-        this.summary = new ShapeSummary(shape, normalsOption, positionsOption);
+        this.summary = new ShapeSummary(shape, meshingStrategy);
         Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
 
@@ -177,9 +168,8 @@ public class RigidBodyShapeGeometry extends Geometry {
     private void updateMesh() {
         CollisionShape shape = rigidBody.getCollisionShape();
         if (!summary.matches(shape)) {
-            NormalsOption normalsOption = summary.normalsOption();
-            int positionsOption = summary.positionsOption();
-            summary = new ShapeSummary(shape, normalsOption, positionsOption);
+            MeshingStrategy strategy = summary.meshingStrategy();
+            this.summary = new ShapeSummary(shape, strategy);
             Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
             super.setMesh(mesh);
         }

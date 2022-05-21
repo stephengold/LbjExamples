@@ -105,8 +105,8 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
         statBall.setPhysicsLocation(new Vector3f(0.1f, 0f, 0f));
 
         // visualization
-        new RigidBodyShapeGeometry(dynaBall, "Sphere", "high");
-        new RigidBodyShapeGeometry(statBall, "Sphere", "high");
+        new RigidBodyShapeGeometry(dynaBall, "high,Sphere");
+        new RigidBodyShapeGeometry(statBall, "high,Sphere");
     }
 
     /**

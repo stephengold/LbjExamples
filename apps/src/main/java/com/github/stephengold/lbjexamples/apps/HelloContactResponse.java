@@ -129,8 +129,8 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         ball.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
 
         // visualization
-        new RigidBodyShapeGeometry(ball, "Sphere", "high");
-        new RigidBodyShapeGeometry(box, "Facet", "low");
+        new RigidBodyShapeGeometry(ball, "high,Sphere");
+        new RigidBodyShapeGeometry(box, "low,Facet");
     }
 
     /**

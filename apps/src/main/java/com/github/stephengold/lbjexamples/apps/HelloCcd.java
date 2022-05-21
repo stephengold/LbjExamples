@@ -118,9 +118,9 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(disc);
 
         // visualization
-        new RigidBodyShapeGeometry(ccdBall, "Sphere", "high");
-        new RigidBodyShapeGeometry(controlBall, "Sphere", "high");
-        new RigidBodyShapeGeometry(disc, "None", "high")
+        new RigidBodyShapeGeometry(ccdBall, "high,Sphere");
+        new RigidBodyShapeGeometry(controlBall, "high,Sphere");
+        new RigidBodyShapeGeometry(disc, "high,None")
                 .setProgramByName("UnshadedMonochrome");
     }
 

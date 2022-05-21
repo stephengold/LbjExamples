@@ -124,9 +124,9 @@ public class HelloDeactivation
         physicsSpace.addCollisionObject(bottomBody);
 
         // visualization
-        new RigidBodyShapeGeometry(dynamicCube, "Facet", "low");
-        new RigidBodyShapeGeometry(supportCube, "Facet", "low");
-        new RigidBodyShapeGeometry(bottomBody, "Sphere", "high");
+        new RigidBodyShapeGeometry(dynamicCube, "low,Facet");
+        new RigidBodyShapeGeometry(supportCube, "low,Facet");
+        new RigidBodyShapeGeometry(bottomBody, "high,Sphere");
     }
 
     /**

@@ -32,7 +32,6 @@ package com.github.stephengold.lbjexamples;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.objects.PhysicsCharacter;
-import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.Transform;
 import jme3utilities.Validate;
 import org.joml.Vector4fc;
@@ -67,14 +66,11 @@ public class CharacterShapeGeometry extends Geometry {
      * visible.
      *
      * @param character the character to visualize (not null, alias created)
-     * @param normalsName how to generate mesh normals (either "Facet" or "None"
-     * or "Smooth" or "Sphere")
-     * @param resolutionName mesh resolution (either "high" or "low" or null)
+     * @param meshingStrategy how to generate meshes (not null)
      */
     public CharacterShapeGeometry(PhysicsCharacter character,
-            String normalsName, String resolutionName) {
-        this(character, NormalsOption.valueOf(normalsName),
-                Utils.toPositionsOption(resolutionName));
+            String meshingStrategy) {
+        this(character, new MeshingStrategy(meshingStrategy));
     }
 
     /**
@@ -82,32 +78,18 @@ public class CharacterShapeGeometry extends Geometry {
      * visible.
      *
      * @param character the character to visualize (not null, alias created)
+     * @param meshingStrategy how to generate meshes (not null)
      */
-    public CharacterShapeGeometry(PhysicsCharacter character) {
-        this(character, NormalsOption.None, DebugShapeFactory.lowResolution);
-    }
-
-    /**
-     * Instantiate a Geometry to visualize the specified character and make it
-     * visible.
-     *
-     * @param character the character to visualize (not null, alias created)
-     * @param normalsOption how to generate mesh normals (not null)
-     * @param positionsOption option for generating vertex positions, either
-     * {@link com.jme3.bullet.util.DebugShapeFactory#lowResolution} (0) or
-     * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
-     */
-    public CharacterShapeGeometry(PhysicsCharacter character,
-            NormalsOption normalsOption, int positionsOption) {
+    CharacterShapeGeometry(PhysicsCharacter character,
+            MeshingStrategy meshingStrategy) {
         super();
         Validate.nonNull(character, "character");
-        Validate.nonNull(normalsOption, "normals option");
-        Validate.inRange(positionsOption, "positions option", 0, 1);
+        Validate.nonNull(meshingStrategy, "meshing strategy");
 
         this.character = character;
 
         CollisionShape shape = character.getCollisionShape();
-        this.summary = new ShapeSummary(shape, normalsOption, positionsOption);
+        this.summary = new ShapeSummary(shape, meshingStrategy);
         Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
 
@@ -176,9 +158,8 @@ public class CharacterShapeGeometry extends Geometry {
     private void updateMesh() {
         CollisionShape shape = character.getCollisionShape();
         if (!summary.matches(shape)) {
-            NormalsOption normalsOption = summary.normalsOption();
-            int po = summary.positionsOption();
-            summary = new ShapeSummary(shape, normalsOption, po);
+            MeshingStrategy strategy = summary.meshingStrategy();
+            this.summary = new ShapeSummary(shape, strategy);
             Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
             super.setMesh(mesh);
         }

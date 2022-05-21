@@ -144,7 +144,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         disc.setPhysicsLocation(new Vector3f(0f, -3f, 0f));
 
         // visualization
-        new RigidBodyShapeGeometry(mallet, "Facet", "high")
+        new RigidBodyShapeGeometry(mallet, "high,Facet")
                 .setColor(Constants.YELLOW);
 
         float debugAxisLength = 1f;
@@ -155,7 +155,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         new LocalAxisGeometry(mallet, 2, debugAxisLength)
                 .setDepthTestEnabled(false);
 
-        new RigidBodyShapeGeometry(disc, "None", "high")
+        new RigidBodyShapeGeometry(disc, "high")
                 .setColor(Constants.GRAY);
     }
 

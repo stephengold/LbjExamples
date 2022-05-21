@@ -80,18 +80,15 @@ class ChildSummary {
      * Instantiate a new summary.
      *
      * @param child the child shape to summarize (not null, unaffected)
-     * @param option (not null)
-     * @param positionsOption the option for generating positions (0 or 1)
+     * @param strategy how to generate meshes (not null)
      */
-    ChildSummary(ChildCollisionShape child, NormalsOption option,
-            int positionsOption) {
-        assert option != null;
-        assert positionsOption == 0 || positionsOption == 1 : positionsOption;
+    ChildSummary(ChildCollisionShape child, MeshingStrategy strategy) {
+        assert strategy != null;
 
         child.copyOffset(offset);
         child.copyRotationMatrix(rotationMatrix);
         CollisionShape shape = child.getShape();
-        this.summary = new ShapeSummary(shape, option, positionsOption);
+        this.summary = new ShapeSummary(shape, strategy);
     }
     // *************************************************************************
     // new methods exposed

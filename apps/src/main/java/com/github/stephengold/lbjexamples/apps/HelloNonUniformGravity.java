@@ -119,7 +119,7 @@ public class HelloNonUniformGravity
         planet.applyCentralImpulse(new Vector3f(0f, -1f, 0f));
 
         // visualization
-        new RigidBodyShapeGeometry(planet, "Sphere", "low");
+        new RigidBodyShapeGeometry(planet, "low,Sphere");
 
         // Add axes to indicate the black hole's location.
         new LocalAxisGeometry(null, MyVector3f.xAxis, 1f);
@@ -141,7 +141,7 @@ public class HelloNonUniformGravity
     // PhysicsTickListener methods
 
     /**
-     * Callback from Bullet, invoked just before  each simulation step.
+     * Callback from Bullet, invoked just before each simulation step.
      *
      * @param space the space that's about to be stepped (not null)
      * @param timeStep the time per physics step (in seconds, &ge;0)
