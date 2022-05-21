@@ -11,8 +11,8 @@ ext {
     fs = System.getProperty('file.separator')
     downloadsDir = System.getProperty('user.home') + fs + 'Downloads' + fs
 
-    // the URL from which native physics libraries should be copied:
-    libbulletjmeUrl = 'https://github.com/stephengold/Libbulletjme/releases/download/14.3.0/'
+    // URL from which native physics libraries should be copied:
+    libbulletjmeUrl = "https://github.com/stephengold/Libbulletjme/releases/download/$lbjVersion/"
 }
 
 // tasks to run individual apps:
