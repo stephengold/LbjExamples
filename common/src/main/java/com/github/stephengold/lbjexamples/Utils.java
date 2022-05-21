@@ -29,7 +29,6 @@
  */
 package com.github.stephengold.lbjexamples;
 
-import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.awt.image.BufferedImage;
@@ -146,28 +145,5 @@ public class Utils {
         }
 
         return result;
-    }
-
-    /**
-     * Translate a name to the corresponding option for generating vertex
-     * positions.
-     *
-     * @param resolutionName the name to translate (either "high" or "low" or
-     * null)
-     * @return 0 for "low" or null; 1 for "hi"
-     */
-    public static int toPositionsOption(String resolutionName) {
-        if (resolutionName == null) {
-            return DebugShapeFactory.lowResolution;
-        }
-        switch (resolutionName) {
-            case "high":
-                return DebugShapeFactory.highResolution;
-            case "low":
-                return DebugShapeFactory.lowResolution;
-            default:
-                String message = "resolutionName = " + resolutionName;
-                throw new IllegalArgumentException(message);
-        }
     }
 }

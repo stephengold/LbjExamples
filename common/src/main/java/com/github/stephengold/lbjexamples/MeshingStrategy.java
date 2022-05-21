@@ -30,6 +30,7 @@
 package com.github.stephengold.lbjexamples;
 
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.util.DebugShapeFactory;
 
 /**
  * An algorithm for generating a Mesh from a Collision Shape. Note: immutable.
@@ -184,8 +185,27 @@ class MeshingStrategy {
     private static int parsePositions(String description) {
         String[] items = description.split(",", -1);
         String pString = items[0];
-        int result = Utils.toPositionsOption(pString);
+        int result = toPositions(pString);
 
         return result;
+    }
+
+    /**
+     * Translate a string to the corresponding option for generating vertex
+     * positions.
+     *
+     * @param pString the name to translate (either "high" or "low")
+     * @return 0 for "low"; 1 for "hi"
+     */
+    private static int toPositions(String pString) {
+        switch (pString) {
+            case "high":
+                return DebugShapeFactory.highResolution;
+            case "low":
+                return DebugShapeFactory.lowResolution;
+            default:
+                String message = "pString = " + pString;
+                throw new IllegalArgumentException(message);
+        }
     }
 }
