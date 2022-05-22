@@ -44,6 +44,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11C;
+import org.lwjgl.system.Callback;
 import org.lwjgl.system.MemoryUtil;
 
 /**
@@ -53,6 +54,11 @@ public abstract class BaseApplication {
     // *************************************************************************
     // fields
 
+    /**
+     * print OpenGL debugging information (typically to the console) or null if
+     * not created
+     */
+    private static Callback debugCallback;
     /**
      * current camera for rendering
      */
@@ -342,6 +348,9 @@ public abstract class BaseApplication {
         for (ShaderProgram program : programMap.values()) {
             program.cleanUp();
         }
+        if (debugCallback != null) {
+            debugCallback.free();
+        }
 
         Callbacks.glfwFreeCallbacks(mainWindowId);
         glfwDestroyWindow(mainWindowId);
@@ -419,6 +428,7 @@ public abstract class BaseApplication {
         glfwWindowHint(GLFW_SAMPLES, 8);               // default=0
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+//        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE); // default=GLFW_FALSE
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // default=GLFW_OPENGL_ANY_PROFILE
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11C.GL_TRUE); // default=GLFW_FALSE
 
@@ -455,6 +465,7 @@ public abstract class BaseApplication {
         glfwShowWindow(mainWindowId);
 
         GL.createCapabilities();
+        //debugCallback = GLUtil.setupDebugMessageCallback(); // null if the debug mode isn't available
         GL11C.glEnable(GL11C.GL_DEPTH_TEST);
         /*
          * Encode fragment colors for sRGB
