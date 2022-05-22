@@ -45,21 +45,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     // fields
 
     /**
-     * visible geometries
-     */
-    private static final Collection<Geometry> visibleGeometries
-            = new HashSet<>(256);
-    /**
-     * currently active global uniforms
-     */
-    private static final Collection<GlobalUniform> activeGlobalUniforms
-            = new HashSet<>(16);
-    /**
-     * shader programs that are currently in use
-     */
-    private static final Collection<ShaderProgram> programsInUse
-            = new HashSet<>(16);
-    /**
      * how many times render() has been invoked
      */
     private int renderCount;
@@ -83,17 +68,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      * @return a new instance
      */
     public abstract T createSpace();
-
-    /**
-     * Make the specified Geometry visible.
-     *
-     * @param geometry the Geometry to visualize (not null, unaffected)
-     */
-    static void makeVisible(Geometry geometry) {
-        assert geometry.getMesh() != null;
-        assert geometry.getProgram() != null;
-        visibleGeometries.add(geometry);
-    }
 
     /**
      * Return a Mesh to visualize the summarized CollisionShape.
@@ -176,21 +150,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
         lastPhysicsUpdate = nanoTime;
 
         cleanUpGeometries();
-        updateGlobalUniforms();
-
-        // Render the depth-test geometries first.
-        for (Geometry geometry : visibleGeometries) {
-            if (geometry.isDepthTestEnabled()) {
-                geometry.updateAndRender();
-            }
-        }
-
-        // Render the no-depth-test geometries last.
-        for (Geometry geometry : visibleGeometries) {
-            if (!geometry.isDepthTestEnabled()) {
-                geometry.updateAndRender();
-            }
-        }
+        super.render();
     }
     // *************************************************************************
     // private methods
@@ -208,37 +168,5 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
         }
 
         visibleGeometries.removeAll(geometriesToRemove);
-    }
-
-    /**
-     * Update the global uniform variables of all active programs.
-     */
-    private static void updateGlobalUniforms() {
-        // Update the collection of active programs.
-        programsInUse.clear();
-        for (Geometry geometry : visibleGeometries) {
-            ShaderProgram program = geometry.getProgram();
-            programsInUse.add(program);
-        }
-
-        // Update the collection of active global uniforms.
-        activeGlobalUniforms.clear();
-        for (ShaderProgram program : programsInUse) {
-            Collection<GlobalUniform> uniform = program.listAgus();
-            activeGlobalUniforms.addAll(uniform);
-        }
-
-        // Recalculate the values of the global uniforms.
-        for (GlobalUniform uniform : activeGlobalUniforms) {
-            uniform.updateValue();
-        }
-
-        // Update each program with the latest values.
-        for (ShaderProgram program : programsInUse) {
-            Collection<GlobalUniform> agus = program.listAgus();
-            for (GlobalUniform uniform : agus) {
-                uniform.sendValueTo(program);
-            }
-        }
     }
 }

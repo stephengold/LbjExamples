@@ -31,7 +31,9 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import jme3utilities.Validate;
 import org.joml.Vector2d;
@@ -59,6 +61,21 @@ public abstract class BaseApplication {
      * process user input for the camera
      */
     private static CameraInputProcessor cameraInputProcessor;
+    /**
+     * visible geometries
+     */
+    protected static final Collection<Geometry> visibleGeometries
+            = new HashSet<>(256);
+    /**
+     * currently active global uniforms
+     */
+    private static final Collection<GlobalUniform> activeGlobalUniforms
+            = new HashSet<>(16);
+    /**
+     * shader programs that are currently in use
+     */
+    private static final Collection<ShaderProgram> programsInUse
+            = new HashSet<>(16);
 
     private static float deltaTime;
     private static float lastFrame;
@@ -201,9 +218,37 @@ public abstract class BaseApplication {
     public abstract void initialize();
 
     /**
-     * Callback invoked on during each iteration of the main update loop.
+     * Make the specified Geometry visible.
+     *
+     * @param geometry the Geometry to visualize (not null, unaffected)
      */
-    public abstract void render();
+    static void makeVisible(Geometry geometry) {
+        assert geometry.getMesh() != null;
+        assert geometry.getProgram() != null;
+        visibleGeometries.add(geometry);
+    }
+
+    /**
+     * Callback invoked on during each iteration of the main update loop. Meant
+     * to be overridden.
+     */
+    public void render() {
+        updateGlobalUniforms();
+
+        // Render the depth-test geometries first.
+        for (Geometry geometry : visibleGeometries) {
+            if (geometry.isDepthTestEnabled()) {
+                geometry.updateAndRender();
+            }
+        }
+
+        // Render the no-depth-test geometries last.
+        for (Geometry geometry : visibleGeometries) {
+            if (!geometry.isDepthTestEnabled()) {
+                geometry.updateAndRender();
+            }
+        }
+    }
 
     /**
      * Alter the background color of the displayed window.
@@ -469,5 +514,37 @@ public abstract class BaseApplication {
         glfwPollEvents();
 
         cameraInputProcessor.update();
+    }
+
+    /**
+     * Update the global uniform variables of all active programs.
+     */
+    private static void updateGlobalUniforms() {
+        // Update the collection of active programs.
+        programsInUse.clear();
+        for (Geometry geometry : visibleGeometries) {
+            ShaderProgram program = geometry.getProgram();
+            programsInUse.add(program);
+        }
+
+        // Update the collection of active global uniforms.
+        activeGlobalUniforms.clear();
+        for (ShaderProgram program : programsInUse) {
+            Collection<GlobalUniform> uniform = program.listAgus();
+            activeGlobalUniforms.addAll(uniform);
+        }
+
+        // Recalculate the values of the global uniforms.
+        for (GlobalUniform uniform : activeGlobalUniforms) {
+            uniform.updateValue();
+        }
+
+        // Update each program with the latest values.
+        for (ShaderProgram program : programsInUse) {
+            Collection<GlobalUniform> agus = program.listAgus();
+            for (GlobalUniform uniform : agus) {
+                uniform.sendValueTo(program);
+            }
+        }
     }
 }
