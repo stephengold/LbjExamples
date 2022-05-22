@@ -35,6 +35,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.TreeSet;
 import jme3utilities.Validate;
 import org.joml.Vector2d;
 import org.joml.Vector4fc;
@@ -241,18 +242,19 @@ public abstract class BaseApplication {
     public void render() {
         updateGlobalUniforms();
 
-        // Render the depth-test geometries first.
+        // Render the depth-test geometries and defer the rest.
+        Collection<Geometry> deferredGeometries = new TreeSet<>();
         for (Geometry geometry : visibleGeometries) {
             if (geometry.isDepthTestEnabled()) {
                 geometry.updateAndRender();
+            } else {
+                deferredGeometries.add(geometry);
             }
         }
 
-        // Render the no-depth-test geometries last.
-        for (Geometry geometry : visibleGeometries) {
-            if (!geometry.isDepthTestEnabled()) {
-                geometry.updateAndRender();
-            }
+        // Render the no-depth-test geometries last, in their natural order.
+        for (Geometry geometry : deferredGeometries) {
+            geometry.updateAndRender();
         }
     }
 
