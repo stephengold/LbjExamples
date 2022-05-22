@@ -425,6 +425,20 @@ public class Mesh {
 
         this.positions = BufferUtils.createFloatBuffer(positionArray);
     }
+
+    /**
+     * Set new normals for the vertices.
+     *
+     * @param normalsArray the desired vertex normals (not null,
+     * length=3*vertexCount, unaffected)
+     */
+    protected void setNormals(float... normalsArray) {
+        assert vaoId == null;
+        Validate.require(normalsArray.length == vertexCount * numAxes,
+                "correct length");
+
+        this.normals = BufferUtils.createFloatBuffer(normalsArray);
+    }
     // *************************************************************************
     // private methods
 
