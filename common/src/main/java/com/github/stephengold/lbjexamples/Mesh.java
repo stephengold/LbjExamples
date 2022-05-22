@@ -59,11 +59,11 @@ public class Mesh {
     /**
      * number of axes in a vector
      */
-    private static final int numAxes = 3;
+    protected static final int numAxes = 3;
     /**
      * number of vertices per triangle
      */
-    private static final int vpt = 3;
+    protected static final int vpt = 3;
     // *************************************************************************
     // fields
 
