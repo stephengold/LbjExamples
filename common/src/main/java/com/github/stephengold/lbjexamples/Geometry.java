@@ -93,14 +93,6 @@ public class Geometry {
     // constructors
 
     /**
-     * Instantiate a Geometry with no Mesh and default ShaderProgram. Don't make
-     * it visible.
-     */
-    protected Geometry() {
-        this.program = BasePhysicsApp.getDefaultProgram();
-    }
-
-    /**
      * Instantiate a Geometry with the specified Mesh and default ShaderProgram
      * and make it visible.
      *
@@ -112,6 +104,14 @@ public class Geometry {
 
         this.mesh = mesh;
         BasePhysicsApp.makeVisible(this);
+    }
+
+    /**
+     * Instantiate a Geometry with no Mesh and default ShaderProgram. Don't make
+     * it visible.
+     */
+    protected Geometry() {
+        this.program = BasePhysicsApp.getDefaultProgram();
     }
     // *************************************************************************
     // new methods exposed
@@ -199,21 +199,21 @@ public class Geometry {
     }
 
     /**
-     * Test whether front-face culling is enabled.
-     *
-     * @return true if enabled, otherwise false
-     */
-    public boolean isFrontCullingEnabled() {
-        return cullFront;
-    }
-
-    /**
      * Test whether depth test is enabled.
      *
      * @return true if enabled, otherwise false
      */
     public boolean isDepthTestEnabled() {
         return depthTest;
+    }
+
+    /**
+     * Test whether front-face culling is enabled.
+     *
+     * @return true if enabled, otherwise false
+     */
+    public boolean isFrontCullingEnabled() {
+        return cullFront;
     }
 
     /**
