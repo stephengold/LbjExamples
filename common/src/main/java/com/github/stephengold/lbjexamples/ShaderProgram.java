@@ -64,10 +64,11 @@ public class ShaderProgram {
      * enumerate known non-global uniforms
      */
     final private static String[] nonglobalUniformNames = {
-        modelMatrixUniformName,
-        modelRotationMatrixUniformName,
-        "BaseMaterialColor",
-        "SpecularMaterialColor"
+        modelMatrixUniformName, //         mat4
+        modelRotationMatrixUniformName, // mat3
+        "BaseMaterialColor", //            vec4
+        "ColorMaterialTexture", //         sampler2d
+        "SpecularMaterialColor" //         vec4
     };
     // *************************************************************************
     // fields
@@ -266,6 +267,21 @@ public class ShaderProgram {
 
         use();
         GL20.glUniform1f(location, value);
+    }
+
+    /**
+     * Set the value of an int uniform variable.
+     *
+     * @param uniformName the name of the uniform to specify (not null, not
+     * empty)
+     * @param intValue the desired value
+     */
+    void setUniform(String uniformName, int intValue) {
+        assert uniformName != null;
+        int location = locateUniform(uniformName);
+
+        use();
+        GL20.glUniform1i(location, intValue);
     }
 
     /**
