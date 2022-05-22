@@ -109,7 +109,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     @Override
     public void cleanUp() {
         physicsSpace.destroy();
-        cleanUpGeometries();
 
         for (Mesh mesh : meshCache.values()) {
             mesh.cleanUp();

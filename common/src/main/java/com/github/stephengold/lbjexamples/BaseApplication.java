@@ -345,6 +345,7 @@ public abstract class BaseApplication {
      * Clean up this class.
      */
     private static void cleanUpBase() {
+        visibleGeometries.clear();
         for (ShaderProgram program : programMap.values()) {
             program.cleanUp();
         }
