@@ -168,7 +168,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
          * Advance the physics, but not during the first render().
          */
         long nanoTime = System.nanoTime();
-        if (renderCount > 0) {
+        if (renderCount > 1) {
             long nanoseconds = nanoTime - lastPhysicsUpdate;
             float seconds = 1e-9f * nanoseconds;
             updatePhysics(seconds);
