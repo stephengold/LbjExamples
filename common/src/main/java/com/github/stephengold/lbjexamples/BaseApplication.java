@@ -272,6 +272,15 @@ public abstract class BaseApplication {
     }
 
     /**
+     * Alters the title of the main window.
+     *
+     * @param text the desired text (in UTF-8 encoding)
+     */
+    public static void setWindowTitle(String text) {
+        glfwSetWindowTitle(mainWindowId, text);
+    }
+
+    /**
      * Alter both the near and far clipping planes.
      *
      * @param newZNear (&gt;0, &lt;zFar)
@@ -335,7 +344,8 @@ public abstract class BaseApplication {
             int fps = (int) ((1f / deltaTime) * counter);
             int ms = (int) ((deltaTime / counter) * 1000);
             String title = getClass().getSimpleName() + " FPS : " + fps + " / ms : " + ms;
-            glfwSetWindowTitle(mainWindowId, title);
+            setWindowTitle(title);
+
             lastFrame = currentFrame;
             counter = 0;
         }
