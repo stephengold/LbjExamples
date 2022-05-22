@@ -43,7 +43,7 @@ import static org.lwjgl.glfw.GLFW.*;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL11C;
 import org.lwjgl.system.MemoryUtil;
 
 /**
@@ -260,7 +260,7 @@ public abstract class BaseApplication {
         float green = newColor.y();
         float blue = newColor.z();
         float alpha = newColor.w();
-        GL11.glClearColor(red, green, blue, alpha);
+        GL11C.glClearColor(red, green, blue, alpha);
     }
 
     /**
@@ -420,7 +420,7 @@ public abstract class BaseApplication {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // default=GLFW_OPENGL_ANY_PROFILE
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11.GL_TRUE); // default=GLFW_FALSE
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11C.GL_TRUE); // default=GLFW_FALSE
 
         String initialTitle = getClass().getSimpleName();
         mainWindowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight,
@@ -433,7 +433,7 @@ public abstract class BaseApplication {
         glfwSetFramebufferSizeCallback(mainWindowId, (window, width, height) -> {
             frameBufferWidth = width;
             frameBufferHeight = height;
-            GL11.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+            GL11C.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
         });
 
         // Set up the user input callbacks.
@@ -455,7 +455,7 @@ public abstract class BaseApplication {
         glfwShowWindow(mainWindowId);
 
         GL.createCapabilities();
-        GL11.glEnable(GL11.GL_DEPTH_TEST);
+        GL11C.glEnable(GL11C.GL_DEPTH_TEST);
         /*
          * Encode fragment colors for sRGB
          * before writing them to the framebuffer.
@@ -464,7 +464,7 @@ public abstract class BaseApplication {
          * when fragment colors are generated in the Linear colorspace.
          */
         int GL_FRAMEBUFFER_SRGB_EXT = 0x8DB9;
-        GL11.glEnable(GL_FRAMEBUFFER_SRGB_EXT);
+        GL11C.glEnable(GL_FRAMEBUFFER_SRGB_EXT);
 
         ShaderProgram.initialize();
 
@@ -508,7 +508,7 @@ public abstract class BaseApplication {
     private void updateBase() {
         updateWindowTitle();
 
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        GL11C.glClear(GL11C.GL_COLOR_BUFFER_BIT | GL11C.GL_DEPTH_BUFFER_BIT);
         render();
         glfwSwapBuffers(mainWindowId);
         glfwPollEvents();

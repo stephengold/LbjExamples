@@ -40,8 +40,8 @@ import org.joml.Matrix3fc;
 import org.joml.Matrix4fc;
 import org.joml.Vector3fc;
 import org.joml.Vector4fc;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL11C;
+import org.lwjgl.opengl.GL20C;
 import org.lwjgl.system.MemoryStack;
 
 /**
@@ -106,7 +106,7 @@ public class ShaderProgram {
         assert programName != null;
 
         this.programName = programName;
-        this.programId = GL20.glCreateProgram();
+        this.programId = GL20C.glCreateProgram();
         if (programId == 0) {
             String message = "Couldn't create program:  " + programName;
             throw new RuntimeException(message);
@@ -114,29 +114,29 @@ public class ShaderProgram {
 
         String vertexShaderName = "/Shaders/" + programName + ".vert";
         int vertexShaderId
-                = createShader(vertexShaderName, GL20.GL_VERTEX_SHADER);
+                = createShader(vertexShaderName, GL20C.GL_VERTEX_SHADER);
 
         String fragmentShaderName = "/Shaders/" + programName + ".frag";
         int fragmentShaderId
-                = createShader(fragmentShaderName, GL20.GL_FRAGMENT_SHADER);
+                = createShader(fragmentShaderName, GL20C.GL_FRAGMENT_SHADER);
 
         // Link the program object.
-        GL20.glLinkProgram(programId);
-        int success = GL20.glGetProgrami(programId, GL20.GL_LINK_STATUS);
-        if (success == GL11.GL_FALSE) {
+        GL20C.glLinkProgram(programId);
+        int success = GL20C.glGetProgrami(programId, GL20C.GL_LINK_STATUS);
+        if (success == GL11C.GL_FALSE) {
             throw new RuntimeException("Error linking shader program: "
-                    + GL20.glGetProgramInfoLog(programId, 1024));
+                    + GL20C.glGetProgramInfoLog(programId, 1024));
         }
 
-        GL20.glDetachShader(programId, vertexShaderId);
-        GL20.glDetachShader(programId, fragmentShaderId);
+        GL20C.glDetachShader(programId, vertexShaderId);
+        GL20C.glDetachShader(programId, fragmentShaderId);
 
         // Validate the program object.
-        GL20.glValidateProgram(programId);
-        success = GL20.glGetProgrami(programId, GL20.GL_LINK_STATUS);
-        if (success == GL11.GL_FALSE) {
+        GL20C.glValidateProgram(programId);
+        success = GL20C.glGetProgrami(programId, GL20C.GL_LINK_STATUS);
+        if (success == GL11C.GL_FALSE) {
             throw new RuntimeException("Error validating shader program: "
-                    + GL20.glGetProgramInfoLog(programId, 1024));
+                    + GL20C.glGetProgramInfoLog(programId, 1024));
         }
 
         collectActiveUniforms();
@@ -151,9 +151,9 @@ public class ShaderProgram {
         /*
          * Ensure the program object isn't in use.
          */
-        GL20.glUseProgram(0);
+        GL20C.glUseProgram(0);
 
-        GL20.glDeleteProgram(programId);
+        GL20C.glDeleteProgram(programId);
     }
 
     /**
@@ -232,7 +232,7 @@ public class ShaderProgram {
 
             use();
             boolean transpose = false;
-            GL20.glUniformMatrix4fv(location, transpose, buffer);
+            GL20C.glUniformMatrix4fv(location, transpose, buffer);
         }
     }
 
@@ -250,7 +250,7 @@ public class ShaderProgram {
 
             use();
             boolean transpose = false;
-            GL20.glUniformMatrix3fv(location, transpose, buffer);
+            GL20C.glUniformMatrix3fv(location, transpose, buffer);
         }
     }
 
@@ -266,7 +266,7 @@ public class ShaderProgram {
         int location = locateUniform(uniformName);
 
         use();
-        GL20.glUniform1f(location, value);
+        GL20C.glUniform1f(location, value);
     }
 
     /**
@@ -281,7 +281,7 @@ public class ShaderProgram {
         int location = locateUniform(uniformName);
 
         use();
-        GL20.glUniform1i(location, intValue);
+        GL20C.glUniform1i(location, intValue);
     }
 
     /**
@@ -301,7 +301,7 @@ public class ShaderProgram {
 
             use();
             boolean transpose = false;
-            GL20.glUniformMatrix3fv(location, transpose, buffer);
+            GL20C.glUniformMatrix3fv(location, transpose, buffer);
         }
     }
 
@@ -322,7 +322,7 @@ public class ShaderProgram {
 
             use();
             boolean transpose = false;
-            GL20.glUniformMatrix4fv(location, transpose, buffer);
+            GL20C.glUniformMatrix4fv(location, transpose, buffer);
         }
     }
 
@@ -343,7 +343,7 @@ public class ShaderProgram {
             buffer.flip();
 
             use();
-            GL20.glUniform3fv(location, buffer);
+            GL20C.glUniform3fv(location, buffer);
         }
     }
 
@@ -363,7 +363,7 @@ public class ShaderProgram {
             value.get(buffer);
 
             use();
-            GL20.glUniform3fv(location, buffer);
+            GL20C.glUniform3fv(location, buffer);
         }
     }
 
@@ -383,7 +383,7 @@ public class ShaderProgram {
             value.get(buffer);
 
             use();
-            GL20.glUniform4fv(location, buffer);
+            GL20C.glUniform4fv(location, buffer);
         }
     }
 
@@ -391,7 +391,7 @@ public class ShaderProgram {
      * Make this ShaderProgram the current one for rendering.
      */
     void use() {
-        GL20.glUseProgram(programId);
+        GL20C.glUseProgram(programId);
     }
     // *************************************************************************
     // private methods
@@ -417,14 +417,14 @@ public class ShaderProgram {
      */
     private void collectActiveUniforms() {
         for (String name : nonglobalUniformNames) {
-            int location = GL20.glGetUniformLocation(programId, name);
+            int location = GL20C.glGetUniformLocation(programId, name);
             if (location != -1) {
                 uniformLocations.put(name, location);
             }
         }
 
         for (String name : globalUniformMap.keySet()) {
-            int location = GL20.glGetUniformLocation(programId, name);
+            int location = GL20C.glGetUniformLocation(programId, name);
             if (location != -1) {
                 uniformLocations.put(name, location);
 
@@ -445,23 +445,24 @@ public class ShaderProgram {
     private int createShader(String resourceName, int shaderType) {
         assert resourceName != null;
 
-        int shaderId = GL20.glCreateShader(shaderType);
+        int shaderId = GL20C.glCreateShader(shaderType);
         if (shaderId == 0) {
             throw new RuntimeException(
                     "Error creating shader. type=" + shaderType);
         }
 
         String sourceCode = Utils.loadResource(resourceName);
-        GL20.glShaderSource(shaderId, sourceCode);
-        GL20.glCompileShader(shaderId);
-        int compileStatus = GL20.glGetShaderi(shaderId, GL20.GL_COMPILE_STATUS);
+        GL20C.glShaderSource(shaderId, sourceCode);
+        GL20C.glCompileShader(shaderId);
+        int compileStatus
+                = GL20C.glGetShaderi(shaderId, GL20C.GL_COMPILE_STATUS);
         if (compileStatus == 0) {
-            String log = GL20.glGetShaderInfoLog(shaderId, 1024);
+            String log = GL20C.glGetShaderInfoLog(shaderId, 1024);
             throw new RuntimeException(
                     "Error compiling shader " + resourceName + ": " + log);
         }
 
-        GL20.glAttachShader(programId, shaderId);
+        GL20C.glAttachShader(programId, shaderId);
 
         return shaderId;
     }

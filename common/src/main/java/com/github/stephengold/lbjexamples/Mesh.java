@@ -42,10 +42,10 @@ import java.util.Map;
 import jme3utilities.Validate;
 import jme3utilities.math.MyBuffer;
 import jme3utilities.math.MyVector3f;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL15;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
+import org.lwjgl.opengl.GL11C;
+import org.lwjgl.opengl.GL15C;
+import org.lwjgl.opengl.GL20C;
+import org.lwjgl.opengl.GL30C;
 
 /**
  * Encapsulate a vertex array object (VAO), to which vertex buffer objects
@@ -125,7 +125,7 @@ public class Mesh {
      */
     Mesh(CollisionShape shape, NormalsOption normalsOption,
             int positionsOption) {
-        this.drawMode = GL11.GL_TRIANGLES;
+        this.drawMode = GL11C.GL_TRIANGLES;
         assert normalsOption != null;
         assert positionsOption == 0 || positionsOption == 1 : positionsOption;
 
@@ -197,16 +197,16 @@ public class Mesh {
             return;
         }
 
-        GL30.glBindVertexArray(vaoId);
+        GL30C.glBindVertexArray(vaoId);
         for (int index = 0; index < vboIdList.size(); ++index) {
-            GL20.glDisableVertexAttribArray(index);
+            GL20C.glDisableVertexAttribArray(index);
         }
 
         for (int vboId : vboIdList) {
-            GL15.glDeleteBuffers(vboId);
+            GL15C.glDeleteBuffers(vboId);
         }
 
-        GL30.glDeleteVertexArrays(vaoId);
+        GL30C.glDeleteVertexArrays(vaoId);
     }
 
     /**
@@ -218,25 +218,23 @@ public class Mesh {
         int numIndices = vertexCount; // TODO indexing
         int result;
         switch (drawMode) {
-            case GL11.GL_LINES:
+            case GL11C.GL_LINES:
                 result = numIndices / 2;
                 break;
 
-            case GL11.GL_LINE_LOOP:
+            case GL11C.GL_LINE_LOOP:
                 result = numIndices;
                 break;
 
-            case GL11.GL_LINE_STRIP:
+            case GL11C.GL_LINE_STRIP:
                 result = numIndices - 1;
                 break;
 
-            case GL11.GL_POINTS:
-            case GL11.GL_TRIANGLES:
-            case GL11.GL_TRIANGLE_STRIP:
-            case GL11.GL_TRIANGLE_FAN:
-            case GL11.GL_QUADS:
-            case GL11.GL_QUAD_STRIP:
-            case GL11.GL_POLYGON:
+            case GL11C.GL_POINTS:
+            case GL11C.GL_TRIANGLES:
+            case GL11C.GL_TRIANGLE_STRIP:
+            case GL11C.GL_TRIANGLE_FAN:
+            case GL11C.GL_QUADS:
                 result = 0;
                 break;
 
@@ -256,19 +254,17 @@ public class Mesh {
         int numIndices = vertexCount; // TODO indexing
         int result;
         switch (drawMode) {
-            case GL11.GL_POINTS:
+            case GL11C.GL_POINTS:
                 result = numIndices;
                 break;
 
-            case GL11.GL_LINES:
-            case GL11.GL_LINE_LOOP:
-            case GL11.GL_LINE_STRIP:
-            case GL11.GL_TRIANGLES:
-            case GL11.GL_TRIANGLE_STRIP:
-            case GL11.GL_TRIANGLE_FAN:
-            case GL11.GL_QUADS:
-            case GL11.GL_QUAD_STRIP:
-            case GL11.GL_POLYGON:
+            case GL11C.GL_LINES:
+            case GL11C.GL_LINE_LOOP:
+            case GL11C.GL_LINE_STRIP:
+            case GL11C.GL_TRIANGLES:
+            case GL11C.GL_TRIANGLE_STRIP:
+            case GL11C.GL_TRIANGLE_FAN:
+            case GL11C.GL_QUADS:
                 result = 0;
                 break;
 
@@ -288,22 +284,20 @@ public class Mesh {
         int numIndices = vertexCount; // TODO indexing
         int result;
         switch (drawMode) {
-            case GL11.GL_POINTS:
-            case GL11.GL_LINES:
-            case GL11.GL_LINE_LOOP:
-            case GL11.GL_LINE_STRIP:
-            case GL11.GL_QUADS:
-            case GL11.GL_QUAD_STRIP:
-            case GL11.GL_POLYGON:
+            case GL11C.GL_POINTS:
+            case GL11C.GL_LINES:
+            case GL11C.GL_LINE_LOOP:
+            case GL11C.GL_LINE_STRIP:
+            case GL11C.GL_QUADS:
                 result = 0;
                 break;
 
-            case GL11.GL_TRIANGLES:
+            case GL11C.GL_TRIANGLES:
                 result = numIndices / 3;
                 break;
 
-            case GL11.GL_TRIANGLE_STRIP:
-            case GL11.GL_TRIANGLE_FAN:
+            case GL11C.GL_TRIANGLE_STRIP:
+            case GL11C.GL_TRIANGLE_FAN:
                 result = numIndices - 2;
                 break;
 
@@ -341,8 +335,8 @@ public class Mesh {
      */
     void enableAttributes() {
         if (vaoId == null) {
-            this.vaoId = GL30.glGenVertexArrays();
-            GL30.glBindVertexArray(vaoId);
+            this.vaoId = GL30C.glGenVertexArrays();
+            GL30C.glBindVertexArray(vaoId);
 
             // Create a VBO for each attribute.
             addFloatVbo(positions, numAxes);
@@ -355,7 +349,7 @@ public class Mesh {
 
         } else {
             // Re-use the existing VBOs.
-            GL30.glBindVertexArray(vaoId);
+            GL30C.glBindVertexArray(vaoId);
         }
 
         for (int index = 0; index < vboIdList.size(); ++index) {
@@ -370,10 +364,10 @@ public class Mesh {
      */
     void renderUsing(ShaderProgram program) {
         program.use();
-        GL30.glBindVertexArray(vaoId);
+        GL30C.glBindVertexArray(vaoId);
 
         int startVertex = 0;
-        GL30.glDrawArrays(drawMode, startVertex, vertexCount);
+        GL30C.glDrawArrays(drawMode, startVertex, vertexCount);
     }
 
     /**
@@ -449,15 +443,15 @@ public class Mesh {
      */
     private void addFloatVbo(FloatBuffer data, int fpv) {
         fpvList.add(fpv);
-        int vboId = GL30.glGenBuffers();
+        int vboId = GL30C.glGenBuffers();
         vboIdList.add(vboId);
 
         data.rewind();
         int numFloats = vertexCount * fpv;
         data.limit(numFloats);
 
-        GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, vboId);
-        GL30.glBufferData(GL30.GL_ARRAY_BUFFER, data, GL30.GL_STATIC_DRAW);
+        GL30C.glBindBuffer(GL30C.GL_ARRAY_BUFFER, vboId);
+        GL30C.glBufferData(GL30C.GL_ARRAY_BUFFER, data, GL30C.GL_STATIC_DRAW);
     }
 
     /**
@@ -466,16 +460,16 @@ public class Mesh {
      * @param attributeIndex the index of the vertex attribute to prepare
      */
     private void enableAttribute(int attributeIndex) {
-        GL30.glEnableVertexAttribArray(attributeIndex);
+        GL30C.glEnableVertexAttribArray(attributeIndex);
 
         int vboId = vboIdList.get(attributeIndex);
-        GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, vboId);
+        GL30C.glBindBuffer(GL30C.GL_ARRAY_BUFFER, vboId);
 
         int fpv = fpvList.get(attributeIndex);
         boolean normalized = false;
         int stride = 0; // tightly packed
         int startOffset = 0;
-        GL30.glVertexAttribPointer(attributeIndex, fpv, GL30.GL_FLOAT,
+        GL30C.glVertexAttribPointer(attributeIndex, fpv, GL30C.GL_FLOAT,
                 normalized, stride, startOffset);
     }
 
@@ -484,7 +478,7 @@ public class Mesh {
      * triangles-mode Mesh. Any pre-existing normals are discarded.
      */
     private void makeFaceNormals() {
-        assert drawMode == GL11.GL_TRIANGLES;
+        assert drawMode == GL11C.GL_TRIANGLES;
         int numTriangles = vertexCount / vpt;
         assert vertexCount == vpt * numTriangles;
 

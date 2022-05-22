@@ -30,7 +30,7 @@
 package com.github.stephengold.lbjexamples;
 
 import jme3utilities.Validate;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL11C;
 
 /**
  * A GL_LINES mesh that renders crosshairs in the X-Y plane.
@@ -48,7 +48,7 @@ public class CrosshairsMesh extends Mesh {
      * @param height the length of the Y-axis line (&ge;0)
      */
     public CrosshairsMesh(float width, float height) {
-        super(GL11.GL_LINES, 4);
+        super(GL11C.GL_LINES, 4);
         Validate.positive(width, "width");
         Validate.positive(height, "height");
 

@@ -33,7 +33,7 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Transform;
 import jme3utilities.Validate;
 import jme3utilities.math.MyVector3f;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL11C;
 
 /**
  * A GL_LINES mesh that renders a crude 3-D arrow.
@@ -74,7 +74,7 @@ public class ArrowMesh extends Mesh {
      * @param barbLength the length of each barb (in local units, &ge;0)
      */
     public ArrowMesh(float barbAngle, float barbLength) {
-        super(GL11.GL_LINES, 10);
+        super(GL11C.GL_LINES, 10);
         Validate.inRange(barbAngle, "barb angle", 0, FastMath.PI);
         Validate.nonNegative(barbLength, "barb length");
 

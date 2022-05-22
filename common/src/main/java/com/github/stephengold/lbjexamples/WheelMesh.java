@@ -31,7 +31,7 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.math.FastMath;
 import java.nio.FloatBuffer;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL11C;
 
 /**
  * A GL_LINES mesh that renders a 6-spoke wheel in the Y-Z plane.
@@ -47,7 +47,7 @@ public class WheelMesh extends Mesh {
      * center at (0,0,0).
      */
     public WheelMesh() {
-        super(GL11.GL_LINES, 66);
+        super(GL11C.GL_LINES, 66);
 
         FloatBuffer positionBuffer = super.createPositionsBuffer();
         int numEdges = super.countLines();
@@ -73,7 +73,7 @@ public class WheelMesh extends Mesh {
         positionBuffer.flip();
     }
     // *************************************************************************
-    // constructors
+    // private methods
 
     /**
      * Convert polar coordinates to the Y-Z plane and put them to the specified

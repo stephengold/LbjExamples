@@ -32,7 +32,7 @@ package com.github.stephengold.lbjexamples;
 import com.jme3.math.FastMath;
 import java.nio.FloatBuffer;
 import jme3utilities.Validate;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL11C;
 
 /**
  * A GL_LINELOOP mesh that renders the perimeter of a circle or regular polygon
@@ -78,7 +78,7 @@ public class LoopMesh extends Mesh {
      * @param yRadius the desired radius along the Y axis (in mesh units, &ge;0)
      */
     public LoopMesh(int numLines, float xRadius, float yRadius) {
-        super(GL11.GL_LINE_LOOP, numLines);
+        super(GL11C.GL_LINE_LOOP, numLines);
         Validate.inRange(numLines, "vertex count", 3, Integer.MAX_VALUE);
         Validate.nonNegative(xRadius, "x radius");
         Validate.nonNegative(yRadius, "y radius");

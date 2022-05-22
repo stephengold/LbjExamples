@@ -38,7 +38,7 @@ import java.nio.FloatBuffer;
 import jme3utilities.Validate;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
-import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL11C;
 
 /**
  * A 3-D object rendered by a BaseApplication, including a Mesh, a
@@ -403,29 +403,29 @@ public class Geometry {
             program.setUniform("SpecularMaterialColor", specularColor);
         }
 
-        GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK,
-                wireframe ? GL11.GL_LINE : GL11.GL_FILL);
+        GL11C.glPolygonMode(GL11C.GL_FRONT_AND_BACK,
+                wireframe ? GL11C.GL_LINE : GL11C.GL_FILL);
 
         if (depthTest) {
-            GL11.glEnable(GL11.GL_DEPTH_TEST);
+            GL11C.glEnable(GL11C.GL_DEPTH_TEST);
         } else {
-            GL11.glDisable(GL11.GL_DEPTH_TEST);
+            GL11C.glDisable(GL11C.GL_DEPTH_TEST);
         }
 
         if (cullBack && cullFront) {
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            GL11.glCullFace(GL11.GL_FRONT_AND_BACK);
+            GL11C.glEnable(GL11C.GL_CULL_FACE);
+            GL11C.glCullFace(GL11C.GL_FRONT_AND_BACK);
 
         } else if (cullBack) {
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            GL11.glCullFace(GL11.GL_BACK);
+            GL11C.glEnable(GL11C.GL_CULL_FACE);
+            GL11C.glCullFace(GL11C.GL_BACK);
 
         } else if (cullFront) {
-            GL11.glEnable(GL11.GL_CULL_FACE);
-            GL11.glCullFace(GL11.GL_FRONT);
+            GL11C.glEnable(GL11C.GL_CULL_FACE);
+            GL11C.glCullFace(GL11C.GL_FRONT);
 
         } else {
-            GL11.glDisable(GL11.GL_CULL_FACE);
+            GL11C.glDisable(GL11C.GL_CULL_FACE);
         }
 
         mesh.enableAttributes();
