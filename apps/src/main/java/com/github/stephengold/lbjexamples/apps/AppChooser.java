@@ -67,6 +67,7 @@ public class AppChooser extends JFrame {
         apps.add(new NewtonsCradle());
         apps.add(new RainbowTest());
         apps.add(new ScreenSpaceTest());
+        apps.add(new TextureTest());
         apps.add(new ThousandCubes());
 
         new AppChooser(apps);

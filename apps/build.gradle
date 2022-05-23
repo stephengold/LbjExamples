@@ -75,6 +75,9 @@ tasks.register('RainbowTest', JavaExec) {
 tasks.register('ScreenSpaceTest', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.ScreenSpaceTest'
 }
+tasks.register('TextureTest', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.TextureTest'
+}
 tasks.register('ThousandCubes', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.ThousandCubes'
 }
