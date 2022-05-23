@@ -407,20 +407,6 @@ public class Mesh {
     }
 
     /**
-     * Set new positions for the vertices.
-     *
-     * @param positionArray the desired vertex positions (not null,
-     * length=3*vertexCount, unaffected)
-     */
-    protected void setPositions(float... positionArray) {
-        assert vaoId == null;
-        Validate.require(positionArray.length == vertexCount * numAxes,
-                "correct length");
-
-        this.positions = BufferUtils.createFloatBuffer(positionArray);
-    }
-
-    /**
      * Set new normals for the vertices.
      *
      * @param normalsArray the desired vertex normals (not null,
@@ -432,6 +418,20 @@ public class Mesh {
                 "correct length");
 
         this.normals = BufferUtils.createFloatBuffer(normalsArray);
+    }
+
+    /**
+     * Set new positions for the vertices.
+     *
+     * @param positionArray the desired vertex positions (not null,
+     * length=3*vertexCount, unaffected)
+     */
+    protected void setPositions(float... positionArray) {
+        assert vaoId == null;
+        Validate.require(positionArray.length == vertexCount * numAxes,
+                "correct length");
+
+        this.positions = BufferUtils.createFloatBuffer(positionArray);
     }
     // *************************************************************************
     // private methods
