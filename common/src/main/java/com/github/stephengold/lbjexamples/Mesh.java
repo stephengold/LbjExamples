@@ -294,7 +294,7 @@ public class Mesh {
                 break;
 
             case GL11C.GL_TRIANGLES:
-                result = numIndices / 3;
+                result = numIndices / vpt;
                 break;
 
             case GL11C.GL_TRIANGLE_STRIP:

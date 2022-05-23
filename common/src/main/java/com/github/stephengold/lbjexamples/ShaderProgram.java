@@ -36,6 +36,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import jme3utilities.math.MyVector3f;
 import org.joml.Matrix3fc;
 import org.joml.Matrix4fc;
 import org.joml.Vector3fc;
@@ -338,7 +339,7 @@ public class ShaderProgram {
         int location = locateUniform(uniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
-            FloatBuffer buffer = stack.mallocFloat(3);
+            FloatBuffer buffer = stack.mallocFloat(MyVector3f.numAxes);
             buffer.put(value.x).put(value.y).put(value.z);
             buffer.flip();
 
