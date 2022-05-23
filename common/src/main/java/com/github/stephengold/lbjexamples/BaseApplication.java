@@ -272,7 +272,7 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Alters the title of the main window.
+     * Alter the title of the main window.
      *
      * @param text the desired text (in UTF-8 encoding)
      */
@@ -443,7 +443,7 @@ public abstract class BaseApplication {
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 //        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE); // default=GLFW_FALSE
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // default=GLFW_OPENGL_ANY_PROFILE
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11C.GL_TRUE); // default=GLFW_FALSE
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11C.GL_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to make macOS happy)
 
         String initialTitle = getClass().getSimpleName();
         mainWindowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight,

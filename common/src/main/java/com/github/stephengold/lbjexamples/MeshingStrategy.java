@@ -169,6 +169,12 @@ class MeshingStrategy {
     // *************************************************************************
     // private methods
 
+    /**
+     * Parse a NormalsOption from the 2nd item in the specified description.
+     *
+     * @param description list of items separated by commas (not null)
+     * @return
+     */
     private static NormalsOption parseNormals(String description) {
         String[] items = description.split(",", -1);
         NormalsOption result;
@@ -182,6 +188,13 @@ class MeshingStrategy {
         return result;
     }
 
+    /**
+     * Parse a positions option from the first item in the specified
+     * description.
+     *
+     * @param description list of items separated by commas (not null)
+     * @return
+     */
     private static int parsePositions(String description) {
         String[] items = description.split(",", -1);
         String pString = items[0];

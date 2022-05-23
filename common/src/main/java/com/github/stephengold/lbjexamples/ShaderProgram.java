@@ -45,8 +45,8 @@ import org.lwjgl.opengl.GL20C;
 import org.lwjgl.system.MemoryStack;
 
 /**
- * Encapsulate a program object to which a vertex shader and a fragment shader
- * are attached.
+ * Encapsulate a GLSL program object to which a vertex shader and a fragment
+ * shader are attached.
  */
 public class ShaderProgram {
     // *************************************************************************
@@ -412,7 +412,7 @@ public class ShaderProgram {
     }
 
     /**
-     * Enumerate the active uniforms and record their locations. Also determine
+     * Enumerate the active uniforms, record their locations, and determine
      * which ones are global.
      */
     private void collectActiveUniforms() {

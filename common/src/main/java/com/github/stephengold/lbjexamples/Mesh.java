@@ -89,7 +89,8 @@ public class Mesh {
      */
     private final int vertexCount;
     /**
-     * ID of the VAO, or null if it hasn't been created yet
+     * OpenGL name of the VAO (for binding or deleting) or null if it hasn't
+     * been generated yet TODO rename
      */
     private Integer vaoId;
     /**
@@ -395,7 +396,7 @@ public class Mesh {
     /**
      * Create a buffer for putting vertex positions.
      *
-     * @return a new buffer
+     * @return a new direct buffer with a capacity of 3 * vertexCount floats
      */
     protected FloatBuffer createPositionsBuffer() {
         assert vaoId == null;
