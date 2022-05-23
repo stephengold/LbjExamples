@@ -42,6 +42,7 @@ import java.util.Map;
 import jme3utilities.Validate;
 import jme3utilities.math.MyBuffer;
 import jme3utilities.math.MyVector3f;
+import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL15C;
 import org.lwjgl.opengl.GL20C;
@@ -365,6 +366,41 @@ public class Mesh {
     }
 
     /**
+     * Generate texture coordinates using the specified strategy and
+     * coefficients.
+     *
+     * @param uvs the strategy to use (Linear)
+     * @param uCoefficients the coefficients for generating the first (U)
+     * texture coordinate (not null)
+     * @param vCoefficients the coefficients for generating the 2nd (V) texture
+     * coordinate (not null)
+     */
+    public void generateUvs(UvsOption option, Vector4fc uCoefficients,
+            Vector4fc vCoefficients) {
+        createUvs();
+
+        Vector3f tmpVector = new Vector3f();
+        for (int vertIndex = 0; vertIndex < vertexCount; ++vertIndex) {
+            int inPosition = vertIndex * numAxes;
+            MyBuffer.get(positions, inPosition, tmpVector);
+            switch (option) {
+                case Linear:
+                    break;
+                default:
+                    throw new IllegalArgumentException("option = " + option);
+            }
+
+            float u = uCoefficients.dot(
+                    tmpVector.x, tmpVector.y, tmpVector.z, 1f);
+            float v = vCoefficients.dot(
+                    tmpVector.x, tmpVector.y, tmpVector.z, 1f);
+            textureCoordinates.put(u).put(v);
+        }
+        textureCoordinates.flip();
+        assert textureCoordinates.limit() == textureCoordinates.capacity();
+    }
+
+    /**
      * Render using the specified ShaderProgram.
      *
      * @param program the program to use (not null)
@@ -412,6 +448,20 @@ public class Mesh {
         this.positions = BufferUtils.createFloatBuffer(numFloats);
 
         return positions;
+    }
+
+    /**
+     * Create a buffer for putting vertex texture coordinates.
+     *
+     * @return a new direct buffer with a capacity of 2 * vertexCount floats
+     */
+    protected FloatBuffer createUvs() {
+        assert vaoId == null;
+
+        int numFloats = 2 * vertexCount;
+        this.textureCoordinates = BufferUtils.createFloatBuffer(numFloats);
+
+        return textureCoordinates;
     }
 
     /**
