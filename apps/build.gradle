@@ -69,6 +69,9 @@ tasks.register('HelloWalk', JavaExec) {
 tasks.register('NewtonsCradle', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.NewtonsCradle'
 }
+tasks.register('RainbowTest', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.RainbowTest'
+}
 tasks.register('ScreenSpaceTest', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.ScreenSpaceTest'
 }
