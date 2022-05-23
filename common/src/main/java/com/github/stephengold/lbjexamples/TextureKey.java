@@ -1,0 +1,462 @@
+/*
+ Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ All rights reserved.
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+ 3. Neither the name of the copyright holder nor the names of its
+    contributors may be used to endorse or promote products derived from
+    this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package com.github.stephengold.lbjexamples;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.ByteBuffer;
+import javax.imageio.ImageIO;
+import jme3utilities.MyString;
+import jme3utilities.Validate;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11C;
+import org.lwjgl.opengl.GL13C;
+import org.lwjgl.opengl.GL14C;
+
+/**
+ * Used to load and cache textures. Note: immutable.
+ *
+ * @author Stephen Gold sgold@sonic.net
+ */
+public class TextureKey {
+    // *************************************************************************
+    // fields
+
+    /**
+     * true to generate mipmaps, false to skip generating them
+     */
+    private boolean mipmaps;
+    private static boolean mipmapsDefault = true;
+    /**
+     * maximum degree of anisotropic filtering
+     */
+    private float maxAniso;
+    private static float maxAnisoDefault = 1f;
+    /**
+     * filter to use when magnifying
+     */
+    private int magFilter;
+    private static int magFilterDefault = GL11C.GL_LINEAR;
+    /**
+     * filter to use when minifying
+     */
+    private int minFilter;
+    private static int minFilterDefault = GL11C.GL_NEAREST_MIPMAP_LINEAR;
+    /**
+     * wrap function code for the first (U) texture coordinate
+     */
+    private int wrapU;
+    private static int wrapUDefault = GL11C.GL_REPEAT;
+    /**
+     * wrap function code for the 2nd (V) texture coordinate
+     */
+    private int wrapV;
+    private static int wrapVDefault = GL11C.GL_REPEAT;
+    /**
+     * URI used to load image data
+     */
+    private URI uri;
+    // *************************************************************************
+    // constructors
+
+    /**
+     * Instantiate a key with the specified URI.
+     *
+     * @param uriString unparsed URI to load/generate image data (not null, not
+     * empty)
+     */
+    public TextureKey(String uriString) {
+        this(uriString, magFilterDefault, minFilterDefault,
+                wrapUDefault, wrapVDefault, mipmapsDefault, maxAnisoDefault);
+    }
+
+    /**
+     * Instantiate a custom key.
+     *
+     * @param uriString unparsed URI to load/generate image data (not null, not
+     * empty)
+     * @param magFilter filter to use when magnifying
+     * @param minFilter filter to use when minifying
+     * @param wrapU wrap function for the first (U) texture coordinate
+     * @param wrapV wrap function for the 2nd (V) texture coordinate
+     * @param mipmaps true to generate mipmaps, false to skip
+     * @param maxAniso the maximum degree of anisotropic filtering (&ge;1)
+     */
+    public TextureKey(String uriString, int magFilter, int minFilter, int wrapU,
+            int wrapV, boolean mipmaps, float maxAniso) {
+        Validate.nonEmpty(uriString, "path");
+        validateMagFilter(magFilter);
+        validateMinFilter(minFilter);
+        validateWrap(wrapU);
+        validateWrap(wrapV);
+        Validate.inRange(maxAniso, "max anisotropy", 1f, Float.MAX_VALUE);
+
+        // It's better to report URI errors now than during load()!
+        validateUriString(uriString);
+
+        try {
+            this.uri = new URI(uriString);
+        } catch (URISyntaxException exception) {
+            throw new RuntimeException(uriString); // shouldn't occur
+        }
+
+        this.magFilter = magFilter;
+        this.minFilter = minFilter;
+        this.wrapU = wrapU;
+        this.wrapV = wrapV;
+        this.mipmaps = mipmaps;
+        this.maxAniso = maxAniso;
+    }
+    // *************************************************************************
+    // new methods exposed
+
+    /**
+     * Load the Texture for this key.
+     *
+     * @return a new instance
+     */
+    Texture load() {
+        Texture result;
+
+        String scheme = uri.getScheme();
+        InputStream stream;
+        if (scheme.equals("classpath")) {
+            String path = uri.getPath();
+            stream = BaseApplication.class.getResourceAsStream(path);
+
+        } else { // The URI must also be a URL.
+            URL url;
+            try {
+                url = uri.toURL();
+            } catch (MalformedURLException exception) {
+                throw new RuntimeException(exception);
+            }
+            try {
+                stream = url.openStream();
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
+            }
+        }
+
+        try {
+            result = textureFromStream(stream);
+        } catch (IOException exception) {
+            String q = MyString.quote(uri.toString());
+            String message = "URI = " + q + System.lineSeparator() + exception;
+            throw new RuntimeException(message, exception);
+        }
+        return result;
+    }
+
+    /**
+     * Return the filter to use when magnifying.
+     *
+     * @return
+     */
+    public int magFilter() {
+        return magFilter;
+    }
+
+    /**
+     * Return the maximum degree of anisotropic filtering.
+     *
+     * @return
+     */
+    public float maxAniso() {
+        return maxAniso;
+    }
+
+    /**
+     * Return filter to use when minifying.
+     *
+     * @return the filter code
+     */
+    public int minFilter() {
+        return minFilter;
+    }
+
+    /**
+     * Test whether mipmaps should be generated.
+     *
+     * @return true to generate them, otherwise false
+     */
+    public boolean mipmaps() {
+        return mipmaps;
+    }
+
+    public static void setDefaultMagFilter(int filter) {
+        validateMagFilter(filter);
+        magFilterDefault = filter;
+    }
+
+    public static void setDefaultMaxAniso(float degree) {
+        Validate.inRange(degree, "degree", 1f, Float.MAX_VALUE);
+        maxAnisoDefault = degree;
+    }
+
+    public static void setDefaultMinFilter(int filter) {
+        validateMinFilter(filter);
+        minFilterDefault = filter;
+    }
+
+    public static void setDefaultMipmaps(boolean enable) {
+        mipmapsDefault = enable;
+    }
+
+    public static void setDefaultWrapU(int functionCode) {
+        validateWrap(functionCode);
+        wrapUDefault = functionCode;
+    }
+
+    public static void setDefaultWrapV(int functionCode) {
+        validateWrap(functionCode);
+        wrapVDefault = functionCode;
+    }
+
+    /**
+     * Return the wrap function for the 1st (U) texture coordinate.
+     *
+     * @return the function code
+     */
+    public int wrapU() {
+        return wrapU;
+    }
+
+    /**
+     * Return the wrap function for the 2nd (V) texture coordinate.
+     *
+     * @return the function code
+     */
+    public int wrapV() {
+        return wrapV;
+    }
+    // *************************************************************************
+    // Object methods
+
+    /**
+     * Test for equivalence with another Object.
+     *
+     * @param otherObject the object to compare to (may be null, unaffected)
+     * @return true if the objects are equivalent, otherwise false
+     */
+    @Override
+    public boolean equals(Object otherObject) {
+        boolean result;
+        if (otherObject == this) {
+            result = true;
+
+        } else if (otherObject != null
+                && otherObject.getClass() == getClass()) {
+            TextureKey otherKey = (TextureKey) otherObject;
+            result = uri.equals(otherKey.uri)
+                    && mipmaps == otherKey.mipmaps
+                    && Float.compare(maxAniso, otherKey.maxAniso) == 0
+                    && magFilter == otherKey.magFilter
+                    && minFilter == otherKey.minFilter
+                    && wrapU == otherKey.wrapU
+                    && wrapV == otherKey.wrapV;
+
+        } else {
+            result = false;
+        }
+
+        return result;
+    }
+
+    /**
+     * Generate the hash code for this key.
+     *
+     * @return a 32-bit value for use in hashing
+     */
+    @Override
+    public int hashCode() {
+        int hash = uri.hashCode();
+        hash = 707 * hash + (mipmaps ? 1 : 0);
+        hash = 707 * hash + Float.hashCode(maxAniso);
+        hash = 707 * hash + magFilter;
+        hash = 707 * hash + minFilter;
+        hash = 707 * hash + wrapU;
+        hash = 707 * hash + wrapV;
+
+        return hash;
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Load image data from the specified stream and create a Texture from it.
+     *
+     * @param stream the input stream (not null)
+     * @return a new instance
+     *
+     * @throws IOException from the stream
+     */
+    private Texture textureFromStream(InputStream stream) throws IOException {
+        ImageIO.setUseCache(false);
+        BufferedImage image = ImageIO.read(stream);
+
+        int width = image.getWidth();
+        int height = image.getHeight();
+        int bytesPerTexel = 4;
+        int numBytes = width * height * bytesPerTexel;
+        ByteBuffer data = BufferUtils.createByteBuffer(numBytes);
+
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                int color = image.getRGB(x, y);
+                byte a = (byte) (color >> 24);
+                byte b = (byte) (color >> 16);
+                byte g = (byte) (color >> 8);
+                byte r = (byte) color;
+                data.put(r).put(g).put(b).put(a);
+            }
+        }
+        data.flip();
+        assert data.limit() == data.capacity();
+
+        Texture result = new Texture(this, width, height, data);
+
+        return result;
+    }
+
+    /**
+     * Verify that the argument is a valid OpenGL magnification filter code.
+     *
+     * @param filter the value to test
+     */
+    private static void validateMagFilter(int filter) {
+        switch (filter) {
+            case GL11C.GL_NEAREST:
+            case GL11C.GL_LINEAR:
+                return;
+
+            default:
+                throw new IllegalArgumentException("filter = " + filter);
+        }
+    }
+
+    /**
+     * Verify that the argument is a valid OpenGL minification filter code.
+     *
+     * @param filter the value to test
+     */
+    private static void validateMinFilter(int filter) {
+        switch (filter) {
+            case GL11C.GL_NEAREST:
+            case GL11C.GL_LINEAR:
+            case GL11C.GL_NEAREST_MIPMAP_NEAREST:
+            case GL11C.GL_LINEAR_MIPMAP_NEAREST:
+            case GL11C.GL_NEAREST_MIPMAP_LINEAR:
+            case GL11C.GL_LINEAR_MIPMAP_LINEAR:
+                return;
+
+            default:
+                throw new IllegalArgumentException("filter = " + filter);
+        }
+    }
+
+    /**
+     * Verify that the argument is a valid URI for streaming data.
+     *
+     * @param uriString the string to test (not null)
+     */
+    private static void validateUriString(String uriString) {
+        URI uri;
+        try {
+            uri = new URI(uriString);
+        } catch (URISyntaxException exception) {
+            String message = System.lineSeparator()
+                    + " uriString = " + MyString.quote(uriString);
+            throw new IllegalArgumentException(message, exception);
+        }
+
+        String scheme = uri.getScheme();
+        if (scheme.equals("classpath")) {
+            String path = uri.getPath();
+            if (path == null) {
+                String message = "no path in " + MyString.quote(uriString);
+                throw new IllegalArgumentException(message);
+            }
+
+            InputStream stream = TextureKey.class.getResourceAsStream(path);
+            if (stream == null) {
+                String message = "resource not found:  " + MyString.quote(path);
+                throw new IllegalArgumentException(message);
+            }
+            try {
+                stream.close();
+            } catch (IOException exception) {
+                // do nothing
+            }
+
+        } else {
+            URL url;
+            try {
+                url = uri.toURL();
+            } catch (MalformedURLException exception) {
+                String message = System.lineSeparator()
+                        + " uriString = " + MyString.quote(uriString);
+                throw new IllegalArgumentException(message, exception);
+            }
+
+            InputStream stream;
+            try {
+                stream = url.openStream();
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
+            }
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException exception) {
+                    // do nothing
+                }
+            }
+        }
+    }
+
+    private static void validateWrap(int wrap) {
+        switch (wrap) {
+            case GL13C.GL_CLAMP_TO_EDGE:
+            case GL13C.GL_CLAMP_TO_BORDER:
+            case GL14C.GL_MIRRORED_REPEAT:
+            case GL11C.GL_REPEAT:
+                return;
+
+            default:
+                throw new IllegalArgumentException("wrap = " + wrap);
+        }
+    }
+}

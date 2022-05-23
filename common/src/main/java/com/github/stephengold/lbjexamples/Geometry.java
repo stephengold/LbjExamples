@@ -78,6 +78,10 @@ public class Geometry {
      */
     private ShaderProgram program;
     /**
+     * color material texture
+     */
+    private Texture texture;
+    /**
      * mesh-to-world coordinate transform
      */
     final private Transform meshToWorld = new Transform();
@@ -371,6 +375,17 @@ public class Geometry {
     }
 
     /**
+     * Alter the texture.
+     *
+     * @param textureKey a key to the desired texture (not null)
+     * @return the (modified) current instance (for chaining)
+     */
+    public Geometry setTextureByKey(TextureKey textureKey) {
+        this.texture = BaseApplication.getTexture(textureKey);
+        return this;
+    }
+
+    /**
      * Enable or disable wireframe.
      *
      * @param newSetting true to enable, false to disable
@@ -398,6 +413,12 @@ public class Geometry {
         // material uniforms
         if (program.hasActiveUniform("BaseMaterialColor")) {
             program.setUniform("BaseMaterialColor", baseColor);
+        }
+        if (program.hasActiveUniform("ColorMaterialTexture")) {
+            program.use();
+            int unitNumber = 0;
+            texture.setUnitNumber(unitNumber);
+            program.setUniform("ColorMaterialTexture", unitNumber);
         }
         if (program.hasActiveUniform("SpecularMaterialColor")) {
             program.setUniform("SpecularMaterialColor", specularColor);
