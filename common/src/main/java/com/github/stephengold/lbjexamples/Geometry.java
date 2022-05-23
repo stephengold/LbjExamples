@@ -428,7 +428,6 @@ public class Geometry {
             GL11C.glDisable(GL11C.GL_CULL_FACE);
         }
 
-        mesh.enableAttributes();
         mesh.renderUsing(program);
     }
 

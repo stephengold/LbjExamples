@@ -101,6 +101,10 @@ public class Mesh {
      * map vertex attribute indices to VBO IDs
      */
     private final List<Integer> vboIdList = new ArrayList<>();
+    /**
+     * map vertex attribute indices to attrib names
+     */
+    private final List<String> nameList = new ArrayList<>();
     // *************************************************************************
     // constructors
 
@@ -333,19 +337,21 @@ public class Mesh {
      * Prepare all vertex attributes for rendering.
      * <p>
      * If the VAO doesn't already exist, it and its VBOs are created.
+     *
+     * @param program (not null)
      */
-    void enableAttributes() {
+    private void enableAttributes(ShaderProgram program) {
         if (vaoId == null) {
             this.vaoId = GL30C.glGenVertexArrays();
             GL30C.glBindVertexArray(vaoId);
 
             // Create a VBO for each attribute.
-            addFloatVbo(positions, numAxes);
+            addFloatVbo(positions, numAxes, ShaderProgram.positionAttribName);
             if (normals != null) {
-                addFloatVbo(normals, numAxes);
+                addFloatVbo(normals, numAxes, ShaderProgram.normalAttribName);
             }
             if (textureCoordinates != null) {
-                addFloatVbo(textureCoordinates, 2);
+                addFloatVbo(textureCoordinates, 2, ShaderProgram.uvAttribName);
             }
 
         } else {
@@ -354,7 +360,7 @@ public class Mesh {
         }
 
         for (int index = 0; index < vboIdList.size(); ++index) {
-            enableAttribute(index);
+            enableAttribute(program, index);
         }
     }
 
@@ -365,6 +371,7 @@ public class Mesh {
      */
     void renderUsing(ShaderProgram program) {
         program.use();
+        enableAttributes(program);
         GL30C.glBindVertexArray(vaoId);
 
         int startVertex = 0;
@@ -442,8 +449,10 @@ public class Mesh {
      * be copied
      * @param fpv the number of float values per vertex (&ge;1, &le;4)
      */
-    private void addFloatVbo(FloatBuffer data, int fpv) {
+    private void addFloatVbo(FloatBuffer data, int fpv, String name) {
         fpvList.add(fpv);
+        nameList.add(name);
+
         int vboId = GL30C.glGenBuffers();
         vboIdList.add(vboId);
 
@@ -460,8 +469,15 @@ public class Mesh {
      *
      * @param attributeIndex the index of the vertex attribute to prepare
      */
-    private void enableAttribute(int attributeIndex) {
-        GL30C.glEnableVertexAttribArray(attributeIndex);
+    private void enableAttribute(ShaderProgram program, int attributeIndex) {
+        Validate.nonNull(program, "program");
+
+        String attribName = nameList.get(attributeIndex);
+        Integer location = program.findAttribLocation(attribName);
+        if (location == null) { // attribute not active in the program
+            return;
+        }
+        GL30C.glEnableVertexAttribArray(location);
 
         int vboId = vboIdList.get(attributeIndex);
         GL30C.glBindBuffer(GL30C.GL_ARRAY_BUFFER, vboId);
@@ -470,7 +486,7 @@ public class Mesh {
         boolean normalized = false;
         int stride = 0; // tightly packed
         int startOffset = 0;
-        GL30C.glVertexAttribPointer(attributeIndex, fpv, GL30C.GL_FLOAT,
+        GL30C.glVertexAttribPointer(location, fpv, GL30C.GL_FLOAT,
                 normalized, stride, startOffset);
     }
 

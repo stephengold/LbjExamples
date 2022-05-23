@@ -54,6 +54,18 @@ public class ShaderProgram {
     // constants and loggers
 
     /**
+     * name of the attrib for vertex normals
+     */
+    final static String normalAttribName = "vertexNormal_modelspace";
+    /**
+     * name of the attrib for vertex positions
+     */
+    final static String positionAttribName = "vertexPosition_modelspace";
+    /**
+     * name of the attrib for vertex texture coordinates
+     */
+    final static String uvAttribName = "vertexUV";
+    /**
      * name of the uniform for the model-to-world transform matrix
      */
     final static String modelMatrixUniformName = "modelMatrix";
@@ -61,6 +73,14 @@ public class ShaderProgram {
      * name of the uniform for the model-to-world rotation matrix
      */
     final static String modelRotationMatrixUniformName = "modelRotationMatrix";
+    /**
+     * enumerate known attribs
+     */
+    final private static String[] attribNames = {
+        positionAttribName, // vec3
+        normalAttribName, //   vec3
+        uvAttribName //        vec2
+    };
     /**
      * enumerate known non-global uniforms
      */
@@ -87,6 +107,10 @@ public class ShaderProgram {
      */
     final private static Map<String, GlobalUniform> globalUniformMap
             = new HashMap<>(16);
+    /**
+     * map active attribute variables to their locations
+     */
+    final private Map<String, Integer> attribLocations = new HashMap<>(16);
     /**
      * map active uniform variables to their locations
      */
@@ -184,6 +208,17 @@ public class ShaderProgram {
      */
     public String getName() {
         return programName;
+    }
+
+    /**
+     * Return the location of the specified attrib variable.
+     *
+     * @param name the name of the variable to find (not null, not empty)
+     * @return the location (&ge;0) or null if not active
+     */
+    Integer findAttribLocation(String name) {
+        Integer result = attribLocations.get(name);
+        return result;
     }
 
     /**
@@ -413,10 +448,17 @@ public class ShaderProgram {
     }
 
     /**
-     * Enumerate the active uniforms, record their locations, and determine
-     * which ones are global.
+     * Enumerate the active attribs and uniforms, record their locations, and
+     * determine which uniforms are global.
      */
     private void collectActiveUniforms() {
+        for (String name : attribNames) {
+            int location = GL20C.glGetAttribLocation(programId, name);
+            if (location != -1) {
+                attribLocations.put(name, location);
+            }
+        }
+
         for (String name : nonglobalUniformNames) {
             int location = GL20C.glGetUniformLocation(programId, name);
             if (location != -1) {
