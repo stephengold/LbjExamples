@@ -336,37 +336,6 @@ public class Mesh {
     }
 
     /**
-     * Prepare all vertex attributes for rendering.
-     * <p>
-     * If the VAO doesn't already exist, it and its VBOs are created.
-     *
-     * @param program (not null)
-     */
-    private void enableAttributes(ShaderProgram program) {
-        if (vaoId == null) {
-            this.vaoId = GL30C.glGenVertexArrays();
-            GL30C.glBindVertexArray(vaoId);
-
-            // Create a VBO for each attribute.
-            addFloatVbo(positions, numAxes, ShaderProgram.positionAttribName);
-            if (normals != null) {
-                addFloatVbo(normals, numAxes, ShaderProgram.normalAttribName);
-            }
-            if (textureCoordinates != null) {
-                addFloatVbo(textureCoordinates, 2, ShaderProgram.uvAttribName);
-            }
-
-        } else {
-            // Re-use the existing VBOs.
-            GL30C.glBindVertexArray(vaoId);
-        }
-
-        for (int index = 0; index < vboIdList.size(); ++index) {
-            enableAttribute(program, index);
-        }
-    }
-
-    /**
      * Generate texture coordinates using the specified strategy and
      * coefficients.
      *
@@ -558,6 +527,37 @@ public class Mesh {
         int startOffset = 0;
         GL30C.glVertexAttribPointer(location, fpv, GL30C.GL_FLOAT,
                 normalized, stride, startOffset);
+    }
+
+    /**
+     * Prepare all vertex attributes for rendering.
+     * <p>
+     * If the VAO doesn't already exist, it and its VBOs are created.
+     *
+     * @param program (not null)
+     */
+    private void enableAttributes(ShaderProgram program) {
+        if (vaoId == null) {
+            this.vaoId = GL30C.glGenVertexArrays();
+            GL30C.glBindVertexArray(vaoId);
+
+            // Create a VBO for each attribute.
+            addFloatVbo(positions, numAxes, ShaderProgram.positionAttribName);
+            if (normals != null) {
+                addFloatVbo(normals, numAxes, ShaderProgram.normalAttribName);
+            }
+            if (textureCoordinates != null) {
+                addFloatVbo(textureCoordinates, 2, ShaderProgram.uvAttribName);
+            }
+
+        } else {
+            // Re-use the existing VBOs.
+            GL30C.glBindVertexArray(vaoId);
+        }
+
+        for (int index = 0; index < vboIdList.size(); ++index) {
+            enableAttribute(program, index);
+        }
     }
 
     /**
