@@ -35,7 +35,6 @@ import com.jme3.system.NativeLibraryLoader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -155,17 +154,17 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     // private methods
 
     /**
-     * Remove any geometries associated with physics objects that are no longer
-     * in the PhysicsSpace.
+     * Hide any geometries associated with physics objects that are no longer in
+     * the PhysicsSpace.
      */
     private void cleanUpGeometries() {
-        Collection<Geometry> geometriesToRemove = new ArrayList<>();
-        for (Geometry geometry : visibleGeometries) {
+        Collection<Geometry> geometriesToHide = new ArrayList<>();
+        for (Geometry geometry : listVisible()) {
             if (geometry.wasRemovedFrom(physicsSpace)) {
-                geometriesToRemove.add(geometry);
+                geometriesToHide.add(geometry);
             }
         }
 
-        visibleGeometries.removeAll(geometriesToRemove);
+        hideAll(geometriesToHide);
     }
 }

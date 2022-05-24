@@ -32,6 +32,7 @@ package com.github.stephengold.lbjexamples;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -71,7 +72,7 @@ public abstract class BaseApplication {
     /**
      * visible geometries
      */
-    protected static final Collection<Geometry> visibleGeometries
+    private static final Collection<Geometry> visibleGeometries
             = new HashSet<>(256);
     /**
      * currently active global uniforms
@@ -242,9 +243,27 @@ public abstract class BaseApplication {
     }
 
     /**
+     * Hide the specified geometries.
+     *
+     * @param geometry the Geometry to de-visualize (not null, unaffected)
+     */
+    static void hideAll(Collection<Geometry> collection) {
+        visibleGeometries.removeAll(collection);
+    }
+
+    /**
      * Callback invoked before the main update loop begins.
      */
     public abstract void initialize();
+
+    /**
+     * Enumerate all the visible geometries.
+     *
+     * @return an unmodifiable collection of pre-existing objects
+     */
+    static Collection<Geometry> listVisible() {
+        return Collections.unmodifiableCollection(visibleGeometries);
+    }
 
     /**
      * Make the specified Geometry visible.
@@ -568,7 +587,7 @@ public abstract class BaseApplication {
     private static void updateGlobalUniforms() {
         // Update the collection of active programs.
         programsInUse.clear();
-        for (Geometry geometry : visibleGeometries) {
+        for (Geometry geometry : listVisible()) {
             ShaderProgram program = geometry.getProgram();
             programsInUse.add(program);
         }
