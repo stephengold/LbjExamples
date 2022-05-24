@@ -50,8 +50,6 @@ import org.lwjgl.system.Configuration;
  * @author Stephen Gold sgold@sonic.net
  */
 public class OctasphereTest extends BaseApplication {
-
-    private Geometry squareGeometry;
     // *************************************************************************
     // new methods exposed
 
