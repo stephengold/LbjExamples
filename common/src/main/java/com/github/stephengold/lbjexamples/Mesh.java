@@ -369,7 +369,7 @@ public class Mesh {
      * Generate texture coordinates using the specified strategy and
      * coefficients.
      *
-     * @param uvs the strategy to use (Linear)
+     * @param option the strategy to use (Linear or Sphere)
      * @param uCoefficients the coefficients for generating the first (U)
      * texture coordinate (not null)
      * @param vCoefficients the coefficients for generating the 2nd (V) texture
@@ -490,6 +490,20 @@ public class Mesh {
                 "correct length");
 
         this.positions = BufferUtils.createFloatBuffer(positionArray);
+    }
+
+    /**
+     * Set new texture coordinates for the vertices.
+     *
+     * @param uvArray the desired vertex texture coordinates (not null,
+     * length=2*vertexCount, unaffected)
+     */
+    protected void setUvs(float... uvArray) {
+        assert vaoId == null;
+        Validate.require(uvArray.length == 2 * vertexCount,
+                "correct length");
+
+        this.textureCoordinates = BufferUtils.createFloatBuffer(uvArray);
     }
     // *************************************************************************
     // private methods
