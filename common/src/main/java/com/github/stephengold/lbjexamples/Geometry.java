@@ -360,23 +360,6 @@ public class Geometry {
     }
 
     /**
-     * Alter the orientation.
-     *
-     * @param newAngles the desired Tait-Bryan angles, applied in x-z-y
-     * extrinsic order or y-z'-x" intrinsic order (not null, unaffected)
-     * @return the (modified) current instance (for chaining)
-     */
-    public Geometry setRotation(Vector3f newAngles) {
-        Validate.nonNull(newAngles, "new angles");
-
-        Quaternion newOrientation = new Quaternion();
-        newOrientation.fromAngles(newAngles.x, newAngles.y, newAngles.z);
-        setOrientation(newOrientation);
-
-        return this;
-    }
-
-    /**
      * Alter the scale.
      *
      * @param newScale the desired uniform scale factor
