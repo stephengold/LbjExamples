@@ -120,8 +120,8 @@ public class HelloKinematics
         kineBall.setKinematic(true);
 
         // visualization
-        new RigidBodyShapeGeometry(dynaBall, "high,Sphere");
-        new RigidBodyShapeGeometry(kineBall, "high,Sphere");
+        new RigidBodyShapeGeometry(dynaBall, "high/Sphere");
+        new RigidBodyShapeGeometry(kineBall, "high/Sphere");
     }
 
     /**

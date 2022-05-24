@@ -127,7 +127,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
 
         // visualization
         for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
-            new RigidBodyShapeGeometry(cube[cubeIndex], "low,Facet");
+            new RigidBodyShapeGeometry(cube[cubeIndex], "low/Facet");
         }
     }
 

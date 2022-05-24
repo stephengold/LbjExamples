@@ -163,7 +163,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
         result.setRestitution(1f);
         physicsSpace.addCollisionObject(result);
 
-        new RigidBodyShapeGeometry(result, "high,Sphere")
+        new RigidBodyShapeGeometry(result, "high/Sphere")
                 .setColor(BALL_COLOR);
 
         float wireLength = 80f;

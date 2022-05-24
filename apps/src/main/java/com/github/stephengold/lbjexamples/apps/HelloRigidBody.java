@@ -110,8 +110,8 @@ public class HelloRigidBody extends BasePhysicsApp<PhysicsSpace> {
         ball2.applyCentralImpulse(new Vector3f(-25f, 0f, 0f));
 
         // visualization
-        new RigidBodyShapeGeometry(ball1, "high,Sphere");
-        new RigidBodyShapeGeometry(ball2, "high,Sphere");
+        new RigidBodyShapeGeometry(ball1, "high/Sphere");
+        new RigidBodyShapeGeometry(ball2, "high/Sphere");
     }
 
     /**

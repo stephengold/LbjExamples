@@ -42,6 +42,13 @@ import org.joml.Vector4fc;
  */
 class MeshingStrategy {
     // *************************************************************************
+    // constants
+    
+    /**
+     * delimit the items in a strategy description string
+     */
+    final private static String delimiter = "/";
+    // *************************************************************************
     // fields
 
     /**
@@ -231,11 +238,11 @@ class MeshingStrategy {
     /**
      * Parse a NormalsOption from the 2nd item in the specified description.
      *
-     * @param description list of items separated by commas (not null)
+     * @param description list of items separated by slashes (not null)
      * @return
      */
     private static NormalsOption parseNormals(String description) {
-        String[] items = description.split(",", -1);
+        String[] items = description.split(delimiter, -1);
         NormalsOption result;
         if (items.length >= 2) {
             String nString = items[1];
@@ -251,11 +258,11 @@ class MeshingStrategy {
      * Parse a positions option from the first item in the specified
      * description.
      *
-     * @param description list of items separated by commas (not null)
+     * @param description list of items separated by slashes (not null)
      * @return
      */
     private static int parsePositions(String description) {
-        String[] items = description.split(",", -1);
+        String[] items = description.split(delimiter, -1);
         String pString = items[0];
         int result = toPositions(pString);
 
@@ -265,11 +272,11 @@ class MeshingStrategy {
     /**
      * Parse a UvsOption from the 3rd item in the specified description.
      *
-     * @param description list of items separated by commas (not null)
+     * @param description list of items separated by slashes (not null)
      * @return an enum value (not null)
      */
     private static UvsOption parseUvs(String description) {
-        String[] items = description.split(",", 0);
+        String[] items = description.split(delimiter, 0);
         UvsOption result;
         if (items.length > 2) {
             String uvString = items[2];
@@ -284,12 +291,12 @@ class MeshingStrategy {
     /**
      * Parse a Vector4f from the specified item in the specified description.
      *
-     * @param description list of items separated by commas (not null)
+     * @param description list of items separated by slashes (not null)
      * @param itemIndex (&ge;0)
      * @return a new vector
      */
     private static Vector4fc parseVector4f(String description, int itemIndex) {
-        String[] items = description.split(",", 0);
+        String[] items = description.split(delimiter, 0);
         Vector4f result = new Vector4f();
         if (items.length > itemIndex) {
             String item = items[itemIndex];

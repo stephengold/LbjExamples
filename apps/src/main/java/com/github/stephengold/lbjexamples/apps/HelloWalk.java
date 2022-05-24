@@ -231,7 +231,7 @@ public class HelloWalk
 
         // visualization
         Vector4fc darkGreen = new Vector4f(0f, 0.3f, 0f, 1f);
-        new RigidBodyShapeGeometry(body, "low,Smooth")
+        new RigidBodyShapeGeometry(body, "low/Smooth")
                 .setColor(darkGreen)
                 .setSpecularColor(Constants.BLACK);
     }
