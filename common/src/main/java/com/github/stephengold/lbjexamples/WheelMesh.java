@@ -71,6 +71,7 @@ public class WheelMesh extends Mesh {
         }
 
         positionBuffer.flip();
+        assert positionBuffer.limit() == positionBuffer.capacity();
     }
     // *************************************************************************
     // private methods

@@ -94,5 +94,6 @@ public class LoopMesh extends Mesh {
         }
 
         positionBuffer.flip();
+        assert positionBuffer.limit() == positionBuffer.capacity();
     }
 }

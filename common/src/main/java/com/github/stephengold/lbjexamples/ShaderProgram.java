@@ -377,6 +377,7 @@ public class ShaderProgram {
             FloatBuffer buffer = stack.mallocFloat(MyVector3f.numAxes);
             buffer.put(value.x).put(value.y).put(value.z);
             buffer.flip();
+            assert buffer.limit() == buffer.capacity();
 
             use();
             GL20C.glUniform3fv(location, buffer);

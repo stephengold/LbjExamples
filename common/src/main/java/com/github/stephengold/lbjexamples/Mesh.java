@@ -497,6 +497,7 @@ public class Mesh {
 
         data.rewind();
         int numFloats = vertexCount * fpv;
+        assert data.capacity() == numFloats;
         data.limit(numFloats);
 
         GL30C.glBindBuffer(GL30C.GL_ARRAY_BUFFER, vboId);
@@ -594,6 +595,7 @@ public class Mesh {
             }
         }
         normals.flip();
+        assert normals.limit() == normals.capacity();
     }
 
     /**
@@ -612,6 +614,7 @@ public class Mesh {
             normals.put(tmpVector.x).put(tmpVector.y).put(tmpVector.z);
         }
         normals.flip();
+        assert normals.limit() == normals.capacity();
     }
 
     /**
