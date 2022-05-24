@@ -36,7 +36,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 import javax.imageio.ImageIO;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
@@ -363,17 +363,24 @@ public class TextureKey {
 
         int width = image.getWidth();
         int height = image.getHeight();
-        int bytesPerTexel = 4;
-        int numBytes = width * height * bytesPerTexel;
-        ByteBuffer data = BufferUtils.createByteBuffer(numBytes);
+        int floatsPerTexel = 4;
+        int numFloats = width * height * floatsPerTexel;
+        FloatBuffer data = BufferUtils.createFloatBuffer(numFloats);
 
         for (int y = 0; y < height; ++y) {
             for (int x = 0; x < width; ++x) {
-                int color = image.getRGB(x, y);
-                byte a = (byte) (color >> 24);
-                byte b = (byte) (color >> 16);
-                byte g = (byte) (color >> 8);
-                byte r = (byte) color;
+                int srgbPixel = image.getRGB(x, y);
+                double red = ((srgbPixel >> 16) & 0xFF) / 255.0;
+                double green = ((srgbPixel >> 8) & 0xFF) / 255.0;
+                double blue = (srgbPixel & 0xFF) / 255.0;
+                /*
+                 * linearize the pixel's color channels
+                 */
+                float r = (float) Math.pow(red, 2.2);
+                float g = (float) Math.pow(green, 2.2);
+                float b = (float) Math.pow(blue, 2.2);
+
+                float a = ((srgbPixel >> 24) & 0xFF) / 255f;
                 data.put(r).put(g).put(b).put(a);
             }
         }

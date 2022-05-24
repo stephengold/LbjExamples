@@ -29,7 +29,7 @@
  */
 package com.github.stephengold.lbjexamples;
 
-import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 import jme3utilities.Validate;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL30C;
@@ -66,7 +66,7 @@ class Texture {
     /**
      * texel data type
      */
-    final private int type = GL11C.GL_UNSIGNED_BYTE;
+    final private int type = GL11C.GL_FLOAT;
     /**
      * OpenGL name of the texture object (for binding or deleting)
      */
@@ -80,7 +80,7 @@ class Texture {
      * @param width the width (in pixels, &gt;0)
      * @param height the height (in pixels, &gt;0)
      */
-    Texture(TextureKey key, int width, int height, ByteBuffer data) {
+    Texture(TextureKey key, int width, int height, FloatBuffer data) {
         Validate.nonNull(key, "key");
         Validate.positive(width, "width");
         Validate.positive(height, "height");
