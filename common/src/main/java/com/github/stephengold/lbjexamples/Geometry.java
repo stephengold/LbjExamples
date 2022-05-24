@@ -259,7 +259,11 @@ public class Geometry {
      * @return the (modified) current instance (for chaining)
      */
     public Geometry setDepthTestEnabled(boolean newSetting) {
-        this.depthTest = newSetting;
+        if (newSetting != depthTest) {
+            this.depthTest = newSetting;
+            BaseApplication.updateDeferredQueue(this);
+        }
+
         return this;
     }
 

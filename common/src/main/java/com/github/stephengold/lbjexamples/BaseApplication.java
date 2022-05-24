@@ -35,8 +35,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
-import java.util.TreeSet;
 import jme3utilities.Validate;
 import org.joml.Vector2d;
 import org.joml.Vector4fc;
@@ -70,7 +70,7 @@ public abstract class BaseApplication {
      */
     private static CameraInputProcessor cameraInputProcessor;
     /**
-     * visible geometries
+     * all visible geometries, regardless of depth-test status
      */
     private static final Collection<Geometry> visibleGeometries
             = new HashSet<>(256);
@@ -109,6 +109,12 @@ public abstract class BaseApplication {
      * width of the displayed frame buffer (in pixels)
      */
     private static int frameBufferWidth = 800;
+    /**
+     * all visible geometries that omit depth testing, in the order they will be
+     * rendered (in other words, from back to front)
+     */
+    private static final LinkedList<Geometry> deferredQueue
+            = new LinkedList<>();
     /**
      * GLFW ID of the window used to render geometries
      */
@@ -243,12 +249,14 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Hide the specified geometries.
+     * Hide the specified geometries. When a Geometry is hidden, it loses its
+     * place in the deferred queue.
      *
-     * @param geometry the Geometry to de-visualize (not null, unaffected)
+     * @param geometries the geometries to de-visualize (not null, unaffected)
      */
-    static void hideAll(Collection<Geometry> collection) {
-        visibleGeometries.removeAll(collection);
+    static void hideAll(Collection<Geometry> geometries) {
+        deferredQueue.removeAll(geometries);
+        visibleGeometries.removeAll(geometries);
     }
 
     /**
@@ -266,14 +274,21 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Make the specified Geometry visible.
+     * Make the specified Geometry visible. If it omits depth testing and wasn't
+     * previous visible, append it to the deferred queue (causing it to be
+     * rendered last).
      *
      * @param geometry the Geometry to visualize (not null, unaffected)
      */
     static void makeVisible(Geometry geometry) {
         assert geometry.getMesh() != null;
         assert geometry.getProgram() != null;
-        visibleGeometries.add(geometry);
+
+        boolean previouslyVisible = visibleGeometries.add(geometry);
+
+        if (!previouslyVisible && !geometry.isDepthTestEnabled()) {
+            deferredQueue.addLast(geometry);
+        }
     }
 
     /**
@@ -284,17 +299,19 @@ public abstract class BaseApplication {
         updateGlobalUniforms();
 
         // Render the depth-test geometries and defer the rest.
-        Collection<Geometry> deferredGeometries = new TreeSet<>();
         for (Geometry geometry : visibleGeometries) {
             if (geometry.isDepthTestEnabled()) {
                 geometry.updateAndRender();
             } else {
-                deferredGeometries.add(geometry);
+                assert deferredQueue.contains(geometry);
             }
         }
 
-        // Render the no-depth-test geometries last, in their natural order.
-        for (Geometry geometry : deferredGeometries) {
+        // Render the no-depth-test geometries last, from back to front.
+        for (Geometry geometry : deferredQueue) {
+            assert visibleGeometries.contains(geometry);
+            assert !geometry.isDepthTestEnabled();
+
             geometry.updateAndRender();
         }
     }
@@ -374,6 +391,37 @@ public abstract class BaseApplication {
     }
 
     /**
+     * Update the deferred queue after setting the depth-test flag of the
+     * specified Geometry.
+     * <p>
+     * The specified Geometry is visible and performs depth testing, it is
+     * removed from the deferred queue. (It loses its place in the queue.) If it
+     * is visible and omits depth testing, it is appended to the queue (causing
+     * it to be rendered last).
+     * <p>
+     * This method has no effect on invisible geometries.
+     *
+     * @param geometry the Geometry to enqueue/dequeue (not null, alias possibly
+     * created)
+     */
+    static void updateDeferredQueue(Geometry geometry) {
+        assert geometry != null;
+
+        if (!visibleGeometries.contains(geometry)) { // invisible
+            return;
+        }
+
+        if (geometry.isDepthTestEnabled()) { // remove it from the queue
+            boolean wasInQueue = deferredQueue.remove(geometry);
+            assert wasInQueue;
+
+        } else { // append it to the queue
+            assert !deferredQueue.contains(geometry);
+            deferredQueue.addLast(geometry);
+        }
+    }
+
+    /**
      * Invoked before each render to update the window title. Meant to be
      * overridden.
      */
@@ -398,7 +446,9 @@ public abstract class BaseApplication {
      * Clean up this class.
      */
     private static void cleanUpBase() {
+        deferredQueue.clear();
         visibleGeometries.clear();
+
         for (ShaderProgram program : programMap.values()) {
             program.cleanUp();
         }
