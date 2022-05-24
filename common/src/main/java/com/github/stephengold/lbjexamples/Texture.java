@@ -71,10 +71,6 @@ class Texture {
      * OpenGL name of the texture object (for binding or deleting)
      */
     final private int textureName;
-    /**
-     * information used to load/generate/cache this texture
-     */
-    final private TextureKey key;
     // *************************************************************************
     // constructors
 
@@ -89,8 +85,6 @@ class Texture {
         Validate.positive(width, "width");
         Validate.positive(height, "height");
         Validate.nonNull(data, "data");
-
-        this.key = key;
 
         this.textureName = GL11C.glGenTextures();
         GL11C.glBindTexture(target, textureName);
