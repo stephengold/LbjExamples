@@ -36,7 +36,7 @@ package com.github.stephengold.lbjexamples;
  */
 public enum UvsOption {
     // *************************************************************************
-    // values
+    // values - TODO Cube
 
     /**
      * linear transformation of vertex positions

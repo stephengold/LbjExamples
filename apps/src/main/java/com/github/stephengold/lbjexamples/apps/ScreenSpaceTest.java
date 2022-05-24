@@ -40,8 +40,7 @@ import com.jme3.system.Platform;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple test of BaseApplication: load and display a yellow square in
- * screenspace.
+ * A simple test of BaseApplication: display a yellow square in screenspace.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -52,7 +51,7 @@ public class ScreenSpaceTest extends BaseApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the TextureTest application.
+     * Main entry point for the ScreenSpaceTest application.
      *
      * @param arguments array of command-line arguments (not null)
      */

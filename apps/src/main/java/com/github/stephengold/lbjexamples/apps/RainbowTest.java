@@ -53,7 +53,7 @@ public class RainbowTest extends BaseApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the LinearUvTest application.
+     * Main entry point for the RainbowTest application.
      *
      * @param arguments array of command-line arguments (not null)
      */

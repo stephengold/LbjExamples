@@ -183,7 +183,7 @@ public class TextureKey {
     /**
      * Return the filter to use when magnifying.
      *
-     * @return
+     * @return the OpenGL filter code
      */
     public int magFilter() {
         return magFilter;
@@ -192,54 +192,88 @@ public class TextureKey {
     /**
      * Return the maximum degree of anisotropic filtering.
      *
-     * @return
+     * @return the maximum degree (&ge;1)
      */
     public float maxAniso() {
         return maxAniso;
     }
 
     /**
-     * Return filter to use when minifying.
+     * Return the filter to use when minifying.
      *
-     * @return the filter code
+     * @return the OpenGL filter code
      */
     public int minFilter() {
         return minFilter;
     }
 
     /**
-     * Test whether mipmaps should be generated.
+     * Test whether mipmaps should be generated during load().
      *
-     * @return true to generate them, otherwise false
+     * @return true if they should be generated, otherwise false
      */
     public boolean mipmaps() {
         return mipmaps;
     }
 
+    /**
+     * Alter the default magnification filter for new texture keys.
+     *
+     * @param filter the OpenGL magnification filter code to be assigned
+     * (default=GL_LINEAR)
+     */
     public static void setDefaultMagFilter(int filter) {
         validateMagFilter(filter);
         magFilterDefault = filter;
     }
 
+    /**
+     * Alter the default mag aniso for new texture keys.
+     *
+     * @param degree the maximum degree to be assigned (&ge;1, default=1)
+     */
     public static void setDefaultMaxAniso(float degree) {
         Validate.inRange(degree, "degree", 1f, Float.MAX_VALUE);
         maxAnisoDefault = degree;
     }
 
+    /**
+     * Alter the default minification filter for new texture keys.
+     *
+     * @param filter the OpenGL minification filter code to be assigned
+     * (default=GL_NEAREST_MIPMAP_LINEAR)
+     */
     public static void setDefaultMinFilter(int filter) {
         validateMinFilter(filter);
         minFilterDefault = filter;
     }
 
+    /**
+     * Alter the default mipmaps setting for new texture keys.
+     *
+     * @param enable the setting to be assigned (default=true)
+     */
     public static void setDefaultMipmaps(boolean enable) {
         mipmapsDefault = enable;
     }
 
+    /**
+     * Alter the default U-axis wrap function for new texture keys.
+     *
+     * @param functionCode the OpenGL wrap function code to be assigned
+     * (default=GL_REPEAT)
+     */
     public static void setDefaultWrapU(int functionCode) {
         validateWrap(functionCode);
         wrapUDefault = functionCode;
     }
 
+    /**
+     * Alter the default V-axis wrap function for new texture keys.
+     *
+     * @param functionCode the OpenGL wrap function code to be assigned
+     * (default=GL_REPEAT)
+     */
     public static void setDefaultWrapV(int functionCode) {
         validateWrap(functionCode);
         wrapVDefault = functionCode;
@@ -248,7 +282,7 @@ public class TextureKey {
     /**
      * Return the wrap function for the 1st (U) texture coordinate.
      *
-     * @return the function code
+     * @return the OpenGL wrap function code
      */
     public int wrapU() {
         return wrapU;
@@ -257,7 +291,7 @@ public class TextureKey {
     /**
      * Return the wrap function for the 2nd (V) texture coordinate.
      *
-     * @return the function code
+     * @return the OpenGL wrap function code
      */
     public int wrapV() {
         return wrapV;

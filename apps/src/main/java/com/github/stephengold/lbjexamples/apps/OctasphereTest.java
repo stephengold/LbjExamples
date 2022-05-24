@@ -56,7 +56,7 @@ public class OctasphereTest extends BaseApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the TextureTest application.
+     * Main entry point for the OctasphereTest application.
      *
      * @param arguments array of command-line arguments (not null)
      */
