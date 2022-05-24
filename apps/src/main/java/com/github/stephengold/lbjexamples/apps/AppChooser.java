@@ -76,7 +76,7 @@ public class AppChooser extends JFrame {
 
     private AppChooser(List<BaseApplication> apps) {
         setTitle("LbjExamples AppChooser");
-        setSize(500, 60);
+        setSize(500, 100);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         Container contentPane = getContentPane();
