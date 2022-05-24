@@ -31,6 +31,7 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
+import com.jme3.math.FastMath;
 import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import com.jme3.util.BufferUtils;
@@ -369,7 +370,7 @@ public class Mesh {
      * Generate texture coordinates using the specified strategy and
      * coefficients.
      *
-     * @param option the strategy to use (Linear or Sphere)
+     * @param option the strategy to use (Linear or Spherical)
      * @param uCoefficients the coefficients for generating the first (U)
      * texture coordinate (not null)
      * @param vCoefficients the coefficients for generating the 2nd (V) texture
@@ -385,6 +386,11 @@ public class Mesh {
             MyBuffer.get(positions, inPosition, tmpVector);
             switch (option) {
                 case Linear:
+                    break;
+                case Spherical:
+                    Utils.toSpherical(tmpVector);
+                    tmpVector.y /= FastMath.PI;
+                    tmpVector.z /= FastMath.PI;
                     break;
                 default:
                     throw new IllegalArgumentException("option = " + option);
