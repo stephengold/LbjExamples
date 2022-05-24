@@ -29,7 +29,6 @@
  */
 package com.github.stephengold.lbjexamples;
 
-import com.jme3.math.Vector3f;
 import org.joml.Vector4fc;
 
 /**
@@ -54,7 +53,6 @@ public class ArrowGeometry extends Geometry {
         super(new ArrowMesh());
 
         super.setColor(color);
-        Vector3f rotation = new Vector3f(rotX, rotY, rotZ);
-        super.setRotation(rotation);
+        super.setOrientation(rotX, rotY, rotZ);
     }
 }

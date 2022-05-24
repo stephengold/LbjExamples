@@ -277,6 +277,19 @@ public class Geometry {
     /**
      * Alter the location of the mesh origin.
      *
+     * @param x the desired X offset
+     * @param y the desired Y offset
+     * @param z the desired Z offset
+     * @return the (modified) current instance (for chaining)
+     */
+    public Geometry setLocation(float x, float y, float z) {
+        meshToWorld.getTranslation().set(x, y, z);
+        return this;
+    }
+
+    /**
+     * Alter the location of the mesh origin.
+     *
      * @param newLocation the desired location in world coordinates (not null,
      * unaffected)
      * @return the (modified) current instance (for chaining)
@@ -296,6 +309,20 @@ public class Geometry {
     public Geometry setMesh(Mesh newMesh) {
         Validate.nonNull(newMesh, "new mesh");
         this.mesh = newMesh;
+        return this;
+    }
+
+    /**
+     * Alter the orientation using specified Tait-Bryan angles, applying the
+     * rotations in x-z-y extrinsic order or y-z'-x" intrinsic order.
+     *
+     * @param xAngle the desired X angle (in radians)
+     * @param yAngle the desired Y angle (in radians)
+     * @param zAngle the desired Z angle (in radians)
+     * @return the (modified) current instance (for chaining)
+     */
+    public Geometry setOrientation(float xAngle, float yAngle, float zAngle) {
+        meshToWorld.getRotation().fromAngles(xAngle, yAngle, zAngle);
         return this;
     }
 
@@ -346,6 +373,17 @@ public class Geometry {
         newOrientation.fromAngles(newAngles.x, newAngles.y, newAngles.z);
         setOrientation(newOrientation);
 
+        return this;
+    }
+
+    /**
+     * Alter the scale.
+     *
+     * @param newScale the desired uniform scale factor
+     * @return the (modified) current instance (for chaining)
+     */
+    public Geometry setScale(float newScale) {
+        meshToWorld.setScale(newScale);
         return this;
     }
 
