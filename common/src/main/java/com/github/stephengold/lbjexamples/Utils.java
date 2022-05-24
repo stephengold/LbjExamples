@@ -29,6 +29,7 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.awt.image.BufferedImage;
@@ -145,5 +146,38 @@ public class Utils {
         }
 
         return result;
+    }
+
+    /**
+     * Convert the specified vector from Cartesian coordinates to spherical
+     * coordinates (r, theta, phi) per ISO 80000.
+     * <p>
+     * In particular:
+     * <ul>
+     * <li>{@code r} is a distance measured from the origin. It ranges from 0 to
+     * infinity and is stored in the 1st (X) vector component.
+     *
+     * <li>{@code theta} is the polar angle, measured (in radians) from the +Z
+     * axis. It ranges from 0 to PI and is stored in the 2nd (Y) vector
+     * component.
+     *
+     * <li>{@code phi} is the azimuthal angle, measured (in radians) from the +X
+     * axis to the projection of the vector onto the X-Y plane. It ranges from
+     * -PI to PI and is stored in the 3rd (Z) vector component.
+     * </ul>
+     *
+     * @param vec the vector to convert (not null, modified)
+     */
+    public static void toSpherical(Vector3f vec) {
+        double xx = (double) vec.x;
+        double yy = (double) vec.y;
+        float rxy = (float) Math.sqrt(xx * xx + yy * yy); // MyMath
+        float phi = FastMath.atan2(rxy, vec.z);
+        float theta = FastMath.atan2(vec.y, vec.x);
+        float r = vec.length();
+
+        vec.x = r;
+        vec.y = theta; // polar angle
+        vec.z = phi;   // azimuthal angle
     }
 }
