@@ -31,6 +31,9 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
+import jme3utilities.MyString;
+import org.joml.Vector4f;
+import org.joml.Vector4fc;
 
 /**
  * An algorithm for generating a Mesh from a Collision Shape. Note: immutable.
@@ -49,6 +52,18 @@ class MeshingStrategy {
      * strategy for generating vertex normals, if any
      */
     final private NormalsOption normals;
+    /**
+     * strategy for generating texture coordinates, if any
+     */
+    final private UvsOption uvs;
+    /**
+     * coefficients for generating the first (U) texture coordinate, if any
+     */
+    final private Vector4f uCoefficients = new Vector4f();
+    /**
+     * coefficients for generating the 2nd (V) texture coordinate, if any
+     */
+    final private Vector4f vCoefficients = new Vector4f();
     // *************************************************************************
     // constructors
 
@@ -58,7 +73,12 @@ class MeshingStrategy {
      * @param description the description to parse (not null)
      */
     public MeshingStrategy(String description) {
-        this(parsePositions(description), parseNormals(description));
+        this(parsePositions(description),
+                parseNormals(description),
+                parseUvs(description),
+                parseVector4f(description, 3),
+                parseVector4f(description, 4)
+        );
     }
 
     /**
@@ -66,10 +86,19 @@ class MeshingStrategy {
      *
      * @param positions strategy for generating vertex positions (0 or 1)
      * @param normals strategy for generating normals, if any (not null)
+     * @param uvs strategy for generating texture coordinates, if any (not null)
+     * @param uCoefficients coefficients for generating the first (U) texture
+     * coordinate, if any (not null)
+     * @param vCoefficients coefficients for generating the 2nd (V) texture
+     * coordinate, if any (not null)
      */
-    public MeshingStrategy(int positions, NormalsOption normals) {
+    private MeshingStrategy(int positions, NormalsOption normals, UvsOption uvs,
+            Vector4fc uCoefficients, Vector4fc vCoefficients) {
         this.positions = positions;
         this.normals = normals;
+        this.uvs = uvs;
+        this.uCoefficients.set(uCoefficients);
+        this.vCoefficients.set(vCoefficients);
     }
     // *************************************************************************
     // new methods exposed
@@ -82,6 +111,10 @@ class MeshingStrategy {
      */
     Mesh applyTo(CollisionShape shape) {
         Mesh result = new Mesh(shape, normals, positions);
+        if (uvs != UvsOption.None) {
+            result.generateUvs(uvs, uCoefficients, vCoefficients);
+        }
+
         return result;
     }
 
@@ -121,7 +154,13 @@ class MeshingStrategy {
                 && otherObject.getClass() == getClass()) {
             MeshingStrategy otherStrategy = (MeshingStrategy) otherObject;
             result = (positions == otherStrategy.positions)
-                    && (normals == otherStrategy.normals);
+                    && (normals == otherStrategy.normals)
+                    && (uvs == otherStrategy.uvs);
+            if (result && uvs != UvsOption.None) {
+                result = result
+                        && uCoefficients.equals(otherStrategy.uCoefficients)
+                        && vCoefficients.equals(otherStrategy.vCoefficients);
+            }
 
         } else {
             result = false;
@@ -139,6 +178,11 @@ class MeshingStrategy {
     public int hashCode() {
         int hash = positions;
         hash = 707 * hash + normals.ordinal();
+        hash = 707 * hash + uvs.ordinal();
+        if (uvs != UvsOption.None) {
+            hash = 707 * hash + uCoefficients.hashCode();
+            hash = 707 * hash + vCoefficients.hashCode();
+        }
 
         return hash;
     }
@@ -150,6 +194,22 @@ class MeshingStrategy {
      */
     @Override
     public String toString() {
+        String result;
+
+        // Construct the string from right to left.
+        if (uvs == UvsOption.None) {
+            result = "";
+        } else {
+            result = String.format(",%s,%f %f %f %f,%f %f %f %f",
+                    uvs, uCoefficients.x, uCoefficients.y, uCoefficients.z,
+                    uCoefficients.w, vCoefficients.x, vCoefficients.y,
+                    vCoefficients.z, vCoefficients.w);
+        }
+
+        if (!result.isEmpty() || normals != NormalsOption.None) {
+            result = "," + normals + result;
+        }
+
         String pString;
         switch (positions) {
             case 0:
@@ -161,8 +221,7 @@ class MeshingStrategy {
             default:
                 throw new IllegalStateException("positions = " + positions);
         }
-        String nString = normals.toString();
-        String result = pString + "," + nString;
+        result = pString + result;
 
         return result;
     }
@@ -199,6 +258,51 @@ class MeshingStrategy {
         String[] items = description.split(",", -1);
         String pString = items[0];
         int result = toPositions(pString);
+
+        return result;
+    }
+
+    /**
+     * Parse a UvsOption from the 3rd item in the specified description.
+     *
+     * @param description list of items separated by commas (not null)
+     * @return an enum value (not null)
+     */
+    private static UvsOption parseUvs(String description) {
+        String[] items = description.split(",", 0);
+        UvsOption result;
+        if (items.length > 2) {
+            String uvString = items[2];
+            result = UvsOption.valueOf(uvString);
+        } else {
+            result = UvsOption.None;
+        }
+
+        return result;
+    }
+
+    /**
+     * Parse a Vector4f from the specified item in the specified description.
+     *
+     * @param description list of items separated by commas (not null)
+     * @param itemIndex (&ge;0)
+     * @return a new vector
+     */
+    private static Vector4fc parseVector4f(String description, int itemIndex) {
+        String[] items = description.split(",", 0);
+        Vector4f result = new Vector4f();
+        if (items.length > itemIndex) {
+            String item = items[itemIndex];
+            String[] components = item.split(" ", 0);
+            if (components.length != 4) {
+                String message = "item = " + MyString.quote(item);
+                throw new IllegalArgumentException(message);
+            }
+            result.x = Float.parseFloat(components[0]);
+            result.y = Float.parseFloat(components[1]);
+            result.z = Float.parseFloat(components[2]);
+            result.w = Float.parseFloat(components[3]);
+        }
 
         return result;
     }
