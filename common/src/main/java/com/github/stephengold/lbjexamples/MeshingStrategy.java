@@ -95,9 +95,9 @@ class MeshingStrategy {
      * @param normals strategy for generating normals, if any (not null)
      * @param uvs strategy for generating texture coordinates, if any (not null)
      * @param uCoefficients coefficients for generating the first (U) texture
-     * coordinate, if any (not null)
+     * coordinate, if any (not null, unaffected)
      * @param vCoefficients coefficients for generating the 2nd (V) texture
-     * coordinate, if any (not null)
+     * coordinate, if any (not null, unaffected)
      */
     private MeshingStrategy(int positions, NormalsOption normals, UvsOption uvs,
             Vector4fc uCoefficients, Vector4fc vCoefficients) {
@@ -242,7 +242,7 @@ class MeshingStrategy {
      * @return
      */
     private static NormalsOption parseNormals(String description) {
-        String[] items = description.split(delimiter, -1);
+        String[] items = description.split(delimiter, 0);
         NormalsOption result;
         if (items.length >= 2) {
             String nString = items[1];
@@ -262,7 +262,7 @@ class MeshingStrategy {
      * @return
      */
     private static int parsePositions(String description) {
-        String[] items = description.split(delimiter, -1);
+        String[] items = description.split(delimiter, 0);
         String pString = items[0];
         int result = toPositions(pString);
 
