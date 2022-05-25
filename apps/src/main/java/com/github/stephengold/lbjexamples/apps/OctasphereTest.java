@@ -36,11 +36,9 @@ import com.github.stephengold.lbjexamples.Mesh;
 import com.github.stephengold.lbjexamples.OctasphereMesh;
 import com.github.stephengold.lbjexamples.RotateMode;
 import com.github.stephengold.lbjexamples.TextureKey;
-import com.github.stephengold.lbjexamples.UvsOption;
 import com.jme3.math.FastMath;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
-import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
 /**
