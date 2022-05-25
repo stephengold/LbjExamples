@@ -156,7 +156,7 @@ public class Mesh {
                 smoothNormals();
                 break;
             case Sphere:
-                makeSphereNormals();
+                generateSphereNormals();
                 break;
             default:
                 String message = "normalsOption = " + normalsOption;
@@ -338,6 +338,29 @@ public class Mesh {
      */
     public int drawMode() {
         return drawMode;
+    }
+
+    /**
+     * Generate normals on a vertex-by-vertex basis for an outward-facing
+     * sphere. Any pre-existing normals are discarded.
+     *
+     * @return the (modified) current instance (for chaining)
+     */
+    public Mesh generateSphereNormals() {
+        Vector3f tmpVector = new Vector3f();
+
+        normals = BufferUtils.createFloatBuffer(numAxes * vertexCount);
+        for (int vertIndex = 0; vertIndex < vertexCount; ++vertIndex) {
+            int vPosition = vertIndex * numAxes;
+            MyBuffer.get(positions, vPosition, tmpVector);
+            MyVector3f.normalizeLocal(tmpVector);
+
+            normals.put(tmpVector.x).put(tmpVector.y).put(tmpVector.z);
+        }
+        normals.flip();
+        assert normals.limit() == normals.capacity();
+
+        return this;
     }
 
     /**
@@ -529,6 +552,7 @@ public class Mesh {
         if (location == null) { // attribute not active in the program
             return;
         }
+
         GL30C.glEnableVertexAttribArray(location);
         Utils.checkForOglError();
 
@@ -612,25 +636,6 @@ public class Mesh {
                 normals.put(normal.y);
                 normals.put(normal.z);
             }
-        }
-        normals.flip();
-        assert normals.limit() == normals.capacity();
-    }
-
-    /**
-     * Generate normals on a vertex-by-vertex basis for an outward-facing
-     * sphere. Any pre-existing normals are discarded.
-     */
-    private void makeSphereNormals() {
-        Vector3f tmpVector = new Vector3f();
-
-        normals = BufferUtils.createFloatBuffer(numAxes * vertexCount);
-        for (int vertIndex = 0; vertIndex < vertexCount; ++vertIndex) {
-            int vPosition = vertIndex * numAxes;
-            MyBuffer.get(positions, vPosition, tmpVector);
-            MyVector3f.normalizeLocal(tmpVector);
-
-            normals.put(tmpVector.x).put(tmpVector.y).put(tmpVector.z);
         }
         normals.flip();
         assert normals.limit() == normals.capacity();
