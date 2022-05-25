@@ -497,8 +497,7 @@ public class ShaderProgram {
     }
 
     /**
-     * Enumerate the active attribs and uniforms, record their locations, and
-     * determine which uniforms are global.
+     * Enumerate the active attribs and record their locations.
      */
     private void collectAttribs() {
         for (String name : attribNames) {
