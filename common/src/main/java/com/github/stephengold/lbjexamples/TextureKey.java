@@ -356,8 +356,56 @@ public class TextureKey {
 
         return hash;
     }
+
+    /**
+     * Represent this key as a String.
+     *
+     * @return a descriptive string of text (not null, not empty)
+     */
+    @Override
+    public String toString() {
+        String mag = describeCode(magFilter);
+        String min = describeCode(minFilter);
+        String wrap1 = describeCode(wrapU);
+        String wrap2 = describeCode(wrapV);
+        String mm = mipmaps ? "+" : "-";
+        String result = String.format(
+                "TextureKey(%s%n"
+                + " mag=%s min=%s wrap(%s %s) %smipmaps maxAniso=%f)",
+                uri, mag, min, wrap1, wrap2, mm, maxAniso);
+
+        return result;
+    }
     // *************************************************************************
     // private methods
+
+    private static String describeCode(int code) {
+        switch (code) {
+            case GL11C.GL_NEAREST:
+                return "NEAREST";
+            case GL11C.GL_LINEAR:
+                return "LINEAR";
+            case GL11C.GL_NEAREST_MIPMAP_NEAREST:
+                return "NEAREST_MIPMAP_NEAREST";
+            case GL11C.GL_LINEAR_MIPMAP_NEAREST:
+                return "LINEAR_MIPMAP_NEAREST";
+            case GL11C.GL_NEAREST_MIPMAP_LINEAR:
+                return "NEAREST_MIPMAP_LINEAR";
+            case GL11C.GL_LINEAR_MIPMAP_LINEAR:
+                return "LINEAR_MIPMAP_LINEAR";
+            case GL13C.GL_CLAMP_TO_EDGE:
+                return "CLAMP_TO_EDGE";
+            case GL13C.GL_CLAMP_TO_BORDER:
+                return "CLAMP_TO_BORDER";
+            case GL14C.GL_MIRRORED_REPEAT:
+                return "MIRRORED_REPEAT";
+            case GL11C.GL_REPEAT:
+                return "REPEAT";
+
+            default:
+                return "unknown" + code;
+        }
+    }
 
     private Texture synthesizeTexture(String path, String query) {
         Map<String, String> queryMap = new HashMap<>(16);
