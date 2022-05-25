@@ -86,10 +86,6 @@ public class OctasphereTest extends BaseApplication {
         setBackgroundColor(Constants.SKY_BLUE);
 
         Mesh sphereMesh = new OctasphereMesh(4);
-        sphereMesh.generateUvs(UvsOption.Spherical,
-                new Vector4f(0f, 1f, 0f, 0f),
-                new Vector4f(0f, 0f, 1f, 0f)
-        );
 
         Geometry sphereGeometry = new Geometry(sphereMesh)
                 .setOrientation(-FastMath.HALF_PI, 0f, 0f)
