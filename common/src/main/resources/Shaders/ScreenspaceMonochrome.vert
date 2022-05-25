@@ -1,5 +1,5 @@
 /*
- * vertex shader for the ScreenSpace program
+ * vertex shader for the ScreenspaceMonochrome program
  */
 #version 330 core
 

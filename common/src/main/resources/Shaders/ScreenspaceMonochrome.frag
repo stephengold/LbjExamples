@@ -1,5 +1,5 @@
 /*
- * fragment shader for the ScreenSpace program
+ * fragment shader for the ScreenspaceMonochrome program
  */
 #version 330 core
 

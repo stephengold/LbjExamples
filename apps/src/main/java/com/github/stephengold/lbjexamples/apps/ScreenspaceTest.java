@@ -44,14 +44,14 @@ import org.lwjgl.system.Configuration;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class ScreenSpaceTest extends BaseApplication {
+public class ScreenspaceTest extends BaseApplication {
 
     private Geometry squareGeometry;
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the ScreenSpaceTest application.
+     * Main entry point for the ScreenspaceTest application.
      *
      * @param arguments array of command-line arguments (not null)
      */
@@ -61,7 +61,7 @@ public class ScreenSpaceTest extends BaseApplication {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        ScreenSpaceTest application = new ScreenSpaceTest();
+        ScreenspaceTest application = new ScreenspaceTest();
         application.start();
     }
     // *************************************************************************
@@ -88,7 +88,7 @@ public class ScreenSpaceTest extends BaseApplication {
 
         squareGeometry = new Geometry(squareMesh)
                 .setColor(Constants.YELLOW)
-                .setProgramByName("ScreenSpace");
+                .setProgramByName("ScreenspaceMonochrome");
         updateScales();
     }
 

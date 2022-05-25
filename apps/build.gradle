@@ -78,8 +78,8 @@ tasks.register('OctasphereTest', JavaExec) {
 tasks.register('RainbowTest', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.RainbowTest'
 }
-tasks.register('ScreenSpaceTest', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.ScreenSpaceTest'
+tasks.register('ScreenspaceTest', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.ScreenspaceTest'
 }
 tasks.register('TextureTest', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.TextureTest'
