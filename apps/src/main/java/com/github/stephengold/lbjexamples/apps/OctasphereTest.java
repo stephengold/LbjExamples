@@ -30,7 +30,6 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BaseApplication;
-import static com.github.stephengold.lbjexamples.BaseApplication.getCameraInputProcessor;
 import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.Geometry;
 import com.github.stephengold.lbjexamples.Mesh;
