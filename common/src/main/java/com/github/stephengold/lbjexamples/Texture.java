@@ -31,6 +31,7 @@ package com.github.stephengold.lbjexamples;
 
 import java.nio.FloatBuffer;
 import jme3utilities.Validate;
+import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL30C;
 
@@ -46,7 +47,7 @@ class Texture {
     /**
      * texture target (for binding, setting parameters, and generating mipmaps)
      */
-    final private int target = GL11C.GL_TEXTURE_2D;
+    final private int target;
     /**
      * level-of-detail index
      */
@@ -86,7 +87,11 @@ class Texture {
         Validate.positive(height, "height");
         Validate.nonNull(data, "data");
 
+        target = GL11C.GL_TEXTURE_2D;
+
         this.textureName = GL11C.glGenTextures();
+        Utils.checkForOglError();
+
         GL11C.glBindTexture(target, textureName);
         Utils.checkForOglError();
 
@@ -102,9 +107,10 @@ class Texture {
         int wrapT = key.wrapV();
         setTexParameter(GL11C.GL_TEXTURE_WRAP_T, wrapT);
 
-        int TEXTURE_MAX_ANISOTROPY_EXT = 0x84FE;
         float maxAniso = key.maxAniso();
-        GL11C.glTexParameterf(target, TEXTURE_MAX_ANISOTROPY_EXT, maxAniso);
+        GL11C.glTexParameterf(target,
+                EXTTextureFilterAnisotropic.GL_TEXTURE_MAX_ANISOTROPY_EXT,
+                maxAniso);
         Utils.checkForOglError();
 
         GL11C.glTexImage2D(target, level, internalFormat,
