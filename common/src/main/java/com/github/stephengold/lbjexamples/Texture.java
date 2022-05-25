@@ -88,7 +88,7 @@ class Texture {
 
         this.textureName = GL11C.glGenTextures();
         GL11C.glBindTexture(target, textureName);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
 
         int magFilter = key.magFilter();
         setTexParameter(GL11C.GL_TEXTURE_MAG_FILTER, magFilter);
@@ -105,19 +105,19 @@ class Texture {
         int TEXTURE_MAX_ANISOTROPY_EXT = 0x84FE;
         float maxAniso = key.maxAniso();
         GL11C.glTexParameterf(target, TEXTURE_MAX_ANISOTROPY_EXT, maxAniso);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
 
         GL11C.glTexImage2D(target, level, internalFormat,
                 width, height, border, format, type, data);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
 
         if (key.mipmaps()) {
             GL30C.glGenerateMipmap(target);
-            BaseApplication.checkForOglError();
+            Utils.checkForOglError();
         }
 
         GL11C.glBindTexture(target, 0);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
     }
     // *************************************************************************
     // new methods exposed
@@ -131,13 +131,19 @@ class Texture {
         Validate.inRange(unitNumber, "unit number", 0, 31);
 
         GL11C.glBindTexture(target, textureName);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
     }
     // *************************************************************************
     // private methods
 
-    private void setTexParameter(int parameter, int value) {
-        GL11C.glTexParameteri(target, parameter, value);
-        BaseApplication.checkForOglError();
+    /**
+     * Alter the value of a texture parameter.
+     *
+     * @param parameter the OpenGL code of the parameter to change
+     * @param newValue the desired value
+     */
+    private void setTexParameter(int parameter, int newValue) {
+        GL11C.glTexParameteri(target, parameter, newValue);
+        Utils.checkForOglError();
     }
 }

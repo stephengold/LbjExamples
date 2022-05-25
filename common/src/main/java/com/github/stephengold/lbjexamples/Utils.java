@@ -41,8 +41,20 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 import jme3utilities.MyString;
 import org.joml.Quaternionf;
+import org.lwjgl.opengl.GL11C;
 
 public class Utils {
+
+    /**
+     * Throw a runtime exception if OpenGL has detected an error since the
+     * previous invocation of this method.
+     */
+    public static void checkForOglError() {
+        int errorCode = GL11C.glGetError();
+        if (errorCode != GL11C.GL_NO_ERROR) {
+            throw new IllegalStateException("errorCode = " + errorCode);
+        }
+    }
 
     /**
      * Load a BufferedImage from the named resource.
@@ -88,6 +100,22 @@ public class Utils {
         String result = scanner.useDelimiter("\\A").next();
 
         return result;
+    }
+
+    /**
+     * Enable or disable the specified OpenGL capability.
+     *
+     * @param capability the numeric code for the capability
+     * @param newState the desired state (true to enable, false to disable)
+     */
+    static void setOglCapability(int capability, boolean newState) {
+        if (newState) {
+            GL11C.glEnable(capability);
+            checkForOglError();
+        } else {
+            GL11C.glDisable(capability);
+            checkForOglError();
+        }
     }
 
     public static float[] toArray(FloatBuffer buffer) {

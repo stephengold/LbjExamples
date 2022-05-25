@@ -133,7 +133,7 @@ public class ShaderProgram {
 
         this.programName = programName;
         this.programId = GL20C.glCreateProgram();
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
         if (programId == 0) {
             String q = MyString.quote(programName);
             throw new RuntimeException("Couldn't create program:  " + q);
@@ -167,10 +167,10 @@ public class ShaderProgram {
          * Ensure the program object isn't in use.
          */
         GL20C.glUseProgram(0);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
 
         GL20C.glDeleteProgram(programId);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
     }
 
     /**
@@ -261,7 +261,7 @@ public class ShaderProgram {
             use();
             boolean transpose = false;
             GL20C.glUniformMatrix4fv(location, transpose, buffer);
-            BaseApplication.checkForOglError();
+            Utils.checkForOglError();
         }
     }
 
@@ -280,7 +280,7 @@ public class ShaderProgram {
             use();
             boolean transpose = false;
             GL20C.glUniformMatrix3fv(location, transpose, buffer);
-            BaseApplication.checkForOglError();
+            Utils.checkForOglError();
         }
     }
 
@@ -297,7 +297,7 @@ public class ShaderProgram {
 
         use();
         GL20C.glUniform1f(location, value);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
     }
 
     /**
@@ -313,7 +313,7 @@ public class ShaderProgram {
 
         use();
         GL20C.glUniform1i(location, intValue);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
     }
 
     /**
@@ -334,7 +334,7 @@ public class ShaderProgram {
             use();
             boolean transpose = false;
             GL20C.glUniformMatrix3fv(location, transpose, buffer);
-            BaseApplication.checkForOglError();
+            Utils.checkForOglError();
         }
     }
 
@@ -356,7 +356,7 @@ public class ShaderProgram {
             use();
             boolean transpose = false;
             GL20C.glUniformMatrix4fv(location, transpose, buffer);
-            BaseApplication.checkForOglError();
+            Utils.checkForOglError();
         }
     }
 
@@ -379,7 +379,7 @@ public class ShaderProgram {
 
             use();
             GL20C.glUniform3fv(location, buffer);
-            BaseApplication.checkForOglError();
+            Utils.checkForOglError();
         }
     }
 
@@ -400,7 +400,7 @@ public class ShaderProgram {
 
             use();
             GL20C.glUniform3fv(location, buffer);
-            BaseApplication.checkForOglError();
+            Utils.checkForOglError();
         }
     }
 
@@ -421,7 +421,7 @@ public class ShaderProgram {
 
             use();
             GL20C.glUniform4fv(location, buffer);
-            BaseApplication.checkForOglError();
+            Utils.checkForOglError();
         }
     }
 
@@ -430,7 +430,7 @@ public class ShaderProgram {
      */
     void use() {
         GL20C.glUseProgram(programId);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
     }
     // *************************************************************************
     // private methods
@@ -462,7 +462,7 @@ public class ShaderProgram {
         assert resourceName != null;
 
         int shaderId = GL20C.glCreateShader(shaderType);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
         if (shaderId == 0) {
             throw new RuntimeException(
                     "Error creating shader. type=" + shaderType);
@@ -470,13 +470,13 @@ public class ShaderProgram {
 
         String sourceCode = Utils.loadResourceAsString(resourceName);
         GL20C.glShaderSource(shaderId, sourceCode);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
 
         GL20C.glCompileShader(shaderId);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
         int compileStatus
                 = GL20C.glGetShaderi(shaderId, GL20C.GL_COMPILE_STATUS);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
         if (compileStatus == 0) {
             String log = GL20C.glGetShaderInfoLog(shaderId, 1024);
             throw new RuntimeException(
@@ -484,7 +484,7 @@ public class ShaderProgram {
         }
 
         GL20C.glAttachShader(programId, shaderId);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
 
         return shaderId;
     }
@@ -496,7 +496,7 @@ public class ShaderProgram {
     private void collectAttribs() {
         for (String name : attribNames) {
             int location = GL20C.glGetAttribLocation(programId, name);
-            BaseApplication.checkForOglError();
+            Utils.checkForOglError();
             if (location != -1) {
                 attribLocations.put(name, location);
             }
@@ -510,7 +510,7 @@ public class ShaderProgram {
     private void collectUniforms() {
         for (String name : globalUniformMap.keySet()) {
             int location = GL20C.glGetUniformLocation(programId, name);
-            BaseApplication.checkForOglError();
+            Utils.checkForOglError();
             if (location != -1) {
                 uniformLocations.put(name, location);
 
@@ -521,7 +521,7 @@ public class ShaderProgram {
 
         for (String name : nonglobalUniformNames) {
             int location = GL20C.glGetUniformLocation(programId, name);
-            BaseApplication.checkForOglError();
+            Utils.checkForOglError();
             if (location != -1) {
                 uniformLocations.put(name, location);
             }
@@ -535,13 +535,13 @@ public class ShaderProgram {
      */
     private void detachShader(int shaderId) {
         GL20C.glDetachShader(programId, shaderId);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
     }
 
     private void linkProgram() {
         // Link the program object.
         GL20C.glLinkProgram(programId);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
         int success = GL20C.glGetProgrami(programId, GL20C.GL_LINK_STATUS);
         if (success == GL11C.GL_FALSE) {
             throw new RuntimeException("Error linking shader program: "
@@ -554,7 +554,7 @@ public class ShaderProgram {
      */
     private void validateProgram() {
         GL20C.glValidateProgram(programId);
-        BaseApplication.checkForOglError();
+        Utils.checkForOglError();
         int success = GL20C.glGetProgrami(programId, GL20C.GL_LINK_STATUS);
         if (success == GL11C.GL_FALSE) {
             throw new RuntimeException("Error validating shader program: "
