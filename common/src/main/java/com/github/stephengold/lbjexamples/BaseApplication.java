@@ -610,7 +610,7 @@ public abstract class BaseApplication {
          */
         Utils.setOglCapability(GL30C.GL_FRAMEBUFFER_SRGB, true);
 
-        ShaderProgram.initialize();
+        ShaderProgram.initializeStaticData();
 
         setBackgroundColor(Constants.DARK_GRAY);
 

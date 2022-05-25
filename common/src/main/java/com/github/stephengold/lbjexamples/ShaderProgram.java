@@ -227,7 +227,7 @@ public class ShaderProgram {
     /**
      * Initialize static data before the update loop begins.
      */
-    static void initialize() {
+    static void initializeStaticData() {
         addGlobalUniforms(
                 new AmbientStrength(),
                 new LightColor(),
