@@ -205,15 +205,20 @@ public class Mesh {
         }
 
         GL30C.glBindVertexArray(vaoId);
+        BaseApplication.checkForOglError();
+
         for (int index = 0; index < vboIdList.size(); ++index) {
             GL20C.glDisableVertexAttribArray(index);
+            BaseApplication.checkForOglError();
         }
 
         for (int vboId : vboIdList) {
             GL15C.glDeleteBuffers(vboId);
+            BaseApplication.checkForOglError();
         }
 
         GL30C.glDeleteVertexArrays(vaoId);
+        BaseApplication.checkForOglError();
     }
 
     /**
@@ -383,10 +388,13 @@ public class Mesh {
     void renderUsing(ShaderProgram program) {
         program.use();
         enableAttributes(program);
+
         GL30C.glBindVertexArray(vaoId);
+        BaseApplication.checkForOglError();
 
         int startVertex = 0;
         GL30C.glDrawArrays(drawMode, startVertex, vertexCount);
+        BaseApplication.checkForOglError();
     }
 
     /**
@@ -493,6 +501,7 @@ public class Mesh {
         nameList.add(name);
 
         int vboId = GL30C.glGenBuffers();
+        BaseApplication.checkForOglError();
         vboIdList.add(vboId);
 
         data.rewind();
@@ -501,7 +510,10 @@ public class Mesh {
         data.limit(numFloats);
 
         GL30C.glBindBuffer(GL30C.GL_ARRAY_BUFFER, vboId);
+        BaseApplication.checkForOglError();
+
         GL30C.glBufferData(GL30C.GL_ARRAY_BUFFER, data, GL30C.GL_STATIC_DRAW);
+        BaseApplication.checkForOglError();
     }
 
     /**
@@ -518,9 +530,11 @@ public class Mesh {
             return;
         }
         GL30C.glEnableVertexAttribArray(location);
+        BaseApplication.checkForOglError();
 
         int vboId = vboIdList.get(attributeIndex);
         GL30C.glBindBuffer(GL30C.GL_ARRAY_BUFFER, vboId);
+        BaseApplication.checkForOglError();
 
         int fpv = fpvList.get(attributeIndex);
         boolean normalized = false;
@@ -528,6 +542,7 @@ public class Mesh {
         int startOffset = 0;
         GL30C.glVertexAttribPointer(location, fpv, GL30C.GL_FLOAT,
                 normalized, stride, startOffset);
+        BaseApplication.checkForOglError();
     }
 
     /**
@@ -540,7 +555,10 @@ public class Mesh {
     private void enableAttributes(ShaderProgram program) {
         if (vaoId == null) {
             this.vaoId = GL30C.glGenVertexArrays();
+            BaseApplication.checkForOglError();
+
             GL30C.glBindVertexArray(vaoId);
+            BaseApplication.checkForOglError();
 
             // Create a VBO for each attribute.
             addFloatVbo(positions, numAxes, ShaderProgram.positionAttribName);
@@ -554,6 +572,7 @@ public class Mesh {
         } else {
             // Re-use the existing VBOs.
             GL30C.glBindVertexArray(vaoId);
+            BaseApplication.checkForOglError();
         }
 
         for (int index = 0; index < vboIdList.size(); ++index) {
