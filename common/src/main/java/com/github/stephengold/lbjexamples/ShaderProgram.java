@@ -102,7 +102,7 @@ public class ShaderProgram {
     /**
      * ID of the program object
      */
-    private final int programId;
+    private Integer programId;
     /**
      * map variable names to global uniforms
      */
@@ -130,31 +130,8 @@ public class ShaderProgram {
      */
     ShaderProgram(String programName) {
         assert programName != null;
-
         this.programName = programName;
-        this.programId = GL20C.glCreateProgram();
-        Utils.checkForOglError();
-        if (programId == 0) {
-            String q = MyString.quote(programName);
-            throw new RuntimeException("Couldn't create program:  " + q);
-        }
-
-        String vertexShaderName = "/Shaders/" + programName + ".vert";
-        int vertexShaderId
-                = attachShader(vertexShaderName, GL20C.GL_VERTEX_SHADER);
-
-        String fragmentShaderName = "/Shaders/" + programName + ".frag";
-        int fragmentShaderId
-                = attachShader(fragmentShaderName, GL20C.GL_FRAGMENT_SHADER);
-
-        linkProgram();
-
-        detachShader(vertexShaderId);
-        detachShader(fragmentShaderId);
-
-        validateProgram();
-        collectAttribs();
-        collectUniforms();
+        // Defer program-object creation until use().
     }
     // *************************************************************************
     // new methods exposed
@@ -169,8 +146,10 @@ public class ShaderProgram {
         GL20C.glUseProgram(0);
         Utils.checkForOglError();
 
-        GL20C.glDeleteProgram(programId);
-        Utils.checkForOglError();
+        if (programId != null) {
+            GL20C.glDeleteProgram(programId);
+            Utils.checkForOglError();
+        }
     }
 
     /**
@@ -427,8 +406,36 @@ public class ShaderProgram {
 
     /**
      * Make this ShaderProgram the current one for rendering.
+     * <p>
+     * If the program object doesn't already exist, it is created.
      */
     void use() {
+        if (programId == null) {
+            this.programId = GL20C.glCreateProgram();
+            Utils.checkForOglError();
+            if (programId == 0) {
+                String q = MyString.quote(programName);
+                throw new RuntimeException("Couldn't create program " + q);
+            }
+
+            String vertexShaderName = "/Shaders/" + programName + ".vert";
+            int vertexShaderId
+                    = attachShader(vertexShaderName, GL20C.GL_VERTEX_SHADER);
+
+            String fragmentShaderName = "/Shaders/" + programName + ".frag";
+            int fragmentShaderId = attachShader(fragmentShaderName,
+                    GL20C.GL_FRAGMENT_SHADER);
+
+            linkProgram();
+            validateProgram();
+
+            detachShader(vertexShaderId);
+            detachShader(fragmentShaderId);
+
+            collectAttribs();
+            collectUniforms();
+        }
+
         GL20C.glUseProgram(programId);
         Utils.checkForOglError();
     }
