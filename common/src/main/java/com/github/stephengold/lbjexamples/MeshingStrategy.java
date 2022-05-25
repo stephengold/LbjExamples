@@ -242,7 +242,7 @@ class MeshingStrategy {
      * @return
      */
     private static NormalsOption parseNormals(String description) {
-        String[] items = description.split(delimiter, 0);
+        String[] items = description.split(delimiter);
         NormalsOption result;
         if (items.length >= 2) {
             String nString = items[1];
@@ -262,7 +262,7 @@ class MeshingStrategy {
      * @return
      */
     private static int parsePositions(String description) {
-        String[] items = description.split(delimiter, 0);
+        String[] items = description.split(delimiter);
         String pString = items[0];
         int result = toPositions(pString);
 
@@ -276,7 +276,7 @@ class MeshingStrategy {
      * @return an enum value (not null)
      */
     private static UvsOption parseUvs(String description) {
-        String[] items = description.split(delimiter, 0);
+        String[] items = description.split(delimiter);
         UvsOption result;
         if (items.length > 2) {
             String uvString = items[2];
@@ -296,11 +296,11 @@ class MeshingStrategy {
      * @return a new vector
      */
     private static Vector4fc parseVector4f(String description, int itemIndex) {
-        String[] items = description.split(delimiter, 0);
+        String[] items = description.split(delimiter);
         Vector4f result = new Vector4f();
         if (items.length > itemIndex) {
             String item = items[itemIndex];
-            String[] components = item.split(" ", 0);
+            String[] components = item.split(" ");
             if (components.length != 4) {
                 String message = "item = " + MyString.quote(item);
                 throw new IllegalArgumentException(message);
