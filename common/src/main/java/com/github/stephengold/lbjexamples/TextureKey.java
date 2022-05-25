@@ -361,12 +361,14 @@ public class TextureKey {
 
     private Texture synthesizeTexture(String path, String query) {
         Map<String, String> queryMap = new HashMap<>(16);
-        String[] assignments = query.split("&");
-        for (String assignment : assignments) {
-            String[] terms = assignment.split("=", 2);
-            String name = terms[0];
-            String value = terms[1];
-            queryMap.put(name, value);
+        if (query != null) {
+            String[] assignments = query.split("&");
+            for (String assignment : assignments) {
+                String[] terms = assignment.split("=", 2);
+                String name = terms[0];
+                String value = terms[1];
+                queryMap.put(name, value);
+            }
         }
 
         Texture result;
