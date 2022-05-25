@@ -518,7 +518,7 @@ public class ShaderProgram {
                     "Error creating shader. type=" + shaderType);
         }
 
-        String sourceCode = Utils.loadResource(resourceName);
+        String sourceCode = Utils.loadResourceAsString(resourceName);
         GL20C.glShaderSource(shaderId, sourceCode);
         BaseApplication.checkForOglError();
 

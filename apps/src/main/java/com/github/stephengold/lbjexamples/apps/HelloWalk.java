@@ -216,8 +216,8 @@ public class HelloWalk
      */
     private void addTerrain() {
         // Generate an array of heights from a PNG image on the classpath.
-        String assetPath = "/Textures/Terrain/splat/mountains512.png";
-        BufferedImage image = Utils.loadImage(assetPath);
+        String resourceName = "/Textures/Terrain/splat/mountains512.png";
+        BufferedImage image = Utils.loadResourceAsImage(resourceName);
 
         float maxHeight = 51f;
         float[] heightArray = Utils.toHeightArray(image, maxHeight);

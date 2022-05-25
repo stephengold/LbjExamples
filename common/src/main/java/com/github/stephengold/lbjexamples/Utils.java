@@ -50,9 +50,8 @@ public class Utils {
      * @param resourceName the name of the resource (not null)
      * @return a new instance
      */
-    public static BufferedImage loadImage(String resourceName) {
-        InputStream inputStream
-                = BaseApplication.class.getResourceAsStream(resourceName);
+    public static BufferedImage loadResourceAsImage(String resourceName) {
+        InputStream inputStream = Utils.class.getResourceAsStream(resourceName);
         if (inputStream == null) {
             String q = MyString.quote(resourceName);
             throw new RuntimeException("resource not found:  " + q);
@@ -77,9 +76,8 @@ public class Utils {
      * @param resourceName the name of the resource (not null)
      * @return the text (possibly multiple lines)
      */
-    public static String loadResource(String resourceName) {
-        InputStream inputStream
-                = BaseApplication.class.getResourceAsStream(resourceName);
+    public static String loadResourceAsString(String resourceName) {
+        InputStream inputStream = Utils.class.getResourceAsStream(resourceName);
         if (inputStream == null) {
             String q = MyString.quote(resourceName);
             throw new RuntimeException("resource not found:  " + q);
