@@ -37,9 +37,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.FloatBuffer;
+import java.util.HashMap;
+import java.util.Map;
 import javax.imageio.ImageIO;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
+import org.joml.Vector4fc;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL13C;
@@ -85,7 +88,7 @@ public class TextureKey {
     private int wrapV;
     private static int wrapVDefault = GL11C.GL_REPEAT;
     /**
-     * URI used to load image data
+     * URI used to load/generate image data
      */
     private URI uri;
     // *************************************************************************
@@ -143,7 +146,7 @@ public class TextureKey {
     // new methods exposed
 
     /**
-     * Load the Texture for this key.
+     * Load/generate the Texture for this key.
      *
      * @return a new instance
      */
@@ -151,10 +154,17 @@ public class TextureKey {
         Texture result;
 
         String scheme = uri.getScheme();
+        if (scheme.equals("synthetic")) {
+            String path = uri.getPath();
+            String query = uri.getQuery();
+            result = synthesizeTexture(path, query);
+            return result;
+        }
+
         InputStream stream;
         if (scheme.equals("classpath")) {
             String path = uri.getPath();
-            stream = BaseApplication.class.getResourceAsStream(path);
+            stream = Utils.class.getResourceAsStream(path);
 
         } else { // The URI must also be a URL.
             URL url;
@@ -349,6 +359,83 @@ public class TextureKey {
     // *************************************************************************
     // private methods
 
+    private Texture synthesizeTexture(String path, String query) {
+        Map<String, String> queryMap = new HashMap<>(16);
+        String[] assignments = query.split("&");
+        for (String assignment : assignments) {
+            String[] terms = assignment.split("=", 2);
+            String name = terms[0];
+            String value = terms[1];
+            queryMap.put(name, value);
+        }
+
+        Texture result;
+        switch (path) {
+            case "/checkerboard":
+                result = synthesizeCheckerboard(queryMap);
+                break;
+            default:
+                String q = MyString.quote(path);
+                throw new IllegalArgumentException("path = " + q);
+        }
+        return result;
+    }
+
+    /**
+     * Generate a square texture for a 2-color checkerboard pattern.
+     *
+     * @param argMap argument map (not null, unaffected
+     * @return a new instance
+     */
+    private Texture synthesizeCheckerboard(Map<String, String> argMap) {
+        String sizeDecimal = argMap.get("size");
+        if (sizeDecimal == null) {
+            sizeDecimal = "64";
+        }
+        int size = Integer.parseInt(sizeDecimal);
+        if (size < 1) {
+            throw new IllegalArgumentException("size = " + size);
+        }
+
+        String c0Arg = argMap.get("color0");
+        if (c0Arg == null) {
+            c0Arg = "000000ff"; // black
+        }
+        Vector4fc color0 = Utils.toLinearColor(c0Arg);
+
+        String c1Arg = argMap.get("color1");
+        if (c1Arg == null) {
+            c1Arg = "ffffffff"; // white
+        }
+        Vector4fc color1 = Utils.toLinearColor(c1Arg);
+
+        int halfSize = size / 2;
+        int floatsPerTexel = 4;
+        int numFloats = size * size * floatsPerTexel;
+        FloatBuffer data = BufferUtils.createFloatBuffer(numFloats);
+
+        for (int y = 0; y < size; ++y) {
+            int ySide = y / halfSize;
+            for (int x = 0; x < size; ++x) {
+                int xSide = x / halfSize;
+                int colorIndex = (xSide + ySide) % 2;
+                Vector4fc color = (colorIndex == 0) ? color0 : color1;
+
+                float r = color.x();
+                float g = color.y();
+                float b = color.z();
+                float a = color.w();
+                data.put(r).put(g).put(b).put(a);
+            }
+        }
+        data.flip();
+        assert data.limit() == data.capacity();
+
+        Texture result = new Texture(this, size, size, data);
+
+        return result;
+    }
+
     /**
      * Load image data from the specified stream and create a Texture from it.
      *
@@ -444,14 +531,21 @@ public class TextureKey {
         }
 
         String scheme = uri.getScheme();
-        if (scheme.equals("classpath")) {
+        if (scheme.equals("synthetic")) {
             String path = uri.getPath();
             if (path == null) {
                 String message = "no path in " + MyString.quote(uriString);
                 throw new IllegalArgumentException(message);
             }
 
-            InputStream stream = TextureKey.class.getResourceAsStream(path);
+        } else if (scheme.equals("classpath")) {
+            String path = uri.getPath();
+            if (path == null) {
+                String message = "no path in " + MyString.quote(uriString);
+                throw new IllegalArgumentException(message);
+            }
+
+            InputStream stream = Utils.class.getResourceAsStream(path);
             if (stream == null) {
                 String message = "resource not found:  " + MyString.quote(path);
                 throw new IllegalArgumentException(message);
