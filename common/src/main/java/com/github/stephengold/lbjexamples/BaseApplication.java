@@ -46,13 +46,23 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11C;
+import org.lwjgl.opengl.GLUtil;
 import org.lwjgl.system.Callback;
+import org.lwjgl.system.Configuration;
 import org.lwjgl.system.MemoryUtil;
 
 /**
  * An abstract application using LWJGL and OpenGL.
  */
 public abstract class BaseApplication {
+    // *************************************************************************
+    // constants
+
+    /**
+     * true to enable debugging output and additional runtime checks, or false
+     * to disable them
+     */
+    final private static boolean enableDebugging = false;
     // *************************************************************************
     // fields
 
@@ -520,6 +530,15 @@ public abstract class BaseApplication {
      * Initialize this class.
      */
     private void initializeBase() {
+        if (enableDebugging) {
+            Configuration.DEBUG.set(true);
+            Configuration.DEBUG_FUNCTIONS.set(true);
+            Configuration.DEBUG_LOADER.set(true);
+            Configuration.DEBUG_MEMORY_ALLOCATOR.set(true);
+            Configuration.DEBUG_MEMORY_ALLOCATOR_INTERNAL.set(true);
+            Configuration.DEBUG_STACK.set(true);
+        }
+
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!glfwInit()) {
@@ -532,7 +551,9 @@ public abstract class BaseApplication {
         glfwWindowHint(GLFW_SAMPLES, 8);               // default=0
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-//        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE); // default=GLFW_FALSE
+        if (enableDebugging) {
+            glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE); // default=GLFW_FALSE
+        }
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // default=GLFW_OPENGL_ANY_PROFILE
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11C.GL_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
 
@@ -569,7 +590,10 @@ public abstract class BaseApplication {
         glfwShowWindow(mainWindowId);
 
         GL.createCapabilities();
-        //debugCallback = GLUtil.setupDebugMessageCallback(); // null if the debug mode isn't available
+        if (enableDebugging) {
+            debugCallback = GLUtil.setupDebugMessageCallback();
+            // If no debug mode is available, the callback remains null.
+        }
         GL11C.glEnable(GL11C.GL_DEPTH_TEST);
         /*
          * Encode fragment colors for sRGB
