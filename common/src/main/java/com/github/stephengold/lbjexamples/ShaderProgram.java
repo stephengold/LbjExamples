@@ -36,6 +36,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import jme3utilities.MyString;
 import jme3utilities.math.MyVector3f;
 import org.joml.Matrix3fc;
 import org.joml.Matrix4fc;
@@ -134,8 +135,8 @@ public class ShaderProgram {
         this.programId = GL20C.glCreateProgram();
         BaseApplication.checkForOglError();
         if (programId == 0) {
-            String message = "Couldn't create program:  " + programName;
-            throw new RuntimeException(message);
+            String q = MyString.quote(programName);
+            throw new RuntimeException("Couldn't create program:  " + q);
         }
 
         String vertexShaderName = "/Shaders/" + programName + ".vert";

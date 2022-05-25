@@ -39,6 +39,7 @@ import java.nio.FloatBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
+import jme3utilities.MyString;
 import org.joml.Quaternionf;
 
 public class Utils {
@@ -53,7 +54,8 @@ public class Utils {
         InputStream inputStream
                 = BaseApplication.class.getResourceAsStream(resourceName);
         if (inputStream == null) {
-            throw new RuntimeException("resource not found:  " + resourceName);
+            String q = MyString.quote(resourceName);
+            throw new RuntimeException("resource not found:  " + q);
         }
 
         ImageIO.setUseCache(false);
@@ -62,7 +64,8 @@ public class Utils {
         try {
             result = ImageIO.read(inputStream);
         } catch (IOException exception) {
-            throw new RuntimeException("unable to read " + resourceName);
+            String q = MyString.quote(resourceName);
+            throw new RuntimeException("unable to read " + q);
         }
 
         return result;
@@ -78,7 +81,8 @@ public class Utils {
         InputStream inputStream
                 = BaseApplication.class.getResourceAsStream(resourceName);
         if (inputStream == null) {
-            throw new RuntimeException("resource not found:  " + resourceName);
+            String q = MyString.quote(resourceName);
+            throw new RuntimeException("resource not found:  " + q);
         }
 
         Scanner scanner

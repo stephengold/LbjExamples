@@ -43,7 +43,7 @@ import org.joml.Vector4fc;
 class MeshingStrategy {
     // *************************************************************************
     // constants
-    
+
     /**
      * delimit the items in a strategy description string
      */
@@ -328,7 +328,7 @@ class MeshingStrategy {
             case "low":
                 return DebugShapeFactory.lowResolution;
             default:
-                String message = "pString = " + pString;
+                String message = "pString = " + MyString.quote(pString);
                 throw new IllegalArgumentException(message);
         }
     }
