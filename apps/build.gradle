@@ -21,6 +21,9 @@ tasks.register('AppChooser', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.AppChooser'
 }
 
+tasks.register('CheckerboardTest', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.CheckerboardTest'
+}
 tasks.register('HelloCcd', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCcd'
 }

@@ -51,6 +51,7 @@ public class AppChooser extends JFrame {
         }
 
         List<BaseApplication> apps = new ArrayList<>(13);
+        apps.add(new CheckerboardTest());
         apps.add(new HelloCcd());
         apps.add(new HelloCharacter());
         apps.add(new HelloContactResponse());
