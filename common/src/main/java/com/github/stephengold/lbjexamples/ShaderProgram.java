@@ -126,7 +126,7 @@ public class ShaderProgram {
     /**
      * Instantiate the named program.
      *
-     * @param programName the base name of the shader files to load (not null)
+     * @param programName the base name of the vertex shader to load (not null)
      */
     ShaderProgram(String programName) {
         assert programName != null;
@@ -141,37 +141,20 @@ public class ShaderProgram {
 
         String vertexShaderName = "/Shaders/" + programName + ".vert";
         int vertexShaderId
-                = createShader(vertexShaderName, GL20C.GL_VERTEX_SHADER);
+                = attachShader(vertexShaderName, GL20C.GL_VERTEX_SHADER);
 
         String fragmentShaderName = "/Shaders/" + programName + ".frag";
         int fragmentShaderId
-                = createShader(fragmentShaderName, GL20C.GL_FRAGMENT_SHADER);
+                = attachShader(fragmentShaderName, GL20C.GL_FRAGMENT_SHADER);
 
-        // Link the program object.
-        GL20C.glLinkProgram(programId);
-        BaseApplication.checkForOglError();
-        int success = GL20C.glGetProgrami(programId, GL20C.GL_LINK_STATUS);
-        if (success == GL11C.GL_FALSE) {
-            throw new RuntimeException("Error linking shader program: "
-                    + GL20C.glGetProgramInfoLog(programId, 1024));
-        }
+        linkProgram();
 
-        GL20C.glDetachShader(programId, vertexShaderId);
-        BaseApplication.checkForOglError();
+        detachShader(vertexShaderId);
+        detachShader(fragmentShaderId);
 
-        GL20C.glDetachShader(programId, fragmentShaderId);
-        BaseApplication.checkForOglError();
-
-        // Validate the program object.
-        GL20C.glValidateProgram(programId);
-        BaseApplication.checkForOglError();
-        success = GL20C.glGetProgrami(programId, GL20C.GL_LINK_STATUS);
-        if (success == GL11C.GL_FALSE) {
-            throw new RuntimeException("Error validating shader program: "
-                    + GL20C.glGetProgramInfoLog(programId, 1024));
-        }
-
-        collectActiveUniforms();
+        validateProgram();
+        collectAttribs();
+        collectUniforms();
     }
     // *************************************************************************
     // new methods exposed
@@ -269,7 +252,7 @@ public class ShaderProgram {
      * @param geometry (not null, unaffected)
      */
     void setModelMatrix(Geometry geometry) {
-        int location = locateUniform(modelMatrixUniformName);
+        int location = uniformLocations.get(modelMatrixUniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(16);
@@ -288,7 +271,7 @@ public class ShaderProgram {
      * @param geometry (not null, unaffected)
      */
     void setModelRotationMatrix(Geometry geometry) {
-        int location = locateUniform(modelRotationMatrixUniformName);
+        int location = uniformLocations.get(modelRotationMatrixUniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(9);
@@ -310,7 +293,7 @@ public class ShaderProgram {
      */
     void setUniform(String uniformName, float value) {
         assert uniformName != null;
-        int location = locateUniform(uniformName);
+        int location = uniformLocations.get(uniformName);
 
         use();
         GL20C.glUniform1f(location, value);
@@ -326,7 +309,7 @@ public class ShaderProgram {
      */
     void setUniform(String uniformName, int intValue) {
         assert uniformName != null;
-        int location = locateUniform(uniformName);
+        int location = uniformLocations.get(uniformName);
 
         use();
         GL20C.glUniform1i(location, intValue);
@@ -342,7 +325,7 @@ public class ShaderProgram {
      */
     void setUniform(String uniformName, Matrix3fc value) {
         assert uniformName != null;
-        int location = locateUniform(uniformName);
+        int location = uniformLocations.get(uniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(9);
@@ -364,7 +347,7 @@ public class ShaderProgram {
      */
     void setUniform(String uniformName, Matrix4fc value) {
         assert uniformName != null;
-        int location = locateUniform(uniformName);
+        int location = uniformLocations.get(uniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(16);
@@ -386,7 +369,7 @@ public class ShaderProgram {
      */
     void setUniform(String uniformName, Vector3f value) {
         assert uniformName != null;
-        int location = locateUniform(uniformName);
+        int location = uniformLocations.get(uniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(MyVector3f.numAxes);
@@ -409,7 +392,7 @@ public class ShaderProgram {
      */
     void setUniform(String uniformName, Vector3fc value) {
         assert uniformName != null;
-        int location = locateUniform(uniformName);
+        int location = uniformLocations.get(uniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(3);
@@ -430,7 +413,7 @@ public class ShaderProgram {
      */
     void setUniform(String uniformName, Vector4fc value) {
         assert uniformName != null;
-        int location = locateUniform(uniformName);
+        int location = uniformLocations.get(uniformName);
 
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(4);
@@ -468,39 +451,6 @@ public class ShaderProgram {
     }
 
     /**
-     * Enumerate the active attribs and uniforms, record their locations, and
-     * determine which uniforms are global.
-     */
-    private void collectActiveUniforms() {
-        for (String name : attribNames) {
-            int location = GL20C.glGetAttribLocation(programId, name);
-            BaseApplication.checkForOglError();
-            if (location != -1) {
-                attribLocations.put(name, location);
-            }
-        }
-
-        for (String name : nonglobalUniformNames) {
-            int location = GL20C.glGetUniformLocation(programId, name);
-            BaseApplication.checkForOglError();
-            if (location != -1) {
-                uniformLocations.put(name, location);
-            }
-        }
-
-        for (String name : globalUniformMap.keySet()) {
-            int location = GL20C.glGetUniformLocation(programId, name);
-            BaseApplication.checkForOglError();
-            if (location != -1) {
-                uniformLocations.put(name, location);
-
-                GlobalUniform gu = globalUniformMap.get(name);
-                globalUniforms.add(gu);
-            }
-        }
-    }
-
-    /**
      * Create, compile, and attach a shader.
      *
      * @param resourceName the name of the shader resource (not null)
@@ -508,7 +458,7 @@ public class ShaderProgram {
      * GL_GEOMETRY_SHADER, GL_TESS_CONTROL_SHADER, or GL_TESS_EVALUATION_SHADER
      * @return the ID of the new shader
      */
-    private int createShader(String resourceName, int shaderType) {
+    private int attachShader(String resourceName, int shaderType) {
         assert resourceName != null;
 
         int shaderId = GL20C.glCreateShader(shaderType);
@@ -540,19 +490,75 @@ public class ShaderProgram {
     }
 
     /**
-     * Returns the location of the named uniform variable.
-     *
-     * @param name the name of the variable to locate (not null, not empty, no
-     * whitespace)
-     * @return the location within this program
+     * Enumerate the active attribs and uniforms, record their locations, and
+     * determine which uniforms are global.
      */
-    private int locateUniform(String name) {
-        assert name != null;
-        assert !name.isEmpty();
+    private void collectAttribs() {
+        for (String name : attribNames) {
+            int location = GL20C.glGetAttribLocation(programId, name);
+            BaseApplication.checkForOglError();
+            if (location != -1) {
+                attribLocations.put(name, location);
+            }
+        }
+    }
 
-        int location = uniformLocations.get(name);
+    /**
+     * Enumerate the active uniforms, record their locations, and determine
+     * which ones are global.
+     */
+    private void collectUniforms() {
+        for (String name : globalUniformMap.keySet()) {
+            int location = GL20C.glGetUniformLocation(programId, name);
+            BaseApplication.checkForOglError();
+            if (location != -1) {
+                uniformLocations.put(name, location);
 
-        assert location >= 0 : location;
-        return location;
+                GlobalUniform gu = globalUniformMap.get(name);
+                globalUniforms.add(gu);
+            }
+        }
+
+        for (String name : nonglobalUniformNames) {
+            int location = GL20C.glGetUniformLocation(programId, name);
+            BaseApplication.checkForOglError();
+            if (location != -1) {
+                uniformLocations.put(name, location);
+            }
+        }
+    }
+
+    /**
+     * Detach the specified shader from the program object.
+     *
+     * @param the ID of the shader
+     */
+    private void detachShader(int shaderId) {
+        GL20C.glDetachShader(programId, shaderId);
+        BaseApplication.checkForOglError();
+    }
+
+    private void linkProgram() {
+        // Link the program object.
+        GL20C.glLinkProgram(programId);
+        BaseApplication.checkForOglError();
+        int success = GL20C.glGetProgrami(programId, GL20C.GL_LINK_STATUS);
+        if (success == GL11C.GL_FALSE) {
+            throw new RuntimeException("Error linking shader program: "
+                    + GL20C.glGetProgramInfoLog(programId, 1024));
+        }
+    }
+
+    /**
+     * Validate the program object.
+     */
+    private void validateProgram() {
+        GL20C.glValidateProgram(programId);
+        BaseApplication.checkForOglError();
+        int success = GL20C.glGetProgrami(programId, GL20C.GL_LINK_STATUS);
+        if (success == GL11C.GL_FALSE) {
+            throw new RuntimeException("Error validating shader program: "
+                    + GL20C.glGetProgramInfoLog(programId, 1024));
+        }
     }
 }
