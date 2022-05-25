@@ -90,16 +90,16 @@ class Texture {
         GL11C.glBindTexture(target, textureName);
 
         int magFilter = key.magFilter();
-        GL11C.glTexParameteri(target, GL11C.GL_TEXTURE_MAG_FILTER, magFilter);
+        setTexParameter(GL11C.GL_TEXTURE_MAG_FILTER, magFilter);
 
         int minFilter = key.minFilter();
-        GL11C.glTexParameteri(target, GL11C.GL_TEXTURE_MIN_FILTER, minFilter);
+        setTexParameter(GL11C.GL_TEXTURE_MIN_FILTER, minFilter);
 
         int wrapS = key.wrapU();
-        GL11C.glTexParameteri(target, GL11C.GL_TEXTURE_WRAP_S, wrapS);
+        setTexParameter(GL11C.GL_TEXTURE_WRAP_S, wrapS);
 
         int wrapT = key.wrapV();
-        GL11C.glTexParameteri(target, GL11C.GL_TEXTURE_WRAP_T, wrapT);
+        setTexParameter(GL11C.GL_TEXTURE_WRAP_T, wrapT);
 
         int TEXTURE_MAX_ANISOTROPY_EXT = 0x84FE;
         float maxAniso = key.maxAniso();
@@ -125,5 +125,11 @@ class Texture {
     void setUnitNumber(int unitNumber) {
         Validate.inRange(unitNumber, "unit number", 0, 31);
         GL11C.glBindTexture(target, textureName);
+    }
+    // *************************************************************************
+    // private methods
+
+    private void setTexParameter(int parameter, int value) {
+        GL11C.glTexParameteri(target, parameter, value);
     }
 }
