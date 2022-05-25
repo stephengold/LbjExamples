@@ -451,27 +451,24 @@ public class Geometry {
 
         GL11C.glPolygonMode(GL11C.GL_FRONT_AND_BACK,
                 wireframe ? GL11C.GL_LINE : GL11C.GL_FILL);
+        BaseApplication.checkForOglError();
 
-        if (depthTest) {
-            GL11C.glEnable(GL11C.GL_DEPTH_TEST);
-        } else {
-            GL11C.glDisable(GL11C.GL_DEPTH_TEST);
-        }
+        BaseApplication.setOglCapability(GL11C.GL_DEPTH_TEST, depthTest);
+
+        boolean cullFace = (cullBack || cullFront);
+        BaseApplication.setOglCapability(GL11C.GL_CULL_FACE, cullFace);
 
         if (cullBack && cullFront) {
-            GL11C.glEnable(GL11C.GL_CULL_FACE);
             GL11C.glCullFace(GL11C.GL_FRONT_AND_BACK);
+            BaseApplication.checkForOglError();
 
         } else if (cullBack) {
-            GL11C.glEnable(GL11C.GL_CULL_FACE);
             GL11C.glCullFace(GL11C.GL_BACK);
+            BaseApplication.checkForOglError();
 
         } else if (cullFront) {
-            GL11C.glEnable(GL11C.GL_CULL_FACE);
             GL11C.glCullFace(GL11C.GL_FRONT);
-
-        } else {
-            GL11C.glDisable(GL11C.GL_CULL_FACE);
+            BaseApplication.checkForOglError();
         }
 
         mesh.renderUsing(program);
