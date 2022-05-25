@@ -46,6 +46,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11C;
+import org.lwjgl.opengl.GL30C;
 import org.lwjgl.opengl.GLUtil;
 import org.lwjgl.system.Callback;
 import org.lwjgl.system.Configuration;
@@ -169,6 +170,17 @@ public abstract class BaseApplication {
 
         assert ratio > 0f : ratio;
         return ratio;
+    }
+
+    /**
+     * Throw a runtime exception if OpenGL has detected an error since the
+     * previous invocation of this method.
+     */
+    public static void checkForOglError() {
+        int errorCode = GL11C.glGetError();
+        if (errorCode != GL11C.GL_NO_ERROR) {
+            throw new IllegalStateException("errorCode = " + errorCode);
+        }
     }
 
     /**
@@ -337,6 +349,23 @@ public abstract class BaseApplication {
         float blue = newColor.z();
         float alpha = newColor.w();
         GL11C.glClearColor(red, green, blue, alpha);
+        checkForOglError();
+    }
+
+    /**
+     * Enable or disable the specified OpenGL capability.
+     *
+     * @param capability the numeric code for the capability
+     * @param newState the desired state (true to enable, false to disable)
+     */
+    static void setOglCapability(int capability, boolean newState) {
+        if (newState) {
+            GL11C.glEnable(capability);
+            checkForOglError();
+        } else {
+            GL11C.glDisable(capability);
+            checkForOglError();
+        }
     }
 
     /**
@@ -569,6 +598,7 @@ public abstract class BaseApplication {
             frameBufferWidth = width;
             frameBufferHeight = height;
             GL11C.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+            checkForOglError();
         });
 
         // Set up the user input callbacks.
@@ -590,11 +620,14 @@ public abstract class BaseApplication {
         glfwShowWindow(mainWindowId);
 
         GL.createCapabilities();
+        checkForOglError();
+
         if (enableDebugging) {
             debugCallback = GLUtil.setupDebugMessageCallback();
+            checkForOglError();
             // If no debug mode is available, the callback remains null.
         }
-        GL11C.glEnable(GL11C.GL_DEPTH_TEST);
+        setOglCapability(GL11C.GL_DEPTH_TEST, true);
         /*
          * Encode fragment colors for sRGB
          * before writing them to the framebuffer.
@@ -602,8 +635,7 @@ public abstract class BaseApplication {
          * This displays reasonably accurate colors
          * when fragment colors are generated in the Linear colorspace.
          */
-        int GL_FRAMEBUFFER_SRGB_EXT = 0x8DB9;
-        GL11C.glEnable(GL_FRAMEBUFFER_SRGB_EXT);
+        setOglCapability(GL30C.GL_FRAMEBUFFER_SRGB, true);
 
         ShaderProgram.initialize();
 
@@ -648,6 +680,8 @@ public abstract class BaseApplication {
         updateWindowTitle();
 
         GL11C.glClear(GL11C.GL_COLOR_BUFFER_BIT | GL11C.GL_DEPTH_BUFFER_BIT);
+        checkForOglError();
+
         render();
         glfwSwapBuffers(mainWindowId);
         glfwPollEvents();
