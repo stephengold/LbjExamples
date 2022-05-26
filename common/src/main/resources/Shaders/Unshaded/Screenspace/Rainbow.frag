@@ -9,12 +9,12 @@ in vec2 UV;
 out vec3 fragColor;
 
 void main() {
-    float u = UV.x;
+    float u = fract(UV.x);
     float r = max(3.0 * (0.5 - u),
                   4.0 * (u - 0.8));
     float g = min(4.0 * (u - 0.1),
                   4.0 * (0.7 - u));
     float b = 3.0 * (u - 0.3);
-    fragColor = clamp(vec3(r, g, b), vec3(0.0), vec3(1.0));
-    fragColor = fragColor * fragColor;
+    vec3 srgb = clamp(vec3(r, g, b), vec3(0.0), vec3(1.0));
+    fragColor = pow(srgb, vec3(2.2, 2.2, 2.2));
 }
