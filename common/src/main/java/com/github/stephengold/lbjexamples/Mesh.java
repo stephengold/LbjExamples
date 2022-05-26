@@ -416,7 +416,7 @@ public class Mesh {
         Utils.checkForOglError();
 
         int startVertex = 0;
-        GL30C.glDrawArrays(drawMode, startVertex, vertexCount);
+        GL11C.glDrawArrays(drawMode, startVertex, vertexCount);
         Utils.checkForOglError();
     }
 
@@ -523,7 +523,7 @@ public class Mesh {
         fpvList.add(fpv);
         nameList.add(name);
 
-        int vboId = GL30C.glGenBuffers();
+        int vboId = GL15C.glGenBuffers();
         Utils.checkForOglError();
         vboIdList.add(vboId);
 
@@ -532,10 +532,10 @@ public class Mesh {
         assert data.capacity() == numFloats;
         data.limit(numFloats);
 
-        GL30C.glBindBuffer(GL30C.GL_ARRAY_BUFFER, vboId);
+        GL15C.glBindBuffer(GL15C.GL_ARRAY_BUFFER, vboId);
         Utils.checkForOglError();
 
-        GL30C.glBufferData(GL30C.GL_ARRAY_BUFFER, data, GL30C.GL_STATIC_DRAW);
+        GL15C.glBufferData(GL15C.GL_ARRAY_BUFFER, data, GL15C.GL_STATIC_DRAW);
         Utils.checkForOglError();
     }
 
@@ -553,18 +553,18 @@ public class Mesh {
             return;
         }
 
-        GL30C.glEnableVertexAttribArray(location);
+        GL20C.glEnableVertexAttribArray(location);
         Utils.checkForOglError();
 
         int vboId = vboIdList.get(attributeIndex);
-        GL30C.glBindBuffer(GL30C.GL_ARRAY_BUFFER, vboId);
+        GL15C.glBindBuffer(GL15C.GL_ARRAY_BUFFER, vboId);
         Utils.checkForOglError();
 
         int fpv = fpvList.get(attributeIndex);
         boolean normalized = false;
         int stride = 0; // tightly packed
         int startOffset = 0;
-        GL30C.glVertexAttribPointer(location, fpv, GL30C.GL_FLOAT,
+        GL20C.glVertexAttribPointer(location, fpv, GL11C.GL_FLOAT,
                 normalized, stride, startOffset);
         Utils.checkForOglError();
     }

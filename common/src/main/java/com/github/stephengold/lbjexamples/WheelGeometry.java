@@ -80,7 +80,7 @@ public class WheelGeometry extends Geometry {
         super.setMesh(mesh);
 
         super.setProgram("Unshaded/Monochrome");
-        BasePhysicsApp.makeVisible(this);
+        BaseApplication.makeVisible(this);
     }
     // *************************************************************************
     // Geometry methods

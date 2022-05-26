@@ -91,7 +91,7 @@ public class LocalAxisGeometry extends Geometry {
 
         super.setProgram("Unshaded/Monochrome");
 
-        BasePhysicsApp.makeVisible(this);
+        BaseApplication.makeVisible(this);
     }
     // *************************************************************************
     // Geometry methods

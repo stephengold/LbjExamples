@@ -93,7 +93,7 @@ public class CharacterShapeGeometry extends Geometry {
         Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
         super.setMesh(mesh);
 
-        BasePhysicsApp.makeVisible(this);
+        BaseApplication.makeVisible(this);
     }
     // *************************************************************************
     // Geometry methods

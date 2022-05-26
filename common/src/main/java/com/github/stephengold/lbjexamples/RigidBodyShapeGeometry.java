@@ -106,7 +106,7 @@ public class RigidBodyShapeGeometry extends Geometry {
         boolean isConcave = shape.isConcave();
         super.setBackCulling(!isConcave);
 
-        BasePhysicsApp.makeVisible(this);
+        BaseApplication.makeVisible(this);
     }
     // *************************************************************************
     // Geometry methods

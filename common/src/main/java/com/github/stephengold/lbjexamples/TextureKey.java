@@ -45,6 +45,7 @@ import jme3utilities.Validate;
 import org.joml.Vector4fc;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11C;
+import org.lwjgl.opengl.GL12C;
 import org.lwjgl.opengl.GL13C;
 import org.lwjgl.opengl.GL14C;
 
@@ -416,7 +417,7 @@ public class TextureKey {
                 return "NEAREST_MIPMAP_LINEAR";
             case GL11C.GL_LINEAR_MIPMAP_LINEAR:
                 return "LINEAR_MIPMAP_LINEAR";
-            case GL13C.GL_CLAMP_TO_EDGE:
+            case GL12C.GL_CLAMP_TO_EDGE:
                 return "CLAMP_TO_EDGE";
             case GL13C.GL_CLAMP_TO_BORDER:
                 return "CLAMP_TO_BORDER";

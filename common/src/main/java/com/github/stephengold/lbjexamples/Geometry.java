@@ -107,7 +107,7 @@ public class Geometry {
         Validate.nonNull(mesh, "mesh");
 
         this.mesh = mesh;
-        BasePhysicsApp.makeVisible(this);
+        BaseApplication.makeVisible(this);
     }
 
     /**
@@ -115,7 +115,7 @@ public class Geometry {
      * it visible.
      */
     protected Geometry() {
-        this.program = BasePhysicsApp.getDefaultProgram();
+        this.program = BaseApplication.getDefaultProgram();
     }
     // *************************************************************************
     // new methods exposed
@@ -355,9 +355,9 @@ public class Geometry {
      */
     public Geometry setProgram(String name) {
         if (name == null) {
-            this.program = BasePhysicsApp.getDefaultProgram();
+            this.program = BaseApplication.getDefaultProgram();
         } else {
-            this.program = BasePhysicsApp.getProgram(name);
+            this.program = BaseApplication.getProgram(name);
         }
 
         return this;

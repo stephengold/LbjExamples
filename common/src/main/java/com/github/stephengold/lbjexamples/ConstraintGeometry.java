@@ -84,7 +84,7 @@ public class ConstraintGeometry extends Geometry {
         this.constraint = constraint;
         this.end = end;
 
-        BasePhysicsApp.makeVisible(this);
+        BaseApplication.makeVisible(this);
     }
     // *************************************************************************
     // Geometry methods

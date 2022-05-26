@@ -38,6 +38,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 import org.lwjgl.system.Configuration;
 
 /**
@@ -78,7 +79,7 @@ public class AppChooser extends JFrame {
     private AppChooser(List<BaseApplication> apps) {
         setTitle("LbjExamples AppChooser");
         setSize(500, 100);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         Container contentPane = getContentPane();
         /*
