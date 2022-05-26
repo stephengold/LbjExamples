@@ -236,7 +236,7 @@ public class OctasphereMesh extends Mesh {
             if (pos.y == 0f) {
                 u = uOverrides.get(vertexIndex);
             } else {
-                assert !uOverrides.contains(vertexIndex);
+                assert uOverrides.get(vertexIndex) == null;
                 u = tmpVector.y / FastMath.PI;
             }
             float v = tmpVector.z / FastMath.PI;
