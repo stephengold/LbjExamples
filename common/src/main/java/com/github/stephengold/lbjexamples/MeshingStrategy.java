@@ -80,7 +80,7 @@ class MeshingStrategy {
      *
      * @param description the description to parse (not null)
      */
-    public MeshingStrategy(String description) {
+    MeshingStrategy(String description) {
         this(parsePositions(description),
                 parseNormals(description),
                 parseUvs(description),
