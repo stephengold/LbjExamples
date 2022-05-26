@@ -101,9 +101,7 @@ public class LocalAxisGeometry extends Geometry {
      */
     @Override
     void updateAndRender() {
-        if (pco != null) {
-            updateTransform();
-        }
+        updateTransform();
         super.updateAndRender();
     }
 
@@ -125,12 +123,12 @@ public class LocalAxisGeometry extends Geometry {
      * Update the mesh-to-world transform.
      */
     private void updateTransform() {
-        Transform meshToWorld = getMeshToWorldTransform();
+        Transform meshToWorld = getMeshToWorldTransform(); // alias
         if (pco instanceof PhysicsRigidBody) {
             PhysicsRigidBody body = (PhysicsRigidBody) pco;
             RigidBodyMotionState state = body.getMotionState();
             state.physicsTransform(meshToWorld);
-        } else {
+        } else if (pco != null) {
             pco.getTransform(meshToWorld);
         }
         meshToWorld.setScale(length);
