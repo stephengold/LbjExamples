@@ -556,13 +556,14 @@ public class TextureKey {
      * filter.
      *
      * @param filter the value to test
+     * @return true (for use in assertions)
      * @throws IllegalArgumentException for an invalid code
      */
-    private static void validateMagFilter(int filter) {
+    private static boolean validateMagFilter(int filter) {
         switch (filter) {
             case GL11C.GL_NEAREST:
             case GL11C.GL_LINEAR:
-                return;
+                return true;
 
             default:
                 throw new IllegalArgumentException("filter = " + filter);
@@ -574,9 +575,10 @@ public class TextureKey {
      * filter.
      *
      * @param filter the value to test
+     * @return true (for use in assertions)
      * @throws IllegalArgumentException for an invalid code
      */
-    private static void validateMinFilter(int filter) {
+    private static boolean validateMinFilter(int filter) {
         switch (filter) {
             case GL11C.GL_NEAREST:
             case GL11C.GL_LINEAR:
@@ -584,7 +586,7 @@ public class TextureKey {
             case GL11C.GL_LINEAR_MIPMAP_NEAREST:
             case GL11C.GL_NEAREST_MIPMAP_LINEAR:
             case GL11C.GL_LINEAR_MIPMAP_LINEAR:
-                return;
+                return true;
 
             default:
                 throw new IllegalArgumentException("filter = " + filter);
@@ -662,15 +664,16 @@ public class TextureKey {
      * Verify that the argument is a valid OpenGL code for a wrap function.
      *
      * @param wrap the value to test
+     * @return true (for use in assertions)
      * @throws IllegalArgumentException for an invalid code
      */
-    private static void validateWrap(int wrap) {
+    private static boolean validateWrap(int wrap) {
         switch (wrap) {
             case GL13C.GL_CLAMP_TO_EDGE:
             case GL13C.GL_CLAMP_TO_BORDER:
             case GL14C.GL_MIRRORED_REPEAT:
             case GL11C.GL_REPEAT:
-                return;
+                return true;
 
             default:
                 throw new IllegalArgumentException("wrap = " + wrap);
