@@ -170,11 +170,11 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
 
         float debugAxisLength = 1f;
         new LocalAxisGeometry(mallet, 0, debugAxisLength)
-                .setDepthTestEnabled(false);
+                .setDepthTest(false);
         new LocalAxisGeometry(mallet, 1, debugAxisLength)
-                .setDepthTestEnabled(false);
+                .setDepthTest(false);
         new LocalAxisGeometry(mallet, 2, debugAxisLength)
-                .setDepthTestEnabled(false);
+                .setDepthTest(false);
 
         new RigidBodyShapeGeometry(disc, "high")
                 .setColor(Constants.GRAY);

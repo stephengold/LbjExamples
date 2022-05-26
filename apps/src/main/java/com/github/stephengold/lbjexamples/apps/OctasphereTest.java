@@ -89,19 +89,19 @@ public class OctasphereTest extends BaseApplication {
 
         Geometry sphereGeometry = new Geometry(sphereMesh)
                 .setOrientation(xRotation, 0f, 0f)
-                .setProgramByName("Unshaded/Texture")
+                .setProgram("Unshaded/Texture")
                 .setScale(radius);
 
         String resourceName = "/Textures/TextureTest.png";
         TextureKey textureKey = new TextureKey("classpath://" + resourceName);
-        sphereGeometry.setTextureByKey(textureKey);
+        sphereGeometry.setTexture(textureKey);
 
         // Add a red wireframe to visualize the underlying mesh.
         new Geometry(sphereMesh)
                 .setColor(Constants.RED)
                 .setOrientation(xRotation, 0f, 0f)
-                .setProgramByName("Unshaded/Monochrome")
+                .setProgram("Unshaded/Monochrome")
                 .setScale(radius)
-                .setWireframeEnabled(true);
+                .setWireframe(true);
     }
 }

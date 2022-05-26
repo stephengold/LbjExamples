@@ -96,12 +96,12 @@ public class CheckerboardTest extends BaseApplication {
         );
 
         squareGeometry = new Geometry(squareMesh)
-                .setProgramByName("Unshaded/Screenspace/Texture");
+                .setProgram("Unshaded/Screenspace/Texture");
 
         TextureKey textureKey = new TextureKey(
                 "synthetic:///checkerboard?size=2&color1=ff00ff",
                 GL11C.GL_NEAREST, GL11C.GL_NEAREST);
-        squareGeometry.setTextureByKey(textureKey);
+        squareGeometry.setTexture(textureKey);
 
         updateScales();
     }

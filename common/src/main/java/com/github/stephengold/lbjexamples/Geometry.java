@@ -198,7 +198,7 @@ public class Geometry {
      *
      * @return true if enabled, otherwise false
      */
-    public boolean isBackCullingEnabled() {
+    public boolean isBackCulling() {
         return cullBack;
     }
 
@@ -207,7 +207,7 @@ public class Geometry {
      *
      * @return true if enabled, otherwise false
      */
-    public boolean isDepthTestEnabled() {
+    public boolean isDepthTest() {
         return depthTest;
     }
 
@@ -216,16 +216,16 @@ public class Geometry {
      *
      * @return true if enabled, otherwise false
      */
-    public boolean isFrontCullingEnabled() {
+    public boolean isFrontCulling() {
         return cullFront;
     }
 
     /**
-     * Test whether wireframe is enabled.
+     * Test whether wireframe mode is enabled.
      *
      * @return true if enabled, otherwise false
      */
-    public boolean isWireframeEnabled() {
+    public boolean isWireframe() {
         return wireframe;
     }
 
@@ -235,7 +235,7 @@ public class Geometry {
      * @param newSetting true to enable, false to disable
      * @return the (modified) current instance (for chaining)
      */
-    public Geometry setBackCullingEnabled(boolean newSetting) {
+    public Geometry setBackCulling(boolean newSetting) {
         this.cullBack = newSetting;
         return this;
     }
@@ -258,7 +258,7 @@ public class Geometry {
      * @param newSetting true to enable, false to disable
      * @return the (modified) current instance (for chaining)
      */
-    public Geometry setDepthTestEnabled(boolean newSetting) {
+    public Geometry setDepthTest(boolean newSetting) {
         if (newSetting != depthTest) {
             this.depthTest = newSetting;
             BaseApplication.updateDeferredQueue(this);
@@ -273,7 +273,7 @@ public class Geometry {
      * @param newSetting true to enable, false to disable
      * @return the (modified) current instance (for chaining)
      */
-    public Geometry setFrontCullingEnabled(boolean newSetting) {
+    public Geometry setFrontCulling(boolean newSetting) {
         this.cullFront = newSetting;
         return this;
     }
@@ -305,7 +305,7 @@ public class Geometry {
     }
 
     /**
-     * Replace the Mesh with the specified Mesh.
+     * Replace the geometry's Mesh with the specified Mesh.
      *
      * @param newMesh the desired Mesh (not null, alias created)
      * @return the (modified) current instance (for chaining)
@@ -347,17 +347,17 @@ public class Geometry {
     }
 
     /**
-     * Return the named ShaderProgram, or if the name is null, return the
-     * default program.
+     * Replace the geometry's shader program with the named ShaderProgram, or if
+     * the name is null, replace it with the default program.
      *
      * @param name (may be null)
-     * @return a valid program
+     * @return the (modified) current instance (for chaining)
      */
-    public Geometry setProgramByName(String name) {
+    public Geometry setProgram(String name) {
         if (name == null) {
-            program = BasePhysicsApp.getDefaultProgram();
+            this.program = BasePhysicsApp.getDefaultProgram();
         } else {
-            program = BasePhysicsApp.getProgram(name);
+            this.program = BasePhysicsApp.getProgram(name);
         }
 
         return this;
@@ -400,23 +400,25 @@ public class Geometry {
     }
 
     /**
-     * Alter the texture.
+     * Replace the geometry's primary Texture with one obtained from the
+     * specified key.
      *
-     * @param textureKey a key to the desired texture (not null)
+     * @param textureKey a key to obtain the desired texture (not null)
      * @return the (modified) current instance (for chaining)
      */
-    public Geometry setTextureByKey(TextureKey textureKey) {
+    public Geometry setTexture(TextureKey textureKey) {
+        Validate.nonNull(textureKey, "texture key");
         this.texture = BaseApplication.getTexture(textureKey);
         return this;
     }
 
     /**
-     * Enable or disable wireframe.
+     * Enable or disable wireframe mode.
      *
      * @param newSetting true to enable, false to disable
      * @return the (modified) current instance (for chaining)
      */
-    public Geometry setWireframeEnabled(boolean newSetting) {
+    public Geometry setWireframe(boolean newSetting) {
         this.wireframe = newSetting;
         return this;
     }

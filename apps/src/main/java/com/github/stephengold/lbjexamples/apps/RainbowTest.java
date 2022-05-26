@@ -92,7 +92,7 @@ public class RainbowTest extends BaseApplication {
                 new Vector4f(0f, 1f, 0f, 0.5f));
 
         squareGeometry = new Geometry(squareMesh)
-                .setProgramByName("Unshaded/Screenspace/Rainbow");
+                .setProgram("Unshaded/Screenspace/Rainbow");
         updateScales();
     }
 

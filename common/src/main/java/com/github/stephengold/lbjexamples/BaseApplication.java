@@ -297,7 +297,7 @@ public abstract class BaseApplication {
 
         boolean previouslyVisible = visibleGeometries.add(geometry);
 
-        if (!previouslyVisible && !geometry.isDepthTestEnabled()) {
+        if (!previouslyVisible && !geometry.isDepthTest()) {
             deferredQueue.addLast(geometry);
         }
     }
@@ -311,7 +311,7 @@ public abstract class BaseApplication {
 
         // Render the depth-test geometries and defer the rest.
         for (Geometry geometry : visibleGeometries) {
-            if (geometry.isDepthTestEnabled()) {
+            if (geometry.isDepthTest()) {
                 geometry.updateAndRender();
             } else {
                 assert deferredQueue.contains(geometry);
@@ -321,7 +321,7 @@ public abstract class BaseApplication {
         // Render the no-depth-test geometries last, from back to front.
         for (Geometry geometry : deferredQueue) {
             assert visibleGeometries.contains(geometry);
-            assert !geometry.isDepthTestEnabled();
+            assert !geometry.isDepthTest();
 
             geometry.updateAndRender();
         }
@@ -423,7 +423,7 @@ public abstract class BaseApplication {
             return;
         }
 
-        if (geometry.isDepthTestEnabled()) { // remove it from the queue
+        if (geometry.isDepthTest()) { // remove it from the queue
             boolean wasInQueue = deferredQueue.remove(geometry);
             assert wasInQueue;
 

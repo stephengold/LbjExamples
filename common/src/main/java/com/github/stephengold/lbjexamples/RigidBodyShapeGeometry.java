@@ -104,7 +104,7 @@ public class RigidBodyShapeGeometry extends Geometry {
 
         // Disable back-face culling for "concave" collision shapes.
         boolean isConcave = shape.isConcave();
-        super.setBackCullingEnabled(!isConcave);
+        super.setBackCulling(!isConcave);
 
         BasePhysicsApp.makeVisible(this);
     }

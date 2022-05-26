@@ -88,7 +88,7 @@ public class ScreenspaceTest extends BaseApplication {
 
         squareGeometry = new Geometry(squareMesh)
                 .setColor(Constants.YELLOW)
-                .setProgramByName("Unshaded/Screenspace/Monochrome");
+                .setProgram("Unshaded/Screenspace/Monochrome");
         updateScales();
     }
 

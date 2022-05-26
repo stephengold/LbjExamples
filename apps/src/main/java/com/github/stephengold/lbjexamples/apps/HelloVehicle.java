@@ -153,8 +153,8 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(vehicle);
 
         new RigidBodyShapeGeometry(vehicle, "low")
-                .setProgramByName("Unshaded/Monochrome")
-                .setWireframeEnabled(true);
+                .setProgram("Unshaded/Monochrome")
+                .setWireframe(true);
 
         new WheelGeometry(vehicle, 0);
         new WheelGeometry(vehicle, 1);
