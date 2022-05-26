@@ -615,7 +615,7 @@ public abstract class BaseApplication {
         setBackgroundColor(Constants.DARK_GRAY);
 
         // Create the initial camera at z=10 looking toward the origin.
-        this.cam = new Camera(new Vector3f(0f, 0f, 10f), -FastMath.HALF_PI, 0f);
+        cam = new Camera(new Vector3f(0f, 0f, 10f), -FastMath.HALF_PI, 0f);
 
         cameraInputProcessor = new CameraInputProcessor(mainWindowId);
         addInputProcessor(cameraInputProcessor);
