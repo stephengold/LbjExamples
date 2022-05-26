@@ -1,11 +1,12 @@
 /*
- * fragment shader for the DebugLocalNormals program
+ * fragment shader for the DebugUvs program
  */
 #version 330 core
 
-in vec3 Normal_modelspace;
+in vec2 UV;
 out vec3 fragColor;
 
 void main() {
-    fragColor = (Normal_modelspace * vec3(0.5)) + vec3(0.5);
+    vec2 f = fract(UV);
+    fragColor = vec3(f.x, f.y, 1.0 - f.x - f.y);
 }

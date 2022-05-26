@@ -1,12 +1,12 @@
 /*
- * vertex shader for the DebugLocalNormals program
+ * vertex shader for the DebugUvs program
  */
 #version 330 core
 
 layout (location = 0) in vec3 vertexPosition_modelspace;
-layout (location = 1) in vec3 vertexNormal_modelspace;
+layout (location = 1) in vec2 vertexUV;
 
-out vec3 Normal_modelspace; // normals to the frag shader
+out vec2 UV; // UVs to the frag shader
 
 uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix; // global
@@ -16,6 +16,6 @@ void main() {
     // vertex position in clip space
     gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(vertexPosition_modelspace, 1.0);
 
-    // vertex normal in model space
-    Normal_modelspace = vertexNormal_modelspace;
+    // vertex texture coordinates
+    UV = vertexUV;
 }
