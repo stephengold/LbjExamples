@@ -227,8 +227,8 @@ public class Utils {
      * @param vec the vector to convert (not null, modified)
      */
     public static void toSpherical(Vector3f vec) {
-        double xx = (double) vec.x;
-        double yy = (double) vec.y;
+        double xx = vec.x;
+        double yy = vec.y;
         float rxy = (float) Math.sqrt(xx * xx + yy * yy); // MyMath
         float phi = FastMath.atan2(rxy, vec.z);
         float theta = FastMath.atan2(vec.y, vec.x);
