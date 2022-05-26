@@ -1,5 +1,5 @@
 /*
- * fragment shader for the ScreenspaceTexture program
+ * fragment shader for the Unshaded/Screenspace/Texture program
  */
 #version 330 core
 

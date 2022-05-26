@@ -1,7 +1,5 @@
 /*
- * vertex shader for the ScreenspaceRainbow program:
- *  approximate the visible spectrum along the U axis,
- *  with red at U=0, violet at U=1
+ * vertex shader for the Unshaded/Screenspace/Texture program
  */
 #version 330 core
 
@@ -9,6 +7,7 @@ layout (location = 0) in vec3 vertexPosition_modelspace;
 layout (location = 1) in vec2 vertexUV;
 
 uniform mat4 modelMatrix;
+
 out vec2 UV;
 
 void main() {

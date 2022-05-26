@@ -184,10 +184,10 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
 
         new Geometry(new CrosshairsMesh(crossWidth, crossHeight))
                 .setColor(Constants.YELLOW)
-                .setProgramByName("ScreenspaceMonochrome");
+                .setProgramByName("Unshaded/Screenspace/Monochrome");
         new Geometry(new LoopMesh(32, 0.3f * crossWidth, 0.3f * crossHeight))
                 .setColor(Constants.YELLOW)
-                .setProgramByName("ScreenspaceMonochrome");
+                .setProgramByName("Unshaded/Screenspace/Monochrome");
     }
 
     /**
