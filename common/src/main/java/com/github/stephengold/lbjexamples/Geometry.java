@@ -400,7 +400,7 @@ public class Geometry {
     }
 
     /**
-     * Replace the geometry's primary Texture with one obtained from the
+     * Replace the geometry's primary Texture with one obtained using the
      * specified key.
      *
      * @param textureKey a key to obtain the desired texture (not null)

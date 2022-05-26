@@ -42,7 +42,7 @@ import com.jme3.system.Platform;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple graphics test: generate texture coordinates for a sphere.
+ * A simple graphics test: apply a texture to a sphere.
  *
  * @author Stephen Gold sgold@sonic.net
  */
