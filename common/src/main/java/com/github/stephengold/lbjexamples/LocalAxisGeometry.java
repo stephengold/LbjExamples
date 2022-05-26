@@ -89,7 +89,7 @@ public class LocalAxisGeometry extends Geometry {
         Mesh mesh = ArrowMesh.getMesh(axisIndex);
         super.setMesh(mesh);
 
-        super.setProgramByName("UnshadedMonochrome");
+        super.setProgramByName("Unshaded/Monochrome");
 
         BasePhysicsApp.makeVisible(this);
     }

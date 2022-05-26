@@ -1,5 +1,5 @@
 /*
- * fragment shader for the UnshadedTexture program
+ * fragment shader for the Unshaded/Texture program
  */
 #version 330 core
 

@@ -1,5 +1,5 @@
 /*
- * fragment shader for the UnshadedMonochrome program
+ * fragment shader for the Unshaded/Monochrome program
  */
 #version 330 core
 

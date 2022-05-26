@@ -89,7 +89,7 @@ public class OctasphereTest extends BaseApplication {
 
         Geometry sphereGeometry = new Geometry(sphereMesh)
                 .setOrientation(xRotation, 0f, 0f)
-                .setProgramByName("UnshadedTexture")
+                .setProgramByName("Unshaded/Texture")
                 .setScale(radius);
 
         String resourceName = "/Textures/TextureTest.png";
@@ -100,7 +100,7 @@ public class OctasphereTest extends BaseApplication {
         new Geometry(sphereMesh)
                 .setColor(Constants.RED)
                 .setOrientation(xRotation, 0f, 0f)
-                .setProgramByName("UnshadedMonochrome")
+                .setProgramByName("Unshaded/Monochrome")
                 .setScale(radius)
                 .setWireframeEnabled(true);
     }
