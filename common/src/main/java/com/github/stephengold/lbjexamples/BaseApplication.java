@@ -101,11 +101,11 @@ public abstract class BaseApplication {
     /**
      * distance from the camera to the far clipping plane (in world units)
      */
-    private static float zFar = 100f;
+    private static float zFar = 1000f;
     /**
      * distance from the camera to the near clipping plane (in world units)
      */
-    private static float zNear = 0.1f;
+    private static float zNear = 1f;
     /**
      * process user input
      */
