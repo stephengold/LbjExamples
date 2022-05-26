@@ -203,7 +203,7 @@ public abstract class BaseApplication {
      * @return a valid program (not null)
      */
     static ShaderProgram getDefaultProgram() {
-        ShaderProgram result = getProgram("PhongDistant");
+        ShaderProgram result = getProgram("Phong/Distant/Monochrome");
         return result;
     }
 

@@ -1,5 +1,5 @@
 /*
- * vertex shader for the PhongDistant program:
+ * vertex shader for the Phong/Distant/Monochrome program:
  *  Phong shading with a single distant light, alpha=8
  */
 #version 330 core
