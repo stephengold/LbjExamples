@@ -44,7 +44,7 @@ import org.lwjgl.opengl.GL11C;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple graphics test: display a checkerboard using a texture generated in
+ * A simple graphics test: display a checkerboard using a texture synthesized in
  * Java.
  *
  * @author Stephen Gold sgold@sonic.net
@@ -98,12 +98,9 @@ public class CheckerboardTest extends BaseApplication {
         squareGeometry = new Geometry(squareMesh)
                 .setProgramByName("ScreenspaceTexture");
 
-        float maxAniso = 1f;
-        boolean mipMaps = true;
         TextureKey textureKey = new TextureKey(
                 "synthetic:///checkerboard?size=2&color1=ff00ff",
-                GL11C.GL_NEAREST, GL11C.GL_NEAREST,
-                GL11C.GL_REPEAT, GL11C.GL_REPEAT, mipMaps, maxAniso);
+                GL11C.GL_NEAREST, GL11C.GL_NEAREST);
         squareGeometry.setTextureByKey(textureKey);
 
         updateScales();

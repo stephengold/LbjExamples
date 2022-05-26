@@ -101,7 +101,20 @@ public class TextureKey {
      * not empty)
      */
     public TextureKey(String uriString) {
-        this(uriString, magFilterDefault, minFilterDefault,
+        this(uriString, magFilterDefault, minFilterDefault);
+    }
+
+    /**
+     * Instantiate a key with the specified URI and filters.
+     *
+     * @param uriString unparsed URI to load/synthesize image data (not null,
+     * not empty)
+     * @param magFilter OpenGL filter to use when magnifying (default=GL_LINEAR)
+     * @param minFilter OpenGL filter to use when minifying
+     * (default=GL_NEAREST_MIPMAP_LINEAR)
+     */
+    public TextureKey(String uriString, int magFilter, int minFilter) {
+        this(uriString, magFilter, minFilter,
                 wrapUDefault, wrapVDefault, mipmapsDefault, maxAnisoDefault);
     }
 
