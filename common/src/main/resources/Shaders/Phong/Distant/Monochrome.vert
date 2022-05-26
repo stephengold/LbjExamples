@@ -4,14 +4,14 @@
  */
 #version 330 core
 
-in vec3 vertexPosition_modelspace;
-in vec3 vertexNormal_modelspace;
-
 uniform mat3 modelRotationMatrix;
 uniform mat4 modelMatrix;
 uniform mat4 projectionMatrix; // global
 uniform mat4 viewMatrix;       // global
 uniform vec3 LightDirection_worldspace; // global
+
+in vec3 vertexNormal_modelspace;
+in vec3 vertexPosition_modelspace;
 
 out vec3 EyeDirection_cameraspace;
 out vec3 LightDirection_cameraspace;

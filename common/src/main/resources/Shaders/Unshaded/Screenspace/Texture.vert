@@ -3,10 +3,10 @@
  */
 #version 330 core
 
-in vec3 vertexPosition_modelspace;
-in vec2 vertexUV;
-
 uniform mat4 modelMatrix;
+
+in vec2 vertexUV;
+in vec3 vertexPosition_modelspace;
 
 out vec2 UV;
 

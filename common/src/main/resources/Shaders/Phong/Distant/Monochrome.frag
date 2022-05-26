@@ -5,8 +5,8 @@
 #version 330 core
 
 uniform float ambientStrength;      // global
-uniform vec4 LightColor;            // global
 uniform vec4 BaseMaterialColor;     // used for ambient and diffuse lighting
+uniform vec4 LightColor;            // global
 uniform vec4 SpecularMaterialColor;
 
 in vec3 EyeDirection_cameraspace;

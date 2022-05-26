@@ -7,14 +7,14 @@
 
 uniform float ambientStrength;          // global
 uniform sampler2D ColorMaterialTexture; // used for ambient and diffuse lighting
-uniform vec4 LightColor;                // global
 uniform vec4 BaseMaterialColor;         // used for ambient and diffuse lighting
+uniform vec4 LightColor;                // global
 uniform vec4 SpecularMaterialColor;
 
+in vec2 UV;
 in vec3 EyeDirection_cameraspace;
 in vec3 LightDirection_cameraspace;
 in vec3 Normal_cameraspace;
-in vec2 UV;
 
 out vec3 fragColor;
 
