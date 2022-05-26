@@ -83,15 +83,25 @@ public class OctasphereTest extends BaseApplication {
         getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         setBackgroundColor(Constants.SKY_BLUE);
 
-        Mesh sphereMesh = new OctasphereMesh(4);
+        float radius = 3f;
+        float xRotation = -FastMath.HALF_PI;
+        Mesh sphereMesh = new OctasphereMesh(4); // unit sphere
 
         Geometry sphereGeometry = new Geometry(sphereMesh)
-                .setOrientation(-FastMath.HALF_PI, 0f, 0f)
+                .setOrientation(xRotation, 0f, 0f)
                 .setProgramByName("UnshadedTexture")
-                .setScale(3f);
+                .setScale(radius);
 
         String resourceName = "/Textures/TextureTest.png";
         TextureKey textureKey = new TextureKey("classpath://" + resourceName);
         sphereGeometry.setTextureByKey(textureKey);
+
+        // Add a red wireframe to visualize the underlying mesh.
+        new Geometry(sphereMesh)
+                .setColor(Constants.RED)
+                .setOrientation(xRotation, 0f, 0f)
+                .setProgramByName("UnshadedMonochrome")
+                .setScale(radius)
+                .setWireframeEnabled(true);
     }
 }
