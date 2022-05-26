@@ -88,7 +88,7 @@ public class TextureKey {
     private int wrapV;
     private static int wrapVDefault = GL11C.GL_REPEAT;
     /**
-     * URI used to load/generate image data
+     * URI used to load/synthesize image data
      */
     private URI uri;
     // *************************************************************************
@@ -97,8 +97,8 @@ public class TextureKey {
     /**
      * Instantiate a key with the specified URI.
      *
-     * @param uriString unparsed URI to load/generate image data (not null, not
-     * empty)
+     * @param uriString unparsed URI to load/synthesize image data (not null,
+     * not empty)
      */
     public TextureKey(String uriString) {
         this(uriString, magFilterDefault, minFilterDefault,
@@ -108,14 +108,18 @@ public class TextureKey {
     /**
      * Instantiate a custom key.
      *
-     * @param uriString unparsed URI to load/generate image data (not null, not
-     * empty)
-     * @param magFilter filter to use when magnifying
-     * @param minFilter filter to use when minifying
+     * @param uriString unparsed URI to load/synthesize image data (not null,
+     * not empty)
+     * @param magFilter OpenGL filter to use when magnifying (default=GL_LINEAR)
+     * @param minFilter OpenGL filter to use when minifying
+     * (default=GL_NEAREST_MIPMAP_LINEAR)
      * @param wrapU wrap function for the first (U) texture coordinate
+     * (default=GL_REPEAT)
      * @param wrapV wrap function for the 2nd (V) texture coordinate
-     * @param mipmaps true to generate mipmaps, false to skip
-     * @param maxAniso the maximum degree of anisotropic filtering (&ge;1)
+     * (default=GL_REPEAT)
+     * @param mipmaps true to generate mipmaps, false to skip (default=true)
+     * @param maxAniso the maximum degree of anisotropic filtering (&ge;1,
+     * default=1)
      */
     public TextureKey(String uriString, int magFilter, int minFilter, int wrapU,
             int wrapV, boolean mipmaps, float maxAniso) {
@@ -146,7 +150,7 @@ public class TextureKey {
     // new methods exposed
 
     /**
-     * Load/generate the Texture for this key.
+     * Load/synthesize the Texture for this key.
      *
      * @return a new instance
      */
@@ -379,6 +383,12 @@ public class TextureKey {
     // *************************************************************************
     // private methods
 
+    /**
+     * Convert the specified OpenGL code to text. (Not all codes are handled.)
+     *
+     * @param code the code to decipher
+     * @return a descriptive string of text
+     */
     private static String describeCode(int code) {
         switch (code) {
             case GL11C.GL_NEAREST:
@@ -432,7 +442,7 @@ public class TextureKey {
     }
 
     /**
-     * Generate a square texture for a 2-color checkerboard pattern.
+     * Synthesize a square texture for a 2-color checkerboard pattern.
      *
      * @param argMap argument map (not null, unaffected
      * @return a new instance
@@ -510,9 +520,8 @@ public class TextureKey {
                 double red = ((srgbPixel >> 16) & 0xFF) / 255.0;
                 double green = ((srgbPixel >> 8) & 0xFF) / 255.0;
                 double blue = (srgbPixel & 0xFF) / 255.0;
-                /*
-                 * linearize the pixel's color channels
-                 */
+
+                // Linearize the pixel's color channels.
                 float r = (float) Math.pow(red, 2.2);
                 float g = (float) Math.pow(green, 2.2);
                 float b = (float) Math.pow(blue, 2.2);
@@ -530,9 +539,11 @@ public class TextureKey {
     }
 
     /**
-     * Verify that the argument is a valid OpenGL magnification filter code.
+     * Verify that the argument is a valid OpenGL code for a magnification
+     * filter.
      *
      * @param filter the value to test
+     * @throws IllegalArgumentException for an invalid code
      */
     private static void validateMagFilter(int filter) {
         switch (filter) {
@@ -546,9 +557,11 @@ public class TextureKey {
     }
 
     /**
-     * Verify that the argument is a valid OpenGL minification filter code.
+     * Verify that the argument is a valid OpenGL code for a minification
+     * filter.
      *
      * @param filter the value to test
+     * @throws IllegalArgumentException for an invalid code
      */
     private static void validateMinFilter(int filter) {
         switch (filter) {
@@ -632,6 +645,12 @@ public class TextureKey {
         }
     }
 
+    /**
+     * Verify that the argument is a valid OpenGL code for a wrap function.
+     *
+     * @param wrap the value to test
+     * @throws IllegalArgumentException for an invalid code
+     */
     private static void validateWrap(int wrap) {
         switch (wrap) {
             case GL13C.GL_CLAMP_TO_EDGE:
