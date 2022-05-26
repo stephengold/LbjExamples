@@ -91,7 +91,7 @@ class ChildSummaryList {
      * Test whether the indexed summary matches the specified child shape.
      *
      * @param childIndex (&ge;0)
-     * @param childShape the child shape to compare (not null, unaffected)
+     * @param ccs the child shape to compare (not null, unaffected)
      * @return true for a match, otherwise false
      */
     boolean matchesChild(int childIndex, ChildCollisionShape ccs) {

@@ -96,7 +96,7 @@ class ChildSummary {
     /**
      * Test whether this summary matches the specified shape.
      *
-     * @param childShape the child shape to compare (not null, unaffected)
+     * @param child the child shape to compare (not null, unaffected)
      * @return true for a match, otherwise false
      */
     boolean matches(ChildCollisionShape child) {

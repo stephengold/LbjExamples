@@ -53,7 +53,7 @@ public class HelloLibbulletjme {
      *
      * @param arguments array of command-line arguments (not null)
      */
-    public static void main(String[] args) {
+    public static void main(String[] arguments) {
         /*
          * Load a native library from ~/Downloads directory.
          */

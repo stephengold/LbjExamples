@@ -85,7 +85,7 @@ public class TextureTest extends BaseApplication {
     public void initialize() {
         setBackgroundColor(Constants.SKY_BLUE);
 
-        float radius = 0.5f; // as a multiple of the screen halfheight
+        float radius = 0.5f; // as a multiple of the screen half height
         Mesh squareMesh
                 = new RectangleMesh(-radius, radius, -radius, radius, 1f);
         squareMesh.generateUvs(UvsOption.Linear,
@@ -115,7 +115,8 @@ public class TextureTest extends BaseApplication {
     // private methods
 
     /**
-     * Update the geometry's scale so it will render as a square.
+     * Update the geometry's scale so it will render as a square, regardless of
+     * the window's aspect ratio.
      */
     private void updateScales() {
         float aspectRatio = aspectRatio();

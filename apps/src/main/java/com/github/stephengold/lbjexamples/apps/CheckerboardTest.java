@@ -56,7 +56,7 @@ public class CheckerboardTest extends BaseApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the CheckboardTest application.
+     * Main entry point for the CheckerboardTest application.
      *
      * @param arguments array of command-line arguments (not null)
      */
@@ -87,7 +87,7 @@ public class CheckerboardTest extends BaseApplication {
     public void initialize() {
         setBackgroundColor(Constants.SKY_BLUE);
 
-        float radius = 0.5f; // as a multiple of the screen halfheight
+        float radius = 0.5f; // as a multiple of the screen half height
         Mesh squareMesh
                 = new RectangleMesh(-radius, radius, -radius, radius, 1f);
         squareMesh.generateUvs(UvsOption.Linear,
@@ -118,7 +118,8 @@ public class CheckerboardTest extends BaseApplication {
     // private methods
 
     /**
-     * Update the geometry's scale so it will render as a square.
+     * Update the geometry's scale so it will render as a square, regardless of
+     * the window's aspect ratio.
      */
     private void updateScales() {
         float aspectRatio = aspectRatio();

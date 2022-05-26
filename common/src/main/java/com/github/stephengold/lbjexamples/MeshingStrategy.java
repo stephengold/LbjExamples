@@ -256,7 +256,7 @@ class MeshingStrategy {
      * Parse a NormalsOption from the 2nd item in the specified description.
      *
      * @param description list of items separated by slashes (not null)
-     * @return
+     * @return an enum value
      */
     private static NormalsOption parseNormals(String description) {
         String[] items = description.split(delimiter);
@@ -276,7 +276,7 @@ class MeshingStrategy {
      * description.
      *
      * @param description list of items separated by slashes (not null)
-     * @return
+     * @return 0 or 1 or -1
      */
     private static int parsePositions(String description) {
         String[] items = description.split(delimiter);

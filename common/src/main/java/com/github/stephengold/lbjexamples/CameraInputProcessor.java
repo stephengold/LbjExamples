@@ -47,7 +47,7 @@ public class CameraInputProcessor extends InputProcessor {
     // constants
 
     /**
-     * maximum magnitude of the camera's up angle after the rotate() method is
+     * maximum magnitude of the camera's up angle after mouse rotation is
      * applied. This prevents the camera from looking to straight up or straight
      * down.
      */
@@ -106,7 +106,7 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * Alter the movement speed.
      *
-     * @param newSpeed
+     * @param newSpeed the desired translation rate (in world units per second)
      */
     public void setMoveSpeed(float newSpeed) {
         this.moveSpeed = newSpeed;
@@ -127,7 +127,7 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * Alter the rotation rate.
      *
-     * @param newRate
+     * @param newRate the desired rate of rotation (in radians per window height)
      */
     public void setRotationRate(float newRate) {
         this.rotationRate = newRate;

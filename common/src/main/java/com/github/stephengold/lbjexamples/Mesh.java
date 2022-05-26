@@ -52,7 +52,7 @@ import org.lwjgl.opengl.GL30C;
 /**
  * Encapsulate a vertex array object (VAO), to which vertex buffer objects
  * (VBOs) are attached. The VAO is created lazily, the first time
- * {@link #enableAttributes()} is invoked.
+ * {@link #enableAttributes(ShaderProgram)} is invoked.
  */
 public class Mesh {
     // *************************************************************************

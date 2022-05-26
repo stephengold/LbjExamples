@@ -537,7 +537,7 @@ public class ShaderProgram {
     /**
      * Detach the specified shader from the program object.
      *
-     * @param the ID of the shader
+     * @param shaderId the ID of the shader to detach
      */
     private void detachShader(int shaderId) {
         GL20C.glDetachShader(programId, shaderId);
