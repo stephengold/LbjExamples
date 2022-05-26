@@ -31,6 +31,7 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
+import com.jme3.math.Transform;
 import jme3utilities.MyString;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
@@ -91,7 +92,7 @@ class MeshingStrategy {
     /**
      * Instantiate a strategy from components.
      *
-     * @param positions strategy for generating vertex positions (0 or 1)
+     * @param positions strategy for generating vertex positions (0 or 1 or -1)
      * @param normals strategy for generating normals, if any (not null)
      * @param uvs strategy for generating texture coordinates, if any (not null)
      * @param uCoefficients coefficients for generating the first (U) texture
@@ -117,9 +118,22 @@ class MeshingStrategy {
      * @return a new instance
      */
     Mesh applyTo(CollisionShape shape) {
-        Mesh result = new Mesh(shape, normals, positions);
-        if (uvs != UvsOption.None) {
-            result.generateUvs(uvs, uCoefficients, vCoefficients);
+        Mesh result;
+        if (positions == -1) {
+            result = new OctasphereMesh(3);
+            result.generateSphereNormals();
+
+            float maxRadius = shape.maxRadius();
+            Transform scaleTransform = new Transform();
+            scaleTransform.setScale(maxRadius);
+            result.transform(scaleTransform);
+            // Octasphere provides excellent UVs, so ignore the UvsOption.
+
+        } else {
+            result = new Mesh(shape, normals, positions);
+            if (uvs != UvsOption.None) {
+                result.generateUvs(uvs, uCoefficients, vCoefficients);
+            }
         }
 
         return result;
@@ -219,6 +233,9 @@ class MeshingStrategy {
 
         String pString;
         switch (positions) {
+            case -1:
+                pString = "octasphere";
+                break;
             case 0:
                 pString = "low";
                 break;
@@ -318,8 +335,8 @@ class MeshingStrategy {
      * Translate a string to the corresponding option for generating vertex
      * positions.
      *
-     * @param pString the name to translate (either "high" or "low")
-     * @return 0 for "low"; 1 for "hi"
+     * @param pString the name to translate
+     * @return 0 for "low", 1 for "hi", or -1 for "octasphere"
      */
     private static int toPositions(String pString) {
         switch (pString) {
@@ -327,6 +344,8 @@ class MeshingStrategy {
                 return DebugShapeFactory.highResolution;
             case "low":
                 return DebugShapeFactory.lowResolution;
+            case "octasphere":
+                return -1;
             default:
                 String message = "pString = " + MyString.quote(pString);
                 throw new IllegalArgumentException(message);
