@@ -55,8 +55,11 @@ import org.lwjgl.opengl.GL11C;
  * from 0 to 1.
  * </ul>
  * <p>
- * Vertices with Y=0 and X&le;0 lie on the seam. Those vertices are doubled and
+ * Vertices with Y=0 and X&lt;1 lie on the seam. Those vertices are doubled and
  * can have either U=-1 or U=+1.
+ * <p>
+ * Vertices with X=0 and Y=0 lie at the poles. Those vertices are trebled and
+ * can have U=-1 or 0 or +1.
  * <p>
  * Derived from Icosphere by jayfella.
  *
@@ -69,20 +72,20 @@ public class OctasphereMesh extends Mesh {
     /**
      * vertex indices of the 8 triangular faces in a regular octahedron
      * <p>
-     * Vertices [0] and [6] occupy the same position in mesh space. In order to
-     * create a seam, vertex [0] will have U=-1 and vertex [6] will have U=+1.
+     * Vertices [0] and [6] occupy (-1, 0, 0) in mesh space. In order to create
+     * a seam, vertex [0] will have U=-1 and vertex [6] will have U=+1.
      * <p>
-     * Vertices [4] and [7] occupy the same position in mesh space. In order to
-     * create a seam, vertex [4] will have U=-1 and vertex [7] will have U=+1.
+     * Vertices [4, 7, 9] occupy (0, 0, -1) in mesh space. Vertex [4] will have
+     * U=-1, vertex [7] will have U=+1, and vertex [9] will have U=0.
      * <p>
-     * Vertices [5] and [8] occupy the same position in mesh space. In order to
-     * create a seam, vertex [5] will have U=-1 and vertex [8] will have U=+1.
+     * Vertices [5, 8, 10] occupy (0, 0, 1) in mesh space. Vertex [5] will have
+     * U=-1, vertex [8] will have U=+1, and vertex [10] will have U=0.
      */
     final private static int[] octaIndices = {
-        0, 2, 5, 1, 7, 3,
-        6, 3, 7, 1, 5, 2,
-        0, 4, 2, 1, 3, 8,
-        6, 8, 3, 1, 2, 4
+        0, 2, 5, 1, 9, 3,
+        6, 3, 7, 1, 10, 2,
+        0, 4, 2, 1, 3, 10,
+        6, 8, 3, 1, 2, 9
     };
     /**
      * vertex locations in a regular octahedron with radius=1
@@ -100,23 +103,23 @@ public class OctasphereMesh extends Mesh {
      */
     private int nextVertexIndex = 0;
     /**
-     * map vertex indices to U=1 flags
+     * map vertex indices to U coordinates for vertices with Y=0
      */
-    final private List<Boolean> u1Flags = new ArrayList<>(289);
+    final private List<Float> uOverrides = new ArrayList<>(305);
     /**
      * map vertex indices to location vectors in mesh coordinates, all with
      * length=1
      */
-    final private List<Vector3f> locations = new ArrayList<>(289);
+    final private List<Vector3f> locations = new ArrayList<>(305);
     /**
      * cache to avoid duplicate vertices: map index pairs to midpoint indices
      */
-    final private Map<Long, Integer> midpointCache = new HashMap<>(280);
+    final private Map<Long, Integer> midpointCache = new HashMap<>(294);
     // *************************************************************************
     // constructors
 
     /**
-     * Instantiate a unit sphere using 3 refinement steps: 289 unique vertices
+     * Instantiate a unit sphere using 3 refinement steps: 291 unique vertices
      * and 512 triangular faces.
      */
     public OctasphereMesh() {
@@ -126,15 +129,15 @@ public class OctasphereMesh extends Mesh {
     /**
      * Instantiate a unit sphere using the specified number of refinement steps:
      * <ul><li>
-     * 0 steps &rarr; 9 unique vertices and 8 triangular faces
+     * 0 steps &rarr; 11 unique vertices and 8 triangular faces
      * </li><li>
-     * 1 step &rarr; 25 unique vertices and 32 triangular faces
+     * 1 step &rarr; 27 unique vertices and 32 triangular faces
      * </li><li>
-     * 2 steps &rarr; 81 unique vertices and 128 triangular faces
+     * 2 steps &rarr; 83 unique vertices and 128 triangular faces
      * </li><li>
-     * 3 steps &rarr; 289 unique vertices and 512 triangular faces
+     * 3 steps &rarr; 291 unique vertices and 512 triangular faces
      * </li><li>
-     * 4 steps &rarr; 1089 unique vertices and 2048 triangular faces
+     * 4 steps &rarr; 1091 unique vertices and 2048 triangular faces
      * </li><li>
      * etcetera
      * </ul>
@@ -148,27 +151,23 @@ public class OctasphereMesh extends Mesh {
         /*
          * Add the 6 vertices of a regular octahedron with radius=1.
          */
-        for (Vector3f octaLocation : octaLocations) {
-            addVertex(octaLocation, false);
-        }
+        addVertex(octaLocations[0], -1f); //  [0]
+        addVertex(octaLocations[1], 0f); //   [1]
+        addVertex(octaLocations[2], null); // [2]
+        addVertex(octaLocations[3], null); // [3]
+        addVertex(octaLocations[4], -1f); //  [4]
+        addVertex(octaLocations[5], -1f); //  [5]
         /*
-         * Add a 7th vertex. Vertices [0] and [6] occupy the same position
-         * in mesh space. In order to create a seam, vertex [0] will have U=-1
-         * and vertex [6] will have U=+1.
+         * Add duplicate vertices with U=+1.
          */
-        addVertex(octaLocations[0], true);
+        addVertex(octaLocations[0], +1f); // [6]
+        addVertex(octaLocations[4], +1f); // [7]
+        addVertex(octaLocations[5], +1f); // [8]
         /*
-         * Add an 8th vertex. Vertices [4] and [7] occupy the same position
-         * in mesh space. In order to create a seam, vertex [4] will have U=-1
-         * and vertex [7] will have U=+1.
+         * Add triplicate polar vertices with U=0.
          */
-        addVertex(octaLocations[4], true);
-        /*
-         * Add a 9th vertex. Vertices [5] and [8] occupy the same position
-         * in mesh space. In order to create a seam, vertex [5] will have U=-1
-         * and vertex [8] will have U=+1.
-         */
-        addVertex(octaLocations[5], true);
+        addVertex(octaLocations[4], 0f); // [9]
+        addVertex(octaLocations[5], 0f); // [10]
         /*
          * Add the 8 triangular faces of a regular octahedron.
          */
@@ -234,13 +233,10 @@ public class OctasphereMesh extends Mesh {
             Utils.toSpherical(tmpVector);
 
             float u;
-            if (isOnTheSeam(pos)) {
-                if (u1Flags.get(vertexIndex)) {
-                    u = +1f;
-                } else {
-                    u = -1f;
-                }
-            } else { // not on the seam
+            if (pos.y == 0f) {
+                u = uOverrides.get(vertexIndex);
+            } else {
+                assert !uOverrides.contains(vertexIndex);
                 u = tmpVector.y / FastMath.PI;
             }
             float v = tmpVector.z / FastMath.PI;
@@ -253,7 +249,7 @@ public class OctasphereMesh extends Mesh {
         assert uvBuffer.limit() == uvBuffer.capacity();
 
         locations.clear();
-        u1Flags.clear();
+        uOverrides.clear();
     }
     // *************************************************************************
     // private methods
@@ -263,35 +259,19 @@ public class OctasphereMesh extends Mesh {
      *
      * @param location the approximate vertex location (in mesh coordinates, not
      * null, unaffected)
-     * @param u1Flag true if vertex lies on the seam and has U=1, otherwise
-     * false
+     * @param uOverride U value if the vertex has Y=0, otherwise null
      * @return the index assigned to the new vertex (&ge;0)
      */
-    private int addVertex(Vector3f location, boolean u1Flag) {
-        assert !u1Flag || isOnTheSeam(location);
-
+    private int addVertex(Vector3f location, Float uOverride) {
         float length = location.length();
         locations.add(location.mult(1f / length));
-        u1Flags.add(u1Flag);
+        uOverrides.add(uOverride);
+        assert locations.size() == uOverrides.size();
 
         int result = nextVertexIndex;
         ++nextVertexIndex;
 
         return result;
-    }
-
-    /**
-     * Test whether the specified position lies on the seam.
-     *
-     * @param position (not null, unaffected)
-     * @return true if on-seam, otherwise false
-     */
-    private static boolean isOnTheSeam(Vector3f position) {
-        if (position.y == 0f && position.x <= 0f) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**
@@ -347,22 +327,17 @@ public class OctasphereMesh extends Mesh {
         Vector3f loc2 = locations.get(p2);
         Vector3f middleLocation = midpoint(loc1, loc2, null);
 
-        boolean u1Flag1 = u1Flags.get(p1);
-        boolean u1Flag2 = u1Flags.get(p2);
-        boolean middleU1Flag;
-        if (isOnTheSeam(middleLocation)) {
-            /*
-             * The midpoint vertex lies on the seam.
-             * Determine whether it will have U=-1 or U=1.
-             */
-            middleU1Flag = (u1Flag1 || u1Flag2);
+        Float middleUOverride = null;
+        if (middleLocation.y == 0f) {
+            middleUOverride = uOverrides.get(p1);
+            assert uOverrides.get(p2).equals(middleUOverride);
         } else {
-            middleU1Flag = false;
+            assert uOverrides.get(p1) == null || uOverrides.get(p2) == null;
         }
         /*
-         * addVertex() adjusts the location to the sphere.
+         * addVertex() scales the midpoint location to the sphere's surface.
          */
-        int newIndex = addVertex(middleLocation, middleU1Flag);
+        int newIndex = addVertex(middleLocation, middleUOverride);
         /*
          * Add the new vertex to the midpoint cache.
          */
