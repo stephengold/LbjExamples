@@ -1,17 +1,20 @@
 /*
  * fragment shader for the Phong/Distant/Texture program:
  *  Phong shading with a single distant light, alpha=8
+ *  base color is modulated by the texture
  */
 #version 330 core
 
-uniform float ambientStrength;      // global
-uniform vec4 LightColor;            // global
-uniform vec4 BaseMaterialColor;     // used for ambient and diffuse lighting
+uniform float ambientStrength;          // global
+uniform sampler2D ColorMaterialTexture; // used for ambient and diffuse lighting
+uniform vec4 LightColor;                // global
+uniform vec4 BaseMaterialColor;         // used for ambient and diffuse lighting
 uniform vec4 SpecularMaterialColor;
 
 in vec3 EyeDirection_cameraspace;
 in vec3 LightDirection_cameraspace;
 in vec3 Normal_cameraspace;
+in vec2 UV;
 
 out vec3 fragColor;
 
@@ -44,7 +47,8 @@ void main() {
     float cosAlpha4 = cosAlpha2 * cosAlpha2;
     float cosAlpha8 = cosAlpha4 * cosAlpha4;
 
-    vec3 color = (ambientStrength + cosTheta) * BaseMaterialColor.rgb;
+    vec4 baseColor = BaseMaterialColor * texture(ColorMaterialTexture, UV);
+    vec3 color = (ambientStrength + cosTheta) * baseColor.rgb;
     color = color + cosAlpha8 * SpecularMaterialColor.rgb;
     fragColor = color * LightColor.rgb;
 }

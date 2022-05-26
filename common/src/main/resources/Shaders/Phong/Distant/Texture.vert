@@ -6,6 +6,7 @@
 
 layout (location = 0) in vec3 vertexPosition_modelspace;
 layout (location = 1) in vec3 vertexNormal_modelspace;
+layout (location = 2) in vec2 vertexUV;
 
 uniform mat3 modelRotationMatrix;
 uniform mat4 modelMatrix;
@@ -16,6 +17,7 @@ uniform vec3 LightDirection_worldspace; // global
 out vec3 EyeDirection_cameraspace;
 out vec3 LightDirection_cameraspace;
 out vec3 Normal_cameraspace;
+out vec2 UV;
 
 void main() {
     // vertex position in camera space
@@ -33,4 +35,7 @@ void main() {
 
     // vertex normal in camera space
     Normal_cameraspace = (viewMatrix * vec4(modelRotationMatrix * vertexNormal_modelspace, 0)).xyz;
+
+    // texture coordinates of the vertex
+    UV = vertexUV;
 }
