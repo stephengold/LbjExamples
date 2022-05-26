@@ -1,5 +1,5 @@
 /*
- * vertex shader for the DebugUvs program
+ * vertex shader for the Debug/Uvs program
  */
 #version 330 core
 

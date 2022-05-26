@@ -1,5 +1,5 @@
 /*
- * fragment shader for the DebugUvs program
+ * fragment shader for the Debug/Uvs program
  */
 #version 330 core
 

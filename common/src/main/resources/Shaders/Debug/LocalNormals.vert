@@ -1,5 +1,5 @@
 /*
- * vertex shader for the DebugLocalNormals program
+ * vertex shader for the Debug/LocalNormals program
  */
 #version 330 core
 

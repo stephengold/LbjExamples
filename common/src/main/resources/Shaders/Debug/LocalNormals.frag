@@ -1,5 +1,5 @@
 /*
- * fragment shader for the DebugLocalNormals program
+ * fragment shader for the Debug/LocalNormals program
  */
 #version 330 core
 
