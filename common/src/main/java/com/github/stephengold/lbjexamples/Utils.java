@@ -131,6 +131,10 @@ public class Utils {
         return new Vector3f(vector3f.x, vector3f.y, vector3f.z);
     }
 
+    public static Quaternionf toJomlQuat(Quaternion quat) {
+        return new Quaternionf(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
+    }
+
     /**
      * Convert an sRGB color string to a color in the linear colorspace.
      *
@@ -160,10 +164,6 @@ public class Utils {
 
     public static org.joml.Vector3f toLwjglVector(Vector3f vector3f) {
         return new org.joml.Vector3f(vector3f.x, vector3f.y, vector3f.z);
-    }
-
-    public static Quaternionf toLwjglQuat(Quaternion quat) {
-        return new Quaternionf(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
     }
 
     /**
