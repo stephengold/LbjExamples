@@ -30,7 +30,6 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -125,9 +124,9 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
             cube[cubeIndex].applyImpulse(impulse, offset);
         }
 
-        // visualization
+        // Visualize the physics objects.
         for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
-            new RigidBodyShapeGeometry(cube[cubeIndex], "low/Facet");
+            visualizeShape(cube[cubeIndex]);
         }
     }
 

@@ -30,7 +30,6 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
@@ -104,9 +103,9 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
         dynaBall.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
         statBall.setPhysicsLocation(new Vector3f(0.1f, 0f, 0f));
 
-        // visualization
-        new RigidBodyShapeGeometry(dynaBall, "high/Sphere");
-        new RigidBodyShapeGeometry(statBall, "high/Sphere");
+        // Visualize the physics objects.
+        visualizeShape(dynaBall);
+        visualizeShape(statBall);
     }
 
     /**

@@ -30,7 +30,6 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -119,9 +118,9 @@ public class HelloKinematics
         physicsSpace.addCollisionObject(kineBall);
         kineBall.setKinematic(true);
 
-        // visualization
-        new RigidBodyShapeGeometry(dynaBall, "high/Sphere");
-        new RigidBodyShapeGeometry(kineBall, "high/Sphere");
+        // Visualize the physics objects.
+        visualizeShape(dynaBall);
+        visualizeShape(kineBall);
     }
 
     /**

@@ -34,7 +34,6 @@ import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.InputProcessor;
 import com.github.stephengold.lbjexamples.LightColor;
 import com.github.stephengold.lbjexamples.LightDirection;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.RotateMode;
 import com.github.stephengold.lbjexamples.Utils;
 import com.jme3.bullet.PhysicsSpace;
@@ -231,7 +230,7 @@ public class HelloWalk
 
         // visualization
         Vector4fc darkGreen = new Vector4f(0f, 0.3f, 0f, 1f);
-        new RigidBodyShapeGeometry(body, "low/Smooth")
+        visualizeShape(body)
                 .setColor(darkGreen)
                 .setSpecularColor(Constants.BLACK);
     }

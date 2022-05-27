@@ -31,7 +31,6 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.InputProcessor;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -128,9 +127,9 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         // Position the ball directly above the box.
         ball.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
 
-        // visualization
-        new RigidBodyShapeGeometry(ball, "high/Sphere");
-        new RigidBodyShapeGeometry(box, "low/Facet");
+        // Visualize the physics objects.
+        visualizeShape(ball);
+        visualizeShape(box);
     }
 
     /**

@@ -203,6 +203,6 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
                 = new PhysicsRigidBody(shape, PhysicsBody.massForStatic);
 
         physicsSpace.addCollisionObject(body);
-        new RigidBodyShapeGeometry(body);
+        visualizeShape(body);
     }
 }

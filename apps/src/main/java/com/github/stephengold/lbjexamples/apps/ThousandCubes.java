@@ -132,7 +132,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
         physicsSpace.addCollisionObject(floor);
 
-        new RigidBodyShapeGeometry(floor);
+        visualizeShape(floor);
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -174,8 +174,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         float red = FastMath.pow(random.nextFloat(), 2.2f);
         float green = FastMath.pow(random.nextFloat(), 2.2f);
         float blue = FastMath.pow(random.nextFloat(), 2.2f);
-        new RigidBodyShapeGeometry(box, "low/Facet")
-                .setColor(new Vector4f(red, green, blue, 1));
+        visualizeShape(box).setColor(new Vector4f(red, green, blue, 1));
     }
 
     private void addCrosshairs() {
@@ -232,7 +231,6 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         missile.setPhysicsLocation(cam.getLocation());
         physicsSpace.addCollisionObject(missile);
 
-        new RigidBodyShapeGeometry(missile, "high/Sphere")
-                .setColor(Constants.RED);
+        visualizeShape(missile).setColor(Constants.RED);
     }
 }

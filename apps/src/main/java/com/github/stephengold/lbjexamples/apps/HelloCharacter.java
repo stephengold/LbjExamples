@@ -30,9 +30,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.CharacterShapeGeometry;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.RotateMode;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
@@ -123,10 +121,8 @@ public class HelloCharacter
         PhysicsRigidBody ground = addSquare(halfExtent, y, physicsSpace);
 
         // visualization
-        new CharacterShapeGeometry(character, "high/Smooth")
-                .setColor(Constants.RED);
-        new RigidBodyShapeGeometry(ground, "low/Facet")
-                .setColor(Constants.GREEN);
+        visualizeShape(character).setColor(Constants.RED);
+        visualizeShape(ground).setColor(Constants.GREEN);
     }
 
     /**

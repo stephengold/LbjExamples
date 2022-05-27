@@ -165,8 +165,7 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         disc.setPhysicsLocation(new Vector3f(0f, -3f, 0f));
 
         // visualization
-        new RigidBodyShapeGeometry(mallet, "high/Facet")
-                .setColor(Constants.YELLOW);
+        visualizeShape(mallet).setColor(Constants.YELLOW);
 
         float debugAxisLength = 1f;
         new LocalAxisGeometry(mallet, 0, debugAxisLength)

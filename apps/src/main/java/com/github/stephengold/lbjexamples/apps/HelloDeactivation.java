@@ -30,7 +30,6 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -123,10 +122,10 @@ public class HelloDeactivation
         bottomBody.setPhysicsLocation(new Vector3f(0f, -2f, 0f));
         physicsSpace.addCollisionObject(bottomBody);
 
-        // visualization
-        new RigidBodyShapeGeometry(dynamicCube, "low/Facet");
-        new RigidBodyShapeGeometry(supportCube, "low/Facet");
-        new RigidBodyShapeGeometry(bottomBody, "high/Sphere");
+        // Visualize the physics objects.
+        visualizeShape(dynamicCube);
+        visualizeShape(supportCube);
+        visualizeShape(bottomBody);
     }
 
     /**

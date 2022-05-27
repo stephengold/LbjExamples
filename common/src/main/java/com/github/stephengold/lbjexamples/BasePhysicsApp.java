@@ -30,7 +30,18 @@
 package com.github.stephengold.lbjexamples;
 
 import com.jme3.bullet.PhysicsSpace;
+import com.jme3.bullet.collision.PhysicsCollisionObject;
+import com.jme3.bullet.collision.shapes.Box2dShape;
+import com.jme3.bullet.collision.shapes.BoxCollisionShape;
+import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.collision.shapes.HeightfieldCollisionShape;
+import com.jme3.bullet.collision.shapes.MultiSphere;
+import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
+import com.jme3.bullet.collision.shapes.SimplexCollisionShape;
+import com.jme3.bullet.collision.shapes.SphereCollisionShape;
+import com.jme3.bullet.objects.PhysicsCharacter;
+import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.system.NativeLibraryLoader;
 import java.io.File;
 import java.util.ArrayList;
@@ -102,6 +113,55 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     public abstract void updatePhysics(float intervalSeconds);
+
+    /**
+     * Visualize the collision shape of the specified rigid body.
+     *
+     * @param pco the rigid body to visualize (not null)
+     * @return a new, visible Geometry
+     */
+    public Geometry visualizeShape(PhysicsCollisionObject pco) {
+        String meshingStrategy;
+
+        CollisionShape shape = pco.getCollisionShape();
+        if (shape instanceof SphereCollisionShape) { // TODO textured
+            meshingStrategy = "high/Sphere";
+
+        } else if (shape instanceof PlaneCollisionShape) { // TODO textured
+            meshingStrategy = "low/None";
+
+        } else if (shape instanceof Box2dShape
+                || shape instanceof BoxCollisionShape
+                || shape instanceof SimplexCollisionShape) {
+            meshingStrategy = "low/Facet";
+
+        } else if (shape instanceof CapsuleCollisionShape
+                || shape instanceof HeightfieldCollisionShape
+                || shape instanceof MultiSphere) {
+            meshingStrategy = "high/Smooth";
+
+        } else {
+            meshingStrategy = "high/Facet";
+        }
+
+        Geometry geometry;
+        if (pco instanceof PhysicsRigidBody) {
+            PhysicsRigidBody body = (PhysicsRigidBody) pco;
+            geometry = new RigidBodyShapeGeometry(body, meshingStrategy);
+
+        } else if (pco instanceof PhysicsCharacter) {
+            PhysicsCharacter character = (PhysicsCharacter) pco;
+            geometry = new CharacterShapeGeometry(character, meshingStrategy);
+
+        } else { // TODO ghost, soft body cases
+            throw new IllegalArgumentException(pco.toString());
+        }
+
+        geometry.setProgram("Phong/Distant/Monochrome");
+        geometry.setSpecularColor(Constants.GRAY);
+
+        return geometry;
+    }
     // *************************************************************************
     // BaseApplication methods
 
