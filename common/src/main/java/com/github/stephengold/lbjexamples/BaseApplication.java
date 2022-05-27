@@ -31,6 +31,7 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
+import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -46,6 +47,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11C;
+import org.lwjgl.opengl.GL13C;
 import org.lwjgl.opengl.GL30C;
 import org.lwjgl.opengl.GLUtil;
 import org.lwjgl.system.Callback;
@@ -64,6 +66,11 @@ public abstract class BaseApplication {
      * to disable them
      */
     final private static boolean enableDebugging = false;
+    /**
+     * mask size for multisample anti-aliasing (MSAA) if &ge;2, or 0 to disable
+     * MSAA
+     */
+    final private static int requestMsaaSamples = 4;
     // *************************************************************************
     // fields
 
@@ -550,7 +557,7 @@ public abstract class BaseApplication {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);      // default=GLFW_TRUE
 //        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);    // default=GLFW_TRUE
-        glfwWindowHint(GLFW_SAMPLES, 8);               // default=0
+        glfwWindowHint(GLFW_SAMPLES, requestMsaaSamples); // default=0
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         if (enableDebugging) {
@@ -600,6 +607,13 @@ public abstract class BaseApplication {
             Utils.checkForOglError();
             // If no debug mode is available, the callback remains null.
         }
+
+        if (requestMsaaSamples == 0) {
+            Utils.setOglCapability(GL13C.GL_MULTISAMPLE, false);
+            Utils.checkForOglError();
+        }
+        printMsaaStatus(System.out);
+
         Utils.setOglCapability(GL11C.GL_DEPTH_TEST, true);
         /*
          * Encode fragment colors for sRGB
@@ -644,6 +658,28 @@ public abstract class BaseApplication {
                 super.onKeyboard(keyId, isPressed);
             }
         });
+    }
+
+    /**
+     * Print the MSAA configuration to the specified stream.
+     *
+     * @param stream stream for output (not null)
+     */
+    private static void printMsaaStatus(PrintStream stream) {
+        boolean isMsaa = GL11C.glIsEnabled(GL13C.GL_MULTISAMPLE);
+        Utils.checkForOglError();
+
+        stream.printf("Requested %d MSAA samples; multisample is ",
+                requestMsaaSamples);
+        if (isMsaa) {
+            int[] tmpArray = new int[1];
+            GL11C.glGetIntegerv(GL30C.GL_SAMPLES, tmpArray);
+            Utils.checkForOglError();
+            stream.printf("enabled, samples=%d.%n", tmpArray[0]);
+        } else {
+            stream.println("disabled.");
+        }
+        stream.flush();
     }
 
     /**
