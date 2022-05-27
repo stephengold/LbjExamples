@@ -31,7 +31,7 @@ jobs:
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --no-daemon --stacktrace
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --no-daemon --stacktrace
 
-  Java17-MacOS:
+  Java11-MacOS:
     if: contains(toJson(github.event.commits), '[ci skip] ') == false
     runs-on: macOS-11
     steps:
@@ -39,7 +39,7 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
-          java-version: 17
+          java-version: 11
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --no-daemon --stacktrace
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --no-daemon --stacktrace
 
