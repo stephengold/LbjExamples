@@ -106,6 +106,19 @@ public class TextureKey {
     }
 
     /**
+     * Instantiate a key with the specified URI and anisotropic filtering.
+     *
+     * @param uriString unparsed URI to load/synthesize image data (not null,
+     * not empty)
+     * @param maxAniso the maximum degree of anisotropic filtering (&ge;1,
+     * default=1)
+     */
+    public TextureKey(String uriString, float maxAniso) {
+        this(uriString, magFilterDefault, minFilterDefault,
+                wrapUDefault, wrapVDefault, mipmapsDefault, maxAniso);
+    }
+
+    /**
      * Instantiate a key with the specified URI and filters.
      *
      * @param uriString unparsed URI to load/synthesize image data (not null,
