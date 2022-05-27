@@ -31,7 +31,6 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.LocalAxisGeometry;
 import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.RotateMode;
 import com.jme3.bullet.PhysicsSpace;
@@ -168,12 +167,7 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         visualizeShape(mallet).setColor(Constants.YELLOW);
 
         float debugAxisLength = 1f;
-        new LocalAxisGeometry(mallet, 0, debugAxisLength)
-                .setDepthTest(false);
-        new LocalAxisGeometry(mallet, 1, debugAxisLength)
-                .setDepthTest(false);
-        new LocalAxisGeometry(mallet, 2, debugAxisLength)
-                .setDepthTest(false);
+        visualizeAxes(mallet, debugAxisLength);
 
         new RigidBodyShapeGeometry(disc, "high");
     }

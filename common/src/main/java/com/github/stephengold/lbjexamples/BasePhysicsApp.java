@@ -49,6 +49,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import java.util.WeakHashMap;
+import jme3utilities.Validate;
+import jme3utilities.math.MyVector3f;
 
 public abstract class BasePhysicsApp<T extends PhysicsSpace>
         extends BaseApplication {
@@ -114,6 +116,27 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     public abstract void updatePhysics(float intervalSeconds);
+
+    /**
+     * Visualize the local axes of the specified collision object.
+     *
+     * @param pco the object to visualize
+     * @param axisLength how much of each axis to visualize (in world units,
+     * &ge;0)
+     * @return an array of new, visible geometries
+     */
+    public Geometry[] visualizeAxes(PhysicsCollisionObject pco,
+            float axisLength) {
+        Validate.nonNegative(axisLength, "axis length");
+
+        Geometry[] result = new Geometry[MyVector3f.numAxes];
+        for (int ai = 0; ai < MyVector3f.numAxes; ++ai) {
+            result[ai] = new LocalAxisGeometry(pco, ai, axisLength)
+                    .setDepthTest(false);
+        }
+
+        return result;
+    }
 
     /**
      * Visualize the collision shape of the specified rigid body.
