@@ -32,6 +32,7 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
 import com.github.stephengold.lbjexamples.RotateMode;
+import com.github.stephengold.lbjexamples.TextureKey;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.HullCollisionShape;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
@@ -195,6 +196,13 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
                 = new PhysicsRigidBody(shape, PhysicsBody.massForStatic);
 
         physicsSpace.addCollisionObject(body);
-        visualizeShape(body);
+
+        String resourceName = "/Textures/greenTile.png";
+        float maxAniso = 16f;
+        TextureKey textureKey
+                = new TextureKey("classpath://" + resourceName, maxAniso);
+        visualizeShape(body)
+                .setSpecularColor(Constants.DARK_GRAY)
+                .setTexture(textureKey);
     }
 }
