@@ -80,6 +80,7 @@ public class ConstraintGeometry extends Geometry {
 
         Mesh mesh = new ArrowMesh();
         super.setMesh(mesh);
+        super.setProgram("Unshaded/Monochrome");
 
         this.constraint = constraint;
         this.end = end;
