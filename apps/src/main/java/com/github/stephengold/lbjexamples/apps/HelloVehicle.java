@@ -31,7 +31,6 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.RotateMode;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.HullCollisionShape;
@@ -151,9 +150,7 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
 
         physicsSpace.addCollisionObject(vehicle);
 
-        new RigidBodyShapeGeometry(vehicle, "low")
-                .setProgram("Unshaded/Monochrome")
-                .setWireframe(true);
+        visualizeShape(vehicle);
         visualizeWheels(vehicle);
 
         // Apply a steering angle of 6 degrees left (to the front wheels).

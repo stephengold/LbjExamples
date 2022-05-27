@@ -31,7 +31,6 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
 import com.github.stephengold.lbjexamples.LocalAxisGeometry;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -119,7 +118,7 @@ public class HelloNonUniformGravity
         planet.applyCentralImpulse(new Vector3f(0f, -1f, 0f));
 
         // Visualize the planet.
-        new RigidBodyShapeGeometry(planet, "low/Sphere");
+        visualizeShape(planet);
 
         // Visualize axes to indicate the black hole's location.
         new LocalAxisGeometry(null, MyVector3f.xAxis, 1f);

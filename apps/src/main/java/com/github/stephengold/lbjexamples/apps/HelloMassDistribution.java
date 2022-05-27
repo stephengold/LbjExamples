@@ -30,8 +30,6 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.RotateMode;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
@@ -164,12 +162,12 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         disc.setPhysicsLocation(new Vector3f(0f, -3f, 0f));
 
         // Visualize the mallet, including its local axes.
-        visualizeShape(mallet).setColor(Constants.YELLOW);
+        visualizeShape(mallet);
         float debugAxisLength = 1f;
         visualizeAxes(mallet, debugAxisLength);
 
         // Visualize the disc.
-        new RigidBodyShapeGeometry(disc, "high");
+        visualizeShape(disc);
     }
 
     /**

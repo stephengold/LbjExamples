@@ -121,8 +121,8 @@ public class HelloCharacter
         PhysicsRigidBody ground = addSquare(halfExtent, y, physicsSpace);
 
         // visualization
-        visualizeShape(character).setColor(Constants.RED);
-        visualizeShape(ground).setColor(Constants.GREEN);
+        visualizeShape(character);
+        visualizeShape(ground);
     }
 
     /**
