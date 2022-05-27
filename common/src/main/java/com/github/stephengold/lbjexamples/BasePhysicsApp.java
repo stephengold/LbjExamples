@@ -51,6 +51,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import jme3utilities.Validate;
 import jme3utilities.math.MyVector3f;
+import org.lwjgl.opengl.GL11C;
 
 /**
  * An application to visualize 3-D physics.
@@ -152,26 +153,37 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      */
     public Geometry visualizeShape(PhysicsCollisionObject pco) {
         String meshingStrategy;
+        String programName;
+        TextureKey textureKey;
 
         CollisionShape shape = pco.getCollisionShape();
-        if (shape instanceof SphereCollisionShape) { // TODO textured
-            meshingStrategy = "high/Sphere";
-
-        } else if (shape instanceof PlaneCollisionShape) { // TODO textured
-            meshingStrategy = "low/None";
-
-        } else if (shape instanceof Box2dShape
-                || shape instanceof BoxCollisionShape
-                || shape instanceof SimplexCollisionShape) {
-            meshingStrategy = "low/Facet";
-
-        } else if (shape instanceof CapsuleCollisionShape
-                || shape instanceof HeightfieldCollisionShape
-                || shape instanceof MultiSphere) {
-            meshingStrategy = "high/Smooth";
+        if (shape instanceof SphereCollisionShape) {
+            meshingStrategy = "octasphere";
+            programName = "Phong/Distant/Texture";
+            textureKey = new TextureKey(
+                    "synthetic:///checkerboard?size=2&color0=999999ff",
+                    GL11C.GL_NEAREST, GL11C.GL_NEAREST);
 
         } else {
-            meshingStrategy = "high/Facet";
+            programName = "Phong/Distant/Monochrome";
+            textureKey = null;
+
+            if (shape instanceof PlaneCollisionShape) { // TODO textured
+                meshingStrategy = "low/None";
+
+            } else if (shape instanceof Box2dShape
+                    || shape instanceof BoxCollisionShape
+                    || shape instanceof SimplexCollisionShape) {
+                meshingStrategy = "low/Facet";
+
+            } else if (shape instanceof CapsuleCollisionShape
+                    || shape instanceof HeightfieldCollisionShape
+                    || shape instanceof MultiSphere) {
+                meshingStrategy = "high/Smooth";
+
+            } else {
+                meshingStrategy = "high/Facet";
+            }
         }
 
         Geometry geometry;
@@ -187,8 +199,11 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
             throw new IllegalArgumentException(pco.toString());
         }
 
-        geometry.setProgram("Phong/Distant/Monochrome");
+        geometry.setProgram(programName);
         geometry.setSpecularColor(Constants.GRAY);
+        if (textureKey != null) {
+            geometry.setTexture(textureKey);
+        }
 
         return geometry;
     }
