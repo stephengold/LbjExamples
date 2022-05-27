@@ -127,7 +127,7 @@ public class Utils {
         return array;
     }
 
-    public static Vector3f toLibjmeVector(org.joml.Vector3f vector3f) {
+    public static Vector3f toJmeVector(org.joml.Vector3f vector3f) {
         return new Vector3f(vector3f.x, vector3f.y, vector3f.z);
     }
 
