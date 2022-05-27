@@ -42,6 +42,7 @@ import com.jme3.bullet.collision.shapes.SimplexCollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsCharacter;
 import com.jme3.bullet.objects.PhysicsRigidBody;
+import com.jme3.bullet.objects.PhysicsVehicle;
 import com.jme3.system.NativeLibraryLoader;
 import java.io.File;
 import java.util.ArrayList;
@@ -161,6 +162,22 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
         geometry.setSpecularColor(Constants.GRAY);
 
         return geometry;
+    }
+
+    /**
+     * Visualize the wheels of the specified vehicle.
+     *
+     * @param vehicle the vehicle to visualize
+     * @return an array of new, visible geometries
+     */
+    public Geometry[] visualizeWheels(PhysicsVehicle vehicle) {
+        int numWheels = vehicle.getNumWheels();
+        Geometry[] result = new Geometry[numWheels];
+        for (int wheelIndex = 0; wheelIndex < numWheels; ++wheelIndex) {
+            result[wheelIndex] = new WheelGeometry(vehicle, wheelIndex);
+        }
+
+        return result;
     }
     // *************************************************************************
     // BaseApplication methods
