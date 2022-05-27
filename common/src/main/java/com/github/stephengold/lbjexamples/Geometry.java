@@ -150,7 +150,7 @@ public class Geometry {
      *
      * @return the pre-existing object
      */
-    Mesh getMesh() {
+    public Mesh getMesh() {
         return mesh;
     }
 
