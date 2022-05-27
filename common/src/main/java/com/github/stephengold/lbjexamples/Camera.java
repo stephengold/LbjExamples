@@ -159,7 +159,7 @@ public class Camera {
      * @return a new location vector in world coordinates
      */
     Vector3fc locationJoml() {
-        Vector3fc result = Utils.toLwjglVector(eyeLocation);
+        Vector3fc result = Utils.toJomlVector(eyeLocation);
         return result;
     }
 
@@ -183,7 +183,7 @@ public class Camera {
      * @return a new unit vector in world coordinates
      */
     Vector3fc lookDirectionJoml() {
-        Vector3fc result = Utils.toLwjglVector(lookDirection);
+        Vector3fc result = Utils.toJomlVector(lookDirection);
         return result;
     }
 
@@ -388,7 +388,7 @@ public class Camera {
      * @return a new unit vector in world coordinates
      */
     Vector3fc upDirectionJoml() {
-        Vector3fc result = Utils.toLwjglVector(upDirection);
+        Vector3fc result = Utils.toJomlVector(upDirection);
         return result;
     }
     // *************************************************************************
