@@ -35,7 +35,6 @@ import com.github.stephengold.lbjexamples.CrosshairsMesh;
 import com.github.stephengold.lbjexamples.Geometry;
 import com.github.stephengold.lbjexamples.InputProcessor;
 import com.github.stephengold.lbjexamples.LoopMesh;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.lbjexamples.RotateMode;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
@@ -131,8 +130,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                 = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1));
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
         physicsSpace.addCollisionObject(floor);
-
-        visualizeShape(floor);
+        visualizeShape(floor).getMesh().scaleUvs(0.05f);
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {

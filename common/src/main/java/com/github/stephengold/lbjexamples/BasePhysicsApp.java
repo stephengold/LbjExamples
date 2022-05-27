@@ -157,7 +157,15 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
         TextureKey textureKey;
 
         CollisionShape shape = pco.getCollisionShape();
-        if (shape instanceof SphereCollisionShape) {
+        if (shape instanceof PlaneCollisionShape) {
+            meshingStrategy = "low/Facet/Linear/1 0 0 0/0 0 1 0";
+            programName = "Phong/Distant/Texture";
+            textureKey = new TextureKey(
+                    "synthetic:///checkerboard?size=128",
+                    GL11C.GL_LINEAR, GL11C.GL_NEAREST_MIPMAP_LINEAR,
+                    GL11C.GL_REPEAT, GL11C.GL_REPEAT, true, 16f);
+
+        } else if (shape instanceof SphereCollisionShape) {
             meshingStrategy = "octasphere";
             programName = "Phong/Distant/Texture";
             textureKey = new TextureKey(
@@ -168,10 +176,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
             programName = "Phong/Distant/Monochrome";
             textureKey = null;
 
-            if (shape instanceof PlaneCollisionShape) { // TODO textured
-                meshingStrategy = "low/None";
-
-            } else if (shape instanceof Box2dShape
+            if (shape instanceof Box2dShape
                     || shape instanceof BoxCollisionShape
                     || shape instanceof SimplexCollisionShape) {
                 meshingStrategy = "low/Facet";
