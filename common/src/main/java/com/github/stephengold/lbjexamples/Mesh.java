@@ -404,6 +404,27 @@ public class Mesh {
     }
 
     /**
+     * Multiply all texture coordinates by the specified factor.
+     *
+     * @param factor the factor to apply
+     */
+    public void scaleUvs(float factor) {
+        if (vaoId != null) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
+        if (textureCoordinates == null) {
+            throw new IllegalStateException("There are no UVs in the mesh.");
+        }
+
+        int numFloats = textureCoordinates.limit();
+        for (int floatIndex = 0; floatIndex < numFloats; ++floatIndex) {
+            float tmp = textureCoordinates.get(floatIndex);
+            tmp *= factor;
+            textureCoordinates.put(floatIndex, tmp);
+        }
+    }
+
+    /**
      * Render using the specified ShaderProgram.
      *
      * @param program the program to use (not null)
