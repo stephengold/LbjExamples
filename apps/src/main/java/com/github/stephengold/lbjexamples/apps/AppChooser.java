@@ -46,6 +46,11 @@ import org.lwjgl.system.Configuration;
  */
 public class AppChooser extends JFrame {
 
+    /**
+     * Main entry point for the AppChooser application.
+     *
+     * @param args array of command-line arguments (not null)
+     */
     public static void main(String[] args) {
         if (System.getProperty("os.name").startsWith("Mac")) {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");

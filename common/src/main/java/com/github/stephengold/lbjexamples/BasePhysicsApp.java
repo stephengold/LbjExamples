@@ -52,6 +52,9 @@ import java.util.WeakHashMap;
 import jme3utilities.Validate;
 import jme3utilities.math.MyVector3f;
 
+/**
+ * An application to visualize 3-D physics.
+ */
 public abstract class BasePhysicsApp<T extends PhysicsSpace>
         extends BaseApplication {
     // *************************************************************************
@@ -71,6 +74,9 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     final private static Map<ShapeSummary, Mesh> meshCache
             = new WeakHashMap<>(200);
     //private PhysicsThread physicsThread;
+    /**
+     * space for physics simulation
+     */
     public T physicsSpace;
     // *************************************************************************
     // new methods exposed

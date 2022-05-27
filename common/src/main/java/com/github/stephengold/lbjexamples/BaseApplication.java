@@ -53,7 +53,7 @@ import org.lwjgl.system.Configuration;
 import org.lwjgl.system.MemoryUtil;
 
 /**
- * An abstract application using LWJGL and OpenGL.
+ * A 3-D visualization application using LWJGL and OpenGL.
  */
 public abstract class BaseApplication {
     // *************************************************************************

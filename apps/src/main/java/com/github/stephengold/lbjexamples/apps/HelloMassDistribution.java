@@ -105,7 +105,7 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Populate the PhysicsSpace. Invoked during initialization.
+     * Populate the PhysicsSpace. Invoked once during initialization.
      */
     @Override
     public void populateSpace() {
@@ -163,12 +163,12 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(disc);
         disc.setPhysicsLocation(new Vector3f(0f, -3f, 0f));
 
-        // visualization
+        // Visualize the mallet, including its local axes.
         visualizeShape(mallet).setColor(Constants.YELLOW);
-
         float debugAxisLength = 1f;
         visualizeAxes(mallet, debugAxisLength);
 
+        // Visualize the disc.
         new RigidBodyShapeGeometry(disc, "high");
     }
 

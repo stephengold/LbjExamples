@@ -84,7 +84,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Populate the PhysicsSpace. Invoked during initialization.
+     * Populate the PhysicsSpace. Invoked once during initialization.
      */
     @Override
     public void populateSpace() {

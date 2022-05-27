@@ -68,7 +68,7 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Main entry point for the HelloContactResponse application.
      *
-     * @param arguments ignored
+     * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         Platform platform = JmeSystem.getPlatform();
@@ -104,7 +104,7 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Populate the PhysicsSpace. Invoked during initialization.
+     * Populate the PhysicsSpace. Invoked once during initialization.
      */
     @Override
     public void populateSpace() {
