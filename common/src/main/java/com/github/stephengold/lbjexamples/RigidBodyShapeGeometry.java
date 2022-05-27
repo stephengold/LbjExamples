@@ -161,7 +161,7 @@ public class RigidBodyShapeGeometry extends Geometry {
             } else if (rigidBody.isDynamic() && rigidBody.isActive()) {
                 super.setColor(Constants.MAGENTA);
             } else {
-                super.setColor(Constants.BLUE);
+                super.setColor(Constants.GRAY);
             }
         }
     }

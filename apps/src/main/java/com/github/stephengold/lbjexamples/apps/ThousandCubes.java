@@ -132,7 +132,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
         physicsSpace.addCollisionObject(floor);
 
-        new RigidBodyShapeGeometry(floor).setColor(Constants.GRAY);
+        new RigidBodyShapeGeometry(floor);
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
