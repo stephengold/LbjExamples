@@ -139,7 +139,6 @@ public class AabbGeometry extends Geometry {
     private void updateColor() {
         if (automaticColor && pco instanceof PhysicsGhostObject) {
             PhysicsGhostObject ghost = (PhysicsGhostObject) pco;
-            ghost.getOverlappingObjects();
             int currentCount = ghost.getOverlappingCount();
 
             if (baselineCount == null) {
