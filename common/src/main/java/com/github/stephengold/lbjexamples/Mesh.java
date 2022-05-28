@@ -506,6 +506,38 @@ public class Mesh {
             MyBuffer.transform(normals, 0, numFloats, normalsTransform);
         }
     }
+
+    /**
+     * Transform all texture coordinates using the specified coefficients. Note
+     * that the Z components of the coefficients are currently unused.
+     *
+     * @param uCoefficients the coefficients for calculating new Us (not null)
+     * @param vCoefficients the coefficients for calculating new Vs (not null)
+     */
+    public void transformUvs(Vector4fc uCoefficients, Vector4fc vCoefficients) {
+        if (vaoId != null) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
+        if (textureCoordinates == null) {
+            throw new IllegalStateException("There are no UVs in the mesh.");
+        }
+
+        for (int vIndex = 0; vIndex < vertexCount; ++vIndex) {
+            int startPosition = 2 * vIndex;
+            float oldU = textureCoordinates.get(startPosition);
+            float oldV = textureCoordinates.get(startPosition + 1);
+
+            float newU = uCoefficients.w()
+                    + uCoefficients.x() * oldU
+                    + uCoefficients.y() * oldV;
+            float newV = vCoefficients.w()
+                    + vCoefficients.x() * oldU
+                    + vCoefficients.y() * oldV;
+
+            textureCoordinates.put(startPosition, newU);
+            textureCoordinates.put(startPosition + 1, newV);
+        }
+    }
     // *************************************************************************
     // protected methods
 
