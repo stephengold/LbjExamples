@@ -131,7 +131,7 @@ class Texture {
     /**
      * Prepare the texture for rendering with the specified texture unit.
      *
-     * @param unitNumber which texture unit to use (&ge;0)
+     * @param unitNumber which texture unit to use (&ge;0, &le;31)
      */
     void setUnitNumber(int unitNumber) {
         Validate.inRange(unitNumber, "unit number", 0, 31);

@@ -143,13 +143,11 @@ public class HelloNonUniformGravity
      * Callback from Bullet, invoked just before each simulation step.
      *
      * @param space the space that's about to be stepped (not null)
-     * @param timeStep the time per physics step (in seconds, &ge;0)
+     * @param timeStep the time per simulation step (in seconds, &ge;0)
      */
     @Override
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
-        /*
-         * Calculate the gravitational acceleration GM/r^2.
-         */
+        // Calculate the gravitational acceleration GM/r^2.
         planet.getPhysicsLocation(tmpVector);
         float r2 = tmpVector.lengthSquared(); //squared distance from black hole
         MyVector3f.normalizeLocal(tmpVector);
@@ -161,7 +159,7 @@ public class HelloNonUniformGravity
      * Callback from Bullet, invoked just after the simulation has been stepped.
      *
      * @param space the space that was just stepped (not null)
-     * @param timeStep the time per physics step (in seconds, &ge;0)
+     * @param timeStep the time per simulation step (in seconds, &ge;0)
      */
     @Override
     public void physicsTick(PhysicsSpace space, float timeStep) {

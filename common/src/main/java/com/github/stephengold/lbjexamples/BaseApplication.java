@@ -555,8 +555,9 @@ public abstract class BaseApplication {
         }
 
         glfwDefaultWindowHints();
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);      // default=GLFW_TRUE
-//        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);    // default=GLFW_TRUE
+
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);         // default=GLFW_TRUE
+//        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);       // default=GLFW_TRUE
         glfwWindowHint(GLFW_SAMPLES, requestMsaaSamples); // default=0
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
