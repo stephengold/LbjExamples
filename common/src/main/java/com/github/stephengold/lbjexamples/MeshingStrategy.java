@@ -288,12 +288,12 @@ class MeshingStrategy {
      */
     private static NormalsOption parseNormals(String description) {
         String[] items = description.split(delimiter);
-        NormalsOption result;
+        NormalsOption result = NormalsOption.None;
         if (items.length >= 2) {
             String nString = items[1];
-            result = NormalsOption.valueOf(nString);
-        } else {
-            result = NormalsOption.None;
+            if (!nString.isEmpty()) {
+                result = NormalsOption.valueOf(nString);
+            }
         }
 
         return result;
@@ -322,12 +322,12 @@ class MeshingStrategy {
      */
     private static UvsOption parseUvs(String description) {
         String[] items = description.split(delimiter);
-        UvsOption result;
+        UvsOption result = UvsOption.None;
         if (items.length > 2) {
             String uvString = items[2];
-            result = UvsOption.valueOf(uvString);
-        } else {
-            result = UvsOption.None;
+            if (!uvString.isEmpty()) {
+                result = UvsOption.valueOf(uvString);
+            }
         }
 
         return result;
