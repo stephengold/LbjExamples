@@ -146,13 +146,13 @@ public class Mesh {
          */
         switch (normalsOption) {
             case Facet:
-                makeFaceNormals();
+                generateFacetNormals();
                 break;
             case None:
                 this.normals = null;
                 break;
             case Smooth:
-                makeFaceNormals();
+                generateFacetNormals();
                 smoothNormals();
                 break;
             case Sphere:
@@ -338,6 +338,52 @@ public class Mesh {
      */
     public int drawMode() {
         return drawMode;
+    }
+
+    /**
+     * Generate normals on a triangle-by-triangle basis for a triangles-mode
+     * Mesh. Any pre-existing normals are discarded.
+     *
+     * @return the (modified) current instance (for chaining)
+     */
+    public Mesh generateFacetNormals() {
+        if (vaoId != null) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
+        if (drawMode != GL11C.GL_TRIANGLES) {
+            throw new IllegalStateException("drawMode == " + drawMode);
+        }
+        int numTriangles = countTriangles();
+        assert vertexCount == vpt * numTriangles;
+
+        Vector3f posA = new Vector3f();
+        Vector3f posB = new Vector3f();
+        Vector3f posC = new Vector3f();
+        Vector3f ac = new Vector3f();
+        Vector3f normal = new Vector3f();
+
+        normals = BufferUtils.createFloatBuffer(numAxes * vertexCount);
+        for (int triIndex = 0; triIndex < numTriangles; ++triIndex) {
+            int trianglePosition = triIndex * vpt * numAxes;
+            MyBuffer.get(positions, trianglePosition, posA);
+            MyBuffer.get(positions, trianglePosition + numAxes, posB);
+            MyBuffer.get(positions, trianglePosition + 2 * numAxes, posC);
+
+            posB.subtract(posA, normal);
+            posC.subtract(posA, ac);
+            normal.cross(ac, normal);
+            MyVector3f.normalizeLocal(normal);
+
+            for (int j = 0; j < vpt; ++j) {
+                normals.put(normal.x);
+                normals.put(normal.y);
+                normals.put(normal.z);
+            }
+        }
+        normals.flip();
+        assert normals.limit() == normals.capacity();
+
+        return this;
     }
 
     /**
@@ -623,43 +669,6 @@ public class Mesh {
         for (int index = 0; index < vboIdList.size(); ++index) {
             enableAttribute(program, index);
         }
-    }
-
-    /**
-     * Generate flat normals on a triangle-by-triangle basis for a
-     * triangles-mode Mesh. Any pre-existing normals are discarded.
-     */
-    private void makeFaceNormals() {
-        assert drawMode == GL11C.GL_TRIANGLES;
-        int numTriangles = vertexCount / vpt;
-        assert vertexCount == vpt * numTriangles;
-
-        Vector3f posA = new Vector3f();
-        Vector3f posB = new Vector3f();
-        Vector3f posC = new Vector3f();
-        Vector3f ac = new Vector3f();
-        Vector3f normal = new Vector3f();
-
-        normals = BufferUtils.createFloatBuffer(numAxes * vertexCount);
-        for (int triIndex = 0; triIndex < numTriangles; ++triIndex) {
-            int trianglePosition = triIndex * vpt * numAxes;
-            MyBuffer.get(positions, trianglePosition, posA);
-            MyBuffer.get(positions, trianglePosition + numAxes, posB);
-            MyBuffer.get(positions, trianglePosition + 2 * numAxes, posC);
-
-            posB.subtract(posA, normal);
-            posC.subtract(posA, ac);
-            normal.cross(ac, normal);
-            MyVector3f.normalizeLocal(normal);
-
-            for (int j = 0; j < vpt; ++j) {
-                normals.put(normal.x);
-                normals.put(normal.y);
-                normals.put(normal.z);
-            }
-        }
-        normals.flip();
-        assert normals.limit() == normals.capacity();
     }
 
     /**
