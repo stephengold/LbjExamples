@@ -50,6 +50,10 @@ final public class Constants {
      */
     final public static Vector4fc BLUE = new Vector4f(0f, 0f, 1f, 1f);
     /**
+     * The opaque color brown: (0.2, 0.1, 0) in the Linear colorspace.
+     */
+    final public static Vector4fc BROWN = new Vector4f(0.2f, 0.1f, 0f, 1f);
+    /**
      * The opaque color "dark gray": (0.01, 0.01, 0.01) in the Linear
      * colorspace.
      */
