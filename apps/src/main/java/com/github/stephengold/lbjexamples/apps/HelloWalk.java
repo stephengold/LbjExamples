@@ -107,7 +107,7 @@ public class HelloWalk
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // Activate the PhysicsTickListener interface.
+        // Add this application as a tick listener.
         result.addTickListener(this);
 
         return result;
@@ -179,9 +179,10 @@ public class HelloWalk
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
         // Clear any motion from the previous tick.
         character.setWalkDirection(Vector3f.ZERO);
-
-        // If the character is touching the ground,
-        // cause it respond to keyboard input.
+        /*
+         * If the character is touching the ground,
+         * cause it respond to keyboard input.
+         */
         if (character.onGround()) {
             if (jumpRequested) {
                 character.jump();

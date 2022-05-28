@@ -119,7 +119,7 @@ public class HelloGhost
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // Activate the PhysicsTickListener interface.
+        // Add this application as a tick listener.
         result.addTickListener(this);
 
         return result;
@@ -202,14 +202,16 @@ public class HelloGhost
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
         // Clear any motion from the previous tick.
         character.setWalkDirection(Vector3f.ZERO);
-
-        // If the character is touching the ground,
-        // cause it respond to keyboard input.
+        /*
+         * If the character is touching the ground,
+         * cause it respond to keyboard input.
+         */
         if (character.onGround()) {
             if (jumpRequested) {
                 character.jump();
 
             } else {
+                // Walk as directed.
                 Vector3f offset = cam.getDirection();
                 float backward = walkBackward ? 1f : 0f;
                 float forward = walkForward ? 1f : 0f;

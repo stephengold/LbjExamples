@@ -92,7 +92,7 @@ public class HelloKinematics
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, add this application as a tick listener.
+        // Add this application as a tick listener.
         result.addTickListener(this);
 
         return result;
@@ -118,7 +118,7 @@ public class HelloKinematics
         physicsSpace.addCollisionObject(kineBall);
         kineBall.setKinematic(true);
 
-        // Visualize the physics objects.
+        // Visualize the bodies.
         visualizeShape(dynaBall);
         visualizeShape(kineBall);
     }
@@ -164,7 +164,7 @@ public class HelloKinematics
      * Callback from Bullet, invoked just after each simulation step.
      *
      * @param space the space that was just stepped (not null)
-     * @param timeStep the time per step (in seconds, &ge;0)
+     * @param timeStep the time per physics step (in seconds, &ge;0)
      */
     @Override
     public void physicsTick(PhysicsSpace space, float timeStep) {

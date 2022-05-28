@@ -87,7 +87,7 @@ public class HelloNonUniformGravity
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, add this app as a tick listener.
+        // Add this application as a tick listener.
         result.addTickListener(this);
 
         // Reduce the time step for better accuracy.

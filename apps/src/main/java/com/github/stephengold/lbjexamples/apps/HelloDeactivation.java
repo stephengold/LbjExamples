@@ -87,7 +87,7 @@ public class HelloDeactivation
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, add this application as a tick listener.
+        // Add this application as a tick listener.
         result.addTickListener(this);
 
         return result;
