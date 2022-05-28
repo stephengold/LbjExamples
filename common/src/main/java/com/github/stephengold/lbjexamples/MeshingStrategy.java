@@ -103,6 +103,8 @@ class MeshingStrategy {
     private MeshingStrategy(int positions, NormalsOption normals, UvsOption uvs,
             Vector4fc uCoefficients, Vector4fc vCoefficients) {
         assert positions >= -6 && positions <= 1 : positions;
+        assert normals != null;
+        assert uvs != null;
 
         this.positions = positions;
         this.normals = normals;
@@ -124,12 +126,16 @@ class MeshingStrategy {
 
         if (positions < 0) {
             result = new OctasphereMesh(-positions);
+            float maxRadius = shape.maxRadius();
+            if (maxRadius != 1f) {
+                Transform scaleTransform = new Transform();
+                scaleTransform.setScale(maxRadius);
+                result.transform(scaleTransform);
+            }
+
+            // Only sphere normals make sense, so ignore the NormalsOption.
             result.generateSphereNormals();
 
-            float maxRadius = shape.maxRadius();
-            Transform scaleTransform = new Transform();
-            scaleTransform.setScale(maxRadius);
-            result.transform(scaleTransform);
             // Octasphere provides excellent UVs, so ignore the UvsOption.
 
         } else {
@@ -182,8 +188,7 @@ class MeshingStrategy {
                     && (normals == otherStrategy.normals)
                     && (uvs == otherStrategy.uvs);
             if (result && uvs != UvsOption.None) {
-                result = result
-                        && uCoefficients.equals(otherStrategy.uCoefficients)
+                result = uCoefficients.equals(otherStrategy.uCoefficients)
                         && vCoefficients.equals(otherStrategy.vCoefficients);
             }
 
@@ -222,13 +227,17 @@ class MeshingStrategy {
         String result;
 
         // Construct the string from right to left.
+        String us = String.format("%f %f %f %f",
+                uCoefficients.x, uCoefficients.y, uCoefficients.z,
+                uCoefficients.w);
+        String vs = String.format("%f %f %f %f",
+                vCoefficients.x, vCoefficients.y, vCoefficients.z,
+                vCoefficients.w);
+
         if (uvs == UvsOption.None) {
             result = "";
         } else {
-            result = String.format(",%s,%f %f %f %f,%f %f %f %f",
-                    uvs, uCoefficients.x, uCoefficients.y, uCoefficients.z,
-                    uCoefficients.w, vCoefficients.x, vCoefficients.y,
-                    vCoefficients.z, vCoefficients.w);
+            result = "," + uvs + "," + us + "," + vs;
         }
 
         if (!result.isEmpty() || normals != NormalsOption.None) {
