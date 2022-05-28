@@ -124,7 +124,7 @@ class MeshingStrategy {
     Mesh applyTo(CollisionShape shape) {
         Mesh result;
 
-        if (positions < 0) {
+        if (positions < 0) { // generate vertex positions using OctasphereMesh
             result = new OctasphereMesh(-positions);
             float maxRadius = shape.maxRadius();
             if (maxRadius != 1f) {
@@ -135,10 +135,13 @@ class MeshingStrategy {
 
             // Only sphere normals make sense, so ignore the NormalsOption.
             result.generateSphereNormals();
+            /*
+             * Octasphere provides excellent UVs, so ignore the UvsOption.
+             * Linear transformations (if any) apply directly to the UVs.
+             */
+            result.transformUvs(uCoefficients, vCoefficients);
 
-            // Octasphere provides excellent UVs, so ignore the UvsOption.
-
-        } else {
+        } else { // generate vertex positions using DebugShapeFactory
             result = new Mesh(shape, normals, positions);
             if (uvs != UvsOption.None) {
                 result.generateUvs(uvs, uCoefficients, vCoefficients);
@@ -184,12 +187,19 @@ class MeshingStrategy {
         } else if (otherObject != null
                 && otherObject.getClass() == getClass()) {
             MeshingStrategy otherStrategy = (MeshingStrategy) otherObject;
-            result = (positions == otherStrategy.positions)
-                    && (normals == otherStrategy.normals)
-                    && (uvs == otherStrategy.uvs);
-            if (result && uvs != UvsOption.None) {
-                result = uCoefficients.equals(otherStrategy.uCoefficients)
-                        && vCoefficients.equals(otherStrategy.vCoefficients);
+            result = (positions == otherStrategy.positions);
+            Vector4fc otherU = otherStrategy.uCoefficients;
+            Vector4fc otherV = otherStrategy.vCoefficients;
+            if (result && positions >= 0) {
+                result = (normals == otherStrategy.normals)
+                        && (uvs == otherStrategy.uvs);
+                if (result && uvs != UvsOption.None) {
+                    result = uCoefficients.equals(otherU)
+                            && vCoefficients.equals(otherV);
+                }
+            } else if (result && positions < 0) {
+                result = uCoefficients.equals(otherU)
+                        && vCoefficients.equals(otherV);
             }
 
         } else {
@@ -207,9 +217,14 @@ class MeshingStrategy {
     @Override
     public int hashCode() {
         int hash = positions;
-        hash = 707 * hash + normals.ordinal();
-        hash = 707 * hash + uvs.ordinal();
-        if (uvs != UvsOption.None) {
+        if (positions >= 0) {
+            hash = 707 * hash + normals.ordinal();
+            hash = 707 * hash + uvs.ordinal();
+            if (uvs != UvsOption.None) {
+                hash = 707 * hash + uCoefficients.hashCode();
+                hash = 707 * hash + vCoefficients.hashCode();
+            }
+        } else {
             hash = 707 * hash + uCoefficients.hashCode();
             hash = 707 * hash + vCoefficients.hashCode();
         }
@@ -234,14 +249,19 @@ class MeshingStrategy {
                 vCoefficients.x, vCoefficients.y, vCoefficients.z,
                 vCoefficients.w);
 
-        if (uvs == UvsOption.None) {
-            result = "";
-        } else {
-            result = delimiter + uvs + delimiter + us + delimiter + vs;
-        }
+        if (positions >= 0) {
+            if (uvs == UvsOption.None) {
+                result = "";
+            } else {
+                result = delimiter + uvs + delimiter + us + delimiter + vs;
+            }
 
-        if (!result.isEmpty() || normals != NormalsOption.None) {
-            result = delimiter + normals + result;
+            if (!result.isEmpty() || normals != NormalsOption.None) {
+                result = delimiter + normals + result;
+            }
+
+        } else {
+            result = delimiter + delimiter + delimiter + us + delimiter + vs;
         }
 
         String pString;
@@ -342,7 +362,15 @@ class MeshingStrategy {
      */
     private static Vector4fc parseVector4f(String description, int itemIndex) {
         String[] items = description.split(delimiter);
+
+        // The default value depends on itemIndex.
         Vector4f result = new Vector4f();
+        if (itemIndex == 3) {
+            result.x = 1f;
+        } else if (itemIndex == 4) {
+            result.y = 1f;
+        }
+
         if (items.length > itemIndex) {
             String item = items[itemIndex];
             String[] components = item.split(" ");
