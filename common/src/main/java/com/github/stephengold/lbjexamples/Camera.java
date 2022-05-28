@@ -142,6 +142,7 @@ public class Camera {
     /**
      * Return the eye location.
      *
+     * @param storeResult storage for the result (modified if not null)
      * @return a location vector in world coordinates (either storeResult or a
      * new vector)
      */
@@ -166,6 +167,7 @@ public class Camera {
     /**
      * Return the camera's look direction.
      *
+     * @param storeResult storage for the result (modified if not null)
      * @return a unit vector in world coordinates (either storeResult or a new
      * vector)
      */
@@ -201,6 +203,7 @@ public class Camera {
     /**
      * Return the camera's right direction.
      *
+     * @param storeResult storage for the result (modified if not null)
      * @return a unit vector in world coordinates (either storeResult or a new
      * vector)
      */
@@ -371,6 +374,7 @@ public class Camera {
     /**
      * Return the camera's "up" direction.
      *
+     * @param storeResult storage for the result (modified if not null)
      * @return a unit vector in world coordinates (either storeResult or a new
      * vector)
      */
