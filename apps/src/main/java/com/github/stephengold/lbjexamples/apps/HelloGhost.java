@@ -262,10 +262,9 @@ public class HelloGhost
         float maxAniso = 16f;
         TextureKey textureKey
                 = new TextureKey("classpath://" + resourceName, maxAniso);
-        visualizeShape(body)
+        visualizeShape(body, 0.1f)
                 .setSpecularColor(Constants.DARK_GRAY)
-                .setTexture(textureKey)
-                .getMesh().scaleUvs(0.1f);
+                .setTexture(textureKey);
     }
 
     /**

@@ -130,7 +130,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                 = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1));
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
         physicsSpace.addCollisionObject(floor);
-        visualizeShape(floor).getMesh().scaleUvs(0.05f);
+        visualizeShape(floor, 0.05f);
 
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {

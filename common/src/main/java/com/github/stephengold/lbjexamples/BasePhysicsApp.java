@@ -43,6 +43,7 @@ import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsCharacter;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.bullet.objects.PhysicsVehicle;
+import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.system.NativeLibraryLoader;
 import java.io.File;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import jme3utilities.Validate;
 import jme3utilities.math.MyVector3f;
+import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11C;
 
 /**
@@ -146,19 +148,37 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     }
 
     /**
-     * Visualize the collision shape of the specified rigid body.
+     * Visualize the collision shape of the specified collision object.
      *
      * @param pco the rigid body to visualize (not null)
      * @return a new, visible Geometry
      */
     public Geometry visualizeShape(PhysicsCollisionObject pco) {
-        String meshingStrategy;
+        float uvScale = 1f;
+        Geometry result = visualizeShape(pco, uvScale);
+        return result;
+    }
+
+    /**
+     * Visualize the collision shape of the specified collision object.
+     *
+     * @param pco the rigid body to visualize (not null)
+     * @param uvScale the UV scale factor to use (default=1)
+     * @return a new, visible Geometry
+     */
+    public Geometry visualizeShape(PhysicsCollisionObject pco, float uvScale) {
+        MeshingStrategy meshingStrategy;
         String programName;
         TextureKey textureKey;
 
         CollisionShape shape = pco.getCollisionShape();
         if (shape instanceof PlaneCollisionShape) {
-            meshingStrategy = "low/Facet/Linear/1 0 0 0/0 0 1 0";
+            meshingStrategy = new MeshingStrategy(
+                    DebugShapeFactory.lowResolution, NormalsOption.Facet,
+                    UvsOption.Linear,
+                    new Vector4f(uvScale, 0f, 0f, 0f),
+                    new Vector4f(0f, 0f, uvScale, 0f)
+            );
             programName = "Phong/Distant/Texture";
             textureKey = new TextureKey(
                     "synthetic:///checkerboard?size=128",
@@ -166,7 +186,11 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
                     GL11C.GL_REPEAT, GL11C.GL_REPEAT, true, 16f);
 
         } else if (shape instanceof SphereCollisionShape) {
-            meshingStrategy = "octasphere3";
+            meshingStrategy = new MeshingStrategy(-3,
+                    NormalsOption.Sphere, UvsOption.Spherical,
+                    new Vector4f(uvScale, 0f, 0f, 0f),
+                    new Vector4f(0f, uvScale, 0f, 0f)
+            );
             programName = "Phong/Distant/Texture";
             textureKey = new TextureKey(
                     "synthetic:///checkerboard?size=2&color0=999999ff",
@@ -179,15 +203,15 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
             if (shape instanceof Box2dShape
                     || shape instanceof BoxCollisionShape
                     || shape instanceof SimplexCollisionShape) {
-                meshingStrategy = "low/Facet";
+                meshingStrategy = new MeshingStrategy("low/Facet");
 
             } else if (shape instanceof CapsuleCollisionShape
                     || shape instanceof HeightfieldCollisionShape
                     || shape instanceof MultiSphere) {
-                meshingStrategy = "high/Smooth";
+                meshingStrategy = new MeshingStrategy("high/Smooth");
 
             } else {
-                meshingStrategy = "high/Facet";
+                meshingStrategy = new MeshingStrategy("high/Facet");
             }
         }
 
