@@ -111,17 +111,6 @@ public class Mesh {
     // constructors
 
     /**
-     * Auto-generate a low-resolution, GL_TRIANGLES mesh for the specified
-     * collision shape.
-     *
-     * @param shape the shape to use (not null, unaffected)
-     * @param normalsOption (not null)
-     */
-    Mesh(CollisionShape shape, NormalsOption normalsOption) {
-        this(shape, normalsOption, DebugShapeFactory.lowResolution);
-    }
-
-    /**
      * Auto-generate a GL_TRIANGLES mesh for the specified collision shape.
      *
      * @param shape the shape to use (not null, unaffected)
@@ -447,27 +436,6 @@ public class Mesh {
         }
         textureCoordinates.flip();
         assert textureCoordinates.limit() == textureCoordinates.capacity();
-    }
-
-    /**
-     * Multiply all texture coordinates by the specified factor.
-     *
-     * @param factor the factor to apply
-     */
-    public void scaleUvs(float factor) {
-        if (vaoId != null) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
-        if (textureCoordinates == null) {
-            throw new IllegalStateException("There are no UVs in the mesh.");
-        }
-
-        int numFloats = textureCoordinates.limit();
-        for (int floatIndex = 0; floatIndex < numFloats; ++floatIndex) {
-            float tmp = textureCoordinates.get(floatIndex);
-            tmp *= factor;
-            textureCoordinates.put(floatIndex, tmp);
-        }
     }
 
     /**
