@@ -100,7 +100,7 @@ class MeshingStrategy {
      * @param vCoefficients coefficients for generating the 2nd (V) texture
      * coordinate, if any (not null, unaffected)
      */
-    private MeshingStrategy(int positions, NormalsOption normals, UvsOption uvs,
+    MeshingStrategy(int positions, NormalsOption normals, UvsOption uvs,
             Vector4fc uCoefficients, Vector4fc vCoefficients) {
         assert positions >= -6 && positions <= 1 : positions;
         assert normals != null;
