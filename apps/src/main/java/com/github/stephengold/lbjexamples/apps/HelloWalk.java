@@ -143,7 +143,7 @@ public class HelloWalk
         // Teleport the character to its initial location.
         character.setPhysicsLocation(new Vector3f(-73.6f, 19.09f, -45.58f));
 
-        // Add a static heightmap to represent the ground.
+        // Add a heightmap to represent the ground.
         addTerrain();
     }
 
@@ -170,7 +170,7 @@ public class HelloWalk
     // PhysicsTickListener methods
 
     /**
-     * Callback from Bullet, invoked just before each physics step.
+     * Callback from Bullet, invoked just before each simulation step.
      *
      * @param space the space that's about to be stepped (not null)
      * @param timeStep the time per physics step (in seconds, &ge;0)
@@ -197,7 +197,7 @@ public class HelloWalk
     }
 
     /**
-     * Callback from Bullet, invoked just after each physics step.
+     * Callback from Bullet, invoked just after each simulation step.
      *
      * @param space the space that was just stepped (not null)
      * @param timeStep the time per physics step (in seconds, &ge;0)

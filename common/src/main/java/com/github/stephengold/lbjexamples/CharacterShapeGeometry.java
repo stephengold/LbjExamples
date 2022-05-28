@@ -126,7 +126,7 @@ public class CharacterShapeGeometry extends Geometry {
 
     /**
      * Test whether the character has been removed from the specified
-     * PhysicsSpace.
+     * CollisionSpace.
      *
      * @param space the space to test (not null, unaffected)
      * @return true if removed, otherwise false

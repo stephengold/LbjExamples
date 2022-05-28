@@ -49,7 +49,9 @@ public class LocalAxisGeometry extends Geometry {
      * map axis indices to colors
      */
     final private static Vector4fc[] colors = {
-        Constants.RED, Constants.GREEN, Constants.BLUE
+        Constants.RED, // X
+        Constants.GREEN, // Y
+        Constants.BLUE // Z
     };
     // *************************************************************************
     // fields

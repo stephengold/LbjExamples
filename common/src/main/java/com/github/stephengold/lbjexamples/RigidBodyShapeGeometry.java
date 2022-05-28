@@ -138,7 +138,7 @@ public class RigidBodyShapeGeometry extends Geometry {
     }
 
     /**
-     * Test whether the body has been removed from the specified PhysicsSpace.
+     * Test whether the body has been removed from the specified CollisionSpace.
      *
      * @param space the space to test (not null, unaffected)
      * @return true if removed, otherwise false

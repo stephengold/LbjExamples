@@ -97,9 +97,10 @@ public class ArrowMesh extends Mesh {
     // new methods exposed
 
     /**
-     * Return the mesh to represent the specified axis.
+     * Return the shared mesh to represent the specified axis.
      *
      * @param axisIndex which axis: 0&rarr;X, 1&rarr;Y, 2&rarr;Z
+     * @return the shared mesh (do not modify!)
      */
     public static ArrowMesh getMesh(int axisIndex) {
         switch (axisIndex) {
