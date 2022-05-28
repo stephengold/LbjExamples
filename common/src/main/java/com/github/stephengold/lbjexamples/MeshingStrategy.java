@@ -237,11 +237,11 @@ class MeshingStrategy {
         if (uvs == UvsOption.None) {
             result = "";
         } else {
-            result = "," + uvs + "," + us + "," + vs;
+            result = delimiter + uvs + delimiter + us + delimiter + vs;
         }
 
         if (!result.isEmpty() || normals != NormalsOption.None) {
-            result = "," + normals + result;
+            result = delimiter + normals + result;
         }
 
         String pString;
