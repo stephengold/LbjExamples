@@ -166,7 +166,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
                     GL11C.GL_REPEAT, GL11C.GL_REPEAT, true, 16f);
 
         } else if (shape instanceof SphereCollisionShape) {
-            meshingStrategy = "octasphere";
+            meshingStrategy = "octasphere3";
             programName = "Phong/Distant/Texture";
             textureKey = new TextureKey(
                     "synthetic:///checkerboard?size=2&color0=999999ff",

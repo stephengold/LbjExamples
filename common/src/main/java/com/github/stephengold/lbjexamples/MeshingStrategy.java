@@ -92,7 +92,7 @@ class MeshingStrategy {
     /**
      * Instantiate a strategy from components.
      *
-     * @param positions strategy for generating vertex positions (0 or 1 or -1)
+     * @param positions strategy for generating vertex positions (&ge;-6, &le;1)
      * @param normals strategy for generating normals, if any (not null)
      * @param uvs strategy for generating texture coordinates, if any (not null)
      * @param uCoefficients coefficients for generating the first (U) texture
@@ -102,6 +102,8 @@ class MeshingStrategy {
      */
     private MeshingStrategy(int positions, NormalsOption normals, UvsOption uvs,
             Vector4fc uCoefficients, Vector4fc vCoefficients) {
+        assert positions >= -6 && positions <= 1 : positions;
+
         this.positions = positions;
         this.normals = normals;
         this.uvs = uvs;
@@ -119,8 +121,9 @@ class MeshingStrategy {
      */
     Mesh applyTo(CollisionShape shape) {
         Mesh result;
-        if (positions == -1) {
-            result = new OctasphereMesh(3);
+
+        if (positions < 0) {
+            result = new OctasphereMesh(-positions);
             result.generateSphereNormals();
 
             float maxRadius = shape.maxRadius();
@@ -151,9 +154,10 @@ class MeshingStrategy {
     /**
      * Return the strategy for generating vertex positions.
      *
-     * @return the option code (either 0 or 1)
+     * @return option code (&ge;-6, &le;1)
      */
     int positions() {
+        assert positions >= -6 && positions <= 1 : positions;
         return positions;
     }
     // *************************************************************************
@@ -234,7 +238,22 @@ class MeshingStrategy {
         String pString;
         switch (positions) {
             case -1:
-                pString = "octasphere";
+                pString = "octasphere1";
+                break;
+            case -2:
+                pString = "octasphere2";
+                break;
+            case -3:
+                pString = "octasphere3";
+                break;
+            case -4:
+                pString = "octasphere4";
+                break;
+            case -5:
+                pString = "octasphere5";
+                break;
+            case -6:
+                pString = "octasphere6";
                 break;
             case 0:
                 pString = "low";
@@ -276,7 +295,7 @@ class MeshingStrategy {
      * description.
      *
      * @param description list of items separated by slashes (not null)
-     * @return 0 or 1 or -1
+     * @return option code (&ge;-6, &le;1)
      */
     private static int parsePositions(String description) {
         String[] items = description.split(delimiter);
@@ -336,7 +355,7 @@ class MeshingStrategy {
      * positions.
      *
      * @param pString the name to translate
-     * @return 0 for "low", 1 for "hi", or -1 for "octasphere"
+     * @return option code (&ge;-6, &le;1)
      */
     private static int toPositions(String pString) {
         switch (pString) {
@@ -344,8 +363,19 @@ class MeshingStrategy {
                 return DebugShapeFactory.highResolution;
             case "low":
                 return DebugShapeFactory.lowResolution;
-            case "octasphere":
+            case "octasphere1":
                 return -1;
+            case "octasphere2":
+                return -2;
+            case "octasphere3":
+                return -3;
+            case "octasphere4":
+                return -4;
+            case "octasphere5":
+                return -5;
+            case "octasphere6":
+                return -6;
+
             default:
                 String message = "pString = " + MyString.quote(pString);
                 throw new IllegalArgumentException(message);
