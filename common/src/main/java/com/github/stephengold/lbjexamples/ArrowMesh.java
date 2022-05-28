@@ -100,7 +100,7 @@ public class ArrowMesh extends Mesh {
      * Return the shared mesh to represent the specified axis.
      *
      * @param axisIndex which axis: 0&rarr;X, 1&rarr;Y, 2&rarr;Z
-     * @return the shared mesh (do not modify!)
+     * @return the shared mesh (immutable)
      */
     public static ArrowMesh getMesh(int axisIndex) {
         switch (axisIndex) {
@@ -111,6 +111,7 @@ public class ArrowMesh extends Mesh {
                             .fromAngles(0f, FastMath.HALF_PI, 0f);
                     xArrow = new ArrowMesh();
                     xArrow.transform(rotZ2X);
+                    xArrow.makeImmutable();
                 }
                 return xArrow;
 
@@ -121,12 +122,14 @@ public class ArrowMesh extends Mesh {
                             .fromAngles(-FastMath.HALF_PI, 0f, 0f);
                     yArrow = new ArrowMesh();
                     yArrow.transform(rotZ2Y);
+                    yArrow.makeImmutable();
                 }
                 return yArrow;
 
             case MyVector3f.zAxis:
                 if (zArrow == null) {
                     zArrow = new ArrowMesh();
+                    zArrow.makeImmutable();
                 }
                 return zArrow;
 

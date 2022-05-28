@@ -108,12 +108,13 @@ public class BoxMesh extends Mesh {
      * Return the shared mesh for a box extending from (-1,-1,-1) to (+1,+1,+1)
      * with normals.
      *
-     * @return the shared mesh (do not modify!)
+     * @return the shared mesh (immutable)
      */
     public static BoxMesh getMesh() {
         if (bm111 == null) {
             bm111 = new BoxMesh(-1f, -1f, -1f, 1f, 1f, 1f);
             bm111.generateFacetNormals();
+            bm111.makeImmutable();
         }
 
         return bm111;

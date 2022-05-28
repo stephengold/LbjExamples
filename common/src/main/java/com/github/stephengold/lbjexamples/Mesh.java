@@ -70,6 +70,10 @@ public class Mesh {
     // fields
 
     /**
+     * true for mutable, or false if immutable
+     */
+    private boolean mutable = true;
+    /**
      * vertex normals (3 floats per vertex)
      */
     private FloatBuffer normals;
@@ -111,7 +115,8 @@ public class Mesh {
     // constructors
 
     /**
-     * Auto-generate a GL_TRIANGLES mesh for the specified collision shape.
+     * Auto-generate a mutable GL_TRIANGLES mesh for the specified collision
+     * shape.
      *
      * @param shape the shape to use (not null, unaffected)
      * @param normalsOption (not null)
@@ -154,8 +159,8 @@ public class Mesh {
     }
 
     /**
-     * Instantiate a mesh with the specified mode and vertex positions, but no
-     * normals.
+     * Instantiate a mutable mesh with the specified mode and vertex positions,
+     * but no normals.
      *
      * @param drawMode the desired draw mode, such as GL_TRIANGLES
      * @param positionsArray the desired vertex positions (not null, not empty,
@@ -170,8 +175,8 @@ public class Mesh {
     }
 
     /**
-     * Instantiate a mesh with the specified mode and number of vertices, but no
-     * positions or normals.
+     * Instantiate a mutable mesh with the specified mode and number of
+     * vertices, but no positions or normals.
      *
      * @param drawMode the desired draw mode, such as GL_TRIANGLES
      * @param vertexCount the desired number of vertices (&ge;1)
@@ -336,7 +341,7 @@ public class Mesh {
      * @return the (modified) current instance (for chaining)
      */
     public Mesh generateFacetNormals() {
-        if (vaoId != null) {
+        if (!mutable) {
             throw new IllegalStateException("The mesh is no longer mutuable.");
         }
         if (drawMode != GL11C.GL_TRIANGLES) {
@@ -382,6 +387,9 @@ public class Mesh {
      * @return the (modified) current instance (for chaining)
      */
     public Mesh generateSphereNormals() {
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
         Vector3f tmpVector = new Vector3f();
 
         normals = BufferUtils.createFloatBuffer(numAxes * vertexCount);
@@ -410,6 +418,9 @@ public class Mesh {
      */
     public void generateUvs(UvsOption option, Vector4fc uCoefficients,
             Vector4fc vCoefficients) {
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
         createUvs();
 
         Vector3f tmpVector = new Vector3f();
@@ -439,6 +450,16 @@ public class Mesh {
     }
 
     /**
+     * Make this mesh immutable.
+     *
+     * @return the (modified) current instance (for chaining)
+     */
+    public Mesh makeImmutable() {
+        this.mutable = false;
+        return this;
+    }
+
+    /**
      * Render using the specified ShaderProgram.
      *
      * @param program the program to use (not null)
@@ -461,7 +482,9 @@ public class Mesh {
      * @param transform the transform to apply (not null, unaffected)
      */
     public void transform(Transform transform) {
-        assert vaoId == null;
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
 
         int numFloats = vertexCount * numAxes;
         MyBuffer.transform(positions, 0, numFloats, transform);
@@ -483,7 +506,7 @@ public class Mesh {
      * @param vCoefficients the coefficients for calculating new Vs (not null)
      */
     public void transformUvs(Vector4fc uCoefficients, Vector4fc vCoefficients) {
-        if (vaoId != null) {
+        if (!mutable) {
             throw new IllegalStateException("The mesh is no longer mutuable.");
         }
         if (textureCoordinates == null) {
@@ -515,7 +538,9 @@ public class Mesh {
      * @return a new direct buffer with a capacity of 3 * vertexCount floats
      */
     protected FloatBuffer createPositionsBuffer() {
-        assert vaoId == null;
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
 
         int numFloats = vertexCount * numAxes;
         this.positions = BufferUtils.createFloatBuffer(numFloats);
@@ -544,7 +569,9 @@ public class Mesh {
      * length=3*vertexCount, unaffected)
      */
     protected void setNormals(float... normalsArray) {
-        assert vaoId == null;
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
         Validate.require(normalsArray.length == vertexCount * numAxes,
                 "correct length");
 
@@ -558,7 +585,9 @@ public class Mesh {
      * length=3*vertexCount, unaffected)
      */
     protected void setPositions(float... positionArray) {
-        assert vaoId == null;
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
         Validate.require(positionArray.length == vertexCount * numAxes,
                 "correct length");
 
@@ -572,7 +601,9 @@ public class Mesh {
      * length=2*vertexCount, unaffected)
      */
     protected void setUvs(float... uvArray) {
-        assert vaoId == null;
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
         Validate.require(uvArray.length == 2 * vertexCount,
                 "correct length");
 
@@ -659,8 +690,11 @@ public class Mesh {
             if (textureCoordinates != null) {
                 addFloatVbo(textureCoordinates, 2, ShaderProgram.uvAttribName);
             }
+            this.mutable = false;
 
         } else {
+            assert !mutable;
+
             // Re-use the existing VAO and VBOs.
             GL30C.glBindVertexArray(vaoId);
             Utils.checkForOglError();
@@ -676,7 +710,9 @@ public class Mesh {
      * distinct vertex position.
      */
     private void smoothNormals() {
-        assert vaoId == null;
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
         assert normals != null;
 
         Map<Vector3f, Integer> mapPosToDpid = new HashMap<>(vertexCount);

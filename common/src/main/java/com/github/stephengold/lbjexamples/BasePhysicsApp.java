@@ -96,7 +96,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      *
      * @param shape the shape to visualize (not null, unaffected)
      * @param summary a summary of the shape (not null)
-     * @return a valid Mesh (not null)
+     * @return an immutable Mesh (not null)
      */
     static Mesh meshForShape(CollisionShape shape, ShapeSummary summary) {
         Mesh result;
@@ -107,6 +107,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
         } else {
             MeshingStrategy strategy = summary.meshingStrategy();
             result = strategy.applyTo(shape);
+            result.makeImmutable();
             meshCache.put(summary, result);
         }
 

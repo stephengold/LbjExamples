@@ -105,11 +105,12 @@ public class BoxOutlineMesh extends Mesh {
     /**
      * Return the shared mesh for a box extending from (-1,-1,-1) to (+1,+1,+1).
      *
-     * @return the shared mesh (do not modify!)
+     * @return the shared mesh (immutable)
      */
     public static BoxOutlineMesh getMesh() {
         if (bom111 == null) {
             bom111 = new BoxOutlineMesh(-1f, -1f, -1f, 1f, 1f, 1f);
+            bom111.makeImmutable();
         }
 
         return bom111;
