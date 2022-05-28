@@ -78,7 +78,7 @@ public class ConstraintGeometry extends Geometry {
         Vector4fc color = (end == JointEnd.A) ? Constants.GREEN : Constants.RED;
         super.setColor(color);
 
-        Mesh mesh = new ArrowMesh();
+        Mesh mesh = ArrowMesh.getMesh(MyVector3f.zAxis);
         super.setMesh(mesh);
         super.setProgram("Unshaded/Monochrome");
 
