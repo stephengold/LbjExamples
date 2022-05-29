@@ -89,7 +89,7 @@ public class TextureKey {
     private int wrapV;
     private static int wrapVDefault = GL11C.GL_REPEAT;
     /**
-     * URI used to load/synthesize image data
+     * URI to load/generate image data
      */
     private URI uri;
     // *************************************************************************
@@ -98,8 +98,8 @@ public class TextureKey {
     /**
      * Instantiate a key with the specified URI.
      *
-     * @param uriString unparsed URI to load/synthesize image data (not null,
-     * not empty)
+     * @param uriString unparsed URI to load/generate image data (not null, not
+     * empty)
      */
     public TextureKey(String uriString) {
         this(uriString, magFilterDefault, minFilterDefault);
@@ -108,8 +108,8 @@ public class TextureKey {
     /**
      * Instantiate a key with the specified URI and anisotropic filtering.
      *
-     * @param uriString unparsed URI to load/synthesize image data (not null,
-     * not empty)
+     * @param uriString unparsed URI to load/generate image data (not null, not
+     * empty)
      * @param maxAniso the maximum degree of anisotropic filtering (&ge;1,
      * default=1)
      */
@@ -121,8 +121,8 @@ public class TextureKey {
     /**
      * Instantiate a key with the specified URI and filters.
      *
-     * @param uriString unparsed URI to load/synthesize image data (not null,
-     * not empty)
+     * @param uriString unparsed URI to load/generate image data (not null, not
+     * empty)
      * @param magFilter OpenGL filter to use when magnifying (default=GL_LINEAR)
      * @param minFilter OpenGL filter to use when minifying
      * (default=GL_NEAREST_MIPMAP_LINEAR)
@@ -135,8 +135,8 @@ public class TextureKey {
     /**
      * Instantiate a custom key.
      *
-     * @param uriString unparsed URI to load/synthesize image data (not null,
-     * not empty)
+     * @param uriString unparsed URI to load/generate image data (not null, not
+     * empty)
      * @param magFilter OpenGL filter to use when magnifying (default=GL_LINEAR)
      * @param minFilter OpenGL filter to use when minifying
      * (default=GL_NEAREST_MIPMAP_LINEAR)
@@ -177,7 +177,7 @@ public class TextureKey {
     // new methods exposed
 
     /**
-     * Load/synthesize the Texture for this key.
+     * Load/generate the Texture for this key.
      *
      * @return a new instance
      */
@@ -469,7 +469,7 @@ public class TextureKey {
     }
 
     /**
-     * Synthesize a square texture for a 2-color checkerboard pattern.
+     * Generate a square texture for a 2-color checkerboard pattern.
      *
      * @param argMap argument map (not null, unaffected
      * @return a new instance

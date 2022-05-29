@@ -44,7 +44,7 @@ import org.lwjgl.opengl.GL11C;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple graphics test: display a checkerboard using a texture synthesized in
+ * A simple graphics test: display a checkerboard using a texture generated in
  * Java.
  *
  * @author Stephen Gold sgold@sonic.net

@@ -151,8 +151,7 @@ public class OctasphereMesh extends Mesh {
      * etcetera
      * </ul>
      *
-     * @param numRefineSteps the desired number of refinement steps (&ge;0,
-     * &le;13)
+     * @param numRefineSteps number of refinement steps (&ge;0, &le;13)
      */
     public OctasphereMesh(int numRefineSteps) {
         super(GL11C.GL_TRIANGLES, 3 << (3 + 2 * numRefineSteps));
