@@ -157,7 +157,7 @@ public class HelloGhost
                 = new CapsuleCollisionShape(capsuleRadius, capsuleHeight);
         float stepHeight = 0.01f;
         character = new PhysicsCharacter(shape, stepHeight);
-        character.setGravity(60f);
+        character.setGravity(4f);
         physicsSpace.addCollisionObject(character);
 
         // Add a plane to represent the ground.
