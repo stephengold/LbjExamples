@@ -34,10 +34,10 @@ import java.nio.FloatBuffer;
 import org.lwjgl.opengl.GL11C;
 
 /**
- * A GL_TRIANGLES mesh that renders an axis-aligned box with all triangles
- * facing outward.
+ * A GL_TRIANGLES mesh that renders an axis-aligned box.
  * <p>
- * The box extends from (x1,y1,z1) to (x2,y2,z2).
+ * The box extends from (x1,y1,z1) to (x2,y2,z2). All triangles face outward
+ * with right-handed winding.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -46,7 +46,8 @@ public class BoxMesh extends Mesh {
     // constants
 
     /**
-     * vertex indices of the 6 square faces in a cube (12 triangles)
+     * vertex indices of the 6 square faces in a cube (12 outward-facing
+     * triangles with right-handed winding)
      */
     final private static int[] cubeIndices = {
         0, 1, 2, 1, 3, 2, // -X face

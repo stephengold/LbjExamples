@@ -45,7 +45,8 @@ import org.lwjgl.opengl.GL11C;
  * mesh is more isotropic than a U-V sphere and handles textures better than an
  * icosphere.
  * <p>
- * The center is at (0,0,0). All triangles face outward.
+ * The center is at (0,0,0). All triangles face outward with right-handed
+ * winding.
  * <p>
  * Texture coordinates are assigned as follows:
  * <ul>
@@ -70,7 +71,8 @@ public class OctasphereMesh extends Mesh {
     // constants
 
     /**
-     * vertex indices of the 8 triangular faces in a regular octahedron
+     * vertex indices of the 8 faces in a regular octahedron (outward-facing
+     * triangles with right-handed winding)
      * <p>
      * Vertices [0] and [6] occupy (-1, 0, 0) in mesh space. In order to create
      * a seam, vertex [0] will have U=-1 and vertex [6] will have U=+1.
@@ -82,18 +84,25 @@ public class OctasphereMesh extends Mesh {
      * U=-1, vertex [8] will have U=+1, and vertex [10] will have U=0.
      */
     final private static int[] octaIndices = {
-        0, 2, 5, 1, 9, 3,
-        6, 3, 7, 1, 10, 2,
-        0, 4, 2, 1, 3, 10,
-        6, 8, 3, 1, 2, 9
+        0, 2, 5, //  -X -Y +Z face
+        1, 9, 3, //  +X +Y -Z face
+        6, 3, 7, //  -X +Y -Z face
+        1, 10, 2, // +X -Y +Z face
+        0, 4, 2, //  -X -Y -Z face
+        1, 3, 10, // +X +Y +Z face
+        6, 8, 3, //  -X +Y +Z face
+        1, 2, 9 //   +X -Y -Z face
     };
     /**
      * vertex locations in a regular octahedron with radius=1
      */
     final private static Vector3f[] octaLocations = {
-        new Vector3f(-1f, 0f, 0f), new Vector3f(1f, 0f, 0f),
-        new Vector3f(0f, -1f, 0f), new Vector3f(0f, 1f, 0f),
-        new Vector3f(0f, 0f, -1f), new Vector3f(0f, 0f, 1f)
+        new Vector3f(-1f, 0f, 0f), // [0]
+        new Vector3f(+1f, 0f, 0f), // [1]
+        new Vector3f(0f, -1f, 0f), // [2]
+        new Vector3f(0f, +1f, 0f), // [3]
+        new Vector3f(0f, 0f, -1f), // [4]
+        new Vector3f(0f, 0f, +1f) //  [5]
     };
     // *************************************************************************
     // fields
