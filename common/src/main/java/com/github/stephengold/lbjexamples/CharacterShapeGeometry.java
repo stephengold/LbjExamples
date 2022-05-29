@@ -144,10 +144,12 @@ public class CharacterShapeGeometry extends Geometry {
      */
     private void updateColor() {
         if (automaticColor) {
-            if (character.isContactResponse()) {
-                super.setColor(Constants.PINK);
-            } else {
+            if (!character.isContactResponse()) {
                 super.setColor(Constants.YELLOW);
+            } else if (character.onGround()) {
+                super.setColor(Constants.BROWN);
+            } else {
+                super.setColor(Constants.PINK);
             }
         }
     }
