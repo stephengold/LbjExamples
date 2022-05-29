@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jme3utilities.Validate;
+import jme3utilities.math.MyVector3f;
 import org.lwjgl.opengl.GL11C;
 
 /**
@@ -283,33 +284,6 @@ public class OctasphereMesh extends Mesh {
     }
 
     /**
-     * Determine the midpoint between 2 locations. TODO MyVector3f
-     *
-     * @param vector1 coordinates of the first location (not null, unaffected
-     * unless it's storeResult)
-     * @param vector2 coordinates of the 2nd location (not null, unaffected
-     * unless it's storeResult)
-     * @param storeResult storage for the result (modified if not null, may be
-     * vector1 or vector2)
-     * @return a coordinate vector (either storeResult or a new instance)
-     */
-    private static Vector3f midpoint(Vector3f vector1, Vector3f vector2,
-            Vector3f storeResult) {
-        assert Validate.finite(vector1, "first location");
-        assert Validate.finite(vector2, "2nd location");
-
-        float x = (vector1.x + vector2.x) / 2;
-        float y = (vector1.y + vector2.y) / 2;
-        float z = (vector1.z + vector2.z) / 2;
-
-        if (storeResult == null) {
-            return new Vector3f(x, y, z);
-        } else {
-            return storeResult.set(x, y, z);
-        }
-    }
-
-    /**
      * Determine the index of the vertex halfway between the indexed vertices.
      *
      * @param p1 the index of the first input vertex (&ge;0)
@@ -333,7 +307,7 @@ public class OctasphereMesh extends Mesh {
          */
         Vector3f loc1 = locations.get(p1);
         Vector3f loc2 = locations.get(p2);
-        Vector3f middleLocation = midpoint(loc1, loc2, null);
+        Vector3f middleLocation = MyVector3f.midpoint(loc1, loc2, null);
 
         Float middleUOverride = null;
         if (middleLocation.y == 0f) {

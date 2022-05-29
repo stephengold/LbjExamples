@@ -34,7 +34,6 @@ import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.objects.PhysicsGhostObject;
 import com.jme3.math.Transform;
-import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 import org.joml.Vector4fc;
 
@@ -164,12 +163,7 @@ public class AabbGeometry extends Geometry {
         pco.boundingBox(bbox);
 
         Transform meshToWorld = getMeshToWorldTransform(); // alias
+        bbox.getCenter(meshToWorld.getTranslation());
         bbox.getExtent(meshToWorld.getScale());
-
-        Vector3f min = bbox.getMin(null);
-        Vector3f max = bbox.getMax(null);
-        Vector3f center = min.add(max).divideLocal(2);
-        meshToWorld.getTranslation().set(center);
-        // TODO bbox.getCenter(meshToWorld.getTranslation());
     }
 }
