@@ -99,7 +99,7 @@ public class CheckerboardTest extends BaseApplication {
                 .setProgram("Unshaded/Screenspace/Texture");
 
         TextureKey textureKey = new TextureKey(
-                "synthetic:///checkerboard?size=2&color1=ff00ff",
+                "procedural:///checkerboard?size=2&color1=ff00ff",
                 GL11C.GL_NEAREST, GL11C.GL_NEAREST);
         squareGeometry.setTexture(textureKey);
 

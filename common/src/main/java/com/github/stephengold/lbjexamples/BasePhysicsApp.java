@@ -181,8 +181,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
                     new Vector4f(0f, 0f, uvScale, 0f)
             );
             programName = "Phong/Distant/Texture";
-            textureKey = new TextureKey(
-                    "synthetic:///checkerboard?size=128",
+            textureKey = new TextureKey("procedural:///checkerboard?size=128",
                     GL11C.GL_LINEAR, GL11C.GL_NEAREST_MIPMAP_LINEAR,
                     GL11C.GL_REPEAT, GL11C.GL_REPEAT, true, 16f);
 
@@ -194,7 +193,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
             );
             programName = "Phong/Distant/Texture";
             textureKey = new TextureKey(
-                    "synthetic:///checkerboard?size=2&color0=999999ff",
+                    "procedural:///checkerboard?size=2&color0=999999ff",
                     GL11C.GL_NEAREST, GL11C.GL_NEAREST);
 
         } else {

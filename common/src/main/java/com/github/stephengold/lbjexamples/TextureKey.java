@@ -185,7 +185,7 @@ public class TextureKey {
         Texture result;
 
         String scheme = uri.getScheme();
-        if (scheme.equals("synthetic")) {
+        if (scheme.equals("procedural")) {
             String path = uri.getPath();
             String query = uri.getQuery();
             result = synthesizeTexture(path, query);
@@ -623,7 +623,7 @@ public class TextureKey {
         }
 
         String scheme = uri.getScheme();
-        if (scheme.equals("synthetic")) {
+        if (scheme.equals("procedural")) {
             String path = uri.getPath();
             if (path == null) {
                 String message = "no path in " + MyString.quote(uriString);
