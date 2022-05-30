@@ -275,6 +275,48 @@ public abstract class BaseApplication {
     public abstract void initialize();
 
     /**
+     * Test whether the left mouse button (LMB) is pressed.
+     *
+     * @return true if pressed, otherwise false
+     */
+    public static boolean isLmbPressed() {
+        int state = glfwGetMouseButton(mainWindowId, GLFW_MOUSE_BUTTON_LEFT);
+        if (state == GLFW_PRESS) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Test whether the middle mouse button (MMB) is pressed.
+     *
+     * @return true if pressed, otherwise false
+     */
+    public static boolean isMmbPressed() {
+        int state = glfwGetMouseButton(mainWindowId, GLFW_MOUSE_BUTTON_MIDDLE);
+        if (state == GLFW_PRESS) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Test whether the right mouse button (RMB) is pressed.
+     *
+     * @return true if pressed, otherwise false
+     */
+    public static boolean isRmbPressed() {
+        int state = glfwGetMouseButton(mainWindowId, GLFW_MOUSE_BUTTON_RIGHT);
+        if (state == GLFW_PRESS) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Enumerate all the visible geometries.
      *
      * @return an unmodifiable collection of pre-existing objects
