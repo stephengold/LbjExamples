@@ -38,10 +38,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
-import jme3utilities.Validate;
-import org.joml.Vector2d;
-import org.joml.Vector2f;
-import org.joml.Vector2fc;
 import org.joml.Vector4fc;
 import org.lwjgl.glfw.Callbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -108,9 +104,9 @@ public abstract class BaseApplication {
     private static float deltaTime;
     private static float lastFrame;
     /**
-     * process user input
+     * convenient access to user input
      */
-    private static InputProcessor firstInputProcessor;
+    protected static InputManager inputManager;
 
     private static int counter;
     /**
@@ -145,31 +141,8 @@ public abstract class BaseApplication {
      * current view-to-clip transform of the Camera
      */
     private static ProjectionMatrix projection;
-    /**
-     * last-known location of the mouse cursor (in screen units, relative to the
-     * top-left corner of the window's content area) or null if the application
-     * hasn't hasn't received a cursor position callback
-     */
-    private static Vector2d cursorPos;
-    /**
-     * last-known location of the mouse cursor (in clip coordinates) or null if
-     * the application hasn't received a cursor position callback
-     */
-    private static Vector2f cursorClipspace;
     // *************************************************************************
     // new methods exposed
-
-    /**
-     * Add an InputProcessor, making it the first in the series.
-     *
-     * @param processor the processor to add (not null)
-     */
-    public static void addInputProcessor(InputProcessor processor) {
-        Validate.nonNull(processor, "processor");
-
-        processor.setNext(firstInputProcessor);
-        firstInputProcessor = processor;
-    }
 
     /**
      * Return the aspect ratio of the displayed frame buffer.
@@ -187,16 +160,6 @@ public abstract class BaseApplication {
      * Callback invoked after the main update loop terminates.
      */
     public abstract void cleanUp();
-
-    /**
-     * Return the last-known location of the mouse cursor.
-     *
-     * @return a pre-existing location vector (in clip coordinates) or null if
-     * the application hasn't received a cursor position callback
-     */
-    public static Vector2fc findCursorLocation() {
-        return cursorClipspace;
-    }
 
     /**
      * Access the current camera for rendering.
@@ -226,6 +189,16 @@ public abstract class BaseApplication {
     static ShaderProgram getDefaultProgram() {
         ShaderProgram result = getProgram("Phong/Distant/Monochrome");
         return result;
+    }
+
+    /**
+     * Access the input manager.
+     *
+     * @return the pre-existing instance (not null)
+     */
+    public static InputManager getInputManager() {
+        assert inputManager != null;
+        return inputManager;
     }
 
     /**
@@ -290,48 +263,6 @@ public abstract class BaseApplication {
      * Callback invoked before the main update loop begins.
      */
     public abstract void initialize();
-
-    /**
-     * Test whether the left mouse button (LMB) is pressed.
-     *
-     * @return true if pressed, otherwise false
-     */
-    public static boolean isLmbPressed() {
-        int state = glfwGetMouseButton(mainWindowId, GLFW_MOUSE_BUTTON_LEFT);
-        if (state == GLFW_PRESS) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Test whether the middle mouse button (MMB) is pressed.
-     *
-     * @return true if pressed, otherwise false
-     */
-    public static boolean isMmbPressed() {
-        int state = glfwGetMouseButton(mainWindowId, GLFW_MOUSE_BUTTON_MIDDLE);
-        if (state == GLFW_PRESS) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Test whether the right mouse button (RMB) is pressed.
-     *
-     * @return true if pressed, otherwise false
-     */
-    public static boolean isRmbPressed() {
-        int state = glfwGetMouseButton(mainWindowId, GLFW_MOUSE_BUTTON_RIGHT);
-        if (state == GLFW_PRESS) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     /**
      * Enumerate all the visible geometries.
@@ -502,69 +433,6 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Callback invoked by GLFW each time the mouse cursor is moved.
-     *
-     * @param x the horizontal offset of the cursor from the left edge of the
-     * window's content area (in screen units)
-     * @param y the vertical offset of the cursor from the top edge of the
-     * window's content area (in screen units)
-     */
-    private void glfwCursorPosCallback(long windowId, double x, double y) {
-        assert windowId == mainWindowId;
-
-        int[] windowHeight = new int[1];
-        int[] windowWidth = new int[1];
-        glfwGetWindowSize(windowId, windowWidth, windowHeight);
-
-        if (cursorPos == null) {
-            cursorPos = new Vector2d(x, y);
-        }
-        double rightFraction = (x - cursorPos.x) / windowHeight[0]; // sic
-        double upFraction = (cursorPos.y - y) / windowHeight[0];
-        cursorPos.set(x, y);
-
-        double xScale = 2.0 / windowWidth[0];
-        double yScale = 2.0 / windowHeight[0];
-        float xClip = (float) (xScale * x - 1.0);
-        float yClip = (float) (1.0 - yScale * y);
-        if (cursorClipspace == null) {
-            cursorClipspace = new Vector2f(xClip, yClip);
-        } else {
-            cursorClipspace.set(xClip, yClip);
-        }
-
-        if (firstInputProcessor != null) {
-            firstInputProcessor.onMouseMotion(rightFraction, upFraction);
-        }
-    }
-
-    /**
-     * Callback invoked by GLFW for every keyboard event.
-     */
-    private void glfwKeyCallback(long windowId, int keyId, int scancode,
-            int action, int mods) {
-        assert windowId == mainWindowId;
-
-        if (action != GLFW_REPEAT && firstInputProcessor != null) {
-            boolean isPress = (action == GLFW_PRESS);
-            firstInputProcessor.onKeyboard(keyId, isPress);
-        }
-    }
-
-    /**
-     * Callback invoked by GLFW for every mouse button event.
-     */
-    private void glfwMouseButtonCallback(long windowId, int buttonId,
-            int action, int mods) {
-        assert windowId == mainWindowId;
-
-        boolean isPress = (action == GLFW_PRESS);
-        if (firstInputProcessor != null) {
-            firstInputProcessor.onMouseButton(buttonId, isPress);
-        }
-    }
-
-    /**
      * Initialize this class.
      */
     private void initializeBase() {
@@ -611,10 +479,8 @@ public abstract class BaseApplication {
             Utils.checkForOglError();
         });
 
-        // Set up the user input callbacks.
-        glfwSetCursorPosCallback(mainWindowId, this::glfwCursorPosCallback);
-        glfwSetKeyCallback(mainWindowId, this::glfwKeyCallback);
-        glfwSetMouseButtonCallback(mainWindowId, this::glfwMouseButtonCallback);
+        // Create and initialize the InputManager.
+        inputManager = new InputManager(mainWindowId);
 
         // Center the window.
         GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
@@ -662,9 +528,9 @@ public abstract class BaseApplication {
         cam = new Camera(new Vector3f(0f, 0f, 10f), -FastMath.HALF_PI, 0f);
 
         cameraInputProcessor = new CameraInputProcessor(mainWindowId);
-        addInputProcessor(cameraInputProcessor);
+        inputManager.add(cameraInputProcessor);
 
-        addInputProcessor(new InputProcessor() {
+        inputManager.add(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPress) {
                 if (keyId == GLFW_KEY_ESCAPE) { // stop the application
@@ -674,7 +540,7 @@ public abstract class BaseApplication {
                 super.onKeyboard(keyId, isPress);
             }
         });
-        addInputProcessor(new InputProcessor() {
+        inputManager.add(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPressed) {
                 switch (keyId) {

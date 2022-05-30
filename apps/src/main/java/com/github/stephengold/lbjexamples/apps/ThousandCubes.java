@@ -204,7 +204,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      * Configure keyboard input during startup.
      */
     private void configureInput() {
-        addInputProcessor(new InputProcessor() {
+        getInputManager().add(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPressed) {
                 if (keyId == GLFW.GLFW_KEY_E) {

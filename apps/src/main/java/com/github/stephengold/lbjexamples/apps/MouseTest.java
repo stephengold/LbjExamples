@@ -32,6 +32,7 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.lbjexamples.BaseApplication;
 import com.github.stephengold.lbjexamples.CrosshairsMesh;
 import com.github.stephengold.lbjexamples.Geometry;
+import com.github.stephengold.lbjexamples.InputManager;
 import com.github.stephengold.lbjexamples.Mesh;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
@@ -110,10 +111,11 @@ public class MouseTest extends BaseApplication {
      * Update the geometry's color based on the mouse button.
      */
     private void updateColor() {
+        InputManager im = getInputManager();
         Vector4f color = new Vector4f();
-        color.x = isLmbPressed() ? 0f : 1f;
-        color.y = isMmbPressed() ? 0f : 1f;
-        color.z = isRmbPressed() ? 0f : 1f;
+        color.x = im.isLmbPressed() ? 0f : 1f;
+        color.y = im.isMmbPressed() ? 0f : 1f;
+        color.z = im.isRmbPressed() ? 0f : 1f;
         color.w = 1f;
         crosshairs.setColor(color);
     }
@@ -122,7 +124,7 @@ public class MouseTest extends BaseApplication {
      * Update the geometry's location to coincide with the mouse cursor.
      */
     private void updateLocation() {
-        Vector2fc location = findCursorLocation();
+        Vector2fc location = getInputManager().locateCursor();
         if (location == null) {
             return;
         }
