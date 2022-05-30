@@ -106,14 +106,6 @@ public abstract class BaseApplication {
     private static float deltaTime;
     private static float lastFrame;
     /**
-     * distance from the camera to the far clipping plane (in world units)
-     */
-    private static float zFar = 1000f;
-    /**
-     * distance from the camera to the near clipping plane (in world units)
-     */
-    private static float zNear = 1f;
-    /**
      * process user input
      */
     private static InputProcessor firstInputProcessor;
@@ -147,6 +139,10 @@ public abstract class BaseApplication {
      */
     final private static Map<TextureKey, Texture> textureMap
             = new HashMap<>(16);
+    /**
+     * current view-to-clip transform of the Camera
+     */
+    private static ProjectionMatrix projection;
     /**
      * last-known location of the mouse cursor (in screen units, relative to the
      * top-left corner of the window's content area) or null if the application
@@ -233,6 +229,19 @@ public abstract class BaseApplication {
     }
 
     /**
+     * Return the current view-to-clip transform for rendering.
+     *
+     * @return the pre-existing instance (not null)
+     */
+    public static ProjectionMatrix getProjection() {
+        if (projection == null) {
+            projection = new ProjectionMatrix(1f, 1_000f);
+        }
+
+        return projection;
+    }
+
+    /**
      * Return the Texture for the specified key.
      *
      * @param key (not null)
@@ -247,24 +256,6 @@ public abstract class BaseApplication {
         Texture result = textureMap.get(key);
         assert result != null;
         return result;
-    }
-
-    /**
-     * Return the distance from the camera to the far clipping plane.
-     *
-     * @return the distance (in world units, &gt;0)
-     */
-    public static float getZFar() {
-        return zFar;
-    }
-
-    /**
-     * Return the distance from the camera to the near clipping plane.
-     *
-     * @return the distance (in world units, &gt;0)
-     */
-    public static float getZNear() {
-        return zNear;
     }
 
     /**
@@ -356,39 +347,6 @@ public abstract class BaseApplication {
      */
     public static void setWindowTitle(String text) {
         glfwSetWindowTitle(mainWindowId, text);
-    }
-
-    /**
-     * Alter both the near and far clipping planes.
-     *
-     * @param newZNear (&gt;0, &lt;zFar)
-     * @param newZFar (&gt;zFar)
-     */
-    public static void setZClip(float newZNear, float newZFar) {
-        Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, newZFar);
-
-        zNear = newZNear;
-        zFar = newZFar;
-    }
-
-    /**
-     * Alter the distance from the camera to the far clipping plane.
-     *
-     * @param newZFar (in world units, &gt;zNear)
-     */
-    public static void setZFar(float newZFar) {
-        Validate.inRange(newZFar, "new zFar", zNear, Float.MAX_VALUE);
-        zFar = newZFar;
-    }
-
-    /**
-     * Alter the distance from the camera to the near clipping plane.
-     *
-     * @param newZNear (in world units, &gt;0, &lt;zFar)
-     */
-    public static void setZNear(float newZNear) {
-        Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, zNear);
-        zNear = newZNear;
     }
 
     public void start() {

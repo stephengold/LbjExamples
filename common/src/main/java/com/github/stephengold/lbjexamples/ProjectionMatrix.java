@@ -29,6 +29,7 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import jme3utilities.Validate;
 import org.joml.Matrix4f;
 
 /**
@@ -41,6 +42,14 @@ public class ProjectionMatrix extends GlobalUniform {
     // fields
 
     /**
+     * distance from the camera to the far clipping plane (in world units)
+     */
+    private float zFar;
+    /**
+     * distance from the camera to the near clipping plane (in world units)
+     */
+    private float zNear;
+    /**
      * current view-to-clip transform matrix
      */
     final private Matrix4f value = new Matrix4f();
@@ -50,8 +59,64 @@ public class ProjectionMatrix extends GlobalUniform {
     /**
      * Instantiate the uniform.
      */
-    ProjectionMatrix() {
+    ProjectionMatrix(float zNear, float zFar) {
         super("projectionMatrix");
+
+        this.zNear = zNear;
+        this.zFar = zFar;
+    }
+    // *************************************************************************
+    // new methods exposed
+
+    /**
+     * Return the distance from the camera to the far clipping plane.
+     *
+     * @return the distance (in world units, &gt;0)
+     */
+    public float getZFar() {
+        return zFar;
+    }
+
+    /**
+     * Return the distance from the camera to the near clipping plane.
+     *
+     * @return the distance (in world units, &gt;0)
+     */
+    public float getZNear() {
+        return zNear;
+    }
+
+    /**
+     * Alter both the near and far clipping planes.
+     *
+     * @param newZNear (&gt;0, &lt;zFar)
+     * @param newZFar (&gt;zFar)
+     */
+    public void setZClip(float newZNear, float newZFar) {
+        Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, newZFar);
+
+        this.zNear = newZNear;
+        this.zFar = newZFar;
+    }
+
+    /**
+     * Alter the distance from the camera to the far clipping plane.
+     *
+     * @param newZFar (in world units, &gt;zNear)
+     */
+    public void setZFar(float newZFar) {
+        Validate.inRange(newZFar, "new zFar", zNear, Float.MAX_VALUE);
+        this.zFar = newZFar;
+    }
+
+    /**
+     * Alter the distance from the camera to the near clipping plane.
+     *
+     * @param newZNear (in world units, &gt;0, &lt;zFar)
+     */
+    public void setZNear(float newZNear) {
+        Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, zNear);
+        this.zNear = newZNear;
     }
     // *************************************************************************
     // GlobalUniform methods
@@ -74,8 +139,6 @@ public class ProjectionMatrix extends GlobalUniform {
     void updateValue() {
         float fovy = BaseApplication.getCamera().fovy();
         float aspectRatio = BaseApplication.aspectRatio();
-        float zNear = BaseApplication.getZNear();
-        float zFar = BaseApplication.getZFar();
         value.setPerspective(fovy, aspectRatio, zNear, zFar);
     }
 }

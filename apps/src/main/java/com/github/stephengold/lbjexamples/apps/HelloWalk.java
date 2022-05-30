@@ -244,7 +244,7 @@ public class HelloWalk
         cam.setFovyDegrees(30f);
 
         // Bring the near plane closer to reduce clipping.
-        setZClip(0.1f, 1_000f);
+        getProjection().setZClip(0.1f, 1_000f);
     }
 
     /**

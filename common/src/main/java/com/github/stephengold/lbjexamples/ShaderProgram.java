@@ -211,7 +211,7 @@ public class ShaderProgram {
                 new AmbientStrength(),
                 new LightColor(),
                 new LightDirection(),
-                new ProjectionMatrix(),
+                BaseApplication.getProjection(),
                 new ViewMatrix()
         );
     }
