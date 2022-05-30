@@ -165,9 +165,12 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     private void addBox(float x, float y, float z) {
         float mass = 10f;
         PhysicsRigidBody box = new PhysicsRigidBody(boxShape, mass);
+        physicsSpace.addCollisionObject(box);
+
+        box.setAngularDamping(0.1f);
+        box.setLinearDamping(0.3f);
         tmpLocation.set(x, y, z);
         box.setPhysicsLocation(tmpLocation);
-        physicsSpace.addCollisionObject(box);
 
         float red = FastMath.pow(random.nextFloat(), 2.2f);
         float green = FastMath.pow(random.nextFloat(), 2.2f);
@@ -218,6 +221,8 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     private void launchRedBall() {
         float mass = 10f;
         PhysicsRigidBody missile = new PhysicsRigidBody(launchShape, mass);
+        physicsSpace.addCollisionObject(missile);
+
         float radius = launchShape.maxRadius();
         missile.setCcdMotionThreshold(radius);
         missile.setCcdSweptSphereRadius(radius);
@@ -226,8 +231,9 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         Vector3f velocity = cam.getDirection().mult(speed);
         missile.setLinearVelocity(velocity);
 
+        missile.setAngularDamping(0.1f);
+        missile.setLinearDamping(0.3f);
         missile.setPhysicsLocation(cam.getLocation());
-        physicsSpace.addCollisionObject(missile);
 
         visualizeShape(missile).setColor(Constants.RED);
     }
