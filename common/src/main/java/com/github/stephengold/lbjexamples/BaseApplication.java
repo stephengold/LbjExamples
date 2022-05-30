@@ -40,6 +40,8 @@ import java.util.LinkedList;
 import java.util.Map;
 import jme3utilities.Validate;
 import org.joml.Vector2d;
+import org.joml.Vector2f;
+import org.joml.Vector2fc;
 import org.joml.Vector4fc;
 import org.lwjgl.glfw.Callbacks;
 import static org.lwjgl.glfw.GLFW.*;
@@ -149,6 +151,11 @@ public abstract class BaseApplication {
      * hasn't hasn't received a cursor position callback
      */
     private static Vector2d cursorPos;
+    /**
+     * last-known location of the mouse cursor (in clip coordinates) or null if
+     * the application hasn't received a cursor position callback
+     */
+    private static Vector2f cursorClipspace;
     // *************************************************************************
     // new methods exposed
 
@@ -180,6 +187,16 @@ public abstract class BaseApplication {
      * Callback invoked after the main update loop terminates.
      */
     public abstract void cleanUp();
+
+    /**
+     * Return the last-known location of the mouse cursor.
+     *
+     * @return a pre-existing location vector (in clip coordinates) or null if
+     * the application hasn't received a cursor position callback
+     */
+    public static Vector2fc findCursorLocation() {
+        return cursorClipspace;
+    }
 
     /**
      * Return the current camera for rendering.
@@ -495,17 +512,26 @@ public abstract class BaseApplication {
     private void glfwCursorPosCallback(long windowId, double x, double y) {
         assert windowId == mainWindowId;
 
-        if (cursorPos == null) {
-            cursorPos = new Vector2d(x, y);
-        }
-
         int[] windowHeight = new int[1];
         int[] windowWidth = new int[1];
         glfwGetWindowSize(windowId, windowWidth, windowHeight);
 
+        if (cursorPos == null) {
+            cursorPos = new Vector2d(x, y);
+        }
         double rightFraction = (x - cursorPos.x) / windowHeight[0]; // sic
         double upFraction = (cursorPos.y - y) / windowHeight[0];
         cursorPos.set(x, y);
+
+        double xScale = 2.0 / windowWidth[0];
+        double yScale = 2.0 / windowHeight[0];
+        float xClip = (float) (xScale * x - 1.0);
+        float yClip = (float) (1.0 - yScale * y);
+        if (cursorClipspace == null) {
+            cursorClipspace = new Vector2f(xClip, yClip);
+        } else {
+            cursorClipspace.set(xClip, yClip);
+        }
 
         if (firstInputProcessor != null) {
             firstInputProcessor.onMouseMotion(rightFraction, upFraction);
