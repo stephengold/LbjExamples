@@ -46,7 +46,12 @@ import org.lwjgl.system.Configuration;
  * @author Stephen Gold sgold@sonic.net
  */
 public class MouseTest extends BaseApplication {
+    // *************************************************************************
+    // fields
 
+    /**
+     * crosshairs in screenspace, controlled by the mouse
+     */
     private Geometry crosshairs;
     // *************************************************************************
     // new methods exposed

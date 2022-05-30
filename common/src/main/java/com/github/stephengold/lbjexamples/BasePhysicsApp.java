@@ -283,6 +283,10 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
         //physicsThread.start();
     }
 
+    /**
+     * Callback invoked during each iteration of the main update loop. Meant to
+     * be overridden.
+     */
     @Override
     public void render() {
         ++renderCount;

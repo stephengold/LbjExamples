@@ -199,7 +199,7 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Return the current camera for rendering.
+     * Access the current camera for rendering.
      *
      * @return the pre-existing instance (not null)
      */
@@ -209,7 +209,7 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Return the camera's input processor.
+     * Access the camera's input processor.
      *
      * @return the pre-existing instance (not null)
      */
@@ -246,7 +246,7 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Return the current view-to-clip transform for rendering.
+     * Access the current view-to-clip transform for rendering.
      *
      * @return the pre-existing instance (not null)
      */

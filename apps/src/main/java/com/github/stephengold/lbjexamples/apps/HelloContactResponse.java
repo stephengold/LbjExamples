@@ -150,7 +150,6 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
      * Configure keyboard input during startup.
      */
     private void configureInput() {
-        // user input
         addInputProcessor(new InputProcessor() {
             @Override
             public void onKeyboard(int glfwKeyId, boolean isPressed) {
