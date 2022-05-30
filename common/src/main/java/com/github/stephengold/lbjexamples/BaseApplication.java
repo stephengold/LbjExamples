@@ -148,7 +148,7 @@ public abstract class BaseApplication {
      * top-left corner of the window's content area) or null if the application
      * hasn't hasn't received a cursor position callback
      */
-    private static Vector2d mousePosition;
+    private static Vector2d cursorPos;
     // *************************************************************************
     // new methods exposed
 
@@ -495,17 +495,17 @@ public abstract class BaseApplication {
     private void glfwCursorPosCallback(long windowId, double x, double y) {
         assert windowId == mainWindowId;
 
-        if (mousePosition == null) {
-            mousePosition = new Vector2d(x, y);
+        if (cursorPos == null) {
+            cursorPos = new Vector2d(x, y);
         }
 
         int[] windowHeight = new int[1];
         int[] windowWidth = new int[1];
         glfwGetWindowSize(windowId, windowWidth, windowHeight);
 
-        double rightFraction = (x - mousePosition.x) / windowHeight[0]; // sic
-        double upFraction = (mousePosition.y - y) / windowHeight[0];
-        mousePosition.set(x, y);
+        double rightFraction = (x - cursorPos.x) / windowHeight[0]; // sic
+        double upFraction = (cursorPos.y - y) / windowHeight[0];
+        cursorPos.set(x, y);
 
         if (firstInputProcessor != null) {
             firstInputProcessor.onMouseMotion(rightFraction, upFraction);
