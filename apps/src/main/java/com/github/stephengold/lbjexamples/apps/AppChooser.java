@@ -63,6 +63,7 @@ public class AppChooser extends JFrame {
         apps.add(new HelloContactResponse());
         apps.add(new HelloDamping());
         apps.add(new HelloDeactivation());
+        apps.add(new HelloGhost());
         apps.add(new HelloKinematics());
         apps.add(new HelloMadMallet());
         apps.add(new HelloMassDistribution());
@@ -71,6 +72,7 @@ public class AppChooser extends JFrame {
         apps.add(new HelloStaticBody());
         apps.add(new HelloVehicle());
         apps.add(new HelloWalk());
+        apps.add(new MouseTest());
         apps.add(new NewtonsCradle());
         apps.add(new OctasphereTest());
         apps.add(new RainbowTest());
