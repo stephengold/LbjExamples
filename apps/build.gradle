@@ -39,6 +39,9 @@ tasks.register('HelloDamping', JavaExec) {
 tasks.register('HelloDeactivation', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDeactivation'
 }
+tasks.register('HelloGhost', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloGhost'
+}
 tasks.register('HelloKinematics', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloKinematics'
 }
@@ -68,6 +71,9 @@ tasks.register('HelloVehicle0', JavaExec) {
 }
 tasks.register('HelloWalk', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWalk'
+}
+tasks.register('MouseTest', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.MouseTest'
 }
 tasks.register('NewtonsCradle', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.NewtonsCradle'
