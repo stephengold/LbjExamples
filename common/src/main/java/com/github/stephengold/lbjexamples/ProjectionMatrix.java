@@ -32,8 +32,7 @@ package com.github.stephengold.lbjexamples;
 import org.joml.Matrix4f;
 
 /**
- * Provide the view-to-clip transform matrix of the current Camera, for use in
- * shaders.
+ * Provide the current view-to-clip transform for use in shaders.
  *
  * @author Stephen Gold sgold@sonic.net
  */

@@ -53,8 +53,8 @@ public class CrosshairsMesh extends Mesh {
     /**
      * Instantiate a pair of axis-aligned crosshairs at the origin.
      *
-     * @param width the length of the X-axis line (&ge;0)
-     * @param height the length of the Y-axis line (&ge;0)
+     * @param width the length of the X-axis line (in mesh units, &ge;0)
+     * @param height the length of the Y-axis line (in mesh units, &ge;0)
      */
     public CrosshairsMesh(float width, float height) {
         super(GL11C.GL_LINES, 4);

@@ -640,7 +640,9 @@ public class Mesh {
     /**
      * Prepare the specified vertex attribute for rendering.
      *
+     * @param program (not null)
      * @param attributeIndex the index of the vertex attribute to prepare
+     * (&ge;0)
      */
     private void enableAttribute(ShaderProgram program, int attributeIndex) {
         Validate.nonNull(program, "program");

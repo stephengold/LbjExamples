@@ -158,9 +158,9 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Add a dynamic box to the PhysicsSpace, at the specified coordinates.
      *
-     * @param x the X coordinate
-     * @param y the Y coordinate
-     * @param z the Z coordinate
+     * @param x the desired X coordinate (in physics space)
+     * @param y the desired Y coordinate (in physics space)
+     * @param z the desired Z coordinate (in physics space)
      */
     private void addBox(float x, float y, float z) {
         float mass = 10f;

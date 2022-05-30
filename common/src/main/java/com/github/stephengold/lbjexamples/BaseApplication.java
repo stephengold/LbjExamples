@@ -148,8 +148,9 @@ public abstract class BaseApplication {
     final private static Map<TextureKey, Texture> textureMap
             = new HashMap<>(16);
     /**
-     * mouse position relative to the top-left corner of the content area (in
-     * screen units) or null if no mouse updates have been received
+     * last-known location of the mouse cursor (in screen units, relative to the
+     * top-left corner of the window's content area) or null if the application
+     * hasn't hasn't received a cursor position callback
      */
     private static Vector2d mousePosition;
     // *************************************************************************
@@ -443,6 +444,8 @@ public abstract class BaseApplication {
     /**
      * Invoked before each render to update the window title. Meant to be
      * overridden.
+     *
+     * @see #setWindowTitle(java.lang.String)
      */
     public void updateWindowTitle() {
         float currentFrame = (float) glfwGetTime();

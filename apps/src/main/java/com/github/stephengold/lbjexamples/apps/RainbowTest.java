@@ -84,7 +84,7 @@ public class RainbowTest extends BaseApplication {
     public void initialize() {
         setBackgroundColor(Constants.SKY_BLUE);
 
-        float radius = 0.5f; // as a multiple of the screen half height
+        float radius = 0.5f; // as a multiple of half the screen size
         Mesh squareMesh
                 = new RectangleMesh(-radius, radius, -radius, radius, 1f);
         squareMesh.generateUvs(UvsOption.Linear,
