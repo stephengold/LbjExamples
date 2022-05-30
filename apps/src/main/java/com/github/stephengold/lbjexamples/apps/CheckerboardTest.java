@@ -107,7 +107,7 @@ public class CheckerboardTest extends BaseApplication {
     }
 
     /**
-     * Callback invoked on during each iteration of the main update loop.
+     * Callback invoked during each iteration of the main update loop.
      */
     @Override
     public void render() {

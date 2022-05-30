@@ -361,8 +361,8 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Callback invoked on during each iteration of the main update loop. Meant
-     * to be overridden.
+     * Callback invoked during each iteration of the main update loop. Meant to
+     * be overridden.
      */
     public void render() {
         updateGlobalUniforms();
