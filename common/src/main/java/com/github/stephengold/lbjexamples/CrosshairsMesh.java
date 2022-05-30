@@ -42,6 +42,15 @@ public class CrosshairsMesh extends Mesh {
     // constructors
 
     /**
+     * Instantiate a pair of equal-length crosshairs at the mesh origin.
+     *
+     * @param size the length of each line (in mesh units, &ge;0)
+     */
+    public CrosshairsMesh(float size) {
+        this(size, size);
+    }
+
+    /**
      * Instantiate a pair of axis-aligned crosshairs at the origin.
      *
      * @param width the length of the X-axis line (&ge;0)
