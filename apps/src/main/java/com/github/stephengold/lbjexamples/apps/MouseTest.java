@@ -47,7 +47,7 @@ import org.lwjgl.system.Configuration;
  */
 public class MouseTest extends BaseApplication {
 
-    private Geometry cursor;
+    private Geometry crosshairs;
     // *************************************************************************
     // new methods exposed
 
@@ -83,7 +83,7 @@ public class MouseTest extends BaseApplication {
     public void initialize() {
         float size = 0.2f;
         Mesh mesh = new CrosshairsMesh(size);
-        this.cursor = new Geometry(mesh)
+        this.crosshairs = new Geometry(mesh)
                 .setProgram("Unshaded/Screenspace/Monochrome");
     }
 
@@ -110,7 +110,7 @@ public class MouseTest extends BaseApplication {
         color.y = isMmbPressed() ? 0f : 1f;
         color.z = isRmbPressed() ? 0f : 1f;
         color.w = 1f;
-        cursor.setColor(color);
+        crosshairs.setColor(color);
     }
 
     /**
@@ -125,7 +125,7 @@ public class MouseTest extends BaseApplication {
         float x = location.x();
         float y = location.y();
         Vector3f location3d = new Vector3f(x, y, 0f);
-        cursor.setLocation(location3d);
+        crosshairs.setLocation(location3d);
     }
 
     /**
@@ -138,6 +138,6 @@ public class MouseTest extends BaseApplication {
         float xScale = yScale / aspectRatio;
         Vector3f newScale = new Vector3f(xScale, yScale, 1f);
 
-        cursor.setScale(newScale);
+        crosshairs.setScale(newScale);
     }
 }
