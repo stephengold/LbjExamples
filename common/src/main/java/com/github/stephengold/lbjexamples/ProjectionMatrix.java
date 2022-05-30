@@ -36,7 +36,7 @@ import org.joml.Matrix4f;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-class ProjectionMatrix extends GlobalUniform {
+public class ProjectionMatrix extends GlobalUniform {
     // *************************************************************************
     // fields
 
