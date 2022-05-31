@@ -135,27 +135,8 @@ public class Mesh {
         int numFloats = positions.capacity();
         assert numFloats % numAxes == 0 : numFloats;
         this.vertexCount = numFloats / numAxes;
-        /*
-         * Add a normal buffer, if requested.
-         */
-        switch (normalsOption) {
-            case Facet:
-                generateFacetNormals();
-                break;
-            case None:
-                this.normals = null;
-                break;
-            case Smooth:
-                generateFacetNormals();
-                smoothNormals();
-                break;
-            case Sphere:
-                generateSphereNormals();
-                break;
-            default:
-                String message = "normalsOption = " + normalsOption;
-                throw new IllegalArgumentException(message);
-        }
+
+        generateNormals(normalsOption);
     }
 
     /**
@@ -378,6 +359,32 @@ public class Mesh {
         assert normals.limit() == normals.capacity();
 
         return this;
+    }
+
+    /**
+     * Generate normals using the specified strategy. Any pre-existing normals
+     * are discarded.
+     *
+     * @param option how to generate the normals (not null)
+     */
+    public void generateNormals(NormalsOption option) {
+        switch (option) {
+            case Facet:
+                generateFacetNormals();
+                break;
+            case None:
+                this.normals = null;
+                break;
+            case Smooth:
+                generateFacetNormals();
+                smoothNormals();
+                break;
+            case Sphere:
+                generateSphereNormals();
+                break;
+            default:
+                throw new IllegalArgumentException("option = " + option);
+        }
     }
 
     /**
