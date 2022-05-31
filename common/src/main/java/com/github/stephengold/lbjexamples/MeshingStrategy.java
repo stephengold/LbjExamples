@@ -31,7 +31,6 @@ package com.github.stephengold.lbjexamples;
 
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
-import com.jme3.math.Transform;
 import jme3utilities.MyString;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
@@ -127,11 +126,7 @@ class MeshingStrategy {
         if (positions < 0) { // generate vertex positions using OctasphereMesh
             result = new OctasphereMesh(-positions);
             float maxRadius = shape.maxRadius();
-            if (maxRadius != 1f) {
-                Transform scaleTransform = new Transform();
-                scaleTransform.setScale(maxRadius);
-                result.transform(scaleTransform);
-            }
+            result.scale(maxRadius);
 
             // Only sphere normals make sense, so ignore the NormalsOption.
             result.generateSphereNormals();

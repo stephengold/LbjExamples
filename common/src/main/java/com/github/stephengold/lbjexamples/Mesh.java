@@ -477,11 +477,51 @@ public class Mesh {
     }
 
     /**
+     * Apply the specified rotation to all vertices.
+     *
+     * @param xAngle the X rotation angle (in radians)
+     * @param yAngle the Y rotation angle (in radians)
+     * @param zAngle the Z rotation angle (in radians)
+     */
+    public void rotate(float xAngle, float yAngle, float zAngle) {
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
+
+        // TODO use MyBuffer.rotate
+        Transform rotateTransform = new Transform();
+        rotateTransform.getRotation().fromAngles(xAngle, yAngle, zAngle);
+        transform(rotateTransform);
+    }
+
+    /**
+     * Apply the specified scaling to all vertices.
+     *
+     * @param scaleFactor the scale factor to apply
+     */
+    public void scale(float scaleFactor) {
+        if (scaleFactor == 1f) {
+            return;
+        }
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
+
+        int numFloats = vertexCount * numAxes;
+        for (int floatIndex = 0; floatIndex < numFloats; ++floatIndex) {
+            float floatValue = positions.get(floatIndex);
+            floatValue *= scaleFactor;
+            positions.put(floatIndex, floatValue);
+        }
+    }
+
+    /**
      * Apply the specified transform to all vertices.
      *
      * @param transform the transform to apply (not null, unaffected)
      */
     public void transform(Transform transform) {
+        // TODO test for identity using MyMath
         if (!mutable) {
             throw new IllegalStateException("The mesh is no longer mutuable.");
         }

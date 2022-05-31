@@ -30,7 +30,6 @@
 package com.github.stephengold.lbjexamples;
 
 import com.jme3.math.FastMath;
-import com.jme3.math.Transform;
 import jme3utilities.Validate;
 import jme3utilities.math.MyVector3f;
 import org.lwjgl.opengl.GL11C;
@@ -106,22 +105,16 @@ public class ArrowMesh extends Mesh {
         switch (axisIndex) {
             case MyVector3f.xAxis:
                 if (xArrow == null) {
-                    Transform rotZ2X = new Transform();
-                    rotZ2X.getRotation()
-                            .fromAngles(0f, FastMath.HALF_PI, 0f);
                     xArrow = new ArrowMesh();
-                    xArrow.transform(rotZ2X);
+                    xArrow.rotate(0f, FastMath.HALF_PI, 0f);
                     xArrow.makeImmutable();
                 }
                 return xArrow;
 
             case MyVector3f.yAxis:
                 if (yArrow == null) {
-                    Transform rotZ2Y = new Transform();
-                    rotZ2Y.getRotation()
-                            .fromAngles(-FastMath.HALF_PI, 0f, 0f);
                     yArrow = new ArrowMesh();
-                    yArrow.transform(rotZ2Y);
+                    yArrow.rotate(-FastMath.HALF_PI, 0f, 0f);
                     yArrow.makeImmutable();
                 }
                 return yArrow;
