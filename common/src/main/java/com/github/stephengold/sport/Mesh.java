@@ -156,6 +156,22 @@ public class Mesh {
     }
 
     /**
+     * Instantiate a mutable mesh with the specified mode and vertex positions,
+     * but no normals or texture coordinates.
+     *
+     * @param drawMode the desired draw mode, such as GL_TRIANGLES
+     * @param positionsBuffer the desired vertex positions (not null, not empty,
+     * capacity a multiple of 3, alias created)
+     */
+    protected Mesh(int drawMode, FloatBuffer positionsBuffer) {
+        this(drawMode, positionsBuffer.capacity() / numAxes);
+        Validate.require(positionsBuffer.capacity() % numAxes == 0,
+                "capacity a multiple of 3");
+
+        this.positions = positionsBuffer;
+    }
+
+    /**
      * Instantiate a mutable mesh with the specified mode and number of
      * vertices, but no positions or normals.
      *
