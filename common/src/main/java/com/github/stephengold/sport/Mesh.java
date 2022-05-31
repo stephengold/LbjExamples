@@ -146,7 +146,7 @@ public class Mesh {
 
     /**
      * Instantiate a mutable mesh with the specified mode and number of
-     * vertices, but no positions or normals.
+     * vertices, but no positions, normals, or texture coordinates.
      *
      * @param drawMode the desired draw mode, such as GL_TRIANGLES
      * @param vertexCount the desired number of vertices (&ge;1)
@@ -339,9 +339,7 @@ public class Mesh {
             MyVector3f.normalizeLocal(normal);
 
             for (int j = 0; j < vpt; ++j) {
-                normals.put(normal.x);
-                normals.put(normal.y);
-                normals.put(normal.z);
+                normals.put(normal.x).put(normal.y).put(normal.z);
             }
         }
         normals.flip();

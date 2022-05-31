@@ -127,7 +127,8 @@ class MeshingStrategy {
         Mesh result;
 
         if (positions < 0) { // generate vertex positions using OctasphereMesh
-            result = new OctasphereMesh(-positions);
+            int numRefinementSteps = -positions;
+            result = new OctasphereMesh(numRefinementSteps);
             float maxRadius = shape.maxRadius();
             result.scale(maxRadius);
 

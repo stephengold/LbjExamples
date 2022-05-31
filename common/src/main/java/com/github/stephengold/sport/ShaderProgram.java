@@ -52,7 +52,7 @@ import org.lwjgl.system.MemoryStack;
  */
 public class ShaderProgram {
     // *************************************************************************
-    // constants and loggers
+    // constants
 
     /**
      * name of the attrib for vertex normals
