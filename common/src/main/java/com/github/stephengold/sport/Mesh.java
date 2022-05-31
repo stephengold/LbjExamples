@@ -29,8 +29,6 @@
  */
 package com.github.stephengold.sport;
 
-import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.FastMath;
 import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
@@ -113,31 +111,6 @@ public class Mesh {
     private final List<String> nameList = new ArrayList<>();
     // *************************************************************************
     // constructors
-
-    /**
-     * Auto-generate a mutable GL_TRIANGLES mesh for the specified collision
-     * shape.
-     *
-     * @param shape the shape to use (not null, unaffected)
-     * @param normalsOption (not null)
-     * @param positionsOption either
-     * {@link com.jme3.bullet.util.DebugShapeFactory#lowResolution} (0) or
-     * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
-     */
-    public Mesh(CollisionShape shape, NormalsOption normalsOption,
-            int positionsOption) {
-        this.drawMode = GL11C.GL_TRIANGLES;
-        assert normalsOption != null;
-        assert positionsOption == 0 || positionsOption == 1 : positionsOption;
-
-        this.positions
-                = DebugShapeFactory.getDebugTriangles(shape, positionsOption);
-        int numFloats = positions.capacity();
-        assert numFloats % numAxes == 0 : numFloats;
-        this.vertexCount = numFloats / numAxes;
-
-        generateNormals(normalsOption);
-    }
 
     /**
      * Instantiate a mutable mesh with the specified mode and vertex positions,
