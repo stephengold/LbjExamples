@@ -27,7 +27,7 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport;
 
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
@@ -106,7 +106,7 @@ public abstract class BaseApplication {
     /**
      * convenient access to user input
      */
-    protected static InputManager inputManager;
+    private static InputManager inputManager;
 
     private static int counter;
     /**
@@ -254,7 +254,7 @@ public abstract class BaseApplication {
      *
      * @param geometries the geometries to de-visualize (not null, unaffected)
      */
-    static void hideAll(Collection<Geometry> geometries) {
+    public static void hideAll(Collection<Geometry> geometries) {
         deferredQueue.removeAll(geometries);
         visibleGeometries.removeAll(geometries);
     }
@@ -269,7 +269,7 @@ public abstract class BaseApplication {
      *
      * @return an unmodifiable collection of pre-existing objects
      */
-    static Collection<Geometry> listVisible() {
+    public static Collection<Geometry> listVisible() {
         return Collections.unmodifiableCollection(visibleGeometries);
     }
 
@@ -280,7 +280,7 @@ public abstract class BaseApplication {
      *
      * @param geometry the Geometry to visualize (not null, unaffected)
      */
-    static void makeVisible(Geometry geometry) {
+    public static void makeVisible(Geometry geometry) {
         assert geometry.getMesh() != null;
         assert geometry.getProgram() != null;
 

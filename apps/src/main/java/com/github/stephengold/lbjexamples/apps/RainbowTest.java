@@ -29,12 +29,12 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import com.github.stephengold.lbjexamples.BaseApplication;
-import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.Geometry;
-import com.github.stephengold.lbjexamples.Mesh;
 import com.github.stephengold.lbjexamples.RectangleMesh;
 import com.github.stephengold.lbjexamples.UvsOption;
+import com.github.stephengold.sport.BaseApplication;
+import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.Geometry;
+import com.github.stephengold.sport.Mesh;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;

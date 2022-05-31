@@ -29,7 +29,7 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import com.github.stephengold.lbjexamples.BaseApplication;
+import com.github.stephengold.sport.BaseApplication;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.WindowEvent;

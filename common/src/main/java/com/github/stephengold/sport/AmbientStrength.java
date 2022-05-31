@@ -27,47 +27,40 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
-
-import com.jme3.math.Vector3f;
-import jme3utilities.Validate;
-import jme3utilities.math.MyVector3f;
+package com.github.stephengold.sport;
 
 /**
- * Provide the direction to the distant light, for use in shaders.
+ * Provide the strength of the ambient light, for use in shaders.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class LightDirection extends GlobalUniform {
+public class AmbientStrength extends GlobalUniform {
     // *************************************************************************
     // fields
 
     /**
-     * current direction (in world coordinates)
+     * current strength
      */
-    final private static Vector3f value = new Vector3f(1f, 3f, 2f).normalize();
+    private static float value = 0.1f;
     // *************************************************************************
     // constructors
 
     /**
      * Instantiate this uniform.
      */
-    LightDirection() {
-        super("LightDirection_worldspace");
+    AmbientStrength() {
+        super("ambientStrength");
     }
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Alter the direction to the distant light.
+     * Alter the strength of the ambient light.
      *
-     * @param newDirection the desired value (not null, not zero, unaffected)
+     * @param newStrength the desired value
      */
-    public static void set(Vector3f newDirection) {
-        Validate.nonZero(newDirection, "new direction");
-
-        value.set(newDirection);
-        MyVector3f.normalizeLocal(value);
+    public static void set(float newStrength) {
+        value = newStrength;
     }
     // *************************************************************************
     // GlobalUniform methods

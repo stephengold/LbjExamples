@@ -27,7 +27,7 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport;
 
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.math.Matrix4f;
@@ -427,7 +427,7 @@ public class Geometry {
      * Update properties and then render this Geometry. Assumes that the
      * program's global uniforms have already been set! Meant to be overridden.
      */
-    void updateAndRender() {
+    public void updateAndRender() {
         // mesh-to-world transform uniforms
         if (program.hasActiveUniform(
                 ShaderProgram.modelRotationMatrixUniformName)) {
@@ -483,7 +483,7 @@ public class Geometry {
      * @param space the CollisionSpace to test (not null)
      * @return true if removed, otherwise false
      */
-    boolean wasRemovedFrom(CollisionSpace space) {
+    public boolean wasRemovedFrom(CollisionSpace space) {
         return false;
     }
 

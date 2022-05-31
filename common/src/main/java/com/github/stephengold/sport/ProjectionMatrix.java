@@ -27,10 +27,12 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport;
 
+import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 import org.joml.Matrix4f;
+import org.joml.Vector4f;
 
 /**
  * Provide the current view-to-clip transform for use in shaders.

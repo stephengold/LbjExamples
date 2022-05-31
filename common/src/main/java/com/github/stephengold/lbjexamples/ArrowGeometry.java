@@ -29,6 +29,7 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.sport.Geometry;
 import org.joml.Vector4fc;
 
 /**

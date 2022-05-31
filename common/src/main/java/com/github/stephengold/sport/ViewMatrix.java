@@ -27,57 +27,62 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport;
 
-import jme3utilities.Validate;
+import org.joml.Matrix4f;
+import org.joml.Vector3fc;
 
 /**
- * A uniform variable whose value is the same for every Geometry and whose name
- * is the same in every ShaderProgram that uses it.
+ * Provide the world-to-view transform matrix of the current Camera, for use in
+ * shaders.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-abstract class GlobalUniform {
+class ViewMatrix extends GlobalUniform {
     // *************************************************************************
     // fields
 
     /**
-     * name of the uniform variable
+     * current world-to-view transform matrix
      */
-    final private String variableName;
+    final private Matrix4f value = new Matrix4f();
+    /**
+     * reusable temporary storage
+     */
+    final private org.joml.Vector3f tmpTarget = new org.joml.Vector3f();
     // *************************************************************************
     // constructors
 
     /**
-     * Instantiate a new global uniform.
-     *
-     * @param name the desired name (not null, not empty)
+     * Instantiate the uniform.
      */
-    protected GlobalUniform(String name) {
-        Validate.nonEmpty(name, "name");
-        this.variableName = name;
+    ViewMatrix() {
+        super("viewMatrix");
     }
     // *************************************************************************
-    // new methods exposed
-
-    /**
-     * Return the name of the variable.
-     *
-     * @return the name string (not null, not empty)
-     */
-    String getVariableName() {
-        return variableName;
-    }
+    // GlobalUniform methods
 
     /**
      * Send the current value to the specified program.
      *
      * @param program the program to update (not null)
      */
-    abstract void sendValueTo(ShaderProgram program);
+    @Override
+    void sendValueTo(ShaderProgram program) {
+        String name = getVariableName();
+        program.setUniform(name, value);
+    }
 
     /**
      * Update the uniform's value.
      */
-    abstract void updateValue();
+    @Override
+    void updateValue() {
+        Camera camera = BaseApplication.getCamera();
+        Vector3fc eye = camera.locationJoml();
+        Vector3fc lookDirection = camera.lookDirectionJoml();
+        eye.add(lookDirection, tmpTarget);
+        Vector3fc up = camera.upDirectionJoml();
+        value.setLookAt(eye, tmpTarget, up);
+    }
 }

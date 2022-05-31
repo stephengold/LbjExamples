@@ -27,65 +27,57 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport;
 
 import jme3utilities.Validate;
-import org.joml.Vector4f;
-import org.joml.Vector4fc;
 
 /**
- * Provide the color of the main light, for use in shaders.
+ * A uniform variable whose value is the same for every Geometry and whose name
+ * is the same in every ShaderProgram that uses it.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class LightColor extends GlobalUniform {
+abstract public class GlobalUniform {
     // *************************************************************************
     // fields
 
     /**
-     * current color
+     * name of the uniform variable
      */
-    final private static Vector4f value = new Vector4f(Constants.WHITE);
+    final private String variableName;
     // *************************************************************************
     // constructors
 
     /**
-     * Instantiate this uniform.
+     * Instantiate a new global uniform.
+     *
+     * @param name the desired name (not null, not empty)
      */
-    LightColor() {
-        super("LightColor");
+    protected GlobalUniform(String name) {
+        Validate.nonEmpty(name, "name");
+        this.variableName = name;
     }
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Alter the color of the main light.
+     * Return the name of the variable.
      *
-     * @param newColor the desired value (not null)
+     * @return the name string (not null, not empty)
      */
-    public static void set(Vector4fc newColor) {
-        Validate.nonNull(newColor, "new color");
-        value.set(newColor);
+    String getVariableName() {
+        return variableName;
     }
-    // *************************************************************************
-    // GlobalUniform methods
 
     /**
      * Send the current value to the specified program.
      *
      * @param program the program to update (not null)
      */
-    @Override
-    void sendValueTo(ShaderProgram program) {
-        String name = getVariableName();
-        program.setUniform(name, value);
-    }
+    abstract void sendValueTo(ShaderProgram program);
 
     /**
      * Update the uniform's value.
      */
-    @Override
-    void updateValue() {
-        // do nothing
-    }
+    abstract void updateValue();
 }

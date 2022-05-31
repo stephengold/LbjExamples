@@ -29,6 +29,10 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.sport.BaseApplication;
+import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.Geometry;
+import com.github.stephengold.sport.Mesh;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
@@ -110,7 +114,7 @@ public class AabbGeometry extends Geometry {
      * Update properties based on the collision object and then render.
      */
     @Override
-    void updateAndRender() {
+    public void updateAndRender() {
         updateColor();
         updateTransform();
 
@@ -125,7 +129,7 @@ public class AabbGeometry extends Geometry {
      * @return true if removed, otherwise false
      */
     @Override
-    boolean wasRemovedFrom(CollisionSpace space) {
+    public boolean wasRemovedFrom(CollisionSpace space) {
         boolean result = !space.contains(pco);
         return result;
     }

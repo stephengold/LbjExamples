@@ -27,68 +27,65 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport;
+
+import jme3utilities.Validate;
+import org.joml.Vector4f;
+import org.joml.Vector4fc;
 
 /**
- * Handle user input in a BaseApplication.
+ * Provide the color of the main light, for use in shaders.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-abstract public class InputProcessor {
+public class LightColor extends GlobalUniform {
     // *************************************************************************
     // fields
 
     /**
-     * next processor in the sequence, or null if none
+     * current color
      */
-    private InputProcessor nextProcessor;
+    final private static Vector4f value = new Vector4f(Constants.WHITE);
+    // *************************************************************************
+    // constructors
+
+    /**
+     * Instantiate this uniform.
+     */
+    LightColor() {
+        super("LightColor");
+    }
     // *************************************************************************
     // new methods exposed
 
     /**
-     * A keyboard key has been pressed or released. GLFW_REPEAT events are
-     * ignored. Meant to be overridden.
+     * Alter the color of the main light.
      *
-     * @param keyId the GLFW ID of the key
-     * @param isPress true for GLFW_PRESS, false for GLFW_RELEASE
+     * @param newColor the desired value (not null)
      */
-    public void onKeyboard(int keyId, boolean isPress) {
-        if (nextProcessor != null) {
-            nextProcessor.onKeyboard(keyId, isPress);
-        }
+    public static void set(Vector4fc newColor) {
+        Validate.nonNull(newColor, "new color");
+        value.set(newColor);
+    }
+    // *************************************************************************
+    // GlobalUniform methods
+
+    /**
+     * Send the current value to the specified program.
+     *
+     * @param program the program to update (not null)
+     */
+    @Override
+    void sendValueTo(ShaderProgram program) {
+        String name = getVariableName();
+        program.setUniform(name, value);
     }
 
     /**
-     * A mouse button has been pressed or released. Meant to be overridden.
-     *
-     * @param buttonId the GLFW ID of the button
-     * @param isPress true for GLFW_PRESS, false for GLFW_RELEASE
+     * Update the uniform's value.
      */
-    public void onMouseButton(int buttonId, boolean isPress) {
-        if (nextProcessor != null) {
-            nextProcessor.onMouseButton(buttonId, isPress);
-        }
-    }
-
-    /**
-     * Handle mouse-cursor movement. Meant to be overridden.
-     *
-     * @param rightFraction the rightward motion (as a fraction of the window
-     * height)
-     * @param upFraction the upward motion (as a fraction of the window height)
-     */
-    public void onMouseMotion(double rightFraction, double upFraction) {
-        if (nextProcessor != null) {
-            nextProcessor.onMouseMotion(rightFraction, upFraction);
-        }
-    }
-
-    /**
-     * Set the next processor in the series.
-     *
-     * @param newNextProcessor the desired processor, or null if none
-     */
-    public void setNext(InputProcessor newNextProcessor) {
-        nextProcessor = newNextProcessor;
+    @Override
+    void updateValue() {
+        // do nothing
     }
 }

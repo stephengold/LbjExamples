@@ -27,7 +27,7 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport;
 
 import com.jme3.math.Vector3f;
 import java.util.HashSet;
@@ -127,7 +127,8 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * Alter the rotation rate.
      *
-     * @param newRate the desired rate of rotation (in radians per window height)
+     * @param newRate the desired rate of rotation (in radians per window
+     * height)
      */
     public void setRotationRate(float newRate) {
         this.rotationRate = newRate;

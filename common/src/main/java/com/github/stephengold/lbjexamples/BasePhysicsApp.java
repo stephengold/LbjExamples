@@ -29,6 +29,11 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.sport.BaseApplication;
+import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.Geometry;
+import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.TextureKey;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.Box2dShape;

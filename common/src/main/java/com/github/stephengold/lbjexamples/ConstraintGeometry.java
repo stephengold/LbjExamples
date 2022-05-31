@@ -29,6 +29,10 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.sport.BaseApplication;
+import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.Geometry;
+import com.github.stephengold.sport.Mesh;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.joints.Constraint;

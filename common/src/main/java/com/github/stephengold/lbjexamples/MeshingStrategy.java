@@ -29,6 +29,7 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.sport.Mesh;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
 import jme3utilities.MyString;

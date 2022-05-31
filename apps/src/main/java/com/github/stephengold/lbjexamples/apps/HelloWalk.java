@@ -30,12 +30,12 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.InputProcessor;
-import com.github.stephengold.lbjexamples.LightColor;
-import com.github.stephengold.lbjexamples.LightDirection;
-import com.github.stephengold.lbjexamples.RotateMode;
-import com.github.stephengold.lbjexamples.Utils;
+import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.InputProcessor;
+import com.github.stephengold.sport.LightColor;
+import com.github.stephengold.sport.LightDirection;
+import com.github.stephengold.sport.RotateMode;
+import com.github.stephengold.sport.Utils;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;

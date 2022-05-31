@@ -29,6 +29,10 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.sport.BaseApplication;
+import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.Geometry;
+import com.github.stephengold.sport.Mesh;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.objects.PhysicsCharacter;
@@ -116,7 +120,7 @@ public class CharacterShapeGeometry extends Geometry {
      * Update properties based on the PhysicsCharacter and then render.
      */
     @Override
-    void updateAndRender() {
+    public void updateAndRender() {
         updateColor();
         updateMesh();
         updateTransform();
@@ -132,7 +136,7 @@ public class CharacterShapeGeometry extends Geometry {
      * @return true if removed, otherwise false
      */
     @Override
-    boolean wasRemovedFrom(CollisionSpace space) {
+    public boolean wasRemovedFrom(CollisionSpace space) {
         boolean result = !space.contains(character);
         return result;
     }

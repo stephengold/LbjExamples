@@ -27,62 +27,68 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
-
-import org.joml.Matrix4f;
-import org.joml.Vector3fc;
+package com.github.stephengold.sport;
 
 /**
- * Provide the world-to-view transform matrix of the current Camera, for use in
- * shaders.
+ * Handle user input in a BaseApplication.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-class ViewMatrix extends GlobalUniform {
+abstract public class InputProcessor {
     // *************************************************************************
     // fields
 
     /**
-     * current world-to-view transform matrix
+     * next processor in the sequence, or null if none
      */
-    final private Matrix4f value = new Matrix4f();
-    /**
-     * reusable temporary storage
-     */
-    final private org.joml.Vector3f tmpTarget = new org.joml.Vector3f();
+    private InputProcessor nextProcessor;
     // *************************************************************************
-    // constructors
+    // new methods exposed
 
     /**
-     * Instantiate the uniform.
-     */
-    ViewMatrix() {
-        super("viewMatrix");
-    }
-    // *************************************************************************
-    // GlobalUniform methods
-
-    /**
-     * Send the current value to the specified program.
+     * A keyboard key has been pressed or released. GLFW_REPEAT events are
+     * ignored. Meant to be overridden.
      *
-     * @param program the program to update (not null)
+     * @param keyId the GLFW ID of the key
+     * @param isPress true for GLFW_PRESS, false for GLFW_RELEASE
      */
-    @Override
-    void sendValueTo(ShaderProgram program) {
-        String name = getVariableName();
-        program.setUniform(name, value);
+    public void onKeyboard(int keyId, boolean isPress) {
+        if (nextProcessor != null) {
+            nextProcessor.onKeyboard(keyId, isPress);
+        }
     }
 
     /**
-     * Update the uniform's value.
+     * A mouse button has been pressed or released. Meant to be overridden.
+     *
+     * @param buttonId the GLFW ID of the button
+     * @param isPress true for GLFW_PRESS, false for GLFW_RELEASE
      */
-    @Override
-    void updateValue() {
-        Camera camera = BaseApplication.getCamera();
-        Vector3fc eye = camera.locationJoml();
-        Vector3fc lookDirection = camera.lookDirectionJoml();
-        eye.add(lookDirection, tmpTarget);
-        Vector3fc up = camera.upDirectionJoml();
-        value.setLookAt(eye, tmpTarget, up);
+    public void onMouseButton(int buttonId, boolean isPress) {
+        if (nextProcessor != null) {
+            nextProcessor.onMouseButton(buttonId, isPress);
+        }
+    }
+
+    /**
+     * Handle mouse-cursor movement. Meant to be overridden.
+     *
+     * @param rightFraction the rightward motion (as a fraction of the window
+     * height)
+     * @param upFraction the upward motion (as a fraction of the window height)
+     */
+    public void onMouseMotion(double rightFraction, double upFraction) {
+        if (nextProcessor != null) {
+            nextProcessor.onMouseMotion(rightFraction, upFraction);
+        }
+    }
+
+    /**
+     * Set the next processor in the series.
+     *
+     * @param newNextProcessor the desired processor, or null if none
+     */
+    public void setNext(InputProcessor newNextProcessor) {
+        nextProcessor = newNextProcessor;
     }
 }

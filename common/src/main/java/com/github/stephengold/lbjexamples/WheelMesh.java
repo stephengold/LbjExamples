@@ -29,6 +29,7 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.sport.Mesh;
 import com.jme3.math.FastMath;
 import java.nio.FloatBuffer;
 import org.lwjgl.opengl.GL11C;

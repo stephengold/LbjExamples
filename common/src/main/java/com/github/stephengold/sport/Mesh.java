@@ -27,8 +27,10 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport;
 
+import com.github.stephengold.lbjexamples.NormalsOption;
+import com.github.stephengold.lbjexamples.UvsOption;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.FastMath;
@@ -124,7 +126,7 @@ public class Mesh {
      * {@link com.jme3.bullet.util.DebugShapeFactory#lowResolution} (0) or
      * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
      */
-    Mesh(CollisionShape shape, NormalsOption normalsOption,
+    public Mesh(CollisionShape shape, NormalsOption normalsOption,
             int positionsOption) {
         this.drawMode = GL11C.GL_TRIANGLES;
         assert normalsOption != null;
@@ -193,7 +195,7 @@ public class Mesh {
     /**
      * Delete the VAO and all its VBOs.
      */
-    void cleanUp() {
+    public void cleanUp() {
         if (vaoId == null) {
             return;
         }

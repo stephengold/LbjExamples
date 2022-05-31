@@ -27,12 +27,13 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport;
 
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
+import jme3utilities.math.MyVector3f;
 import org.joml.Vector3fc;
 
 /**
@@ -430,5 +431,9 @@ public class Camera {
         rightDirection.set(rightX, 0f, rightZ);
 
         rightDirection.cross(lookDirection, upDirection);
+
+        assert lookDirection.isUnitVector() : lookDirection;
+        assert rightDirection.isUnitVector() : rightDirection;
+        assert upDirection.isUnitVector() : upDirection;
     }
 }

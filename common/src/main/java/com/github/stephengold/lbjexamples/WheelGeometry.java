@@ -29,6 +29,8 @@
  */
 package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.sport.BaseApplication;
+import com.github.stephengold.sport.Geometry;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.objects.PhysicsVehicle;
 import com.jme3.bullet.objects.VehicleWheel;
@@ -89,7 +91,7 @@ public class WheelGeometry extends Geometry {
      * Update properties based on the PhysicsWheel and then render.
      */
     @Override
-    void updateAndRender() {
+    public void updateAndRender() {
         updateTransform();
         super.updateAndRender();
     }
@@ -102,7 +104,7 @@ public class WheelGeometry extends Geometry {
      * @return true if removed, otherwise false
      */
     @Override
-    boolean wasRemovedFrom(CollisionSpace space) {
+    public boolean wasRemovedFrom(CollisionSpace space) {
         if (space.contains(vehicle)) {
             int numWheels = vehicle.getNumWheels();
             if (wheelIndex < numWheels) {

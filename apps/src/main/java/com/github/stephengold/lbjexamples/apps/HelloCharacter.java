@@ -30,8 +30,8 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.Constants;
-import com.github.stephengold.lbjexamples.RotateMode;
+import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.RotateMode;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.Box2dShape;
