@@ -140,7 +140,9 @@ class MeshingStrategy {
             result.transformUvs(uCoefficients, vCoefficients);
 
         } else { // generate vertex positions using DebugShapeFactory
-            result = new Mesh(shape, normals, positions);
+            result = new ShapeMesh(shape, positions);
+
+            result.generateNormals(normals);
             result.generateUvs(uvs, uCoefficients, vCoefficients);
         }
 
