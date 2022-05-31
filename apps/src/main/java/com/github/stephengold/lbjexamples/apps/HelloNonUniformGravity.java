@@ -29,8 +29,8 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.LocalAxisGeometry;
+import com.github.stephengold.sport.physics.BasePhysicsApp;
+import com.github.stephengold.sport.physics.LocalAxisGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.collision.shapes.CollisionShape;

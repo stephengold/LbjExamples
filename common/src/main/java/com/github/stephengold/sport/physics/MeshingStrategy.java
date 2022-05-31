@@ -27,8 +27,9 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport.physics;
 
+import com.github.stephengold.lbjexamples.OctasphereMesh;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.NormalsOption;
 import com.github.stephengold.sport.UvsOption;

@@ -27,75 +27,92 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport.physics;
 
+import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.infos.ChildCollisionShape;
-import java.util.Arrays;
+import com.jme3.math.Matrix3f;
+import com.jme3.math.Vector3f;
 import java.util.logging.Logger;
 
 /**
- * An immutable list of child-shape summaries.
+ * Summarize inputs used to generate a Mesh for a ChildCollisionShape. Note:
+ * immutable.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-class ChildSummaryList {
+class ChildSummary {
     // *************************************************************************
     // constants and loggers
 
     /**
      * message logger for this class
      */
-    final static Logger logger
-            = Logger.getLogger(ChildSummaryList.class.getName());
+    final public static Logger logger
+            = Logger.getLogger(ChildSummary.class.getName());
     // *************************************************************************
     // fields
 
     /**
-     * array of child summaries (all non-null)
+     * rotation of the child relative to its parent
      */
-    final private ChildSummary[] summaries;
+    final private Matrix3f rotationMatrix = new Matrix3f();
+    /**
+     * reusable temporary storage
+     */
+    final private static Matrix3f tmpMatrix = new Matrix3f();
+    /**
+     * summary of the CollisionShape, including its margin and scale
+     */
+    final private ShapeSummary summary;
+    /**
+     * offset of the child relative to its parent
+     */
+    final private Vector3f offset = new Vector3f();
+    /**
+     * reusable temporary storage
+     */
+    final private static Vector3f tmpVector = new Vector3f();
     // *************************************************************************
     // constructors
 
     /**
-     * Instantiate a new list.
+     * Instantiate a new summary.
      *
-     * @param array the array of child shapes (not null, unaffected)
+     * @param child the child shape to summarize (not null, unaffected)
      * @param strategy how to generate meshes (not null)
      */
-    ChildSummaryList(ChildCollisionShape[] array, MeshingStrategy strategy) {
+    ChildSummary(ChildCollisionShape child, MeshingStrategy strategy) {
         assert strategy != null;
 
-        int numChildren = array.length;
-        summaries = new ChildSummary[numChildren];
-
-        for (int childIndex = 0; childIndex < numChildren; ++childIndex) {
-            ChildCollisionShape childShape = array[childIndex];
-            summaries[childIndex] = new ChildSummary(childShape, strategy);
-        }
+        child.copyOffset(offset);
+        child.copyRotationMatrix(rotationMatrix);
+        CollisionShape shape = child.getShape();
+        this.summary = new ShapeSummary(shape, strategy);
     }
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Count how many children are in the summarized list.
+     * Test whether this summary matches the specified shape.
      *
-     * @return the count (&ge;0)
-     */
-    int countChildren() {
-        int result = summaries.length;
-        return result;
-    }
-
-    /**
-     * Test whether the indexed summary matches the specified child shape.
-     *
-     * @param childIndex (&ge;0)
-     * @param ccs the child shape to compare (not null, unaffected)
+     * @param child the child shape to compare (not null, unaffected)
      * @return true for a match, otherwise false
      */
-    boolean matchesChild(int childIndex, ChildCollisionShape ccs) {
-        boolean result = summaries[childIndex].matches(ccs);
+    boolean matches(ChildCollisionShape child) {
+        child.copyOffset(tmpVector);
+        if (!offset.equals(tmpVector)) {
+            return false;
+        }
+
+        child.copyRotationMatrix(tmpMatrix);
+        if (!rotationMatrix.equals(tmpMatrix)) {
+            return false;
+        }
+
+        CollisionShape shape = child.getShape();
+        boolean result = summary.matches(shape);
+
         return result;
     }
     // *************************************************************************
@@ -115,8 +132,10 @@ class ChildSummaryList {
 
         } else if (otherObject != null
                 && otherObject.getClass() == getClass()) {
-            ChildSummaryList other = (ChildSummaryList) otherObject;
-            result = Arrays.equals(summaries, other.summaries);
+            ChildSummary other = (ChildSummary) otherObject;
+            result = offset.equals(other.offset)
+                    && rotationMatrix.equals(other.rotationMatrix)
+                    && summary.equals(other.summary);
 
         } else {
             result = false;
@@ -126,13 +145,17 @@ class ChildSummaryList {
     }
 
     /**
-     * Generate the hash code for this list.
+     * Generate the hash code for this summary.
      *
      * @return a 32-bit value for use in hashing
      */
     @Override
     public int hashCode() {
-        int hash = Arrays.hashCode(summaries);
+        int hash = 499;
+        hash = 97 * hash + offset.hashCode();
+        hash = 97 * hash + rotationMatrix.hashCode();
+        hash = 97 * hash + summary.hashCode();
+
         return hash;
     }
 }

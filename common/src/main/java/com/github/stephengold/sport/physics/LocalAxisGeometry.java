@@ -27,40 +27,44 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples;
+package com.github.stephengold.sport.physics;
 
+import com.github.stephengold.lbjexamples.ArrowMesh;
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
-import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
-import com.jme3.bullet.objects.PhysicsGhostObject;
+import com.jme3.bullet.objects.PhysicsRigidBody;
+import com.jme3.bullet.objects.infos.RigidBodyMotionState;
 import com.jme3.math.Transform;
 import jme3utilities.Validate;
 import org.joml.Vector4fc;
 
 /**
- * Visualize the axis-aligned bounding box of a collision object.
+ * Visualize one of the local axes of a collision object or else a "floating"
+ * arrow.
  */
-public class AabbGeometry extends Geometry {
+public class LocalAxisGeometry extends Geometry {
+    // *************************************************************************
+    // constants
+
+    /**
+     * map axis indices to colors
+     */
+    final private static Vector4fc[] colors = {
+        Constants.RED, // X
+        Constants.GREEN, // Y
+        Constants.BLUE // Z
+    };
     // *************************************************************************
     // fields
 
     /**
-     * true to automatically update the color based on the overlap count (of a
-     * ghost), false for constant color
+     * length of the axis (in world units)
      */
-    private boolean automaticColor = true;
-    /**
-     * most recent bounding box
-     */
-    final private BoundingBox bbox = new BoundingBox();
-    /**
-     * baseline count of overlapping objects for a ghost, otherwise null
-     */
-    private Integer baselineCount;
+    final private float length;
     /**
      * collision object to visualize
      */
@@ -69,27 +73,30 @@ public class AabbGeometry extends Geometry {
     // constructors
 
     /**
-     * Instantiate a Geometry to visualize the axis-aligned bounding box of the
+     * Instantiate a Geometry to visualize the specified local axis of the
      * specified collision object.
      *
-     * @param pco the collision object (not null, alias created)
+     * @param pco the collision object (alias created) or null for a "floating"
+     * arrow
+     * @param axisIndex which axis: 0&rarr;X, 1&rarr;Y, 2&rarr;Z
+     * @param length the length of the axis (in world units, &ge;0)
      */
-    public AabbGeometry(PhysicsCollisionObject pco) {
+    public LocalAxisGeometry(
+            PhysicsCollisionObject pco, int axisIndex, float length) {
         super();
-        Validate.nonNull(pco, "collision object");
+        Validate.axisIndex(axisIndex, "axisIndex");
+        Validate.nonNegative(length, "length");
 
         this.pco = pco;
+        this.length = length;
 
-        Mesh mesh;
-        if (pco instanceof PhysicsGhostObject) { // visualize a solid box
-            mesh = BoxMesh.getMesh();
-            super.setProgram("Phong/Distant/Monochrome");
+        Vector4fc color = colors[axisIndex];
+        super.setColor(color);
 
-        } else { // not a ghost -- visualize the outline of the AABB
-            mesh = BoxOutlineMesh.getMesh();
-            super.setProgram("Unshaded/Monochrome");
-        }
+        Mesh mesh = ArrowMesh.getMesh(axisIndex);
         super.setMesh(mesh);
+
+        super.setProgram("Unshaded/Monochrome");
 
         BaseApplication.makeVisible(this);
     }
@@ -97,77 +104,40 @@ public class AabbGeometry extends Geometry {
     // Geometry methods
 
     /**
-     * Alter the color and disable automatic updating of it.
-     *
-     * @param newColor the desired color (not null)
-     * @return the (modified) current instance (for chaining)
-     */
-    @Override
-    public Geometry setColor(Vector4fc newColor) {
-        automaticColor = false;
-        super.setColor(newColor);
-
-        return this;
-    }
-
-    /**
-     * Update properties based on the collision object and then render.
+     * Update properties based on the body and then render.
      */
     @Override
     public void updateAndRender() {
-        updateColor();
         updateTransform();
-
         super.updateAndRender();
     }
 
     /**
-     * Test whether the collision object has been removed from the specified
-     * CollisionSpace.
+     * Test whether the body has been removed from the specified PhysicsSpace.
      *
      * @param space the space to test (not null, unaffected)
      * @return true if removed, otherwise false
      */
     @Override
     public boolean wasRemovedFrom(CollisionSpace space) {
-        boolean result = !space.contains(pco);
+        boolean result = (pco != null) && !space.contains(pco);
         return result;
     }
     // *************************************************************************
     // private methods
 
     /**
-     * Update the color.
-     */
-    private void updateColor() {
-        if (automaticColor && pco instanceof PhysicsGhostObject) {
-            PhysicsGhostObject ghost = (PhysicsGhostObject) pco;
-            int currentCount = ghost.getOverlappingCount();
-
-            if (baselineCount == null) {
-                baselineCount = currentCount;
-            }
-
-            if (currentCount > baselineCount) {
-                super.setColor(Constants.RED);
-
-            } else if (currentCount == baselineCount) {
-                super.setColor(Constants.YELLOW);
-
-            } else { // curentCount < baselineCount
-                super.setColor(Constants.GREEN);
-            }
-        }
-    }
-
-    /**
      * Update the mesh-to-world transform.
      */
     private void updateTransform() {
-        pco.boundingBox(bbox);
-
         Transform meshToWorld = getMeshToWorldTransform(); // alias
-        bbox.getCenter(meshToWorld.getTranslation());
-        bbox.getExtent(meshToWorld.getScale());
+        if (pco instanceof PhysicsRigidBody) {
+            PhysicsRigidBody body = (PhysicsRigidBody) pco;
+            RigidBodyMotionState state = body.getMotionState();
+            state.physicsTransform(meshToWorld);
+        } else if (pco != null) {
+            pco.getTransform(meshToWorld);
+        }
+        meshToWorld.setScale(length);
     }
 }

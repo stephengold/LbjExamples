@@ -29,13 +29,13 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import com.github.stephengold.lbjexamples.BasePhysicsApp;
-import com.github.stephengold.lbjexamples.ConstraintGeometry;
-import com.github.stephengold.lbjexamples.RigidBodyShapeGeometry;
 import com.github.stephengold.sport.CameraInputProcessor;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.InputProcessor;
 import com.github.stephengold.sport.RotateMode;
+import com.github.stephengold.sport.physics.BasePhysicsApp;
+import com.github.stephengold.sport.physics.ConstraintGeometry;
+import com.github.stephengold.sport.physics.RigidBodyShapeGeometry;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.joints.JointEnd;
