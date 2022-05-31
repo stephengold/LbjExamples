@@ -42,7 +42,8 @@ import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple test of BaseApplication: control a Geometry by polling the mouse.
+ * A simple test of BaseApplication: control a screen-space Geometry by polling
+ * the mouse.
  *
  * @author Stephen Gold sgold@sonic.net
  */
