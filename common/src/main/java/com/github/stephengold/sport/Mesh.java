@@ -415,9 +415,9 @@ public class Mesh {
 
     /**
      * Generate texture coordinates using the specified strategy and
-     * coefficients.
+     * coefficients. Any pre-existing texture coordinates are discarded.
      *
-     * @param option the strategy to use (Linear or Spherical)
+     * @param option how to generate the texture coordinates (not null)
      * @param uCoefficients the coefficients for generating the first (U)
      * texture coordinate (not null)
      * @param vCoefficients the coefficients for generating the 2nd (V) texture
@@ -427,6 +427,10 @@ public class Mesh {
             Vector4fc vCoefficients) {
         if (!mutable) {
             throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
+        if (option == UvsOption.None) {
+            textureCoordinates = null;
+            return;
         }
         createUvs();
 

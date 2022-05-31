@@ -141,9 +141,7 @@ class MeshingStrategy {
 
         } else { // generate vertex positions using DebugShapeFactory
             result = new Mesh(shape, normals, positions);
-            if (uvs != UvsOption.None) {
-                result.generateUvs(uvs, uCoefficients, vCoefficients);
-            }
+            result.generateUvs(uvs, uCoefficients, vCoefficients);
         }
 
         return result;
