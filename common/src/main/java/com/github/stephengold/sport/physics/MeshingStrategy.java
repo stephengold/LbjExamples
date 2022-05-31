@@ -29,10 +29,10 @@
  */
 package com.github.stephengold.sport.physics;
 
-import com.github.stephengold.lbjexamples.OctasphereMesh;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.NormalsOption;
 import com.github.stephengold.sport.UvsOption;
+import com.github.stephengold.sport.mesh.OctasphereMesh;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
 import jme3utilities.MyString;

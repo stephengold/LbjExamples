@@ -29,12 +29,12 @@
  */
 package com.github.stephengold.sport.physics;
 
-import com.github.stephengold.lbjexamples.BoxMesh;
-import com.github.stephengold.lbjexamples.BoxOutlineMesh;
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.mesh.BoxMesh;
+import com.github.stephengold.sport.mesh.BoxOutlineMesh;
 import com.jme3.bounding.BoundingBox;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.PhysicsCollisionObject;

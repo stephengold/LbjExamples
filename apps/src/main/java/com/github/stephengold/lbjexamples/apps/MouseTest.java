@@ -29,11 +29,11 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import com.github.stephengold.lbjexamples.CrosshairsMesh;
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.InputManager;
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.mesh.CrosshairsMesh;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;

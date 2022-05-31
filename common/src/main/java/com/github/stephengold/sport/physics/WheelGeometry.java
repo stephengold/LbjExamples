@@ -29,9 +29,9 @@
  */
 package com.github.stephengold.sport.physics;
 
-import com.github.stephengold.lbjexamples.WheelMesh;
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Geometry;
+import com.github.stephengold.sport.mesh.WheelMesh;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.objects.PhysicsVehicle;
 import com.jme3.bullet.objects.VehicleWheel;

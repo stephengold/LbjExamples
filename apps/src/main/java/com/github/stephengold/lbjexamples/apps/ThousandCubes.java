@@ -29,12 +29,12 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import com.github.stephengold.lbjexamples.CrosshairsMesh;
-import com.github.stephengold.lbjexamples.LoopMesh;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.InputProcessor;
 import com.github.stephengold.sport.RotateMode;
+import com.github.stephengold.sport.mesh.CrosshairsMesh;
+import com.github.stephengold.sport.mesh.LoopMesh;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
