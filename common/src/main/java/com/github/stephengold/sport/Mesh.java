@@ -29,8 +29,6 @@
  */
 package com.github.stephengold.sport;
 
-import com.github.stephengold.lbjexamples.NormalsOption;
-import com.github.stephengold.lbjexamples.UvsOption;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
 import com.jme3.math.FastMath;
