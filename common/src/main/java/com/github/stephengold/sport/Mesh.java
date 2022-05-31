@@ -356,7 +356,7 @@ public class Mesh {
         Vector3f ac = new Vector3f();
         Vector3f normal = new Vector3f();
 
-        normals = BufferUtils.createFloatBuffer(numAxes * vertexCount);
+        createNormals();
         for (int triIndex = 0; triIndex < numTriangles; ++triIndex) {
             int trianglePosition = triIndex * vpt * numAxes;
             MyBuffer.get(positions, trianglePosition, posA);
@@ -392,7 +392,7 @@ public class Mesh {
         }
         Vector3f tmpVector = new Vector3f();
 
-        normals = BufferUtils.createFloatBuffer(numAxes * vertexCount);
+        createNormals();
         for (int vertIndex = 0; vertIndex < vertexCount; ++vertIndex) {
             int vPosition = vertIndex * numAxes;
             MyBuffer.get(positions, vPosition, tmpVector);
@@ -571,6 +571,26 @@ public class Mesh {
     }
     // *************************************************************************
     // protected methods
+
+    /**
+     * Create a buffer for putting vertex normals.
+     *
+     * @return a new direct buffer with a capacity of 3 * vertexCount floats
+     */
+    protected FloatBuffer createNormals() {
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutuable.");
+        }
+        if (countTriangles() == 0) {
+            throw new IllegalStateException(
+                    "The mesh doesn't contain any triangles.");
+        }
+
+        int numFloats = vertexCount * numAxes;
+        this.normals = BufferUtils.createFloatBuffer(numFloats);
+
+        return normals;
+    }
 
     /**
      * Create a buffer for putting vertex positions.
