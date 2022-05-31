@@ -84,7 +84,7 @@ public class LoopMesh extends Mesh {
         Validate.nonNegative(xRadius, "x radius");
         Validate.nonNegative(yRadius, "y radius");
 
-        FloatBuffer positionBuffer = createPositionsBuffer();
+        FloatBuffer positionBuffer = createPositions();
 
         float increment = FastMath.TWO_PI / numLines;
         for (int vertexIndex = 0; vertexIndex < numLines; ++vertexIndex) {

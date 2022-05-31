@@ -50,7 +50,7 @@ public class WheelMesh extends Mesh {
     public WheelMesh() {
         super(GL11C.GL_LINES, 66);
 
-        FloatBuffer positionBuffer = super.createPositionsBuffer();
+        FloatBuffer positionBuffer = super.createPositions();
         int numEdges = super.countLines();
 
         // circle

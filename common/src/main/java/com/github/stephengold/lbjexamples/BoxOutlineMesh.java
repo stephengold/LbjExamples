@@ -89,7 +89,7 @@ public class BoxOutlineMesh extends Mesh {
             float x2, float y2, float z2) {
         super(GL11C.GL_LINES, 48);
 
-        FloatBuffer posBuffer = super.createPositionsBuffer();
+        FloatBuffer posBuffer = super.createPositions();
         for (int vertexIndex : cubeIndices) {
             Vector3f loc = cubeLocations[vertexIndex]; // alias
             float x = x1 + loc.x * (x2 - x1);

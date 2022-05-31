@@ -232,7 +232,7 @@ public class OctasphereMesh extends Mesh {
         midpointCache.clear();
         assert super.countVertices() == faces.size();
 
-        FloatBuffer posBuffer = super.createPositionsBuffer();
+        FloatBuffer posBuffer = super.createPositions();
         FloatBuffer uvBuffer = super.createUvs();
 
         Vector3f tmpVector = new Vector3f();

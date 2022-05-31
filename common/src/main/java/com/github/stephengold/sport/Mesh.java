@@ -577,7 +577,7 @@ public class Mesh {
      *
      * @return a new direct buffer with a capacity of 3 * vertexCount floats
      */
-    protected FloatBuffer createPositionsBuffer() {
+    protected FloatBuffer createPositions() {
         if (!mutable) {
             throw new IllegalStateException("The mesh is no longer mutuable.");
         }
