@@ -124,13 +124,13 @@ public class MouseTest extends BaseApplication {
      * Translate the Geometry to coincide with the mouse cursor.
      */
     private void updateLocation() {
-        Vector2fc location = getInputManager().locateCursor();
-        if (location == null) {
+        Vector2fc cursorInClipspace = getInputManager().locateCursor();
+        if (cursorInClipspace == null) {
             return;
         }
 
-        float x = location.x();
-        float y = location.y();
+        float x = cursorInClipspace.x();
+        float y = cursorInClipspace.y();
         Vector3f location3d = new Vector3f(x, y, 0f);
         crosshairs.setLocation(location3d);
     }

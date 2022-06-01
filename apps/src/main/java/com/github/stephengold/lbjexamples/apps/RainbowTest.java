@@ -98,7 +98,6 @@ public class RainbowTest extends BaseApplication {
 
         squareGeometry = new Geometry(squareMesh)
                 .setProgram("Unshaded/Screenspace/Rainbow");
-        updateScales();
     }
 
     /**

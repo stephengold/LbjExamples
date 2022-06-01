@@ -107,8 +107,6 @@ public class CheckerboardTest extends BaseApplication {
                 "procedural:///checkerboard?size=2&color1=ff00ff",
                 GL11C.GL_NEAREST, GL11C.GL_NEAREST);
         squareGeometry.setTexture(textureKey);
-
-        updateScales();
     }
 
     /**

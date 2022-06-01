@@ -104,8 +104,6 @@ public class TextureTest extends BaseApplication {
         String resourceName = "/Textures/TextureTest.png";
         TextureKey textureKey = new TextureKey("classpath://" + resourceName);
         squareGeometry.setTexture(textureKey);
-
-        updateScales();
     }
 
     /**
