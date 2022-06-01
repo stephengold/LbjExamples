@@ -115,8 +115,9 @@ public class ProjectionMatrix extends GlobalUniform {
     /**
      * Convert the specified clip-space coordinates to camera-space coordinates.
      *
-     * @param clipXy the clip-space X and Y coordinate (not null, unaffected)
-     * @param clipZ the clip-space Z coordinate
+     * @param clipXy the clip-space X and Y coordinates (not null, unaffected)
+     * @param clipZ the clip-space Z coordinate (-1 for near plane, +1 for far
+     * plane)
      * @param storeResult storage for the result (modified if not null)
      * @return a location vector in camera space (either {@code storeResult} or
      * a new vector)

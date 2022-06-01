@@ -45,6 +45,8 @@ import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11C;
 
 public class Utils {
+    // *************************************************************************
+    // new methods exposed
 
     /**
      * Throw a runtime exception if OpenGL has detected an error since the

@@ -57,7 +57,7 @@ public class AmbientStrength extends GlobalUniform {
     /**
      * Alter the strength of the ambient light.
      *
-     * @param newStrength the desired value
+     * @param newStrength the desired value (default=0.1)
      */
     public static void set(float newStrength) {
         value = newStrength;

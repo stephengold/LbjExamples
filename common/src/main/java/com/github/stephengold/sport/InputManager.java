@@ -53,7 +53,7 @@ public class InputManager {
     /**
      * last-known location of the mouse cursor (in screen units, relative to the
      * top-left corner of the window's content area) or null if the application
-     * hasn't hasn't received a cursor position callback
+     * hasn't received a cursor position callback
      */
     private Vector2d glfwCursorPos;
     /**

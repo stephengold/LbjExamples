@@ -45,15 +45,15 @@ public class ArrowMesh extends Mesh {
     // fields
 
     /**
-     * arrow with its tip at (1, 0, 0) and its tail at (0, 0, 0)
+     * shared mesh with its tip at (1, 0, 0) and its tail at (0, 0, 0)
      */
     private static ArrowMesh xArrow;
     /**
-     * arrow with its tip at (0, 1, 0) and its tail at (0, 0, 0)
+     * shared mesh with its tip at (0, 1, 0) and its tail at (0, 0, 0)
      */
     private static ArrowMesh yArrow;
     /**
-     * arrow with its tip at (0, 0, 1) and its tail at (0, 0, 0)
+     * shared mesh with its tip at (0, 0, 1) and its tail at (0, 0, 0)
      */
     private static ArrowMesh zArrow;
     // *************************************************************************

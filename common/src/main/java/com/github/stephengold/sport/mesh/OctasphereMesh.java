@@ -139,7 +139,8 @@ public class OctasphereMesh extends Mesh {
     }
 
     /**
-     * Instantiate a unit sphere using the specified number of refinement steps:
+     * Instantiate a mutable unit sphere using the specified number of
+     * refinement steps:
      * <ul><li>
      * 0 steps &rarr; 11 unique vertices and 8 triangular faces
      * </li><li>

@@ -319,7 +319,7 @@ public abstract class BaseApplication {
     /**
      * Alter the background color of the displayed window.
      *
-     * @param newColor the desired color (not null)
+     * @param newColor the desired color (not null, default=black)
      */
     public void setBackgroundColor(Vector4fc newColor) {
         float red = newColor.x();
@@ -334,7 +334,7 @@ public abstract class BaseApplication {
      * Alter the "VSync" setting.
      *
      * @param newSetting true to await a monitor retrace before swapping
-     * buffers, false to swap buffers immediately
+     * buffers, false to swap buffers immediately (default=true)
      */
     public static void setVsync(boolean newSetting) {
         int swapInterval = newSetting ? 1 : 0;

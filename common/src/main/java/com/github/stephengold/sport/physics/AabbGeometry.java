@@ -156,7 +156,7 @@ public class AabbGeometry extends Geometry {
             } else if (currentCount == baselineCount) {
                 super.setColor(Constants.YELLOW);
 
-            } else { // curentCount < baselineCount
+            } else { // currentCount < baselineCount
                 super.setColor(Constants.GREEN);
             }
         }

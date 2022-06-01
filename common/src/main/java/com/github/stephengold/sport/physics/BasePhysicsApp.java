@@ -164,6 +164,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     public Geometry visualizeShape(PhysicsCollisionObject pco) {
         float uvScale = 1f;
         Geometry result = visualizeShape(pco, uvScale);
+
         return result;
     }
 
@@ -319,7 +320,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      * the PhysicsSpace.
      */
     private void cleanUpGeometries() {
-        Collection<Geometry> geometriesToHide = new ArrayList<>();
+        Collection<Geometry> geometriesToHide = new ArrayList<>(); // TODO garbage
         for (Geometry geometry : listVisible()) {
             if (geometry.wasRemovedFrom(physicsSpace)) {
                 geometriesToHide.add(geometry);

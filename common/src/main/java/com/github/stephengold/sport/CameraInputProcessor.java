@@ -115,7 +115,7 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * Alter the rotation mode.
      *
-     * @param newMode (not null)
+     * @param newMode (not null, default=None)
      */
     public void setRotationMode(RotateMode newMode) {
         Validate.nonNull(newMode, "new mode");
@@ -128,7 +128,7 @@ public class CameraInputProcessor extends InputProcessor {
      * Alter the rotation rate.
      *
      * @param newRate the desired rate of rotation (in radians per window
-     * height)
+     * height, default=1)
      */
     public void setRotationRate(float newRate) {
         this.rotationRate = newRate;

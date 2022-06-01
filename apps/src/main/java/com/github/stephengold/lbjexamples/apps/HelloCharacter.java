@@ -97,6 +97,7 @@ public class HelloCharacter
     @Override
     public void initialize() {
         super.initialize();
+
         getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         setBackgroundColor(Constants.SKY_BLUE);
     }
