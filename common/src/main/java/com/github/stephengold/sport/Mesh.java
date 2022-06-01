@@ -353,8 +353,9 @@ public class Mesh {
      * are discarded.
      *
      * @param option how to generate the normals (not null)
+     * @return the (modified) current instance (for chaining)
      */
-    public void generateNormals(NormalsOption option) {
+    public Mesh generateNormals(NormalsOption option) {
         switch (option) {
             case Facet:
                 generateFacetNormals();
@@ -372,6 +373,8 @@ public class Mesh {
             default:
                 throw new IllegalArgumentException("option = " + option);
         }
+
+        return this;
     }
 
     /**
@@ -409,15 +412,16 @@ public class Mesh {
      * texture coordinate (not null)
      * @param vCoefficients the coefficients for generating the 2nd (V) texture
      * coordinate (not null)
+     * @return the (modified) current instance (for chaining)
      */
-    public void generateUvs(UvsOption option, Vector4fc uCoefficients,
+    public Mesh generateUvs(UvsOption option, Vector4fc uCoefficients,
             Vector4fc vCoefficients) {
         if (!mutable) {
             throw new IllegalStateException("The mesh is no longer mutuable.");
         }
         if (option == UvsOption.None) {
             textureCoordinates = null;
-            return;
+            return this;
         }
         createUvs();
 
@@ -445,6 +449,8 @@ public class Mesh {
         }
         textureCoordinates.flip();
         assert textureCoordinates.limit() == textureCoordinates.capacity();
+
+        return this;
     }
 
     /**
@@ -480,8 +486,9 @@ public class Mesh {
      * @param xAngle the X rotation angle (in radians)
      * @param yAngle the Y rotation angle (in radians)
      * @param zAngle the Z rotation angle (in radians)
+     * @return the (modified) current instance (for chaining)
      */
-    public void rotate(float xAngle, float yAngle, float zAngle) {
+    public Mesh rotate(float xAngle, float yAngle, float zAngle) {
         if (!mutable) {
             throw new IllegalStateException("The mesh is no longer mutuable.");
         }
@@ -490,16 +497,19 @@ public class Mesh {
         Transform rotateTransform = new Transform();
         rotateTransform.getRotation().fromAngles(xAngle, yAngle, zAngle);
         transform(rotateTransform);
+
+        return this;
     }
 
     /**
      * Apply the specified scaling to all vertices.
      *
      * @param scaleFactor the scale factor to apply
+     * @return the (modified) current instance (for chaining)
      */
-    public void scale(float scaleFactor) {
+    public Mesh scale(float scaleFactor) {
         if (scaleFactor == 1f) {
-            return;
+            return this;
         }
         if (!mutable) {
             throw new IllegalStateException("The mesh is no longer mutuable.");
@@ -511,14 +521,17 @@ public class Mesh {
             floatValue *= scaleFactor;
             positions.put(floatIndex, floatValue);
         }
+
+        return this;
     }
 
     /**
      * Apply the specified transform to all vertices.
      *
      * @param transform the transform to apply (not null, unaffected)
+     * @return the (modified) current instance (for chaining)
      */
-    public void transform(Transform transform) {
+    public Mesh transform(Transform transform) {
         // TODO test for identity using MyMath
         if (!mutable) {
             throw new IllegalStateException("The mesh is no longer mutuable.");
@@ -534,6 +547,8 @@ public class Mesh {
 
             MyBuffer.transform(normals, 0, numFloats, normalsTransform);
         }
+
+        return this;
     }
 
     /**
@@ -542,8 +557,9 @@ public class Mesh {
      *
      * @param uCoefficients the coefficients for calculating new Us (not null)
      * @param vCoefficients the coefficients for calculating new Vs (not null)
+     * @return the (modified) current instance (for chaining)
      */
-    public void transformUvs(Vector4fc uCoefficients, Vector4fc vCoefficients) {
+    public Mesh transformUvs(Vector4fc uCoefficients, Vector4fc vCoefficients) {
         if (!mutable) {
             throw new IllegalStateException("The mesh is no longer mutuable.");
         }
@@ -566,6 +582,8 @@ public class Mesh {
             textureCoordinates.put(startPosition, newU);
             textureCoordinates.put(startPosition + 1, newV);
         }
+
+        return this;
     }
     // *************************************************************************
     // protected methods
