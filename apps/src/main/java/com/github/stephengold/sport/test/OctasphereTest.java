@@ -27,38 +27,31 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples.apps;
+package com.github.stephengold.sport.test;
 
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
-import com.github.stephengold.sport.UvsOption;
-import com.github.stephengold.sport.mesh.RectangleMesh;
-import com.jme3.math.Vector3f;
+import com.github.stephengold.sport.RotateMode;
+import com.github.stephengold.sport.TextureKey;
+import com.github.stephengold.sport.mesh.OctasphereMesh;
+import com.jme3.math.FastMath;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
-import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple graphics test: generate texture coordinates using a linear function.
+ * A simple graphics test: apply a texture to a sphere.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class RainbowTest extends BaseApplication {
-    // *************************************************************************
-    // fields
-
-    /**
-     * multi-colored square in clip space
-     */
-    private Geometry squareGeometry;
+public class OctasphereTest extends BaseApplication {
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the RainbowTest application.
+     * Main entry point for the OctasphereTest application.
      *
      * @param arguments array of command-line arguments (not null)
      */
@@ -68,7 +61,7 @@ public class RainbowTest extends BaseApplication {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        RainbowTest application = new RainbowTest();
+        OctasphereTest application = new OctasphereTest();
         application.start();
     }
     // *************************************************************************
@@ -87,40 +80,28 @@ public class RainbowTest extends BaseApplication {
      */
     @Override
     public void initialize() {
+        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         setBackgroundColor(Constants.SKY_BLUE);
 
-        float radius = 0.5f; // as a multiple of half the window size
-        Mesh squareMesh
-                = new RectangleMesh(-radius, radius, -radius, radius, 1f);
-        squareMesh.generateUvs(UvsOption.Linear,
-                new Vector4f(1f, 0f, 0f, 0.5f),
-                new Vector4f(0f, 1f, 0f, 0.5f));
+        float radius = 3f;
+        float xRotation = -FastMath.HALF_PI;
+        Mesh sphereMesh = new OctasphereMesh(4); // unit sphere
 
-        squareGeometry = new Geometry(squareMesh)
-                .setProgram("Unshaded/Clipspace/Rainbow");
-    }
+        Geometry sphereGeometry = new Geometry(sphereMesh)
+                .setOrientation(xRotation, 0f, 0f)
+                .setProgram("Unshaded/Texture")
+                .setScale(radius);
 
-    /**
-     * Callback invoked during each iteration of the main update loop.
-     */
-    @Override
-    public void render() {
-        updateScales();
-        super.render();
-    }
-    // *************************************************************************
-    // private methods
+        String resourceName = "/Textures/TextureTest.png";
+        TextureKey textureKey = new TextureKey("classpath://" + resourceName);
+        sphereGeometry.setTexture(textureKey);
 
-    /**
-     * Scale the Geometry so it will render as a square, regardless of the
-     * window's aspect ratio.
-     */
-    private void updateScales() {
-        float aspectRatio = aspectRatio();
-        float yScale = Math.min(1f, aspectRatio);
-        float xScale = yScale / aspectRatio;
-        Vector3f newScale = new Vector3f(xScale, yScale, 1f);
-
-        squareGeometry.setScale(newScale);
+        // Add a red wireframe to visualize the underlying mesh.
+        new Geometry(sphereMesh)
+                .setColor(Constants.RED)
+                .setOrientation(xRotation, 0f, 0f)
+                .setProgram("Unshaded/Monochrome")
+                .setScale(radius)
+                .setWireframe(true);
     }
 }

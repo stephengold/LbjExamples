@@ -27,31 +27,43 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples.apps;
+package com.github.stephengold.sport.test;
 
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
-import com.github.stephengold.sport.RotateMode;
-import com.github.stephengold.sport.TextureKey;
+import com.github.stephengold.sport.ProjectionMatrix;
 import com.github.stephengold.sport.mesh.OctasphereMesh;
-import com.jme3.math.FastMath;
+import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
+import org.joml.Vector2fc;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple graphics test: apply a texture to a sphere.
+ * A simple graphics test: control 2 camera-space geometries by polling the
+ * mouse.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class OctasphereTest extends BaseApplication {
+public class MouseTest2 extends BaseApplication {
+    // *************************************************************************
+    // fields
+
+    /**
+     * red ball at the far clipping plane, in camera space
+     */
+    private Geometry farBall;
+    /**
+     * yellow ball at the near clipping plane, in camera space
+     */
+    private Geometry nearBall;
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the OctasphereTest application.
+     * Main entry point for the MouseTest2 application.
      *
      * @param arguments array of command-line arguments (not null)
      */
@@ -61,7 +73,7 @@ public class OctasphereTest extends BaseApplication {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        OctasphereTest application = new OctasphereTest();
+        MouseTest2 application = new MouseTest2();
         application.start();
     }
     // *************************************************************************
@@ -80,28 +92,44 @@ public class OctasphereTest extends BaseApplication {
      */
     @Override
     public void initialize() {
-        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
-        setBackgroundColor(Constants.SKY_BLUE);
-
-        float radius = 3f;
-        float xRotation = -FastMath.HALF_PI;
-        Mesh sphereMesh = new OctasphereMesh(4); // unit sphere
-
-        Geometry sphereGeometry = new Geometry(sphereMesh)
-                .setOrientation(xRotation, 0f, 0f)
-                .setProgram("Unshaded/Texture")
-                .setScale(radius);
-
-        String resourceName = "/Textures/TextureTest.png";
-        TextureKey textureKey = new TextureKey("classpath://" + resourceName);
-        sphereGeometry.setTexture(textureKey);
-
-        // Add a red wireframe to visualize the underlying mesh.
-        new Geometry(sphereMesh)
+        Mesh ballMesh = new OctasphereMesh(3);
+        this.nearBall = new Geometry(ballMesh)
+                .setBackCulling(false)
+                .setColor(Constants.YELLOW)
+                .setProgram("Unshaded/Cameraspace/Monochrome")
+                .setScale(0.01f);
+        this.farBall = new Geometry(ballMesh)
                 .setColor(Constants.RED)
-                .setOrientation(xRotation, 0f, 0f)
-                .setProgram("Unshaded/Monochrome")
-                .setScale(radius)
-                .setWireframe(true);
+                .setProgram("Unshaded/Cameraspace/Monochrome")
+                .setScale(20f);
+    }
+
+    /**
+     * Callback invoked during each iteration of the main update loop.
+     */
+    @Override
+    public void render() {
+        updateLocation();
+        super.render();
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Translate the geometries to coincide with the mouse cursor.
+     */
+    private void updateLocation() {
+        Vector2fc cursorInClipspace = getInputManager().locateCursor();
+        if (cursorInClipspace == null) {
+            return;
+        }
+
+        ProjectionMatrix pm = getProjection();
+
+        Vector3f nearLocation = pm.clipToCamera(cursorInClipspace, -1f, null);
+        nearBall.setLocation(nearLocation);
+
+        Vector3f farLocation = pm.clipToCamera(cursorInClipspace, +1f, null);
+        farBall.setLocation(farLocation);
     }
 }

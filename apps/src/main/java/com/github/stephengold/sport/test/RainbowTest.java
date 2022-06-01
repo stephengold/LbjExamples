@@ -27,36 +27,38 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples.apps;
+package com.github.stephengold.sport.test;
 
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.UvsOption;
 import com.github.stephengold.sport.mesh.RectangleMesh;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
+import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple graphics test: display a yellow square in clip space.
+ * A simple graphics test: generate texture coordinates using a linear function.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class ClipspaceTest extends BaseApplication {
+public class RainbowTest extends BaseApplication {
     // *************************************************************************
     // fields
 
     /**
-     * yellow square in clip space
+     * multi-colored square in clip space
      */
     private Geometry squareGeometry;
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the ClipspaceTest application.
+     * Main entry point for the RainbowTest application.
      *
      * @param arguments array of command-line arguments (not null)
      */
@@ -66,7 +68,7 @@ public class ClipspaceTest extends BaseApplication {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        ClipspaceTest application = new ClipspaceTest();
+        RainbowTest application = new RainbowTest();
         application.start();
     }
     // *************************************************************************
@@ -90,10 +92,12 @@ public class ClipspaceTest extends BaseApplication {
         float radius = 0.5f; // as a multiple of half the window size
         Mesh squareMesh
                 = new RectangleMesh(-radius, radius, -radius, radius, 1f);
+        squareMesh.generateUvs(UvsOption.Linear,
+                new Vector4f(1f, 0f, 0f, 0.5f),
+                new Vector4f(0f, 1f, 0f, 0.5f));
 
         squareGeometry = new Geometry(squareMesh)
-                .setColor(Constants.YELLOW)
-                .setProgram("Unshaded/Clipspace/Monochrome");
+                .setProgram("Unshaded/Clipspace/Rainbow");
     }
 
     /**

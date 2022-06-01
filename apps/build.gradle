@@ -21,12 +21,7 @@ tasks.register('AppChooser', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.AppChooser'
 }
 
-tasks.register('CheckerboardTest', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.CheckerboardTest'
-}
-tasks.register('ClipspaceTest', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.ClipspaceTest'
-}
+// physics tutorials
 tasks.register('HelloCcd', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCcd'
 }
@@ -78,26 +73,36 @@ tasks.register('HelloVehicle0', JavaExec) {
 tasks.register('HelloWalk', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWalk'
 }
-tasks.register('MouseTest', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.MouseTest'
-}
-tasks.register('MouseTest2', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.MouseTest2'
-}
+
+// physics demos
 tasks.register('NewtonsCradle', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.NewtonsCradle'
 }
-tasks.register('OctasphereTest', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.OctasphereTest'
-}
-tasks.register('RainbowTest', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.RainbowTest'
-}
-tasks.register('TextureTest', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.TextureTest'
-}
 tasks.register('ThousandCubes', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.ThousandCubes'
+}
+
+// graphics-only tests
+tasks.register('CheckerboardTest', JavaExec) {
+    mainClass = 'com.github.stephengold.sport.test.CheckerboardTest'
+}
+tasks.register('ClipspaceTest', JavaExec) {
+    mainClass = 'com.github.stephengold.sport.test.ClipspaceTest'
+}
+tasks.register('MouseTest', JavaExec) {
+    mainClass = 'com.github.stephengold.sport.test.MouseTest'
+}
+tasks.register('MouseTest2', JavaExec) {
+    mainClass = 'com.github.stephengold.sport.test.MouseTest2'
+}
+tasks.register('OctasphereTest', JavaExec) {
+    mainClass = 'com.github.stephengold.sport.test.OctasphereTest'
+}
+tasks.register('RainbowTest', JavaExec) {
+    mainClass = 'com.github.stephengold.sport.test.RainbowTest'
+}
+tasks.register('TextureTest', JavaExec) {
+    mainClass = 'com.github.stephengold.sport.test.TextureTest'
 }
 
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform

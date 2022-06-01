@@ -30,6 +30,13 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.sport.BaseApplication;
+import com.github.stephengold.sport.test.CheckerboardTest;
+import com.github.stephengold.sport.test.ClipspaceTest;
+import com.github.stephengold.sport.test.MouseTest;
+import com.github.stephengold.sport.test.MouseTest2;
+import com.github.stephengold.sport.test.OctasphereTest;
+import com.github.stephengold.sport.test.RainbowTest;
+import com.github.stephengold.sport.test.TextureTest;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.WindowEvent;

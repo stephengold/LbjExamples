@@ -27,43 +27,36 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples.apps;
+package com.github.stephengold.sport.test;
 
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
-import com.github.stephengold.sport.ProjectionMatrix;
-import com.github.stephengold.sport.mesh.OctasphereMesh;
+import com.github.stephengold.sport.mesh.RectangleMesh;
 import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
-import org.joml.Vector2fc;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple graphics test: control 2 camera-space geometries by polling the
- * mouse.
+ * A simple graphics test: display a yellow square in clip space.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class MouseTest2 extends BaseApplication {
+public class ClipspaceTest extends BaseApplication {
     // *************************************************************************
     // fields
 
     /**
-     * red ball at the far clipping plane, in camera space
+     * yellow square in clip space
      */
-    private Geometry farBall;
-    /**
-     * yellow ball at the near clipping plane, in camera space
-     */
-    private Geometry nearBall;
+    private Geometry squareGeometry;
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the MouseTest2 application.
+     * Main entry point for the ClipspaceTest application.
      *
      * @param arguments array of command-line arguments (not null)
      */
@@ -73,7 +66,7 @@ public class MouseTest2 extends BaseApplication {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        MouseTest2 application = new MouseTest2();
+        ClipspaceTest application = new ClipspaceTest();
         application.start();
     }
     // *************************************************************************
@@ -92,16 +85,15 @@ public class MouseTest2 extends BaseApplication {
      */
     @Override
     public void initialize() {
-        Mesh ballMesh = new OctasphereMesh(3);
-        this.nearBall = new Geometry(ballMesh)
-                .setBackCulling(false)
+        setBackgroundColor(Constants.SKY_BLUE);
+
+        float radius = 0.5f; // as a multiple of half the window size
+        Mesh squareMesh
+                = new RectangleMesh(-radius, radius, -radius, radius, 1f);
+
+        squareGeometry = new Geometry(squareMesh)
                 .setColor(Constants.YELLOW)
-                .setProgram("Unshaded/Cameraspace/Monochrome")
-                .setScale(0.01f);
-        this.farBall = new Geometry(ballMesh)
-                .setColor(Constants.RED)
-                .setProgram("Unshaded/Cameraspace/Monochrome")
-                .setScale(20f);
+                .setProgram("Unshaded/Clipspace/Monochrome");
     }
 
     /**
@@ -109,27 +101,22 @@ public class MouseTest2 extends BaseApplication {
      */
     @Override
     public void render() {
-        updateLocation();
+        updateScales();
         super.render();
     }
     // *************************************************************************
     // private methods
 
     /**
-     * Translate the geometries to coincide with the mouse cursor.
+     * Scale the Geometry so it will render as a square, regardless of the
+     * window's aspect ratio.
      */
-    private void updateLocation() {
-        Vector2fc cursorInClipspace = getInputManager().locateCursor();
-        if (cursorInClipspace == null) {
-            return;
-        }
+    private void updateScales() {
+        float aspectRatio = aspectRatio();
+        float yScale = Math.min(1f, aspectRatio);
+        float xScale = yScale / aspectRatio;
+        Vector3f newScale = new Vector3f(xScale, yScale, 1f);
 
-        ProjectionMatrix pm = getProjection();
-
-        Vector3f nearLocation = pm.clipToCamera(cursorInClipspace, -1f, null);
-        nearBall.setLocation(nearLocation);
-
-        Vector3f farLocation = pm.clipToCamera(cursorInClipspace, +1f, null);
-        farBall.setLocation(farLocation);
+        squareGeometry.setScale(newScale);
     }
 }
