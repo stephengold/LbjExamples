@@ -35,7 +35,25 @@ import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
 /**
- * Provide the current view-to-clip transform for use in shaders.
+ * Provide the current camera-to-clip transform for use in shaders.
+ * <p>
+ * In camera space:
+ * <ul>
+ * <li>coordinates are measured in world units from the eye location</li>
+ * <li>right is +X</li>
+ * <li>the camera's "up" direction is +Y</li>
+ * <li>the camera's look direction is -Z</li>
+ * </ul>
+ * <p>
+ * In clip space:
+ * <ul>
+ * <li>the top clipping plane is Y=+1</li>
+ * <li>the bottom clipping plane is Y=-1</li>
+ * <li>the left clipping plane is X=-1</li>
+ * <li>the right clipping plane is X=+1</li>
+ * <li>the near clipping plane is Z=-1</li>
+ * <li>the far clipping plane is Z=+1</li>
+ * </ul>
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -52,7 +70,7 @@ public class ProjectionMatrix extends GlobalUniform {
      */
     private float zNear;
     /**
-     * current view-to-clip transform matrix
+     * camera-to-clip transform matrix
      */
     final private Matrix4f value = new Matrix4f();
     // *************************************************************************
