@@ -75,6 +75,7 @@ public class AppChooser extends JFrame {
         apps.add(new HelloGhost());
         apps.add(new HelloJoint());
         apps.add(new HelloKinematics());
+        apps.add(new HelloLimit());
         apps.add(new HelloMadMallet());
         apps.add(new HelloMassDistribution());
         apps.add(new HelloNonUniformGravity());
