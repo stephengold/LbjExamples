@@ -144,8 +144,8 @@ public class Camera {
      * Return the eye location.
      *
      * @param storeResult storage for the result (modified if not null)
-     * @return a location vector in world coordinates (either storeResult or a
-     * new vector)
+     * @return a location vector in world coordinates (either
+     * {@code storeResult} or a new vector)
      */
     public Vector3f location(Vector3f storeResult) {
         if (storeResult == null) {
@@ -169,8 +169,8 @@ public class Camera {
      * Return the camera's look direction.
      *
      * @param storeResult storage for the result (modified if not null)
-     * @return a unit vector in world coordinates (either storeResult or a new
-     * vector)
+     * @return a unit vector in world coordinates (either {@code storeResult} or
+     * a new vector)
      */
     public Vector3f lookDirection(Vector3f storeResult) {
         if (storeResult == null) {
@@ -205,8 +205,8 @@ public class Camera {
      * Return the camera's right direction.
      *
      * @param storeResult storage for the result (modified if not null)
-     * @return a unit vector in world coordinates (either storeResult or a new
-     * vector)
+     * @return a unit vector in world coordinates (either {@code storeResult} or
+     * a new vector)
      */
     public Vector3f rightDirection(Vector3f storeResult) {
         if (storeResult == null) {
@@ -376,8 +376,8 @@ public class Camera {
      * Return the camera's "up" direction.
      *
      * @param storeResult storage for the result (modified if not null)
-     * @return a unit vector in world coordinates (either storeResult or a new
-     * vector)
+     * @return a unit vector in world coordinates (either {@code storeResult} or
+     * a new vector)
      */
     public Vector3f upDirection(Vector3f storeResult) {
         if (storeResult == null) {
