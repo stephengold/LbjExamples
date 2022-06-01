@@ -75,6 +75,9 @@ tasks.register('HelloWalk', JavaExec) {
 tasks.register('MouseTest', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.MouseTest'
 }
+tasks.register('MouseTest2', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.MouseTest2'
+}
 tasks.register('NewtonsCradle', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.NewtonsCradle'
 }

@@ -73,6 +73,7 @@ public class AppChooser extends JFrame {
         apps.add(new HelloVehicle());
         apps.add(new HelloWalk());
         apps.add(new MouseTest());
+        apps.add(new MouseTest2());
         apps.add(new NewtonsCradle());
         apps.add(new OctasphereTest());
         apps.add(new RainbowTest());
