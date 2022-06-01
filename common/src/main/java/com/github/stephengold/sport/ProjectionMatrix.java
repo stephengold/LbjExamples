@@ -32,6 +32,7 @@ package com.github.stephengold.sport;
 import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 import org.joml.Matrix4f;
+import org.joml.Vector2fc;
 import org.joml.Vector4f;
 
 /**
@@ -87,6 +88,56 @@ public class ProjectionMatrix extends GlobalUniform {
     }
     // *************************************************************************
     // new methods exposed
+
+    /**
+     * Convert the specified camera-space coordinates to clip-space coordinates.
+     *
+     * @param location the camera-space coordinates to convert (not null,
+     * unaffected)
+     * @param storeResult storage for the result (modified if not null)
+     * @return a location vector in camera space (either {@code storeResult} or
+     * a new vector)
+     */
+    public Vector3f cameraToClip(Vector3f location, Vector3f storeResult) {
+        updateValue();
+
+        Vector4f hom = new Vector4f(location.x, location.y, location.z, 1f);
+        hom.mul(value);
+        hom.div(hom.w);
+
+        if (storeResult == null) {
+            return new Vector3f(hom.x, hom.y, hom.z);
+        } else {
+            return storeResult.set(hom.x, hom.y, hom.z);
+        }
+    }
+
+    /**
+     * Convert the specified clip-space coordinates to camera-space coordinates.
+     *
+     * @param clipXy the clip-space X and Y coordinate (not null, unaffected)
+     * @param clipZ the clip-space Z coordinate
+     * @param storeResult storage for the result (modified if not null)
+     * @return a location vector in camera space (either {@code storeResult} or
+     * a new vector)
+     */
+    public Vector3f clipToCamera(Vector2fc clipXy, float clipZ,
+            Vector3f storeResult) {
+        // invert the camera-to-clip transform matrix
+        updateValue();
+        Matrix4f inverse = new Matrix4f();
+        value.invert(inverse);
+
+        Vector4f hom = new Vector4f(clipXy.x(), clipXy.y(), clipZ, 1f);
+        hom.mul(inverse);
+        hom.div(hom.w);
+
+        if (storeResult == null) {
+            return new Vector3f(hom.x, hom.y, hom.z);
+        } else {
+            return storeResult.set(hom.x, hom.y, hom.z);
+        }
+    }
 
     /**
      * Return the distance from the camera to the far clipping plane.
