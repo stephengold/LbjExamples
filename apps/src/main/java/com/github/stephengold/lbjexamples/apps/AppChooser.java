@@ -56,7 +56,7 @@ public class AppChooser extends JFrame {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        List<BaseApplication> apps = new ArrayList<>(13);
+        List<BaseApplication> apps = new ArrayList<>(23);
         apps.add(new CheckerboardTest());
         apps.add(new ClipspaceTest());
         apps.add(new HelloCcd());
