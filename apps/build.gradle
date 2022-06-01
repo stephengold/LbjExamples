@@ -24,6 +24,9 @@ tasks.register('AppChooser', JavaExec) {
 tasks.register('CheckerboardTest', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.CheckerboardTest'
 }
+tasks.register('ClipspaceTest', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.ClipspaceTest'
+}
 tasks.register('HelloCcd', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCcd'
 }
@@ -86,9 +89,6 @@ tasks.register('OctasphereTest', JavaExec) {
 }
 tasks.register('RainbowTest', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.RainbowTest'
-}
-tasks.register('ScreenspaceTest', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.ScreenspaceTest'
 }
 tasks.register('TextureTest', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.TextureTest'

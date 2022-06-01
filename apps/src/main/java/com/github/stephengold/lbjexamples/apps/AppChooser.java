@@ -58,6 +58,7 @@ public class AppChooser extends JFrame {
 
         List<BaseApplication> apps = new ArrayList<>(13);
         apps.add(new CheckerboardTest());
+        apps.add(new ClipspaceTest());
         apps.add(new HelloCcd());
         apps.add(new HelloCharacter());
         apps.add(new HelloContactResponse());
@@ -77,7 +78,6 @@ public class AppChooser extends JFrame {
         apps.add(new NewtonsCradle());
         apps.add(new OctasphereTest());
         apps.add(new RainbowTest());
-        apps.add(new ScreenspaceTest());
         apps.add(new TextureTest());
         apps.add(new ThousandCubes());
 

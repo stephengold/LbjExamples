@@ -44,7 +44,7 @@ import org.lwjgl.system.Configuration;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class ScreenspaceTest extends BaseApplication {
+public class ClipspaceTest extends BaseApplication {
     // *************************************************************************
     // fields
 
@@ -56,7 +56,7 @@ public class ScreenspaceTest extends BaseApplication {
     // new methods exposed
 
     /**
-     * Main entry point for the ScreenspaceTest application.
+     * Main entry point for the ClipspaceTest application.
      *
      * @param arguments array of command-line arguments (not null)
      */
@@ -66,7 +66,7 @@ public class ScreenspaceTest extends BaseApplication {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        ScreenspaceTest application = new ScreenspaceTest();
+        ClipspaceTest application = new ClipspaceTest();
         application.start();
     }
     // *************************************************************************
