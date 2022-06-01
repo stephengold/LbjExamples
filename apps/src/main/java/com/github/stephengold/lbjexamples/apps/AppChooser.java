@@ -71,6 +71,7 @@ public class AppChooser extends JFrame {
         apps.add(new HelloContactResponse());
         apps.add(new HelloDamping());
         apps.add(new HelloDeactivation());
+        apps.add(new HelloDoubleEnded());
         apps.add(new HelloGhost());
         apps.add(new HelloJoint());
         apps.add(new HelloKinematics());

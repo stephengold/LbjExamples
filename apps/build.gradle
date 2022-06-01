@@ -37,6 +37,9 @@ tasks.register('HelloDamping', JavaExec) {
 tasks.register('HelloDeactivation', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDeactivation'
 }
+tasks.register('HelloDoubleEnded', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDoubleEnded'
+}
 tasks.register('HelloGhost', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloGhost'
 }
