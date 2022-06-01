@@ -90,7 +90,7 @@ public class MouseTest extends BaseApplication {
         float size = 0.2f;
         Mesh mesh = new CrosshairsMesh(size);
         this.crosshairs = new Geometry(mesh)
-                .setProgram("Unshaded/Screenspace/Monochrome");
+                .setProgram("Unshaded/Clipspace/Monochrome");
     }
 
     /**

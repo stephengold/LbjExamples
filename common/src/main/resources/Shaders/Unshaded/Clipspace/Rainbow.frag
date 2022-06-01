@@ -1,5 +1,5 @@
 /*
- * fragment shader for the Unshaded/Screenspace/Rainbow program:
+ * fragment shader for the Unshaded/Clipspace/Rainbow program:
  *  approximate the visible spectrum along the U axis,
  *  with red at U=0, violet at U=1
  */

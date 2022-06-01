@@ -99,7 +99,7 @@ public class TextureTest extends BaseApplication {
         );
 
         squareGeometry = new Geometry(squareMesh)
-                .setProgram("Unshaded/Screenspace/Texture");
+                .setProgram("Unshaded/Clipspace/Texture");
 
         String resourceName = "/Textures/TextureTest.png";
         TextureKey textureKey = new TextureKey("classpath://" + resourceName);

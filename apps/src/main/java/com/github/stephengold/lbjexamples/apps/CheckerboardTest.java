@@ -101,7 +101,7 @@ public class CheckerboardTest extends BaseApplication {
         );
 
         squareGeometry = new Geometry(squareMesh)
-                .setProgram("Unshaded/Screenspace/Texture");
+                .setProgram("Unshaded/Clipspace/Texture");
 
         TextureKey textureKey = new TextureKey(
                 "procedural:///checkerboard?size=2&color1=ff00ff",
