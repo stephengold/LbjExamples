@@ -331,6 +331,17 @@ public abstract class BaseApplication {
     }
 
     /**
+     * Alter the "VSync" setting.
+     *
+     * @param newSetting true to await a monitor retrace before swapping
+     * buffers, false to swap buffers immediately
+     */
+    public static void setVsync(boolean newSetting) {
+        int swapInterval = newSetting ? 1 : 0;
+        glfwSwapInterval(swapInterval);
+    }
+
+    /**
      * Alter the title of the main window.
      *
      * @param text the desired text (in UTF-8 encoding)
