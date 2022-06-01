@@ -43,12 +43,17 @@ import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple test: load and display a PNG image in screenspace.
+ * A simple graphics test: load and display a PNG image in clip space.
  *
  * @author Stephen Gold sgold@sonic.net
  */
 public class TextureTest extends BaseApplication {
+    // *************************************************************************
+    // fields
 
+    /**
+     * textured square in clip space
+     */
     private Geometry squareGeometry;
     // *************************************************************************
     // new methods exposed
@@ -85,7 +90,7 @@ public class TextureTest extends BaseApplication {
     public void initialize() {
         setBackgroundColor(Constants.SKY_BLUE);
 
-        float radius = 0.5f; // as a multiple of half the screen size
+        float radius = 0.5f; // as a multiple of half the window size
         Mesh squareMesh
                 = new RectangleMesh(-radius, radius, -radius, radius, 1f);
         squareMesh.generateUvs(UvsOption.Linear,
@@ -115,8 +120,8 @@ public class TextureTest extends BaseApplication {
     // private methods
 
     /**
-     * Update the geometry's scale so it will render as a square, regardless of
-     * the window's aspect ratio.
+     * Scale the Geometry so it will render as a square, regardless of the
+     * window's aspect ratio.
      */
     private void updateScales() {
         float aspectRatio = aspectRatio();

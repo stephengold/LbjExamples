@@ -50,7 +50,12 @@ import org.lwjgl.system.Configuration;
  * @author Stephen Gold sgold@sonic.net
  */
 public class CheckerboardTest extends BaseApplication {
+    // *************************************************************************
+    // fields
 
+    /**
+     * multi-colored square in clip space
+     */
     private Geometry squareGeometry;
     // *************************************************************************
     // new methods exposed
@@ -87,7 +92,7 @@ public class CheckerboardTest extends BaseApplication {
     public void initialize() {
         setBackgroundColor(Constants.SKY_BLUE);
 
-        float radius = 0.5f; // as a multiple of half the screen size
+        float radius = 0.5f; // as a multiple of half the window size
         Mesh squareMesh
                 = new RectangleMesh(-radius, radius, -radius, radius, 1f);
         squareMesh.generateUvs(UvsOption.Linear,
@@ -118,8 +123,8 @@ public class CheckerboardTest extends BaseApplication {
     // private methods
 
     /**
-     * Update the geometry's scale so it will render as a square, regardless of
-     * the window's aspect ratio.
+     * Scale the Geometry so it will render as a square, regardless of the
+     * window's aspect ratio.
      */
     private void updateScales() {
         float aspectRatio = aspectRatio();

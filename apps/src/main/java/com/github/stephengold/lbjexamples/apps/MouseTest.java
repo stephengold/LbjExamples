@@ -42,8 +42,7 @@ import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple test of BaseApplication: control a screen-space Geometry by polling
- * the mouse.
+ * A simple graphics test: control a clip-space Geometry by polling the mouse.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -52,7 +51,7 @@ public class MouseTest extends BaseApplication {
     // fields
 
     /**
-     * crosshairs in screenspace, controlled by the mouse
+     * crosshairs in clip space, controlled by the mouse
      */
     private Geometry crosshairs;
     // *************************************************************************
@@ -109,7 +108,7 @@ public class MouseTest extends BaseApplication {
     // private methods
 
     /**
-     * Update the geometry's color based on the mouse button.
+     * Update the geometry's color based on the mouse buttons.
      */
     private void updateColor() {
         InputManager im = getInputManager();
@@ -122,7 +121,7 @@ public class MouseTest extends BaseApplication {
     }
 
     /**
-     * Update the geometry's location to coincide with the mouse cursor.
+     * Translate the Geometry to coincide with the mouse cursor.
      */
     private void updateLocation() {
         Vector2fc location = getInputManager().locateCursor();
@@ -137,8 +136,8 @@ public class MouseTest extends BaseApplication {
     }
 
     /**
-     * Update the geometry's scale so it will render as an equal-armed cross,
-     * regardless of the window's aspect ratio.
+     * Scale the Geometry so it will render as an equal-armed cross, regardless
+     * of the window's aspect ratio.
      */
     private void updateScale() {
         float aspectRatio = aspectRatio();

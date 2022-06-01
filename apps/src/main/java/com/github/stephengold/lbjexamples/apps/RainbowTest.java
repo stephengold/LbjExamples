@@ -42,12 +42,17 @@ import org.joml.Vector4f;
 import org.lwjgl.system.Configuration;
 
 /**
- * A simple test: generate texture coordinates using a linear function.
+ * A simple graphics test: generate texture coordinates using a linear function.
  *
  * @author Stephen Gold sgold@sonic.net
  */
 public class RainbowTest extends BaseApplication {
+    // *************************************************************************
+    // fields
 
+    /**
+     * multi-colored square in clip space
+     */
     private Geometry squareGeometry;
     // *************************************************************************
     // new methods exposed
@@ -84,7 +89,7 @@ public class RainbowTest extends BaseApplication {
     public void initialize() {
         setBackgroundColor(Constants.SKY_BLUE);
 
-        float radius = 0.5f; // as a multiple of half the screen size
+        float radius = 0.5f; // as a multiple of half the window size
         Mesh squareMesh
                 = new RectangleMesh(-radius, radius, -radius, radius, 1f);
         squareMesh.generateUvs(UvsOption.Linear,
@@ -108,8 +113,8 @@ public class RainbowTest extends BaseApplication {
     // private methods
 
     /**
-     * Update the geometry's scale so it will render as a square, regardless of
-     * the window's aspect ratio.
+     * Scale the Geometry so it will render as a square, regardless of the
+     * window's aspect ratio.
      */
     private void updateScales() {
         float aspectRatio = aspectRatio();
