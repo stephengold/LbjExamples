@@ -107,10 +107,12 @@ public class ConstraintGeometry extends Geometry {
         float length = zDir.length();
         meshToWorld.setScale(length);
 
-        Vector3f xDir = new Vector3f(); // TODO garbage
-        Vector3f yDir = new Vector3f(); // TODO garbage
-        MyVector3f.generateBasis(zDir, xDir, yDir);
-        meshToWorld.getRotation().fromAxes(xDir, yDir, zDir);
+        if (length > 0f) {
+            Vector3f xDir = new Vector3f(); // TODO garbage
+            Vector3f yDir = new Vector3f(); // TODO garbage
+            MyVector3f.generateBasis(zDir, xDir, yDir);
+            meshToWorld.getRotation().fromAxes(xDir, yDir, zDir);
+        }
         // at this point, meshToWorld holds the mesh-to-body transform
 
         PhysicsBody body = constraint.getBody(end);
