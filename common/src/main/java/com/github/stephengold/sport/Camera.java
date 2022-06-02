@@ -56,7 +56,7 @@ public class Camera {
     /**
      * vertical field-of-view angle (in radians, &gt;0, &lt;PI)
      */
-    private float fovy = FastMath.PI / 4;
+    private float fovy = MyMath.toRadians(45f);
     /**
      * angle of the look direction above the X-Z plane (in radians)
      */

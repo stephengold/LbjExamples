@@ -106,7 +106,7 @@ public class AabbGeometry extends Geometry {
      */
     @Override
     public Geometry setColor(Vector4fc newColor) {
-        automaticColor = false;
+        this.automaticColor = false;
         super.setColor(newColor);
 
         return this;
@@ -147,7 +147,7 @@ public class AabbGeometry extends Geometry {
             int currentCount = ghost.getOverlappingCount();
 
             if (baselineCount == null) {
-                baselineCount = currentCount;
+                this.baselineCount = currentCount;
             }
 
             if (currentCount > baselineCount) {

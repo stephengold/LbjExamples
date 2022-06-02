@@ -100,15 +100,15 @@ public class Mesh {
     /**
      * map vertex attribute indices to numbers of floats-per-vertex
      */
-    private final List<Integer> fpvList = new ArrayList<>();
+    private final List<Integer> fpvList = new ArrayList<>(4);
     /**
      * map vertex attribute indices to VBO IDs
      */
-    private final List<Integer> vboIdList = new ArrayList<>();
+    private final List<Integer> vboIdList = new ArrayList<>(4);
     /**
      * map vertex attribute indices to attrib names
      */
-    private final List<String> nameList = new ArrayList<>();
+    private final List<String> nameList = new ArrayList<>(4);
     // *************************************************************************
     // constructors
 
@@ -311,9 +311,7 @@ public class Mesh {
      * @return the (modified) current instance (for chaining)
      */
     public Mesh generateFacetNormals() {
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
         if (drawMode != GL11C.GL_TRIANGLES) {
             throw new IllegalStateException("drawMode == " + drawMode);
         }
@@ -384,9 +382,7 @@ public class Mesh {
      * @return the (modified) current instance (for chaining)
      */
     public Mesh generateSphereNormals() {
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
         Vector3f tmpVector = new Vector3f();
 
         createNormals();
@@ -416,9 +412,7 @@ public class Mesh {
      */
     public Mesh generateUvs(UvsOption option, Vector4fc uCoefficients,
             Vector4fc vCoefficients) {
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
         if (option == UvsOption.None) {
             textureCoordinates = null;
             return this;
@@ -489,9 +483,7 @@ public class Mesh {
      * @return the (modified) current instance (for chaining)
      */
     public Mesh rotate(float xAngle, float yAngle, float zAngle) {
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
 
         // TODO use MyBuffer.rotate
         Transform rotateTransform = new Transform();
@@ -511,9 +503,7 @@ public class Mesh {
         if (scaleFactor == 1f) {
             return this;
         }
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
 
         int numFloats = vertexCount * numAxes;
         for (int floatIndex = 0; floatIndex < numFloats; ++floatIndex) {
@@ -533,9 +523,7 @@ public class Mesh {
      */
     public Mesh transform(Transform transform) {
         // TODO test for identity using MyMath
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
 
         int numFloats = vertexCount * numAxes;
         MyBuffer.transform(positions, 0, numFloats, transform);
@@ -560,9 +548,7 @@ public class Mesh {
      * @return the (modified) current instance (for chaining)
      */
     public Mesh transformUvs(Vector4fc uCoefficients, Vector4fc vCoefficients) {
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
         if (textureCoordinates == null) {
             throw new IllegalStateException("There are no UVs in the mesh.");
         }
@@ -594,9 +580,7 @@ public class Mesh {
      * @return a new direct buffer with a capacity of 3 * vertexCount floats
      */
     protected FloatBuffer createNormals() {
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
         if (countTriangles() == 0) {
             throw new IllegalStateException(
                     "The mesh doesn't contain any triangles.");
@@ -614,9 +598,7 @@ public class Mesh {
      * @return a new direct buffer with a capacity of 3 * vertexCount floats
      */
     protected FloatBuffer createPositions() {
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
 
         int numFloats = vertexCount * numAxes;
         this.positions = BufferUtils.createFloatBuffer(numFloats);
@@ -645,9 +627,7 @@ public class Mesh {
      * length=3*vertexCount, unaffected)
      */
     protected void setNormals(float... normalsArray) {
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
         Validate.require(normalsArray.length == vertexCount * numAxes,
                 "correct length");
 
@@ -661,9 +641,7 @@ public class Mesh {
      * length=3*vertexCount, unaffected)
      */
     protected void setPositions(float... positionArray) {
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
         Validate.require(positionArray.length == vertexCount * numAxes,
                 "correct length");
 
@@ -677,9 +655,7 @@ public class Mesh {
      * length=2*vertexCount, unaffected)
      */
     protected void setUvs(float... uvArray) {
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
         Validate.require(uvArray.length == 2 * vertexCount,
                 "correct length");
 
@@ -739,7 +715,7 @@ public class Mesh {
         int fpv = fpvList.get(attributeIndex);
         boolean normalized = false;
         int stride = 0; // tightly packed
-        int startOffset = 0;
+        long startOffset = 0L;
         GL20C.glVertexAttribPointer(location, fpv, GL11C.GL_FLOAT,
                 normalized, stride, startOffset);
         Utils.checkForOglError();
@@ -788,9 +764,7 @@ public class Mesh {
      * distinct vertex position.
      */
     private void smoothNormals() {
-        if (!mutable) {
-            throw new IllegalStateException("The mesh is no longer mutuable.");
-        }
+        verifyMutable();
         assert normals != null;
 
         Map<Vector3f, Integer> mapPosToDpid = new HashMap<>(vertexCount);
@@ -839,6 +813,15 @@ public class Mesh {
             MyVector3f.standardize(tmpPosition, tmpPosition);
             int dpid = mapPosToDpid.get(tmpPosition);
             MyBuffer.put(normals, start, normalSums[dpid]);
+        }
+    }
+
+    /**
+     * Verify that this Mesh is still mutable.
+     */
+    private void verifyMutable() {
+        if (!mutable) {
+            throw new IllegalStateException("The mesh is no longer mutable.");
         }
     }
 }

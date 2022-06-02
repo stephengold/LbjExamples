@@ -29,7 +29,7 @@
  */
 package com.github.stephengold.sport.physics;
 
-import com.github.stephengold.sport.*;
+import com.github.stephengold.sport.Mesh;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
 import org.lwjgl.opengl.GL11C;

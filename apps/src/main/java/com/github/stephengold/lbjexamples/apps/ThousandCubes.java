@@ -41,6 +41,7 @@ import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
+import com.jme3.bullet.objects.PhysicsBody;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.FastMath;
 import com.jme3.math.Plane;
@@ -127,8 +128,9 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         this.launchShape = new SphereCollisionShape(0.5f);
 
         CollisionShape planeShape
-                = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1));
-        PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, 0);
+                = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1f));
+        PhysicsRigidBody floor
+                = new PhysicsRigidBody(planeShape, PhysicsBody.massForStatic);
         physicsSpace.addCollisionObject(floor);
         visualizeShape(floor, 0.05f);
 
@@ -175,7 +177,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         float red = FastMath.pow(random.nextFloat(), 2.2f);
         float green = FastMath.pow(random.nextFloat(), 2.2f);
         float blue = FastMath.pow(random.nextFloat(), 2.2f);
-        visualizeShape(box).setColor(new Vector4f(red, green, blue, 1));
+        visualizeShape(box).setColor(new Vector4f(red, green, blue, 1f));
     }
 
     private void addCrosshairs() {

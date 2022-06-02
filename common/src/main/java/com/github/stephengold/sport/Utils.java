@@ -46,6 +46,15 @@ import org.lwjgl.opengl.GL11C;
 
 public class Utils {
     // *************************************************************************
+    // constructors
+
+    /**
+     * A private constructor to inhibit instantiation of this class.
+     */
+    private Utils() {
+        // do nothing
+    }
+    // *************************************************************************
     // new methods exposed
 
     /**
@@ -186,8 +195,6 @@ public class Utils {
         for (int y = 0; y < imageHeight; ++y) {
             for (int x = 0; x < imageWidth; ++x) {
                 int sRGB = image.getRGB(x, y);
-                double alpha = ((sRGB >> 24) & 0xFF) / 255.0;
-                assert alpha == 1 : alpha;
                 double red = ((sRGB >> 16) & 0xFF) / 255.0;
                 double green = ((sRGB >> 8) & 0xFF) / 255.0;
                 double blue = (sRGB & 0xFF) / 255.0;

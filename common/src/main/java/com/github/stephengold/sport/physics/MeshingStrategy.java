@@ -197,7 +197,7 @@ class MeshingStrategy {
                     result = uCoefficients.equals(otherU)
                             && vCoefficients.equals(otherV);
                 }
-            } else if (result && positions < 0) {
+            } else if (result) { // positions < 0
                 result = uCoefficients.equals(otherU)
                         && vCoefficients.equals(otherV);
             }

@@ -75,7 +75,7 @@ public class ArrowMesh extends Mesh {
      */
     public ArrowMesh(float barbAngle, float barbLength) {
         super(GL11C.GL_LINES, 10);
-        Validate.inRange(barbAngle, "barb angle", 0, FastMath.PI);
+        Validate.inRange(barbAngle, "barb angle", 0f, FastMath.PI);
         Validate.nonNegative(barbLength, "barb length");
 
         float z = 1f - barbLength * FastMath.cos(barbAngle);

@@ -29,7 +29,6 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import static com.github.stephengold.sport.BaseApplication.getInputManager;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.LightDirection;
 import com.github.stephengold.sport.RotateMode;

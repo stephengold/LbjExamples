@@ -514,13 +514,15 @@ public class ShaderProgram {
      * which ones are global.
      */
     private void collectUniforms() {
-        for (String name : globalUniformMap.keySet()) {
+        for (Map.Entry<String, GlobalUniform> entry
+                : globalUniformMap.entrySet()) {
+            String name = entry.getKey();
             int location = GL20C.glGetUniformLocation(programId, name);
             Utils.checkForOglError();
             if (location != -1) {
                 uniformLocations.put(name, location);
 
-                GlobalUniform gu = globalUniformMap.get(name);
+                GlobalUniform gu = entry.getValue();
                 globalUniforms.add(gu);
             }
         }

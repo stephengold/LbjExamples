@@ -683,7 +683,7 @@ public class TextureKey {
      */
     private static boolean validateWrap(int wrap) {
         switch (wrap) {
-            case GL13C.GL_CLAMP_TO_EDGE:
+            case GL12C.GL_CLAMP_TO_EDGE:
             case GL13C.GL_CLAMP_TO_BORDER:
             case GL14C.GL_MIRRORED_REPEAT:
             case GL11C.GL_REPEAT:

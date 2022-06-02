@@ -64,7 +64,7 @@ public class WheelMesh extends Mesh {
         }
 
         // 3 pairs of spokes
-        thetaStep = FastMath.PI / 3;
+        thetaStep = FastMath.PI / 3f;
         for (int pairIndex = 0; pairIndex < 3; ++pairIndex) {
             float theta = thetaStep * pairIndex;
             putPolarYZ(positionBuffer, radius, theta);

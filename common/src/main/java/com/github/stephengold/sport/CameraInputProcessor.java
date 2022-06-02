@@ -106,7 +106,8 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * Alter the movement speed.
      *
-     * @param newSpeed the desired translation rate (in world units per second)
+     * @param newSpeed the desired translation rate (in world units per second,
+     * default=10)
      */
     public void setMoveSpeed(float newSpeed) {
         this.moveSpeed = newSpeed;
@@ -120,7 +121,7 @@ public class CameraInputProcessor extends InputProcessor {
     public void setRotationMode(RotateMode newMode) {
         Validate.nonNull(newMode, "new mode");
 
-        rotationMode = newMode;
+        this.rotationMode = newMode;
         updateRotationActive();
     }
 
@@ -221,14 +222,14 @@ public class CameraInputProcessor extends InputProcessor {
     // private methods
 
     private void activateRotation() {
-        savedCursorInputMode = glfwGetInputMode(windowId, GLFW_CURSOR);
+        this.savedCursorInputMode = glfwGetInputMode(windowId, GLFW_CURSOR);
         glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-        isRotationActive = true;
+        this.isRotationActive = true;
     }
 
     private void deactivateRotation() {
         glfwSetInputMode(windowId, GLFW_CURSOR, savedCursorInputMode);
-        isRotationActive = false;
+        this.isRotationActive = false;
     }
 
     private boolean isLmbPressed() {
@@ -270,7 +271,7 @@ public class CameraInputProcessor extends InputProcessor {
                 camera.move(sum);
             }
         }
-        lastMove = nanoTime;
+        this.lastMove = nanoTime;
     }
 
     /**

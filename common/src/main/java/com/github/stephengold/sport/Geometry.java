@@ -115,7 +115,7 @@ public class Geometry {
      * it visible.
      */
     protected Geometry() {
-        this.program = BaseApplication.getDefaultProgram();
+        this.program = getDefaultProgram();
     }
     // *************************************************************************
     // new methods exposed
@@ -355,7 +355,7 @@ public class Geometry {
      */
     public Geometry setProgram(String name) {
         if (name == null) {
-            this.program = BaseApplication.getDefaultProgram();
+            this.program = getDefaultProgram();
         } else {
             this.program = BaseApplication.getProgram(name);
         }
@@ -535,5 +535,18 @@ public class Geometry {
      */
     protected Transform getMeshToWorldTransform() {
         return meshToWorld;
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Return the default ShaderProgram for new geometries.
+     *
+     * @return a valid program (not null)
+     */
+    private static ShaderProgram getDefaultProgram() {
+        ShaderProgram result
+                = BaseApplication.getProgram("Phong/Distant/Monochrome");
+        return result;
     }
 }

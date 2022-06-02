@@ -284,7 +284,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
                 distFilename, downloadDirectory, "Release", "Sp");
         assert success;
 
-        physicsSpace = createSpace();
+        this.physicsSpace = createSpace();
         populateSpace();
 
         //physicsThread = new PhysicsThread(space);
@@ -307,7 +307,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
             float seconds = 1e-9f * nanoseconds;
             updatePhysics(seconds);
         }
-        lastPhysicsUpdate = nanoTime;
+        this.lastPhysicsUpdate = nanoTime;
 
         cleanUpGeometries();
         super.render();

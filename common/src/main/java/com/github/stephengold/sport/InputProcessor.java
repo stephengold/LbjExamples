@@ -50,11 +50,11 @@ abstract public class InputProcessor {
      * ignored. Meant to be overridden.
      *
      * @param keyId the GLFW ID of the key
-     * @param isPress true for GLFW_PRESS, false for GLFW_RELEASE
+     * @param isPressed true for GLFW_PRESS, false for GLFW_RELEASE
      */
-    public void onKeyboard(int keyId, boolean isPress) {
+    public void onKeyboard(int keyId, boolean isPressed) {
         if (nextProcessor != null) {
-            nextProcessor.onKeyboard(keyId, isPress);
+            nextProcessor.onKeyboard(keyId, isPressed);
         }
     }
 
@@ -62,11 +62,11 @@ abstract public class InputProcessor {
      * A mouse button has been pressed or released. Meant to be overridden.
      *
      * @param buttonId the GLFW ID of the button
-     * @param isPress true for GLFW_PRESS, false for GLFW_RELEASE
+     * @param isPressed true for GLFW_PRESS, false for GLFW_RELEASE
      */
-    public void onMouseButton(int buttonId, boolean isPress) {
+    public void onMouseButton(int buttonId, boolean isPressed) {
         if (nextProcessor != null) {
-            nextProcessor.onMouseButton(buttonId, isPress);
+            nextProcessor.onMouseButton(buttonId, isPressed);
         }
     }
 

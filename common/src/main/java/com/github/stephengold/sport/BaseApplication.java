@@ -34,6 +34,7 @@ import com.jme3.math.Vector3f;
 import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -101,7 +102,6 @@ public abstract class BaseApplication {
     private static final Collection<ShaderProgram> programsInUse
             = new HashSet<>(16);
 
-    private static float deltaTime;
     private static float lastFrame;
     /**
      * convenient access to user input
@@ -121,8 +121,7 @@ public abstract class BaseApplication {
      * all visible geometries that omit depth testing, in the order they will be
      * rendered (in other words, from back to front)
      */
-    private static final LinkedList<Geometry> deferredQueue
-            = new LinkedList<>();
+    private static final Deque<Geometry> deferredQueue = new LinkedList<>();
     /**
      * GLFW ID of the window used to render geometries
      */
@@ -284,9 +283,9 @@ public abstract class BaseApplication {
         assert geometry.getMesh() != null;
         assert geometry.getProgram() != null;
 
-        boolean previouslyVisible = visibleGeometries.add(geometry);
+        boolean previouslyHidden = !visibleGeometries.add(geometry);
 
-        if (!previouslyVisible && !geometry.isDepthTest()) {
+        if (previouslyHidden && !geometry.isDepthTest()) {
             deferredQueue.addLast(geometry);
         }
     }
@@ -408,7 +407,7 @@ public abstract class BaseApplication {
      */
     public void updateWindowTitle() {
         float currentFrame = (float) glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
+        float deltaTime = currentFrame - lastFrame;
         counter++;
         if (deltaTime >= 1f / 10) {
             int fps = (int) ((1f / deltaTime) * counter);
@@ -554,13 +553,12 @@ public abstract class BaseApplication {
         inputManager.add(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPressed) {
-                switch (keyId) {
-                    case GLFW_KEY_C:
-                        if (isPressed) {
-                            System.out.println(cam);
-                            System.out.flush();
-                        }
-                        return;
+                if (keyId == GLFW_KEY_C) {
+                    if (isPressed) {
+                        System.out.println(cam);
+                        System.out.flush();
+                    }
+                    return;
                 }
                 super.onKeyboard(keyId, isPressed);
             }
@@ -580,7 +578,7 @@ public abstract class BaseApplication {
                 requestMsaaSamples);
         if (isMsaa) {
             int[] tmpArray = new int[1];
-            GL11C.glGetIntegerv(GL30C.GL_SAMPLES, tmpArray);
+            GL11C.glGetIntegerv(GL13C.GL_SAMPLES, tmpArray);
             Utils.checkForOglError();
             stream.printf("enabled, samples=%d.%n", tmpArray[0]);
         } else {
