@@ -92,7 +92,7 @@ public class MouseTest2 extends BaseApplication {
      */
     @Override
     public void initialize() {
-        Mesh ballMesh = new OctasphereMesh(3);
+        Mesh ballMesh = OctasphereMesh.getMesh(3);
         this.nearBall = new Geometry(ballMesh)
                 .setBackCulling(false)
                 .setColor(Constants.YELLOW)

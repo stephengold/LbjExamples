@@ -85,7 +85,7 @@ public class OctasphereTest extends BaseApplication {
 
         float radius = 3f;
         float xRotation = -FastMath.HALF_PI;
-        Mesh sphereMesh = new OctasphereMesh(4); // unit sphere
+        Mesh sphereMesh = OctasphereMesh.getMesh(4); // unit sphere
 
         Geometry sphereGeometry = new Geometry(sphereMesh)
                 .setOrientation(xRotation, 0f, 0f)

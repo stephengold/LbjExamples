@@ -127,6 +127,10 @@ public class OctasphereMesh extends Mesh {
      * cache to avoid duplicate vertices: map index pairs to midpoint indices
      */
     final private Map<Long, Integer> midpointCache = new HashMap<>(294);
+    /**
+     * map number of refinement steps to shared mesh
+     */
+    final private static OctasphereMesh[] sharedMeshes = new OctasphereMesh[14];
     // *************************************************************************
     // constructors
 
@@ -262,6 +266,23 @@ public class OctasphereMesh extends Mesh {
 
         locations.clear();
         uOverrides.clear();
+    }
+
+    /**
+     * Return the shared mesh with the specified number of refinement steps.
+     *
+     * @param numSteps number of refinement steps (&ge;0, &le;13)
+     * @return the shared mesh (immutable)
+     */
+    public static OctasphereMesh getMesh(int numSteps) {
+        Validate.inRange(numSteps, "number of refinement steps", 0, 13);
+
+        if (sharedMeshes[numSteps] == null) {
+            sharedMeshes[numSteps] = new OctasphereMesh(numSteps);
+            sharedMeshes[numSteps].makeImmutable();
+        }
+
+        return sharedMeshes[numSteps];
     }
     // *************************************************************************
     // private methods
