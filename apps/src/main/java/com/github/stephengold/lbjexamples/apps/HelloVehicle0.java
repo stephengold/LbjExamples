@@ -49,7 +49,7 @@ import java.util.Collection;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloVehicle0 {
+class HelloVehicle0 {
 
     /**
      * Main entry point for the HelloVehicle0 application.

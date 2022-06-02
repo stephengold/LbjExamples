@@ -50,7 +50,7 @@ import org.lwjgl.system.MemoryStack;
  * Encapsulate a GLSL program object to which a vertex shader and a fragment
  * shader are attached.
  */
-public class ShaderProgram {
+class ShaderProgram {
     // *************************************************************************
     // constants
 

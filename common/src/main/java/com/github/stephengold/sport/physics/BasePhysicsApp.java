@@ -96,7 +96,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      *
      * @return a new instance
      */
-    public abstract T createSpace();
+    protected abstract T createSpace();
 
     /**
      * Return a Mesh to visualize the summarized CollisionShape.
@@ -124,7 +124,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     /**
      * Add physics objects to the PhysicsSpace during initialization.
      */
-    public abstract void populateSpace();
+    abstract protected void populateSpace();
 
     /**
      * Advance the physics simulation by the specified amount.
@@ -132,7 +132,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      * @param intervalSeconds the elapsed (real) time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
-    public abstract void updatePhysics(float intervalSeconds);
+    abstract protected void updatePhysics(float intervalSeconds);
 
     /**
      * Visualize the local axes of the specified collision object.
@@ -264,7 +264,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     // BaseApplication methods
 
     @Override
-    public void cleanUp() {
+    protected void cleanUp() {
         physicsSpace.destroy();
 
         for (Mesh mesh : meshCache.values()) {
@@ -275,7 +275,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     }
 
     @Override
-    public void initialize() {
+    protected void initialize() {
         // Load the Libbulletjme native library for this platform.
         String homePath = System.getProperty("user.home");
         File downloadDirectory = new File(homePath, "Downloads");
@@ -296,7 +296,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      * be overridden.
      */
     @Override
-    public void render() {
+    protected void render() {
         ++renderCount;
         /*
          * Advance the physics, but not during the first render().

@@ -158,7 +158,7 @@ public abstract class BaseApplication {
     /**
      * Callback invoked after the main update loop terminates.
      */
-    public abstract void cleanUp();
+    protected abstract void cleanUp();
 
     /**
      * Access the current camera for rendering.
@@ -261,7 +261,7 @@ public abstract class BaseApplication {
     /**
      * Callback invoked before the main update loop begins.
      */
-    public abstract void initialize();
+    abstract protected void initialize();
 
     /**
      * Enumerate all the visible geometries.
@@ -294,7 +294,7 @@ public abstract class BaseApplication {
      * Callback invoked during each iteration of the main update loop. Meant to
      * be overridden.
      */
-    public void render() {
+    protected void render() {
         updateGlobalUniforms();
 
         // Render the depth-test geometries and defer the rest.
@@ -405,7 +405,7 @@ public abstract class BaseApplication {
      *
      * @see #setWindowTitle(java.lang.String)
      */
-    public void updateWindowTitle() {
+    protected void updateWindowTitle() {
         float currentFrame = (float) glfwGetTime();
         float deltaTime = currentFrame - lastFrame;
         counter++;

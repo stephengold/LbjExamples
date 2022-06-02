@@ -37,7 +37,7 @@ import jme3utilities.Validate;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-abstract public class GlobalUniform {
+abstract class GlobalUniform {
     // *************************************************************************
     // fields
 
