@@ -101,6 +101,11 @@ public abstract class BaseApplication {
      */
     private static final Collection<ShaderProgram> programsInUse
             = new HashSet<>(16);
+    /**
+     * all visible geometries that omit depth testing, in the order they will be
+     * rendered (in other words, from back to front)
+     */
+    private static final Deque<Geometry> deferredQueue = new LinkedList<>();
 
     private static float lastFrame;
     /**
@@ -117,11 +122,6 @@ public abstract class BaseApplication {
      * width of the displayed frame buffer (in pixels)
      */
     private static int frameBufferWidth = 800;
-    /**
-     * all visible geometries that omit depth testing, in the order they will be
-     * rendered (in other words, from back to front)
-     */
-    private static final Deque<Geometry> deferredQueue = new LinkedList<>();
     /**
      * GLFW ID of the window used to render geometries
      */
@@ -154,11 +154,6 @@ public abstract class BaseApplication {
         assert ratio > 0f : ratio;
         return ratio;
     }
-
-    /**
-     * Callback invoked after the main update loop terminates.
-     */
-    protected abstract void cleanUp();
 
     /**
      * Access the current camera for rendering.
@@ -259,11 +254,6 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Callback invoked before the main update loop begins.
-     */
-    abstract protected void initialize();
-
-    /**
      * Enumerate all the visible geometries.
      *
      * @return an unmodifiable collection of pre-existing objects
@@ -287,31 +277,6 @@ public abstract class BaseApplication {
 
         if (previouslyHidden && !geometry.isDepthTest()) {
             deferredQueue.addLast(geometry);
-        }
-    }
-
-    /**
-     * Callback invoked during each iteration of the main update loop. Meant to
-     * be overridden.
-     */
-    protected void render() {
-        updateGlobalUniforms();
-
-        // Render the depth-test geometries and defer the rest.
-        for (Geometry geometry : visibleGeometries) {
-            if (geometry.isDepthTest()) {
-                geometry.updateAndRender();
-            } else {
-                assert deferredQueue.contains(geometry);
-            }
-        }
-
-        // Render the no-depth-test geometries last, from back to front.
-        for (Geometry geometry : deferredQueue) {
-            assert visibleGeometries.contains(geometry);
-            assert !geometry.isDepthTest();
-
-            geometry.updateAndRender();
         }
     }
 
@@ -396,6 +361,43 @@ public abstract class BaseApplication {
         } else { // append it to the queue
             assert !deferredQueue.contains(geometry);
             deferredQueue.addLast(geometry);
+        }
+    }
+    // *************************************************************************
+    // new protected methods
+
+    /**
+     * Callback invoked after the main update loop terminates.
+     */
+    protected abstract void cleanUp();
+
+    /**
+     * Callback invoked before the main update loop begins.
+     */
+    abstract protected void initialize();
+
+    /**
+     * Callback invoked during each iteration of the main update loop. Meant to
+     * be overridden.
+     */
+    protected void render() {
+        updateGlobalUniforms();
+
+        // Render the depth-test geometries and defer the rest.
+        for (Geometry geometry : visibleGeometries) {
+            if (geometry.isDepthTest()) {
+                geometry.updateAndRender();
+            } else {
+                assert deferredQueue.contains(geometry);
+            }
+        }
+
+        // Render the no-depth-test geometries last, from back to front.
+        for (Geometry geometry : deferredQueue) {
+            assert visibleGeometries.contains(geometry);
+            assert !geometry.isDepthTest();
+
+            geometry.updateAndRender();
         }
     }
 
