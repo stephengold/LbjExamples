@@ -66,6 +66,9 @@ tasks.register('HelloMadMallet', JavaExec) {
 tasks.register('HelloMassDistribution', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMassDistribution'
 }
+tasks.register('HelloMotor', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMotor'
+}
 tasks.register('HelloNonUniformGravity', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloNonUniformGravity'
 }
