@@ -175,11 +175,9 @@ public class HelloJoint
         Vector2fc clipXy = getInputManager().locateCursor();
         if (clipXy != null) {
             float nearZ = -1f;
-            Vector3f nearLocation
-                    = cam.clipToWorld(clipXy, nearZ, null);
+            Vector3f nearLocation = cam.clipToWorld(clipXy, nearZ, null);
             float farZ = +1f;
-            Vector3f farLocation
-                    = cam.clipToWorld(clipXy, farZ, null);
+            Vector3f farLocation = cam.clipToWorld(clipXy, farZ, null);
             if (nearLocation.y > groundY && farLocation.y < groundY) {
                 float dy = nearLocation.y - farLocation.y;
                 float t = (nearLocation.y - groundY) / dy;
