@@ -253,10 +253,10 @@ public class CameraInputProcessor extends InputProcessor {
         long nanoTime = System.nanoTime();
         if (lastMove != null) {
             Camera camera = BaseApplication.getCamera();
-            Vector3f lookDirection = camera.getDirection(); // TODO trash
-            Vector3f rightDirection = camera.rightDirection(null); // TODO trash
+            Vector3f lookDirection = camera.getDirection(); // TODO garbage
+            Vector3f rightDirection = camera.rightDirection(null); // TODO garbage
 
-            Vector3f sum = new Vector3f(); // TODO trash
+            Vector3f sum = new Vector3f(); // TODO garbage
             MyVector3f.accumulateScaled(sum, lookDirection, forwardSignal);
             MyVector3f.accumulateScaled(sum, Vector3f.UNIT_Y, upSignal);
             MyVector3f.accumulateScaled(sum, rightDirection, rightSignal);
