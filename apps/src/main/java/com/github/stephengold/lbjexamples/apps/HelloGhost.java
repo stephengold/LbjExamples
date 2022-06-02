@@ -270,7 +270,7 @@ public class HelloGhost
     /**
      * Configure the Camera and CIP during startup.
      */
-    private void configureCamera() {
+    private static void configureCamera() {
         getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         cam.setAzimuth(-1.9f);
         cam.setFovyDegrees(30f);

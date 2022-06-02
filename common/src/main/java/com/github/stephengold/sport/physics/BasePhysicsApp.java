@@ -142,7 +142,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      * &ge;0)
      * @return an array of new, visible geometries
      */
-    public Geometry[] visualizeAxes(PhysicsCollisionObject pco,
+    public static Geometry[] visualizeAxes(PhysicsCollisionObject pco,
             float axisLength) {
         Validate.nonNegative(axisLength, "axis length");
 
@@ -161,7 +161,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      * @param pco the rigid body to visualize (not null)
      * @return a new, visible Geometry
      */
-    public Geometry visualizeShape(PhysicsCollisionObject pco) {
+    public static Geometry visualizeShape(PhysicsCollisionObject pco) {
         float uvScale = 1f;
         Geometry result = visualizeShape(pco, uvScale);
 
@@ -175,7 +175,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      * @param uvScale the UV scale factor to use (default=1)
      * @return a new, visible Geometry
      */
-    public Geometry visualizeShape(PhysicsCollisionObject pco, float uvScale) {
+    public static Geometry visualizeShape(
+            PhysicsCollisionObject pco, float uvScale) {
         MeshingStrategy meshingStrategy;
         String programName;
         TextureKey textureKey;
@@ -251,7 +252,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      * @param vehicle the vehicle to visualize
      * @return an array of new, visible geometries
      */
-    public Geometry[] visualizeWheels(PhysicsVehicle vehicle) {
+    public static Geometry[] visualizeWheels(PhysicsVehicle vehicle) {
         int numWheels = vehicle.getNumWheels();
         Geometry[] result = new Geometry[numWheels];
         for (int wheelIndex = 0; wheelIndex < numWheels; ++wheelIndex) {

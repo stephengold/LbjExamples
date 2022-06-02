@@ -185,7 +185,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Configure the Camera and CIP during startup.
      */
-    private void configureCamera() {
+    private static void configureCamera() {
         CameraInputProcessor cip = getCameraInputProcessor();
         cip.setRotationMode(RotateMode.Immediate);
         cip.setMoveSpeed(30f);

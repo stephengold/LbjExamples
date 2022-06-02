@@ -69,11 +69,11 @@ public class HelloLimit
     /**
      * physics-space Y coordinate of the ground plane
      */
-    private final float groundY = -2f;
+    private final static float groundY = -2f;
     /**
      * half the height of the paddle (in physics-space units)
      */
-    private final float paddleHalfHeight = 1f;
+    private final static float paddleHalfHeight = 1f;
     // *************************************************************************
     // fields
 
@@ -320,7 +320,7 @@ public class HelloLimit
     /**
      * Configure the Camera and CIP during startup.
      */
-    private void configureCamera() {
+    private static void configureCamera() {
         getCameraInputProcessor().setRotationMode(RotateMode.None);
 
         cam.setLocation(new Vector3f(0f, 5f, 10f));

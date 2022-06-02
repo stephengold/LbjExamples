@@ -239,7 +239,7 @@ public class HelloWalk
     /**
      * Configure the Camera and CIP during startup.
      */
-    private void configureCamera() {
+    private static void configureCamera() {
         getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         cam.setFovyDegrees(30f);
 

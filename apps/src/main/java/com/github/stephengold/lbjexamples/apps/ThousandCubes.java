@@ -180,7 +180,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         visualizeShape(box).setColor(new Vector4f(red, green, blue, 1f));
     }
 
-    private void addCrosshairs() {
+    private static void addCrosshairs() {
         float crossWidth = 0.1f;
         float crossHeight = crossWidth * aspectRatio();
 
@@ -195,7 +195,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Configure the Camera and CIP during startup.
      */
-    private void configureCamera() {
+    private static void configureCamera() {
         getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         cam.setLocation(new Vector3f(60f, 15f, 28f))
                 .setAzimuth(-2.7f)

@@ -285,7 +285,7 @@ public abstract class BaseApplication {
      *
      * @param newColor the desired color (not null, default=black)
      */
-    public void setBackgroundColor(Vector4fc newColor) {
+    public static void setBackgroundColor(Vector4fc newColor) {
         float red = newColor.x();
         float green = newColor.y();
         float blue = newColor.z();
