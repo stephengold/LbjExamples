@@ -135,14 +135,6 @@ public class OctasphereMesh extends Mesh {
     // constructors
 
     /**
-     * Instantiate a unit sphere using 3 refinement steps: 291 unique vertices
-     * and 512 triangular faces.
-     */
-    public OctasphereMesh() {
-        this(3);
-    }
-
-    /**
      * Instantiate a mutable unit sphere using the specified number of
      * refinement steps:
      * <ul><li>

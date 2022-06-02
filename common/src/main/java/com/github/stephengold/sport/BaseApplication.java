@@ -176,16 +176,6 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Return the default ShaderProgram for new geometries.
-     *
-     * @return a valid program (not null)
-     */
-    static ShaderProgram getDefaultProgram() {
-        ShaderProgram result = getProgram("Phong/Distant/Monochrome");
-        return result;
-    }
-
-    /**
      * Access the input manager.
      *
      * @return the pre-existing instance (not null)

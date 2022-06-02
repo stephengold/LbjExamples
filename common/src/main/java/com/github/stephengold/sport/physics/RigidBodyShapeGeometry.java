@@ -81,16 +81,6 @@ public class RigidBodyShapeGeometry extends Geometry {
      * visible.
      *
      * @param rigidBody the body to visualize (not null, alias created)
-     */
-    public RigidBodyShapeGeometry(PhysicsRigidBody rigidBody) {
-        this(rigidBody, new MeshingStrategy("low"));
-    }
-
-    /**
-     * Instantiate a Geometry to visualize the specified rigid body and make it
-     * visible.
-     *
-     * @param rigidBody the body to visualize (not null, alias created)
      * @param meshingStrategy how to generate meshes (not null)
      */
     RigidBodyShapeGeometry(PhysicsRigidBody rigidBody,
