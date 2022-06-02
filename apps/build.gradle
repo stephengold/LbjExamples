@@ -75,6 +75,9 @@ tasks.register('HelloNonUniformGravity', JavaExec) {
 tasks.register('HelloRigidBody', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
 }
+tasks.register('HelloSpring', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSpring'
+}
 tasks.register('HelloStaticBody', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloStaticBody'
 }

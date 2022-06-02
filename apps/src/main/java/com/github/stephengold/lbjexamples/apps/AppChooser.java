@@ -81,6 +81,7 @@ class AppChooser extends JFrame {
         apps.add(new HelloMotor());
         apps.add(new HelloNonUniformGravity());
         apps.add(new HelloRigidBody());
+        apps.add(new HelloSpring());
         apps.add(new HelloStaticBody());
         apps.add(new HelloVehicle());
         apps.add(new HelloWalk());
