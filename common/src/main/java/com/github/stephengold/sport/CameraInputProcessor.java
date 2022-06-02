@@ -232,13 +232,6 @@ public class CameraInputProcessor extends InputProcessor {
         this.isRotationActive = false;
     }
 
-    private boolean isLmbPressed() {
-        int state = glfwGetMouseButton(windowId, GLFW_MOUSE_BUTTON_LEFT);
-        boolean isPressed = (state == GLFW_PRESS);
-
-        return isPressed;
-    }
-
     /**
      * Move the camera based on user input.
      *
@@ -294,7 +287,7 @@ public class CameraInputProcessor extends InputProcessor {
 
         switch (rotationMode) {
             case DragLMB:
-                makeActive = isLmbPressed();
+                makeActive = BaseApplication.getInputManager().isLmbPressed();
                 break;
             case Immediate:
                 makeActive = true;
