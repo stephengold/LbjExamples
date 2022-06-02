@@ -300,7 +300,7 @@ public abstract class BaseApplication {
      *
      * @param text the desired text (in UTF-8 encoding)
      */
-    public static void setWindowTitle(String text) {
+    public static void setWindowTitle(CharSequence text) {
         glfwSetWindowTitle(mainWindowId, text);
     }
 
