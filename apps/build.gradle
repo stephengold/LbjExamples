@@ -21,7 +21,15 @@ tasks.register('AppChooser', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.AppChooser'
 }
 
-// physics tutorials
+// console apps (no graphics)
+tasks.register('HelloLibbulletjme', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.console.HelloLibbulletjme'
+}
+tasks.register('HelloVehicle0', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.console.HelloVehicle0'
+}
+
+// physics tutorials (very simple)
 tasks.register('HelloCcd', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCcd'
 }
@@ -49,9 +57,6 @@ tasks.register('HelloJoint', JavaExec) {
 tasks.register('HelloKinematics', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloKinematics'
 }
-tasks.register('HelloLibbulletjme', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloLibbulletjme'
-}
 tasks.register('HelloLimit', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloLimit'
 }
@@ -72,9 +77,6 @@ tasks.register('HelloStaticBody', JavaExec) {
 }
 tasks.register('HelloVehicle', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloVehicle'
-}
-tasks.register('HelloVehicle0', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloVehicle0'
 }
 tasks.register('HelloWalk', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWalk'
