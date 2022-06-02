@@ -46,7 +46,7 @@ import java.io.File;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-class HelloLibbulletjme {
+final class HelloLibbulletjme {
 
     /**
      * Main entry point for the HelloLibbulletjme application.

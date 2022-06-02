@@ -44,7 +44,7 @@ import org.joml.Quaternionf;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11C;
 
-public class Utils {
+final public class Utils {
     // *************************************************************************
     // constructors
 

@@ -61,37 +61,37 @@ public class TextureKey {
     /**
      * true to generate mipmaps, false to skip generating them
      */
-    private boolean mipmaps;
+    final private boolean mipmaps;
     private static boolean mipmapsDefault = true;
     /**
      * maximum degree of anisotropic filtering
      */
-    private float maxAniso;
+    final private float maxAniso;
     private static float maxAnisoDefault = 1f;
     /**
      * filter to use when magnifying
      */
-    private int magFilter;
+    final private int magFilter;
     private static int magFilterDefault = GL11C.GL_LINEAR;
     /**
      * filter to use when minifying
      */
-    private int minFilter;
+    final private int minFilter;
     private static int minFilterDefault = GL11C.GL_NEAREST_MIPMAP_LINEAR;
     /**
      * wrap function code for the first (U) texture coordinate
      */
-    private int wrapU;
+    final private int wrapU;
     private static int wrapUDefault = GL11C.GL_REPEAT;
     /**
      * wrap function code for the 2nd (V) texture coordinate
      */
-    private int wrapV;
+    final private int wrapV;
     private static int wrapVDefault = GL11C.GL_REPEAT;
     /**
      * URI to load/generate image data
      */
-    private URI uri;
+    final private URI uri;
     // *************************************************************************
     // constructors
 
