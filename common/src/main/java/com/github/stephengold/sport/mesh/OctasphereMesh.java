@@ -117,16 +117,16 @@ public class OctasphereMesh extends Mesh {
     /**
      * map vertex indices to U coordinates for vertices with Y=0
      */
-    final private List<Float> uOverrides = new ArrayList<>(305);
+    final private List<Float> uOverrides;
     /**
      * map vertex indices to location vectors in mesh coordinates, all with
      * length=1
      */
-    final private List<Vector3f> locations = new ArrayList<>(305);
+    final private List<Vector3f> locations;
     /**
      * cache to avoid duplicate vertices: map index pairs to midpoint indices
      */
-    final private Map<Long, Integer> midpointCache = new HashMap<>(294);
+    final private Map<Long, Integer> midpointCache;
     /**
      * map number of refinement steps to shared mesh
      */
@@ -166,8 +166,13 @@ public class OctasphereMesh extends Mesh {
      * @param numRefineSteps number of refinement steps (&ge;0, &le;13)
      */
     public OctasphereMesh(int numRefineSteps) {
-        super(GL11C.GL_TRIANGLES, 3 << (3 + 2 * numRefineSteps));
+        super(GL11C.GL_TRIANGLES, countVertices(numRefineSteps));
         Validate.inRange(numRefineSteps, "number of refinement steps", 0, 13);
+
+        int numVertices = super.countVertices();
+        uOverrides = new ArrayList<>(numVertices);
+        locations = new ArrayList<>(numVertices);
+        midpointCache = new HashMap<>(numVertices);
         /*
          * Add the 6 vertices of a regular octahedron with radius=1.
          */
@@ -233,14 +238,14 @@ public class OctasphereMesh extends Mesh {
         }
 
 //        System.out.println("numRefineSteps  = " + numRefineSteps);
-//        System.out.println("numVertices     = " + locations.size());
+//        System.out.println("numVertices     = " + numVertices);
 //        System.out.println("numLocations    = " + locations.size());
 //        System.out.println("numFaces        = " + faces.size() / vpt);
 //        System.out.println("numCacheEntries = " + midpointCache.size());
 //        System.out.println();
 //
+        assert locations.size() == uOverrides.size();
         midpointCache.clear();
-        assert super.countVertices() == faces.size();
 
         posBuffer = super.createPositions();
         uvBuffer = super.createUvs();
@@ -294,6 +299,21 @@ public class OctasphereMesh extends Mesh {
 
         int result = nextVertexIndex;
         ++nextVertexIndex;
+
+        return result;
+    }
+
+    /**
+     * Calculate the number of mesh vertices for the specified parameter.
+     *
+     * @param numRefineSteps the number of refinement steps (&ge;0, &le;13)
+     * @return the vertex count (&gt;0)
+     */
+    private static int countVertices(int numRefineSteps) {
+        int result;
+
+        // The number of triangles is 8 * 2 ^ (2 * numRefineSteps), so ...
+        result = 24 << (2 * numRefineSteps);
 
         return result;
     }
