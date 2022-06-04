@@ -48,7 +48,7 @@ import org.lwjgl.opengl.GL30C;
  * (VBOs) are attached. The VAO is created lazily, the first time
  * {@link #enableAttributes(ShaderProgram)} is invoked.
  */
-public class Mesh {
+public class Mesh implements jme3utilities.lbj.Mesh {
     // *************************************************************************
     // constants
 
@@ -601,7 +601,7 @@ public class Mesh {
         return this;
     }
     // *************************************************************************
-    // protected methods
+    // new protected methods
 
     /**
      * Create a buffer for putting vertex indices.
@@ -700,6 +700,77 @@ public class Mesh {
 
         this.textureCoordinates
                 = new VertexBuffer(uvArray, 2, ShaderProgram.uvAttribName);
+    }
+    // *************************************************************************
+    // jme3utilities.lbj.Mesh methods
+
+    /**
+     * Access the index buffer.
+     *
+     * @return the pre-existing instance (not null)
+     */
+    @Override
+    public IndexBuffer getIndexBuffer() {
+        assert indices != null;
+        return indices;
+    }
+
+    /**
+     * Access the normals data buffer.
+     *
+     * @return the pre-existing buffer (not null)
+     */
+    @Override
+    public FloatBuffer getNormalsData() {
+        return normals.getBuffer();
+    }
+
+    /**
+     * Access the positions data buffer.
+     *
+     * @return the pre-existing buffer (not null)
+     */
+    @Override
+    public FloatBuffer getPositionsData() {
+        return positions.getBuffer();
+    }
+
+    /**
+     * Test whether the draw mode is GL_LINES. Indexing is allowed.
+     *
+     * @return true if pure lines, otherwise false
+     */
+    @Override
+    public boolean isPureLines() {
+        boolean result = (drawMode == GL11C.GL_LINES);
+        return result;
+    }
+
+    /**
+     * Test whether the draw mode is GL_TRIANGLES.
+     *
+     * @return true if pure triangles, otherwise false
+     */
+    @Override
+    public boolean isPureTriangles() {
+        boolean result = (drawMode == GL11C.GL_TRIANGLES);
+        return result;
+    }
+
+    /**
+     * Indicate that the normals data has changed.
+     */
+    @Override
+    public void setNormalsModified() {
+        normals.setModified();
+    }
+
+    /**
+     * Indicate that the positions data has changed.
+     */
+    @Override
+    public void setPositionsModified() {
+        positions.setModified();
     }
     // *************************************************************************
     // private methods
