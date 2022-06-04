@@ -29,6 +29,7 @@
  */
 package com.github.stephengold.sport.mesh;
 
+import com.github.stephengold.sport.IndexBuffer;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.Utils;
 import com.github.stephengold.sport.VertexBuffer;
@@ -147,6 +148,16 @@ public class OctasphereMesh extends Mesh {
     // constructors
 
     /**
+     * Instantiate a mutable unit sphere with indices, using the specified
+     * number of refinement steps.
+     *
+     * @param numRefineSteps number of refinement steps (&ge;0, &le;13)
+     */
+    public OctasphereMesh(int numRefineSteps) {
+        this(numRefineSteps, true);
+    }
+
+    /**
      * Instantiate a mutable unit sphere using the specified number of
      * refinement steps:
      * <ul><li>
@@ -164,9 +175,10 @@ public class OctasphereMesh extends Mesh {
      * </ul>
      *
      * @param numRefineSteps number of refinement steps (&ge;0, &le;13)
+     * @param withIndices true for an indexed mesh, false for a non-indexed mesh
      */
-    public OctasphereMesh(int numRefineSteps) {
-        super(GL11C.GL_TRIANGLES, countVertices(numRefineSteps));
+    public OctasphereMesh(int numRefineSteps, boolean withIndices) {
+        super(GL11C.GL_TRIANGLES, countVertices(numRefineSteps, withIndices));
         Validate.inRange(numRefineSteps, "number of refinement steps", 0, 13);
 
         int numVertices = super.countVertices();
@@ -238,6 +250,7 @@ public class OctasphereMesh extends Mesh {
         }
 
 //        System.out.println("numRefineSteps  = " + numRefineSteps);
+//        System.out.println("withIndices     = " + withIndices);
 //        System.out.println("numVertices     = " + numVertices);
 //        System.out.println("numLocations    = " + locations.size());
 //        System.out.println("numFaces        = " + faces.size() / vpt);
@@ -250,8 +263,26 @@ public class OctasphereMesh extends Mesh {
         posBuffer = super.createPositions();
         uvBuffer = super.createUvs();
 
-        for (int vertexIndex : faces) {
-            putVertex(vertexIndex);
+        if (withIndices) {
+            assert locations.size() == numVertices : locations.size() + " != " + numVertices;
+
+            IndexBuffer indexBuffer = super.createIndices(faces.size());
+            for (int vertexIndex : faces) {
+                indexBuffer.put(vertexIndex);
+            }
+            indexBuffer.flip();
+            assert indexBuffer.limit() == indexBuffer.capacity();
+
+            for (int vIndex = 0; vIndex < locations.size(); ++vIndex) {
+                putVertex(vIndex);
+            }
+
+        } else { // non-indexed mesh
+            assert faces.size() == numVertices;
+
+            for (int vertexIndex : faces) {
+                putVertex(vertexIndex);
+            }
         }
 
         posBuffer.flip();
@@ -304,16 +335,48 @@ public class OctasphereMesh extends Mesh {
     }
 
     /**
-     * Calculate the number of mesh vertices for the specified parameter.
+     * Calculate the number of mesh vertices for the specified parameters.
      *
      * @param numRefineSteps the number of refinement steps (&ge;0, &le;13)
+     * @param withIndices true for an indexed mesh, false for a non-indexed mesh
      * @return the vertex count (&gt;0)
      */
-    private static int countVertices(int numRefineSteps) {
+    private static int countVertices(int numRefineSteps, boolean withIndices) {
         int result;
 
-        // The number of triangles is 8 * 2 ^ (2 * numRefineSteps), so ...
-        result = 24 << (2 * numRefineSteps);
+        if (withIndices) {
+            switch (numRefineSteps) {
+                case 0:
+                    return 11;
+                case 1:
+                    return 29;
+                case 2:
+                    return 89;
+                case 3:
+                    return 305;
+                case 4:
+                    return 1_121;
+                case 5:
+                    return 4_289;
+                case 6:
+                    return 16_769;
+                case 7:
+                    return 66_305;
+                case 8:
+                    return 263_681;
+                case 9:
+                    return 1_051_649;
+                case 10:
+                    return 4_200_449;
+                default:
+                    String message = "num refine steps = " + numRefineSteps;
+                    throw new IllegalArgumentException(message);
+            }
+
+        } else {
+            // The number of triangles is 8 * 2 ^ (2 * numRefineSteps), so ...
+            result = 24 << (2 * numRefineSteps);
+        }
 
         return result;
     }
