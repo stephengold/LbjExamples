@@ -106,6 +106,9 @@ tasks.register('ClipspaceTest', JavaExec) {
 tasks.register('DynamicMeshTest', JavaExec) {
     mainClass = 'com.github.stephengold.sport.test.DynamicMeshTest'
 }
+tasks.register('IcosphereTest', JavaExec) {
+    mainClass = 'com.github.stephengold.sport.test.IcosphereTest'
+}
 tasks.register('MouseTest', JavaExec) {
     mainClass = 'com.github.stephengold.sport.test.MouseTest'
 }
