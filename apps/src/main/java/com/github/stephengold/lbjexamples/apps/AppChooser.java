@@ -32,6 +32,7 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.test.CheckerboardTest;
 import com.github.stephengold.sport.test.ClipspaceTest;
+import com.github.stephengold.sport.test.DynamicMeshTest;
 import com.github.stephengold.sport.test.MouseTest;
 import com.github.stephengold.sport.test.MouseTest2;
 import com.github.stephengold.sport.test.OctasphereTest;
@@ -63,31 +64,37 @@ class AppChooser extends JFrame {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        List<BaseApplication> apps = new ArrayList<>(23);
+        List<BaseApplication> apps = new ArrayList<>(29);
         apps.add(new CheckerboardTest());
         apps.add(new ClipspaceTest());
+        apps.add(new DynamicMeshTest());
         apps.add(new HelloCcd());
         apps.add(new HelloCharacter());
+
         apps.add(new HelloContactResponse());
         apps.add(new HelloDamping());
         apps.add(new HelloDeactivation());
         apps.add(new HelloDoubleEnded());
         apps.add(new HelloGhost());
+
         apps.add(new HelloJoint());
         apps.add(new HelloKinematics());
         apps.add(new HelloLimit());
         apps.add(new HelloMadMallet());
         apps.add(new HelloMassDistribution());
+
         apps.add(new HelloMotor());
         apps.add(new HelloNonUniformGravity());
         apps.add(new HelloRigidBody());
         apps.add(new HelloSpring());
         apps.add(new HelloStaticBody());
+
         apps.add(new HelloVehicle());
         apps.add(new HelloWalk());
         apps.add(new MouseTest());
         apps.add(new MouseTest2());
         apps.add(new NewtonsCradle());
+
         apps.add(new OctasphereTest());
         apps.add(new RainbowTest());
         apps.add(new TextureTest());
