@@ -30,8 +30,8 @@
 package com.github.stephengold.sport.mesh;
 
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.math.FastMath;
-import java.nio.FloatBuffer;
 import jme3utilities.Validate;
 import org.lwjgl.opengl.GL11C;
 
@@ -84,7 +84,7 @@ public class LoopMesh extends Mesh {
         Validate.nonNegative(xRadius, "x radius");
         Validate.nonNegative(yRadius, "y radius");
 
-        FloatBuffer positionBuffer = createPositions();
+        VertexBuffer positionBuffer = createPositions();
 
         float increment = FastMath.TWO_PI / numLines;
         for (int vertexIndex = 0; vertexIndex < numLines; ++vertexIndex) {

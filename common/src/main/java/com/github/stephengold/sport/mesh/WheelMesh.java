@@ -30,8 +30,8 @@
 package com.github.stephengold.sport.mesh;
 
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.math.FastMath;
-import java.nio.FloatBuffer;
 import org.lwjgl.opengl.GL11C;
 
 /**
@@ -50,7 +50,7 @@ public class WheelMesh extends Mesh {
     public WheelMesh() {
         super(GL11C.GL_LINES, 66);
 
-        FloatBuffer positionBuffer = super.createPositions();
+        VertexBuffer positionBuffer = super.createPositions();
         int numEdges = super.countLines();
 
         // circle
@@ -86,7 +86,7 @@ public class WheelMesh extends Mesh {
      * @param theta angle around the +X axis, measured from the +Y direction (in
      * radians)
      */
-    private static void putPolarYZ(FloatBuffer buffer, float r, float theta) {
+    private static void putPolarYZ(VertexBuffer buffer, float r, float theta) {
         float y = r * FastMath.cos(theta);
         float z = r * FastMath.sin(theta);
         buffer.put(0f).put(y).put(z);

@@ -31,9 +31,9 @@ package com.github.stephengold.sport.mesh;
 
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.Utils;
+import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
-import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -229,8 +229,8 @@ public class OctasphereMesh extends Mesh {
         midpointCache.clear();
         assert super.countVertices() == faces.size();
 
-        FloatBuffer posBuffer = super.createPositions();
-        FloatBuffer uvBuffer = super.createUvs();
+        VertexBuffer posBuffer = super.createPositions();
+        VertexBuffer uvBuffer = super.createUvs();
 
         Vector3f tmpVector = new Vector3f();
         for (int vertexIndex : faces) {

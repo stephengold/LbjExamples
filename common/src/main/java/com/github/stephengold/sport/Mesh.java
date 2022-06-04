@@ -30,21 +30,17 @@
 package com.github.stephengold.sport;
 
 import com.jme3.math.FastMath;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import com.jme3.util.BufferUtils;
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import jme3utilities.Validate;
-import jme3utilities.math.MyBuffer;
 import jme3utilities.math.MyVector3f;
 import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL11C;
-import org.lwjgl.opengl.GL15C;
-import org.lwjgl.opengl.GL20C;
 import org.lwjgl.opengl.GL30C;
 
 /**
@@ -72,18 +68,6 @@ public class Mesh {
      */
     private boolean mutable = true;
     /**
-     * vertex normals (3 floats per vertex)
-     */
-    private FloatBuffer normals;
-    /**
-     * vertex positions (3 floats per vertex)
-     */
-    private FloatBuffer positions;
-    /**
-     * texture coordinates (2 floats per vertex)
-     */
-    private FloatBuffer textureCoordinates;
-    /**
      * kind of geometric primitives contained in this Mesh, such as:
      * GL_TRIANGLES, GL_LINE_LOOP, or GL_POINTS
      */
@@ -98,17 +82,17 @@ public class Mesh {
      */
     private Integer vaoId;
     /**
-     * map vertex attribute indices to numbers of floats-per-vertex
+     * vertex normals (3 floats per vertex) or null if none
      */
-    private final List<Integer> fpvList = new ArrayList<>(4);
+    private VertexBuffer normals;
     /**
-     * map vertex attribute indices to VBO IDs
+     * vertex positions (3 floats per vertex)
      */
-    private final List<Integer> vboIdList = new ArrayList<>(4);
+    private VertexBuffer positions;
     /**
-     * map vertex attribute indices to attrib names
+     * texture coordinates (2 floats per vertex) or null if none
      */
-    private final List<String> nameList = new ArrayList<>(4);
+    private VertexBuffer textureCoordinates;
     // *************************************************************************
     // constructors
 
@@ -125,7 +109,9 @@ public class Mesh {
         Validate.require(
                 positionsArray.length % numAxes == 0, "length a multiple of 3");
 
-        this.positions = BufferUtils.createFloatBuffer(positionsArray);
+        FloatBuffer data = BufferUtils.createFloatBuffer(positionsArray);
+        this.positions = new VertexBuffer(data, numAxes,
+                ShaderProgram.positionAttribName);
     }
 
     /**
@@ -138,10 +124,14 @@ public class Mesh {
      */
     protected Mesh(int drawMode, FloatBuffer positionsBuffer) {
         this(drawMode, positionsBuffer.capacity() / numAxes);
-        Validate.require(positionsBuffer.capacity() % numAxes == 0,
-                "capacity a multiple of 3");
+        int capacity = positionsBuffer.capacity();
+        Validate.require(capacity % numAxes == 0, "capacity a multiple of 3");
 
-        this.positions = positionsBuffer;
+        positionsBuffer.rewind();
+        positionsBuffer.limit(capacity);
+
+        this.positions = new VertexBuffer(positionsBuffer, numAxes,
+                ShaderProgram.positionAttribName);
     }
 
     /**
@@ -171,14 +161,14 @@ public class Mesh {
         GL30C.glBindVertexArray(vaoId);
         Utils.checkForOglError();
 
-        for (int index = 0; index < vboIdList.size(); ++index) {
-            GL20C.glDisableVertexAttribArray(index);
-            Utils.checkForOglError();
+        if (positions != null) {
+            positions.cleanUp();
         }
-
-        for (int vboId : vboIdList) {
-            GL15C.glDeleteBuffers(vboId);
-            Utils.checkForOglError();
+        if (normals != null) {
+            normals.cleanUp();
+        }
+        if (textureCoordinates != null) {
+            textureCoordinates.cleanUp();
         }
 
         GL30C.glDeleteVertexArrays(vaoId);
@@ -285,8 +275,8 @@ public class Mesh {
     }
 
     /**
-     * Count how many vertices this Mesh contains, based on buffer sizes,
-     * unmodified by indexing.
+     * Count how many vertices this Mesh contains, based on VertexBuffer
+     * capacities, unmodified by draw mode and indexing.
      *
      * @return the count (&ge;0)
      */
@@ -327,9 +317,9 @@ public class Mesh {
         createNormals();
         for (int triIndex = 0; triIndex < numTriangles; ++triIndex) {
             int trianglePosition = triIndex * vpt * numAxes;
-            MyBuffer.get(positions, trianglePosition, posA);
-            MyBuffer.get(positions, trianglePosition + numAxes, posB);
-            MyBuffer.get(positions, trianglePosition + 2 * numAxes, posC);
+            positions.get(trianglePosition, posA);
+            positions.get(trianglePosition + numAxes, posB);
+            positions.get(trianglePosition + 2 * numAxes, posC);
 
             posB.subtract(posA, normal);
             posC.subtract(posA, ac);
@@ -388,7 +378,7 @@ public class Mesh {
         createNormals();
         for (int vertIndex = 0; vertIndex < vertexCount; ++vertIndex) {
             int vPosition = vertIndex * numAxes;
-            MyBuffer.get(positions, vPosition, tmpVector);
+            positions.get(vPosition, tmpVector);
             MyVector3f.normalizeLocal(tmpVector);
 
             normals.put(tmpVector.x).put(tmpVector.y).put(tmpVector.z);
@@ -422,7 +412,7 @@ public class Mesh {
         Vector3f tmpVector = new Vector3f();
         for (int vertIndex = 0; vertIndex < vertexCount; ++vertIndex) {
             int inPosition = vertIndex * numAxes;
-            MyBuffer.get(positions, inPosition, tmpVector);
+            positions.get(inPosition, tmpVector);
             switch (option) {
                 case Linear:
                     break;
@@ -454,6 +444,14 @@ public class Mesh {
      */
     public Mesh makeImmutable() {
         this.mutable = false;
+        positions.makeImmutable();
+        if (normals != null) {
+            normals.makeImmutable();
+        }
+        if (textureCoordinates != null) {
+            textureCoordinates.makeImmutable();
+        }
+
         return this;
     }
 
@@ -485,10 +483,13 @@ public class Mesh {
     public Mesh rotate(float xAngle, float yAngle, float zAngle) {
         verifyMutable();
 
-        // TODO use MyBuffer.rotate
-        Transform rotateTransform = new Transform();
-        rotateTransform.getRotation().fromAngles(xAngle, yAngle, zAngle);
-        transform(rotateTransform);
+        Quaternion quaternion = new Quaternion(); // TODO garbage
+        quaternion.fromAngles(xAngle, yAngle, zAngle);
+
+        positions.rotate(quaternion);
+        if (normals != null) {
+            normals.rotate(quaternion);
+        }
 
         return this;
     }
@@ -525,15 +526,14 @@ public class Mesh {
         // TODO test for identity using MyMath
         verifyMutable();
 
-        int numFloats = vertexCount * numAxes;
-        MyBuffer.transform(positions, 0, numFloats, transform);
+        positions.transform(transform);
 
         if (normals != null) {
             Transform normalsTransform = transform.clone();
             normalsTransform.getTranslation().zero();
             normalsTransform.setScale(1f);
 
-            MyBuffer.transform(normals, 0, numFloats, normalsTransform);
+            normals.transform(normalsTransform);
         }
 
         return this;
@@ -577,17 +577,17 @@ public class Mesh {
     /**
      * Create a buffer for putting vertex normals.
      *
-     * @return a new direct buffer with a capacity of 3 * vertexCount floats
+     * @return a new buffer with a capacity of 3 * vertexCount floats
      */
-    protected FloatBuffer createNormals() {
+    protected VertexBuffer createNormals() {
         verifyMutable();
         if (countTriangles() == 0) {
             throw new IllegalStateException(
                     "The mesh doesn't contain any triangles.");
         }
 
-        int numFloats = vertexCount * numAxes;
-        this.normals = BufferUtils.createFloatBuffer(numFloats);
+        this.normals = new VertexBuffer(vertexCount, numAxes,
+                ShaderProgram.normalAttribName);
 
         return normals;
     }
@@ -595,28 +595,24 @@ public class Mesh {
     /**
      * Create a buffer for putting vertex positions.
      *
-     * @return a new direct buffer with a capacity of 3 * vertexCount floats
+     * @return a new buffer with a capacity of 3 * vertexCount floats
      */
-    protected FloatBuffer createPositions() {
+    protected VertexBuffer createPositions() {
         verifyMutable();
-
-        int numFloats = vertexCount * numAxes;
-        this.positions = BufferUtils.createFloatBuffer(numFloats);
-
+        this.positions = new VertexBuffer(vertexCount, numAxes,
+                ShaderProgram.positionAttribName);
         return positions;
     }
 
     /**
      * Create a buffer for putting vertex texture coordinates.
      *
-     * @return a new direct buffer with a capacity of 2 * vertexCount floats
+     * @return a new buffer with a capacity of 2 * vertexCount floats
      */
-    protected FloatBuffer createUvs() {
-        assert vaoId == null;
-
-        int numFloats = 2 * vertexCount;
-        this.textureCoordinates = BufferUtils.createFloatBuffer(numFloats);
-
+    protected VertexBuffer createUvs() {
+        verifyMutable();
+        this.textureCoordinates
+                = new VertexBuffer(vertexCount, 2, ShaderProgram.uvAttribName);
         return textureCoordinates;
     }
 
@@ -631,7 +627,8 @@ public class Mesh {
         Validate.require(normalsArray.length == vertexCount * numAxes,
                 "correct length");
 
-        this.normals = BufferUtils.createFloatBuffer(normalsArray);
+        this.normals = new VertexBuffer(normalsArray, numAxes,
+                ShaderProgram.normalAttribName);
     }
 
     /**
@@ -645,7 +642,8 @@ public class Mesh {
         Validate.require(positionArray.length == vertexCount * numAxes,
                 "correct length");
 
-        this.positions = BufferUtils.createFloatBuffer(positionArray);
+        this.positions = new VertexBuffer(positionArray, numAxes,
+                ShaderProgram.positionAttribName);
     }
 
     /**
@@ -659,72 +657,16 @@ public class Mesh {
         Validate.require(uvArray.length == 2 * vertexCount,
                 "correct length");
 
-        this.textureCoordinates = BufferUtils.createFloatBuffer(uvArray);
+        this.textureCoordinates
+                = new VertexBuffer(uvArray, 2, ShaderProgram.uvAttribName);
     }
     // *************************************************************************
     // private methods
 
     /**
-     * @param data the data for initialization, or {@code NULL} if no data is to
-     * be copied
-     * @param fpv the number of float values per vertex (&ge;1, &le;4)
-     */
-    private void addFloatVbo(FloatBuffer data, int fpv, String name) {
-        fpvList.add(fpv);
-        nameList.add(name);
-
-        int vboId = GL15C.glGenBuffers();
-        Utils.checkForOglError();
-        vboIdList.add(vboId);
-
-        data.rewind();
-        int numFloats = vertexCount * fpv;
-        assert data.capacity() == numFloats;
-        data.limit(numFloats);
-
-        GL15C.glBindBuffer(GL15C.GL_ARRAY_BUFFER, vboId);
-        Utils.checkForOglError();
-
-        GL15C.glBufferData(GL15C.GL_ARRAY_BUFFER, data, GL15C.GL_STATIC_DRAW);
-        Utils.checkForOglError();
-    }
-
-    /**
-     * Prepare the specified vertex attribute for rendering.
-     *
-     * @param program (not null)
-     * @param attributeIndex the index of the vertex attribute to prepare
-     * (&ge;0)
-     */
-    private void enableAttribute(ShaderProgram program, int attributeIndex) {
-        Validate.nonNull(program, "program");
-
-        String attribName = nameList.get(attributeIndex);
-        Integer location = program.findAttribLocation(attribName);
-        if (location == null) { // attribute not active in the program
-            return;
-        }
-
-        GL20C.glEnableVertexAttribArray(location);
-        Utils.checkForOglError();
-
-        int vboId = vboIdList.get(attributeIndex);
-        GL15C.glBindBuffer(GL15C.GL_ARRAY_BUFFER, vboId);
-        Utils.checkForOglError();
-
-        int fpv = fpvList.get(attributeIndex);
-        boolean normalized = false;
-        int stride = 0; // tightly packed
-        long startOffset = 0L;
-        GL20C.glVertexAttribPointer(location, fpv, GL11C.GL_FLOAT,
-                normalized, stride, startOffset);
-        Utils.checkForOglError();
-    }
-
-    /**
      * Prepare all vertex attributes for rendering.
      * <p>
-     * If the VAO doesn't already exist, it and its VBOs are created.
+     * If the VAO doesn't already exist, it is created.
      *
      * @param program (not null)
      */
@@ -736,14 +678,6 @@ public class Mesh {
             GL30C.glBindVertexArray(vaoId);
             Utils.checkForOglError();
 
-            // Create a VBO for each attribute.
-            addFloatVbo(positions, numAxes, ShaderProgram.positionAttribName);
-            if (normals != null) {
-                addFloatVbo(normals, numAxes, ShaderProgram.normalAttribName);
-            }
-            if (textureCoordinates != null) {
-                addFloatVbo(textureCoordinates, 2, ShaderProgram.uvAttribName);
-            }
             this.mutable = false;
 
         } else {
@@ -754,8 +688,12 @@ public class Mesh {
             Utils.checkForOglError();
         }
 
-        for (int index = 0; index < vboIdList.size(); ++index) {
-            enableAttribute(program, index);
+        positions.prepareToDraw(program);
+        if (normals != null) {
+            normals.prepareToDraw(program);
+        }
+        if (textureCoordinates != null) {
+            textureCoordinates.prepareToDraw(program);
         }
     }
 
@@ -772,7 +710,7 @@ public class Mesh {
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
             int start = vertexIndex * numAxes;
             Vector3f position = new Vector3f();
-            MyBuffer.get(positions, start, position);
+            positions.get(start, position);
             MyVector3f.standardize(position, position);
             if (!mapPosToDpid.containsKey(position)) {
                 mapPosToDpid.put(position, numDistinctPositions);
@@ -791,11 +729,11 @@ public class Mesh {
         Vector3f tmpNormal = new Vector3f();
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
             int start = vertexIndex * numAxes;
-            MyBuffer.get(positions, start, tmpPosition);
+            positions.get(start, tmpPosition);
             MyVector3f.standardize(tmpPosition, tmpPosition);
             int dpid = mapPosToDpid.get(tmpPosition);
 
-            MyBuffer.get(normals, start, tmpNormal);
+            positions.get(start, tmpNormal);
             normalSums[dpid].addLocal(tmpNormal);
         }
         /*
@@ -809,10 +747,10 @@ public class Mesh {
          */
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
             int start = vertexIndex * numAxes;
-            MyBuffer.get(positions, start, tmpPosition);
+            positions.get(start, tmpPosition);
             MyVector3f.standardize(tmpPosition, tmpPosition);
             int dpid = mapPosToDpid.get(tmpPosition);
-            MyBuffer.put(normals, start, normalSums[dpid]);
+            normals.put(start, normalSums[dpid]);
         }
     }
 
