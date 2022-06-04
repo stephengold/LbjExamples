@@ -459,6 +459,15 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
+     * Access the positions VertexBuffer.
+     *
+     * @return the pre-existing buffer (not null)
+     */
+    public VertexBuffer getPositions() {
+        return positions;
+    }
+
+    /**
      * Make this mesh immutable.
      *
      * @return the (modified) current instance (for chaining)
