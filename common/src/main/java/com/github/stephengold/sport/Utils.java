@@ -43,6 +43,11 @@ import jme3utilities.MyString;
 import org.joml.Quaternionf;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11C;
+import org.lwjgl.opengl.GL12C;
+import org.lwjgl.opengl.GL13C;
+import org.lwjgl.opengl.GL14C;
+import org.lwjgl.opengl.GL15C;
+import org.lwjgl.opengl.GL20C;
 
 final public class Utils {
     // *************************************************************************
@@ -65,6 +70,78 @@ final public class Utils {
         int errorCode = GL11C.glGetError();
         if (errorCode != GL11C.GL_NO_ERROR) {
             throw new IllegalStateException("errorCode = " + errorCode);
+        }
+    }
+
+    /**
+     * Convert the specified OpenGL code to text. (Not all codes are handled.)
+     *
+     * @param code the code to decipher
+     * @return a descriptive string of text
+     */
+    public static String describeCode(int code) {
+        switch (code) {
+            case GL11C.GL_COLOR_BUFFER_BIT:
+                return "COLOR_BUFFER_BIT";
+            case GL11C.GL_DEPTH_BUFFER_BIT:
+                return "DEPTH_BUFFER_BIT";
+            case GL11C.GL_DEPTH_TEST:
+                return "DEPTH_TEST";
+            case GL11C.GL_FALSE:
+                return "FALSE";
+            case GL11C.GL_FLOAT:
+                return "FLOAT";
+            case GL11C.GL_FRONT_AND_BACK:
+                return "FRONT_AND_BACK";
+            case GL11C.GL_LINEAR:
+                return "LINEAR";
+            case GL11C.GL_LINEAR_MIPMAP_LINEAR:
+                return "LINEAR_MIPMAP_LINEAR";
+            case GL11C.GL_LINEAR_MIPMAP_NEAREST:
+                return "LINEAR_MIPMAP_NEAREST";
+            case GL11C.GL_LINE_LOOP:
+                return "LINE_LOOP";
+            case GL11C.GL_LINES:
+                return "LINES";
+            case GL11C.GL_LINE_STRIP:
+                return "LINE_STRIP";
+
+            case GL11C.GL_NEAREST:
+                return "NEAREST";
+            case GL11C.GL_NEAREST_MIPMAP_LINEAR:
+                return "NEAREST_MIPMAP_LINEAR";
+            case GL11C.GL_NEAREST_MIPMAP_NEAREST:
+                return "NEAREST_MIPMAP_NEAREST";
+            case GL11C.GL_QUADS:
+                return "QUADS";
+            case GL11C.GL_REPEAT:
+                return "REPEAT";
+            case GL11C.GL_RGBA:
+                return "RGBA";
+            case GL11C.GL_TRIANGLE_FAN:
+                return "TRIANGLE_FAN";
+            case GL11C.GL_TRIANGLES:
+                return "TRIANGLES";
+            case GL11C.GL_TRIANGLE_STRIP:
+                return "TRIANGLE_STRIP";
+
+            case GL12C.GL_CLAMP_TO_EDGE:
+                return "CLAMP_TO_EDGE";
+            case GL13C.GL_CLAMP_TO_BORDER:
+                return "CLAMP_TO_BORDER";
+            case GL14C.GL_MIRRORED_REPEAT:
+                return "MIRRORED_REPEAT";
+            case GL15C.GL_DYNAMIC_DRAW:
+                return "DYNAMIC_DRAW";
+            case GL15C.GL_STATIC_DRAW:
+                return "STATIC_DRAW";
+            case GL20C.GL_COMPILE_STATUS:
+                return "COMPILE_STATUS";
+            case GL20C.GL_LINK_STATUS:
+                return "LINK_STATUS";
+
+            default:
+                return "unknown" + code;
         }
     }
 

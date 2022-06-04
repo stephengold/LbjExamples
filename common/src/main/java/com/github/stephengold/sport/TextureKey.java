@@ -395,10 +395,10 @@ public class TextureKey {
      */
     @Override
     public String toString() {
-        String mag = describeCode(magFilter);
-        String min = describeCode(minFilter);
-        String wrap1 = describeCode(wrapU);
-        String wrap2 = describeCode(wrapV);
+        String mag = Utils.describeCode(magFilter);
+        String min = Utils.describeCode(minFilter);
+        String wrap1 = Utils.describeCode(wrapU);
+        String wrap2 = Utils.describeCode(wrapV);
         String mm = mipmaps ? "+" : "-";
         String result = String.format(
                 "TextureKey(%s%n"
@@ -409,40 +409,6 @@ public class TextureKey {
     }
     // *************************************************************************
     // private methods
-
-    /**
-     * Convert the specified OpenGL code to text. (Not all codes are handled.)
-     *
-     * @param code the code to decipher
-     * @return a descriptive string of text
-     */
-    private static String describeCode(int code) {
-        switch (code) {
-            case GL11C.GL_NEAREST:
-                return "NEAREST";
-            case GL11C.GL_LINEAR:
-                return "LINEAR";
-            case GL11C.GL_NEAREST_MIPMAP_NEAREST:
-                return "NEAREST_MIPMAP_NEAREST";
-            case GL11C.GL_LINEAR_MIPMAP_NEAREST:
-                return "LINEAR_MIPMAP_NEAREST";
-            case GL11C.GL_NEAREST_MIPMAP_LINEAR:
-                return "NEAREST_MIPMAP_LINEAR";
-            case GL11C.GL_LINEAR_MIPMAP_LINEAR:
-                return "LINEAR_MIPMAP_LINEAR";
-            case GL12C.GL_CLAMP_TO_EDGE:
-                return "CLAMP_TO_EDGE";
-            case GL13C.GL_CLAMP_TO_BORDER:
-                return "CLAMP_TO_BORDER";
-            case GL14C.GL_MIRRORED_REPEAT:
-                return "MIRRORED_REPEAT";
-            case GL11C.GL_REPEAT:
-                return "REPEAT";
-
-            default:
-                return "unknown" + code;
-        }
-    }
 
     private Texture synthesizeTexture(String path, String query) {
         Map<String, String> queryMap = new HashMap<>(16);
