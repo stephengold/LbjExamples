@@ -68,6 +68,10 @@ public class Mesh {
      */
     private boolean mutable = true;
     /**
+     * vertex indices, or null if none
+     */
+    private IndexBuffer indices;
+    /**
      * kind of geometric primitives contained in this Mesh, such as:
      * GL_TRIANGLES, GL_LINE_LOOP, or GL_POINTS
      */
@@ -98,7 +102,7 @@ public class Mesh {
 
     /**
      * Instantiate a mutable mesh with the specified mode and vertex positions,
-     * but no normals.
+     * but no indices, normals, or texture coordinates.
      *
      * @param drawMode the desired draw mode, such as GL_TRIANGLES
      * @param positionsArray the desired vertex positions (not null, not empty,
@@ -116,7 +120,7 @@ public class Mesh {
 
     /**
      * Instantiate a mutable mesh with the specified mode and vertex positions,
-     * but no normals or texture coordinates.
+     * but no indices, normals, or texture coordinates.
      *
      * @param drawMode the desired draw mode, such as GL_TRIANGLES
      * @param positionsBuffer the desired vertex positions (not null, not empty,
@@ -136,7 +140,7 @@ public class Mesh {
 
     /**
      * Instantiate a mutable mesh with the specified mode and number of
-     * vertices, but no positions, normals, or texture coordinates.
+     * vertices, but no indices, normals, positions, or texture coordinates.
      *
      * @param drawMode the desired draw mode, such as GL_TRIANGLES
      * @param vertexCount the desired number of vertices (&ge;1)
@@ -161,6 +165,9 @@ public class Mesh {
         GL30C.glBindVertexArray(vaoId);
         Utils.checkForOglError();
 
+        if (indices != null) {
+            indices.cleanUp();
+        }
         if (positions != null) {
             positions.cleanUp();
         }
@@ -176,12 +183,23 @@ public class Mesh {
     }
 
     /**
+     * Count how many vertices this Mesh renders, taking indexing into account,
+     * but not the draw mode.
+     *
+     * @return the count (&ge;0)
+     */
+    public int countIndexedVertices() {
+        int result = (indices == null) ? vertexCount : indices.capacity();
+        return result;
+    }
+
+    /**
      * Count how many line primitives this Mesh contains.
      *
      * @return the count (&ge;0)
      */
     public int countLines() {
-        int numIndices = vertexCount; // TODO indexing
+        int numIndices = countIndexedVertices();
         int result;
         switch (drawMode) {
             case GL11C.GL_LINES:
@@ -217,7 +235,7 @@ public class Mesh {
      * @return the count (&ge;0)
      */
     public int countPoints() {
-        int numIndices = vertexCount; // TODO indexing
+        int numIndices = countIndexedVertices();
         int result;
         switch (drawMode) {
             case GL11C.GL_POINTS:
@@ -247,7 +265,7 @@ public class Mesh {
      * @return the count (&ge;0)
      */
     public int countTriangles() {
-        int numIndices = vertexCount; // TODO indexing
+        int numIndices = countIndexedVertices();
         int result;
         switch (drawMode) {
             case GL11C.GL_POINTS:
@@ -295,8 +313,8 @@ public class Mesh {
     }
 
     /**
-     * Generate normals on a triangle-by-triangle basis for a triangles-mode
-     * Mesh. Any pre-existing normals are discarded.
+     * Generate normals on a triangle-by-triangle basis for a non-indexed,
+     * GL_TRIANGLES mesh. Any pre-existing normals are discarded.
      *
      * @return the (modified) current instance (for chaining)
      */
@@ -304,6 +322,9 @@ public class Mesh {
         verifyMutable();
         if (drawMode != GL11C.GL_TRIANGLES) {
             throw new IllegalStateException("drawMode == " + drawMode);
+        }
+        if (indices != null) {
+            throw new IllegalStateException("must be non-indexed");
         }
         int numTriangles = countTriangles();
         assert vertexCount == vpt * numTriangles;
@@ -451,6 +472,9 @@ public class Mesh {
         if (textureCoordinates != null) {
             textureCoordinates.makeImmutable();
         }
+        if (indices != null) {
+            indices.makeImmutable();
+        }
 
         return this;
     }
@@ -467,9 +491,14 @@ public class Mesh {
         GL30C.glBindVertexArray(vaoId);
         Utils.checkForOglError();
 
-        int startVertex = 0;
-        GL11C.glDrawArrays(drawMode, startVertex, vertexCount);
-        Utils.checkForOglError();
+        if (indices == null) {
+            int startVertex = 0;
+            GL11C.glDrawArrays(drawMode, startVertex, vertexCount);
+            Utils.checkForOglError();
+
+        } else {
+            indices.drawElements(drawMode);
+        }
     }
 
     /**
@@ -573,6 +602,18 @@ public class Mesh {
     }
     // *************************************************************************
     // protected methods
+
+    /**
+     * Create a buffer for putting vertex indices.
+     *
+     * @param capacity the desired capacity (in indices, &ge;0)
+     * @return a new IndexBuffer with the specified capacity
+     */
+    protected IndexBuffer createIndices(int capacity) {
+        verifyMutable();
+        this.indices = new IndexBuffer(vertexCount, capacity);
+        return indices;
+    }
 
     /**
      * Create a buffer for putting vertex normals.
@@ -703,6 +744,7 @@ public class Mesh {
      */
     private void smoothNormals() {
         verifyMutable();
+        assert indices != null;
         assert normals != null;
 
         Map<Vector3f, Integer> mapPosToDpid = new HashMap<>(vertexCount);
