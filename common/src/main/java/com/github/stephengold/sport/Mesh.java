@@ -72,7 +72,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     private IndexBuffer indices;
     /**
-     * kind of geometric primitives contained in this Mesh, such as:
+     * kind of geometric primitives contained in this Mesh, such as
      * GL_TRIANGLES, GL_LINE_LOOP, or GL_POINTS
      */
     private final int drawMode;
@@ -104,9 +104,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * Instantiate a mutable mesh with the specified mode and vertex positions,
      * but no indices, normals, or texture coordinates.
      *
-     * @param drawMode the desired draw mode, such as GL_TRIANGLES
-     * @param positionsArray the desired vertex positions (not null, not empty,
-     * length a multiple of 3, unaffected)
+     * @param drawMode draw mode, such as GL_TRIANGLES
+     * @param positionsArray vertex positions (not null, not empty, length a
+     * multiple of 3, unaffected)
      */
     public Mesh(int drawMode, float... positionsArray) {
         this(drawMode, positionsArray.length / numAxes);
@@ -122,9 +122,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * Instantiate a mutable mesh with the specified mode and vertex positions,
      * but no indices, normals, or texture coordinates.
      *
-     * @param drawMode the desired draw mode, such as GL_TRIANGLES
-     * @param positionsBuffer the desired vertex positions (not null, not empty,
-     * capacity a multiple of 3, alias created)
+     * @param drawMode draw mode, such as GL_TRIANGLES
+     * @param positionsBuffer vertex positions (not null, not empty, capacity a
+     * multiple of 3, alias created)
      */
     protected Mesh(int drawMode, FloatBuffer positionsBuffer) {
         this(drawMode, positionsBuffer.capacity() / numAxes);
@@ -142,8 +142,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * Instantiate a mutable mesh with the specified mode and number of
      * vertices, but no indices, normals, positions, or texture coordinates.
      *
-     * @param drawMode the desired draw mode, such as GL_TRIANGLES
-     * @param vertexCount the desired number of vertices (&ge;1)
+     * @param drawMode draw mode, such as GL_TRIANGLES
+     * @param vertexCount number of vertices (&ge;1)
      */
     protected Mesh(int drawMode, int vertexCount) {
         Validate.positive(vertexCount, "vertexCount");
@@ -572,8 +572,10 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * Transform all texture coordinates using the specified coefficients. Note
      * that the Z components of the coefficients are currently unused.
      *
-     * @param uCoefficients the coefficients for calculating new Us (not null)
-     * @param vCoefficients the coefficients for calculating new Vs (not null)
+     * @param uCoefficients the coefficients for calculating new Us (not null,
+     * unaffected)
+     * @param vCoefficients the coefficients for calculating new Vs (not null,
+     * unaffected)
      * @return the (modified) current instance (for chaining)
      */
     public Mesh transformUvs(Vector4fc uCoefficients, Vector4fc vCoefficients) {
@@ -795,7 +797,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         } else {
             assert !mutable;
 
-            // Re-use the existing VAO and VBOs.
+            // Use the existing VAO.
             GL30C.glBindVertexArray(vaoId);
             Utils.checkForOglError();
         }

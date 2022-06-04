@@ -222,6 +222,7 @@ public class OctasphereMesh extends Mesh {
 
 //        System.out.println("numRefineSteps  = " + numRefineSteps);
 //        System.out.println("numVertices     = " + locations.size());
+//        System.out.println("numLocations    = " + locations.size());
 //        System.out.println("numFaces        = " + faces.size() / vpt);
 //        System.out.println("numCacheEntries = " + midpointCache.size());
 //        System.out.println();

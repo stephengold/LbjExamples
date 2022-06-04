@@ -66,8 +66,8 @@ public class CharacterShapeGeometry extends Geometry {
     // constructors
 
     /**
-     * Instantiate a Geometry to visualize the specified character and make it
-     * visible.
+     * Instantiate a Geometry to visualize the specified character and make the
+     * Geometry visible.
      *
      * @param character the character to visualize (not null, alias created)
      * @param meshingStrategy how to generate meshes (not null)
@@ -78,8 +78,8 @@ public class CharacterShapeGeometry extends Geometry {
     }
 
     /**
-     * Instantiate a Geometry to visualize the specified character and make it
-     * visible.
+     * Instantiate a Geometry to visualize the specified character and make the
+     * Geometry visible.
      *
      * @param character the character to visualize (not null, alias created)
      * @param meshingStrategy how to generate meshes (not null)

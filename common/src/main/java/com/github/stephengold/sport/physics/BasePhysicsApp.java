@@ -64,6 +64,8 @@ import org.lwjgl.opengl.GL11C;
 
 /**
  * An application to visualize 3-D physics.
+ *
+ * @param <T> the type of PhysicsSpace to simulate
  */
 public abstract class BasePhysicsApp<T extends PhysicsSpace>
         extends BaseApplication {

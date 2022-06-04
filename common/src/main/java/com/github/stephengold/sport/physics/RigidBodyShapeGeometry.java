@@ -65,8 +65,8 @@ public class RigidBodyShapeGeometry extends Geometry {
     // constructors
 
     /**
-     * Instantiate a Geometry to visualize the specified rigid body and make it
-     * visible.
+     * Instantiate a Geometry to visualize the specified rigid body and make the
+     * Geometry visible.
      *
      * @param rigidBody the body to visualize (not null, alias created)
      * @param meshingStrategy how to generate meshes (not null)
@@ -77,8 +77,8 @@ public class RigidBodyShapeGeometry extends Geometry {
     }
 
     /**
-     * Instantiate a Geometry to visualize the specified rigid body and make it
-     * visible.
+     * Instantiate a Geometry to visualize the specified rigid body and make the
+     * Geometry visible.
      *
      * @param rigidBody the body to visualize (not null, alias created)
      * @param meshingStrategy how to generate meshes (not null)

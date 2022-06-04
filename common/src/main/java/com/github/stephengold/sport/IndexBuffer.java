@@ -35,7 +35,7 @@ import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL15C;
 
 /**
- * Wrapper class for the index buffer of a Sport Mesh, including its VBO and
+ * Wrapper class for the index buffer of a Sport mesh, including its VBO and
  * data.
  *
  * @author Stephen Gold sgold@sonic.net
@@ -276,8 +276,6 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
 
     /**
      * Generate the VBO for this buffer and initialize its data store.
-     *
-     * @param usageHint the expected usage pattern, such as GL_STATIC_DRAW
      */
     private void generateVbo() {
         assert vbo == null;
