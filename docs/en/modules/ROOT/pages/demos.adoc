@@ -24,7 +24,7 @@ On keyboards with other layouts, the keys may be labeled differently.
 For convenience, the mapping of keys to actions is partly standardized.
 In most demos:
 
-* kbd:[.] and kbd[Pause] toggle the simulation between running and paused,
+* kbd:[.] and kbd:[Pause] toggle the simulation between running and paused,
 * kbd:[C] dumps the camera's position to the console, and
 * kbd:[Esc] ends the application.
 
