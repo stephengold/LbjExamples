@@ -572,7 +572,7 @@ public abstract class BaseApplication {
             int[] tmpArray = new int[1];
             GL11C.glGetIntegerv(GL13C.GL_SAMPLES, tmpArray);
             Utils.checkForOglError();
-            stream.printf("enabled, samples=%d.%n", tmpArray[0]);
+            stream.printf("enabled, with samples=%d.%n", tmpArray[0]);
         } else {
             stream.println("disabled.");
         }

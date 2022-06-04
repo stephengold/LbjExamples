@@ -321,7 +321,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     public Mesh generateFacetNormals() {
         verifyMutable();
         if (drawMode != GL11C.GL_TRIANGLES) {
-            throw new IllegalStateException("drawMode == " + drawMode);
+            throw new IllegalStateException("drawMode = " + drawMode);
         }
         if (indices != null) {
             throw new IllegalStateException("must be non-indexed");
