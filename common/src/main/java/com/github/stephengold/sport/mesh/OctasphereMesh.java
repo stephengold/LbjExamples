@@ -131,6 +131,18 @@ public class OctasphereMesh extends Mesh {
      * map number of refinement steps to shared mesh
      */
     final private static OctasphereMesh[] sharedMeshes = new OctasphereMesh[14];
+    /**
+     * temporary storage for vectors
+     */
+    private Vector3f tmpVector = new Vector3f();
+    /**
+     * vertex positions
+     */
+    private VertexBuffer posBuffer;
+    /**
+     * vertex texture coordinates
+     */
+    private VertexBuffer uvBuffer;
     // *************************************************************************
     // constructors
 
@@ -230,26 +242,11 @@ public class OctasphereMesh extends Mesh {
         midpointCache.clear();
         assert super.countVertices() == faces.size();
 
-        VertexBuffer posBuffer = super.createPositions();
-        VertexBuffer uvBuffer = super.createUvs();
+        posBuffer = super.createPositions();
+        uvBuffer = super.createUvs();
 
-        Vector3f tmpVector = new Vector3f();
         for (int vertexIndex : faces) {
-            Vector3f pos = locations.get(vertexIndex); // alias
-            posBuffer.put(pos.x).put(pos.y).put(pos.z);
-
-            tmpVector.set(pos);
-            Utils.toSpherical(tmpVector);
-
-            float u;
-            if (pos.y == 0f) {
-                u = uOverrides.get(vertexIndex);
-            } else {
-                assert uOverrides.get(vertexIndex) == null;
-                u = tmpVector.y / FastMath.PI;
-            }
-            float v = tmpVector.z / FastMath.PI;
-            uvBuffer.put(u).put(v);
+            putVertex(vertexIndex);
         }
 
         posBuffer.flip();
@@ -259,6 +256,7 @@ public class OctasphereMesh extends Mesh {
 
         locations.clear();
         uOverrides.clear();
+        tmpVector = null;
     }
 
     /**
@@ -343,5 +341,28 @@ public class OctasphereMesh extends Mesh {
         midpointCache.put(key, newIndex);
 
         return newIndex;
+    }
+
+    /**
+     * Put the vertex position and UV to their respective vertex buffers.
+     *
+     * @param vIndex the index of the vertex (&ge;0)
+     */
+    private void putVertex(int vIndex) {
+        Vector3f pos = locations.get(vIndex); // alias
+        posBuffer.put(pos);
+
+        tmpVector.set(pos);
+        Utils.toSpherical(tmpVector);
+
+        float u;
+        if (pos.y == 0f) {
+            u = uOverrides.get(vIndex);
+        } else {
+            assert uOverrides.get(vIndex) == null;
+            u = tmpVector.y / FastMath.PI;
+        }
+        float v = tmpVector.z / FastMath.PI;
+        uvBuffer.put(u).put(v);
     }
 }
