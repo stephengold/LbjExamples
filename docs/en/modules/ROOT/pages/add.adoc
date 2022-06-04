@@ -3,6 +3,8 @@
 :experimental:
 :page-pagination:
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
+:url-enwiki: https://en.wikipedia.org/wiki
+:url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
 Adding {Project} to an existing Java project is a 6-step process:
 
@@ -144,6 +146,27 @@ PhysicsRigidBody body1 = new PhysicsRigidBody(sphere2, mass);
 
 Collision objects
 aren't simulated unless they're added to a space.
+
+== HelloLibbulletjme
+
+{url-tutorial}/console/HelloLibbulletjme.java[HelloLibbulletjme]
+is a complete console application (no graphics)
+that serves as a starting point for using Libbulletjme.
+
+It illustrates:
+
+. loading a native library from the "~/Downloads" directory
+. creating a `PhysicsSpace`
+. creating 2 collision objects and adding them to the space
+. running the simulation for 50 time steps
+
+IMPORTANT: `HelloLibbulletjme` is the first of
+many tutorial apps designed for hands-on learning.
+I expect you to not only study the source code,
+but to actually run the app as well.
+Take time *now* to set up a 
+{url-enwiki}/Integrated_development_environment[software development environment]
+for this purpose!
 
 == Summary
 
