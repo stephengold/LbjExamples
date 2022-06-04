@@ -22,8 +22,10 @@ All {Cplusplus} source code in {Project}
 (a modified partial snapshot of Bullet, a snapshot of V-HACD, and some "glue code")
 resides in its "src/native" directory.
 Before instantiating physics objects,
-a {Project} application must dynamically load a _native library_ of this code,
-compiled for the platform on which the app is executing.
+a {Project} application must {url-enwiki}/Dynamic_loading[dynamically load]
+a _native library_ of this code,
+compiled for the {url-enwiki}/Computing_platform[platform]
+on which the app is executing.
 
 {Project} publishes native libraries for 14 different platforms.
 
@@ -37,10 +39,13 @@ For each platform, {Project} builds 2 types of libraries:
 
 Furthermore, native libraries come in various flavors, including:
 
-* "Sp" (using single-precision arithmetic, single-threaded, without profiling),
+* "Sp" (using {url-enwiki}/Single-precision_floating-point_format[single-precision arithmetic],
+  single-threaded, without profiling),
 * "SpMt" (similar to "Sp", but multithreaded),
-* "SpQuickprof" (similar to "Sp", but with Quickprof profiling), and
-* "Dp" (similar to "Sp" but using double-precision arithmetic).
+* "SpQuickprof" (similar to "Sp", but with Quickprof
+  {url-enwiki}/Profiling_(computer_programming)[profiling]), and
+* "Dp" (similar to "Sp" but using
+  {url-enwiki}/Double-precision_floating-point_format[double-precision arithmetic]).
 
 All these native libraries share a common API,
 so a single Java library suffices.
