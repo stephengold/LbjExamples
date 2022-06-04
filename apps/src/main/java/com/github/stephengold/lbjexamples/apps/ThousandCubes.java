@@ -59,6 +59,13 @@ import org.lwjgl.system.Configuration;
  */
 public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     // *************************************************************************
+    // constants
+
+    /**
+     * simulation speed when "paused"
+     */
+    final private static float PAUSED_SPEED = 1e-9f;
+    // *************************************************************************
     // fields
 
     /**
@@ -69,6 +76,10 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      * shape for bodies launched when the E key is pressed
      */
     private CollisionShape launchShape;
+    /**
+     * simulation speed (simulated seconds per wall-clock second)
+     */
+    private static float physicsSpeed = 1f;
     /**
      * generate random colors
      */
@@ -152,7 +163,8 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void updatePhysics(float intervalSeconds) {
-        physicsSpace.update(intervalSeconds);
+        float simSeconds = physicsSpeed * intervalSeconds;
+        physicsSpace.update(simSeconds);
     }
     // *************************************************************************
     // private methods
@@ -209,11 +221,19 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         getInputManager().add(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPressed) {
-                if (keyId == GLFW.GLFW_KEY_E) {
-                    if (isPressed) {
-                        launchRedBall();
-                    }
-                    return;
+                switch (keyId) {
+                    case GLFW.GLFW_KEY_E:
+                        if (isPressed) {
+                            launchRedBall();
+                        }
+                        return;
+
+                    case GLFW.GLFW_KEY_PAUSE:
+                    case GLFW.GLFW_KEY_PERIOD:
+                        if (isPressed) {
+                            togglePause();
+                        }
+                        return;
                 }
                 super.onKeyboard(keyId, isPressed);
             }
@@ -238,5 +258,9 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         missile.setPhysicsLocation(cam.getLocation());
 
         visualizeShape(missile).setColor(Constants.RED);
+    }
+
+    private static void togglePause() {
+        physicsSpeed = (physicsSpeed <= PAUSED_SPEED) ? 1f : PAUSED_SPEED;
     }
 }
