@@ -348,7 +348,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             MyVector3f.normalizeLocal(normal);
 
             for (int j = 0; j < vpt; ++j) {
-                normals.put(normal.x).put(normal.y).put(normal.z);
+                normals.put(normal);
             }
         }
         normals.flip();
@@ -519,6 +519,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * @return the (modified) current instance (for chaining)
      */
     public Mesh rotate(float xAngle, float yAngle, float zAngle) {
+        if (xAngle == 0f && yAngle == 0f && zAngle == 0f) {
+            return this;
+        }
         verifyMutable();
 
         Quaternion quaternion = new Quaternion(); // TODO garbage
@@ -561,6 +564,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * @return the (modified) current instance (for chaining)
      */
     public Mesh transform(Transform transform) {
+        Validate.nonNull(transform, "transform");
         // TODO test for identity using MyMath
         verifyMutable();
 

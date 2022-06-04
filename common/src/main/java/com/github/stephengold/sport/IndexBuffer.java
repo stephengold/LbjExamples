@@ -335,6 +335,7 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
             GL15C.glBufferSubData(target, offset, (IntBuffer) buffer);
             Utils.checkForOglError();
         }
+
         isModified = false;
     }
 }

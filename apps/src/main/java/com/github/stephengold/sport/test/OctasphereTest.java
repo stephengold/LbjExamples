@@ -83,10 +83,10 @@ public class OctasphereTest extends BaseApplication {
         getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         setBackgroundColor(Constants.SKY_BLUE);
 
-        float radius = 3f;
-        float xRotation = -FastMath.HALF_PI;
         Mesh sphereMesh = OctasphereMesh.getMesh(4); // unit sphere
 
+        float radius = 3f;
+        float xRotation = -FastMath.HALF_PI;
         Geometry sphereGeometry = new Geometry(sphereMesh)
                 .setOrientation(xRotation, 0f, 0f)
                 .setProgram("Unshaded/Texture")
