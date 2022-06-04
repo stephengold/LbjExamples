@@ -1,0 +1,51 @@
+= An overview of the demo applications
+:Project: Libbulletjme
+:experimental:
+:url-code: https://github.com/stephengold/LbjExamples/tree/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
+
+_Demo applications_ are provided to showcase certain features of {Project}.
+The following demos are found in
+{url-code}[the com.github.stephengold.lbjexamples.apps package of the "apps" sub-project]:
+
+* `NewtonsCradle`
+  demonstrates dynamic restitution and point-to-point joints
+* `ThousandCubes`
+  demonstrates stacking cubes and launching projectiles
+
+(Not all applications in the package are intended as demos.)
+
+== User interface
+
+The demos are controlled by primarily by keyboard input.
+
+NOTE: The descriptions below assume a keyboard with the "US" (QWERTY) layout.
+On keyboards with other layouts, the keys may be labeled differently.
+
+For convenience, the mapping of keys to actions is partly standardized.
+In most demos:
+
+* kbd:[.] and kbd[Pause] toggle the simulation between running and paused,
+* kbd:[C] dumps the camera's position to the console, and
+* kbd:[Esc] ends the application.
+
+For camera control, all demos use `Immediate` rotation mode.
+This means you can rotate the camera by simply moving the mouse.
+Furthermore:
+
+* kbd:[W] and kbd:[S] dolly the camera forward and back, respectively,
+* kbd:[A] and kbd:[D] dolly the camera left and right, respectively,
+* kbd:[Q] raises the camera, and
+* kbd:[Z] lowers the camera.
+
+Additional mappings are specific to each application:
+
+* In `NewtonsCradle`:
+
+** kbd:[F1], kbd:[1], and kbd:[Numpad1] restart with a single ball
+** kbd:[F2], kbd:[2], and kbd:[Numpad2] restart with 2 balls
+** kbd:[F3], kbd:[3], and kbd:[Numpad3] restart with 3 balls
+** kbd:[F4], kbd:[4], and kbd:[Numpad4] restart with 4 balls
+
+* In `ThousandCubes`:
+
+** kbd:[E] launch a red ball
