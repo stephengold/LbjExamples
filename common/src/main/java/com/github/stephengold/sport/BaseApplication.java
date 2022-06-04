@@ -64,7 +64,7 @@ public abstract class BaseApplication {
      * true to enable debugging output and additional runtime checks, or false
      * to disable them
      */
-    final private static boolean enableDebugging = false;
+    final public static boolean enableDebugging = false;
     /**
      * mask size for multisample anti-aliasing (MSAA) if &ge;2, or 0 to disable
      * MSAA
