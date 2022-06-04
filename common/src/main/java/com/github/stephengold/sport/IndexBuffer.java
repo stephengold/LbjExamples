@@ -48,10 +48,6 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
      * target for glBindBuffer() and glBufferData() (=vertex array indices)
      */
     final private static int target = GL15C.GL_ELEMENT_ARRAY_BUFFER;
-    /**
-     * expected usage pattern
-     */
-    private int usageHint = GL15C.GL_STATIC_DRAW;
     // *************************************************************************
     // fields
 
@@ -64,6 +60,10 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
      * GL_UNSIGNED_INT)
      */
     final private int elementType;
+    /**
+     * expected usage pattern
+     */
+    private int usageHint = GL15C.GL_STATIC_DRAW;
     /**
      * OpenGL name of the VBO, or null if the VBO hasn't been generated yet
      */
