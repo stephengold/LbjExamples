@@ -1,15 +1,15 @@
 = An overview of the demo applications
 :Project: Libbulletjme
 :experimental:
-:url-code: https://github.com/stephengold/LbjExamples/tree/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
+:url-examples: https://github.com/stephengold/LbjExamples/tree/master/apps/src/main/java/com/github/stephengold/lbjexamples
 
 _Demo applications_ are provided to showcase certain features of {Project}.
 The following demos are found in
-{url-code}[the com.github.stephengold.lbjexamples.apps package of the "apps" sub-project]:
+{url-examples}[the com.github.stephengold.lbjexamples package of the "apps" sub-project]:
 
-* `NewtonsCradle`
+* {url-examples}/NewtonsCradle.java[`NewtonsCradle`]
   demonstrates dynamic restitution and point-to-point joints
-* `ThousandCubes`
+* {url-examples}/ThousandCubes.java[`ThousandCubes`]
   demonstrates stacking cubes and launching projectiles
 
 (Not all applications in the package are intended as demos.)

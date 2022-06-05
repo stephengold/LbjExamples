@@ -15,10 +15,18 @@ ext {
     libbulletjmeUrl = "https://github.com/stephengold/Libbulletjme/releases/download/$lbjVersion/"
 }
 
-// tasks to run individual apps:
+// tasks to run specific apps:
 
 tasks.register('AppChooser', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.AppChooser'
+    mainClass = 'com.github.stephengold.lbjexamples.AppChooser'
+}
+
+// demos
+tasks.register('NewtonsCradle', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.NewtonsCradle'
+}
+tasks.register('ThousandCubes', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.ThousandCubes'
 }
 
 // console apps (no graphics)
@@ -89,14 +97,6 @@ tasks.register('HelloVehicle', JavaExec) {
 }
 tasks.register('HelloWalk', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWalk'
-}
-
-// physics demos
-tasks.register('NewtonsCradle', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.NewtonsCradle'
-}
-tasks.register('ThousandCubes', JavaExec) {
-    mainClass = 'com.github.stephengold.lbjexamples.apps.ThousandCubes'
 }
 
 // graphics-only tests

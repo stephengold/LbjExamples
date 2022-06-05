@@ -4,7 +4,7 @@
 :page-toclevels: 3
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki
-:url-examples: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
+:url-examples: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
 == The 5 familiar features

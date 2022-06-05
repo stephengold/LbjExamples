@@ -27,8 +27,28 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.lbjexamples.apps;
+package com.github.stephengold.lbjexamples;
 
+import com.github.stephengold.lbjexamples.apps.HelloCcd;
+import com.github.stephengold.lbjexamples.apps.HelloCharacter;
+import com.github.stephengold.lbjexamples.apps.HelloContactResponse;
+import com.github.stephengold.lbjexamples.apps.HelloDamping;
+import com.github.stephengold.lbjexamples.apps.HelloDeactivation;
+import com.github.stephengold.lbjexamples.apps.HelloDoubleEnded;
+import com.github.stephengold.lbjexamples.apps.HelloGhost;
+import com.github.stephengold.lbjexamples.apps.HelloJoint;
+import com.github.stephengold.lbjexamples.apps.HelloKinematics;
+import com.github.stephengold.lbjexamples.apps.HelloLimit;
+import com.github.stephengold.lbjexamples.apps.HelloMadMallet;
+import com.github.stephengold.lbjexamples.apps.HelloMassDistribution;
+import com.github.stephengold.lbjexamples.apps.HelloMotor;
+import com.github.stephengold.lbjexamples.apps.HelloNonUniformGravity;
+import com.github.stephengold.lbjexamples.apps.HelloRigidBody;
+import com.github.stephengold.lbjexamples.apps.HelloSoftSoft;
+import com.github.stephengold.lbjexamples.apps.HelloSpring;
+import com.github.stephengold.lbjexamples.apps.HelloStaticBody;
+import com.github.stephengold.lbjexamples.apps.HelloVehicle;
+import com.github.stephengold.lbjexamples.apps.HelloWalk;
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.test.CheckerboardTest;
 import com.github.stephengold.sport.test.ClipspaceTest;
