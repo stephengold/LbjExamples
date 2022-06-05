@@ -830,7 +830,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     private void smoothNormals() {
         verifyMutable();
-        assert indices != null;
+        assert indices == null;
         assert normals != null;
 
         Map<Vector3f, Integer> mapPosToDpid = new HashMap<>(vertexCount);
