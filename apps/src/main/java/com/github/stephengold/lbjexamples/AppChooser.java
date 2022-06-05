@@ -85,7 +85,7 @@ class AppChooser extends JFrame {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        List<BaseApplication> apps = new ArrayList<>(31);
+        List<BaseApplication> apps = new ArrayList<>(32);
         apps.add(new CheckerboardTest());
         apps.add(new ClipspaceTest());
         apps.add(new DynamicMeshTest());
@@ -119,9 +119,10 @@ class AppChooser extends JFrame {
         apps.add(new MouseTest2());
         apps.add(new NewtonsCradle());
         apps.add(new OctasphereTest());
+        apps.add(new Pachinko());
         apps.add(new RainbowTest());
+        
         apps.add(new TextureTest());
-
         apps.add(new ThousandCubes());
 
         new AppChooser(apps);

@@ -25,6 +25,9 @@ tasks.register('AppChooser', JavaExec) {
 tasks.register('NewtonsCradle', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.NewtonsCradle'
 }
+tasks.register('Pachinko', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.Pachinko'
+}
 tasks.register('ThousandCubes', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.ThousandCubes'
 }

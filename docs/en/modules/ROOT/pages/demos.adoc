@@ -9,6 +9,8 @@ The following demos are found in
 
 * {url-examples}/NewtonsCradle.java[`NewtonsCradle`]
   demonstrates dynamic restitution and point-to-point joints
+* {url-examples}/Pachinko.java[`Pachinko`]
+  demonstrates compound collision shapes and 2-D physics
 * {url-examples}/ThousandCubes.java[`ThousandCubes`]
   demonstrates stacking cubes and launching projectiles
 
@@ -45,6 +47,15 @@ Additional mappings are specific to each application:
 ** kbd:[F2], kbd:[2], and kbd:[Numpad2] restart with 2 balls
 ** kbd:[F3], kbd:[3], and kbd:[Numpad3] restart with 3 balls
 ** kbd:[F4], kbd:[4], and kbd:[Numpad4] restart with 4 balls
+
+* In `Pachinko`:
+
+** kbd:[F4], kbd:[4], and kbd:[Numpad4] restart with 4 rows of pins
+** kbd:[F5], kbd:[5], and kbd:[Numpad5] restart with 5 rows of pins
+** kbd:[F6], kbd:[6], and kbd:[Numpad6] restart with 6 rows of pins
+** kbd:[F7], kbd:[7], and kbd:[Numpad7] restart with 7 rows of pins
+** kbd:[F8], kbd:[8], and kbd:[Numpad8] restart with 8 rows of pins
+** kbd:[F9], kbd:[9], and kbd:[Numpad9] restart with 9 rows of pins
 
 * In `ThousandCubes`:
 
