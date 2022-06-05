@@ -151,6 +151,7 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
 
         physicsSpace.addCollisionObject(vehicle);
 
+        // Visualize the vehicle.
         visualizeShape(vehicle);
         visualizeWheels(vehicle);
 

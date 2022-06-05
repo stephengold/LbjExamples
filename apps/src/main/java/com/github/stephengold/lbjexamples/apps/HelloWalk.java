@@ -229,7 +229,7 @@ public class HelloWalk
 
         physicsSpace.addCollisionObject(body);
 
-        // visualization
+        // Visualize the terrain.
         Vector4fc darkGreen = new Vector4f(0f, 0.3f, 0f, 1f);
         visualizeShape(body)
                 .setColor(darkGreen)
