@@ -144,6 +144,22 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
+     * Instantiate a mutable mesh with the specified mode and vertex positions,
+     * but no indices, normals, or texture coordinates.
+     *
+     * @param drawMode draw mode, such as GL_TRIANGLES
+     * @param positionsArray vertex positions (in mesh coordinates, not null,
+     * not empty)
+     */
+    public Mesh(int drawMode, Vector3f... positionsArray) {
+        this(drawMode, positionsArray.length);
+
+        FloatBuffer data = BufferUtils.createFloatBuffer(positionsArray);
+        this.positions = new VertexBuffer(data, numAxes,
+                ShaderProgram.positionAttribName);
+    }
+
+    /**
      * Instantiate a mutable mesh with the specified mode and number of
      * vertices, but no indices, normals, positions, or texture coordinates.
      *
