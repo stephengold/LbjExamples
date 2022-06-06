@@ -244,10 +244,10 @@ public class VertexBuffer {
 
     /**
      * If the attribute is active in the specified ShaderProgram, then enable
-     * the attribute and prepare it for rendering. This includes generating the
+     * the attribute and prepare it for drawing. This includes generating the
      * VBO, if that hasn't happened yet.
      *
-     * @param program the program that's about to TODO (not null)
+     * @param program the ShaderProgram that's about to draw (not null)
      */
     void prepareToDraw(ShaderProgram program) {
         Validate.nonNull(program, "program");
