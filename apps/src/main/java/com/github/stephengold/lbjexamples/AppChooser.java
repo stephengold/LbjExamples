@@ -31,6 +31,7 @@ package com.github.stephengold.lbjexamples;
 
 import com.github.stephengold.lbjexamples.apps.HelloCcd;
 import com.github.stephengold.lbjexamples.apps.HelloCharacter;
+import com.github.stephengold.lbjexamples.apps.HelloCloth;
 import com.github.stephengold.lbjexamples.apps.HelloContactResponse;
 import com.github.stephengold.lbjexamples.apps.HelloDamping;
 import com.github.stephengold.lbjexamples.apps.HelloDeactivation;
@@ -44,6 +45,7 @@ import com.github.stephengold.lbjexamples.apps.HelloMassDistribution;
 import com.github.stephengold.lbjexamples.apps.HelloMotor;
 import com.github.stephengold.lbjexamples.apps.HelloNonUniformGravity;
 import com.github.stephengold.lbjexamples.apps.HelloRigidBody;
+import com.github.stephengold.lbjexamples.apps.HelloSoftRope;
 import com.github.stephengold.lbjexamples.apps.HelloSoftSoft;
 import com.github.stephengold.lbjexamples.apps.HelloSpring;
 import com.github.stephengold.lbjexamples.apps.HelloStaticBody;
@@ -85,43 +87,45 @@ class AppChooser extends JFrame {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        List<BaseApplication> apps = new ArrayList<>(32);
+        List<BaseApplication> apps = new ArrayList<>(34);
         apps.add(new CheckerboardTest());
         apps.add(new ClipspaceTest());
         apps.add(new DynamicMeshTest());
         apps.add(new HelloCcd());
         apps.add(new HelloCharacter());
 
+        apps.add(new HelloCloth());
         apps.add(new HelloContactResponse());
         apps.add(new HelloDamping());
         apps.add(new HelloDeactivation());
         apps.add(new HelloDoubleEnded());
-        apps.add(new HelloGhost());
 
+        apps.add(new HelloGhost());
         apps.add(new HelloJoint());
         apps.add(new HelloKinematics());
         apps.add(new HelloLimit());
         apps.add(new HelloMadMallet());
-        apps.add(new HelloMassDistribution());
 
+        apps.add(new HelloMassDistribution());
         apps.add(new HelloMotor());
         apps.add(new HelloNonUniformGravity());
         apps.add(new HelloRigidBody());
+        apps.add(new HelloSoftRope());
+
         apps.add(new HelloSoftSoft());
         apps.add(new HelloSpring());
-
         apps.add(new HelloStaticBody());
         apps.add(new HelloVehicle());
         apps.add(new HelloWalk());
+
         apps.add(new IcosphereTest());
         apps.add(new MouseTest());
-
         apps.add(new MouseTest2());
         apps.add(new NewtonsCradle());
         apps.add(new OctasphereTest());
+
         apps.add(new Pachinko());
         apps.add(new RainbowTest());
-        
         apps.add(new TextureTest());
         apps.add(new ThousandCubes());
 

@@ -47,6 +47,9 @@ tasks.register('HelloCcd', JavaExec) {
 tasks.register('HelloCharacter', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCharacter'
 }
+tasks.register('HelloCloth', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCloth'
+}
 tasks.register('HelloContactResponse', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloContactResponse'
 }
@@ -85,6 +88,9 @@ tasks.register('HelloNonUniformGravity', JavaExec) {
 }
 tasks.register('HelloRigidBody', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
+}
+tasks.register('HelloSoftRope', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSoftRope'
 }
 tasks.register('HelloSoftSoft', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSoftSoft'
