@@ -33,6 +33,7 @@ import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.mesh.DividedLine;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
 import com.github.stephengold.sport.physics.SoftBodyLinksGeometry;
+import com.github.stephengold.sport.physics.SoftBodyPinsGeometry;
 import com.jme3.bullet.PhysicsSoftSpace;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.objects.PhysicsBody;
@@ -117,6 +118,7 @@ public class HelloSoftRope extends BasePhysicsApp<PhysicsSoftSpace> {
 
         // Visualize the soft body.
         new SoftBodyLinksGeometry(rope).setProgram("Unshaded/Monochrome");
+        new SoftBodyPinsGeometry(rope);
     }
 
     /**
