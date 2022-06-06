@@ -83,6 +83,12 @@ abstract public class InputProcessor {
         }
     }
 
+    public void onMouseScroll(double xOffset, double yOffset) {
+        if (nextProcessor != null) {
+            nextProcessor.onMouseScroll(xOffset, yOffset);
+        }
+    }
+
     /**
      * Set the next processor in the series.
      *

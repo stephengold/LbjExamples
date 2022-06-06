@@ -32,6 +32,8 @@ package com.github.stephengold.sport;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
+import org.lwjgl.glfw.GLFWScrollCallback;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 /**
@@ -76,6 +78,12 @@ public class InputManager {
         glfwSetCursorPosCallback(glfwWindowId, this::glfwCursorPosCallback);
         glfwSetKeyCallback(glfwWindowId, this::glfwKeyCallback);
         glfwSetMouseButtonCallback(glfwWindowId, this::glfwMouseButtonCallback);
+        glfwSetScrollCallback(glfwWindowId, new GLFWScrollCallback(){
+            @Override
+            public void invoke(long window, double xOffset, double yOffset) {
+                glfwScrollCallback(window, xOffset, yOffset);
+            }
+        });
     }
     // *************************************************************************
     // new methods exposed
@@ -204,6 +212,14 @@ public class InputManager {
         boolean isPress = (action == GLFW_PRESS);
         if (firstProcessor != null) {
             firstProcessor.onMouseButton(buttonId, isPress);
+        }
+    }
+
+    private void glfwScrollCallback(long windowId, double xOffset, double yOffset) {
+        assert windowId == glfwWindowId;
+
+        if (firstProcessor != null) {
+            firstProcessor.onMouseScroll(xOffset, yOffset);
         }
     }
 }
