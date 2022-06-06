@@ -48,6 +48,7 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL13C;
 import org.lwjgl.opengl.GL30C;
+import org.lwjgl.opengl.GL32C;
 import org.lwjgl.opengl.GLUtil;
 import org.lwjgl.system.Callback;
 import org.lwjgl.system.Configuration;
@@ -521,6 +522,9 @@ public abstract class BaseApplication {
          * when fragment colors are generated in the Linear colorspace.
          */
         Utils.setOglCapability(GL30C.GL_FRAMEBUFFER_SRGB, true);
+
+        // Enable point sizes so we can render sprites.
+        Utils.setOglCapability(GL32C.GL_PROGRAM_POINT_SIZE, true);
 
         ShaderProgram.initializeStaticData();
 
