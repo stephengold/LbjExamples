@@ -65,8 +65,15 @@ public class Geometry {
      */
     private boolean wireframe;
     /**
-     * temporary storage used in
-     * {@link #writeTransformMatrix(java.nio.FloatBuffer)}
+     * alpha discard threshold (for transparency)
+     */
+    private float alphaDiscardThreshold = 0.5f;
+    /**
+     * point size for sprites (in pixels)
+     */
+    private float pointSize = 32f;
+    /**
+     * temporary storage for a transform matrix
      */
     final private Matrix4f tm = new Matrix4f();
     /**
@@ -119,6 +126,15 @@ public class Geometry {
     }
     // *************************************************************************
     // new methods exposed
+
+    /**
+     * Return the alpha discard threshold.
+     *
+     * @return the threshold value
+     */
+    public float alphaDiscardThreshold() {
+        return alphaDiscardThreshold;
+    }
 
     /**
      * Return the base color in the Linear colorspace.
@@ -227,6 +243,26 @@ public class Geometry {
      */
     public boolean isWireframe() {
         return wireframe;
+    }
+
+    /**
+     * Return the point size for sprites.
+     *
+     * @return the size (in pixels)
+     */
+    public float pointSize() {
+        return pointSize;
+    }
+
+    /**
+     * Alter the alpha discard threshold.
+     *
+     * @param newThreshold the desired threshold (default=0.5)
+     * @return the (modified) current instance (for chaining)
+     */
+    public Geometry setAlphaDiscardThreshold(float newThreshold) {
+        this.alphaDiscardThreshold = newThreshold;
+        return this;
     }
 
     /**
@@ -347,6 +383,17 @@ public class Geometry {
     }
 
     /**
+     * Alter the point size for sprites.
+     *
+     * @param newSize the desired size (in pixels, default=32)
+     * @return the (modified) current instance (for chaining)
+     */
+    public Geometry setPointSize(float newSize) {
+        this.pointSize = newSize;
+        return this;
+    }
+
+    /**
      * Replace the geometry's shader program with the named ShaderProgram, or if
      * the name is null, replace it with the default program.
      *
@@ -438,6 +485,10 @@ public class Geometry {
         }
 
         // material uniforms
+        if (program.hasActiveUniform("alphaDiscardMaterialThreshold")) {
+            program.setUniform("alphaDiscardMaterialThreshold",
+                    alphaDiscardThreshold);
+        }
         if (program.hasActiveUniform("BaseMaterialColor")) {
             program.setUniform("BaseMaterialColor", baseColor);
         }
@@ -446,6 +497,9 @@ public class Geometry {
             int unitNumber = 0;
             texture.setUnitNumber(unitNumber);
             program.setUniform("ColorMaterialTexture", unitNumber);
+        }
+        if (program.hasActiveUniform("pointMaterialSize")) {
+            program.setUniform("pointMaterialSize", pointSize);
         }
         if (program.hasActiveUniform("SpecularMaterialColor")) {
             program.setUniform("SpecularMaterialColor", specularColor);
