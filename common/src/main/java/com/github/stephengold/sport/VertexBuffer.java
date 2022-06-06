@@ -243,6 +243,16 @@ public class VertexBuffer {
     }
 
     /**
+     * Return the buffer's read/write position.
+     *
+     * @return the position (&ge;0, &le;limit)
+     */
+    public int position() {
+        int result = dataBuffer.position();
+        return result;
+    }
+
+    /**
      * If the attribute is active in the specified ShaderProgram, then enable
      * the attribute and prepare it for drawing. This includes generating the
      * VBO, if that hasn't happened yet.
