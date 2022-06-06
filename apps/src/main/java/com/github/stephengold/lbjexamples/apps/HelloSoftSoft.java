@@ -47,7 +47,7 @@ import org.lwjgl.system.Configuration;
 
 /**
  * A simple example of a soft-soft collision.
- *
+ * <p>
  * @author Stephen Gold sgold@sonic.net
  */
 public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
@@ -100,6 +100,9 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         cam.setLocation(new Vector3f(0f, 1f, 8f));
     }
 
+    /**
+     * Populate the PhysicsSpace. Invoked once during initialization.
+     */
     @Override
     public void populateSpace() {
         // A mesh is used to generate the shape and topology
