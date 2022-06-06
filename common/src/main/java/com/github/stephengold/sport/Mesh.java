@@ -38,6 +38,7 @@ import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.Map;
 import jme3utilities.Validate;
+import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
 import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL11C;
@@ -565,7 +566,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     public Mesh transform(Transform transform) {
         Validate.nonNull(transform, "transform");
-        // TODO test for identity using MyMath
+        if (MyMath.isIdentity(transform)) {
+            return this;
+        }
         verifyMutable();
 
         positions.transform(transform);
