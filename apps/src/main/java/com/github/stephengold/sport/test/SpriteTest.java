@@ -38,6 +38,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.system.JmeSystem;
 import com.jme3.system.Platform;
 import org.lwjgl.opengl.GL11C;
+import org.lwjgl.opengl.GL12C;
 import org.lwjgl.system.Configuration;
 
 /**
@@ -87,7 +88,14 @@ public class SpriteTest extends BaseApplication {
         Mesh pointsMesh = new Mesh(GL11C.GL_POINTS, p0, p1);
 
         String resourceName = "/Textures/shapes/pin.png";
-        TextureKey textureKey = new TextureKey("classpath://" + resourceName);
+        int magFilter = GL11C.GL_LINEAR;
+        int minFilter = GL11C.GL_NEAREST_MIPMAP_LINEAR;
+        int wrapU = GL12C.GL_CLAMP_TO_EDGE;
+        int wrapV = GL12C.GL_CLAMP_TO_EDGE;
+        boolean mipmaps = true;
+        float maxAniso = 1f;
+        TextureKey textureKey = new TextureKey("classpath://" + resourceName,
+                magFilter, minFilter, wrapU, wrapV, mipmaps, maxAniso);
 
         new Geometry(pointsMesh)
                 .setColor(Constants.YELLOW)
