@@ -103,6 +103,22 @@ public class BoxMesh extends Mesh {
         posBuffer.flip();
         assert posBuffer.limit() == posBuffer.capacity();
     }
+    /**
+     * Instantiate an axis-aligned box.
+     *
+     * @param halfExtent The extent used to generate the axis-aligned box.
+     */
+    public BoxMesh(float halfExtent) {
+        this(new Vector3f(halfExtent, halfExtent, halfExtent));
+    }
+    /**
+     * Instantiate an axis-aligned box.
+     *
+     * @param halfExtent The extent used to generate the axis-aligned box.
+     */
+    public BoxMesh(Vector3f halfExtent) {
+        this(halfExtent.x, halfExtent.y, halfExtent.z, -halfExtent.x, -halfExtent.y, -halfExtent.z);
+    }
     // *************************************************************************
     // new methods exposed
 
