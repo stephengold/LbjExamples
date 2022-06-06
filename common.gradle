@@ -2,8 +2,8 @@
 
 apply plugin: 'java'
 
-project.ext {
-    lbjVersion = '15.0.0'
+project.ext { // current versions of libraries:
+    lbjVersion = '15.1.0'
     lwjglVersion = '3.3.1'
 }
 
