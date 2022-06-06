@@ -60,6 +60,7 @@ import com.github.stephengold.sport.test.MouseTest;
 import com.github.stephengold.sport.test.MouseTest2;
 import com.github.stephengold.sport.test.OctasphereTest;
 import com.github.stephengold.sport.test.RainbowTest;
+import com.github.stephengold.sport.test.SpriteTest;
 import com.github.stephengold.sport.test.TextureTest;
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -87,7 +88,8 @@ class AppChooser extends JFrame {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        List<BaseApplication> apps = new ArrayList<>(34);
+        List<BaseApplication> apps = new ArrayList<>(35);
+
         apps.add(new CheckerboardTest());
         apps.add(new ClipspaceTest());
         apps.add(new DynamicMeshTest());
@@ -126,6 +128,7 @@ class AppChooser extends JFrame {
 
         apps.add(new Pachinko());
         apps.add(new RainbowTest());
+        apps.add(new SpriteTest());
         apps.add(new TextureTest());
         apps.add(new ThousandCubes());
 

@@ -133,6 +133,9 @@ tasks.register('OctasphereTest', JavaExec) {
 tasks.register('RainbowTest', JavaExec) {
     mainClass = 'com.github.stephengold.sport.test.RainbowTest'
 }
+tasks.register('SpriteTest', JavaExec) {
+    mainClass = 'com.github.stephengold.sport.test.SpriteTest'
+}
 tasks.register('TextureTest', JavaExec) {
     mainClass = 'com.github.stephengold.sport.test.TextureTest'
 }
