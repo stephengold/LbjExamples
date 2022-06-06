@@ -83,14 +83,18 @@ class ShaderProgram {
         uvAttribName //        vec2
     };
     /**
-     * enumerate known non-global uniforms
+     * enumerate known non-global uniforms, including the model transform and
+     * standard material parameters
      */
     final private static String[] nonglobalUniformNames = {
         modelMatrixUniformName, //         mat4
         modelRotationMatrixUniformName, // mat3
-        "BaseMaterialColor", //            vec4
-        "ColorMaterialTexture", //         sampler2d
-        "SpecularMaterialColor" //         vec4
+
+        "alphaDiscardMaterialThreshold", // float
+        "BaseMaterialColor", //             vec4
+        "ColorMaterialTexture", //          sampler2d
+        "pointMaterialSize", //             float
+        "SpecularMaterialColor" //          vec4
     };
     // *************************************************************************
     // fields
