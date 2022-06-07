@@ -17,7 +17,7 @@ Adding {Project} to an existing Java project is a 7-step process:
 . Simulate the physics space.
 . Test and tune as necessary.
 
-== Add the Java library to the classpath
+== Add Java library to classpath
 
 === Gradle-built projects
 
@@ -87,7 +87,7 @@ Open the project's properties in the IDE (JME SDK or NetBeans):
 .. Click on the btn:[OK] button to close the "Edit Jar Reference" dialog.
 . Click on the btn:[OK] button to exit the "Project Properties" dialog.
 
-== Download an appropriate native library
+== Download a native library
 
 Pre-build native libraries can be downloaded from GitHub:
 
@@ -110,7 +110,7 @@ import com.jme3.system.NativeLibraryLoader;
 NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Debug", "Sp");
 ----
 
-== Create and configure the PhysicsSpace
+== Create a physics space
 
 There are many constructors and options.
 Here's the simplest way:
@@ -121,7 +121,7 @@ import com.jme3.bullet.PhysicsSpace;
 PhysicsSpace physicsSpace = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 ----
 
-== Create collision objects
+== Create and add objects
 
 Collision objects come in many different types:
 
