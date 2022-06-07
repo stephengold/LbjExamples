@@ -92,6 +92,9 @@ tasks.register('HelloPin', JavaExec) {
 tasks.register('HelloRigidBody', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
 }
+tasks.register('HelloServo', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloServo'
+}
 tasks.register('HelloSoftRope', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSoftRope'
 }
