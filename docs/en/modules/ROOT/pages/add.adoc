@@ -188,13 +188,24 @@ It illustrates:
 . creating 2 collision objects and adding them to the space
 . running the simulation for 50 time steps
 
-IMPORTANT: `HelloLibbulletjme` is the first of
-many tutorial apps designed for hands-on learning.
+[IMPORTANT]
+====
+`HelloLibbulletjme` is the first in a series of
+tutorial apps designed for hands-on learning.
 I expect you to not only study the source code,
 but to actually run the app as well.
-Take time *now* to set up a 
+Take time *now* to set up a
 {url-enwiki}/Integrated_development_environment[software development environment]
 for this purpose!
+
+For instance, if you install Git and a Java Development Kit,
+you should be able to launch tutorial apps from a command shell, like so:
+
+. `git clone https://github.com/stephengold/LbjExamples.git`
+. `cd LbjExamples`
+. `./gradlew HelloLibbulletjme`
+
+====
 
 == Summary
 
