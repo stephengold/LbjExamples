@@ -6,14 +6,15 @@
 :url-enwiki: https://en.wikipedia.org/wiki
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
-Adding {Project} to an existing Java project is a 6-step process:
+Adding {Project} to an existing Java project is a 7-step process:
 
 . Add the Java library to the classpath.
 . Download an appropriate native library.
 . Load the native library.
-. Create and configure a {url-api}/PhysicsSpace.html[`PhysicsSpace`].
-. Create collision objects
-  and joints and add them to the physics space.
+. Create and configure a physics space.
+. Create and configure collision objects
+  and add them to the physics space.
+. Simulate the physics space.
 . Test and tune as necessary.
 
 == Add the Java library to the classpath
@@ -117,12 +118,12 @@ Here's the simplest way:
 [source,java]
 ----
 import com.jme3.bullet.PhysicsSpace;
-PhysicsSpace space = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+PhysicsSpace physicsSpace = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 ----
 
 == Create collision objects
 
-Collision objects come in several different types:
+Collision objects come in many different types:
 
 * bodies (`PhysicsBody`)
 ** soft bodies (`PhysicsSoftBody`)
@@ -144,8 +145,35 @@ float mass = 1f;
 PhysicsRigidBody body1 = new PhysicsRigidBody(sphere2, mass);
 ----
 
-Collision objects
-aren't simulated unless they're added to a space.
+Collision objects aren't simulated unless they're added to a physics space.
+The best way is to use `addCollisionObject()`:
+
+[source,java]
+----
+physicsSpace.addCollisionObject(ghost1);
+physicsSpace.addCollisionObject(body1);
+----
+
+== Simulate the physics space
+
+To simulate a single 20-millisecond time step:
+
+[source,java]
+----
+float timeStep = 0.02f; // in seconds
+physicsSpace.update(timeStep, 0);
+----
+
+In real-time simulation, the interval between updates will vary.
+However, it's best to use steps of equal size.
+
+To attempt simulation of a specific time interval
+using the configured step size:
+
+[source,java]
+----
+physicsSpace.update(intervalSeconds);
+----
 
 == HelloLibbulletjme
 
