@@ -41,7 +41,7 @@ import java.nio.IntBuffer;
 import org.lwjgl.opengl.GL11C;
 
 /**
- * An auto-generated mesh to visualize a soft body.
+ * An auto-generated mesh to visualize the nodes in a soft body.
  */
 class SoftMesh extends Mesh {
     // *************************************************************************

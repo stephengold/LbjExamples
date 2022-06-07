@@ -74,7 +74,7 @@ public class LocalAxisGeometry extends Geometry {
 
     /**
      * Instantiate a Geometry to visualize the specified local axis of the
-     * specified collision object.
+     * specified collision object and make the Geometry visible.
      *
      * @param pco the collision object (alias created) or null for a "floating"
      * arrow
@@ -113,7 +113,7 @@ public class LocalAxisGeometry extends Geometry {
     }
 
     /**
-     * Test whether the body has been removed from the specified PhysicsSpace.
+     * Test whether the body has been removed from the specified CollisionSpace.
      *
      * @param space the space to test (not null, unaffected)
      * @return true if removed, otherwise false

@@ -125,12 +125,12 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
         // Make the cloth flexible by altering the angular stiffness
         // of its material.
         SoftBodyMaterial mat = cloth.getSoftMaterial();
-        mat.setAngularStiffness(0f); // default = 1
+        mat.setAngularStiffness(0f); // default=1
 
-        // Improve simulation quality by increasing
-        // the number of position iterations for the cloth.
+        // Improve simulation accuracy by increasing
+        // the number of position-solver iterations for the cloth.
         SoftBodyConfig config = cloth.getSoftConfig();
-        config.setPositionIterations(9);  // default = 1
+        config.setPositionIterations(9);  // default=1
 
         // Translate the cloth upward to its starting location.
         cloth.applyTranslation(new Vector3f(0f, 2f, 0f));
