@@ -371,7 +371,7 @@ public class Pachinko
                 = new PhysicsRigidBody(fieldShape, PhysicsBody.massForStatic);
         playingField.setRestitution(0.7f);
 
-        physicsSpace.add(playingField);
+        physicsSpace.addCollisionObject(playingField);
         visualizeShape(playingField);
 
         this.timeSinceAdded = addInterval;
