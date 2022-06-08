@@ -3,6 +3,7 @@
 ** xref:add.adoc[Add to existing project]
 ** xref:rigidbody.adoc[Rigid bodies]
 ** xref:shape.adoc[Collision shapes]
+** xref:debug.adoc[Debug aids]
 ** xref:character.adoc[Characters]
 ** xref:vehicle.adoc[Vehicles]
 ** xref:new6dof.adoc[New6Dof constraints]
