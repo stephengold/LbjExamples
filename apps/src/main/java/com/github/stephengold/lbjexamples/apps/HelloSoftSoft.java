@@ -32,7 +32,7 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.mesh.IcosphereMesh;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
-import com.github.stephengold.sport.physics.SoftBodyLinksGeometry;
+import com.github.stephengold.sport.physics.FacesGeometry;
 import com.jme3.bullet.PhysicsSoftSpace;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.objects.PhysicsSoftBody;
@@ -141,9 +141,9 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         ball2.applyTranslation(new Vector3f(0f, 3f, 0f));
         ball2.setVelocity(new Vector3f(0f, -1f, 0f));
 
-        // visualization
-        new SoftBodyLinksGeometry(ball1);
-        new SoftBodyLinksGeometry(ball2);
+        // Visualize the soft bodies.
+        new FacesGeometry(ball1);
+        new FacesGeometry(ball2);
     }
 
     /**
