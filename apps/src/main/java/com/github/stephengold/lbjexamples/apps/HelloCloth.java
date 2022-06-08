@@ -32,7 +32,7 @@ package com.github.stephengold.lbjexamples.apps;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.mesh.ClothGrid;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
-import com.github.stephengold.sport.physics.SoftBodyLinksGeometry;
+import com.github.stephengold.sport.physics.LinksGeometry;
 import com.jme3.bullet.PhysicsSoftSpace;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
@@ -136,7 +136,7 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
         cloth.applyTranslation(new Vector3f(0f, 2f, 0f));
 
         // Visualize the soft body.
-        new SoftBodyLinksGeometry(cloth).setProgram("Unshaded/Monochrome");
+        new LinksGeometry(cloth);
     }
 
     /**
