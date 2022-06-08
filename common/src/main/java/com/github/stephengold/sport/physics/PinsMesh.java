@@ -38,7 +38,7 @@ import org.lwjgl.opengl.GL11C;
 /**
  * An auto-generated mesh to visualize the pinned nodes in a soft body.
  */
-class PinMesh extends Mesh {
+class PinsMesh extends Mesh {
     // *************************************************************************
     // fields
 
@@ -55,7 +55,7 @@ class PinMesh extends Mesh {
      * @param softBody the soft body from which to generate the mesh (not null,
      * unaffected)
      */
-    PinMesh(PhysicsSoftBody softBody) {
+    PinsMesh(PhysicsSoftBody softBody) {
         super(GL11C.GL_POINTS, softBody.countPinnedNodes());
 
         this.softBody = softBody;

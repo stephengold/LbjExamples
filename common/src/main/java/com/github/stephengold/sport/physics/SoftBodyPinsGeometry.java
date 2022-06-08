@@ -68,7 +68,7 @@ public class SoftBodyPinsGeometry extends Geometry {
 
         super.setColor(Constants.RED);
 
-        Mesh mesh = new PinMesh(softBody);
+        Mesh mesh = new PinsMesh(softBody);
         super.setMesh(mesh);
 
         super.setProgram("Unshaded/Sprite");
@@ -116,10 +116,10 @@ public class SoftBodyPinsGeometry extends Geometry {
      * Update the Mesh.
      */
     private void updateMesh() {
-        PinMesh mesh = (PinMesh) getMesh();
+        PinsMesh mesh = (PinsMesh) getMesh();
         boolean success = mesh.update();
         if (!success) {
-            mesh = new PinMesh(softBody);
+            mesh = new PinsMesh(softBody);
             super.setMesh(mesh);
         }
     }
