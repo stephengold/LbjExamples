@@ -171,6 +171,9 @@ Things to notice while running the app:
   Gravity takes over, and the ball falls through the box.
 . In SPORT, non-responsive rigid bodies are shown in yellow.
 
+NOTE: This documentation assumes a keyboard with the "US" (QWERTY) layout.
+On keyboards with other layouts, keys may be labeled differently.
+
 === Velocity
 
 Every dynamic body has a _velocity_ that quantifies its motion as of the
