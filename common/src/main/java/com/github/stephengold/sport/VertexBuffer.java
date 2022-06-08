@@ -39,7 +39,7 @@ import org.lwjgl.opengl.GL15C;
 import org.lwjgl.opengl.GL20C;
 
 /**
- * Wrapper class for a named attribute in a Sport mesh, including its VBO and
+ * Wrapper class for a named attribute in a SPORT mesh, including its VBO and
  * data.
  *
  * @author Stephen Gold sgold@sonic.net

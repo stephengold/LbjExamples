@@ -48,6 +48,8 @@ import org.lwjgl.system.Configuration;
 /**
  * A simple example of a soft-soft collision.
  * <p>
+ * Builds upon HelloSoftBody.
+ *
  * @author Stephen Gold sgold@sonic.net
  */
 public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
@@ -106,11 +108,11 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
     @Override
     public void populateSpace() {
         // A mesh is used to generate the shape and topology
-        // for each soft body.
+        // of each soft body.
         int numRefinementIterations = 3;
         Mesh sphere = new IcosphereMesh(numRefinementIterations, true);
 
-        // Create 2 squishy balls and add them to the physics space.
+        // Create 2 soft balls and add them to the physics space.
         PhysicsSoftBody ball1 = new PhysicsSoftBody();
         NativeSoftBodyUtil.appendFromTriMesh(sphere, ball1);
         physicsSpace.addCollisionObject(ball1);
@@ -119,14 +121,14 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         NativeSoftBodyUtil.appendFromTriMesh(sphere, ball2);
         physicsSpace.addCollisionObject(ball2);
 
-        // Set each ball's default frame pose:  if deformed,
+        // Set each body's default frame pose:  if deformed,
         // it will tend to return to its current shape.
         boolean setVolumePose = false;
         boolean setFramePose = true;
         ball1.setPose(setVolumePose, setFramePose);
         ball2.setPose(setVolumePose, setFramePose);
 
-        // Make each ball bouncy by enabling pose matching.
+        // Enable pose matching to make the bodies bouncy.
         SoftBodyConfig config1 = ball1.getSoftConfig();
         config1.set(Sbcp.PoseMatching, 0.5f); // default = 0
         SoftBodyConfig config2 = ball2.getSoftConfig();

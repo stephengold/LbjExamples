@@ -65,7 +65,6 @@ public class PinsGeometry extends Geometry {
         Validate.nonNull(softBody, "soft body");
 
         this.softBody = softBody;
-
         super.setColor(Constants.RED);
 
         Mesh mesh = new PinsMesh(softBody);

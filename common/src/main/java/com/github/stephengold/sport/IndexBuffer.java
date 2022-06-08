@@ -35,7 +35,7 @@ import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL15C;
 
 /**
- * Wrapper class for the index buffer of a Sport mesh, including its VBO and
+ * Wrapper class for the index buffer of a SPORT mesh, including its VBO and
  * data.
  *
  * @author Stephen Gold sgold@sonic.net
