@@ -122,7 +122,7 @@ _Kinematic_ bodies share some properties with both static and dynamic ones.
 Like dynamic bodies, kinematic ones can move.
 However, they are unaffected by forces, torques, and impulses.
 Their movement is dictated by application logic that may, if desired,
-reposition them prior to every time step.
+reposition them before each time step.
 
 In the presence of dynamic bodies, a kinematic body acts like
 an irresistible battering ram.
@@ -409,7 +409,7 @@ Things to notice while running the app:
 
 == Continuous collision detection
 
-A common issue with discrete-time simulations
+A common issue with discrete-time physics simulation
 involves a fast-moving dynamic body passing through a thin obstacle
 without any collision being detected.
 The issue arises because the body can pass from one side of the obstacle to
@@ -426,8 +426,8 @@ the simulator offers _continuous collision detection_ (CCD),
 an algorithm for detecting collisions that occur *between* time steps.
 CCD substitutes a sphere for the collision shape of the fast-moving body,
 sweeps that sphere forward along the body's projected path,
-and then performs more detailed collision tests on any potential
-obstacles found by the sweep.
+and performs detailed collision tests on any potential
+obstacles found during the sweep.
 
 Because CCD involves extra computation, it's disabled by default.
 Since it's only necessary for fast-moving bodies, it's enabled only
