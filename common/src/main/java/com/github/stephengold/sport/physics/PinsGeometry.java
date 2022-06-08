@@ -43,7 +43,7 @@ import org.lwjgl.opengl.GL12C;
 /**
  * Visualize the pins of a soft body.
  */
-public class SoftBodyPinsGeometry extends Geometry {
+public class PinsGeometry extends Geometry {
     // *************************************************************************
     // fields
 
@@ -60,7 +60,7 @@ public class SoftBodyPinsGeometry extends Geometry {
      *
      * @param softBody the body to visualize (not null, alias created)
      */
-    public SoftBodyPinsGeometry(PhysicsSoftBody softBody) {
+    public PinsGeometry(PhysicsSoftBody softBody) {
         super();
         Validate.nonNull(softBody, "soft body");
 
