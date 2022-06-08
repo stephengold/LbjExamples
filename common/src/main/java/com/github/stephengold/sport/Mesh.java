@@ -164,10 +164,10 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * vertices, but no indices, normals, positions, or texture coordinates.
      *
      * @param drawMode draw mode, such as GL_TRIANGLES
-     * @param vertexCount number of vertices (&ge;1)
+     * @param vertexCount number of vertices (&ge;0)
      */
     protected Mesh(int drawMode, int vertexCount) {
-        Validate.positive(vertexCount, "vertexCount");
+        Validate.nonNegative(vertexCount, "vertex count");
 
         this.drawMode = drawMode;
         this.vertexCount = vertexCount;

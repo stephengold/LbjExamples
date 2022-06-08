@@ -136,13 +136,13 @@ public class VertexBuffer {
      * Instantiate a mutable VertexBuffer with a new direct, writable data
      * buffer.
      *
-     * @param numVertices number of vertices (&gt;0)
+     * @param numVertices number of vertices (&ge;0)
      * @param fpv number of float values per vertex (&ge;1, &le;4)
      * @param attribName name of the corresponding attrib variable in shaders
      * (not null, not empty)
      */
     VertexBuffer(int numVertices, int fpv, String attribName) {
-        Validate.positive(numVertices, "number of vertices");
+        Validate.nonNegative(numVertices, "number of vertices");
         Validate.inRange(fpv, "floats per vertex", 1, 4);
         Validate.nonEmpty(attribName, "attrib name");
 

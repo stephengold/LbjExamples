@@ -74,12 +74,12 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
     /**
      * Instantiate an IndexBuffer with a new data buffer.
      *
-     * @param maxVertices one more than the highest index value (&ge;1)
+     * @param maxVertices one more than the highest index value (&ge;0)
      * @param capacity number of indices (&ge;0)
      */
     public IndexBuffer(int maxVertices, int capacity) {
         super(maxVertices, capacity);
-        Validate.positive(maxVertices, "max vertices");
+        Validate.nonNegative(maxVertices, "max vertices");
         Validate.nonNegative(capacity, "capacity");
 
         Buffer buffer = super.getBuffer();
