@@ -73,6 +73,10 @@ final public class Constants {
      */
     final public static Vector4fc MAGENTA = new Vector4f(1f, 0f, 1f, 1f);
     /**
+     * The opaque color orange: (0.97, 0.23, 0) in the Linear colorspace.
+     */
+    final public static Vector4fc ORANGE = new Vector4f(0.97f, 0.23f, 0f, 1f);
+    /**
      * The opaque color pink: (1, 0.3, 0.3) in the Linear colorspace.
      */
     final public static Vector4fc PINK = new Vector4f(1f, 0.3f, 0.3f, 1f);
