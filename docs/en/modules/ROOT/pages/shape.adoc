@@ -385,7 +385,7 @@ For instance:
 * As long as a container remains sealed,
   its collision shape need not be hollow.
 
-Because JMonkeyEngine models are composed of triangle meshes,
+Because most 3-D models are composed of triangle meshes,
 beginners are often tempted to use mesh-based shapes
 (such as {url-shape}/GImpactCollisionShape.html[`GImpactCollisionShape`])
 for everything.
@@ -454,33 +454,6 @@ https://github.com/bulletphysics/bullet3/blob/master/docs/Bullet_User_Manual.pdf
 NOTE: {url-shape}/GImpactCollisionShape.html[`GImpactCollisionShape`]
 should be your last resort!
 
-== Automated shape generation
-
-The {url-api}/util/CollisionShapeFactory.html[`CollisionShapeFactory`] class
-automates the creation of collision shapes for models.
-
-By convention, all factory methods skip over geometries
-that have the "JmePhysicsIgnore" user-data key set to `true`.
-
-=== For static bodies
-
-The `createMeshShape()` method
-creates a collision shape suitable for a static rigid body.
-It constructs a
-{url-shape}/HeightfieldCollisionShape.html[`HeightfieldCollisionShape`]
-for each `TerrainQuad` and `TerrainPatch` in the model.
-It constructs a {url-shape}/MeshCollisionShape.html[`MeshCollisionShape`]
-for each non-terrain geometry in the model.
-And if the model's root spatial is a node,
-it combines all the heightfields and mesh shapes into a single compound shape.
-
-The `createMergedMeshShape()` method
-creates a simple {url-shape}/MeshCollisionShape.html[`MeshCollisionShape`]
-suitable for a static rigid body.
-Unlike `createMeshShape()`, it ignores terrain.
-
-=== For dynamic bodies
-
 Faced with the task of simulating a non-convex rigid body
 (such as a cross or ring),
 it's best to decompose it into convex shapes that,
@@ -493,25 +466,8 @@ to decompose it during the generation process.
 Or if the object is modeled in Blender,
 it may be practical to manually decompose it there
 into meshes that are convex or nearly so.
-In both cases, the desired compound shape can then be generated using
-`createDynamicMeshShape()`.
 
-==== Meshes already decomposed
-
-The `createDynamicMeshShape()` method
-creates a collision shape suitable for a dynamic rigid body.
-It constructs a hull shape for each geometry,
-and if the model's root spatial is a node,
-it combines all the hulls into a single compound shape.
-
-This approach comes with 3 caveats:
-
-. For good fidelity, each mesh in the model must be convex or nearly so.
-. The center of the resulting collision shape is at the model's origin,
-  which might not be a plausible location for it.
-. It's often possible to generate a more efficient shape by hand.
-
-==== Automated decomposition
+== Automated decomposition
 
 For situations where manual decomposition is impractical,
 {Project} incorporates Khaled Mamou's
@@ -527,7 +483,7 @@ CollisionShape shape
 ----
 
 The V-HACD algorithm is costly to run, but for many applications it can
-be run in advance and the output stored in J3O format until needed.
+be run in advance and the output stored until needed.
 During simulation, the resulting shape will usually be much far efficient
 than a GImpact shape.
 

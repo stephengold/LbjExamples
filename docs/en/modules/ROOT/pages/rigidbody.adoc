@@ -464,8 +464,6 @@ is a simple application that demonstrates CCD.
 Things to notice while running the app:
 
 . The 2 balls have the same size, mass, initial height, and initial velocity.
-. The simulation runs at 1/10th normal speed,
-  making the time steps noticeable.
 . The ball with CCD enabled (on the left) sticks the landing on the platform.
 . The control ball (on the right) falls through the platform,
   passing from one side to the other in a single time step.
