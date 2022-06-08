@@ -48,6 +48,8 @@ However, these last 3 features are optional and can easily be disabled.
 
 {url-tutorial}/HelloRigidBody.java[HelloRigidBody] is a simple
 application that demonstrates the 5 familiar features of rigid bodies.
+To visualize the bodies, `HelloRigidBody` uses the SPORT graphics engine
+included in https://github.com/stephengold/LbjExamples[the LbjExamples project].
 
 Things to notice while running the app:
 
@@ -80,6 +82,8 @@ Things to notice while running the app:
   that alter the path of the dynamic ball.
 . The static ball stays fixed in place,
   unaffected by gravity and contact forces.
+. In SPORT, dynamic rigid bodies are conventionally colored magenta,
+  while non-dynamic ones are shown in gray.
 
 === Position
 
@@ -165,6 +169,7 @@ Things to notice while running the app:
 . Press kbd:[E] to disable the ball's contact response.
 . Afterwards, the box no longer exerts any force on the ball.
   Gravity takes over, and the ball falls through the box.
+. In SPORT, non-responsive rigid bodies are shown in yellow.
 
 === Velocity
 
