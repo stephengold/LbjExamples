@@ -1,6 +1,7 @@
 <img height="150" src="https://i.imgur.com/YEPFEcx.png" alt="Libbulletjme Project logo">
 
-[The LbjExamples Project][project] provides example applications
+[The LbjExamples Project][project] provides
+documentation and example applications
 for the [Libbulletjme 3-D physics library][libbulletjme].
 
 Complete source code (in Java) is provided under
