@@ -109,8 +109,10 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
      * Delete the VBO during cleanup.
      */
     void cleanUp() {
-        GL15C.glDeleteBuffers(vbo);
-        Utils.checkForOglError();
+        if (vbo != null) {
+            GL15C.glDeleteBuffers(vbo);
+            Utils.checkForOglError();
+        }
     }
 
     /**
