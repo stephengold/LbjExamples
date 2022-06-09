@@ -1,5 +1,4 @@
 = Visualization using the SPORT graphics engine
-:Project: Libbulletjme
 :experimental:
 :page-pagination:
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
