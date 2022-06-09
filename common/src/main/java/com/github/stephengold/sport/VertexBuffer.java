@@ -271,6 +271,7 @@ public class VertexBuffer {
         if (vbo == null) {
             generateVbo();
         }
+        assert vbo != null;
         if (isModified) { // update the data store
             updateDataStore();
         }

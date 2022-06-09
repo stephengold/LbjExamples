@@ -138,6 +138,7 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
         if (vbo == null) {
             generateVbo();
         }
+        assert vbo != null;
         if (isModified) {
             updateDataStore();
         }
