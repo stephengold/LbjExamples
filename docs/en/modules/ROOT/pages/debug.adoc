@@ -52,9 +52,16 @@ When visualizing a soft body, SPORT uses:
 
 When visualizing coordinate axes, SPORT uses:
 
-* red for a +X axis,
-* green for a +Y axis, and
-* blue for a +Z axis.
+* red for the +X axis,
+* green for the +Y axis, and
+* blue for the +Z axis.
+
+When visualizing bounding boxes, SPORT uses:
+
+* red for a ghost object whose overlapping count has increased,
+* green for a ghost whose count has decreased,
+* yellow for a ghost whose count is unchanged, and
+* white for a non-ghost collision object.
 
 == Summary
 
