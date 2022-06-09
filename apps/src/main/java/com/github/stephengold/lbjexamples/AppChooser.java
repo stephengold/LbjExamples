@@ -50,6 +50,7 @@ import com.github.stephengold.lbjexamples.apps.HelloServo;
 import com.github.stephengold.lbjexamples.apps.HelloSoftBody;
 import com.github.stephengold.lbjexamples.apps.HelloSoftRope;
 import com.github.stephengold.lbjexamples.apps.HelloSoftSoft;
+import com.github.stephengold.lbjexamples.apps.HelloSport;
 import com.github.stephengold.lbjexamples.apps.HelloSpring;
 import com.github.stephengold.lbjexamples.apps.HelloStaticBody;
 import com.github.stephengold.lbjexamples.apps.HelloVehicle;
@@ -91,7 +92,7 @@ class AppChooser extends JFrame {
             Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
         }
 
-        List<BaseApplication> apps = new ArrayList<>(38);
+        List<BaseApplication> apps = new ArrayList<>(39);
 
         apps.add(new CheckerboardTest());
         apps.add(new ClipspaceTest());
@@ -121,20 +122,21 @@ class AppChooser extends JFrame {
         apps.add(new HelloSoftBody());
         apps.add(new HelloSoftRope());
         apps.add(new HelloSoftSoft());
-        apps.add(new HelloSpring());
+        apps.add(new HelloSport());
 
+        apps.add(new HelloSpring());
         apps.add(new HelloStaticBody());
         apps.add(new HelloVehicle());
         apps.add(new HelloWalk());
         apps.add(new IcosphereTest());
-        apps.add(new MouseTest());
 
+        apps.add(new MouseTest());
         apps.add(new MouseTest2());
         apps.add(new NewtonsCradle());
         apps.add(new OctasphereTest());
         apps.add(new Pachinko());
-        apps.add(new RainbowTest());
 
+        apps.add(new RainbowTest());
         apps.add(new SpriteTest());
         apps.add(new TextureTest());
         apps.add(new ThousandCubes());
