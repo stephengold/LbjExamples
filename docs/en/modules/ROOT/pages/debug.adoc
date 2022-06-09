@@ -1,0 +1,62 @@
+= Debugging physics issues
+:Project: Libbulletjme
+:page-pagination:
+
+{Project} uses `assert` statements to verify assumptions made while coding.
+During development, Java assertions should be enabled using:
+
+* the "-ea" JVM argument or
+* the `enableAssertions` setting of Gradle `JavaExec` tasks.
+
+Similarly, native-code assertions should be enabled during development,
+by loading a native library of the "debug" type,
+such as "Linux64DebugSp_libbulletjme.so".
+
+== Visualization
+
+Many physics issues can be diagnosed visually.
+For instance, if you neglect to add a collision object to the physics space,
+SPORT will automatically remove it from the visualization.
+
+SPORT can be used to visualize:
+
+* collision shapes,
+* vehicle wheels,
+* physics joints,
+* soft bodies,
+* the centers and local axes of collision objects, and
+* the axis-aligned bounding boxes of collision objects.
+
+=== Color conventions
+
+When visualizing a collision shape,
+SPORT uses colors to distinguish different types of collision objects:
+
+* yellow for an object without contact response,
+  including any ghost object,
+* magenta for a rigid body (or collider) that's dynamic, responsive, and active,
+* gray for a rigid body or collider
+  (with contact response) that's static, kinematic, or inactive,
+* brown for a character that's grounded, and
+* pink for a character (with contact response) that isn't grounded.
+
+When visualizing a physics joint, SPORT uses:
+
+* green for a "A" end and
+* red for a "B" end.
+
+When visualizing a soft body, SPORT uses:
+
+* red for the faces and
+* orange for the links.
+
+When visualizing coordinate axes, SPORT uses:
+
+* red for a +X axis,
+* green for a +Y axis, and
+* blue for a +Z axis.
+
+== Summary
+
+* During development, enable Java assertions and use debug-enabled libraries.
+* SPORT visualization can be used to diagnose bugs.
