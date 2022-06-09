@@ -107,8 +107,10 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
      */
     @Override
     public void populateSpace() {
-        // A mesh is used to generate the shape and topology
-        // of each soft body.
+        /*
+         * A mesh is used to generate the shape and topology
+         * of each soft body.
+         */
         int numRefinementIterations = 3;
         Mesh sphere = new IcosphereMesh(numRefinementIterations, true);
 
@@ -130,9 +132,9 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
 
         // Enable pose matching to make the bodies bouncy.
         SoftBodyConfig config1 = ball1.getSoftConfig();
-        config1.set(Sbcp.PoseMatching, 0.5f); // default = 0
+        config1.set(Sbcp.PoseMatching, 0.01f); // default = 0
         SoftBodyConfig config2 = ball2.getSoftConfig();
-        config2.set(Sbcp.PoseMatching, 0.5f);
+        config2.set(Sbcp.PoseMatching, 0.01f);
 
         // Enable soft-soft collisions for each ball.
         // Clearing all other collision flags disables soft-rigid collisions.
