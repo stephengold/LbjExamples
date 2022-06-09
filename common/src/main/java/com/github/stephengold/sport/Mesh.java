@@ -884,7 +884,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             MyVector3f.standardize(tmpPosition, tmpPosition);
             int dpid = mapPosToDpid.get(tmpPosition);
 
-            positions.get(start, tmpNormal);
+            normals.get(start, tmpNormal);
             normalSums[dpid].addLocal(tmpNormal);
         }
         /*
