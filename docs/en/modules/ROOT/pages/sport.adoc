@@ -17,6 +17,8 @@ we've created a graphics engine named SPORT
 (the Simple Physics-ORienTed engine).
 SPORT enables us to visualize physics objects
 without cluttering up the physics code with too many rendering calls.
+It is open-source, written in Java, and included in
+https://github.com/stephengold/LbjExamples[the LbjExamples project].
 
 == HelloSport
 
@@ -43,7 +45,7 @@ and play a brief animation of a sphere falling onto a horizontal surface.
 
 Pressing kbd:[Esc] should close the window and terminate the app.
 
-Hereafter, all tutorial apps will use SPORT.
+Hereafter, all our tutorial apps will use SPORT.
 Additional features of SPORT will be introduced as needed.
 
 == Summary
