@@ -46,10 +46,8 @@ However, these last 3 features are optional and can easily be disabled.
 
 === HelloRigidBody
 
-{url-tutorial}/HelloRigidBody.java[HelloRigidBody] is a simple
-application that demonstrates the 5 familiar features of rigid bodies.
-To visualize the bodies, `HelloRigidBody` uses the SPORT graphics engine
-included in https://github.com/stephengold/LbjExamples[the LbjExamples project].
+{url-tutorial}/HelloRigidBody.java[HelloRigidBody] is a SPORT
+app that demonstrates the 5 familiar features of rigid bodies.
 
 Things to notice while running the app:
 
