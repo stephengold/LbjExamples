@@ -380,7 +380,7 @@ use `physicsSpace.setEnableSleep(false)`.
 To disable deactivation globally (for all rigid bodies),
 use `PhysicsBody.setDeactivationEnabled(false)`.
 
-To change the time before deactivation (for all rigid bodies),
+To change the deactivation latency (for all rigid bodies),
 use `PhysicsBody.setDeactivationDeadline(newInterval)`.
 
 To test whether a body is deactivated, use `rigidBody.isActive()`.
