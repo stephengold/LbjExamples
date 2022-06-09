@@ -1,0 +1,171 @@
+= An introduction to vehicle physics
+:experimental:
+:page-pagination:
+:url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
+:url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
+
+A _physics vehicle_ is a collision object
+used to simulate a vehicle driving on (or gliding over) a smooth surface.
+
+Bullet's physics vehicle makes many simplifying assumptions:
+
+* A rigid _chassis_, supported by _wheels_.
+* Acceleration, steering, and braking forces are applied to the chassis,
+  not the wheels.
+* The wheels have no momentum, and as long as they touch the ground,
+  they don't lose traction or "drift".
+  Tire friction is calculated using a basic anisotropic friction model.
+* Engine power is unlimited. There is no transmission and no gearing.
+
+The chassis is simulated by a dynamic rigid body, with all the features thereof.
+During each simulation step, the vehicle controller casts physics rays
+to calculate the height of each wheel's axis above the ground.
+Those heights are used to calculate the forces
+exerted on the chassis by the suspension.
+
+Instead of applying forces or directly updating the vehicles's velocities,
+an app using a physics vehicle
+should specify when and how the vehicle accelerates, steers, and brakes.
+
+== Creation
+
+You can create a vehicle without wheels by directly invoking the
+{url-api}/objects/PhysicsVehicle.html[`PhysicsVehicle`] constructor.
+This allows you to specify the shape and mass of the chassis.
+Before adding it to a physics space, you should add wheels to it.
+For stability, a vehicle needs at least 3 wheels, and the chassis center of mass
+should be located between the wheels, roughly speaking.
+
+{url-tutorial}/HelloVehicle.java[HelloVehicle] is a SPORT app
+that demonstrates the direct creation of a vehicle,
+followed by automated steering and acceleration.
+Things to notice while running the app:
+
+. The vehicle has a wedge-shaped chassis.
+. The vehicle has 4 wheels, arranged in a rectangle.
+. The vehicle circles to the left,
+  accelerating steadily until it "wipes out" and flips over.
+
+== Configuration and tuning
+
+Bullet's vehicle model includes many details that
+can affect stability and/or realism.
+The complexity of the model
+is often an obstacle to achieving the desired behavior.
+Kester Maddock has published
+https://docs.google.com/document/d/18edpOwtGgCwNyvakS78jxMajCuezotCU_0iezcwiFQc[a 16-page document on this subject].
+
+=== Chassis shape
+
+Because the chassis is a dynamic rigid body,
+it requires a suitable collision shape.
+In particular:
+
+* it should be 3-dimensional, and
+* its center and local axes should be plausible.
+
+[NOTE]
+====
+A symmetrical collision shape
+will place the center of gravity rather high,
+resulting in a vehicle prone to tipping.
+To avoid this pitfall,
+
+* use an asymmetrical shape such as a `HullCollisionShape` or compound shape and
+* make sure its center is low.
+====
+
+By default, the local axes of the chassis are assigned as follows:
+
+* +X points left,
+* +Y points up, and
+* +Z points forward.
+
+However, the local-axis assignments can be customized to match any 3-D model.
+For instance:
+
+[source,java]
+----
+vehicle.setPhysicsSpace(physicsSpace);
+VehicleController controller = vehicle.getController();
+Vector3f right = new Vector3f(0f, -1f, 0f);
+Vector3f up = new Vector3f(0f, 0f, -1f);
+Vector3f forward = new Vector3f(-1f, 0f, 0f);
+controller.setCoordinateSystem(right, up, forward);
+----
+
+=== Maximum suspension force
+
+A vehicle's _suspension_ connects its wheels to its chassis
+and must support the weight of the chassis.
+If the maximum suspension force is set too low, the suspension will collapse,
+causing the chassis to scrape the ground.
+
+The default maximum suspension force is 6000 per wheel.
+For a vehicle with 4 wheels and a mass of 3000,
+the default is inadequate for a gravitational acceleration of 8 or more.
+If the weight of the chassis is distributed unevenly among the wheels,
+some of the maxima might need to be increased accordingly.
+
+=== Suspension rest length
+
+_Rest length_ is the length of a spring when no force is applied to it.
+If the suspension's rest lengths are too large,
+the chassis will seem to be jacked up on stilts
+and the vehicle will be prone to tipping, even when not moving.
+
+=== Suspension stiffness
+
+_Stiffness_ is the force exerted by a spring divided by its change in length.
+If the suspension is too stiff,
+a small bump could cause the vehicle to bounce violently.
+If it isn't stiff enough, a large bump could cause the chassis to "bottom out".
+
+=== Suspension damping
+
+Each wheel has 2 suspension damping parameters,
+one for expansion and one for compression.
+The range of plausible values depends on the suspension stiffness,
+according to the formula in the javadoc:
+
+[source,java]
+----
+damping = 2f * k * FastMath.sqrt(stiffness);
+----
+
+where k is the suspension's _damping ratio_:
+
+* k = 0: undamped and bouncy.
+* k = 1: critically damped.
+
+Good values of k are between 0.1 and 0.3.
+
+The default damping parameters of 0.83 and 0.88 are suitable for a
+chassis with the default stiffness of 5.88 (k=0.171 and 0.181, respectively).
+If you override the default stiffness,
+you should override the damping parameters as well.
+
+=== Friction slip
+
+The _friction slip_ parameter quantifies how much traction a tire has.
+Its effect is most noticeable when the vehicle is braking.
+
+Too much traction could cause a vehicle to flip over if it braked hard.
+Too little traction would make braking ineffective,
+as if the tires were bald or the supporting surface were icy.
+
+=== Roll influence
+
+The _roll-influence factor_ reduces (or magnifies) torques
+that tend to cause vehicles to roll over.
+
+The default value of 1.0 yields realistic behavior.
+Reducing this parameter will improve stability, but it's a bit of a hack;
+use it only as a last resort.
+
+== Summary
+
+* A physics vehicle simulates a vehicle accelerating, steering, and braking
+  on a smooth surface.
+* The vehicle model is simplified,
+  yet its complexity can be an obstacle to achieving the desired behavior.
