@@ -48,50 +48,70 @@ import java.io.File;
  */
 final class HelloLibbulletjme {
 
+    private static PhysicsRigidBody ball;
+    private static PhysicsSpace physicsSpace;
+
     /**
      * Main entry point for the HelloLibbulletjme application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        /*
-         * Load a native library from ~/Downloads directory.
-         */
+        // Load a native library from ~/Downloads directory.
         String homePath = System.getProperty("user.home");
         File downloadDirectory = new File(homePath, "Downloads");
         NativeLibraryLoader.loadLibbulletjme(
                 true, downloadDirectory, "Release", "Sp");
-        /*
-         * Create a PhysicsSpace using DBVT for broadphase.
-         */
+
+        physicsSpace = createSpace();
+        populateSpace();
+
+        float timeStep = 0.02f;
+        Vector3f location = new Vector3f();
+        for (int i = 0; i < 50; ++i) {
+            updatePhysics(timeStep);
+
+            ball.getPhysicsLocation(location);
+            System.out.println(location);
+        }
+    }
+
+    /**
+     * Create the PhysicsSpace. Invoked once during initialization.
+     *
+     * @return a new instance
+     */
+    private static PhysicsSpace createSpace() {
         PhysicsSpace.BroadphaseType bPhase = PhysicsSpace.BroadphaseType.DBVT;
-        PhysicsSpace physicsSpace = new PhysicsSpace(bPhase);
-        /*
-         * Add a static horizontal plane at y=-1.
-         */
+        return new PhysicsSpace(bPhase);
+    }
+
+    /**
+     * Populate the PhysicsSpace. Invoked once during initialization.
+     */
+    private static void populateSpace() {
+        // Add a static horizontal plane at y=-1.
         float planeY = -1f;
         Plane plane = new Plane(Vector3f.UNIT_Y, planeY);
         CollisionShape planeShape = new PlaneCollisionShape(plane);
         float mass = PhysicsBody.massForStatic;
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, mass);
         physicsSpace.addCollisionObject(floor);
-        /*
-         * Add a sphere-shaped, dynamic, rigid body at the origin.
-         */
+
+        // Add a sphere-shaped, dynamic, rigid body at the origin.
         float radius = 0.3f;
         CollisionShape ballShape = new SphereCollisionShape(radius);
         mass = 1f;
-        PhysicsRigidBody ball = new PhysicsRigidBody(ballShape, mass);
+        ball = new PhysicsRigidBody(ballShape, mass);
         physicsSpace.addCollisionObject(ball);
-        /*
-         * 50 iterations with a 20-msec timestep
-         */
-        float timeStep = 0.02f;
-        Vector3f location = new Vector3f();
-        for (int i = 0; i < 50; ++i) {
-            physicsSpace.update(timeStep, 0);
-            ball.getPhysicsLocation(location);
-            System.out.println(location);
-        }
+    }
+
+    /**
+     * Advance the physics simulation by the specified amount.
+     *
+     * @param intervalSeconds the time step to simulate (in seconds, &ge;0)
+     */
+    private static void updatePhysics(float intervalSeconds) {
+        physicsSpace.update(intervalSeconds, 0);
     }
 }
