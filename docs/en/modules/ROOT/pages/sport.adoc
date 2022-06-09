@@ -1,0 +1,52 @@
+= Visualization using the SPORT graphics engine
+:Project: Libbulletjme
+:experimental:
+:page-pagination:
+:url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
+
+The `HelloLibbulletjme` app
+(introduced on xref:add.adoc[the previous page])
+is simple, readable and complete.
+However, as a console app, its output is limited to text.
+
+Text provides scant insight into what the 3-D physics simulation is doing.
+For most people, pictures are far easier to understand.
+
+For the purpose of this tutorial series,
+we've created a graphics engine named SPORT
+(the Simple Physics-ORienTed engine).
+SPORT enables us to visualize physics objects
+without cluttering up the physics code with too many rendering calls.
+
+== HelloSport
+
+{url-tutorial}/HelloSport.java[HelloSport]
+is a direct conversion of `HelloLibbulletjme` into a SPORT app.
+
+Details to note:
+
+. The app is declared as a subclass of `BasePhysicsApp<PhysicsSpace>`,
+  indicataing that it will simulate a plain `PhysicsSpace`.
+. The app implements the 3 abstract methods of `BasePhysicsApp`
+  (`createSpace`, `populateSpace`, and `updateSpace`),
+  all of which are invoked automatically.
+. `BasePhysicsApp` automatically loads the Libbulletjme native library.
+. `BasePhysicsApp` provides:
+..  the `physicsSpace` field to access the space and
+..  the `visualizeShape()` method to visualize the shape of a collision object.
+. Whereas `HelloLibbulletjme` used `update(intervalSeconds, 0)`
+  to simulate one step at a time,
+  `HelloSport` attempts real-time simulation using `update(intervalSeconds)`.
+
+Running `HelloSport` should open a window on your computer's desktop
+and play a brief animation of a sphere falling onto a horizontal surface.
+
+Pressing kbd:[Esc] should close the window and terminate the app.
+
+Hereafter, all tutorial apps will use SPORT.
+Additional features of SPORT will be introduced as needed.
+
+== Summary
+
+* SPORT is a graphics engine, created specifically for Libbulletjme tutorials.
+* SPORT provides a simple toolkit for visualizing 3-D physics.

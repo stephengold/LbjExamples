@@ -1,6 +1,7 @@
 * xref:implementation.adoc[Implementation]
 * Library tutorials
 ** xref:add.adoc[Add to existing project]
+** xref:sport.adoc[SPORT visualization]
 ** xref:rigidbody.adoc[Rigid bodies]
 ** xref:shape.adoc[Collision shapes]
 ** xref:debug.adoc[Debug aids]
