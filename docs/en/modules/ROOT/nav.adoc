@@ -7,7 +7,7 @@
 ** xref:character.adoc[Characters]
 ** xref:vehicle.adoc[Vehicles]
 ** xref:new6dof.adoc[New6Dof constraints]
-** xref:detect.adoc[Collision detection]
+** xref:collision.adoc[Managing collisions]
 ** xref:softbody.adoc[Soft bodies]
 ** xref:debug.adoc[Debug aids]
 ** xref:misc.adoc[Miscellany]
