@@ -1,0 +1,94 @@
+= Miscellaneous tutorial material
+:page-pagination:
+:url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
+
+This page acts as a holding area for tutorial material that's waiting
+to be organized.
+
+== Global configuration
+
+By default, the native library prints a startup message to `System.out`.
+Once the library is loaded (but not started) you can disable this message:
+
+[source,java]
+----
+NativeLibrary.setStartupMessageEnabled(false);
+----
+
+Once the native library is loaded,
+you can test whether it uses double-precision arithmetic:
+
+[source,java]
+----
+boolean doublePrecision = NativeLibrary.isDoublePrecision();
+----
+
+You can also test whether it was built for debugging
+(with assertions enabled, symbols not stripped,
+and debug information generated):
+
+[source,java]
+----
+boolean debug = NativeLibrary.isDebug();
+----
+
+The default collision margin for new shapes is 0.04 physics-space units.
+To configure a default margin of 0.1 psu:
+
+[source,java]
+----
+CollisionShape.setDefaultMargin(0.1f);
+----
+
+NOTE: The Bullet Manual advises against changing the default margin.
+
+== Broadphase types
+
+By default, a Dynamic Bounding-Volume Tree (DBVT) is used for broadphase
+collision detection.
+To specify a different data structure, specify the corresponding enum value
+in the `PhysicsSpace` constructor:
+
+[source,java]
+----
+PhysicsSoftSpace physicsSpace = new PhysicsSoftSpace(worldMin, worldMax,
+            PhysicsSpace.BroadphaseType.AXIS_SWEEP_3);
+----
+
+NOTE: The world max/min bounds are used
+only by the `AXIS_SWEEP_3` and `AXIS_SWEEP_3_32` broadphase algorithms.
+The `SIMPLE` and `DBVT` algorithms ignore those parameters.
+
+== Contact-and-constraint solver types
+
+By default, a
+http://allenchou.net/2013/12/game-physics-constraints-sequential-impulse[Sequential Impulse (SI) solver]
+is used to resolve contacts and constraints.
+To specify a different type of solver, specify the corresponding enum value
+in the `PhysicsSpace` constructor:
+
+[source,java]
+----
+PhysicsSoftSpace physicsSpace = new PhysicsSpace(worldMin, worldMax,
+            broadphaseType, SolverType.Dantzig);
+----
+
+NOTE: For soft-body simulations, SI is the only supported solver type.
+
+NOTE: The NNCG solver doesn't support multibodies.
+
+== Advanced rigid-body friction
+
+In addition to the basic friction parameter (which affects sliding friction)
+each rigid body has 2 additional friction parameters:
+one for rolling friction and one for spinning friction.
+Both parameters default to zero.
+
+_Rolling friction_ generates torque orthogonal to the contact normal,
+which tends to slow down a rolling body.
+_Spinning friction_ generates torque parallel to the contact normal,
+which tends to prevent a body from spinning when grasped.
+
+To simulate objects with grooved surfaces, it's also possible to configure
+a rigid body for _anisotropic friction_:
+friction that depends on the direction of relative motion.
