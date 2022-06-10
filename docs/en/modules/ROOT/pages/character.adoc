@@ -30,7 +30,7 @@ the app should specify when and how the character should walk and jump.
 
 == Creation
 
-You can create a character by directly invoking the
+You can create a character by invoking the
 {url-api}/objects/PhysicsCharacter.html[`PhysicsCharacter`] constructor.
 This allows you to specify its collision shape and step height.
 

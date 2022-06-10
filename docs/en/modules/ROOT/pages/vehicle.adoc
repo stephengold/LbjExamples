@@ -29,7 +29,7 @@ should specify when and how the vehicle accelerates, steers, and brakes.
 
 == Creation
 
-You can create a vehicle without wheels by directly invoking the
+You can create a vehicle without wheels by invoking the
 {url-api}/objects/PhysicsVehicle.html[`PhysicsVehicle`] constructor.
 This allows you to specify the shape and mass of the chassis.
 Before adding it to a physics space, you should add wheels to it.
