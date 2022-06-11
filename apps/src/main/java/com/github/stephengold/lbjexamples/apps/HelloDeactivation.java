@@ -38,9 +38,6 @@ import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.objects.PhysicsBody;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.Vector3f;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
-import org.lwjgl.system.Configuration;
 
 /**
  * A simple example of rigid-body deactivation.
@@ -66,11 +63,6 @@ public class HelloDeactivation
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         HelloDeactivation application = new HelloDeactivation();
         application.start();
     }

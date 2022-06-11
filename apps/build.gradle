@@ -159,6 +159,9 @@ Boolean includeMacOsX = os.isMacOsX()
 Boolean includeWindows = os.isWindows()
 
 tasks.withType(JavaExec) { // Java runtime options:
+    if (os.isMacOsX()) {
+        jvmArgs '-XstartOnFirstThread' // required for GLFW on macOS
+    }
     classpath sourceSets.main.runtimeClasspath
     enableAssertions true
     jvmArgs '-XX:+UseG1GC', '-XX:MaxGCPauseMillis=10'

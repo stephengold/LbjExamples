@@ -35,11 +35,8 @@ import com.github.stephengold.sport.InputManager;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.mesh.CrosshairsMesh;
 import com.jme3.math.Vector3f;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import org.joml.Vector2fc;
 import org.joml.Vector4f;
-import org.lwjgl.system.Configuration;
 
 /**
  * A simple graphics test: control a clip-space Geometry by polling the mouse.
@@ -63,11 +60,6 @@ public class MouseTest extends BaseApplication {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         MouseTest application = new MouseTest();
         application.start();
     }

@@ -37,9 +37,6 @@ import com.github.stephengold.sport.RotateMode;
 import com.github.stephengold.sport.TextureKey;
 import com.github.stephengold.sport.mesh.OctasphereMesh;
 import com.jme3.math.FastMath;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
-import org.lwjgl.system.Configuration;
 
 /**
  * A simple graphics test: apply a texture to a sphere.
@@ -56,11 +53,6 @@ public class OctasphereTest extends BaseApplication {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         OctasphereTest application = new OctasphereTest();
         application.start();
     }

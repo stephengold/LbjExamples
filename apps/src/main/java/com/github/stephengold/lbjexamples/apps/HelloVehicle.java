@@ -42,11 +42,8 @@ import com.jme3.bullet.objects.PhysicsVehicle;
 import com.jme3.math.FastMath;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import java.util.ArrayList;
 import java.util.Collection;
-import org.lwjgl.system.Configuration;
 
 /**
  * A simple example of vehicle physics.
@@ -65,11 +62,6 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         HelloVehicle application = new HelloVehicle();
         application.start();
     }

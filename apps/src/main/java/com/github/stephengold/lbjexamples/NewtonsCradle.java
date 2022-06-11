@@ -41,13 +41,10 @@ import com.jme3.bullet.joints.JointEnd;
 import com.jme3.bullet.joints.Point2PointJoint;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.Vector3f;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import jme3utilities.math.MyMath;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.system.Configuration;
 
 /**
  * A physics demo that simulates a Newton's cradle.
@@ -85,11 +82,6 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         NewtonsCradle application = new NewtonsCradle();
         application.start();
     }

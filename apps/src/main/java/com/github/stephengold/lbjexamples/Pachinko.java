@@ -46,12 +46,9 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Matrix3f;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import jme3utilities.math.MyMath;
 import org.joml.Random;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.system.Configuration;
 
 /**
  * A physics demo that simulates a simple Pachinko machine.
@@ -106,11 +103,6 @@ public class Pachinko
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         Pachinko application = new Pachinko();
         application.start();
     }

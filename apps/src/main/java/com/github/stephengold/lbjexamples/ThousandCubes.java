@@ -46,12 +46,9 @@ import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.FastMath;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import java.util.Random;
 import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.system.Configuration;
 
 /**
  * Drop 1000 cubes onto a horizontal surface and launch balls at them (graphical
@@ -97,11 +94,6 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         new ThousandCubes().start();
     }
     // *************************************************************************

@@ -37,11 +37,8 @@ import com.github.stephengold.sport.TextureKey;
 import com.github.stephengold.sport.UvsOption;
 import com.github.stephengold.sport.mesh.RectangleMesh;
 import com.jme3.math.Vector3f;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11C;
-import org.lwjgl.system.Configuration;
 
 /**
  * A simple graphics test: display a checkerboard using a texture generated in
@@ -66,11 +63,6 @@ public class CheckerboardTest extends BaseApplication {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         CheckerboardTest application = new CheckerboardTest();
         application.start();
     }

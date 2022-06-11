@@ -38,10 +38,7 @@ import com.github.stephengold.sport.TextureKey;
 import com.github.stephengold.sport.UvsOption;
 import com.github.stephengold.sport.mesh.IcosphereMesh;
 import com.jme3.math.FastMath;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import org.joml.Vector4f;
-import org.lwjgl.system.Configuration;
 
 /**
  * A simple graphics test: apply a texture to an Icosphere.
@@ -58,11 +55,6 @@ public class IcosphereTest extends BaseApplication {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         IcosphereTest application = new IcosphereTest();
         application.start();
     }

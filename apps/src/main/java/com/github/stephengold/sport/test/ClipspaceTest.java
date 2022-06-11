@@ -35,9 +35,6 @@ import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.mesh.RectangleMesh;
 import com.jme3.math.Vector3f;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
-import org.lwjgl.system.Configuration;
 
 /**
  * A simple graphics test: display a yellow square in clip space.
@@ -61,11 +58,6 @@ public class ClipspaceTest extends BaseApplication {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         ClipspaceTest application = new ClipspaceTest();
         application.start();
     }

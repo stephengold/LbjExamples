@@ -75,7 +75,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
-import org.lwjgl.system.Configuration;
 
 /**
  * Choose an LbjExamples application to run.
@@ -88,10 +87,6 @@ final class AppChooser extends JFrame {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        if (System.getProperty("os.name").startsWith("Mac")) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         List<BaseApplication> apps = new ArrayList<>(39);
 
         apps.add(new CheckerboardTest());

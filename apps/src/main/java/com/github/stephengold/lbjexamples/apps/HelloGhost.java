@@ -47,11 +47,8 @@ import com.jme3.bullet.objects.PhysicsGhostObject;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import jme3utilities.math.MyVector3f;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.system.Configuration;
 
 /**
  * A simple example of a ghost object.
@@ -98,11 +95,6 @@ public class HelloGhost
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         HelloGhost application = new HelloGhost();
         application.start();
     }
