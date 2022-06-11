@@ -444,6 +444,19 @@ class ShaderProgram {
         Utils.checkForOglError();
     }
     // *************************************************************************
+    // Object methods
+
+    /**
+     * Represent this program as a String.
+     *
+     * @return a descriptive string of text (not null, not empty)
+     */
+    @Override
+    public String toString() {
+        String result = programName + " ID=" + programId;
+        return result;
+    }
+    // *************************************************************************
     // private methods
 
     /**
