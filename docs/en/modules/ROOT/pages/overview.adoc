@@ -25,7 +25,7 @@ But although Bullet is written in {url-enwiki}/C%2B%2B[C&#43;&#43;],
 you won't need any knowledge of C&#43;&#43; to use {Project}.
 
 Libbulletjme also incorporates source code from
-https://github.com/kmammou/v-hacd[the V-HACD project] and 
+https://github.com/kmammou/v-hacd[the V-HACD project] and
 https://github.com/Simsilica/SimMath[the SimMath library].
 
 == Caveats
@@ -52,6 +52,49 @@ https://raw.githubusercontent.com/stephengold/Libbulletjme/master/LICENSE[The li
 disclaims liability for defects.
 Please don't use this software in safety-critical applications.
 
+
+== What's missing
+
+Bullet is a complex project, and
+Libbulletjme doesn't yet provide access to all of its features.
+In particular:
+
+* `btRigidBodyConstructionInfo`
+* "additional damping" for rigid bodies
+* Bullet's debug drawer (however, an OpenGL-based graphics engine is available)
+* serialization (file loader)
+* certain constraints:
+** `btFixedConstraint`
+** `btUniversalConstraint`
+* certain collision shapes:
+** `btCompoundFromGimpactShape`
+** `btConvexPointCloudShape`
+** `btConvexTriangleMeshShape`
+** `btGImpactCompoundShape`
+** `btMinkowskiSumShape`
+** `btMultimaterialTriangleMeshShape`
+** `btScaledBvhTriangleMeshShape`
+** `btSdfCollisionShape`
+** `btTriangleShape`
+** `btUniformScalingShape`
+* certain world types:
+** `btDeformableMultiBodyDynamicsWorld`
+** `btSimpleDynamicsWorld`
+** `btSoftMultiBodyDynamicsWorld`
+* inverse dynamics
+* Bullet v3
+* Bullet extras, examples, and tests
+* execution logging/tracing
+
+Furthermore, Libbulletjme hasn't yet been ported to the following platforms:
+
+* the FreeBSD and iOS operating systems
+* Windows on ARM architectures
+* PowerPC architectures
+
+We welcome suggestions concerning the future development of Libbulletjme.
+
+
 == Getting help
 
 For self-help, make use of
@@ -62,6 +105,19 @@ https://github.com/stephengold/Libbulletjme[the source code].
 For issues that are best handled privately, contact Stephen by e-mail.
 His personal e-mail address appears
 on https://stephengold.github.io/[his homepage] and in the source code.
+
+
+== The name
+
+The project's (somewhat awkward) name
+reflects that fact that it was originally created
+for the JMonkeyEngine (JME) game engine.
+
+Despite its history, Libbulletjme is self-contained;
+it doesn't depend on JME.
+If you're seeking a physics engine that's integrated with JME,
+please consider https://stephengold.github.io/Minie[Minie].
+
 
 == Next steps
 
