@@ -35,11 +35,8 @@ import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.TextureKey;
 import com.jme3.math.Vector3f;
-import com.jme3.system.JmeSystem;
-import com.jme3.system.Platform;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL12C;
-import org.lwjgl.system.Configuration;
 
 /**
  * A simple graphics test: draw point sprites in model space.
@@ -56,11 +53,6 @@ public class SpriteTest extends BaseApplication {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        Platform platform = JmeSystem.getPlatform();
-        if (platform.getOs() == Platform.Os.MacOS) {
-            Configuration.GLFW_LIBRARY_NAME.set("glfw_async");
-        }
-
         SpriteTest application = new SpriteTest();
         application.start();
     }
