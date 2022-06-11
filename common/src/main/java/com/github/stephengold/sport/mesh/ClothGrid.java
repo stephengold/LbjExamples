@@ -48,11 +48,11 @@ public class ClothGrid extends Mesh {
     /**
      * number of grid lines parallel to the X axis
      */
-    private int numXLines;
+    final private int numXLines;
     /**
      * number of grid lines parallel to the Z axis
      */
-    private int numZLines;
+    final private int numZLines;
     // *************************************************************************
     // constructors
 
