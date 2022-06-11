@@ -475,6 +475,9 @@ public class Geometry {
      * program's global uniforms have already been set! Meant to be overridden.
      */
     public void updateAndRender() {
+        // Ensure that the program's uniforms have been collected.
+        program.use();
+
         // mesh-to-world transform uniforms
         if (program.hasActiveUniform(
                 ShaderProgram.modelRotationMatrixUniformName)) {
@@ -493,7 +496,6 @@ public class Geometry {
             program.setUniform("BaseMaterialColor", baseColor);
         }
         if (program.hasActiveUniform("ColorMaterialTexture")) {
-            program.use();
             int unitNumber = 0;
             texture.setUnitNumber(unitNumber);
             program.setUniform("ColorMaterialTexture", unitNumber);
