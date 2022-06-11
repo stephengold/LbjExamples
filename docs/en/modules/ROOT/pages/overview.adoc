@@ -55,13 +55,13 @@ Please don't use this software in safety-critical applications.
 
 == What's missing
 
-Bullet is a complex project, and
+Bullet is a large project, and
 Libbulletjme doesn't yet provide access to all of its features.
 In particular:
 
 * `btRigidBodyConstructionInfo`
 * "additional damping" for rigid bodies
-* Bullet's debug drawer (however, an OpenGL-based graphics engine is available)
+* Bullet's debug drawer (but see the SPORT graphics engine in LbjExamples)
 * serialization (file loader)
 * certain constraints:
 ** `btFixedConstraint`
@@ -83,8 +83,7 @@ In particular:
 ** `btSoftMultiBodyDynamicsWorld`
 * inverse dynamics
 * Bullet v3
-* Bullet extras, examples, and tests
-* execution logging/tracing
+* Bullet extras, examples, and tests (but see the Java examples in LbjExamples)
 
 Furthermore, Libbulletjme hasn't yet been ported to the following platforms:
 
