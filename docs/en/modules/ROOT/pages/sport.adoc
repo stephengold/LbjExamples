@@ -27,7 +27,7 @@ is a direct conversion of `HelloLibbulletjme` into a SPORT app.
 Details to note:
 
 . The app is declared as a subclass of `BasePhysicsApp<PhysicsSpace>`,
-  indicataing that it will simulate a plain `PhysicsSpace`.
+  indicating that it will simulate a plain `PhysicsSpace`.
 . The app implements the 3 abstract methods of `BasePhysicsApp`
   (`createSpace`, `populateSpace`, and `updateSpace`),
   all of which are invoked automatically.

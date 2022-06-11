@@ -23,7 +23,7 @@ to calculate the height of each wheel's axis above the ground.
 Those heights are used to calculate the forces
 exerted on the chassis by the suspension.
 
-Instead of applying forces or directly updating the vehicles's velocities,
+Instead of applying forces or directly updating the vehicle's velocities,
 an app using a physics vehicle
 should specify when and how the vehicle accelerates, steers, and brakes.
 
