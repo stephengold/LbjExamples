@@ -202,10 +202,8 @@ public class Pachinko
 
     /**
      * Add a dynamic ball to the PhysicsSpace.
-     *
-     * @return a new instance
      */
-    private PhysicsRigidBody addBall() {
+    private void addBall() {
         float mass = 1f;
         PhysicsRigidBody result = new PhysicsRigidBody(ballShape, mass);
         physicsSpace.addCollisionObject(result);
@@ -224,7 +222,6 @@ public class Pachinko
         result.applyCentralImpulse(new Vector3f(xImpulse, 0f, 0f));
 
         visualizeShape(result);
-        return result;
     }
 
     /**
