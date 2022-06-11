@@ -396,7 +396,7 @@ public abstract class BaseApplication {
      * Invoked before each render to update the window title. Meant to be
      * overridden.
      *
-     * @see #setWindowTitle(java.lang.String)
+     * @see #setWindowTitle(java.lang.CharSequence)
      */
     protected void updateWindowTitle() {
         float currentFrame = (float) glfwGetTime();

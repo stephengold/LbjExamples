@@ -70,7 +70,7 @@ public class ConstraintGeometry extends Geometry {
 
     /**
      * Instantiate a Geometry to visualize the specified end of the specified
-     * constraint and and make the Geometry visible.
+     * constraint and make the Geometry visible.
      *
      * @param constraint the constraint to visualize (not null, alias created)
      * @param end which end to visualize (not null)
