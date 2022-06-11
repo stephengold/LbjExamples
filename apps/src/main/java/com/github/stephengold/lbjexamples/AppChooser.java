@@ -80,7 +80,7 @@ import org.lwjgl.system.Configuration;
 /**
  * Choose an LbjExamples application to run.
  */
-class AppChooser extends JFrame {
+final class AppChooser extends JFrame {
 
     /**
      * Main entry point for the AppChooser application.
