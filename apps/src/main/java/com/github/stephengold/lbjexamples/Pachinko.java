@@ -193,9 +193,9 @@ public class Pachinko
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
         if (timeSinceAdded >= addInterval) {
             addBall();
-            this.timeSinceAdded = 0;
+            timeSinceAdded = 0;
         }
-        this.timeSinceAdded += timeStep;
+        timeSinceAdded += timeStep;
     }
     // *************************************************************************
     // private methods
@@ -374,7 +374,7 @@ public class Pachinko
         physicsSpace.addCollisionObject(playingField);
         visualizeShape(playingField);
 
-        this.timeSinceAdded = addInterval;
+        timeSinceAdded = addInterval;
     }
 
     private static void togglePause() {
