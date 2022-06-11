@@ -206,8 +206,7 @@ public class IcosphereMesh extends Mesh {
             indexBuffer.flip();
             assert indexBuffer.limit() == indexBuffer.capacity();
 
-            for (int vIndex = 0; vIndex < locations.size(); ++vIndex) {
-                Vector3f pos = locations.get(vIndex); // alias
+            for (Vector3f pos : locations) {
                 posBuffer.put(pos);
             }
 
