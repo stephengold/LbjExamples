@@ -89,7 +89,7 @@ Open the project's properties in the NetBeans IDE:
 
 == Download a native library
 
-Pre-build native libraries can be downloaded from GitHub:
+Pre-built native libraries can be downloaded from GitHub:
 
 * https://github.com/stephengold/Libbulletjme/releases/latest
 
