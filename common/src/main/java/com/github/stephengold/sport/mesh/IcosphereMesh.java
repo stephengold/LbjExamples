@@ -104,10 +104,6 @@ public class IcosphereMesh extends Mesh {
      * map number of refinement steps to shared mesh
      */
     final private static IcosphereMesh[] sharedMeshes = new IcosphereMesh[14];
-    /**
-     * vertex positions
-     */
-    final private VertexBuffer posBuffer;
     // *************************************************************************
     // constructors
 
@@ -194,8 +190,7 @@ public class IcosphereMesh extends Mesh {
 //
         midpointCache.clear();
 
-        posBuffer = super.createPositions();
-
+        VertexBuffer posBuffer = super.createPositions();
         if (withIndices) {
             assert locations.size() == numVertices : locations.size() + " != " + numVertices;
 
