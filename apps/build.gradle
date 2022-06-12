@@ -31,6 +31,9 @@ tasks.register('Pachinko', JavaExec) {
 tasks.register('ThousandCubes', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.ThousandCubes'
 }
+tasks.register('Windlass', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.Windlass'
+}
 
 // console apps (no graphics)
 tasks.register('HelloLibbulletjme', JavaExec) {

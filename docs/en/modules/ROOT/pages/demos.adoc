@@ -13,6 +13,8 @@ The following demos are found in
   demonstrates compound collision shapes and 2-D physics
 * {url-examples}/ThousandCubes.java[`ThousandCubes`]
   demonstrates stacking cubes and launching projectiles
+* {url-examples}/Windlass.java[`Windlass`]
+  demonstrates rope simulation using rigid bodies
 
 (Not all applications in the package are intended as demos.)
 
@@ -60,3 +62,8 @@ Additional mappings are specific to each application:
 * In `ThousandCubes`:
 
 ** kbd:[E] launch a red ball
+
+* In `Windlass`:
+
+** kbd:[Down arrow] turn the barrel counter-clockwise
+** kbd:[Up arrow] turn the barrel clockwise

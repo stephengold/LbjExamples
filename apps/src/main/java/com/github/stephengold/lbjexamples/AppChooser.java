@@ -87,7 +87,7 @@ final class AppChooser extends JFrame {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        List<BaseApplication> apps = new ArrayList<>(39);
+        List<BaseApplication> apps = new ArrayList<>(40);
 
         apps.add(new CheckerboardTest());
         apps.add(new ClipspaceTest());
@@ -135,6 +135,7 @@ final class AppChooser extends JFrame {
         apps.add(new SpriteTest());
         apps.add(new TextureTest());
         apps.add(new ThousandCubes());
+        apps.add(new Windlass());
 
         new AppChooser(apps);
     }
