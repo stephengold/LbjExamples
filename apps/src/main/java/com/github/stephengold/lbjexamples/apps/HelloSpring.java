@@ -177,12 +177,12 @@ public class HelloSpring
     @Override
     public void render() {
         // Calculate the ground location (if any) indicated by the mouse cursor.
-        Vector2fc clipXy = getInputManager().locateCursor();
-        if (clipXy != null) {
+        Vector2fc screenXy = getInputManager().locateCursor();
+        if (screenXy != null) {
             float nearZ = -1f;
-            Vector3f nearLocation = cam.clipToWorld(clipXy, nearZ, null);
+            Vector3f nearLocation = cam.clipToWorld(screenXy, nearZ, null);
             float farZ = +1f;
-            Vector3f farLocation = cam.clipToWorld(clipXy, farZ, null);
+            Vector3f farLocation = cam.clipToWorld(screenXy, farZ, null);
             if (nearLocation.y > groundY && farLocation.y < groundY) {
                 float dy = nearLocation.y - farLocation.y;
                 float t = (nearLocation.y - groundY) / dy;
