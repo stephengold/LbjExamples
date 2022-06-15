@@ -129,12 +129,15 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     abstract protected void populateSpace();
 
     /**
-     * Advance the physics simulation by the specified amount.
+     * Advance the physics simulation by the specified amount. Invoked during
+     * each update.
      *
      * @param intervalSeconds the elapsed (real) time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
-    abstract protected void updatePhysics(float intervalSeconds);
+    public void updatePhysics(float intervalSeconds) {
+        physicsSpace.update(intervalSeconds);
+    }
 
     /**
      * Visualize the local axes of the specified collision object.

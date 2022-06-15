@@ -151,18 +151,6 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Advance the physics simulation by the specified amount. Invoked during
-     * each update.
-     *
-     * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    @Override
-    public void updatePhysics(float intervalSeconds) {
-        physicsSpace.update(intervalSeconds);
-    }
-
-    /**
      * Update the window title. Invoked during each update.
      */
     @Override

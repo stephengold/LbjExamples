@@ -140,16 +140,4 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         // Visualize the disc.
         visualizeShape(disc);
     }
-
-    /**
-     * Advance the physics simulation by the specified amount. Invoked during
-     * each update.
-     *
-     * @param intervalSeconds the elapsed (real) time since the previous
-     * invocation of {@code updatePhysics} (in seconds, &ge;0)
-     */
-    @Override
-    public void updatePhysics(float intervalSeconds) {
-        physicsSpace.update(intervalSeconds);
-    }
 }
