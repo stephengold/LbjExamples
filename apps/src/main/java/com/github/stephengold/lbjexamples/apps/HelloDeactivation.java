@@ -79,7 +79,7 @@ public class HelloDeactivation
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // Add this application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener.
         result.addTickListener(this);
 
         return result;
@@ -155,7 +155,7 @@ public class HelloDeactivation
     public void physicsTick(PhysicsSpace space, float timeStep) {
         /*
          * Once the dynamic cube gets deactivated,
-         * remove the support cube from the PhysicsSpace.
+         * remove the support cube from the space.
          */
         if (!dynamicCube.isActive() && space.contains(supportCube)) {
             space.removeCollisionObject(supportCube);

@@ -79,7 +79,7 @@ public class HelloNonUniformGravity
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // Add this application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener.
         result.addTickListener(this);
 
         // Reduce the time step for better accuracy.
@@ -148,7 +148,7 @@ public class HelloNonUniformGravity
     }
 
     /**
-     * Callback from Bullet, invoked just after the simulation has been stepped.
+     * Callback from Bullet, invoked just after each simulation step.
      *
      * @param space the space that was just stepped (not null)
      * @param timeStep the time per simulation step (in seconds, &ge;0)

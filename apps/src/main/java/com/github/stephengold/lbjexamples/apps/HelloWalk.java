@@ -99,7 +99,7 @@ public class HelloWalk
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // Add this application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener.
         result.addTickListener(this);
 
         return result;
@@ -135,7 +135,7 @@ public class HelloWalk
         // Teleport the character to its initial location.
         character.setPhysicsLocation(new Vector3f(-73.6f, 19.09f, -45.58f));
 
-        // Add a heightmap to represent the ground.
+        // Add a static heightmap to represent the ground.
         addTerrain();
     }
 
@@ -169,7 +169,7 @@ public class HelloWalk
      */
     @Override
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
-        // Clear any motion from the previous tick.
+        // Clear any motion from the previous simulation step.
         character.setWalkDirection(Vector3f.ZERO);
         /*
          * If the character is touching the ground,

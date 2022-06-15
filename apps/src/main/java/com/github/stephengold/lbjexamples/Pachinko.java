@@ -193,7 +193,7 @@ public class Pachinko
     // private methods
 
     /**
-     * Add a dynamic ball to the PhysicsSpace.
+     * Add a dynamic ball to the space.
      */
     private void addBall() {
         float mass = 1f;

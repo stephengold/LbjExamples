@@ -162,7 +162,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     // private methods
 
     /**
-     * Add a dynamic box to the PhysicsSpace, at the specified coordinates.
+     * Add a dynamic box to the space, at the specified coordinates.
      *
      * @param x the desired X coordinate (in physics space)
      * @param y the desired Y coordinate (in physics space)

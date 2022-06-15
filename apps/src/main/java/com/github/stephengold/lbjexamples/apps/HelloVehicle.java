@@ -177,7 +177,7 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
     // private methods
 
     /**
-     * Add a horizontal plane body to the PhysicsSpace.
+     * Add a horizontal plane body to the space.
      *
      * @param y (the desired elevation, in physics-space coordinates)
      */

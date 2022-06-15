@@ -107,7 +107,7 @@ public class HelloLimit
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // Add this application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener.
         result.addTickListener(this);
 
         // Reduce the time step for better accuracy.

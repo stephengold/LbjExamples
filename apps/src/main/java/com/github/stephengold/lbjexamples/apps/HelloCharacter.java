@@ -192,7 +192,7 @@ public class HelloCharacter
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // Activate the PhysicsTickListener interface.
+        // To enable the callbacks, register the application as a tick listener.
         result.addTickListener(this);
 
         return result;

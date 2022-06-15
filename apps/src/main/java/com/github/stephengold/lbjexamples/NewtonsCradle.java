@@ -139,7 +139,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     // private methods
 
     /**
-     * Add a dynamic ball to the PhysicsSpace, suspended between 2 single-ended
+     * Add a dynamic ball to the space, suspended between 2 single-ended
      * point-to-point joints.
      *
      * @param xOffset the desired location on the X axis

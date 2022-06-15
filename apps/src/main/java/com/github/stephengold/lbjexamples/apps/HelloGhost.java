@@ -111,7 +111,7 @@ public class HelloGhost
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // Add this application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener.
         result.addTickListener(this);
 
         return result;
@@ -237,7 +237,7 @@ public class HelloGhost
     // private methods
 
     /**
-     * Add a horizontal plane body to the PhysicsSpace.
+     * Add a horizontal plane body to the space.
      *
      * @param y (the desired elevation, in physics-space coordinates)
      */
