@@ -17,7 +17,7 @@
 * https://github.com/stephengold/Libbulletjme[Git repository]
 ** https://github.com/stephengold/Libbulletjme/releases/latest[Latest release]
 ** https://github.com/stephengold/Libbulletjme/releases[Recent releases]
-** https://github.com/stephengold/Libbulletjme/blob/master/README.md[Read-me file]
+** https://github.com/stephengold/Libbulletjme/blob/master/README.md[ReadMe file]
 ** https://raw.githubusercontent.com/stephengold/Libbulletjme/master/LICENSE[License]
 ** https://github.com/stephengold/Libbulletjme/blob/master/release-notes.md[Release log]
 ** https://github.com/stephengold/Libbulletjme/commits/master[Recent commits]

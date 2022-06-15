@@ -59,7 +59,7 @@ softBody.setMargin(0.1f);
 
 Soft bodies lack many other features of rigid bodies, including:
 
-* motion state (for extrapolating between time steps),
+* motion state (for extrapolating between simulation steps),
 * deactivation/sleeping (for efficient simulation), and
 * continuous collision detection (CCD) (for fast-moving objects).
 

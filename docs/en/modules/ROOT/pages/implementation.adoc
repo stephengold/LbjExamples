@@ -66,7 +66,7 @@ are referred to as _physics spaces_.
 Each rigid collision object references a _collision shape_
 that describes the shape of its surface.
 Most collision shapes are _scalable_,
-allowing you to grow/shrink objects
+allowing you to grow or shrink objects
 simply by varying the shape's scale factors.
 
 == Coordinate systems and units
@@ -92,9 +92,9 @@ from _shape coordinates_ (which depend on scale factors).
 
 == Discrete time and collision detection
 
-Within a physics space, simulation occurs in discrete _time steps_.
+Within a physics space, simulation occurs in discrete steps.
 While it's possible to vary the step size from step to step,
-a fixed step size tends to yield more reproducible results.
+a fixed time step tends to yield more reproducible results.
 
 Each time step consists of 4 _phases_:
 

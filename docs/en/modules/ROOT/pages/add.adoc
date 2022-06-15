@@ -156,7 +156,7 @@ physicsSpace.addCollisionObject(body1);
 
 == Simulate the physics space
 
-To simulate a single 20-millisecond time step:
+To simulate a single 20-millisecond step:
 
 [source,java]
 ----
@@ -186,7 +186,7 @@ It illustrates:
 . loading a native library from the "~/Downloads" directory
 . creating a `PhysicsSpace`
 . creating 2 collision objects and adding them to the space
-. running the simulation for 50 time steps
+. simulating 50 steps
 
 [IMPORTANT]
 ====

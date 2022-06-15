@@ -5,7 +5,7 @@
 This page acts as a holding area for tutorial material that's waiting
 to be organized.
 
-== Global configuration
+== Startup message
 
 By default, the native library prints a startup message to `System.out`.
 Once the library is loaded (but not started) you can disable this message:
