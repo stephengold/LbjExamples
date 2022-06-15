@@ -15,6 +15,8 @@ Once the library is loaded (but not started) you can disable this message:
 NativeLibrary.setStartupMessageEnabled(false);
 ----
 
+== Library versions and properties
+
 Once the native library is loaded,
 you can test whether it uses double-precision arithmetic:
 
@@ -31,6 +33,17 @@ and debug information generated):
 ----
 boolean debug = NativeLibrary.isDebug();
 ----
+
+You can also read the native library's version string,
+which consists of 3 decimal numbers separated by dots:
+
+[source,java]
+----
+String nativeVersion = NativeLibrary.versionNumber();
+----
+
+
+== Default collision margin
 
 The default collision margin for new shapes is 0.04 physics-space units.
 To configure a default margin of 0.1 psu:
@@ -92,3 +105,16 @@ which tends to prevent a body from spinning when grasped.
 To simulate objects with grooved surfaces, it's also possible to configure
 a rigid body for _anisotropic friction_:
 friction that depends on the direction of relative motion.
+
+
+== Gear joint
+
+{url-api}/joints/GearJoint.html[`GearJoint`] implements
+a special type of constraint used to simulate rotating shafts
+linked by belts, cables, chains, or gears.
+Unlike other constraints, it has no pivot points, only axes.
+It's a double-ended constraint
+with a single rotational degree-of-freedom.
+The rotational rate of the A body around its axis
+is matched to that of the B body around its axis, or made proportional.
+
