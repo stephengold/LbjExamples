@@ -1,4 +1,5 @@
 = An introduction to New6Dof constraints
+:Project: Libbulletjme
 :experimental:
 :page-pagination:
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
@@ -261,7 +262,7 @@ Things to notice while running the app:
 == Summary
 
 * Physics joints constrain the motion of connected bodies.
-* In Libbulletjme, joints for rigid bodies are called constraints.
+* In {Project}, joints for rigid bodies are called constraints.
 * `New6Dof` is a versatile constraint
   with 6 degrees of freedom (DOFs).
   It can emulate hinges, sliders, and point-to-point joints.
