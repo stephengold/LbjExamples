@@ -141,7 +141,7 @@ public class HelloKinematics
          * Make the kinematic ball orbit the origin.
          */
         float orbitalPeriod = 0.8f; // seconds
-        float phaseAngle = elapsedTime * 2f * FastMath.PI / orbitalPeriod;
+        float phaseAngle = elapsedTime * FastMath.TWO_PI / orbitalPeriod;
 
         float orbitRadius = 0.4f; // physics-space units
         float x = orbitRadius * FastMath.sin(phaseAngle);
