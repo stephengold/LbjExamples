@@ -111,7 +111,7 @@ public class HelloCharacter
         // Add a square to represent the ground.
         float halfExtent = 4f;
         float y = -2f;
-        PhysicsRigidBody ground = addSquare(halfExtent, y, physicsSpace);
+        PhysicsRigidBody ground = addSquare(halfExtent, y);
 
         // Visualize the physics objects.
         visualizeShape(character);
@@ -160,15 +160,13 @@ public class HelloCharacter
     // private methods
 
     /**
-     * Add a horizontal square body to the specified PhysicsSpace.
+     * Add a horizontal square body to the space.
      *
      * @param halfExtent (half of the desired side length)
      * @param y (the desired elevation, in physics-space coordinates)
-     * @param physicsSpace (not null)
      * @return the new body (not null)
      */
-    private static PhysicsRigidBody addSquare(float halfExtent, float y,
-            PhysicsSpace physicsSpace) {
+    private PhysicsRigidBody addSquare(float halfExtent, float y) {
         // Construct a static rigid body with a square shape.
         Box2dShape shape = new Box2dShape(halfExtent);
         PhysicsRigidBody result

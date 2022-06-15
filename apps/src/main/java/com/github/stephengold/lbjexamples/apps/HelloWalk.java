@@ -204,7 +204,7 @@ public class HelloWalk
     // private methods
 
     /**
-     * Add a heightfield body to the PhysicsSpace.
+     * Add a heightfield body to the space.
      */
     private void addTerrain() {
         // Generate an array of heights from a PNG image on the classpath.

@@ -140,7 +140,7 @@ public class HelloDoubleEnded
         addPlane(groundY);
 
         // Add a mouse-controlled kinematic paddle.
-        addPaddle(physicsSpace);
+        addPaddle();
 
         // Add a dynamic ball.
         PhysicsRigidBody ballBody = addBall();
@@ -252,13 +252,11 @@ public class HelloDoubleEnded
 
     /**
      * Create a kinematic body with a box shape and add it to the space.
-     *
-     * @param physicsSpace (not null)
      */
-    private void addPaddle(PhysicsSpace physicsSpace) {
+    private void addPaddle() {
         BoxCollisionShape shape
                 = new BoxCollisionShape(0.3f, paddleHalfHeight, 1f);
-        paddleBody = new PhysicsRigidBody(shape);
+        this.paddleBody = new PhysicsRigidBody(shape);
         paddleBody.setKinematic(true);
 
         physicsSpace.addCollisionObject(paddleBody);

@@ -137,10 +137,10 @@ public class HelloLimit
     public void populateSpace() {
         // Add a static, green square to represent the ground.
         float halfExtent = 3f;
-        PhysicsRigidBody ground = addSquare(halfExtent, groundY, physicsSpace);
+        PhysicsRigidBody ground = addSquare(halfExtent, groundY);
 
         // Add a mouse-controlled kinematic paddle.
-        addPaddle(physicsSpace);
+        addPaddle();
 
         // Add a dynamic ball.
         PhysicsRigidBody ballBody = addBall();
@@ -266,10 +266,8 @@ public class HelloLimit
 
     /**
      * Create a kinematic body with a box shape and add it to the space.
-     *
-     * @param physicsSpace (not null)
      */
-    private void addPaddle(PhysicsSpace physicsSpace) {
+    private void addPaddle() {
         BoxCollisionShape shape
                 = new BoxCollisionShape(0.3f, paddleHalfHeight, 1f);
         paddleBody = new PhysicsRigidBody(shape);
@@ -280,15 +278,13 @@ public class HelloLimit
     }
 
     /**
-     * Add a horizontal square body to the specified PhysicsSpace.
+     * Add a horizontal square body to the space.
      *
      * @param halfExtent (half of the desired side length)
      * @param y (the desired elevation, in physics-space coordinates)
-     * @param physicsSpace (not null)
      * @return the new body (not null)
      */
-    private static PhysicsRigidBody addSquare(float halfExtent, float y,
-            PhysicsSpace physicsSpace) {
+    private PhysicsRigidBody addSquare(float halfExtent, float y) {
         // Construct a static rigid body with a square shape.
         Box2dShape shape = new Box2dShape(halfExtent);
         PhysicsRigidBody result
