@@ -180,7 +180,7 @@ public class HelloGhost
      */
     @Override
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
-        // Clear any motion from the previous tick.
+        // Clear any motion from the previous simulation step.
         character.setWalkDirection(Vector3f.ZERO);
         /*
          * If the character is touching the ground,
@@ -266,21 +266,20 @@ public class HelloGhost
             @Override
             public void onKeyboard(int keyId, boolean isPressed) {
                 switch (keyId) {
-                    case GLFW.GLFW_KEY_SPACE:
-                        jumpRequested = isPressed;
-                        return;
-
                     case GLFW.GLFW_KEY_DOWN:
                         walkBackward = isPressed;
+                        return;
+                    case GLFW.GLFW_KEY_UP:
+                        walkForward = isPressed;
+                        return;
+                    case GLFW.GLFW_KEY_SPACE:
+                        jumpRequested = isPressed;
                         return;
                     case GLFW.GLFW_KEY_LEFT:
                         walkLeft = isPressed;
                         return;
                     case GLFW.GLFW_KEY_RIGHT:
                         walkRight = isPressed;
-                        return;
-                    case GLFW.GLFW_KEY_UP:
-                        walkForward = isPressed;
                         return;
                 }
                 super.onKeyboard(keyId, isPressed);
