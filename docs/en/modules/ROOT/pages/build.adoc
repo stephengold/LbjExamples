@@ -52,8 +52,7 @@ Here's the recommended procedure:
 .. using Windows Command Prompt: `.\gradlew copyToDist --build-file=android.gradle`
 
 After a successful build,
-artifacts and native libraries will be found
-in the "dist" directory.
+artifacts and native libraries will be found in the "dist" directory.
 
 === Install artifacts
 

@@ -46,8 +46,8 @@ However, these last 3 features are optional and can easily be disabled.
 
 === HelloRigidBody
 
-{url-tutorial}/HelloRigidBody.java[HelloRigidBody] is a SPORT
-app that demonstrates the 5 familiar features of rigid bodies.
+{url-tutorial}/HelloRigidBody.java[HelloRigidBody] is a SPORT app
+that demonstrates the 5 familiar features of rigid bodies.
 
 Things to notice while running the app:
 
@@ -71,8 +71,8 @@ Unlike a dynamic body,
 a static one is unaffected by forces, torques, and impulses,
 as if its mass were infinite.
 
-{url-tutorial}/HelloStaticBody.java[HelloStaticBody]
-is a SPORT app that combines static and dynamic rigid bodies.
+{url-tutorial}/HelloStaticBody.java[HelloStaticBody] is a SPORT app
+that combines static and dynamic rigid bodies.
 Things to notice while running the app:
 
 . Two balls: the top one dynamic, the bottom one static.
@@ -139,8 +139,8 @@ rigidBody.setMass(1f);
 rigidBody.setKinematic(true);
 ----
 
-{url-tutorial}/HelloKinematics.java[HelloKinematics]
-is a SPORT app that combines kinematic and dynamic rigid bodies.
+{url-tutorial}/HelloKinematics.java[HelloKinematics] is a SPORT app
+that combines kinematic and dynamic rigid bodies.
 Things to notice while running the app:
 
 . Two balls: the top one dynamic, the bottom one kinematic.
@@ -159,7 +159,8 @@ To disable contact response for a particular rigid body,
 use `rigidBody.setContactResponse(false)`.
 
 {url-tutorial}/HelloContactResponse.java[HelloContactResponse]
-is a SPORT app that demonstrates contact response.
+is a SPORT app
+that demonstrates contact response.
 Things to notice while running the app:
 
 . The ball falls until it collides with the blue (static) box,
@@ -246,8 +247,8 @@ float angularDamping = 0.2f;
 rigidBody.setDamping(linearDamping, angularDamping);
 ----
 
-{url-tutorial}/HelloDamping.java[HelloDamping]
-is a SPORT app that demonstrates damping.
+{url-tutorial}/HelloDamping.java[HelloDamping] is a SPORT app
+that demonstrates damping.
 Things to notice while running the app:
 
 . 4 cubes initially share the same linear and angular velocities.
@@ -289,7 +290,8 @@ to which it's added, use `rigidBody.setProtectGravity(true)`.
 To simulate a non-uniform gravitational field,
 update the gravity of each body before each simulation step.
 {url-tutorial}/HelloNonUniformGravity.java[HelloNonUniformGravity]
-is a SPORT app that demonstrates this technique.
+is a SPORT app
+that demonstrates this technique.
 The planet orbits a black hole whose location is indicated by colored arrows.
 
 NOTE: The planet's path varies somewhat from orbit to orbit.
@@ -403,8 +405,8 @@ Puzzling behavior may occur if a deactivated body is:
 The deactivated body will seem to be "stuck"
 because the events listed above do not, by themselves, reactivate it.
 
-{url-tutorial}/HelloDeactivation.java[HelloDeactivation]
-is a SPORT app that demonstrates deactivation.
+{url-tutorial}/HelloDeactivation.java[HelloDeactivation] is a SPORT app
+that demonstrates deactivation.
 Things to notice while running the app:
 
 . The upper (dynamic) box falls until it collides with the lower (static) box,
@@ -457,8 +459,8 @@ if (rigidBody.isDynamic()) {
 }
 ----
 
-{url-tutorial}/HelloCcd.java[HelloCcd]
-is a SPORT app that demonstrates CCD.
+{url-tutorial}/HelloCcd.java[HelloCcd] is a SPORT app
+that demonstrates CCD.
 Things to notice while running the app:
 
 . The 2 balls have the same size, mass, initial height, and initial velocity.
