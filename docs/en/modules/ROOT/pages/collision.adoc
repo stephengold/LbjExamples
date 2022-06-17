@@ -187,7 +187,9 @@ NOTE: A mechanism exists that implements contact handling using listeners.
 That mechanism is now deprecated.
 
 
-== Ray testing
+== Intersection tests
+
+=== Ray test
 
 The `space.rayTest()` method performs _ray test_ against a space,
 returning a list of objects in the space
@@ -199,8 +201,7 @@ the "ray" used in a ray test has both a starting point and an ending point.
 To configure details of how ray tests are performed,
 use the `space.setRayTestFlags()` method.
 
-
-== Contact testing
+=== Contact test
 
 The `contactTest()` method performs a _contact test_ against a space,
 returning the number of contact points that would be created
@@ -211,8 +212,7 @@ you can request a callback for each point.
 
 NOTE: Contact testing doesn't detect contacts involving soft bodies.
 
-
-== Sweep testing
+=== Sweep test
 
 A sweep test combines features of a ray test and a contact test.
 
