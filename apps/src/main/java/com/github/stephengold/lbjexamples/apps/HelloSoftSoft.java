@@ -106,7 +106,7 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         int numRefinementIterations = 3;
         Mesh sphere = new IcosphereMesh(numRefinementIterations, true);
 
-        // Create 2 soft balls and add them to the physics space.
+        // Create 2 squishy balls and add them to the physics space.
         PhysicsSoftBody ball1 = new PhysicsSoftBody();
         NativeSoftBodyUtil.appendFromTriMesh(sphere, ball1);
         physicsSpace.addCollisionObject(ball1);
@@ -114,9 +114,10 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         PhysicsSoftBody ball2 = new PhysicsSoftBody();
         NativeSoftBodyUtil.appendFromTriMesh(sphere, ball2);
         physicsSpace.addCollisionObject(ball2);
-
-        // Set each body's default frame pose:  if deformed,
-        // it will tend to return to its current shape.
+        /*
+         * Set each ball's default frame pose:  if deformed,
+         * it will tend to return to its current shape.
+         */
         boolean setVolumePose = false;
         boolean setFramePose = true;
         ball1.setPose(setVolumePose, setFramePose);

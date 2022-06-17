@@ -129,7 +129,7 @@ public class HelloSoftBody extends BasePhysicsApp<PhysicsSoftSpace> {
     // private methods
 
     /**
-     * Add a static cube to serve as a platform.
+     * Add a large static cube to serve as a platform.
      */
     private void addBox() {
         float halfExtent = 3f; // mesh units

@@ -118,9 +118,10 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
         // of its material.
         SoftBodyMaterial mat = cloth.getSoftMaterial();
         mat.setAngularStiffness(0f); // default=1
-
-        // Improve simulation accuracy by increasing
-        // the number of position-solver iterations for the cloth.
+        /*
+         * Improve simulation accuracy by increasing
+         * the number of position-solver iterations for the cloth.
+         */
         SoftBodyConfig config = cloth.getSoftConfig();
         config.setPositionIterations(9);  // default=1
 

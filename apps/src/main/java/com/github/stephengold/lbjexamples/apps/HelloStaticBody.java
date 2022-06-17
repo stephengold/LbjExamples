@@ -104,7 +104,7 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
      * Advance the physics simulation by the specified amount. Invoked during
      * each update.
      *
-     * @param intervalSeconds the elapsed (real) time since the previous
+     * @param intervalSeconds the elapsed wall-clock time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
