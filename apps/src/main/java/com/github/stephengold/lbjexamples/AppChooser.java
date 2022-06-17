@@ -87,54 +87,56 @@ final class AppChooser extends JFrame {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        List<BaseApplication> apps = new ArrayList<>(40);
+        List<BaseApplication> apps = new ArrayList<>(41);
 
         apps.add(new CheckerboardTest());
         apps.add(new ClipspaceTest());
+        apps.add(new ConveyorDemo());
         apps.add(new DynamicMeshTest());
         apps.add(new HelloCcd());
-        apps.add(new HelloCharacter());
 
+        apps.add(new HelloCharacter());
         apps.add(new HelloCloth());
         apps.add(new HelloContactResponse());
         apps.add(new HelloDamping());
         apps.add(new HelloDeactivation());
-        apps.add(new HelloDoubleEnded());
 
+        apps.add(new HelloDoubleEnded());
         apps.add(new HelloGhost());
         apps.add(new HelloJoint());
         apps.add(new HelloKinematics());
         apps.add(new HelloLimit());
-        apps.add(new HelloMadMallet());
 
+        apps.add(new HelloMadMallet());
         apps.add(new HelloMassDistribution());
         apps.add(new HelloMotor());
         apps.add(new HelloNonUniformGravity());
         apps.add(new HelloPin());
-        apps.add(new HelloRigidBody());
 
+        apps.add(new HelloRigidBody());
         apps.add(new HelloServo());
         apps.add(new HelloSoftBody());
         apps.add(new HelloSoftRope());
         apps.add(new HelloSoftSoft());
-        apps.add(new HelloSport());
 
+        apps.add(new HelloSport());
         apps.add(new HelloSpring());
         apps.add(new HelloStaticBody());
         apps.add(new HelloVehicle());
         apps.add(new HelloWalk());
-        apps.add(new IcosphereTest());
 
+        apps.add(new IcosphereTest());
         apps.add(new MouseTest());
         apps.add(new MouseTest2());
         apps.add(new NewtonsCradle());
         apps.add(new OctasphereTest());
-        apps.add(new Pachinko());
 
+        apps.add(new Pachinko());
         apps.add(new RainbowTest());
         apps.add(new SpriteTest());
         apps.add(new TextureTest());
         apps.add(new ThousandCubes());
+
         apps.add(new Windlass());
 
         new AppChooser(apps);

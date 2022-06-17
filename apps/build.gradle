@@ -22,6 +22,9 @@ tasks.register('AppChooser', JavaExec) {
 }
 
 // demos
+tasks.register('ConveyorDemo', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.ConveyorDemo'
+}
 tasks.register('NewtonsCradle', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.NewtonsCradle'
 }

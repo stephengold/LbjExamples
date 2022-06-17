@@ -7,6 +7,8 @@ _Demo applications_ are provided to showcase certain features of {Project}.
 The following demos are found in
 {url-examples}[the com.github.stephengold.lbjexamples package of the "apps" sub-project]:
 
+* {url-examples}/ConveyorDemo.java[`ConveyorDemo`]
+  demonstrates contact-point modifications
 * {url-examples}/NewtonsCradle.java[`NewtonsCradle`]
   demonstrates dynamic restitution and point-to-point joints
 * {url-examples}/Pachinko.java[`Pachinko`]
@@ -42,6 +44,11 @@ Furthermore:
 * kbd:[Z] lowers the camera.
 
 Additional mappings are specific to each application:
+
+* In `ConveyorDemo`:
+
+** kbd:[Enter], kbd:[I], kbd:[Ins], kbd:[Numpad0], and kbd:[Spacebar]
+   drop a box onto the conveyor belt
 
 * In `NewtonsCradle`:
 

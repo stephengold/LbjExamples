@@ -159,6 +159,9 @@ To confirm intersection,
 use `ManifoldPoints.getDistance1()` to get the separation distance.
 When the distance is positive, there's no intersection.
 
+{url-demo}/ConveyorDemo.java[`ConveyorDemo`] is a SPORT app
+that implements conveyor belts using contact-point modification.
+
 
 == Custom contact handling
 
