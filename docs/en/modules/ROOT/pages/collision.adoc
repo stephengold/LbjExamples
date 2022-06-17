@@ -21,20 +21,21 @@ including friction and restitution.
 
 {Project} provides mechanisms to:
 
-* enumerate overlaps,
+* count or enumerate overlaps,
 * customize which overlaps are handled and which are ignored,
-* access the lists of manifolds and contact points, and
-* perform custom actions when manifolds are created or destroyed
-  or when contact points are processed.
+* access the manifolds and contact points, and
+* perform custom actions when Bullet creates or destroys a manifold
+  or when it processes a contact point.
 
-Mechanisms are also provided to enumerate objects that intersect with:
+It also provides mechanisms
+to count or enumerate collision objects that intersect with:
 
 * a specific line segment,
 * a shape in a specific position, or
 * a shape sweeping from one position to another.
 
-These tests are usually performed *between* simulation steps.
-They are useful when you want to add an object to a space without
+Such _intersection tests_ are usually performed *between* simulation steps.
+They are useful (for instance) when you want to add an object to a space without
 causing an immediate collision.
 
 
@@ -44,7 +45,7 @@ A _ghost_ is a collision object without contact response,
 created solely to detect overlaps with other collision objects.
 You can create a ghost by invoking the
 {url-api}/objects/PhysicsGhostObject.html[`PhysicsGhostObject`] constructor.
-In order to function, the ghost must be added to a space.
+In order to work, the ghost must be added to a space.
 
 The constructor allows you to specify a collision shape.
 However, the details of the shape are unimportant.
@@ -66,19 +67,22 @@ Things notice while running the app:
 . The character has a capsule shape.
   To clarify what's going on, its AABB is outlined in white.
 . Press kbd:[Right arrow] to walk the character toward the ghost.
-. The ghost turns red as soon as the character's AABB touches the ghost's AABB,
+. As soon as the character's AABB touches the ghost's AABB, the ghost turns red,
   even though their collision shapes haven't intersected yet.
 . Press kbd:[Space bar] to jump.
 . The character can jump high enough to leave the ghost's AABB,
   at which time the ghost will momentarily turn yellow again.
 
+In addition the counting overlapping objects,
+you can enumerate them using `ghost.getOverlappingObjects()`.
+
 
 == Filtering AABB overlaps
 
 You might want to prevent collisions from occurring
-between some objects, perhaps under specific conditions.
-Filtering out an overlap during broadphase eliminates any possibility
-of a collision between the overlapping objects.
+between certain objects, perhaps under specific conditions.
+Filtering out an overlap during broadphase
+prevents collisions between the overlapping objects.
 {Project} provides several mechanisms to implement such filtering.
 
 NOTE: The wheels of a `PhysicsVehicle` aren't collision objects,
@@ -92,14 +96,14 @@ This is the most efficient filtering mechanism.
 16 groups are defined,
 and each collision object belongs to exactly one group.
 By default, that group is `COLLISION_GROUP_01`.
-`collisionObject.setCollisionGroup()` can be used
-to assign an object to a different group.
+To assign an object to a different group,
+invoke `collisionObject.setCollisionGroup()`.
 
 By default, collision objects collide only with objects in `COLLISION_GROUP_01`.
-You can alter an object's collides-with set
-by invoking its `collisionObject.setCollideWithGroup()` method.
+To alter an object's collides-with set,
+invoke `collisionObject.setCollideWithGroup()`.
 
-For a collision to be occur between two collision objects X and Y,
+For a collision to occur between objects X and Y,
 either X must collide with Y's group *OR* Y must collide with X's group.
 
 === Using ignore lists
@@ -108,15 +112,15 @@ You can filter AABB overlaps on a pair-by-pair basis
 by creating _ignore lists_ for specific collision objects.
 Ignore lists are more flexible than collision groups, but less efficient.
 
-By default, each collision object has an empty ignore list.
+Each collision object is created with an empty ignore list.
 You can disable collisions between two objects X and Y by invoking
 `x.addToIgnoreList(y)`.
 
 NOTE: There's no need to also invoke `y.addToIgnoreList(x)`.
 That would be redundant.
 
-NOTE: Ignore lists are used internally by `setCollisionBetweenLinkedBodies()`
-to disable collisions between the ends of physics joint.
+NOTE: Ignore lists are used internally by physics joints
+to disable collisions between the ends of a joint.
 
 === Using a dynamic filter
 
@@ -133,14 +137,12 @@ Return `false` for overlaps you want Bullet to ignore.
 to trigger arbitrary actions when 2 AABBs overlap.
 
 `needsCollision()` is the most flexible mechanism for filtering collisions.
-It's also the least efficient.
 
 
-== Enumerating contacts
+== Access to manifolds and contact points
 
 The `physicsSpace.countManifolds()` method
-returns the number of manifolds in the space.
-
+returns the number of contact manifolds in the space.
 Each manifold has a native ID, as does each contact point.
 
 * The `physicsSpace.listManifoldIds()` method
@@ -226,4 +228,4 @@ NOTE:  The shape must be convex.
 * You can trigger custom actions during each stage of collision processing.
 * Between simulation steps,
   you can perform ray tests, contact tests, and sweep tests
-  against a physics space.
+  against a space.
