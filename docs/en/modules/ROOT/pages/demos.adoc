@@ -20,7 +20,7 @@ The following demos are found in
 
 == User interface
 
-The demos are controlled by primarily by keyboard input.
+The demos are controlled primarily by keyboard input.
 
 NOTE: The descriptions below assume a keyboard with the "US" (QWERTY) layout.
 On keyboards with other layouts, the keys may be labeled differently.
