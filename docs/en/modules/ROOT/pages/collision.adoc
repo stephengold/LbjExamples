@@ -4,6 +4,7 @@
 :page-pagination:
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki
+:url-examples: https://github.com/stephengold/LbjExamples/tree/master/apps/src/main/java/com/github/stephengold/lbjexamples
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
 During each simulation step, Bullet performs collision detection in 2 phases:
@@ -16,7 +17,8 @@ broadphase and narrowphase.
   resulting in a list of _manifolds_ where the shapes intersect.
 
 Each manifold is composed of up to 4 _contact points_.
-Rigid-body dynamics use manifolds and contact points implement contact response,
+Bullet's rigid-body dynamics
+uses manifolds and contact points implement contact response,
 including friction and restitution.
 
 {Project} provides mechanisms to:
@@ -159,7 +161,7 @@ To confirm intersection,
 use `ManifoldPoints.getDistance1()` to get the separation distance.
 When the distance is positive, there's no intersection.
 
-{url-demo}/ConveyorDemo.java[`ConveyorDemo`] is a SPORT app
+{url-examples}/ConveyorDemo.java[`ConveyorDemo`] is a SPORT app
 that implements conveyor belts using contact-point modification.
 
 
