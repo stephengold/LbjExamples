@@ -77,7 +77,7 @@ public class Windlass
     /**
      * simulation time step (in seconds)
      */
-    final private static float timeStep = 0.0025f;
+    final private static float timeStep = 0.0015f;
     // *************************************************************************
     // fields
 
@@ -137,10 +137,14 @@ public class Windlass
     public PhysicsSpace createSpace() {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+
+        // To enable the callbacks, register the application as a tick listener.
         result.addTickListener(this);
         result.setAccuracy(timeStep);
         result.setGravity(new Vector3f(0f, -981f, 0f)); // 1 psu = 1 cm
-        result.setMaxSubSteps(99); // default=4
+
+        int maxStepsPerUpdate = (int) Math.ceil(0.1 / timeStep);
+        result.setMaxSubSteps(maxStepsPerUpdate); // default=4
 
         return result;
     }
@@ -448,7 +452,7 @@ public class Windlass
         cam.setUpAngle(-0.28f);
 
         CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setMoveSpeed(50f);
+        cip.setMoveSpeed(20f);
         cip.setRotationMode(RotateMode.Immediate);
     }
 
