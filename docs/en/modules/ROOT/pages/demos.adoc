@@ -13,6 +13,8 @@ The following demos are found in
   demonstrates dynamic restitution and point-to-point joints
 * {url-examples}/Pachinko.java[`Pachinko`]
   demonstrates compound collision shapes and 2-D physics
+* {url-examples}/TestGearJoint.java[`TestGearJoint`]
+  demonstrates a gear joint
 * {url-examples}/ThousandCubes.java[`ThousandCubes`]
   demonstrates stacking cubes and launching projectiles
 * {url-examples}/Windlass.java[`Windlass`]
@@ -65,6 +67,11 @@ Additional mappings are specific to each application:
 ** kbd:[F7], kbd:[7], and kbd:[Numpad7] restart with 7 rows of pins
 ** kbd:[F8], kbd:[8], and kbd:[Numpad8] restart with 8 rows of pins
 ** kbd:[F9], kbd:[9], and kbd:[Numpad9] restart with 9 rows of pins
+
+* In `TestGearJoint`:
+
+** kbd:[R] and kbd:[Down arrow] apply +Y torque to the drive shaft
+** kbd:[F] and kbd:[Up arrow] apply -Y torque to the drive shaft
 
 * In `ThousandCubes`:
 
