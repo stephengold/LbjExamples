@@ -118,13 +118,13 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
      * Advance the physics simulation by the specified amount. Invoked during
      * each update.
      *
-     * @param intervalSeconds the elapsed wall-clock time since the previous
+     * @param wallClockSeconds the elapsed wall-clock time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void updatePhysics(float intervalSeconds) {
+    public void updatePhysics(float wallClockSeconds) {
         // For clarity, simulate at 1/10th normal speed.
-        float simSeconds = 0.1f * intervalSeconds;
+        float simSeconds = 0.1f * wallClockSeconds;
         physicsSpace.update(simSeconds);
     }
 }
