@@ -253,8 +253,8 @@ public class Windlass
      */
     @Override
     public void updatePhysics(float wallClockSeconds) {
-        float simSeconds = physicsSpeed * wallClockSeconds;
-        physicsSpace.update(simSeconds);
+        float simulateSeconds = physicsSpeed * wallClockSeconds;
+        physicsSpace.update(simulateSeconds);
     }
     // *************************************************************************
     // PhysicsTickListener methods

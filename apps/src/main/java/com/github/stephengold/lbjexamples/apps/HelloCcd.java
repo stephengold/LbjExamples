@@ -124,7 +124,7 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
     @Override
     public void updatePhysics(float wallClockSeconds) {
         // For clarity, simulate at 1/10th normal speed.
-        float simSeconds = 0.1f * wallClockSeconds;
-        physicsSpace.update(simSeconds);
+        float simulateSeconds = 0.1f * wallClockSeconds;
+        physicsSpace.update(simulateSeconds);
     }
 }

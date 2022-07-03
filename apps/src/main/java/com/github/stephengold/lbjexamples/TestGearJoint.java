@@ -164,13 +164,13 @@ public class TestGearJoint
      * Advance the physics simulation by the specified amount. Invoked during
      * each update.
      *
-     * @param intervalSeconds the elapsed wall-clock time since the previous
+     * @param wallClockSeconds the elapsed wall-clock time since the previous
      * invocation of {@code updatePhysics} (in seconds, &ge;0)
      */
     @Override
-    public void updatePhysics(float intervalSeconds) {
-        float simSeconds = physicsSpeed * intervalSeconds;
-        physicsSpace.update(simSeconds);
+    public void updatePhysics(float wallClockSeconds) {
+        float simulateSeconds = physicsSpeed * wallClockSeconds;
+        physicsSpace.update(simulateSeconds);
     }
     // *************************************************************************
     // PhysicsTickListener methods
