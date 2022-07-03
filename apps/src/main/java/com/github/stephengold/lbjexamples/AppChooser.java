@@ -55,6 +55,7 @@ import com.github.stephengold.lbjexamples.apps.HelloSpring;
 import com.github.stephengold.lbjexamples.apps.HelloStaticBody;
 import com.github.stephengold.lbjexamples.apps.HelloVehicle;
 import com.github.stephengold.lbjexamples.apps.HelloWalk;
+import com.github.stephengold.lbjexamples.apps.HelloWind;
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.test.CheckerboardTest;
 import com.github.stephengold.sport.test.ClipspaceTest;
@@ -87,7 +88,7 @@ final class AppChooser extends JFrame {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        List<BaseApplication> apps = new ArrayList<>(42);
+        List<BaseApplication> apps = new ArrayList<>(43);
 
         apps.add(new CheckerboardTest());
         apps.add(new ClipspaceTest());
@@ -125,18 +126,19 @@ final class AppChooser extends JFrame {
         apps.add(new HelloVehicle());
         apps.add(new HelloWalk());
 
+        apps.add(new HelloWind());
         apps.add(new IcosphereTest());
         apps.add(new MouseTest());
         apps.add(new MouseTest2());
         apps.add(new NewtonsCradle());
-        apps.add(new OctasphereTest());
 
+        apps.add(new OctasphereTest());
         apps.add(new Pachinko());
         apps.add(new RainbowTest());
         apps.add(new SpriteTest());
         apps.add(new TestGearJoint());
-        apps.add(new TextureTest());
 
+        apps.add(new TextureTest());
         apps.add(new ThousandCubes());
         apps.add(new Windlass());
 

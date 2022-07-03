@@ -128,6 +128,9 @@ tasks.register('HelloVehicle', JavaExec) {
 tasks.register('HelloWalk', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWalk'
 }
+tasks.register('HelloWind', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWind'
+}
 
 // graphics-only tests
 tasks.register('CheckerboardTest', JavaExec) {

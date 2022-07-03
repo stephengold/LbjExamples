@@ -29,40 +29,73 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
+import com.github.stephengold.sport.CameraInputProcessor;
+import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.InputProcessor;
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.RotateMode;
 import com.github.stephengold.sport.mesh.ClothGrid;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
-import com.github.stephengold.sport.physics.LinksGeometry;
+import com.github.stephengold.sport.physics.FacesGeometry;
 import com.github.stephengold.sport.physics.PinsGeometry;
+import com.github.stephengold.sport.physics.WindVelocityGeometry;
 import com.jme3.bullet.PhysicsSoftSpace;
 import com.jme3.bullet.PhysicsSpace;
-import com.jme3.bullet.collision.shapes.SphereCollisionShape;
+import com.jme3.bullet.PhysicsTickListener;
 import com.jme3.bullet.objects.PhysicsBody;
-import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.bullet.objects.PhysicsSoftBody;
+import com.jme3.bullet.objects.infos.Aero;
+import com.jme3.bullet.objects.infos.Sbcp;
 import com.jme3.bullet.objects.infos.SoftBodyConfig;
 import com.jme3.bullet.objects.infos.SoftBodyMaterial;
 import com.jme3.bullet.util.NativeSoftBodyUtil;
+import com.jme3.math.FastMath;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import jme3utilities.math.MyMath;
+import org.lwjgl.glfw.GLFW;
 
 /**
- * A simple cloth simulation with a pinned node.
+ * A simple cloth simulation with wind.
  * <p>
- * Builds upon HelloCloth.
+ * Builds upon HelloPin.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
+public class HelloWind
+        extends BasePhysicsApp<PhysicsSoftSpace>
+        implements PhysicsTickListener {
+    // *************************************************************************
+    // fields
+
+    /**
+     * true when the left-arrow key is pressed, otherwise false
+     */
+    private volatile boolean turnLeft;
+    /**
+     * true when the right-arrow key is pressed, otherwise false
+     */
+    private volatile boolean turnRight;
+    /**
+     * wind direction (in radians from +X)
+     */
+    private float windAzimuth = -0.8f;
+    /**
+     * collision object for the flag
+     */
+    private PhysicsSoftBody flag;
+
+    final private Vector3f tmpVelocity = new Vector3f();
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the HelloPin application.
+     * Main entry point for the HelloWind application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        HelloPin application = new HelloPin();
+        HelloWind application = new HelloWind();
         application.start();
     }
     // *************************************************************************
@@ -80,6 +113,14 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
         PhysicsSoftSpace result = new PhysicsSoftSpace(
                 worldMin, worldMax, PhysicsSpace.BroadphaseType.DBVT);
 
+        result.setAccuracy(0.01f); // 10-msec timestep
+
+        Vector3f gravityVector = new Vector3f(0f, -1f, 0f);
+        result.setGravity(gravityVector);
+
+        // To enable the callbacks, register the application as a tick listener.
+        result.addTickListener(this);
+
         return result;
     }
 
@@ -90,8 +131,9 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
     public void initialize() {
         super.initialize();
 
-        // Relocate the camera.
-        cam.setLocation(new Vector3f(0f, 1f, 8f));
+        configureCamera();
+        configureInput();
+        setBackgroundColor(Constants.SKY_BLUE);
     }
 
     /**
@@ -99,44 +141,63 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
      */
     @Override
     public void populateSpace() {
-        // Create a static, rigid sphere and add it to the physics space.
-        float radius = 1f;
-        SphereCollisionShape shape = new SphereCollisionShape(radius);
-        PhysicsRigidBody sphere
-                = new PhysicsRigidBody(shape, PhysicsBody.massForStatic);
-        physicsSpace.addCollisionObject(sphere);
-        visualizeShape(sphere);
+        // Generate a subdivided rectangle mesh with alternating diagonals.
+        int xLines = 20;
+        int zLines = 2 * xLines; // 2x as wide as it is tall
+        float width = 2f;
+        float lineSpacing = width / zLines;
+        Mesh mesh = new ClothGrid(xLines, zLines, lineSpacing);
 
-        // Generate a subdivided square mesh with alternating diagonals.
-        int numLines = 41;
-        float lineSpacing = 0.1f; // mesh units
-        Mesh squareGrid = new ClothGrid(numLines, numLines, lineSpacing);
+        // Create a soft rectangle for the flag.
+        this.flag = new PhysicsSoftBody();
+        NativeSoftBodyUtil.appendFromTriMesh(mesh, flag);
+        flag.setMargin(0.1f);
+        flag.setMass(1f);
 
-        // Create a soft square and add it to the physics space.
-        PhysicsSoftBody cloth = new PhysicsSoftBody();
-        NativeSoftBodyUtil.appendFromTriMesh(squareGrid, cloth);
-        physicsSpace.addCollisionObject(cloth);
+        // Pin the left edge of the flag.
+        int nodeIndex = 0; // upper left corner
+        flag.setNodeMass(nodeIndex, PhysicsBody.massForStatic);
+        nodeIndex = xLines - 1; // lower left corner
+        flag.setNodeMass(nodeIndex, PhysicsBody.massForStatic);
+        /*
+         * Make the flag flexible by reducing the angular stiffness
+         * of its material.
+         */
+        SoftBodyMaterial softMaterial = flag.getSoftMaterial();
+        softMaterial.setAngularStiffness(0f);
 
-        // Pin one of the corner nodes by setting its mass to zero.
-        int nodeIndex = 0;
-        cloth.setNodeMass(nodeIndex, PhysicsBody.massForStatic);
+        // Configure the flag's aerodynamics.
+        SoftBodyConfig config = flag.getSoftConfig();
+        config.setAerodynamics(Aero.F_TwoSidedLiftDrag);
+        config.set(Sbcp.Damping, 0.01f); // default = 0
+        config.set(Sbcp.Drag, 0.5f); // default = 0.2
+        config.set(Sbcp.Lift, 1f); // default = 0
+        /*
+         * Improve simulation accuracy by increasing
+         * the number of position-solver iterations for the flag.
+         */
+        config.setPositionIterations(3);
 
-        // Make the cloth flexible by altering the angular stiffness
-        // of its material.
-        SoftBodyMaterial mat = cloth.getSoftMaterial();
-        mat.setAngularStiffness(0f); // default=1
+        Quaternion rotation = new Quaternion()
+                .fromAngles(FastMath.HALF_PI, 0f, 0f);
+        flag.applyRotation(rotation);
 
-        // Improve simulation accuracy by increasing
-        // the number of position-solver iterations for the cloth.
-        SoftBodyConfig config = cloth.getSoftConfig();
-        config.setPositionIterations(9);  // default=1
+        // Initialize the wind velocity;
+        tmpVelocity.x = 3f * FastMath.cos(windAzimuth);
+        tmpVelocity.z = 3f * FastMath.sin(windAzimuth);
+        flag.setWindVelocity(tmpVelocity);
 
-        // Translate the cloth upward to its starting location.
-        cloth.applyTranslation(new Vector3f(0f, 2f, 0f));
+        physicsSpace.addCollisionObject(flag);
 
-        // Visualize the soft body.
-        new LinksGeometry(cloth);
-        new PinsGeometry(cloth);
+        // Visualize the flag.
+        new FacesGeometry(flag).setBackCulling(false);
+        new PinsGeometry(flag);
+
+        // Visualize the wind velocity.
+        new WindVelocityGeometry(flag);
+
+        // Visualize the physics-space axes.
+        visualizeAxes(null, 1f);
     }
 
     /**
@@ -145,5 +206,74 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
     @Override
     public void updateWindowTitle() {
         // do nothing
+    }
+    // *************************************************************************
+    // PhysicsTickListener methods
+
+    /**
+     * Callback from Bullet, invoked just before each simulation step.
+     *
+     * @param space the space that's about to be stepped (not null)
+     * @param timeStep the time per simulation step (in seconds, &ge;0)
+     */
+    @Override
+    public void prePhysicsTick(PhysicsSpace space, float timeStep) {
+        // Update the flag's wind velocity.
+        if (turnLeft) {
+            windAzimuth -= timeStep;
+        }
+        if (turnRight) {
+            windAzimuth += timeStep;
+        }
+        windAzimuth = MyMath.standardizeAngle(windAzimuth);
+        tmpVelocity.x = 3f * FastMath.cos(windAzimuth);
+        tmpVelocity.z = 3f * FastMath.sin(windAzimuth);
+        flag.setWindVelocity(tmpVelocity);
+    }
+
+    /**
+     * Callback from Bullet, invoked just after each simulation step.
+     *
+     * @param space the space that was just stepped (not null)
+     * @param timeStep the time per simulation step (in seconds, &ge;0)
+     */
+    @Override
+    public void physicsTick(PhysicsSpace space, float timeStep) {
+        // do nothing
+    }
+    // *************************************************************************
+    // private methods
+
+    /**
+     * Configure the Camera and CIP during startup.
+     */
+    private static void configureCamera() {
+        CameraInputProcessor cip = getCameraInputProcessor();
+        cip.setRotationMode(RotateMode.Immediate);
+
+        cam.setLocation(new Vector3f(7f, 1.2f, -0.7f))
+                .setAzimuth(3f)
+                .setUpAngle(-0.14f);
+    }
+
+    /**
+     * Configure keyboard input during startup.
+     */
+    private void configureInput() {
+        getInputManager().add(new InputProcessor() {
+            @Override
+            public void onKeyboard(int keyId, boolean isPressed) {
+                switch (keyId) {
+                    case GLFW.GLFW_KEY_LEFT:
+                        turnLeft = isPressed;
+                        return;
+
+                    case GLFW.GLFW_KEY_RIGHT:
+                        turnRight = isPressed;
+                        return;
+                }
+                super.onKeyboard(keyId, isPressed);
+            }
+        });
     }
 }
