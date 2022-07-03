@@ -44,6 +44,8 @@ import com.jme3.math.Vector3f;
 /**
  * A simple rope simulation using a soft body.
  * <p>
+ * Builds upon HelloPin.
+ *
  * @author Stephen Gold sgold@sonic.net
  */
 public class HelloSoftRope extends BasePhysicsApp<PhysicsSoftSpace> {

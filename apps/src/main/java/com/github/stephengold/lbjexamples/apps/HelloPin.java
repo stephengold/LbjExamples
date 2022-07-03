@@ -118,13 +118,14 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
         physicsSpace.addCollisionObject(cloth);
 
         // Pin one of the corner nodes by setting its mass to zero.
-        int nodeIndex = 0;
+        int nodeIndex = 0; // upper left corner
         cloth.setNodeMass(nodeIndex, PhysicsBody.massForStatic);
-
-        // Make the cloth flexible by altering the angular stiffness
-        // of its material.
+        /*
+         * Make the cloth flexible by reducing the angular stiffness
+         * of its material.
+         */
         SoftBodyMaterial mat = cloth.getSoftMaterial();
-        mat.setAngularStiffness(0f); // default=1
+        mat.setAngularStiffness(0f);
 
         // Improve simulation accuracy by increasing
         // the number of position-solver iterations for the cloth.

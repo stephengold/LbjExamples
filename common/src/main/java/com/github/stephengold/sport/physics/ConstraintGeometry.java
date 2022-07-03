@@ -100,7 +100,7 @@ public class ConstraintGeometry extends Geometry {
      */
     @Override
     public void updateAndRender() {
-        Transform meshToWorld = getMeshToWorldTransform();
+        Transform meshToWorld = getMeshToWorldTransform(); // alias
         meshToWorld.getTranslation().zero();
 
         Vector3f zDir = constraint.getPivot(end, null); // TODO garbage

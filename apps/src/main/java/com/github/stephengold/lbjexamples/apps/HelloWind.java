@@ -33,6 +33,7 @@ import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.mesh.ClothGrid;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
 import com.github.stephengold.sport.physics.LinksGeometry;
+import com.github.stephengold.sport.physics.PinsGeometry;
 import com.jme3.bullet.PhysicsSoftSpace;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
@@ -45,23 +46,23 @@ import com.jme3.bullet.util.NativeSoftBodyUtil;
 import com.jme3.math.Vector3f;
 
 /**
- * A simple cloth simulation using a soft body.
+ * A simple cloth simulation with a pinned node.
  * <p>
- * Builds upon HelloSoftBody.
+ * Builds upon HelloCloth.
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
+public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
     // *************************************************************************
     // new methods exposed
 
     /**
-     * Main entry point for the HelloCloth application.
+     * Main entry point for the HelloPin application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        HelloCloth application = new HelloCloth();
+        HelloPin application = new HelloPin();
         application.start();
     }
     // *************************************************************************
@@ -116,14 +117,17 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
         NativeSoftBodyUtil.appendFromTriMesh(squareGrid, cloth);
         physicsSpace.addCollisionObject(cloth);
 
+        // Pin one of the corner nodes by setting its mass to zero.
+        int nodeIndex = 0;
+        cloth.setNodeMass(nodeIndex, PhysicsBody.massForStatic);
+
         // Make the cloth flexible by altering the angular stiffness
         // of its material.
         SoftBodyMaterial mat = cloth.getSoftMaterial();
         mat.setAngularStiffness(0f); // default=1
-        /*
-         * Improve simulation accuracy by increasing
-         * the number of position-solver iterations for the cloth.
-         */
+
+        // Improve simulation accuracy by increasing
+        // the number of position-solver iterations for the cloth.
         SoftBodyConfig config = cloth.getSoftConfig();
         config.setPositionIterations(9);  // default=1
 
@@ -132,6 +136,7 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
 
         // Visualize the soft body.
         new LinksGeometry(cloth);
+        new PinsGeometry(cloth);
     }
 
     /**
