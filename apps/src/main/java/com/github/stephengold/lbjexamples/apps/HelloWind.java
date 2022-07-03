@@ -66,6 +66,13 @@ public class HelloWind
         extends BasePhysicsApp<PhysicsSoftSpace>
         implements PhysicsTickListener {
     // *************************************************************************
+    // constants
+
+    /**
+     * wind speed, in psu per second
+     */
+    final private static float windSpeed = 3f;
+    // *************************************************************************
     // fields
 
     /**
@@ -183,8 +190,8 @@ public class HelloWind
         flag.applyRotation(rotation);
 
         // Initialize the wind velocity;
-        tmpVelocity.x = 3f * FastMath.cos(windAzimuth);
-        tmpVelocity.z = 3f * FastMath.sin(windAzimuth);
+        tmpVelocity.x = windSpeed * FastMath.cos(windAzimuth);
+        tmpVelocity.z = windSpeed * FastMath.sin(windAzimuth);
         flag.setWindVelocity(tmpVelocity);
 
         physicsSpace.addCollisionObject(flag);
@@ -226,8 +233,8 @@ public class HelloWind
             windAzimuth += timeStep;
         }
         windAzimuth = MyMath.standardizeAngle(windAzimuth);
-        tmpVelocity.x = 3f * FastMath.cos(windAzimuth);
-        tmpVelocity.z = 3f * FastMath.sin(windAzimuth);
+        tmpVelocity.x = windSpeed * FastMath.cos(windAzimuth);
+        tmpVelocity.z = windSpeed * FastMath.sin(windAzimuth);
         flag.setWindVelocity(tmpVelocity);
     }
 
