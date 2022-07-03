@@ -46,7 +46,7 @@ To execute "HelloLibbulletjme":
 
 ### Demos
 
-Four demo applications are included:
+Six demo applications are included:
 + ConveyorDemo
 + NewtonsCradle
 + Pachinko
