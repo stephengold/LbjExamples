@@ -78,7 +78,6 @@ In particular:
 ** `btTriangleShape`
 ** `btUniformScalingShape`
 * certain world types:
-** `btDeformableMultiBodyDynamicsWorld`
 ** `btSimpleDynamicsWorld`
 ** `btSoftMultiBodyDynamicsWorld`
 * inverse dynamics

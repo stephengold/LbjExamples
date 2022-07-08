@@ -80,6 +80,9 @@ The following table documents those correspondences.
 |btCylinderShape
 |com.jme3.bullet.collision.shapes.CylinderCollisionShape
 
+|btDeformableMultiBodyDynamicsWorld
+|com.jme3.bullet.DeformableSpace
+
 |btDiscreteDynamicsWorld
 |com.jme3.bullet.PhysicsSpace
 
@@ -160,6 +163,9 @@ The following table documents those correspondences.
 
 |btRaycastVehicle::btVehicleTuning
 |com.jme3.bullet.objects.infos.VehicleTuning
+
+|btReducedDeformableBody
+|com.jme3.bullet.objects.ReducedDeformableBody
 
 |btRigidBody
 |com.jme3.bullet.objects.PhysicsRigidBody

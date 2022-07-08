@@ -3,7 +3,7 @@
 apply plugin: 'java'
 
 project.ext { // current versions of libraries:
-    lbjVersion = '15.1.0'
+    lbjVersion = '15.2.1'
     lwjglVersion = '3.3.1'
 }
 
