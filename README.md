@@ -30,7 +30,7 @@ Complete source code (in [Java]) is provided under
 3. Download and extract the LbjExamples source code from GitHub:
   + using Git:
     + `git clone https://github.com/stephengold/LbjExamples.git`
-    + `cd Heart`
+    + `cd LbjExamples`
 4. Run the [Gradle] wrapper:
   + using Bash or PowerShell or Zsh: `./gradlew build`
   + using Windows Command Prompt: `.\gradlew build`
