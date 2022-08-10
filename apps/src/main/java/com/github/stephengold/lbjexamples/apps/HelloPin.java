@@ -75,8 +75,10 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
      */
     @Override
     public PhysicsSoftSpace createSpace() {
-        PhysicsSoftSpace result
-                = new PhysicsSoftSpace(PhysicsSpace.BroadphaseType.DBVT);
+        Vector3f worldMin = new Vector3f(-999f, -999f, -999f);
+        Vector3f worldMax = new Vector3f(+999f, +999f, +999f);
+        PhysicsSoftSpace result = new PhysicsSoftSpace(
+                worldMin, worldMax, PhysicsSpace.BroadphaseType.DBVT);
 
         return result;
     }
