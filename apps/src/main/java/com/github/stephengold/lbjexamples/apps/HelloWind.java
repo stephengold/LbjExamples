@@ -115,10 +115,8 @@ public class HelloWind
      */
     @Override
     public PhysicsSoftSpace createSpace() {
-        Vector3f worldMin = new Vector3f(-999f, -999f, -999f);
-        Vector3f worldMax = new Vector3f(+999f, +999f, +999f);
-        PhysicsSoftSpace result = new PhysicsSoftSpace(
-                worldMin, worldMax, PhysicsSpace.BroadphaseType.DBVT);
+        PhysicsSoftSpace result
+                = new PhysicsSoftSpace(PhysicsSpace.BroadphaseType.DBVT);
 
         result.setAccuracy(0.01f); // 10-msec timestep
 
