@@ -44,6 +44,18 @@ which consists of 3 decimal numbers separated by dots:
 String nativeVersion = NativeLibrary.versionNumber();
 ----
 
+== Tuning the solver
+
+The contact-and-constraint solver
+performs a limited number of iterations per time step,
+by default, 10.
+For higher-quality (but slower) simulation, increase this number.
+For instance, to use 20 iterations:
+
+[source,java]
+----
+space.getSolverInfo().setNumIterations(20);
+----
 
 == Default collision margin
 
