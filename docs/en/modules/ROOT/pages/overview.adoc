@@ -54,7 +54,7 @@ Please don't use this software in safety-critical applications.
 
 Starting with version 16.1.0,
 {Project} is no longer compatible with the older versions of "libc"
-found on systems such as Centos 7 and Ubuntu Xenial 16.04.
+found on systems such as CentOS 7 and Ubuntu Xenial 16.04.
 
 
 == What's missing
