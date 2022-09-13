@@ -113,6 +113,33 @@ public class Camera {
     }
 
     /**
+     * Convert the specified clip-space coordinates to world coordinates.
+     *
+     * @param clipXY the clip-space X and Y coordinates (not null, unaffected)
+     * @param clipZ the clip-space Z coordinate (-1 for near plane, +1 for far
+     * plane)
+     * @param storeResult storage for the result (modified if not null)
+     * @return a location vector in world space (either {@code storeResult} or a
+     * new vector)
+     */
+    public Vector3f clipToWorld(Vector2fc clipXY, float clipZ,
+            Vector3f storeResult) {
+        ProjectionMatrix projection = BaseApplication.getProjection();
+        Vector3f result = projection.clipToCamera(clipXY, clipZ, storeResult);
+
+        float right = result.x;
+        float up = result.y;
+        float forward = -result.z;
+
+        result.set(eyeLocation);
+        MyVector3f.accumulateScaled(result, rightDirection, right);
+        MyVector3f.accumulateScaled(result, upDirection, up);
+        MyVector3f.accumulateScaled(result, lookDirection, forward);
+
+        return result;
+    }
+
+    /**
      * Return the vertical field-of-view angle.
      *
      * @return the angle (in radians, &gt;0, &lt;PI)
@@ -395,33 +422,6 @@ public class Camera {
      */
     Vector3fc upDirectionJoml() {
         Vector3fc result = Utils.toJomlVector(upDirection);
-        return result;
-    }
-
-    /**
-     * Convert the specified clip-space coordinates to world coordinates.
-     *
-     * @param clipXY the clip-space X and Y coordinates (not null, unaffected)
-     * @param clipZ the clip-space Z coordinate (-1 for near plane, +1 for far
-     * plane)
-     * @param storeResult storage for the result (modified if not null)
-     * @return a location vector in world space (either {@code storeResult} or a
-     * new vector)
-     */
-    public Vector3f clipToWorld(Vector2fc clipXY, float clipZ,
-            Vector3f storeResult) {
-        ProjectionMatrix projection = BaseApplication.getProjection();
-        Vector3f result = projection.clipToCamera(clipXY, clipZ, storeResult);
-
-        float right = result.x;
-        float up = result.y;
-        float forward = -result.z;
-
-        result.set(eyeLocation);
-        MyVector3f.accumulateScaled(result, rightDirection, right);
-        MyVector3f.accumulateScaled(result, upDirection, up);
-        MyVector3f.accumulateScaled(result, lookDirection, forward);
-
         return result;
     }
     // *************************************************************************
