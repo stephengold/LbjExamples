@@ -33,7 +33,7 @@ Here's the recommended procedure:
 .. using Git:
 ... `git clone https://github.com/stephengold/Libbulletjme.git`
 ... `cd Libbulletjme`
-... `git checkout -b latest 16.2.1`
+... `git checkout -b latest 16.3.0`
 .. using a web browser:
 ... browse to https://github.com/stephengold/Libbulletjme/releases/latest
 ... follow the "Source code (zip)" link
