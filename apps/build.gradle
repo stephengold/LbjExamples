@@ -31,6 +31,9 @@ tasks.register('NewtonsCradle', JavaExec) {
 tasks.register('Pachinko', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.Pachinko'
 }
+tasks.register('SplitDemo', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.SplitDemo'
+}
 tasks.register('TestGearJoint', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.TestGearJoint'
 }
