@@ -61,6 +61,18 @@ tasks.register('HelloVehicle0', JavaExec) {
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.console.HelloVehicle0'
 }
+tasks.register('SpeedTest0', JavaExec) {
+    args 0
+    mainClass = 'com.github.stephengold.lbjexamples.apps.console.SpeedTest'
+}
+tasks.register('SpeedTest1', JavaExec) {
+    args 1
+    mainClass = 'com.github.stephengold.lbjexamples.apps.console.SpeedTest'
+}
+tasks.register('SpeedTest2', JavaExec) {
+    args 2
+    mainClass = 'com.github.stephengold.lbjexamples.apps.console.SpeedTest'
+}
 
 // physics tutorials (very simple)
 tasks.register('HelloCcd', JavaExec) {
