@@ -286,7 +286,7 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
         this.vbo = GL15C.glGenBuffers();
         Utils.checkForOglError();
         if (BaseApplication.enableDebugging) {
-            System.err.printf("[Sport] Generated Buffer object %d"
+            System.err.printf("[SPORT] Generated Buffer object %d"
                     + " for indices.  (usage hint is %s)%n",
                     vbo, Utils.describeCode(usageHint));
         }

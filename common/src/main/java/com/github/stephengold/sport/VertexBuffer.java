@@ -473,7 +473,7 @@ public class VertexBuffer {
         this.vbo = GL15C.glGenBuffers();
         Utils.checkForOglError();
         if (BaseApplication.enableDebugging) {
-            System.err.printf("[Sport] Generated Buffer object %d"
+            System.err.printf("[SPORT] Generated Buffer object %d"
                     + " for attrib %s.  (usage hint is %s)%n",
                     vbo, attribName, Utils.describeCode(usageHint));
         }
