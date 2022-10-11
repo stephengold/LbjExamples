@@ -254,7 +254,7 @@ tasks.withType(JavaExec) { // Java runtime options:
     }
 }
 
-mainClassName = 'com.github.stephengold.lbjexamples.apps.AppChooser'
+mainClassName = 'com.github.stephengold.lbjexamples.AppChooser'
 if (!hasProperty('mainClass')) {
     ext.mainClass = mainClassName
 }
