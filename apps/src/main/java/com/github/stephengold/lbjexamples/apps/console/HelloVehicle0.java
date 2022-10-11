@@ -50,28 +50,23 @@ import java.util.Collection;
  * @author Stephen Gold sgold@sonic.net
  */
 final class HelloVehicle0 {
-
     /**
      * Main entry point for the HelloVehicle0 application.
      *
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        /*
-         * Load a native library from ~/Downloads directory.
-         */
+        // Load a native library from ~/Downloads directory.
         String homePath = System.getProperty("user.home");
         File downloadDirectory = new File(homePath, "Downloads");
         NativeLibraryLoader.loadLibbulletjme(
                 true, downloadDirectory, "Release", "Sp");
-        /*
-         * Create a PhysicsSpace using DBVT for broadphase.
-         */
+
+        // Create a PhysicsSpace using DBVT for broadphase.
         PhysicsSpace.BroadphaseType bPhase = PhysicsSpace.BroadphaseType.DBVT;
         PhysicsSpace physicsSpace = new PhysicsSpace(bPhase);
-        /*
-         * Add a static horizontal plane at y=-1.
-         */
+
+        // Add a static horizontal plane at y=-0.65 to represent the ground.
         float planeY = -0.65f;
         Plane plane = new Plane(Vector3f.UNIT_Y, planeY);
         CollisionShape planeShape = new PlaneCollisionShape(plane);
