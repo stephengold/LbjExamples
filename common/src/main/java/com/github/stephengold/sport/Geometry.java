@@ -475,6 +475,9 @@ public class Geometry {
      * program's global uniforms have already been set! Meant to be overridden.
      */
     public void updateAndRender() {
+        if (mesh.countIndexedVertices() == 0) {
+            return;
+        }
         // Ensure that the program's uniforms have been collected.
         program.use();
 
