@@ -96,7 +96,7 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        // Add a static plane to represent the ground.
+        // Add a static horizontal plane at y=-0.65 to represent the ground.
         float planeY = -0.65f;
         addPlane(planeY);
 
