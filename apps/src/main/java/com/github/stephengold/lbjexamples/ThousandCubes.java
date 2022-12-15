@@ -131,7 +131,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         this.launchShape = new SphereCollisionShape(0.5f);
 
         CollisionShape planeShape
-                = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, -1f));
+                = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, 0f));
         PhysicsRigidBody floor
                 = new PhysicsRigidBody(planeShape, PhysicsBody.massForStatic);
         physicsSpace.addCollisionObject(floor);
