@@ -465,7 +465,7 @@ public abstract class BaseApplication {
             glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE); // default=GLFW_FALSE
         }
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // default=GLFW_OPENGL_ANY_PROFILE
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL11C.GL_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
 
         String initialTitle = getClass().getSimpleName();
         mainWindowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight,
