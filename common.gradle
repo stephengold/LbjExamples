@@ -4,7 +4,7 @@ apply plugin: 'java'
 
 ext {
     // current versions of libraries:
-    lbjVersion = '17.5.4'
+    lbjVersion = '18.0.0'
     lwjglVersion = '3.3.1'
 }
 
