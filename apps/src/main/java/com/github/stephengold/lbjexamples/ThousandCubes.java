@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -47,6 +47,8 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 
@@ -94,6 +96,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        Logger.getLogger("").setLevel(Level.WARNING);
         new ThousandCubes().start();
     }
     // *************************************************************************
