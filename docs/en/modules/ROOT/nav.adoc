@@ -27,7 +27,7 @@
 ** https://stephengold.github.io/Libbulletjme/javadoc/master[Master branch]
 * Libbulletjme at other sites
 ** https://repo1.maven.org/maven2/com/github/stephengold/Libbulletjme[Maven Central download]
-** https://search.maven.org/artifact/com.github.stephengold/Libbulletjme[Maven Central search]
+** https://central.sonatype.com/search?q=Libbulletjme&namespace=com.github.stephengold[Maven Central search]
 ** https://jitpack.io/#stephengold/Libbulletjme[JitPack (unofficial)]
 * Projects using Libbulletjme
 ** https://stephengold.github.io/Minie[Minie]
