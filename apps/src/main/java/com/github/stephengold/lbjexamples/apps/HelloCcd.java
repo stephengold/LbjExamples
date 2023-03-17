@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -102,8 +102,8 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
         // Create a thin, static disc and add it to the space.
         float discRadius = 2f;
         float discThickness = 0.05f;
-        CollisionShape discShape = new CylinderCollisionShape(discRadius,
-                discThickness, PhysicsSpace.AXIS_Y);
+        CollisionShape discShape = new CylinderCollisionShape(
+                discRadius, discThickness, PhysicsSpace.AXIS_Y);
         PhysicsRigidBody disc
                 = new PhysicsRigidBody(discShape, PhysicsBody.massForStatic);
         physicsSpace.addCollisionObject(disc);

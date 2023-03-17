@@ -150,8 +150,8 @@ public class HelloDoubleEnded
         Vector3f pivotInPaddle = new Vector3f(0f, 3f, 0f);
         Matrix3f rotInBall = Matrix3f.IDENTITY;
         Matrix3f rotInPaddle = Matrix3f.IDENTITY;
-        New6Dof joint = new New6Dof(ballBody, paddleBody,
-                pivotInBall, pivotInPaddle,
+        New6Dof joint = new New6Dof(
+                ballBody, paddleBody, pivotInBall, pivotInPaddle,
                 rotInBall, rotInPaddle, RotationOrder.XYZ);
         physicsSpace.addJoint(joint);
 
