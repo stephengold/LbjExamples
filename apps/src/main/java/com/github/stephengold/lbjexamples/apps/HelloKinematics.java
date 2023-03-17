@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -137,9 +137,7 @@ public class HelloKinematics
      */
     @Override
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
-        /*
-         * Make the kinematic ball orbit the origin.
-         */
+        // Make the kinematic ball orbit the origin.
         float orbitalPeriod = 0.8f; // seconds
         float phaseAngle = elapsedTime * FastMath.TWO_PI / orbitalPeriod;
 

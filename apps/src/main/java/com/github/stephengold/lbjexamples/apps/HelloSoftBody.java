@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -109,8 +109,10 @@ public class HelloSoftBody extends BasePhysicsApp<PhysicsSoftSpace> {
         NativeSoftBodyUtil.appendFromTriMesh(sphere, body);
         physicsSpace.addCollisionObject(body);
 
-        // Set the body's default frame pose:  if deformed,
-        // it will tend to return to its current shape.
+        /*
+         * Set the ball's default frame pose:  if deformed,
+         * it will tend to return to its current shape.
+         */
         boolean setVolumePose = false;
         boolean setFramePose = true;
         body.setPose(setVolumePose, setFramePose);

@@ -123,14 +123,15 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         ball1.setPose(setVolumePose, setFramePose);
         ball2.setPose(setVolumePose, setFramePose);
 
-        // Enable pose matching to make the bodies bouncy.
+        // Enable pose matching to make the balls bouncy.
         SoftBodyConfig config1 = ball1.getSoftConfig();
         config1.set(Sbcp.PoseMatching, 0.01f); // default = 0
         SoftBodyConfig config2 = ball2.getSoftConfig();
         config2.set(Sbcp.PoseMatching, 0.01f);
-
-        // Enable soft-soft collisions for each ball.
-        // Clearing all other collision flags disables soft-rigid collisions.
+        /*
+         * Enable soft-soft collisions for each ball.
+         * Clearing all other collision flags disables soft-rigid collisions.
+         */
         config1.setCollisionFlags(ConfigFlag.VF_SS); // default = SDF_RS
         config2.setCollisionFlags(ConfigFlag.VF_SS);
 

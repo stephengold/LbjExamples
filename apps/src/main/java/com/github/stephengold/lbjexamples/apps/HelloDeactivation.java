@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -155,7 +155,7 @@ public class HelloDeactivation
     public void physicsTick(PhysicsSpace space, float timeStep) {
         /*
          * Once the dynamic cube gets deactivated,
-         * remove the support cube from the space.
+         * remove the support cube from the PhysicsSpace.
          */
         if (!dynamicCube.isActive() && space.contains(supportCube)) {
             space.removeCollisionObject(supportCube);
