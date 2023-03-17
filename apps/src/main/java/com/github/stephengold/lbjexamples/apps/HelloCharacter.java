@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -175,6 +175,8 @@ public class HelloCharacter
 
     /**
      * Configure physics during startup.
+     *
+     * @return a new instance (not null)
      */
     private PhysicsSpace configurePhysics() {
         PhysicsSpace result
