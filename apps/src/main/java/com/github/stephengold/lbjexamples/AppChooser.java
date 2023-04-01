@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -72,6 +72,8 @@ import java.awt.Container;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -88,6 +90,7 @@ final class AppChooser extends JFrame {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        Logger.getLogger("").setLevel(Level.WARNING);
         List<BaseApplication> apps = new ArrayList<>(44);
 
         apps.add(new CheckerboardTest());
@@ -137,7 +140,7 @@ final class AppChooser extends JFrame {
         apps.add(new RainbowTest());
         apps.add(new SplitDemo());
         apps.add(new SpriteTest());
-        
+
         apps.add(new TestGearJoint());
         apps.add(new TextureTest());
         apps.add(new ThousandCubes());
