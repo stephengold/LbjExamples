@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -45,6 +45,7 @@ import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.objects.PhysicsBody;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.Vector3f;
+import jme3utilities.math.MyMath;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
 import org.lwjgl.glfw.GLFW;
@@ -162,7 +163,7 @@ public class ConveyorDemo extends BasePhysicsApp<PhysicsSpace> {
                 float beltSpeed = beltSpeeds[beltIndex - 1];
 
                 // modify its motion and its friction direction:
-                if ((beltIndex % 2) == 1) { // TODO MyMath
+                if (MyMath.isOdd(beltIndex)) {
                     ManifoldPoints.setContactMotion1(contactPointId, beltSpeed);
                     ManifoldPoints.setLateralFrictionDir1(
                             contactPointId, direction);
