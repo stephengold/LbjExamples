@@ -16,7 +16,7 @@ Use it to:
 Tutorials and example apps are provided to help you get started.
 
 All software in the {Project} project is free and open-source,
-including the Java library, the native libraries, the demo and tutorial apps,
+including the JVM library, the native libraries, the demo and tutorial apps,
 and the software used to build, test, and run them.
 
 The underlying simulation software comes from

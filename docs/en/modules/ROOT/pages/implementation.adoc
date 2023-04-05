@@ -48,7 +48,7 @@ Furthermore, native libraries come in various flavors, including:
   {url-enwiki}/Double-precision_floating-point_format[double-precision arithmetic]).
 
 All these native libraries share a common API,
-so a single Java library suffices.
+so a single JVM library suffices.
 
 == Collision objects, spaces, and shapes
 

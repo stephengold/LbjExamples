@@ -8,7 +8,7 @@
 
 Adding {Project} to an existing Java project is a 7-step process:
 
-. Add the Java library to the classpath.
+. Add the JVM library to the classpath.
 . Download an appropriate native library.
 . Load the native library.
 . Create and configure a physics space.
@@ -17,7 +17,7 @@ Adding {Project} to an existing Java project is a 7-step process:
 . Simulate the physics space.
 . Test and tune as necessary.
 
-== Add Java library to classpath
+== Add JVM library to classpath
 
 === Gradle-built projects
 
@@ -209,5 +209,5 @@ you should be able to launch tutorial apps from a command shell, like so:
 
 == Summary
 
-* Two libraries are required: a Java library and a native library.
+* Two libraries are required: a JVM library and a native library.
 * Collision objects aren't simulated unless they're added to a space.
