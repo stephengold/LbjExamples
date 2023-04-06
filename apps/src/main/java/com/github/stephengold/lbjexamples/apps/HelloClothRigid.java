@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -29,8 +29,6 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import com.github.stephengold.sport.Mesh;
-import com.github.stephengold.sport.mesh.IcosphereMesh;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
 import com.github.stephengold.sport.physics.FacesGeometry;
 import com.jme3.bullet.PhysicsSoftSpace;
@@ -40,14 +38,9 @@ import com.jme3.bullet.collision.shapes.infos.IndexedMesh;
 import com.jme3.bullet.objects.PhysicsBody;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.bullet.objects.PhysicsSoftBody;
-import com.jme3.bullet.objects.infos.Sbcp;
 import com.jme3.bullet.objects.infos.SoftBodyConfig;
-import com.jme3.bullet.objects.infos.SoftBodyMaterial;
 import com.jme3.bullet.util.NativeSoftBodyUtil;
-import com.jme3.math.FastMath;
-import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-
 import java.util.ArrayList;
 import java.util.List;
 
