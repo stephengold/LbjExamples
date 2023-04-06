@@ -8,6 +8,11 @@ subprojects {
     apply from: rootProject.file('common.gradle')
 }
 
+tasks.register('checkstyle') {
+    dependsOn ':apps:checkstyleMain', ':common:checkstyleMain'
+    description 'Checks the style of all Java sourcecode.'
+}
+
 // cleanup tasks:
 
 clean.dependsOn('cleanDocsBuild', 'cleanNodeModules')

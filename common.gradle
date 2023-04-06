@@ -1,5 +1,6 @@
 // Gradle settings and tasks common to all LbjExamples subprojects
 
+apply plugin: 'checkstyle'
 apply plugin: 'java'
 
 ext {
@@ -10,6 +11,10 @@ ext {
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
+
+checkstyle {
+    toolVersion '9.3'
+}
 
 tasks.withType(JavaCompile) { // Java compile-time options:
     options.compilerArgs << '-Xdiags:verbose'
