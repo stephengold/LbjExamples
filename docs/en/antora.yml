@@ -3,7 +3,7 @@
 
 name: lbj-en
 title: The Libbulletjme project
-version: master
+version: English
 start_page: ROOT:overview.adoc
 nav:
   - modules/ROOT/nav.adoc
