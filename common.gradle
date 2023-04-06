@@ -20,12 +20,6 @@ tasks.withType(JavaCompile) { // Java compile-time options:
     }
 }
 
-repositories {
-    //mavenLocal() // to find local SNAPSHOTs of libraries
-    mavenCentral()
-    //maven { url 'https://s01.oss.sonatype.org/content/groups/staging' } // to find libraries staged but not yet released
-}
-
 dependencies {
     implementation 'com.github.stephengold:Libbulletjme:' + lbjVersion
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
