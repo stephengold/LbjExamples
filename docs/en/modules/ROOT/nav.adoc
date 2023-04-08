@@ -22,7 +22,7 @@
 ** https://github.com/stephengold/Libbulletjme/blob/master/release-notes.md[Release log]
 ** https://github.com/stephengold/Libbulletjme/commits/master[Recent commits]
 ** https://github.com/stephengold/Libbulletjme/issues[Issue tracker]
-** https://github.com/stephengold/Libbulletjme/issues/new[File an issue]
+** https://github.com/stephengold/Libbulletjme/issues/new[Report an issue]
 * Library APIs (javadoc)
 ** https://stephengold.github.io/Libbulletjme/javadoc/master[Master branch]
 * Libbulletjme at other sites
