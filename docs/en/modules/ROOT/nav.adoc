@@ -9,7 +9,7 @@
 ** xref:new6dof.adoc[New6Dof constraints]
 ** xref:collision.adoc[Managing collisions]
 ** xref:softbody.adoc[Soft bodies]
-** xref:debug.adoc[Debug aids]
+** xref:debug.adoc[Troubleshooting]
 ** xref:misc.adoc[Miscellany]
 * xref:build.adoc[Build procedures]
 * xref:demos.adoc[Demo apps]

@@ -1,4 +1,4 @@
-= Debugging physics issues
+= Troubleshooting physics issues
 :Project: Libbulletjme
 :page-pagination:
 
@@ -66,4 +66,4 @@ When visualizing bounding boxes, SPORT uses:
 == Summary
 
 * During development, enable Java assertions and use debug-enabled libraries.
-* SPORT visualization can be used to diagnose bugs.
+* SPORT visualization can be used to diagnose issues.
