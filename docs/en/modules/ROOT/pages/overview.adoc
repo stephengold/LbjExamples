@@ -1,4 +1,4 @@
-= Project overview
+= Libbulletjme project overview
 :Project: Libbulletjme
 :url-enwiki: https://en.wikipedia.org/wiki
 
