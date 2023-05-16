@@ -10,6 +10,7 @@ Use it to:
 * add solidity to walls, characters, projectiles, landscapes, and vehicles,
 * detect collisions between complex shapes,
 * perform contact, ray, and sweep tests,
+* simulate characters and buildings collapsing in real time, and
 * simulate cloth, rope, and deformable volumes,
   including their interactions with rigid bodies and each other.
 

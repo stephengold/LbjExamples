@@ -1,7 +1,7 @@
 = How to build Libbulletjme from source
 :Project: Libbulletjme
 
-{Project} is open-source software.
+{Project} is free, open-source software.
 
 While pre-built artifacts (including JARs and native libraries)
 can be downloaded from GitHub and the Maven Central Repository,
