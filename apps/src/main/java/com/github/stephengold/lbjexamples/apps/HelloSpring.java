@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -81,7 +81,7 @@ public class HelloSpring
     /**
      * latest ground location indicated by the mouse cursor
      */
-    private final Vector3f mouseLocation = new Vector3f();
+    final private Vector3f mouseLocation = new Vector3f();
     // *************************************************************************
     // new methods exposed
 

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -66,11 +66,11 @@ public class HelloLimit
     /**
      * physics-space Y coordinate of the ground plane
      */
-    private final static float groundY = -2f;
+    final private static float groundY = -2f;
     /**
      * half the height of the paddle (in physics-space units)
      */
-    private final static float paddleHalfHeight = 1f;
+    final private static float paddleHalfHeight = 1f;
     // *************************************************************************
     // fields
 
@@ -81,7 +81,7 @@ public class HelloLimit
     /**
      * latest ground location indicated by the mouse cursor
      */
-    private final Vector3f mouseLocation = new Vector3f();
+    final private Vector3f mouseLocation = new Vector3f();
     // *************************************************************************
     // new methods exposed
 
