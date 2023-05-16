@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -68,23 +68,23 @@ public class HelloGhost
     /**
      * true when the spacebar is pressed, otherwise false
      */
-    private volatile boolean jumpRequested;
+    private static volatile boolean jumpRequested;
     /**
      * true when the DOWN key is pressed, otherwise false
      */
-    private volatile boolean walkBackward;
+    private static volatile boolean walkBackward;
     /**
      * true when the UP key is pressed, otherwise false
      */
-    private volatile boolean walkForward;
+    private static volatile boolean walkForward;
     /**
      * true when the LEFT key is pressed, otherwise false
      */
-    private volatile boolean walkLeft;
+    private static volatile boolean walkLeft;
     /**
      * true when the RIGHT key is pressed, otherwise false
      */
-    private volatile boolean walkRight;
+    private static volatile boolean walkRight;
     /**
      * collision object to trigger the ghost
      */

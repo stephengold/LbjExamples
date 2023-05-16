@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -68,15 +68,15 @@ public class HelloWalk
     /**
      * true when the spacebar is pressed, otherwise false
      */
-    private volatile boolean jumpRequested;
+    private static volatile boolean jumpRequested;
     /**
      * true when the W key is pressed, otherwise false
      */
-    private volatile boolean walkRequested;
+    private static volatile boolean walkRequested;
     /**
      * character being tested
      */
-    private PhysicsCharacter character;
+    private static PhysicsCharacter character;
     // *************************************************************************
     // new methods exposed
 

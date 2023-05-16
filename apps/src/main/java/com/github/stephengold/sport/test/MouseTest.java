@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -50,7 +50,7 @@ public class MouseTest extends BaseApplication {
     /**
      * crosshairs in clip space, controlled by the mouse
      */
-    private Geometry crosshairs;
+    private static Geometry crosshairs;
     // *************************************************************************
     // new methods exposed
 
@@ -81,7 +81,7 @@ public class MouseTest extends BaseApplication {
     public void initialize() {
         float size = 0.2f;
         Mesh mesh = new CrosshairsMesh(size);
-        this.crosshairs = new Geometry(mesh)
+        crosshairs = new Geometry(mesh)
                 .setProgram("Unshaded/Clipspace/Monochrome");
     }
 

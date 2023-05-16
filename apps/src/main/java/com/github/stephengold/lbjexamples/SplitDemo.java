@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -98,55 +98,55 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
      * angle between the normal of the splitting plane and default camera's "up"
      * vector (in radians, &ge;0, &lt;Pi)
      */
-    private float splitAngle = 0f;
+    private static float splitAngle = 0f;
     /**
      * visualize the splitting plane
      */
-    private Geometry splitterGeometry;
+    private static Geometry splitterGeometry;
     /**
      * input signal: 1&rarr;rotate the splitting plane counter-clockwise
      */
-    private int signalCcw;
+    private static int signalCcw;
     /**
      * input signal: 1&rarr;rotate the splitting plane clockwise
      */
-    private int signalCw;
+    private static int signalCw;
     /**
      * how many times render() has been invoked
      */
-    private int renderCount;
+    private static int renderCount;
     /**
      * timestamp of the previous render() if renderCount > 0
      */
-    private long lastSplitterUpdate;
+    private static long lastSplitterUpdate;
     /**
      * temporary storage for a Quaternion
      */
-    final private Quaternion tmpRotation = new Quaternion();
+    final private static Quaternion tmpRotation = new Quaternion();
     /**
      * pseudo-random generator
      */
-    final private ShapeGenerator random = new ShapeGenerator();
+    final private static ShapeGenerator random = new ShapeGenerator();
     /**
      * first clip location used to define the splitting plane
      */
-    final private Vector2f clip1 = new Vector2f();
+    final private static Vector2f clip1 = new Vector2f();
     /**
      * 2nd clip location used to define the splitting plane
      */
-    final private Vector2f clip2 = new Vector2f();
+    final private static Vector2f clip2 = new Vector2f();
     /**
      * temporary storage for a vector
      */
-    final private Vector3f tmpLocation = new Vector3f();
+    final private static Vector3f tmpLocation = new Vector3f();
     /**
      * first world location used to define the splitting plane
      */
-    final private Vector3f world1 = new Vector3f();
+    final private static Vector3f world1 = new Vector3f();
     /**
      * 2nd world location used to define the splitting plane
      */
-    final private Vector3f world2 = new Vector3f();
+    final private static Vector3f world2 = new Vector3f();
     // *************************************************************************
     // new methods exposed
 
@@ -189,7 +189,7 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
         setBackgroundColor(Constants.SKY_BLUE);
 
         LineMesh lineMesh = new LineMesh(Vector3f.ZERO, Vector3f.ZERO);
-        this.splitterGeometry = new Geometry(lineMesh)
+        splitterGeometry = new Geometry(lineMesh)
                 .setProgram("Unshaded/Monochrome");
     }
 
@@ -215,7 +215,7 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
             float seconds = 1e-9f * nanoseconds;
             updateSplitter(seconds);
         }
-        this.lastSplitterUpdate = nanoTime;
+        lastSplitterUpdate = nanoTime;
 
         super.render();
     }
@@ -545,8 +545,8 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
     }
 
     private void updateSplitter(float tpf) {
-        this.splitAngle += tpf * (signalCcw - signalCw);
-        this.splitAngle = MyMath.modulo(splitAngle, FastMath.PI);
+        splitAngle += tpf * (signalCcw - signalCw);
+        splitAngle = MyMath.modulo(splitAngle, FastMath.PI);
 
         float ar = aspectRatio();
         if (Math.abs(splitAngle - FastMath.HALF_PI) < FastMath.QUARTER_PI) {

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,7 @@ public class CheckerboardTest extends BaseApplication {
     /**
      * multi-colored square in clip space
      */
-    private Geometry squareGeometry;
+    private static Geometry squareGeometry;
     // *************************************************************************
     // new methods exposed
 

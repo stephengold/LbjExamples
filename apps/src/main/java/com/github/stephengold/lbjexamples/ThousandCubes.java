@@ -70,11 +70,11 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     /**
      * shape for stacked boxes
      */
-    private BoxCollisionShape boxShape;
+    private static BoxCollisionShape boxShape;
     /**
      * shape for bodies launched when the E key is pressed
      */
-    private CollisionShape launchShape;
+    private static CollisionShape launchShape;
     /**
      * simulation speed (simulated seconds per wall-clock second)
      */
@@ -130,8 +130,8 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        this.boxShape = new BoxCollisionShape(0.5f);
-        this.launchShape = new SphereCollisionShape(0.5f);
+        boxShape = new BoxCollisionShape(0.5f);
+        launchShape = new SphereCollisionShape(0.5f);
 
         CollisionShape planeShape
                 = new PlaneCollisionShape(new Plane(Vector3f.UNIT_Y, 0f));

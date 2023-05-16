@@ -58,7 +58,7 @@ public class HelloKinematics
     /**
      * kinematic ball, orbiting the origin
      */
-    private PhysicsRigidBody kineBall;
+    private static PhysicsRigidBody kineBall;
     // *************************************************************************
     // new methods exposed
 

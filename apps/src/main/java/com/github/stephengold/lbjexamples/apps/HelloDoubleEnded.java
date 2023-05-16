@@ -78,11 +78,11 @@ public class HelloDoubleEnded
     /**
      * mouse-controlled kinematic paddle
      */
-    private PhysicsRigidBody paddleBody;
+    private static PhysicsRigidBody paddleBody;
     /**
      * latest ground location indicated by the mouse cursor
      */
-    final private  Vector3f mouseLocation = new Vector3f();
+    final private static Vector3f mouseLocation = new Vector3f();
     // *************************************************************************
     // new methods exposed
 
@@ -244,7 +244,7 @@ public class HelloDoubleEnded
     private void addPaddle() {
         BoxCollisionShape shape
                 = new BoxCollisionShape(0.3f, paddleHalfHeight, 1f);
-        this.paddleBody = new PhysicsRigidBody(shape);
+        paddleBody = new PhysicsRigidBody(shape);
         paddleBody.setKinematic(true);
 
         physicsSpace.addCollisionObject(paddleBody);

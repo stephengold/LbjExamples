@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -51,11 +51,11 @@ public class MouseTest2 extends BaseApplication {
     /**
      * red ball at the far clipping plane, in camera space
      */
-    private Geometry farBall;
+    private static Geometry farBall;
     /**
      * yellow ball at the near clipping plane, in camera space
      */
-    private Geometry nearBall;
+    private static Geometry nearBall;
     // *************************************************************************
     // new methods exposed
 
@@ -85,12 +85,12 @@ public class MouseTest2 extends BaseApplication {
     @Override
     public void initialize() {
         Mesh ballMesh = OctasphereMesh.getMesh(3);
-        this.nearBall = new Geometry(ballMesh)
+        nearBall = new Geometry(ballMesh)
                 .setBackCulling(false)
                 .setColor(Constants.YELLOW)
                 .setProgram("Unshaded/Cameraspace/Monochrome")
                 .setScale(0.01f);
-        this.farBall = new Geometry(ballMesh)
+        farBall = new Geometry(ballMesh)
                 .setColor(Constants.RED)
                 .setProgram("Unshaded/Cameraspace/Monochrome")
                 .setScale(20f);
