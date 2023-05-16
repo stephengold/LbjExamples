@@ -91,7 +91,9 @@ public class HelloWind
      * collision object for the flag
      */
     private PhysicsSoftBody flag;
-
+    /**
+     * temporary storage for velocity vectors
+     */
     final private Vector3f tmpVelocity = new Vector3f();
     // *************************************************************************
     // new methods exposed

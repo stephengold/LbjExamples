@@ -56,6 +56,9 @@ public class HelloCharacter
     // *************************************************************************
     // fields
 
+    /**
+     * character being tested
+     */
     private PhysicsCharacter character;
     // *************************************************************************
     // new methods exposed

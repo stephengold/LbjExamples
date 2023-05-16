@@ -73,6 +73,9 @@ public class HelloWalk
      * true when the W key is pressed, otherwise false
      */
     private volatile boolean walkRequested;
+    /**
+     * character being tested
+     */
     private PhysicsCharacter character;
     // *************************************************************************
     // new methods exposed

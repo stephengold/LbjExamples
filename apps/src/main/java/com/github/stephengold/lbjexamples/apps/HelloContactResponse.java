@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,7 @@ import org.lwjgl.glfw.GLFW;
  * the blue (static) box no longer exerts any contact force on the ball. Gravity
  * takes over, and the ball falls through.
  * <p>
- * Builds on HelloStaticBody.
+ * Builds upon HelloStaticBody.
  *
  * @author Stephen Gold sgold@sonic.net
  */

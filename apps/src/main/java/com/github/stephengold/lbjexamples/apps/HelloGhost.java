@@ -85,6 +85,9 @@ public class HelloGhost
      * true when the RIGHT key is pressed, otherwise false
      */
     private volatile boolean walkRight;
+    /**
+     * collision object to trigger the ghost
+     */
     private PhysicsCharacter character;
     // *************************************************************************
     // new methods exposed
