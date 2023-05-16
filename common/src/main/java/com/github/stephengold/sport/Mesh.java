@@ -545,8 +545,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         }
         verifyMutable();
 
-        Quaternion quaternion = new Quaternion(); // TODO garbage
-        quaternion.fromAngles(xAngle, yAngle, zAngle);
+        Quaternion quaternion // TODO garbage
+                = new Quaternion().fromAngles(xAngle, yAngle, zAngle);
 
         positions.rotate(quaternion);
         if (normals != null) {
