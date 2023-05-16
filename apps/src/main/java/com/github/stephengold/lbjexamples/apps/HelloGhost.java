@@ -162,7 +162,7 @@ public class HelloGhost
         // Visualize the collision objects.
         new AabbGeometry(ghost);
         visualizeShape(character);
-        new AabbGeometry(character); // outline of AABB in white
+        new AabbGeometry(character); // outline the character's AABB in white
     }
 
     /**
