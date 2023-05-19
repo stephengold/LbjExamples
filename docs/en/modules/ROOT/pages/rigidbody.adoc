@@ -526,7 +526,7 @@ a|Physics-controlled objects such as balls, bricks, and ragdolls
 
 a|How to configure
 a|`setMass(0f)` `setKinematic(false)`
-a|`setMass(positive)` `setKinematic(true)`
+a|`setKinematic(true)`
 a|`setMass(positive)` `setKinematic(false)`
 |===
 
