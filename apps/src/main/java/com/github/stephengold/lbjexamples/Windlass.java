@@ -84,35 +84,35 @@ public class Windlass
     /**
      * All cable segments have exactly the same shape.
      */
-    private CollisionShape segmentShape;
+    private static CollisionShape segmentShape;
     /**
      * rotation of the barrel (in radians)
      */
-    private float barrelXRotation;
+    private static float barrelXRotation;
     /**
      * simulation speed (simulated seconds per wall-clock second)
      */
-    private float physicsSpeed = 1f;
+    private static float physicsSpeed = 1f;
     /**
      * input signal: 1&rarr;turn counter-clockwise (initially lowers the hook)
      */
-    private int signalCcw;
+    private static int signalCcw;
     /**
      * input signal: 1&rarr;turn clockwise (initially raises the hook)
      */
-    private int signalCw;
+    private static int signalCw;
     /**
      * body that represents the barrel
      */
-    private PhysicsRigidBody barrel;
+    private static PhysicsRigidBody barrel;
     /**
      * orientation of the barrel
      */
-    final private Quaternion barrelOrientation = new Quaternion();
+    final static private Quaternion barrelOrientation = new Quaternion();
     /**
      * location of the forward pivot in a segment's local coordinates
      */
-    final private Vector3f localPivot = new Vector3f();
+    final static private Vector3f localPivot = new Vector3f();
     // *************************************************************************
     // new methods exposed
 
