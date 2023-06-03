@@ -154,8 +154,8 @@ public class ConveyorDemo extends BasePhysicsApp<PhysicsSpace> {
                 }
 
                 // enable lateral friction for the current contact point:
-                ManifoldPoints.setFlags(contactPointId,
-                        ContactPointFlag.LATERAL_FRICTION);
+                ManifoldPoints.setFlags(
+                        contactPointId, ContactPointFlag.LATERAL_FRICTION);
 
                 PhysicsCollisionObject beltPco = aIsABelt ? pcoA : pcoB;
                 int beltIndex = (Integer) beltPco.getUserObject();
