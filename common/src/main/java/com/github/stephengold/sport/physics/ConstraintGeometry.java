@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -44,6 +44,7 @@ import com.jme3.bullet.objects.infos.RigidBodyMotionState;
 import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
+import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
 import org.joml.Vector4fc;
 
@@ -121,7 +122,7 @@ public class ConstraintGeometry extends Geometry {
         Transform bodyToWorld = new Transform(); // TODO garbage
         state.physicsTransform(bodyToWorld);
 
-        meshToWorld.combineWithParent(bodyToWorld);
+        MyMath.combine(meshToWorld, bodyToWorld, meshToWorld);
 
         super.updateAndRender();
     }
