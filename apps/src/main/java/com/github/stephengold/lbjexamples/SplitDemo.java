@@ -409,7 +409,7 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
                 volumes[i] = shapes[i].scaledVolume();
 
                 locations[i] = children[i].copyOffset(null);
-                shapeToWorld.transformVector(locations[i], locations[i]);
+                MyMath.transform(shapeToWorld, locations[i], locations[i]);
             }
 
         } else if (splittableShape instanceof CompoundCollisionShape) {
@@ -432,7 +432,7 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
                 Vector3f offset = locations[i].negate();
                 ((CompoundCollisionShape) shapes[i]).translate(offset);
                 shapeToWorld.setScale(1f);
-                shapeToWorld.transformVector(locations[i], locations[i]);
+                MyMath.transform(shapeToWorld, locations[i], locations[i]);
             }
 
         } else if (splittableShape instanceof GImpactCollisionShape) {
@@ -449,7 +449,7 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
                 volumes[i] = 1f; // TODO calculate area
 
                 locations[i] = children[i].copyOffset(null);
-                shapeToWorld.transformVector(locations[i], locations[i]);
+                MyMath.transform(shapeToWorld, locations[i], locations[i]);
             }
 
         } else if (splittableShape instanceof MeshCollisionShape) {
