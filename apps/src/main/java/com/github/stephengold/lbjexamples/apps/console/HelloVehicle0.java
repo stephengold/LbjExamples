@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -122,9 +122,8 @@ final class HelloVehicle0 {
 
         // Apply a constant acceleration (to the chassis).
         vehicle.accelerate(1f);
-        /*
-         * 150 iterations with a 16.7-msec timestep
-         */
+
+        // 150 iterations with a 16.7-msec timestep
         float timeStep = 1 / 60f;
         Vector3f location = new Vector3f();
         for (int i = 0; i < 150; ++i) {

@@ -6,6 +6,7 @@ plugins {
 
 ext {
     // which BTF (buildType + flavor) of the native physics library to use:
+    //btf = 'DebugSp'
     btf = 'ReleaseSp'
 
     fs = System.getProperty('file.separator')
@@ -13,6 +14,7 @@ ext {
 
     // URL from which native physics libraries should be copied:
     libbulletjmeUrl = "https://github.com/stephengold/Libbulletjme/releases/download/$lbjVersion/"
+    //libbulletjmeUrl = "file:///home/sgold/NetBeansProjects/Libbulletjme/dist/"
 }
 
 // tasks to run specific apps:
