@@ -92,8 +92,8 @@ In particular:
 Furthermore, Libbulletjme hasn't yet been ported to the following platforms:
 
 * the FreeBSD and iOS operating systems
-* Windows on ARM architectures
-* PowerPC architectures
+* Windows-on-ARM
+* MIPS, POWER, RISC-V, and System Z architectures
 
 We welcome suggestions concerning the future development of Libbulletjme.
 
