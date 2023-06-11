@@ -108,7 +108,6 @@ public class HelloSoftBody extends BasePhysicsApp<PhysicsSoftSpace> {
         PhysicsSoftBody body = new PhysicsSoftBody();
         NativeSoftBodyUtil.appendFromTriMesh(sphere, body);
         physicsSpace.addCollisionObject(body);
-
         /*
          * Set the ball's default frame pose:  if deformed,
          * it will tend to return to its current shape.
