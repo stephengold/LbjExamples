@@ -76,7 +76,6 @@ In particular:
 ** `btConvexPointCloudShape`
 ** `btConvexTriangleMeshShape`
 ** `btGImpactCompoundShape`
-** `btMinkowskiSumShape`
 ** `btMultimaterialTriangleMeshShape`
 ** `btScaledBvhTriangleMeshShape`
 ** `btSdfCollisionShape`
