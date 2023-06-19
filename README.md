@@ -86,7 +86,7 @@ It has been tested on Windows, Linux, and macOS.
 [glfw]: https://www.glfw.org "GLFW Library"
 [java]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java programming language"
 [joml]: https://joml-ci.github.io/JOML "Java OpenGL Math Library"
-[libbulletjme]: https://stephengold.github.io/Libbulletjme/lbj-en/overview.html "Libbulletjme Project"
+[libbulletjme]: https://stephengold.github.io/Libbulletjme/lbj-en/English/overview.html "Libbulletjme Project"
 [license]: https://github.com/stephengold/LbjExamples/blob/master/LICENSE "LbjExamples license"
 [lwjgl]: https://www.lwjgl.org "Lightweight Java Game Library"
 [opengl]: https://www.khronos.org/opengl "OpenGL API"
