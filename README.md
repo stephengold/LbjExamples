@@ -56,7 +56,7 @@ Seven demo applications are included:
 + Windlass
 
 Documentation for the demo apps is at
-https://stephengold.github.io/Libbulletjme/lbj-en/demos.html
+https://stephengold.github.io/Libbulletjme/lbj-en/English/demos.html
 
 ### Chooser
 
