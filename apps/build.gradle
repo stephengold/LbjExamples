@@ -256,11 +256,13 @@ tasks.withType(JavaExec) { // Java runtime options:
     }
 }
 
-mainClassName = 'com.github.stephengold.lbjexamples.AppChooser'
-if (!hasProperty('mainClass')) {
-    ext.mainClass = mainClassName
+application {
+    mainClass = 'com.github.stephengold.lbjexamples.AppChooser'
 }
-jar.manifest.attributes('Main-Class': mainClassName)
+if (!hasProperty('mainClass')) {
+    ext.mainClass = application.mainClass
+}
+jar.manifest.attributes('Main-Class': application.mainClass)
 
 dependencies {
     implementation project(':common')
