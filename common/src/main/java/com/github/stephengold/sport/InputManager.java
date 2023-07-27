@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -78,7 +78,7 @@ public class InputManager {
         glfwSetCursorPosCallback(glfwWindowId, this::glfwCursorPosCallback);
         glfwSetKeyCallback(glfwWindowId, this::glfwKeyCallback);
         glfwSetMouseButtonCallback(glfwWindowId, this::glfwMouseButtonCallback);
-        glfwSetScrollCallback(glfwWindowId, new GLFWScrollCallback(){
+        glfwSetScrollCallback(glfwWindowId, new GLFWScrollCallback() {
             @Override
             public void invoke(long window, double xOffset, double yOffset) {
                 glfwScrollCallback(window, xOffset, yOffset);
