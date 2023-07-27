@@ -248,6 +248,8 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
                             motor.set(MotorParam.ServoTarget, 0f);
                         }
                         return;
+
+                    default:
                 }
                 super.onKeyboard(keyId, isPressed);
             }

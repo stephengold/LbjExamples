@@ -246,6 +246,8 @@ public class HelloWalk
                         walkRequested = isPressed;
                         // This overrides the CameraInputProcessor.
                         return;
+
+                    default:
                 }
                 super.onKeyboard(keyId, isPressed);
             }

@@ -285,6 +285,7 @@ public class HelloGhost
                     case GLFW.GLFW_KEY_UP:
                         walkForward = isPressed;
                         return;
+                    default:
                 }
                 super.onKeyboard(keyId, isPressed);
             }

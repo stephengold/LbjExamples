@@ -280,6 +280,8 @@ public class HelloWind
                     case GLFW.GLFW_KEY_RIGHT:
                         turnRight = isPressed;
                         return;
+
+                    default:
                 }
                 super.onKeyboard(keyId, isPressed);
             }

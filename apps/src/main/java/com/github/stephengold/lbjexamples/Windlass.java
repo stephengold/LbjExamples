@@ -479,6 +479,8 @@ public class Windlass
                             togglePause();
                         }
                         return;
+
+                    default:
                 }
                 super.onKeyboard(keyId, isPressed);
             }

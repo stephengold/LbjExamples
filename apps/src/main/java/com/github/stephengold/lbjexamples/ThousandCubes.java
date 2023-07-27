@@ -229,6 +229,8 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
                             togglePause();
                         }
                         return;
+
+                    default:
                 }
                 super.onKeyboard(keyId, isPressed);
             }

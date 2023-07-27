@@ -308,6 +308,8 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
                             togglePause();
                         }
                         return;
+
+                    default:
                 }
                 super.onKeyboard(keyId, isPressed);
             }

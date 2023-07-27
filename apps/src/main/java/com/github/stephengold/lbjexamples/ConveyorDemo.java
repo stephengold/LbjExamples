@@ -373,6 +373,8 @@ public class ConveyorDemo extends BasePhysicsApp<PhysicsSpace> {
                             togglePause();
                         }
                         return;
+
+                    default:
                 }
                 super.onKeyboard(keyId, isPressed);
             }
