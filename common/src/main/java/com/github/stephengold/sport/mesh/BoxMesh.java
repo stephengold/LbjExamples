@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -103,6 +103,7 @@ public class BoxMesh extends Mesh {
         posBuffer.flip();
         assert posBuffer.limit() == posBuffer.capacity();
     }
+
     /**
      * Instantiate an axis-aligned box.
      *
@@ -111,6 +112,7 @@ public class BoxMesh extends Mesh {
     public BoxMesh(float halfExtent) {
         this(new Vector3f(halfExtent, halfExtent, halfExtent));
     }
+
     /**
      * Instantiate an axis-aligned box.
      *
