@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -174,7 +174,7 @@ final public class Utils {
     /**
      * Load UTF-8 text from the named resource.
      *
-     * @param resourceName the name of the resource (not null)
+     * @param resourceName the name of the classpath resource to load (not null)
      * @return the text (possibly multiple lines)
      */
     public static String loadResourceAsString(String resourceName) {
@@ -275,9 +275,8 @@ final public class Utils {
                 double red = ((sRGB >> 16) & 0xFF) / 255.0;
                 double green = ((sRGB >> 8) & 0xFF) / 255.0;
                 double blue = (sRGB & 0xFF) / 255.0;
-                /*
-                 * linearize the pixel's color
-                 */
+
+                // linearize the pixel's color
                 red = Math.pow(red, 2.2);
                 green = Math.pow(green, 2.2);
                 blue = Math.pow(blue, 2.2);
@@ -299,7 +298,7 @@ final public class Utils {
      * In particular:
      * <ul>
      * <li>{@code r} is a distance measured from the origin. It ranges from 0 to
-     * infinity and is stored in the 1st (X) vector component.
+     * infinity and is stored in the first (X) vector component.
      *
      * <li>{@code theta} is the polar angle, measured (in radians) from the +Z
      * axis. It ranges from 0 to PI and is stored in the 2nd (Y) vector

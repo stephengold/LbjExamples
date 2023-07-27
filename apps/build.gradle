@@ -1,7 +1,7 @@
 // Gradle script to build the LbjExamples/apps sub-project
 
 plugins {
-    id 'application'
+    id 'application' // to support building a Java application
 }
 
 ext {

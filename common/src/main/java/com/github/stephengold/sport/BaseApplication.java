@@ -55,15 +55,16 @@ import org.lwjgl.system.Configuration;
 import org.lwjgl.system.MemoryUtil;
 
 /**
- * A 3-D visualization application using LWJGL and OpenGL.
+ * A single-window, 3-D visualization application using LWJGL v3, GLFW, and
+ * OpenGL.
  */
 public abstract class BaseApplication {
     // *************************************************************************
     // constants
 
     /**
-     * true to enable debugging output and additional runtime checks, or false
-     * to disable them
+     * true to enable debugging output and optional runtime checks, or false to
+     * disable them
      */
     final private static boolean enableDebugging = false;
     /**
