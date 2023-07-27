@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -100,7 +100,7 @@ final class SpeedTest {
         int argValue;
         try {
             argValue = Integer.parseInt(argument);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException exception) {
             String quoted = MyString.quote(argument);
             System.out.println("Argument isn't numeric:  " + quoted);
             System.exit(-1);

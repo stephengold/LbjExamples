@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -54,8 +54,8 @@ public class PhysicsThread implements Runnable {
             try {
                 space.update(0.02f, 0);
                 Thread.sleep(20);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            } catch (InterruptedException exception) {
+                exception.printStackTrace();
             }
         }
     }
