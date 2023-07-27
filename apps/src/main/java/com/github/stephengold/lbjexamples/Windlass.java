@@ -176,7 +176,7 @@ public class Windlass
         float deltaPhi = FastMath.TWO_PI / numSegmentsPerCoil;
         float z0 = attachPoint.z;
         float deltaX = 2.1f * cableRadius / numSegmentsPerCoil;
-        float deltaY = 2f * z0 * (float) Math.tan(deltaPhi / 2f); // TODO FastMath
+        float deltaY = 2f * z0 * FastMath.tan(deltaPhi / 2f);
         float segmentLength = MyMath.hypotenuse(deltaX, deltaY);
 
         // The segment shape is a Z-axis capsule.
