@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -50,6 +50,12 @@ final class HelloLibbulletjme {
 
     private static PhysicsRigidBody ball;
     private static PhysicsSpace physicsSpace;
+
+    /**
+     * A private constructor to inhibit instantiation of this class.
+     */
+    private HelloLibbulletjme() {
+    }
 
     /**
      * Main entry point for the HelloLibbulletjme application.

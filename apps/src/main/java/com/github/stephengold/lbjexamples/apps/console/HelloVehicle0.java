@@ -50,6 +50,13 @@ import java.util.Collection;
  * @author Stephen Gold sgold@sonic.net
  */
 final class HelloVehicle0 {
+
+    /**
+     * A private constructor to inhibit instantiation of this class.
+     */
+    private HelloVehicle0() {
+    }
+
     /**
      * Main entry point for the HelloVehicle0 application.
      *

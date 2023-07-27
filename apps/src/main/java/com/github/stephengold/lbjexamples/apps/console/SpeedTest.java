@@ -67,6 +67,14 @@ final class SpeedTest {
     final private static Vector3f launchVelocity
             = new Vector3f(-88f, -25f, -41f);
     // *************************************************************************
+    // constructors
+
+    /**
+     * A private constructor to inhibit instantiation of this class.
+     */
+    private SpeedTest() {
+    }
+    // *************************************************************************
     // fields
 
     /**
