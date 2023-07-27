@@ -481,7 +481,7 @@ public abstract class BaseApplication {
         mainWindowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight,
                 initialTitle, MemoryUtil.NULL, MemoryUtil.NULL);
         if (mainWindowId == MemoryUtil.NULL) {
-            throw new RuntimeException("Failed to create the GLFW window");
+            throw new RuntimeException("Failed to create a GLFW window");
         }
 
         // Set up the resize callback.
