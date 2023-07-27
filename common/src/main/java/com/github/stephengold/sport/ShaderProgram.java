@@ -427,8 +427,8 @@ class ShaderProgram {
                     = attachShader(vertexShaderName, GL20C.GL_VERTEX_SHADER);
 
             String fragmentShaderName = "/Shaders/" + programName + ".frag";
-            int fragmentShaderId = attachShader(fragmentShaderName,
-                    GL20C.GL_FRAGMENT_SHADER);
+            int fragmentShaderId = attachShader(
+                    fragmentShaderName, GL20C.GL_FRAGMENT_SHADER);
 
             linkProgram();
             validateProgram();

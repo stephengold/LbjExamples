@@ -266,7 +266,6 @@ jar.manifest.attributes('Main-Class': application.mainClass)
 
 dependencies {
     implementation project(':common')
-
     if (includeLinux) {
         runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux"
         runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux"
