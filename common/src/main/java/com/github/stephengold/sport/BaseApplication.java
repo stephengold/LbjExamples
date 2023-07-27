@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -65,7 +65,7 @@ public abstract class BaseApplication {
      * true to enable debugging output and additional runtime checks, or false
      * to disable them
      */
-    final public static boolean enableDebugging = false;
+    final private static boolean enableDebugging = false;
     /**
      * mask size for multisample anti-aliasing (MSAA) if &ge;2, or 0 to disable
      * MSAA
@@ -242,6 +242,15 @@ public abstract class BaseApplication {
     public static void hideAll(Collection<Geometry> geometries) {
         deferredQueue.removeAll(geometries);
         visibleGeometries.removeAll(geometries);
+    }
+
+    /**
+     * Test whether debugging aids are enabled.
+     *
+     * @return true if enabled, otherwise false
+     */
+    public static boolean isDebuggingEnabled() {
+        return enableDebugging;
     }
 
     /**

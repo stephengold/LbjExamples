@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -472,7 +472,7 @@ public class VertexBuffer {
 
         this.vbo = GL15C.glGenBuffers();
         Utils.checkForOglError();
-        if (BaseApplication.enableDebugging) {
+        if (BaseApplication.isDebuggingEnabled()) {
             System.err.printf("[SPORT] Generated Buffer object %d"
                     + " for attrib %s.  (usage hint is %s)%n",
                     vbo, attribName, Utils.describeCode(usageHint));
