@@ -265,7 +265,6 @@ if (!hasProperty('mainClass')) {
 jar.manifest.attributes('Main-Class': application.mainClass)
 
 dependencies {
-    implementation project(':common')
     if (includeLinux) {
         runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux"
         runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux"
@@ -299,6 +298,8 @@ dependencies {
         runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows-x86"
         runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows-x86"
     }
+
+    implementation project(':common')
 }
 
 // tasks to download/clean the native physics library for each platform:
