@@ -101,6 +101,6 @@ abstract public class InputProcessor {
      * @param newNextProcessor the desired processor, or null if none
      */
     public void setNext(InputProcessor newNextProcessor) {
-        nextProcessor = newNextProcessor;
+        this.nextProcessor = newNextProcessor;
     }
 }

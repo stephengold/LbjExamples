@@ -95,7 +95,7 @@ public class InputManager {
      */
     public void add(InputProcessor processor) {
         processor.setNext(firstProcessor);
-        firstProcessor = processor;
+        this.firstProcessor = processor;
     }
 
     /**
@@ -171,7 +171,7 @@ public class InputManager {
         GLFW.glfwGetWindowSize(windowId, windowWidth, windowHeight);
 
         if (glfwCursorPos == null) {
-            glfwCursorPos = new Vector2d(x, y);
+            this.glfwCursorPos = new Vector2d(x, y);
         }
         double rightFraction = (x - glfwCursorPos.x) / windowHeight[0]; // sic
         double upFraction = (glfwCursorPos.y - y) / windowHeight[0];
@@ -182,7 +182,7 @@ public class InputManager {
         float xClip = (float) (xScale * x - 1.0);
         float yClip = (float) (1.0 - yScale * y);
         if (cursorLocationClipspace == null) {
-            cursorLocationClipspace = new Vector2f(xClip, yClip);
+            this.cursorLocationClipspace = new Vector2f(xClip, yClip);
         } else {
             cursorLocationClipspace.set(xClip, yClip);
         }
