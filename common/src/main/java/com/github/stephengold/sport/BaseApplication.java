@@ -315,17 +315,40 @@ public abstract class BaseApplication {
         GLFW.glfwSetWindowTitle(mainWindowId, text);
     }
 
+    /**
+     * Start the application (simplified interface).
+     */
     public void start() {
+        String appName = getClass().getSimpleName();
+        start(appName, 0, 0, 0);
+    }
+
+    /**
+     * Start the application.
+     *
+     * @param appName the name of the application (not null)
+     * @param appMajor the major version number of the application
+     * @param appMinor the minor version number of the application
+     * @param appPatch the patch version number of the application
+     */
+    public void start(
+            String appName, int appMajor, int appMinor, int appPatch) {
+        // Generate the initial text for the window's title bar:
+        String title;
+        if (appMajor == 0 && appMinor == 0 && appPatch == 0) {
+            title = appName;
+        } else {
+            title = String.format(
+                    "%s v%d.%d.%d", appName, appMajor, appMinor, appPatch);
+        }
+
         // Initialize this class.
-        initializeBase();
+        initializeBase(title);
 
         // Initialize the subclass.
         initialize();
 
-        // main update loop
-        while (!GLFW.glfwWindowShouldClose(mainWindowId)) {
-            updateBase();
-        }
+        mainUpdateLoop();
 
         // Clean up the subclass.
         cleanUp();
@@ -448,7 +471,7 @@ public abstract class BaseApplication {
     /**
      * Initialize this class.
      */
-    private void initializeBase() {
+    private void initializeBase(String initialTitle) {
         if (enableDebugging) {
             Configuration.DEBUG.set(true);
             Configuration.DEBUG_FUNCTIONS.set(true);
@@ -480,7 +503,6 @@ public abstract class BaseApplication {
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT,
                 GLFW.GLFW_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
 
-        String initialTitle = getClass().getSimpleName();
         mainWindowId = GLFW.glfwCreateWindow(frameBufferWidth, frameBufferHeight,
                 initialTitle, MemoryUtil.NULL, MemoryUtil.NULL);
         if (mainWindowId == MemoryUtil.NULL) {
@@ -572,6 +594,15 @@ public abstract class BaseApplication {
                 super.onKeyboard(keyId, isPressed);
             }
         });
+    }
+
+    /**
+     * The application's main update loop.
+     */
+    private void mainUpdateLoop() {
+        while (!GLFW.glfwWindowShouldClose(mainWindowId)) {
+            updateBase();
+        }
     }
 
     /**
