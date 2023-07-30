@@ -72,6 +72,10 @@ public abstract class BaseApplication {
      * MSAA
      */
     final private static int requestMsaaSamples = 4;
+    /**
+     * name of the graphics engine
+     */
+    final public static String engineName = "Sport";
     // *************************************************************************
     // fields
 
