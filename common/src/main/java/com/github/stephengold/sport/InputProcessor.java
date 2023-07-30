@@ -83,6 +83,12 @@ abstract public class InputProcessor {
         }
     }
 
+    /**
+     * Handle mouse-wheel movement. Meant to be overridden.
+     *
+     * @param xOffset the rightward motion
+     * @param yOffset the upward motion
+     */
     public void onMouseScroll(double xOffset, double yOffset) {
         if (nextProcessor != null) {
             nextProcessor.onMouseScroll(xOffset, yOffset);
