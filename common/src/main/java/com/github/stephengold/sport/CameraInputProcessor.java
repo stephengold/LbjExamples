@@ -35,7 +35,7 @@ import java.util.Set;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
-import static org.lwjgl.glfw.GLFW.*;
+import org.lwjgl.glfw.GLFW;
 
 /**
  * User control of the main Camera.
@@ -70,7 +70,7 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * cursor-input mode before rotation was activated
      */
-    private int savedCursorInputMode = GLFW_CURSOR_NORMAL;
+    private int savedCursorInputMode = GLFW.GLFW_CURSOR_NORMAL;
     /**
      * GLFW ID of the main window
      */
@@ -143,22 +143,22 @@ public class CameraInputProcessor extends InputProcessor {
         int rightSignal = 0;
         int upSignal = 0;
 
-        if (pollKey(GLFW_KEY_W)) {
+        if (pollKey(GLFW.GLFW_KEY_W)) {
             ++forwardSignal;
         }
-        if (pollKey(GLFW_KEY_A)) {
+        if (pollKey(GLFW.GLFW_KEY_A)) {
             --rightSignal;
         }
-        if (pollKey(GLFW_KEY_S)) {
+        if (pollKey(GLFW.GLFW_KEY_S)) {
             --forwardSignal;
         }
-        if (pollKey(GLFW_KEY_D)) {
+        if (pollKey(GLFW.GLFW_KEY_D)) {
             ++rightSignal;
         }
-        if (pollKey(GLFW_KEY_Q)) {
+        if (pollKey(GLFW.GLFW_KEY_Q)) {
             ++upSignal;
         }
-        if (pollKey(GLFW_KEY_Z)) {
+        if (pollKey(GLFW.GLFW_KEY_Z)) {
             --upSignal;
         }
 
@@ -176,12 +176,12 @@ public class CameraInputProcessor extends InputProcessor {
     @Override
     public void onKeyboard(int keyId, boolean isPress) {
         switch (keyId) {
-            case GLFW_KEY_W:
-            case GLFW_KEY_A:
-            case GLFW_KEY_S:
-            case GLFW_KEY_D:
-            case GLFW_KEY_Q:
-            case GLFW_KEY_Z:
+            case GLFW.GLFW_KEY_W:
+            case GLFW.GLFW_KEY_A:
+            case GLFW.GLFW_KEY_S:
+            case GLFW.GLFW_KEY_D:
+            case GLFW.GLFW_KEY_Q:
+            case GLFW.GLFW_KEY_Z:
                 keyIdsSeen.add(keyId);
                 return;
             default:
@@ -223,13 +223,15 @@ public class CameraInputProcessor extends InputProcessor {
     // private methods
 
     private void activateRotation() {
-        this.savedCursorInputMode = glfwGetInputMode(windowId, GLFW_CURSOR);
-        glfwSetInputMode(windowId, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        this.savedCursorInputMode
+                = GLFW.glfwGetInputMode(windowId, GLFW.GLFW_CURSOR);
+        GLFW.glfwSetInputMode(
+                windowId, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
         this.isRotationActive = true;
     }
 
     private void deactivateRotation() {
-        glfwSetInputMode(windowId, GLFW_CURSOR, savedCursorInputMode);
+        GLFW.glfwSetInputMode(windowId, GLFW.GLFW_CURSOR, savedCursorInputMode);
         this.isRotationActive = false;
     }
 
@@ -277,8 +279,8 @@ public class CameraInputProcessor extends InputProcessor {
      */
     private boolean pollKey(int keyId) {
         boolean seen = keyIdsSeen.contains(keyId);
-        int state = glfwGetKey(windowId, keyId);
-        boolean result = seen && (state == GLFW_PRESS);
+        int state = GLFW.glfwGetKey(windowId, keyId);
+        boolean result = seen && (state == GLFW.GLFW_PRESS);
 
         return result;
     }

@@ -41,7 +41,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import org.joml.Vector4fc;
 import org.lwjgl.glfw.Callbacks;
-import static org.lwjgl.glfw.GLFW.*;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
@@ -303,7 +303,7 @@ public abstract class BaseApplication {
      */
     public static void setVsync(boolean newSetting) {
         int swapInterval = newSetting ? 1 : 0;
-        glfwSwapInterval(swapInterval);
+        GLFW.glfwSwapInterval(swapInterval);
     }
 
     /**
@@ -312,7 +312,7 @@ public abstract class BaseApplication {
      * @param text the desired text (in UTF-8 encoding)
      */
     public static void setWindowTitle(CharSequence text) {
-        glfwSetWindowTitle(mainWindowId, text);
+        GLFW.glfwSetWindowTitle(mainWindowId, text);
     }
 
     public void start() {
@@ -323,7 +323,7 @@ public abstract class BaseApplication {
         initialize();
 
         // main update loop
-        while (!glfwWindowShouldClose(mainWindowId)) {
+        while (!GLFW.glfwWindowShouldClose(mainWindowId)) {
             updateBase();
         }
 
@@ -409,7 +409,7 @@ public abstract class BaseApplication {
      * @see #setWindowTitle(java.lang.CharSequence)
      */
     protected void updateWindowTitle() {
-        float currentFrame = (float) glfwGetTime();
+        float currentFrame = (float) GLFW.glfwGetTime();
         float deltaTime = currentFrame - lastFrame;
         counter++;
         if (deltaTime >= 1f / 10) {
@@ -440,9 +440,9 @@ public abstract class BaseApplication {
         }
 
         Callbacks.glfwFreeCallbacks(mainWindowId);
-        glfwDestroyWindow(mainWindowId);
-        glfwTerminate();
-        glfwSetErrorCallback(null).free();
+        GLFW.glfwDestroyWindow(mainWindowId);
+        GLFW.glfwTerminate();
+        GLFW.glfwSetErrorCallback(null).free();
     }
 
     /**
@@ -460,32 +460,35 @@ public abstract class BaseApplication {
 
         GLFWErrorCallback.createPrint(System.err).set();
 
-        if (!glfwInit()) {
+        if (!GLFW.glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
 
-        glfwDefaultWindowHints();
+        GLFW.glfwDefaultWindowHints();
 
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);         // default=GLFW_TRUE
-//        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);       // default=GLFW_TRUE
-        glfwWindowHint(GLFW_SAMPLES, requestMsaaSamples); // default=0
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);     // default=GLFW_TRUE
+//        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE); // default=GLFW_TRUE
+        GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, requestMsaaSamples); // default=0
+        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
+        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
         if (enableDebugging) {
-            glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE); // default=GLFW_FALSE
+            GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_DEBUG_CONTEXT,
+                    GLFW.GLFW_TRUE); // default=GLFW_FALSE
         }
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // default=GLFW_OPENGL_ANY_PROFILE
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
+        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE,
+                GLFW.GLFW_OPENGL_CORE_PROFILE); // default=GLFW_OPENGL_ANY_PROFILE
+        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT,
+                GLFW.GLFW_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
 
         String initialTitle = getClass().getSimpleName();
-        mainWindowId = glfwCreateWindow(frameBufferWidth, frameBufferHeight,
+        mainWindowId = GLFW.glfwCreateWindow(frameBufferWidth, frameBufferHeight,
                 initialTitle, MemoryUtil.NULL, MemoryUtil.NULL);
         if (mainWindowId == MemoryUtil.NULL) {
             throw new RuntimeException("Failed to create a GLFW window");
         }
 
         // Set up the resize callback.
-        glfwSetFramebufferSizeCallback(mainWindowId, (window, width, height) -> {
+        GLFW.glfwSetFramebufferSizeCallback(mainWindowId, (window, width, height) -> {
             frameBufferWidth = width;
             frameBufferHeight = height;
             GL11C.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
@@ -496,17 +499,17 @@ public abstract class BaseApplication {
         inputManager = new InputManager(mainWindowId);
 
         // Center the window.
-        GLFWVidMode videoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-        glfwSetWindowPos(mainWindowId,
+        GLFWVidMode videoMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+        GLFW.glfwSetWindowPos(mainWindowId,
                 (videoMode.width() - frameBufferWidth) / 2,
                 (videoMode.height() - frameBufferHeight) / 2
         );
 
         // Use the new window as the current OpenGL context.
-        glfwMakeContextCurrent(mainWindowId);
+        GLFW.glfwMakeContextCurrent(mainWindowId);
 
         // Make the window visible.
-        glfwShowWindow(mainWindowId);
+        GLFW.glfwShowWindow(mainWindowId);
 
         GL.createCapabilities();
         Utils.checkForOglError();
@@ -549,8 +552,8 @@ public abstract class BaseApplication {
         inputManager.add(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPress) {
-                if (keyId == GLFW_KEY_ESCAPE) { // stop the application
-                    glfwSetWindowShouldClose(mainWindowId, true);
+                if (keyId == GLFW.GLFW_KEY_ESCAPE) { // stop the application
+                    GLFW.glfwSetWindowShouldClose(mainWindowId, true);
                     return;
                 }
                 super.onKeyboard(keyId, isPress);
@@ -559,7 +562,7 @@ public abstract class BaseApplication {
         inputManager.add(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPressed) {
-                if (keyId == GLFW_KEY_C) {
+                if (keyId == GLFW.GLFW_KEY_C) {
                     if (isPressed) {
                         System.out.println(cam);
                         System.out.flush();
@@ -603,8 +606,8 @@ public abstract class BaseApplication {
         Utils.checkForOglError();
 
         render();
-        glfwSwapBuffers(mainWindowId);
-        glfwPollEvents();
+        GLFW.glfwSwapBuffers(mainWindowId);
+        GLFW.glfwPollEvents();
 
         cameraInputProcessor.update();
     }

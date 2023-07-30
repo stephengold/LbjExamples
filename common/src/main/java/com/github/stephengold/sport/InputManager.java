@@ -34,7 +34,7 @@ import org.joml.Vector2f;
 import org.joml.Vector2fc;
 import org.lwjgl.glfw.GLFWScrollCallback;
 
-import static org.lwjgl.glfw.GLFW.*;
+import org.lwjgl.glfw.GLFW;
 
 /**
  * Provide applications with convenient access to user input (keyboard, mouse,
@@ -75,10 +75,10 @@ public class InputManager {
         this.glfwWindowId = windowId;
 
         // Set up the user-input callbacks.
-        glfwSetCursorPosCallback(glfwWindowId, this::glfwCursorPosCallback);
-        glfwSetKeyCallback(glfwWindowId, this::glfwKeyCallback);
-        glfwSetMouseButtonCallback(glfwWindowId, this::glfwMouseButtonCallback);
-        glfwSetScrollCallback(glfwWindowId, new GLFWScrollCallback() {
+        GLFW.glfwSetCursorPosCallback(glfwWindowId, this::glfwCursorPosCallback);
+        GLFW.glfwSetKeyCallback(glfwWindowId, this::glfwKeyCallback);
+        GLFW.glfwSetMouseButtonCallback(glfwWindowId, this::glfwMouseButtonCallback);
+        GLFW.glfwSetScrollCallback(glfwWindowId, new GLFWScrollCallback() {
             @Override
             public void invoke(long window, double xOffset, double yOffset) {
                 glfwScrollCallback(window, xOffset, yOffset);
@@ -114,8 +114,9 @@ public class InputManager {
      * @return true if pressed, otherwise false
      */
     public boolean isLmbPressed() {
-        int state = glfwGetMouseButton(glfwWindowId, GLFW_MOUSE_BUTTON_LEFT);
-        if (state == GLFW_PRESS) {
+        int state = GLFW.glfwGetMouseButton(
+                glfwWindowId, GLFW.GLFW_MOUSE_BUTTON_LEFT);
+        if (state == GLFW.GLFW_PRESS) {
             return true;
         } else {
             return false;
@@ -128,8 +129,9 @@ public class InputManager {
      * @return true if pressed, otherwise false
      */
     public boolean isMmbPressed() {
-        int state = glfwGetMouseButton(glfwWindowId, GLFW_MOUSE_BUTTON_MIDDLE);
-        if (state == GLFW_PRESS) {
+        int state = GLFW.glfwGetMouseButton(
+                glfwWindowId, GLFW.GLFW_MOUSE_BUTTON_MIDDLE);
+        if (state == GLFW.GLFW_PRESS) {
             return true;
         } else {
             return false;
@@ -142,8 +144,9 @@ public class InputManager {
      * @return true if pressed, otherwise false
      */
     public boolean isRmbPressed() {
-        int state = glfwGetMouseButton(glfwWindowId, GLFW_MOUSE_BUTTON_RIGHT);
-        if (state == GLFW_PRESS) {
+        int state = GLFW.glfwGetMouseButton(
+                glfwWindowId, GLFW.GLFW_MOUSE_BUTTON_RIGHT);
+        if (state == GLFW.GLFW_PRESS) {
             return true;
         } else {
             return false;
@@ -165,7 +168,7 @@ public class InputManager {
 
         int[] windowHeight = new int[1];
         int[] windowWidth = new int[1];
-        glfwGetWindowSize(windowId, windowWidth, windowHeight);
+        GLFW.glfwGetWindowSize(windowId, windowWidth, windowHeight);
 
         if (glfwCursorPos == null) {
             glfwCursorPos = new Vector2d(x, y);
@@ -196,8 +199,8 @@ public class InputManager {
             int action, int mods) {
         assert windowId == glfwWindowId;
 
-        if (action != GLFW_REPEAT && firstProcessor != null) {
-            boolean isPress = (action == GLFW_PRESS);
+        if (action != GLFW.GLFW_REPEAT && firstProcessor != null) {
+            boolean isPress = (action == GLFW.GLFW_PRESS);
             firstProcessor.onKeyboard(keyId, isPress);
         }
     }
@@ -209,7 +212,7 @@ public class InputManager {
             int action, int mods) {
         assert windowId == glfwWindowId;
 
-        boolean isPress = (action == GLFW_PRESS);
+        boolean isPress = (action == GLFW.GLFW_PRESS);
         if (firstProcessor != null) {
             firstProcessor.onMouseButton(buttonId, isPress);
         }
