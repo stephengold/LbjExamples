@@ -79,7 +79,7 @@ public abstract class BaseApplication {
      * print OpenGL debugging information (typically to the console) or null if
      * not created
      */
-    private static Callback debugCallback;
+    private static Callback debugMessengerCallback;
     /**
      * current camera for rendering
      */
@@ -125,9 +125,9 @@ public abstract class BaseApplication {
      */
     private static int frameBufferWidth = 800;
     /**
-     * GLFW ID of the window used to render geometries
+     * GLFW handle of the window used to render geometries
      */
-    private static long mainWindowId;
+    private static long windowHandle;
     /**
      * map program names to programs
      */
@@ -312,7 +312,7 @@ public abstract class BaseApplication {
      * @param text the desired text (in UTF-8 encoding)
      */
     public static void setWindowTitle(CharSequence text) {
-        GLFW.glfwSetWindowTitle(mainWindowId, text);
+        GLFW.glfwSetWindowTitle(windowHandle, text);
     }
 
     /**
@@ -458,12 +458,12 @@ public abstract class BaseApplication {
         for (ShaderProgram program : programMap.values()) {
             program.cleanUp();
         }
-        if (debugCallback != null) {
-            debugCallback.free();
+        if (debugMessengerCallback != null) {
+            debugMessengerCallback.free();
         }
 
-        Callbacks.glfwFreeCallbacks(mainWindowId);
-        GLFW.glfwDestroyWindow(mainWindowId);
+        Callbacks.glfwFreeCallbacks(windowHandle);
+        GLFW.glfwDestroyWindow(windowHandle);
         GLFW.glfwTerminate();
         GLFW.glfwSetErrorCallback(null).free();
     }
@@ -503,14 +503,14 @@ public abstract class BaseApplication {
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT,
                 GLFW.GLFW_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
 
-        mainWindowId = GLFW.glfwCreateWindow(frameBufferWidth, frameBufferHeight,
+        windowHandle = GLFW.glfwCreateWindow(frameBufferWidth, frameBufferHeight,
                 initialTitle, MemoryUtil.NULL, MemoryUtil.NULL);
-        if (mainWindowId == MemoryUtil.NULL) {
+        if (windowHandle == MemoryUtil.NULL) {
             throw new RuntimeException("Failed to create a GLFW window");
         }
 
         // Set up the resize callback.
-        GLFW.glfwSetFramebufferSizeCallback(mainWindowId, (window, width, height) -> {
+        GLFW.glfwSetFramebufferSizeCallback(windowHandle, (window, width, height) -> {
             frameBufferWidth = width;
             frameBufferHeight = height;
             GL11C.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
@@ -518,26 +518,26 @@ public abstract class BaseApplication {
         });
 
         // Create and initialize the InputManager.
-        inputManager = new InputManager(mainWindowId);
+        inputManager = new InputManager(windowHandle);
 
         // Center the window.
         GLFWVidMode videoMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
-        GLFW.glfwSetWindowPos(mainWindowId,
+        GLFW.glfwSetWindowPos(windowHandle,
                 (videoMode.width() - frameBufferWidth) / 2,
                 (videoMode.height() - frameBufferHeight) / 2
         );
 
         // Use the new window as the current OpenGL context.
-        GLFW.glfwMakeContextCurrent(mainWindowId);
+        GLFW.glfwMakeContextCurrent(windowHandle);
 
         // Make the window visible.
-        GLFW.glfwShowWindow(mainWindowId);
+        GLFW.glfwShowWindow(windowHandle);
 
         GL.createCapabilities();
         Utils.checkForOglError();
 
         if (enableDebugging) {
-            debugCallback = GLUtil.setupDebugMessageCallback();
+            debugMessengerCallback = GLUtil.setupDebugMessageCallback();
             Utils.checkForOglError();
             // If no debug mode is available, the callback remains null.
         }
@@ -568,14 +568,14 @@ public abstract class BaseApplication {
         // Create the initial camera at z=10 looking toward the origin.
         cam = new Camera(new Vector3f(0f, 0f, 10f), -FastMath.HALF_PI, 0f);
 
-        cameraInputProcessor = new CameraInputProcessor(mainWindowId);
+        cameraInputProcessor = new CameraInputProcessor(windowHandle);
         inputManager.add(cameraInputProcessor);
 
         inputManager.add(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPress) {
                 if (keyId == GLFW.GLFW_KEY_ESCAPE) { // stop the application
-                    GLFW.glfwSetWindowShouldClose(mainWindowId, true);
+                    GLFW.glfwSetWindowShouldClose(windowHandle, true);
                     return;
                 }
                 super.onKeyboard(keyId, isPress);
@@ -600,7 +600,7 @@ public abstract class BaseApplication {
      * The application's main update loop.
      */
     private void mainUpdateLoop() {
-        while (!GLFW.glfwWindowShouldClose(mainWindowId)) {
+        while (!GLFW.glfwWindowShouldClose(windowHandle)) {
             updateBase();
         }
     }
@@ -637,7 +637,7 @@ public abstract class BaseApplication {
         Utils.checkForOglError();
 
         render();
-        GLFW.glfwSwapBuffers(mainWindowId);
+        GLFW.glfwSwapBuffers(windowHandle);
         GLFW.glfwPollEvents();
 
         cameraInputProcessor.update();
