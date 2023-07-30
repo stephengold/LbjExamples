@@ -29,7 +29,6 @@
  */
 package com.github.stephengold.sport;
 
-import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import java.awt.image.BufferedImage;
@@ -314,13 +313,16 @@ final public class Utils {
     public static void toSpherical(Vector3f vec) {
         double xx = vec.x;
         double yy = vec.y;
-        float rxy = (float) Math.sqrt(xx * xx + yy * yy); // MyMath
-        float phi = FastMath.atan2(rxy, vec.z);
-        float theta = FastMath.atan2(vec.y, vec.x);
-        float r = vec.length();
+        double zz = vec.z;
+        double sumOfSquares = xx * xx + yy * yy;
+        double rxy = Math.sqrt(sumOfSquares);
+        double theta = Math.atan2(yy, xx);
+        sumOfSquares += zz * zz;
+        double phi = Math.atan2(rxy, zz);
+        double rr = Math.sqrt(sumOfSquares);
 
-        vec.x = r;
-        vec.y = theta; // polar angle
-        vec.z = phi;   // azimuthal angle
+        vec.x = (float) rr;    // distance from origin
+        vec.y = (float) theta; // polar angle
+        vec.z = (float) phi;   // azimuthal angle
     }
 }
