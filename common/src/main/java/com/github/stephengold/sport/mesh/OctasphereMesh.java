@@ -183,9 +183,9 @@ public class OctasphereMesh extends Mesh {
         Validate.inRange(numRefineSteps, "number of refinement steps", 0, 13);
 
         int numVertices = super.countVertices();
-        uOverrides = new ArrayList<>(numVertices);
-        locations = new ArrayList<>(numVertices);
-        midpointCache = new HashMap<>(numVertices);
+        this.uOverrides = new ArrayList<>(numVertices);
+        this.locations = new ArrayList<>(numVertices);
+        this.midpointCache = new HashMap<>(numVertices);
 
         // Add the 6 vertices of a regular octahedron with radius=1.
         addVertex(octaLocations[0], -1f); //  [0]
@@ -257,8 +257,8 @@ public class OctasphereMesh extends Mesh {
         assert locations.size() == uOverrides.size();
         midpointCache.clear();
 
-        posBuffer = super.createPositions();
-        uvBuffer = super.createUvs();
+        this.posBuffer = super.createPositions();
+        this.uvBuffer = super.createUvs();
 
         if (withIndices) {
             assert locations.size() == numVertices :
@@ -291,7 +291,7 @@ public class OctasphereMesh extends Mesh {
 
         locations.clear();
         uOverrides.clear();
-        tmpVector = null;
+        this.tmpVector = null;
     }
 
     /**

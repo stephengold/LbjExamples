@@ -58,7 +58,7 @@ import org.lwjgl.system.MemoryUtil;
  * A single-window, 3-D visualization application using LWJGL v3, GLFW, and
  * OpenGL.
  */
-public abstract class BaseApplication {
+abstract public class BaseApplication {
     // *************************************************************************
     // constants
 
@@ -131,7 +131,7 @@ public abstract class BaseApplication {
     /**
      * GLFW handle of the window used to render geometries
      */
-    private static long windowHandle;
+    private static long windowHandle = MemoryUtil.NULL;
     /**
      * map program names to programs
      */
@@ -288,13 +288,13 @@ public abstract class BaseApplication {
     /**
      * Alter the background color of the window.
      *
-     * @param newColor the desired color (not null, default=black)
+     * @param desiredColor the desired color (not null, default=black)
      */
-    public static void setBackgroundColor(Vector4fc newColor) {
-        float red = newColor.x();
-        float green = newColor.y();
-        float blue = newColor.z();
-        float alpha = newColor.w();
+    public static void setBackgroundColor(Vector4fc desiredColor) {
+        float red = desiredColor.x();
+        float green = desiredColor.y();
+        float blue = desiredColor.z();
+        float alpha = desiredColor.w();
         GL11C.glClearColor(red, green, blue, alpha);
         Utils.checkForOglError();
     }
