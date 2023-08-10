@@ -29,6 +29,9 @@
  */
 package com.github.stephengold.sport;
 
+import com.github.stephengold.sport.input.CameraInputProcessor;
+import com.github.stephengold.sport.input.InputManager;
+import com.github.stephengold.sport.input.InputProcessor;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import java.io.PrintStream;

@@ -31,8 +31,8 @@ package com.github.stephengold.sport.test;
 
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Geometry;
-import com.github.stephengold.sport.InputManager;
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.input.InputManager;
 import com.github.stephengold.sport.mesh.CrosshairsMesh;
 import com.jme3.math.Vector3f;
 import org.joml.Vector2fc;

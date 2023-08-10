@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -27,7 +27,7 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.sport;
+package com.github.stephengold.sport.input;
 
 /**
  * Handle user input in a BaseApplication.

@@ -29,11 +29,11 @@
  */
 package com.github.stephengold.lbjexamples;
 
-import com.github.stephengold.sport.CameraInputProcessor;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Geometry;
-import com.github.stephengold.sport.InputProcessor;
 import com.github.stephengold.sport.RotateMode;
+import com.github.stephengold.sport.input.CameraInputProcessor;
+import com.github.stephengold.sport.input.InputProcessor;
 import com.github.stephengold.sport.mesh.LineMesh;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
 import com.jme3.bullet.PhysicsSpace;

@@ -27,14 +27,13 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.sport;
+package com.github.stephengold.sport.input;
 
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
-import org.lwjgl.glfw.GLFWScrollCallback;
-
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWScrollCallback;
 
 /**
  * Provide applications with convenient access to user input (keyboard, mouse,
@@ -71,7 +70,7 @@ public class InputManager {
      *
      * @param windowId the GLFW handle of the window (not null)
      */
-    InputManager(long windowId) {
+    public InputManager(long windowId) {
         this.glfwWindowId = windowId;
 
         // Set up the user-input callbacks.

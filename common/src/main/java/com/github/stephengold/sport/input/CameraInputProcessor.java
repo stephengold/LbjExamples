@@ -27,8 +27,11 @@
  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.stephengold.sport;
+package com.github.stephengold.sport.input;
 
+import com.github.stephengold.sport.BaseApplication;
+import com.github.stephengold.sport.Camera;
+import com.github.stephengold.sport.RotateMode;
 import com.jme3.math.Vector3f;
 import java.util.HashSet;
 import java.util.Set;
@@ -95,7 +98,7 @@ public class CameraInputProcessor extends InputProcessor {
      *
      * @param windowId the GLFW handle of the window (not null)
      */
-    CameraInputProcessor(long windowId) {
+    public CameraInputProcessor(long windowId) {
         this.rotationMode = RotateMode.None;
         this.windowId = windowId;
         this.keyIdsSeen = new HashSet<>(99);
@@ -138,7 +141,7 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * Poll each camera-movement key and move the camera accordingly.
      */
-    void update() {
+    public void update() {
         int forwardSignal = 0;
         int rightSignal = 0;
         int upSignal = 0;
