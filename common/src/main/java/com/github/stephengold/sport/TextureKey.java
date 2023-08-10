@@ -589,7 +589,11 @@ public class TextureKey {
         }
 
         String scheme = uri.getScheme();
-        if (scheme.equals("procedural")) {
+        if (scheme == null) {
+            String message = "no scheme in " + MyString.quote(uriString);
+            throw new IllegalArgumentException(message);
+
+        } else if (scheme.equals("procedural")) {
             String path = uri.getPath();
             if (path == null) {
                 String message = "no path in " + MyString.quote(uriString);
