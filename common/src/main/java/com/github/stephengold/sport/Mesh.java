@@ -99,7 +99,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     private VertexBuffer positionBuffer;
     /**
-     * texture coordinates (2 floats per vertex) or null if none
+     * vertex texture coordinates (2 floats per vertex) or null if none
      */
     private VertexBuffer texCoordsBuffer;
     // *************************************************************************
@@ -416,6 +416,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     public Mesh generateSphereNormals() {
         verifyMutable();
         createNormals();
+
         Vector3f tmpVector = new Vector3f();
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
             int bufferPosition = vertexIndex * numAxes;
@@ -707,7 +708,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Set new normals for the vertices.
+     * Assign new normals to the vertices.
      *
      * @param normalArray the desired vertex normals (not null,
      * length=3*vertexCount, unaffected)

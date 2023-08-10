@@ -72,7 +72,7 @@ public class CameraInputProcessor extends InputProcessor {
      */
     private int savedCursorInputMode = GLFW.GLFW_CURSOR_NORMAL;
     /**
-     * GLFW ID of the main window
+     * GLFW handle of the window
      */
     final private long windowId;
     /**
@@ -93,7 +93,7 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * Instantiate a processor for the specified window.
      *
-     * @param windowId the GLFW handle of the main window (not null)
+     * @param windowId the GLFW handle of the window (not null)
      */
     CameraInputProcessor(long windowId) {
         this.rotationMode = RotateMode.None;

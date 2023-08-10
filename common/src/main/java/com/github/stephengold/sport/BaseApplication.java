@@ -512,8 +512,10 @@ abstract public class BaseApplication {
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT,
                 GLFW.GLFW_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
 
-        windowHandle = GLFW.glfwCreateWindow(frameBufferWidth, frameBufferHeight,
-                initialTitle, MemoryUtil.NULL, MemoryUtil.NULL);
+        // Create the window:
+        windowHandle = GLFW.glfwCreateWindow(
+                frameBufferWidth, frameBufferHeight, initialTitle,
+                MemoryUtil.NULL, MemoryUtil.NULL);
         if (windowHandle == MemoryUtil.NULL) {
             throw new RuntimeException("Failed to create a GLFW window");
         }
