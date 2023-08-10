@@ -75,7 +75,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     /**
      * vertex indices, or null if none
      */
-    private IndexBuffer indices;
+    private IndexBuffer indexBuffer;
     /**
      * kind of geometric primitives contained in this Mesh, such as
      * GL_TRIANGLES, GL_LINE_LOOP, or GL_POINTS
@@ -186,8 +186,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         GL30C.glBindVertexArray(vaoId);
         Utils.checkForOglError();
 
-        if (indices != null) {
-            indices.cleanUp();
+        if (indexBuffer != null) {
+            indexBuffer.cleanUp();
         }
         if (positions != null) {
             positions.cleanUp();
@@ -210,7 +210,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * @return the count (&ge;0)
      */
     public int countIndexedVertices() {
-        int result = (indices == null) ? vertexCount : indices.capacity();
+        int result = (indexBuffer == null) ? vertexCount : indexBuffer.capacity();
         return result;
     }
 
@@ -344,7 +344,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         if (drawMode != GL11C.GL_TRIANGLES) {
             throw new IllegalStateException("drawMode = " + drawMode);
         }
-        if (indices != null) {
+        if (indexBuffer != null) {
             throw new IllegalStateException("must be non-indexed");
         }
         int numTriangles = countTriangles();
@@ -502,8 +502,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         if (textureCoordinates != null) {
             textureCoordinates.makeImmutable();
         }
-        if (indices != null) {
-            indices.makeImmutable();
+        if (indexBuffer != null) {
+            indexBuffer.makeImmutable();
         }
 
         return this;
@@ -521,13 +521,13 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         GL30C.glBindVertexArray(vaoId);
         Utils.checkForOglError();
 
-        if (indices == null) {
+        if (indexBuffer == null) {
             int startVertex = 0;
             GL11C.glDrawArrays(drawMode, startVertex, vertexCount);
             Utils.checkForOglError();
 
         } else {
-            indices.drawElements(drawMode);
+            indexBuffer.drawElements(drawMode);
         }
     }
 
@@ -649,8 +649,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     protected IndexBuffer createIndices(int capacity) {
         verifyMutable();
-        this.indices = new IndexBuffer(vertexCount, capacity);
-        return indices;
+        this.indexBuffer = new IndexBuffer(vertexCount, capacity);
+        return indexBuffer;
     }
 
     /**
@@ -749,8 +749,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     @Override
     public IndexBuffer getIndexBuffer() {
-        assert indices != null;
-        return indices;
+        assert indexBuffer != null;
+        return indexBuffer;
     }
 
     /**
@@ -853,7 +853,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     private void smoothNormals() {
         verifyMutable();
-        assert indices == null;
+        assert indexBuffer == null;
         assert normals != null;
 
         Map<Vector3f, Integer> mapPosToDpid = new HashMap<>(vertexCount);
