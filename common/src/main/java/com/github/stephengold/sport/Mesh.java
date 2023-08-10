@@ -56,15 +56,15 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     /**
      * number of axes in a 3-D vector
      */
-    protected static final int numAxes = 3;
+    final protected static int numAxes = 3;
     /**
      * number of vertices per edge (line)
      */
-    protected static final int vpe = 2;
+    final protected static int vpe = 2;
     /**
      * number of vertices per triangle
      */
-    protected static final int vpt = 3;
+    final protected static int vpt = 3;
     // *************************************************************************
     // fields
 
@@ -415,12 +415,11 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     public Mesh generateSphereNormals() {
         verifyMutable();
-        Vector3f tmpVector = new Vector3f();
-
         createNormals();
-        for (int vertIndex = 0; vertIndex < vertexCount; ++vertIndex) {
-            int vPosition = vertIndex * numAxes;
-            positions.get(vPosition, tmpVector);
+        Vector3f tmpVector = new Vector3f();
+        for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
+            int bufferPosition = vertexIndex * numAxes;
+            positions.get(bufferPosition, tmpVector);
             MyVector3f.normalizeLocal(tmpVector);
 
             normals.put(tmpVector.x).put(tmpVector.y).put(tmpVector.z);
@@ -698,16 +697,16 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     /**
      * Set new normals for the vertices.
      *
-     * @param normalsArray the desired vertex normals (not null,
+     * @param normalArray the desired vertex normals (not null,
      * length=3*vertexCount, unaffected)
      */
-    protected void setNormals(float... normalsArray) {
+    protected void setNormals(float... normalArray) {
+        int numFloats = normalArray.length;
+        Validate.require(numFloats == vertexCount * numAxes, "correct length");
         verifyMutable();
-        Validate.require(normalsArray.length == vertexCount * numAxes,
-                "correct length");
 
-        this.normals = new VertexBuffer(normalsArray, numAxes,
-                ShaderProgram.normalAttribName);
+        this.normals = new VertexBuffer(
+                normalArray, numAxes, ShaderProgram.normalAttribName);
     }
 
     /**
@@ -717,9 +716,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * length=3*vertexCount, unaffected)
      */
     protected void setPositions(float... positionArray) {
+        int numFloats = positionArray.length;
+        Validate.require(numFloats == vertexCount * numAxes, "correct length");
         verifyMutable();
-        Validate.require(positionArray.length == vertexCount * numAxes,
-                "correct length");
 
         this.positions = new VertexBuffer(positionArray, numAxes,
                 ShaderProgram.positionAttribName);
@@ -732,9 +731,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * length=2*vertexCount, unaffected)
      */
     protected void setUvs(float... uvArray) {
+        int numFloats = uvArray.length;
+        Validate.require(numFloats == 2 * vertexCount, "correct length");
         verifyMutable();
-        Validate.require(uvArray.length == 2 * vertexCount,
-                "correct length");
 
         this.textureCoordinates
                 = new VertexBuffer(uvArray, 2, ShaderProgram.uvAttribName);
