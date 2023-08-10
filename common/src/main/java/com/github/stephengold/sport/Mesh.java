@@ -93,15 +93,15 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     /**
      * vertex normals (3 floats per vertex) or null if none
      */
-    private VertexBuffer normals;
+    private VertexBuffer normalBuffer;
     /**
      * vertex positions (3 floats per vertex)
      */
-    private VertexBuffer positions;
+    private VertexBuffer positionBuffer;
     /**
      * texture coordinates (2 floats per vertex) or null if none
      */
-    private VertexBuffer textureCoordinates;
+    private VertexBuffer texCoordsBuffer;
     // *************************************************************************
     // constructors
 
@@ -119,7 +119,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
                 positionsArray.length % numAxes == 0, "length a multiple of 3");
 
         FloatBuffer data = BufferUtils.createFloatBuffer(positionsArray);
-        this.positions = new VertexBuffer(data, numAxes,
+        this.positionBuffer = new VertexBuffer(data, numAxes,
                 ShaderProgram.positionAttribName);
     }
 
@@ -139,7 +139,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         positionsBuffer.rewind();
         positionsBuffer.limit(capacity);
 
-        this.positions = new VertexBuffer(positionsBuffer, numAxes,
+        this.positionBuffer = new VertexBuffer(positionsBuffer, numAxes,
                 ShaderProgram.positionAttribName);
     }
 
@@ -155,7 +155,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         this(drawMode, positionsArray.length);
 
         FloatBuffer data = BufferUtils.createFloatBuffer(positionsArray);
-        this.positions = new VertexBuffer(data, numAxes,
+        this.positionBuffer = new VertexBuffer(data, numAxes,
                 ShaderProgram.positionAttribName);
     }
 
@@ -189,14 +189,14 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         if (indexBuffer != null) {
             indexBuffer.cleanUp();
         }
-        if (positions != null) {
-            positions.cleanUp();
+        if (positionBuffer != null) {
+            positionBuffer.cleanUp();
         }
-        if (normals != null) {
-            normals.cleanUp();
+        if (normalBuffer != null) {
+            normalBuffer.cleanUp();
         }
-        if (textureCoordinates != null) {
-            textureCoordinates.cleanUp();
+        if (texCoordsBuffer != null) {
+            texCoordsBuffer.cleanUp();
         }
 
         GL30C.glDeleteVertexArrays(vaoId);
@@ -359,9 +359,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         createNormals();
         for (int triIndex = 0; triIndex < numTriangles; ++triIndex) {
             int trianglePosition = triIndex * vpt * numAxes;
-            positions.get(trianglePosition, posA);
-            positions.get(trianglePosition + numAxes, posB);
-            positions.get(trianglePosition + 2 * numAxes, posC);
+            positionBuffer.get(trianglePosition, posA);
+            positionBuffer.get(trianglePosition + numAxes, posB);
+            positionBuffer.get(trianglePosition + 2 * numAxes, posC);
 
             posB.subtract(posA, normal);
             posC.subtract(posA, ac);
@@ -369,11 +369,11 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             MyVector3f.normalizeLocal(normal);
 
             for (int j = 0; j < vpt; ++j) {
-                normals.put(normal);
+                normalBuffer.put(normal);
             }
         }
-        normals.flip();
-        assert normals.limit() == normals.capacity();
+        normalBuffer.flip();
+        assert normalBuffer.limit() == normalBuffer.capacity();
 
         return this;
     }
@@ -391,7 +391,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
                 generateFacetNormals();
                 break;
             case None:
-                this.normals = null;
+                this.normalBuffer = null;
                 break;
             case Smooth:
                 generateFacetNormals();
@@ -419,13 +419,12 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         Vector3f tmpVector = new Vector3f();
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
             int bufferPosition = vertexIndex * numAxes;
-            positions.get(bufferPosition, tmpVector);
+            positionBuffer.get(bufferPosition, tmpVector);
             MyVector3f.normalizeLocal(tmpVector);
-
-            normals.put(tmpVector.x).put(tmpVector.y).put(tmpVector.z);
+            normalBuffer.put(tmpVector.x).put(tmpVector.y).put(tmpVector.z);
         }
-        normals.flip();
-        assert normals.limit() == normals.capacity();
+        normalBuffer.flip();
+        assert normalBuffer.limit() == normalBuffer.capacity();
 
         return this;
     }
@@ -445,7 +444,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             Vector4fc vCoefficients) {
         verifyMutable();
         if (option == UvsOption.None) {
-            textureCoordinates = null;
+            texCoordsBuffer = null;
             return this;
         }
         createUvs();
@@ -453,7 +452,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         Vector3f tmpVector = new Vector3f();
         for (int vertIndex = 0; vertIndex < vertexCount; ++vertIndex) {
             int inPosition = vertIndex * numAxes;
-            positions.get(inPosition, tmpVector);
+            positionBuffer.get(inPosition, tmpVector);
             switch (option) {
                 case Linear:
                     break;
@@ -470,10 +469,10 @@ public class Mesh implements jme3utilities.lbj.Mesh {
                     tmpVector.x, tmpVector.y, tmpVector.z, 1f);
             float v = vCoefficients.dot(
                     tmpVector.x, tmpVector.y, tmpVector.z, 1f);
-            textureCoordinates.put(u).put(v);
+            texCoordsBuffer.put(u).put(v);
         }
-        textureCoordinates.flip();
-        assert textureCoordinates.limit() == textureCoordinates.capacity();
+        texCoordsBuffer.flip();
+        assert texCoordsBuffer.limit() == texCoordsBuffer.capacity();
 
         return this;
     }
@@ -484,7 +483,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * @return the pre-existing buffer (not null)
      */
     public VertexBuffer getPositions() {
-        return positions;
+        return positionBuffer;
     }
 
     /**
@@ -507,12 +506,12 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     public Mesh makeImmutable() {
         this.mutable = false;
-        positions.makeImmutable();
-        if (normals != null) {
-            normals.makeImmutable();
+        positionBuffer.makeImmutable();
+        if (normalBuffer != null) {
+            normalBuffer.makeImmutable();
         }
-        if (textureCoordinates != null) {
-            textureCoordinates.makeImmutable();
+        if (texCoordsBuffer != null) {
+            texCoordsBuffer.makeImmutable();
         }
         if (indexBuffer != null) {
             indexBuffer.makeImmutable();
@@ -560,9 +559,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         Quaternion quaternion // TODO garbage
                 = new Quaternion().fromAngles(xAngle, yAngle, zAngle);
 
-        positions.rotate(quaternion);
-        if (normals != null) {
-            normals.rotate(quaternion);
+        positionBuffer.rotate(quaternion);
+        if (normalBuffer != null) {
+            normalBuffer.rotate(quaternion);
         }
 
         return this;
@@ -582,9 +581,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         int numFloats = vertexCount * numAxes;
         for (int floatIndex = 0; floatIndex < numFloats; ++floatIndex) {
-            float floatValue = positions.get(floatIndex);
+            float floatValue = positionBuffer.get(floatIndex);
             floatValue *= scaleFactor;
-            positions.put(floatIndex, floatValue);
+            positionBuffer.put(floatIndex, floatValue);
         }
 
         return this;
@@ -603,14 +602,14 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         }
         verifyMutable();
 
-        positions.transform(transform);
+        positionBuffer.transform(transform);
 
-        if (normals != null) {
+        if (normalBuffer != null) {
             Transform normalsTransform = transform.clone();
             normalsTransform.getTranslation().zero();
             normalsTransform.setScale(1f);
 
-            normals.transform(normalsTransform);
+            normalBuffer.transform(normalsTransform);
         }
 
         return this;
@@ -628,14 +627,14 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     public Mesh transformUvs(Vector4fc uCoefficients, Vector4fc vCoefficients) {
         verifyMutable();
-        if (textureCoordinates == null) {
+        if (texCoordsBuffer == null) {
             throw new IllegalStateException("There are no UVs in the mesh.");
         }
 
         for (int vIndex = 0; vIndex < vertexCount; ++vIndex) {
             int startPosition = 2 * vIndex;
-            float oldU = textureCoordinates.get(startPosition);
-            float oldV = textureCoordinates.get(startPosition + 1);
+            float oldU = texCoordsBuffer.get(startPosition);
+            float oldV = texCoordsBuffer.get(startPosition + 1);
 
             float newU = uCoefficients.w()
                     + uCoefficients.x() * oldU
@@ -644,8 +643,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
                     + vCoefficients.x() * oldU
                     + vCoefficients.y() * oldV;
 
-            textureCoordinates.put(startPosition, newU);
-            textureCoordinates.put(startPosition + 1, newV);
+            texCoordsBuffer.put(startPosition, newU);
+            texCoordsBuffer.put(startPosition + 1, newV);
         }
 
         return this;
@@ -677,10 +676,10 @@ public class Mesh implements jme3utilities.lbj.Mesh {
                     "The mesh doesn't contain any triangles.");
         }
 
-        this.normals = new VertexBuffer(vertexCount, numAxes,
-                ShaderProgram.normalAttribName);
+        this.normalBuffer = new VertexBuffer(
+                vertexCount, numAxes, ShaderProgram.normalAttribName);
 
-        return normals;
+        return normalBuffer;
     }
 
     /**
@@ -690,9 +689,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     protected VertexBuffer createPositions() {
         verifyMutable();
-        this.positions = new VertexBuffer(vertexCount, numAxes,
-                ShaderProgram.positionAttribName);
-        return positions;
+        this.positionBuffer = new VertexBuffer(
+                vertexCount, numAxes, ShaderProgram.positionAttribName);
+        return positionBuffer;
     }
 
     /**
@@ -702,9 +701,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     protected VertexBuffer createUvs() {
         verifyMutable();
-        this.textureCoordinates
+        this.texCoordsBuffer
                 = new VertexBuffer(vertexCount, 2, ShaderProgram.uvAttribName);
-        return textureCoordinates;
+        return texCoordsBuffer;
     }
 
     /**
@@ -718,7 +717,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         Validate.require(numFloats == vertexCount * numAxes, "correct length");
         verifyMutable();
 
-        this.normals = new VertexBuffer(
+        this.normalBuffer = new VertexBuffer(
                 normalArray, numAxes, ShaderProgram.normalAttribName);
     }
 
@@ -733,7 +732,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         Validate.require(numFloats == vertexCount * numAxes, "correct length");
         verifyMutable();
 
-        this.positions = new VertexBuffer(positionArray, numAxes,
+        this.positionBuffer = new VertexBuffer(positionArray, numAxes,
                 ShaderProgram.positionAttribName);
     }
 
@@ -748,7 +747,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         Validate.require(numFloats == 2 * vertexCount, "correct length");
         verifyMutable();
 
-        this.textureCoordinates
+        this.texCoordsBuffer
                 = new VertexBuffer(uvArray, 2, ShaderProgram.uvAttribName);
     }
     // *************************************************************************
@@ -772,7 +771,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     @Override
     public FloatBuffer getNormalsData() {
-        return normals.getBuffer();
+        return normalBuffer.getBuffer();
     }
 
     /**
@@ -782,7 +781,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     @Override
     public FloatBuffer getPositionsData() {
-        return positions.getBuffer();
+        return positionBuffer.getBuffer();
     }
 
     /**
@@ -812,7 +811,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     @Override
     public void setNormalsModified() {
-        normals.setModified();
+        normalBuffer.setModified();
     }
 
     /**
@@ -820,7 +819,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     @Override
     public void setPositionsModified() {
-        positions.setModified();
+        positionBuffer.setModified();
     }
     // *************************************************************************
     // private methods
@@ -850,12 +849,12 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             Utils.checkForOglError();
         }
 
-        positions.prepareToDraw(program);
-        if (normals != null) {
-            normals.prepareToDraw(program);
+        positionBuffer.prepareToDraw(program);
+        if (normalBuffer != null) {
+            normalBuffer.prepareToDraw(program);
         }
-        if (textureCoordinates != null) {
-            textureCoordinates.prepareToDraw(program);
+        if (texCoordsBuffer != null) {
+            texCoordsBuffer.prepareToDraw(program);
         }
     }
 
@@ -866,14 +865,14 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     private void smoothNormals() {
         verifyMutable();
         assert indexBuffer == null;
-        assert normals != null;
+        assert normalBuffer != null;
 
         Map<Vector3f, Integer> mapPosToDpid = new HashMap<>(vertexCount);
         int numDistinctPositions = 0;
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
             int start = vertexIndex * numAxes;
             Vector3f position = new Vector3f();
-            positions.get(start, position);
+            positionBuffer.get(start, position);
             MyVector3f.standardize(position, position);
             if (!mapPosToDpid.containsKey(position)) {
                 mapPosToDpid.put(position, numDistinctPositions);
@@ -892,11 +891,11 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         Vector3f tmpNormal = new Vector3f();
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
             int start = vertexIndex * numAxes;
-            positions.get(start, tmpPosition);
+            positionBuffer.get(start, tmpPosition);
             MyVector3f.standardize(tmpPosition, tmpPosition);
             int dpid = mapPosToDpid.get(tmpPosition);
 
-            normals.get(start, tmpNormal);
+            normalBuffer.get(start, tmpNormal);
             normalSums[dpid].addLocal(tmpNormal);
         }
         /*
@@ -910,10 +909,10 @@ public class Mesh implements jme3utilities.lbj.Mesh {
          */
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
             int start = vertexIndex * numAxes;
-            positions.get(start, tmpPosition);
+            positionBuffer.get(start, tmpPosition);
             MyVector3f.standardize(tmpPosition, tmpPosition);
             int dpid = mapPosToDpid.get(tmpPosition);
-            normals.put(start, normalSums[dpid]);
+            normalBuffer.put(start, normalSums[dpid]);
         }
     }
 
