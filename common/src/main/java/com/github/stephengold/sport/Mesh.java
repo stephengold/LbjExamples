@@ -488,6 +488,19 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
+     * Test whether this Mesh is indexed.
+     *
+     * @return true if indexed, otherwise false
+     */
+    boolean isIndexed() {
+        if (indexBuffer == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
      * Make this mesh immutable.
      *
      * @return the (modified) current instance (for chaining)
