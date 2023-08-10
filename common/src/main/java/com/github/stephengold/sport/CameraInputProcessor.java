@@ -93,7 +93,7 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * Instantiate a processor for the specified window.
      *
-     * @param windowId the GLFW ID of the main window
+     * @param windowId the GLFW handle of the main window (not null)
      */
     CameraInputProcessor(long windowId) {
         this.rotationMode = RotateMode.None;
@@ -250,14 +250,14 @@ public class CameraInputProcessor extends InputProcessor {
         if (lastMove != null) {
             Camera camera = BaseApplication.getCamera();
             Vector3f lookDirection = camera.getDirection(); // TODO garbage
-            Vector3f rightDirection = camera.rightDirection(null); // TODO garbage
+            Vector3f rightDirection
+                    = camera.rightDirection(null); // TODO garbage
 
             Vector3f sum = new Vector3f(); // TODO garbage
             MyVector3f.accumulateScaled(sum, lookDirection, forwardSignal);
             MyVector3f.accumulateScaled(sum, Vector3f.UNIT_Y, upSignal);
             MyVector3f.accumulateScaled(sum, rightDirection, rightSignal);
             if (!MyVector3f.isZero(sum)) {
-
                 long nanoseconds = nanoTime - lastMove;
                 float seconds = 1e-9f * nanoseconds;
                 float distance = moveSpeed * seconds;

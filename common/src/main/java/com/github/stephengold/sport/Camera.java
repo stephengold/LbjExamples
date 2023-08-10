@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,7 @@ import org.joml.Vector3fc;
  * and (vertical) field-of-view.
  * <p>
  * Intended for a Y-up environment. When the camera's azimuth and up angle are
- * both zero, it looks in +X direction.
+ * both zero, it looks in the +X direction.
  */
 public class Camera {
     // *************************************************************************
@@ -50,15 +50,16 @@ public class Camera {
 
     /**
      * rightward angle of the X-Z component of the look direction relative to
-     * the +X axis (in radians)
+     * the world +X axis (in radians)
      */
     private float azimuthRadians;
     /**
-     * vertical field-of-view angle (in radians, &gt;0, &lt;PI)
+     * vertical field-of-view angle (between the bottom plane and the top plane,
+     * in radians, &gt;0, &lt;PI)
      */
     private float fovy = MyMath.toRadians(45f);
     /**
-     * angle of the look direction above the X-Z plane (in radians)
+     * angle of the look direction above the world X-Z plane (in radians)
      */
     private float upAngleRadians;
     /**
@@ -80,6 +81,9 @@ public class Camera {
     // *************************************************************************
     // constructors
 
+    /**
+     * Instantiate a camera.
+     */
     public Camera() {
         updateDirectionVectors();
     }

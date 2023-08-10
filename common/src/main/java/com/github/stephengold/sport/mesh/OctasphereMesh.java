@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -52,7 +52,7 @@ import org.lwjgl.opengl.GL11C;
  * The center is at (0,0,0). All triangles face outward with right-handed
  * winding.
  * <p>
- * Texture coordinates are assigned as follows:
+ * Texture coordinates are generated for an equirectangular projection:
  * <ul>
  * <li>U is the azimuthal angle, measured (in half revs) from the +X axis to the
  * projection of the vector onto the X-Y plane. It ranges from -1 to +1.
@@ -148,8 +148,8 @@ public class OctasphereMesh extends Mesh {
     // constructors
 
     /**
-     * Instantiate a mutable unit sphere with indices, using the specified
-     * number of refinement steps.
+     * Instantiate a mutable octasphere of radius=1 with indices, using the
+     * specified number of refinement steps.
      *
      * @param numRefineSteps number of refinement steps (&ge;0, &le;13)
      */
@@ -158,8 +158,8 @@ public class OctasphereMesh extends Mesh {
     }
 
     /**
-     * Instantiate a mutable unit sphere using the specified number of
-     * refinement steps:
+     * Instantiate a mutable octasphere of radius=1 using the specified number
+     * of refinement steps:
      * <ul><li>
      * 0 steps &rarr; 11 unique vertices and 8 triangular faces
      * </li><li>
@@ -176,6 +176,7 @@ public class OctasphereMesh extends Mesh {
      *
      * @param numRefineSteps number of refinement steps (&ge;0, &le;13)
      * @param withIndices true for an indexed mesh, false for a non-indexed mesh
+     * (default=true)
      */
     public OctasphereMesh(int numRefineSteps, boolean withIndices) {
         super(GL11C.GL_TRIANGLES, countVertices(numRefineSteps, withIndices));
@@ -185,29 +186,25 @@ public class OctasphereMesh extends Mesh {
         uOverrides = new ArrayList<>(numVertices);
         locations = new ArrayList<>(numVertices);
         midpointCache = new HashMap<>(numVertices);
-        /*
-         * Add the 6 vertices of a regular octahedron with radius=1.
-         */
+
+        // Add the 6 vertices of a regular octahedron with radius=1.
         addVertex(octaLocations[0], -1f); //  [0]
         addVertex(octaLocations[1], 0f); //   [1]
         addVertex(octaLocations[2], null); // [2]
         addVertex(octaLocations[3], null); // [3]
         addVertex(octaLocations[4], -1f); //  [4]
         addVertex(octaLocations[5], -1f); //  [5]
-        /*
-         * Add duplicate vertices with U=+1.
-         */
+
+        // Add duplicate vertices with U=+1.
         addVertex(octaLocations[0], +1f); // [6]
         addVertex(octaLocations[4], +1f); // [7]
         addVertex(octaLocations[5], +1f); // [8]
-        /*
-         * Add triplicate polar vertices with U=0.
-         */
+
+        // Add triplicate polar vertices with U=0.
         addVertex(octaLocations[4], 0f); // [9]
         addVertex(octaLocations[5], 0f); // [10]
-        /*
-         * Add the 8 triangular faces of a regular octahedron.
-         */
+
+        // Add the 8 triangular faces of a regular octahedron.
         List<Integer> faces = new ArrayList<>(24);
         for (int octaIndex : octaIndices) {
             faces.add(octaIndex);
@@ -264,7 +261,8 @@ public class OctasphereMesh extends Mesh {
         uvBuffer = super.createUvs();
 
         if (withIndices) {
-            assert locations.size() == numVertices : locations.size() + " != " + numVertices;
+            assert locations.size() == numVertices :
+                    locations.size() + " != " + numVertices;
 
             IndexBuffer indexBuffer = super.createIndices(faces.size());
             for (int vertexIndex : faces) {
@@ -278,7 +276,8 @@ public class OctasphereMesh extends Mesh {
             }
 
         } else { // non-indexed mesh
-            assert faces.size() == numVertices;
+            assert faces.size() == numVertices :
+                    faces.size() + " != " + numVertices;
 
             for (int vertexIndex : faces) {
                 putVertex(vertexIndex);
@@ -315,7 +314,7 @@ public class OctasphereMesh extends Mesh {
     // private methods
 
     /**
-     * Add a vertex to the lists of locations and normals.
+     * Add a vertex to the lists of locations.
      *
      * @param location the approximate vertex location (in mesh coordinates, not
      * null, unaffected)
@@ -389,9 +388,7 @@ public class OctasphereMesh extends Mesh {
      * @return the midpoint index (&ge;0)
      */
     private int midpointIndex(int p1, int p2) {
-        /*
-         * Check whether the midpoint has already been assigned an index.
-         */
+        // Check whether the midpoint has already been assigned an index.
         boolean firstIsSmaller = p1 < p2;
         long smallerIndex = firstIsSmaller ? p1 : p2;
         long greaterIndex = firstIsSmaller ? p2 : p1;
@@ -400,9 +397,8 @@ public class OctasphereMesh extends Mesh {
         if (cachedIndex != null) {
             return cachedIndex;
         }
-        /*
-         * The midpoint vertex is not in the cache: calculate its location.
-         */
+
+        // The midpoint vertex is not in the cache: calculate its location.
         Vector3f loc1 = locations.get(p1);
         Vector3f loc2 = locations.get(p2);
         Vector3f middleLocation = MyVector3f.midpoint(loc1, loc2, null);
@@ -414,13 +410,11 @@ public class OctasphereMesh extends Mesh {
         } else {
             assert uOverrides.get(p1) == null || uOverrides.get(p2) == null;
         }
-        /*
-         * addVertex() scales the midpoint location to the sphere's surface.
-         */
+
+        // addVertex() scales the midpoint location to the sphere's surface.
         int newIndex = addVertex(middleLocation, middleUOverride);
-        /*
-         * Add the new vertex to the midpoint cache.
-         */
+
+        // Add the new vertex to the midpoint cache.
         midpointCache.put(key, newIndex);
 
         return newIndex;

@@ -192,7 +192,7 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Return the named ShaderProgram.
+     * Access the named ShaderProgram, returning a cached result if possible.
      *
      * @param name (not null)
      * @return a valid program (not null)
@@ -250,7 +250,7 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Test whether debugging aids are enabled.
+     * Test whether the debugging aids are enabled.
      *
      * @return true if enabled, otherwise false
      */
@@ -286,7 +286,7 @@ public abstract class BaseApplication {
     }
 
     /**
-     * Alter the background color of the displayed window.
+     * Alter the background color of the window.
      *
      * @param newColor the desired color (not null, default=black)
      */
@@ -346,7 +346,7 @@ public abstract class BaseApplication {
                     "%s v%d.%d.%d", appName, appMajor, appMinor, appPatch);
         }
 
-        // Initialize this class.
+        // Initialize this class:
         initializeBase(title);
 
         // Initialize the subclass.
@@ -453,7 +453,7 @@ public abstract class BaseApplication {
     // private methods
 
     /**
-     * Clean up this class.
+     * Cleanly terminate the application after the window closes for any reason.
      */
     private static void cleanUpBase() {
         deferredQueue.clear();
@@ -474,6 +474,9 @@ public abstract class BaseApplication {
 
     /**
      * Initialize this class.
+     *
+     * @param initialTitle the initial text for the window's title bar (not
+     * null)
      */
     private void initializeBase(String initialTitle) {
         if (enableDebugging) {
@@ -482,9 +485,11 @@ public abstract class BaseApplication {
             Configuration.DEBUG_LOADER.set(true);
             Configuration.DEBUG_MEMORY_ALLOCATOR.set(true);
             Configuration.DEBUG_MEMORY_ALLOCATOR_INTERNAL.set(true);
+            //Configuration.DEBUG_MEMORY_ALLOCATOR_FAST.set(true);
             Configuration.DEBUG_STACK.set(true);
         }
 
+        // Report GLFW errors to System.err:
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!GLFW.glfwInit()) {
@@ -513,7 +518,7 @@ public abstract class BaseApplication {
             throw new RuntimeException("Failed to create a GLFW window");
         }
 
-        // Set up the resize callback.
+        // Request callback when the frame buffer is resized:
         GLFW.glfwSetFramebufferSizeCallback(windowHandle, (window, width, height) -> {
             frameBufferWidth = width;
             frameBufferHeight = height;

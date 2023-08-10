@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -54,7 +54,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     // constants
 
     /**
-     * number of axes in a vector
+     * number of axes in a 3-D vector
      */
     protected static final int numAxes = 3;
     /**
@@ -314,7 +314,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Count how many vertices this Mesh contains, based on VertexBuffer
+     * Count how many vertices the mesh contains, based on VertexBuffer
      * capacities, unmodified by draw mode and indexing.
      *
      * @return the count (&ge;0)
@@ -711,7 +711,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Set new positions for the vertices.
+     * Assign new positions to the vertices.
      *
      * @param positionArray the desired vertex positions (not null,
      * length=3*vertexCount, unaffected)
@@ -726,7 +726,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Set new texture coordinates for the vertices.
+     * Assign new texture coordinates to the vertices.
      *
      * @param uvArray the desired vertex texture coordinates (not null,
      * length=2*vertexCount, unaffected)

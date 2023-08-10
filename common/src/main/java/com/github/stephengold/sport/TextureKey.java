@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,7 @@ public class TextureKey {
     // fields
 
     /**
-     * true to generate mipmaps, false to skip generating them
+     * true to generate MIP maps, false to skip generating them
      */
     final private boolean mipmaps;
     private static boolean mipmapsDefault = true;
@@ -144,7 +144,7 @@ public class TextureKey {
      * (default=GL_REPEAT)
      * @param wrapV wrap function for the 2nd (V) texture coordinate
      * (default=GL_REPEAT)
-     * @param mipmaps true to generate mipmaps, false to skip (default=true)
+     * @param mipmaps true to generate MIP maps, false to skip (default=true)
      * @param maxAniso the maximum degree of anisotropic filtering (&ge;1,
      * default=1)
      */
@@ -249,7 +249,7 @@ public class TextureKey {
     }
 
     /**
-     * Test whether mipmaps should be generated during load().
+     * Test whether MIP maps should be generated during load().
      *
      * @return true if they should be generated, otherwise false
      */
@@ -290,7 +290,7 @@ public class TextureKey {
     }
 
     /**
-     * Alter the default mipmaps setting for new texture keys.
+     * Alter the default MIP maps setting for new texture keys.
      *
      * @param enable the setting to be assigned (default=true)
      */
