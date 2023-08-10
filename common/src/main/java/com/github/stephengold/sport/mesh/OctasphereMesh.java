@@ -256,6 +256,7 @@ public class OctasphereMesh extends Mesh {
 //
         assert locations.size() == uOverrides.size();
         midpointCache.clear();
+        assert faces.size() == 3 << (3 + 2 * numRefineSteps);
 
         this.posBuffer = super.createPositions();
         this.uvBuffer = super.createUvs();
