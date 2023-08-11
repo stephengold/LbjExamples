@@ -267,34 +267,41 @@ jar.manifest.attributes('Main-Class': application.mainClass)
 dependencies {
     if (includeLinux) {
         runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux"
+        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-linux"
         runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux"
         runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux"
 
         runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux-arm32"
+        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-linux-arm32"
         runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux-arm32"
         runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux-arm32"
 
         runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-linux-arm64"
         runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux-arm64"
         runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux-arm64"
     }
 
     if (includeMacOsX) {
         runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos"
+        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-macos"
         runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos"
         runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos"
 
         runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos-arm64"
+        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-macos-arm64"
         runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos-arm64"
         runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos-arm64"
     }
 
     if (includeWindows) {
         runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows"
+        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-windows"
         runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows"
         runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows"
 
         runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows-x86"
+        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-windows-x86"
         runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows-x86"
         runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows-x86"
     }
