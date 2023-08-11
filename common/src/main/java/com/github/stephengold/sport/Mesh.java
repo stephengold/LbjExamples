@@ -786,7 +786,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Test whether the draw mode is GL_LINES. Indexing is allowed.
+     * Test whether the draw mode is GL_LINES. Indexing is ignored.
      *
      * @return true if pure lines, otherwise false
      */
@@ -797,7 +797,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Test whether the draw mode is GL_TRIANGLES.
+     * Test whether the draw mode is GL_TRIANGLES. Indexing is ignored.
      *
      * @return true if pure triangles, otherwise false
      */
@@ -880,9 +880,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
                 ++numDistinctPositions;
             }
         }
-        /*
-         * Initialize the normal sum for each distinct position.
-         */
+
+        // Initialize the normal sum for each distinct position.
         Vector3f[] normalSums = new Vector3f[numDistinctPositions];
         for (int dpid = 0; dpid < numDistinctPositions; ++dpid) {
             normalSums[dpid] = new Vector3f();
@@ -899,15 +898,13 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             normalBuffer.get(start, tmpNormal);
             normalSums[dpid].addLocal(tmpNormal);
         }
-        /*
-         * Re-normalize the normal sum for each distinct position.
-         */
+
+        // Re-normalize the normal sum for each distinct position.
         for (Vector3f normal : normalSums) {
             MyVector3f.normalizeLocal(normal);
         }
-        /*
-         * Write new normals to the buffer.
-         */
+
+        // Write new normals to the buffer.
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
             int start = vertexIndex * numAxes;
             positionBuffer.get(start, tmpPosition);

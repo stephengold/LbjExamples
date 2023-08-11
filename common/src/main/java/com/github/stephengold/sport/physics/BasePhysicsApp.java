@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -304,9 +304,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     @Override
     protected void render() {
         ++renderCount;
-        /*
-         * Advance the physics, but not during the first render().
-         */
+
+        //Advance the physics, but not during the first render().
         long nanoTime = System.nanoTime();
         if (renderCount > 1) {
             long nanoseconds = nanoTime - lastPhysicsUpdate;

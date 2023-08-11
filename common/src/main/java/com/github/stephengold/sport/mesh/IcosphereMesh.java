@@ -130,15 +130,13 @@ public class IcosphereMesh extends Mesh {
         int numVertices = super.countVertices();
         locations = new ArrayList<>(numVertices);
         midpointCache = new HashMap<>(numVertices);
-        /*
-         * Add the 12 vertices of a regular icosahedron with radius=1.
-         */
+
+        // Add the 12 vertices of a regular icosahedron with radius=1.
         for (Vector3f icoLocation : icoLocations) {
             addVertex(icoLocation);
         }
-        /*
-         * Add the 20 triangular faces of a regular icosahedron.
-         */
+
+        // Add the 20 triangular faces of a regular icosahedron.
         List<Integer> faces = new ArrayList<>(60);
         for (int icoIndex : icoIndices) {
             faces.add(icoIndex);
@@ -296,19 +294,16 @@ public class IcosphereMesh extends Mesh {
         if (cachedIndex != null) {
             return cachedIndex;
         }
-        /*
-         * The midpoint vertex is not in the cache: calculate its location.
-         */
+
+        // The midpoint vertex is not in the cache: calculate its location.
         Vector3f loc1 = locations.get(p1);
         Vector3f loc2 = locations.get(p2);
         Vector3f middleLocation = MyVector3f.midpoint(loc1, loc2, null);
-        /*
-         * addVertex() scales the midpoint location to the sphere's surface.
-         */
+
+        // addVertex() scales the midpoint location to the sphere's surface.
         int newIndex = addVertex(middleLocation);
-        /*
-         * Add the new vertex to the midpoint cache.
-         */
+
+        // Add the new vertex to the midpoint cache.
         midpointCache.put(key, newIndex);
 
         return newIndex;

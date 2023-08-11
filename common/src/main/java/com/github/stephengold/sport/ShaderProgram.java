@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -144,9 +144,7 @@ class ShaderProgram {
      * Delete the program object.
      */
     void cleanUp() {
-        /*
-         * Ensure the program object isn't in use.
-         */
+        // Ensure the program object isn't in use.
         GL20C.glUseProgram(0);
         Utils.checkForOglError();
 
