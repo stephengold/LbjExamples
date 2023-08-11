@@ -187,6 +187,10 @@ tasks.register('HelloWind', JavaExec) {
 }
 
 // graphics-only tests
+tasks.register('AssimpTest', JavaExec) {
+    enableAssertions true
+    mainClass = 'com.github.stephengold.sport.test.AssimpTest'
+}
 tasks.register('CheckerboardTest', JavaExec) {
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.CheckerboardTest'
