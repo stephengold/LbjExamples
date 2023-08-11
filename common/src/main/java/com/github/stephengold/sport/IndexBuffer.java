@@ -163,6 +163,16 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
     }
 
     /**
+     * Return the type of vertex indices (elements) contained in the buffer.
+     *
+     * @return an OpenGL data type (GL_UNSIGNED_BYTE, GL_UNSIGNED_SHORT, or
+     * GL_UNSIGNED_INT)
+     */
+    int indexType() {
+        return elementType;
+    }
+
+    /**
      * Test whether the buffer is read-only.
      *
      * @return {@code true} if read-only, otherwise false
