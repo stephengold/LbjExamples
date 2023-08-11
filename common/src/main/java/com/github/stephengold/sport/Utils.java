@@ -176,15 +176,14 @@ final public class Utils {
 
         ImageIO.setUseCache(false);
 
-        BufferedImage result;
         try {
-            result = ImageIO.read(inputStream);
+            BufferedImage result = ImageIO.read(inputStream);
+            return result;
+
         } catch (IOException exception) {
             String q = MyString.quote(resourceName);
             throw new RuntimeException("unable to read " + q);
         }
-
-        return result;
     }
 
     /**
