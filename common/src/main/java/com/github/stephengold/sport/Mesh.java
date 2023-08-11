@@ -986,6 +986,79 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         positionBuffer.setModified();
     }
     // *************************************************************************
+    // Object methods
+
+    /**
+     * Represent the mesh as a text string.
+     *
+     * @return a descriptive string of text (not null)
+     */
+    @Override
+    public String toString() {
+        // Determine how many vertices to describe:
+        int numToDescribe = countIndexedVertices();
+        if (numToDescribe > 24) {
+            numToDescribe = 24;
+        }
+
+        StringBuilder result = new StringBuilder(80 * (1 + numToDescribe));
+        if (indexBuffer != null) {
+            int indexType = indexBuffer.indexType();
+            String elementString = Utils.describeCode(indexType);
+            result.append(elementString);
+            result.append("-indexed ");
+        }
+        String modeString = Utils.describeCode(drawMode);
+        result.append(modeString);
+        result.append("-mode mesh (verts=");
+        int numVerts = countVertices();
+        result.append(numVerts);
+
+        if (indexBuffer != null) {
+            result.append(" inds=");
+            int numInds = indexBuffer.capacity();
+            result.append(numInds);
+        }
+
+        int numTris = countTriangles();
+        if (numTris > 0) {
+            result.append(" tris=");
+            result.append(numTris);
+        }
+
+        int numLines = countLines();
+        if (numLines > 0) {
+            result.append(" lines=");
+            result.append(numLines);
+        }
+        result.append(")");
+        /*
+         * In the body of the description, vertices appear in groups,
+         * separated by empty lines.
+         *
+         * Determine how many vertices to describe after each empty line:
+         */
+        int vpp = vpp();
+        int linesPerGroup = (vpp == 1) ? numToDescribe : vpp;
+
+        String nl = System.lineSeparator();
+
+        for (int i = 0; i < numToDescribe; ++i) {
+            if ((i % linesPerGroup) == 0) {
+                result.append(nl);
+            }
+
+            int vertexIndex = (indexBuffer == null) ? i : indexBuffer.get(i);
+            result.append(vertexIndex);
+            result.append(": ");
+            Vertex v = copyVertex(vertexIndex);
+            result.append(v);
+            result.append(nl);
+        }
+
+        return result.toString();
+    }
+    // *************************************************************************
     // private methods
 
     /**
