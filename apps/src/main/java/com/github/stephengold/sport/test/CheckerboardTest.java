@@ -60,7 +60,7 @@ public class CheckerboardTest extends BaseApplication {
     /**
      * Main entry point for the CheckerboardTest application.
      *
-     * @param arguments array of command-line arguments (not null)
+     * @param arguments the array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         CheckerboardTest application = new CheckerboardTest();

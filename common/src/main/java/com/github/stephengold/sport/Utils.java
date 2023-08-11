@@ -48,6 +48,9 @@ import org.lwjgl.opengl.GL14C;
 import org.lwjgl.opengl.GL15C;
 import org.lwjgl.opengl.GL20C;
 
+/**
+ * Public utility methods in the SPORT library.
+ */
 final public class Utils {
     // *************************************************************************
     // constructors
