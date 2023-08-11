@@ -60,11 +60,11 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     /**
      * number of vertices per edge (line)
      */
-    final protected static int vpe = 2;
+    final public static int vpe = 2;
     /**
      * number of vertices per triangle
      */
-    final protected static int vpt = 3;
+    final public static int vpt = 3;
     // *************************************************************************
     // fields
 
