@@ -348,7 +348,7 @@ public class Camera {
     public Camera setLocation(Vector3f newLocation, Vector3f targetLocation) {
         eyeLocation.set(newLocation);
 
-        Vector3f direction = newLocation.subtract(targetLocation);
+        Vector3f direction = targetLocation.subtract(newLocation);
         setLookDirection(direction);
 
         return this;
