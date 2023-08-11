@@ -35,6 +35,7 @@ import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import com.jme3.util.BufferUtils;
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -643,6 +644,34 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         } else {
             indexBuffer.drawElements(drawMode);
         }
+    }
+
+    /**
+     * Create a mutable triangle mesh by de-duplicating a list of vertices.
+     *
+     * @param vertices the vertex data to use (not null, unaffected)
+     * @return a new instance
+     */
+    public static Mesh newInstance(List<Vertex> vertices) {
+        int count = vertices.size();
+        List<Integer> tempIndices = new ArrayList<>(count);
+        List<Vertex> tempVertices = new ArrayList<>(count);
+        Map<Vertex, Integer> tempMap = new HashMap<>(count);
+
+        for (Vertex vertex : vertices) {
+            Integer index = tempMap.get(vertex);
+            if (index == null) {
+                int nextIndex = tempVertices.size();
+                tempIndices.add(nextIndex);
+                tempVertices.add(vertex);
+                tempMap.put(vertex, nextIndex);
+            } else { // reuse a vertex we've already seen
+                tempIndices.add(index);
+            }
+        }
+
+        Mesh result = new Mesh(tempIndices, tempVertices);
+        return result;
     }
 
     /**
