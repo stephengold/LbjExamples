@@ -8,6 +8,6 @@ out vec3 fragColor;
 
 void main() {
     vec2 f = fract(UV);
-    vec srgb = vec3(f.x, f.y, 1.0 - f.x - f.y);
+    vec3 srgb = vec3(f.x, f.y, 1.0 - f.x - f.y);
     fragColor = pow(srgb, vec3(2.2, 2.2, 2.2));
 }
