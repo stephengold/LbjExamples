@@ -309,7 +309,7 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
             GL15C.glBufferData(target, (IntBuffer) buffer, usageHint);
             Utils.checkForOglError();
         }
-        isModified = false;
+        this.isModified = false;
 
         if (usageHint == GL15C.GL_STATIC_DRAW) {
             makeImmutable();
@@ -339,6 +339,6 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
             Utils.checkForOglError();
         }
 
-        isModified = false;
+        this.isModified = false;
     }
 }
