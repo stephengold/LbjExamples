@@ -1,0 +1,16 @@
+Licensing history for files in "apps/src/main/resources/Models/viking_room"
+
+Based on "Viking room" with modifications by Alexander Overvoorde:
+* download files:    viking_room.obj and viking_room.png
+* downloaded from:   https://vulkan-tutorial.com/Loading_models
+* original author:   nigelgoh (Nigel Goh)
+* author URL:        https://sketchfab.com/nigelgoh
+* license type:      CC-BY-4.0 (CC Attribution)
+* license URL:       https://creativecommons.org/licenses/by/4.0/
+
+Files used without further modification:
+* viking_room.obj
+* viking_room.png
+
+Added files (also licensed CC-BY-4.0):
+* license.txt
