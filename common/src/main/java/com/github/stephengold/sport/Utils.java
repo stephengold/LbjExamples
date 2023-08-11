@@ -87,14 +87,20 @@ final public class Utils {
                 return "COLOR_BUFFER_BIT";
             case GL11C.GL_DEPTH_BUFFER_BIT:
                 return "DEPTH_BUFFER_BIT";
+            case GL11C.GL_BYTE:
+                return "BYTE";
             case GL11C.GL_DEPTH_TEST:
                 return "DEPTH_TEST";
+            case GL11C.GL_DOUBLE:
+                return "DOUBLE";
             case GL11C.GL_FALSE:
                 return "FALSE";
             case GL11C.GL_FLOAT:
                 return "FLOAT";
             case GL11C.GL_FRONT_AND_BACK:
                 return "FRONT_AND_BACK";
+            case GL11C.GL_INT:
+                return "INT";
             case GL11C.GL_LINEAR:
                 return "LINEAR";
             case GL11C.GL_LINEAR_MIPMAP_LINEAR:
@@ -120,12 +126,20 @@ final public class Utils {
                 return "REPEAT";
             case GL11C.GL_RGBA:
                 return "RGBA";
+            case GL11C.GL_SHORT:
+                return "SHORT";
             case GL11C.GL_TRIANGLE_FAN:
                 return "TRIANGLE_FAN";
             case GL11C.GL_TRIANGLES:
                 return "TRIANGLES";
             case GL11C.GL_TRIANGLE_STRIP:
                 return "TRIANGLE_STRIP";
+            case GL11C.GL_UNSIGNED_BYTE:
+                return "UNSIGNED_BYTE";
+            case GL11C.GL_UNSIGNED_INT:
+                return "UNSIGNED_INT";
+            case GL11C.GL_UNSIGNED_SHORT:
+                return "UNSIGNED_SHORT";
 
             case GL12C.GL_CLAMP_TO_EDGE:
                 return "CLAMP_TO_EDGE";
