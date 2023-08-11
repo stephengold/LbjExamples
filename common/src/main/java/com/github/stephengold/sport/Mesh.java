@@ -650,6 +650,40 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         return this;
     }
+
+    /**
+     * Return the number of vertices (or indices) per geometric primitive.
+     *
+     * @return the count (&ge;1, &le;4)
+     */
+    public int vpp() {
+        int result;
+        switch (drawMode) {
+            case GL11C.GL_POINTS:
+                return 1;
+
+            case GL11C.GL_LINES:
+            case GL11C.GL_LINE_LOOP:
+            case GL11C.GL_LINE_STRIP:
+                result = vpe;
+                break;
+
+            case GL11C.GL_TRIANGLES:
+            case GL11C.GL_TRIANGLE_STRIP:
+            case GL11C.GL_TRIANGLE_FAN:
+                result = vpt;
+                break;
+
+            case GL11C.GL_QUADS:
+                result = 4;
+                break;
+
+            default:
+                throw new IllegalStateException("drawMode = " + drawMode);
+        }
+
+        return result;
+    }
     // *************************************************************************
     // new protected methods
 
