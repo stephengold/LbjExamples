@@ -119,8 +119,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
                 positionsArray.length % numAxes == 0, "length a multiple of 3");
 
         FloatBuffer data = BufferUtils.createFloatBuffer(positionsArray);
-        this.positionBuffer = new VertexBuffer(data, numAxes,
-                ShaderProgram.positionAttribName);
+        this.positionBuffer = new VertexBuffer(
+                data, numAxes, ShaderProgram.positionAttribName);
     }
 
     /**
@@ -139,8 +139,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         positionsBuffer.rewind();
         positionsBuffer.limit(capacity);
 
-        this.positionBuffer = new VertexBuffer(positionsBuffer, numAxes,
-                ShaderProgram.positionAttribName);
+        this.positionBuffer = new VertexBuffer(
+                positionsBuffer, numAxes, ShaderProgram.positionAttribName);
     }
 
     /**
@@ -155,8 +155,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         this(drawMode, positionsArray.length);
 
         FloatBuffer data = BufferUtils.createFloatBuffer(positionsArray);
-        this.positionBuffer = new VertexBuffer(data, numAxes,
-                ShaderProgram.positionAttribName);
+        this.positionBuffer = new VertexBuffer(
+                data, numAxes, ShaderProgram.positionAttribName);
     }
 
     /**
@@ -210,7 +210,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * @return the count (&ge;0)
      */
     public int countIndexedVertices() {
-        int result = (indexBuffer == null) ? vertexCount : indexBuffer.capacity();
+        int result
+                = (indexBuffer == null) ? vertexCount : indexBuffer.capacity();
         return result;
     }
 
@@ -638,11 +639,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             float oldV = texCoordsBuffer.get(startPosition + 1);
 
             float newU = uCoefficients.w()
-                    + uCoefficients.x() * oldU
-                    + uCoefficients.y() * oldV;
+                    + uCoefficients.x() * oldU + uCoefficients.y() * oldV;
             float newV = vCoefficients.w()
-                    + vCoefficients.x() * oldU
-                    + vCoefficients.y() * oldV;
+                    + vCoefficients.x() * oldU + vCoefficients.y() * oldV;
 
             texCoordsBuffer.put(startPosition, newU);
             texCoordsBuffer.put(startPosition + 1, newV);
@@ -767,8 +766,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         Validate.require(numFloats == vertexCount * numAxes, "correct length");
         verifyMutable();
 
-        this.positionBuffer = new VertexBuffer(positionArray, numAxes,
-                ShaderProgram.positionAttribName);
+        this.positionBuffer = new VertexBuffer(
+                positionArray, numAxes, ShaderProgram.positionAttribName);
     }
 
     /**
