@@ -40,6 +40,9 @@ import java.util.Map;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
+import org.joml.Vector2f;
+import org.joml.Vector2fc;
+import org.joml.Vector3fc;
 import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL30C;
@@ -204,7 +207,43 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Count how many vertices this Mesh renders, taking indexing into account,
+     * Copy a single vertex from the mesh.
+     *
+     * @param vertexIndex the vertex index (&ge;0, &lt;vertexCount)
+     * @return a new vertex
+     */
+    Vertex copyVertex(int vertexIndex) {
+        Validate.inRange(vertexIndex, "vertex index", 0, vertexCount - 1);
+
+        FloatBuffer positionFloats = positionBuffer.getBuffer();
+        float xPos = positionFloats.get(numAxes * vertexIndex);
+        float yPos = positionFloats.get(numAxes * vertexIndex + 1);
+        float zPos = positionFloats.get(numAxes * vertexIndex + 2);
+        Vector3fc position = new org.joml.Vector3f(xPos, yPos, zPos);
+
+        Vector3fc normal = null;
+        if (normalBuffer != null) {
+            FloatBuffer normalFloats = normalBuffer.getBuffer();
+            float x = normalFloats.get(numAxes * vertexIndex);
+            float y = normalFloats.get(numAxes * vertexIndex + 1);
+            float z = normalFloats.get(numAxes * vertexIndex + 2);
+            normal = new org.joml.Vector3f(x, y, z);
+        }
+
+        Vector2fc texCoords = null;
+        if (texCoordsBuffer != null) {
+            FloatBuffer texCoordsFloats = texCoordsBuffer.getBuffer();
+            float u = texCoordsFloats.get(2 * vertexIndex);
+            float v = texCoordsFloats.get(2 * vertexIndex + 1);
+            texCoords = new Vector2f(u, v);
+        }
+
+        Vertex result = new Vertex(position, normal, texCoords);
+        return result;
+    }
+
+    /**
+     * Count how many vertices the mesh renders, taking indexing into account,
      * but not the draw mode.
      *
      * @return the count (&ge;0)
