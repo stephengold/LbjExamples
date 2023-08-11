@@ -268,7 +268,7 @@ public class Geometry {
     /**
      * Enable or disable back-face culling.
      *
-     * @param newSetting true to enable, false to disable
+     * @param newSetting true to enable, false to disable (default=true)
      * @return the (modified) current instance (for chaining)
      */
     public Geometry setBackCulling(boolean newSetting) {
@@ -291,7 +291,7 @@ public class Geometry {
     /**
      * Enable or disable depth test.
      *
-     * @param newSetting true to enable, false to disable
+     * @param newSetting true to enable, false to disable (default=true)
      * @return the (modified) current instance (for chaining)
      */
     public Geometry setDepthTest(boolean newSetting) {

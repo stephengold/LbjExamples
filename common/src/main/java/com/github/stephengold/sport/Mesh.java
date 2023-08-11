@@ -80,8 +80,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     private IndexBuffer indexBuffer;
     /**
-     * kind of geometric primitives contained in this Mesh, such as
-     * GL_TRIANGLES, GL_LINE_LOOP, or GL_POINTS
+     * kind of geometric primitives the mesh contains, such as GL_TRIANGLES,
+     * GL_LINE_LOOP, or GL_POINTS
      */
     private final int drawMode;
     /**
@@ -255,7 +255,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Count how many line primitives this Mesh contains.
+     * Count how many line primitives the mesh contains.
      *
      * @return the count (&ge;0)
      */
@@ -291,7 +291,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Count how many point primitives this Mesh contains.
+     * Count how many point primitives the mesh contains.
      *
      * @return the count (&ge;0)
      */
@@ -321,7 +321,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Count how many triangle primitives this Mesh contains.
+     * Count how many triangle primitives the mesh contains.
      *
      * @return the count (&ge;0)
      */
@@ -365,7 +365,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
     /**
      * Return the draw mode, which indicates the kind of geometric primitives
-     * contained in this Mesh.
+     * the mesh contains.
      *
      * @return the mode, such as: GL_TRIANGLES, GL_LINE_LOOP, or GL_POINTS
      */
@@ -528,7 +528,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Test whether this Mesh is indexed.
+     * Test whether the mesh is indexed.
      *
      * @return true if indexed, otherwise false
      */
@@ -541,7 +541,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Make this mesh immutable.
+     * Make the mesh immutable.
      *
      * @return the (modified) current instance (for chaining)
      */
@@ -987,7 +987,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Verify that this Mesh is still mutable.
+     * Verify that the mesh is still mutable.
      */
     private void verifyMutable() {
         if (!mutable) {
