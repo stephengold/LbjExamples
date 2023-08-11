@@ -36,6 +36,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.util.BufferUtils;
 import java.nio.FloatBuffer;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
@@ -107,6 +108,67 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     private VertexBuffer texCoordsBuffer;
     // *************************************************************************
     // constructors
+
+    /**
+     * Instantiate a mutable triangle mesh from vertices and optional indices.
+     *
+     * @param indices the vertex indices to use (unaffected) or null if none
+     * @param vertices the vertex data to use (not null, unaffected)
+     */
+    public Mesh(List<Integer> indices, List<Vertex> vertices) {
+        this(GL11C.GL_TRIANGLES, vertices.size());
+
+        if (indices == null) {
+            this.indexBuffer = null;
+        } else {
+            int capacity = indices.size();
+            this.indexBuffer = new IndexBuffer(vertexCount, capacity);
+            for (int index : indices) {
+                indexBuffer.put(index);
+            }
+            indexBuffer.flip();
+        }
+
+        // position buffer:
+        this.positionBuffer = new VertexBuffer(
+                vertexCount, numAxes, ShaderProgram.positionAttribName);
+        FloatBuffer floatBuffer = positionBuffer.getBuffer();
+        for (Vertex vertex : vertices) {
+            vertex.writePositionTo(floatBuffer);
+        }
+        floatBuffer.flip();
+
+        // normal buffer:
+        Vertex representativeVertex = vertices.get(0);
+        boolean hasNormal = representativeVertex.hasNormal();
+        if (hasNormal) {
+            this.normalBuffer = new VertexBuffer(
+                    vertexCount, numAxes, ShaderProgram.normalAttribName);
+            floatBuffer = normalBuffer.getBuffer();
+            for (Vertex vertex : vertices) {
+                vertex.writeNormalTo(floatBuffer);
+            }
+            floatBuffer.flip();
+
+        } else {
+            this.normalBuffer = null;
+        }
+
+        // texture-coordinates buffer:
+        boolean hasTexCoords = representativeVertex.hasTexCoords();
+        if (hasTexCoords) {
+            this.texCoordsBuffer = new VertexBuffer(
+                    vertexCount, 2, ShaderProgram.uvAttribName);
+            floatBuffer = texCoordsBuffer.getBuffer();
+            for (Vertex vertex : vertices) {
+                vertex.writeTexCoordsTo(floatBuffer);
+            }
+            floatBuffer.flip();
+
+        } else {
+            this.texCoordsBuffer = null;
+        }
+    }
 
     /**
      * Instantiate a mutable mesh with the specified mode and vertex positions,
