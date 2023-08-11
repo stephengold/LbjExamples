@@ -31,7 +31,7 @@ package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.LightDirection;
-import com.github.stephengold.sport.RotateMode;
+import com.github.stephengold.sport.input.RotateMode;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.PhysicsTickListener;

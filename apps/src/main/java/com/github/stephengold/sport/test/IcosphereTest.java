@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -33,9 +33,9 @@ import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
-import com.github.stephengold.sport.RotateMode;
 import com.github.stephengold.sport.TextureKey;
 import com.github.stephengold.sport.UvsOption;
+import com.github.stephengold.sport.input.RotateMode;
 import com.github.stephengold.sport.mesh.IcosphereMesh;
 import com.jme3.math.FastMath;
 import org.joml.Vector4f;

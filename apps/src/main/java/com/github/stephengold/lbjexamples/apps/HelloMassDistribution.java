@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -29,7 +29,7 @@
  */
 package com.github.stephengold.lbjexamples.apps;
 
-import com.github.stephengold.sport.RotateMode;
+import com.github.stephengold.sport.input.RotateMode;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;

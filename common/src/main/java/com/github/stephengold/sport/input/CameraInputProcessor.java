@@ -31,7 +31,6 @@ package com.github.stephengold.sport.input;
 
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Camera;
-import com.github.stephengold.sport.RotateMode;
 import com.jme3.math.Vector3f;
 import java.util.HashSet;
 import java.util.Set;
