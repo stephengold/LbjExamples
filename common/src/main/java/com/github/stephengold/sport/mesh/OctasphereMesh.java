@@ -31,16 +31,15 @@ package com.github.stephengold.sport.mesh;
 
 import com.github.stephengold.sport.IndexBuffer;
 import com.github.stephengold.sport.Mesh;
-import com.github.stephengold.sport.Utils;
 import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.math.FastMath;
-import com.jme3.math.Vector3f;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jme3utilities.Validate;
-import jme3utilities.math.MyVector3f;
+import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import org.lwjgl.opengl.GL11C;
 
 /**
@@ -100,7 +99,7 @@ public class OctasphereMesh extends Mesh {
     /**
      * vertex locations in a regular octahedron with radius=1
      */
-    final private static Vector3f[] octaLocations = {
+    final private static Vector3fc[] octaLocations = {
         new Vector3f(-1f, 0f, 0f), // [0]
         new Vector3f(+1f, 0f, 0f), // [1]
         new Vector3f(0f, -1f, 0f), // [2]
@@ -123,7 +122,7 @@ public class OctasphereMesh extends Mesh {
      * map vertex indices to location vectors in mesh coordinates, all with
      * length=1
      */
-    final private List<Vector3f> locations;
+    final private List<Vector3fc> locations;
     /**
      * cache to avoid duplicate vertices: map index pairs to midpoint indices
      */
@@ -132,10 +131,6 @@ public class OctasphereMesh extends Mesh {
      * map number of refinement steps to shared mesh
      */
     final private static OctasphereMesh[] sharedMeshes = new OctasphereMesh[14];
-    /**
-     * temporary storage for vectors
-     */
-    private Vector3f tmpVector = new Vector3f();
     /**
      * vertex positions
      */
@@ -292,7 +287,6 @@ public class OctasphereMesh extends Mesh {
 
         locations.clear();
         uOverrides.clear();
-        this.tmpVector = null;
     }
 
     /**
@@ -322,9 +316,9 @@ public class OctasphereMesh extends Mesh {
      * @param uOverride U value if the vertex has Y=0, otherwise null
      * @return the index assigned to the new vertex (&ge;0)
      */
-    private int addVertex(Vector3f location, Float uOverride) {
+    private int addVertex(Vector3fc location, Float uOverride) {
         float length = location.length();
-        locations.add(location.mult(1f / length));
+        locations.add(new Vector3f(location).div(length));
         uOverrides.add(uOverride);
         assert locations.size() == uOverrides.size();
 
@@ -382,6 +376,45 @@ public class OctasphereMesh extends Mesh {
     }
 
     /**
+     * Convert 3-D Cartesian coordinates to latitude.
+     *
+     * @param input the location to transform (y = distance east of the plane of
+     * the zero meridian, z=distance north of the equatorial plane, not null,
+     * unaffected)
+     * @return the north latitude (in radians)
+     */
+    private static float latitude(Vector3fc input) {
+        float result;
+        float length = input.length();
+        if (length > 0f) {
+            result = (float) Math.asin(input.z() / length);
+        } else {
+            result = 0f;
+        }
+
+        return result;
+    }
+
+    /**
+     * Convert 3-D Cartesian coordinates to longitude.
+     *
+     * @param input the location to transform (y = distance east of the plane of
+     * the zero meridian, z=distance north of the equatorial plane, not null,
+     * unaffected)
+     * @return the east longitude (in radians)
+     */
+    private static float longitude(Vector3fc input) {
+        float result;
+        if (input.x() != 0f || input.y() != 0f) {
+            result = FastMath.atan2(input.y(), input.x());
+        } else {
+            result = 0f;
+        }
+
+        return result;
+    }
+
+    /**
      * Determine the index of the vertex halfway between the indexed vertices.
      *
      * @param p1 the index of the first input vertex (&ge;0)
@@ -400,12 +433,12 @@ public class OctasphereMesh extends Mesh {
         }
 
         // The midpoint vertex is not in the cache: calculate its location.
-        Vector3f loc1 = locations.get(p1);
-        Vector3f loc2 = locations.get(p2);
-        Vector3f middleLocation = MyVector3f.midpoint(loc1, loc2, null);
+        Vector3fc loc1 = locations.get(p1);
+        Vector3fc loc2 = locations.get(p2);
+        Vector3fc middleLocation = new Vector3f(loc1).add(loc2).div(2f);
 
         Float middleUOverride = null;
-        if (middleLocation.y == 0f) {
+        if (middleLocation.y() == 0f) {
             middleUOverride = uOverrides.get(p1);
             assert uOverrides.get(p2).equals(middleUOverride);
         } else {
@@ -427,20 +460,23 @@ public class OctasphereMesh extends Mesh {
      * @param vIndex the index of the vertex (&ge;0)
      */
     private void putVertex(int vIndex) {
-        Vector3f pos = locations.get(vIndex); // alias
-        posBuffer.put(pos);
-
-        tmpVector.set(pos);
-        Utils.toSpherical(tmpVector);
+        Vector3fc pos = locations.get(vIndex); // alias
+        posBuffer.put(pos.x())
+                .put(pos.y())
+                .put(pos.z());
 
         float u;
-        if (pos.y == 0f) {
+        if (pos.y() == 0f) {
             u = uOverrides.get(vIndex);
         } else {
             assert uOverrides.get(vIndex) == null;
-            u = tmpVector.y / FastMath.PI;
+            float longitude = longitude(pos);
+            u = longitude / FastMath.PI;
         }
-        float v = tmpVector.z / FastMath.PI;
+
+        float latitude = latitude(pos);
+        float v = 0.5f - latitude / FastMath.PI;
+
         uvBuffer.put(u).put(v);
     }
 }
