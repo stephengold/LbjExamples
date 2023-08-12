@@ -167,6 +167,7 @@ public class Geometry {
      * @return the pre-existing object (not null)
      */
     public Mesh getMesh() {
+        assert mesh != null;
         return mesh;
     }
 
@@ -191,6 +192,7 @@ public class Geometry {
      * @return the pre-existing instance (not null)
      */
     ShaderProgram getProgram() {
+        assert program != null;
         return program;
     }
 
