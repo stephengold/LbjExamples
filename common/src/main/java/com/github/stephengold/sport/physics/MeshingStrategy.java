@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -132,10 +132,8 @@ class MeshingStrategy {
             result = new OctasphereMesh(numRefinementSteps);
             float maxRadius = shape.maxRadius();
             result.scale(maxRadius);
-
-            // Only sphere normals make sense, so ignore the NormalsOption.
-            result.generateSphereNormals();
             /*
+             * Only sphere normals make sense, so ignore the NormalsOption.
              * Octasphere provides excellent UVs, so ignore the UvsOption.
              * Linear transformations (if any) apply directly to the UVs.
              */
