@@ -84,8 +84,8 @@ It has been tested on Windows, Linux, and macOS.
 
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
 [assimp]: https://www.assimp.org/ "The Asset Importer Library"
-[gradle]: https://gradle.org "Gradle Project"
 [glfw]: https://www.glfw.org "GLFW Library"
+[gradle]: https://gradle.org "Gradle Project"
 [java]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java programming language"
 [joml]: https://joml-ci.github.io/JOML "Java OpenGL Math Library"
 [libbulletjme]: https://stephengold.github.io/Libbulletjme/lbj-en/English/overview.html "Libbulletjme Project"
