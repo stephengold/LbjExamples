@@ -56,7 +56,7 @@ import org.lwjgl.opengl.GL11C;
  * <li>U is the azimuthal angle, measured (in half revs) from the +X axis to the
  * projection of the vector onto the X-Y plane. It ranges from -1 to +1.
  * <li>V is the polar angle, measured (in half revs) from the +Z axis. It ranges
- * from 0 to 1.
+ * from 0 (at Z=1) to 1 (at Z=-1).
  * </ul>
  * <p>
  * Vertices with Y=0 and X&lt;1 lie on the seam. Those vertices are doubled and
@@ -241,14 +241,14 @@ public class OctasphereMesh extends Mesh {
             faces = newFaces;
         }
 
-//        System.out.println("numRefineSteps  = " + numRefineSteps);
-//        System.out.println("withIndices     = " + withIndices);
-//        System.out.println("numVertices     = " + numVertices);
-//        System.out.println("numLocations    = " + locations.size());
-//        System.out.println("numFaces        = " + faces.size() / vpt);
-//        System.out.println("numCacheEntries = " + midpointCache.size());
-//        System.out.println();
-//
+        // System.out.println("numRefineSteps  = " + numRefineSteps);
+        // System.out.println("withIndices     = " + withIndices);
+        // System.out.println("numVertices     = " + numVertices);
+        // System.out.println("numLocations    = " + locations.size());
+        // System.out.println("numFaces        = " + faces.size() / vpt);
+        // System.out.println("numCacheEntries = " + midpointCache.size());
+        // System.out.println();
+        //
         assert locations.size() == uOverrides.size();
         midpointCache.clear();
         assert faces.size() == 3 << (3 + 2 * numRefineSteps);
@@ -433,8 +433,8 @@ public class OctasphereMesh extends Mesh {
         }
 
         // The midpoint vertex is not in the cache: calculate its location.
-        Vector3fc loc1 = locations.get(p1);
-        Vector3fc loc2 = locations.get(p2);
+        Vector3fc loc1 = locations.get(p1); // alias
+        Vector3fc loc2 = locations.get(p2); // alias
         Vector3fc middleLocation = new Vector3f(loc1).add(loc2).div(2f);
 
         Float middleUOverride = null;
@@ -467,7 +467,7 @@ public class OctasphereMesh extends Mesh {
 
         float u;
         if (pos.y() == 0f) {
-            u = uOverrides.get(vIndex);
+            u = uOverrides.get(vIndex); // alias
         } else {
             assert uOverrides.get(vIndex) == null;
             float longitude = longitude(pos);
