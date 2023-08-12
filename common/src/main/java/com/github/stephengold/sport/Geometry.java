@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -85,7 +85,7 @@ public class Geometry {
      */
     private ShaderProgram program;
     /**
-     * color material texture
+     * primary texture (typically diffuse color), or null if none
      */
     private Texture texture;
     /**
@@ -164,7 +164,7 @@ public class Geometry {
     /**
      * Access the Mesh.
      *
-     * @return the pre-existing object
+     * @return the pre-existing object (not null)
      */
     public Mesh getMesh() {
         return mesh;
@@ -186,7 +186,7 @@ public class Geometry {
     }
 
     /**
-     * Access the ShaderProgram.
+     * Access the shader program.
      *
      * @return the pre-existing instance (not null)
      */
@@ -258,7 +258,7 @@ public class Geometry {
      * Alter the alpha discard threshold.
      *
      * @param newThreshold the desired threshold (default=0.5)
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setAlphaDiscardThreshold(float newThreshold) {
         this.alphaDiscardThreshold = newThreshold;
@@ -269,7 +269,7 @@ public class Geometry {
      * Enable or disable back-face culling.
      *
      * @param newSetting true to enable, false to disable (default=true)
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setBackCulling(boolean newSetting) {
         this.cullBack = newSetting;
@@ -280,7 +280,7 @@ public class Geometry {
      * Alter the base color.
      *
      * @param newColor the desired color (in the Linear colorspace, not null)
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setColor(Vector4fc newColor) {
         Validate.nonNull(newColor, "new color");
@@ -292,7 +292,7 @@ public class Geometry {
      * Enable or disable depth test.
      *
      * @param newSetting true to enable, false to disable (default=true)
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setDepthTest(boolean newSetting) {
         if (newSetting != depthTest) {
@@ -307,7 +307,7 @@ public class Geometry {
      * Enable or disable front-face culling.
      *
      * @param newSetting true to enable, false to disable
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setFrontCulling(boolean newSetting) {
         this.cullFront = newSetting;
@@ -320,7 +320,7 @@ public class Geometry {
      * @param x the desired X offset
      * @param y the desired Y offset
      * @param z the desired Z offset
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setLocation(float x, float y, float z) {
         meshToWorld.getTranslation().set(x, y, z);
@@ -328,11 +328,11 @@ public class Geometry {
     }
 
     /**
-     * Alter the location of the mesh origin.
+     * Translate the mesh origin to the specified location.
      *
-     * @param newLocation the desired location in world coordinates (not null,
+     * @param newLocation the desired location (in world coordinates, not null,
      * unaffected)
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setLocation(Vector3f newLocation) {
         Validate.nonNull(newLocation, "new location");
@@ -341,10 +341,10 @@ public class Geometry {
     }
 
     /**
-     * Replace the geometry's Mesh with the specified Mesh.
+     * Replace the geometry's current mesh with the specified one.
      *
-     * @param newMesh the desired Mesh (not null, alias created)
-     * @return the (modified) current instance (for chaining)
+     * @param newMesh the desired mesh (not null, alias created)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setMesh(Mesh newMesh) {
         Validate.nonNull(newMesh, "new mesh");
@@ -359,7 +359,7 @@ public class Geometry {
      * @param xAngle the desired X angle (in radians)
      * @param yAngle the desired Y angle (in radians)
      * @param zAngle the desired Z angle (in radians)
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setOrientation(float xAngle, float yAngle, float zAngle) {
         meshToWorld.getRotation().fromAngles(xAngle, yAngle, zAngle);
@@ -371,7 +371,7 @@ public class Geometry {
      *
      * @param newOrientation the desired orientation (not null, not zero,
      * unaffected)
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setOrientation(Quaternion newOrientation) {
         Validate.nonZero(newOrientation, "new orientation");
@@ -386,7 +386,7 @@ public class Geometry {
      * Alter the point size for sprites.
      *
      * @param newSize the desired size (in pixels, default=32)
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setPointSize(float newSize) {
         this.pointSize = newSize;
@@ -394,11 +394,11 @@ public class Geometry {
     }
 
     /**
-     * Replace the geometry's shader program with the named ShaderProgram, or if
-     * the name is null, replace it with the default program.
+     * Replace the geometry's current shader program with the named program, or
+     * if the name is null, replace it with the default shader program.
      *
-     * @param name (may be null)
-     * @return the (modified) current instance (for chaining)
+     * @param name the name of the desired program (may be null)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setProgram(String name) {
         if (name == null) {
@@ -414,7 +414,7 @@ public class Geometry {
      * Alter the scale.
      *
      * @param newScale the desired uniform scale factor
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setScale(float newScale) {
         meshToWorld.setScale(newScale);
@@ -426,7 +426,7 @@ public class Geometry {
      *
      * @param newScale the desired scale factor for each mesh axis (not null,
      * unaffected)
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setScale(Vector3f newScale) {
         Validate.nonNull(newScale, "new scale");
@@ -438,7 +438,7 @@ public class Geometry {
      * Alter the specular color.
      *
      * @param newColor the desired color (in the Linear colorspace, not null)
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setSpecularColor(Vector4fc newColor) {
         Validate.nonNull(newColor, "new color");
@@ -447,11 +447,11 @@ public class Geometry {
     }
 
     /**
-     * Replace the geometry's primary Texture with one obtained using the
-     * specified key.
+     * Replace the geometry's current primary texture with a texture obtained
+     * from the specified key.
      *
      * @param textureKey a key to obtain the desired texture (not null)
-     * @return the (modified) current instance (for chaining)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setTexture(TextureKey textureKey) {
         Validate.nonNull(textureKey, "texture key");
@@ -462,8 +462,8 @@ public class Geometry {
     /**
      * Enable or disable wireframe mode.
      *
-     * @param newSetting true to enable, false to disable
-     * @return the (modified) current instance (for chaining)
+     * @param newSetting true to enable, false to disable (default=false)
+     * @return the (modified) current geometry (for chaining)
      */
     public Geometry setWireframe(boolean newSetting) {
         this.wireframe = newSetting;
