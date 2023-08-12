@@ -77,11 +77,13 @@ You can restore the project to a pristine state:
 ## About SPORT
 
 SPORT is a Simple Phyisics-ORienTed graphics engine written in Java 1.8.
-In addition to Libbulletjme, it uses [LWJGL], [GLFW], [OpenGL], and [JOML].
+In addition to Libbulletjme,
+it uses [LWJGL], [Assimp], [GLFW], [JOML], and [OpenGL].
 It has been tested on Windows, Linux, and macOS.
 
 
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
+[assimp]: https://www.assimp.org/ "The Asset Importer Library"
 [gradle]: https://gradle.org "Gradle Project"
 [glfw]: https://www.glfw.org "GLFW Library"
 [java]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java programming language"
