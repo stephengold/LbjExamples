@@ -482,54 +482,7 @@ abstract public class BaseApplication {
      * null)
      */
     private void initializeBase(String initialTitle) {
-        if (enableDebugging) {
-            Configuration.DEBUG.set(true);
-            Configuration.DEBUG_FUNCTIONS.set(true);
-            Configuration.DEBUG_LOADER.set(true);
-            Configuration.DEBUG_MEMORY_ALLOCATOR.set(true);
-            Configuration.DEBUG_MEMORY_ALLOCATOR_INTERNAL.set(true);
-            //Configuration.DEBUG_MEMORY_ALLOCATOR_FAST.set(true);
-            Configuration.DEBUG_STACK.set(true);
-        }
-
-        // Report GLFW errors to System.err:
-        GLFWErrorCallback.createPrint(System.err).set();
-
-        if (!GLFW.glfwInit()) {
-            throw new IllegalStateException("Unable to initialize GLFW");
-        }
-
-        GLFW.glfwDefaultWindowHints();
-
-        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);     // default=GLFW_TRUE
-//        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE); // default=GLFW_TRUE
-        GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, requestMsaaSamples); // default=0
-        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
-        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
-        if (enableDebugging) {
-            GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_DEBUG_CONTEXT,
-                    GLFW.GLFW_TRUE); // default=GLFW_FALSE
-        }
-        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE,
-                GLFW.GLFW_OPENGL_CORE_PROFILE); // default=GLFW_OPENGL_ANY_PROFILE
-        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT,
-                GLFW.GLFW_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
-
-        // Create the window:
-        windowHandle = GLFW.glfwCreateWindow(
-                frameBufferWidth, frameBufferHeight, initialTitle,
-                MemoryUtil.NULL, MemoryUtil.NULL);
-        if (windowHandle == MemoryUtil.NULL) {
-            throw new RuntimeException("Failed to create a GLFW window");
-        }
-
-        // Request callback when the frame buffer is resized:
-        GLFW.glfwSetFramebufferSizeCallback(windowHandle, (window, width, height) -> {
-            frameBufferWidth = width;
-            frameBufferHeight = height;
-            GL11C.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
-            Utils.checkForOglError();
-        });
+        initializeGlfw(initialTitle);
 
         // Create and initialize the InputManager.
         inputManager = new InputManager(windowHandle);
@@ -607,6 +560,63 @@ abstract public class BaseApplication {
                 }
                 super.onKeyboard(keyId, isPressed);
             }
+        });
+    }
+
+    /**
+     * Initialize GLFW and create a window for the application.
+     *
+     * @param initialTitle the initial text for the window's title bar (not
+     * null)
+     */
+    private void initializeGlfw(String initialTitle) {
+        if (enableDebugging) {
+            Configuration.DEBUG.set(true);
+            Configuration.DEBUG_FUNCTIONS.set(true);
+            Configuration.DEBUG_LOADER.set(true);
+            Configuration.DEBUG_MEMORY_ALLOCATOR.set(true);
+            Configuration.DEBUG_MEMORY_ALLOCATOR_INTERNAL.set(true);
+            //Configuration.DEBUG_MEMORY_ALLOCATOR_FAST.set(true);
+            Configuration.DEBUG_STACK.set(true);
+        }
+
+        // Report GLFW errors to System.err:
+        GLFWErrorCallback.createPrint(System.err).set();
+
+        if (!GLFW.glfwInit()) {
+            throw new IllegalStateException("Unable to initialize GLFW");
+        }
+
+        GLFW.glfwDefaultWindowHints();
+
+        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);     // default=GLFW_TRUE
+//        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE); // default=GLFW_TRUE
+        GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, requestMsaaSamples); // default=0
+        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
+        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
+        if (enableDebugging) {
+            GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_DEBUG_CONTEXT,
+                    GLFW.GLFW_TRUE); // default=GLFW_FALSE
+        }
+        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE,
+                GLFW.GLFW_OPENGL_CORE_PROFILE); // default=GLFW_OPENGL_ANY_PROFILE
+        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT,
+                GLFW.GLFW_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
+
+        // Create the window:
+        windowHandle = GLFW.glfwCreateWindow(
+                frameBufferWidth, frameBufferHeight, initialTitle,
+                MemoryUtil.NULL, MemoryUtil.NULL);
+        if (windowHandle == MemoryUtil.NULL) {
+            throw new RuntimeException("Failed to create a GLFW window");
+        }
+
+        // Request callback when the frame buffer is resized:
+        GLFW.glfwSetFramebufferSizeCallback(windowHandle, (window, width, height) -> {
+            frameBufferWidth = width;
+            frameBufferHeight = height;
+            GL11C.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+            Utils.checkForOglError();
         });
     }
 
