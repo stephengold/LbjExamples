@@ -102,6 +102,7 @@ public class AssimpTest extends BaseApplication {
 
         // De-duplicate vertices and generate indices while creating the mesh:
         Mesh roomMesh = Mesh.newInstance(vertices);
+        System.out.println(roomMesh);
 
         TextureKey roomKey = new TextureKey(
                 "classpath:/Models/viking_room/viking_room.png");
