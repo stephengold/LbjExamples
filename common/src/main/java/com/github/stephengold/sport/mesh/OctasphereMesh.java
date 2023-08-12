@@ -297,7 +297,8 @@ public class OctasphereMesh extends Mesh {
     }
 
     /**
-     * Return the shared mesh with the specified number of refinement steps.
+     * Return the immutable shared mesh with the specified number of refinement
+     * steps.
      *
      * @param numSteps number of refinement steps (&ge;0, &le;13)
      * @return the shared mesh (immutable)
