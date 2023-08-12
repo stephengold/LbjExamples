@@ -88,9 +88,11 @@ abstract public class BaseApplication {
      */
     private static Callback debugMessengerCallback;
     /**
-     * current camera for rendering
+     * viewpoint for 3-D rendering (initially at z=10, looking toward the
+     * origin)
      */
-    protected static Camera cam;
+    protected static Camera cam
+            = new Camera(new Vector3f(0f, 0f, 10f), -FastMath.HALF_PI, 0f);
     /**
      * process user input for the camera
      */
@@ -531,9 +533,6 @@ abstract public class BaseApplication {
         ShaderProgram.initializeStaticData();
 
         setBackgroundColor(Constants.DARK_GRAY);
-
-        // Create the initial camera at z=10 looking toward the origin.
-        cam = new Camera(new Vector3f(0f, 0f, 10f), -FastMath.HALF_PI, 0f);
 
         cameraInputProcessor = new CameraInputProcessor(windowHandle);
         inputManager.add(cameraInputProcessor);
