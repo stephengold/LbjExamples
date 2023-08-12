@@ -278,26 +278,23 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     Vertex copyVertex(int vertexIndex) {
         Validate.inRange(vertexIndex, "vertex index", 0, vertexCount - 1);
 
-        FloatBuffer positionFloats = positionBuffer.getBuffer();
-        float xPos = positionFloats.get(numAxes * vertexIndex);
-        float yPos = positionFloats.get(numAxes * vertexIndex + 1);
-        float zPos = positionFloats.get(numAxes * vertexIndex + 2);
+        float xPos = positionBuffer.get(numAxes * vertexIndex);
+        float yPos = positionBuffer.get(numAxes * vertexIndex + 1);
+        float zPos = positionBuffer.get(numAxes * vertexIndex + 2);
         Vector3fc position = new org.joml.Vector3f(xPos, yPos, zPos);
 
         Vector3fc normal = null;
         if (normalBuffer != null) {
-            FloatBuffer normalFloats = normalBuffer.getBuffer();
-            float x = normalFloats.get(numAxes * vertexIndex);
-            float y = normalFloats.get(numAxes * vertexIndex + 1);
-            float z = normalFloats.get(numAxes * vertexIndex + 2);
+            float x = normalBuffer.get(numAxes * vertexIndex);
+            float y = normalBuffer.get(numAxes * vertexIndex + 1);
+            float z = normalBuffer.get(numAxes * vertexIndex + 2);
             normal = new org.joml.Vector3f(x, y, z);
         }
 
         Vector2fc texCoords = null;
         if (texCoordsBuffer != null) {
-            FloatBuffer texCoordsFloats = texCoordsBuffer.getBuffer();
-            float u = texCoordsFloats.get(2 * vertexIndex);
-            float v = texCoordsFloats.get(2 * vertexIndex + 1);
+            float u = texCoordsBuffer.get(2 * vertexIndex);
+            float v = texCoordsBuffer.get(2 * vertexIndex + 1);
             texCoords = new Vector2f(u, v);
         }
 
