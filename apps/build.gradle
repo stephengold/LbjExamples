@@ -129,6 +129,10 @@ tasks.register('HelloMassDistribution', JavaExec) {
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMassDistribution'
 }
+tasks.register('HelloMinkowski', JavaExec) {
+    enableAssertions true
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMinkowski'
+}
 tasks.register('HelloMotor', JavaExec) {
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMotor'

@@ -42,6 +42,7 @@ import com.github.stephengold.lbjexamples.apps.HelloKinematics;
 import com.github.stephengold.lbjexamples.apps.HelloLimit;
 import com.github.stephengold.lbjexamples.apps.HelloMadMallet;
 import com.github.stephengold.lbjexamples.apps.HelloMassDistribution;
+import com.github.stephengold.lbjexamples.apps.HelloMinkowski;
 import com.github.stephengold.lbjexamples.apps.HelloMotor;
 import com.github.stephengold.lbjexamples.apps.HelloNonUniformGravity;
 import com.github.stephengold.lbjexamples.apps.HelloPin;
@@ -92,7 +93,7 @@ final class AppChooser extends JFrame {
      */
     public static void main(String[] arguments) {
         Logger.getLogger("").setLevel(Level.WARNING);
-        List<BaseApplication> apps = new ArrayList<>(45);
+        List<BaseApplication> apps = new ArrayList<>(46);
 
         apps.add(new AssimpTest());
         apps.add(new CheckerboardTest());
@@ -115,37 +116,39 @@ final class AppChooser extends JFrame {
         apps.add(new HelloLimit());
         apps.add(new HelloMadMallet());
         apps.add(new HelloMassDistribution());
+        apps.add(new HelloMinkowski());
         apps.add(new HelloMotor());
-        apps.add(new HelloNonUniformGravity());
 
+        apps.add(new HelloNonUniformGravity());
         apps.add(new HelloPin());
         apps.add(new HelloRigidBody());
         apps.add(new HelloServo());
         apps.add(new HelloSoftBody());
-        apps.add(new HelloSoftRope());
 
+        apps.add(new HelloSoftRope());
         apps.add(new HelloSoftSoft());
         apps.add(new HelloSport());
         apps.add(new HelloSpring());
         apps.add(new HelloStaticBody());
-        apps.add(new HelloVehicle());
 
+        apps.add(new HelloVehicle());
         apps.add(new HelloWalk());
         apps.add(new HelloWind());
         apps.add(new IcosphereTest());
         apps.add(new MouseTest());
-        apps.add(new MouseTest2());
 
+        apps.add(new MouseTest2());
         apps.add(new NewtonsCradle());
         apps.add(new OctasphereTest());
         apps.add(new Pachinko());
         apps.add(new RainbowTest());
-        apps.add(new SplitDemo());
 
+        apps.add(new SplitDemo());
         apps.add(new SpriteTest());
         apps.add(new TestGearJoint());
         apps.add(new TextureTest());
         apps.add(new ThousandCubes());
+
         apps.add(new Windlass());
 
         new AppChooser(apps);
