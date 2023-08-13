@@ -426,24 +426,6 @@ abstract public class BaseApplication {
      * be overridden.
      */
     protected void render() {
-        updateGlobalUniforms();
-
-        // Render the depth-test geometries and defer the rest.
-        for (Geometry geometry : visibleGeometries) {
-            if (geometry.isDepthTest()) {
-                geometry.updateAndRender();
-            } else {
-                assert deferredQueue.contains(geometry);
-            }
-        }
-
-        // Render the no-depth-test geometries last, from back to front.
-        for (Geometry geometry : deferredQueue) {
-            assert visibleGeometries.contains(geometry);
-            assert !geometry.isDepthTest();
-
-            geometry.updateAndRender();
-        }
     }
 
     /**
@@ -663,14 +645,38 @@ abstract public class BaseApplication {
     }
 
     /**
+     * Render the next frame.
+     */
+    private static void renderNextFrame() {
+        GL11C.glClear(GL11C.GL_COLOR_BUFFER_BIT | GL11C.GL_DEPTH_BUFFER_BIT);
+        Utils.checkForOglError();
+
+        updateGlobalUniforms();
+
+        // Render the depth-test geometries and defer the rest.
+        for (Geometry geometry : visibleGeometries) {
+            if (geometry.isDepthTest()) {
+                geometry.updateAndRender();
+            } else {
+                assert deferredQueue.contains(geometry);
+            }
+        }
+
+        // Render the no-depth-test geometries last, from back to front.
+        for (Geometry geometry : deferredQueue) {
+            assert visibleGeometries.contains(geometry);
+            assert !geometry.isDepthTest();
+
+            geometry.updateAndRender();
+        }
+    }
+
+    /**
      * The body of the main update loop.
      */
     private void updateBase() {
         updateWindowTitle();
-
-        GL11C.glClear(GL11C.GL_COLOR_BUFFER_BIT | GL11C.GL_DEPTH_BUFFER_BIT);
-        Utils.checkForOglError();
-
+        renderNextFrame();
         render();
         GLFW.glfwSwapBuffers(windowHandle);
         GLFW.glfwPollEvents();
