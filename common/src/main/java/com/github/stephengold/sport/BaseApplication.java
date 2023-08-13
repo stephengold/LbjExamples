@@ -569,7 +569,7 @@ abstract public class BaseApplication {
      * @param initialTitle the initial text for the window's title bar (not
      * null)
      */
-    private void initializeGlfw(String initialTitle) {
+    private static void initializeGlfw(String initialTitle) {
         if (enableDebugging) {
             Configuration.DEBUG.set(true);
             Configuration.DEBUG_FUNCTIONS.set(true);
