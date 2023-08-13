@@ -284,7 +284,8 @@ abstract public class BaseApplication {
     /**
      * Alter the background color of the window.
      *
-     * @param desiredColor the desired color (not null, default=black)
+     * @param desiredColor the desired color (not null, unaffected,
+     * default=black)
      */
     public static void setBackgroundColor(Vector4fc desiredColor) {
         float red = desiredColor.x();
@@ -307,7 +308,7 @@ abstract public class BaseApplication {
     }
 
     /**
-     * Alter the title of the main window.
+     * Alter the title of the window.
      *
      * @param text the desired text (in UTF-8 encoding)
      */
@@ -405,6 +406,7 @@ abstract public class BaseApplication {
      * be overridden.
      */
     protected void render() {
+        // do nothing
     }
 
     /**
@@ -578,7 +580,8 @@ abstract public class BaseApplication {
         }
 
         // Center the window.
-        GLFWVidMode videoMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+        GLFWVidMode videoMode
+                = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
         GLFW.glfwSetWindowPos(windowHandle,
                 (videoMode.width() - width) / 2,
                 (videoMode.height() - height) / 2
