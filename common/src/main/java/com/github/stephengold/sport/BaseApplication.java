@@ -442,6 +442,13 @@ abstract public class BaseApplication {
         for (ShaderProgram program : programMap.values()) {
             program.cleanUp();
         }
+        cleanUpGlfw();
+    }
+
+    /**
+     * Destroy the window and cleanly terminate GLFW.
+     */
+    private static void cleanUpGlfw() {
         if (debugMessengerCallback != null) {
             debugMessengerCallback.free();
         }
