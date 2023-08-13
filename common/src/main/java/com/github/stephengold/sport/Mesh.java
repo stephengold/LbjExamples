@@ -994,39 +994,58 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     public String toString() {
         // Determine how many vertices to describe:
         int numToDescribe = countIndexedVertices();
-        if (numToDescribe > 24) {
-            numToDescribe = 24;
+        if (numToDescribe > 12) {
+            numToDescribe = 12;
         }
 
         StringBuilder result = new StringBuilder(80 * (1 + numToDescribe));
-        if (indexBuffer != null) {
+        if (indexBuffer == null) {
+            result.append("non");
+        } else {
             int indexType = indexBuffer.indexType();
             String elementString = Utils.describeCode(indexType);
             result.append(elementString);
-            result.append("-indexed ");
         }
+        result.append("-indexed, ");
         String modeString = Utils.describeCode(drawMode);
         result.append(modeString);
-        result.append("-mode mesh (verts=");
-        int numVerts = countVertices();
-        result.append(numVerts);
-
-        if (indexBuffer != null) {
-            result.append(" inds=");
-            int numInds = indexBuffer.capacity();
-            result.append(numInds);
+        result.append("-mode mesh (");
+        result.append(vertexCount);
+        if (vertexCount == 1) {
+            result.append(" vertex");
+        } else {
+            result.append(" vertices");
         }
 
-        int numTris = countTriangles();
-        if (numTris > 0) {
-            result.append(" tris=");
-            result.append(numTris);
+        if (indexBuffer != null) {
+            result.append(", ");
+            int numIndices = indexBuffer.capacity();
+            result.append(numIndices);
+            if (numIndices == 1) {
+                result.append(" index");
+            } else {
+                result.append(" indices");
+            }
+        }
+
+        int numTriangles = countTriangles();
+        if (numTriangles > 0) {
+            result.append(", ");
+            result.append(numTriangles);
+            result.append(" triangle");
+            if (numTriangles != 1) {
+                result.append("s");
+            }
         }
 
         int numLines = countLines();
         if (numLines > 0) {
-            result.append(" lines=");
+            result.append(", ");
             result.append(numLines);
+            result.append(" line");
+            if (numLines != 1) {
+                result.append("s");
+            }
         }
         result.append(")");
         /*
@@ -1050,6 +1069,10 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             result.append(": ");
             Vertex v = copyVertex(vertexIndex);
             result.append(v);
+            result.append(nl);
+        }
+        if (countIndexedVertices() > numToDescribe) {
+            result.append("...");
             result.append(nl);
         }
 
