@@ -497,13 +497,6 @@ abstract public class BaseApplication {
         // Create and initialize the InputManager.
         inputManager = new InputManager(windowHandle);
 
-        // Center the window.
-        GLFWVidMode videoMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
-        GLFW.glfwSetWindowPos(windowHandle,
-                (videoMode.width() - frameBufferWidth) / 2,
-                (videoMode.height() - frameBufferHeight) / 2
-        );
-
         // Use the new window as the current OpenGL context.
         GLFW.glfwMakeContextCurrent(windowHandle);
 
@@ -617,6 +610,13 @@ abstract public class BaseApplication {
         if (windowHandle == MemoryUtil.NULL) {
             throw new RuntimeException("Failed to create a GLFW window");
         }
+
+        // Center the window.
+        GLFWVidMode videoMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+        GLFW.glfwSetWindowPos(windowHandle,
+                (videoMode.width() - frameBufferWidth) / 2,
+                (videoMode.height() - frameBufferHeight) / 2
+        );
 
         // Request callback when the frame buffer is resized:
         GLFW.glfwSetFramebufferSizeCallback(windowHandle, BaseApplication::framebufferSizeCallback);
