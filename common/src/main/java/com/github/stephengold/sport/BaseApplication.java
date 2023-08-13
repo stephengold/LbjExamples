@@ -472,6 +472,20 @@ abstract public class BaseApplication {
     }
 
     /**
+     * Callback invoked by GLFW each time the frame buffer gets resized.
+     *
+     * @param window the affected window
+     * @param width the new framebuffer width
+     * @param height the new framebuffer height
+     */
+    static void framebufferSizeCallback(long window, int width, int height) {
+        frameBufferWidth = width;
+        frameBufferHeight = height;
+        GL11C.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+        Utils.checkForOglError();
+    }
+
+    /**
      * Initialize this class.
      *
      * @param initialTitle the initial text for the window's title bar (not
@@ -605,12 +619,7 @@ abstract public class BaseApplication {
         }
 
         // Request callback when the frame buffer is resized:
-        GLFW.glfwSetFramebufferSizeCallback(windowHandle, (window, width, height) -> {
-            frameBufferWidth = width;
-            frameBufferHeight = height;
-            GL11C.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
-            Utils.checkForOglError();
-        });
+        GLFW.glfwSetFramebufferSizeCallback(windowHandle, BaseApplication::framebufferSizeCallback);
     }
 
     /**
