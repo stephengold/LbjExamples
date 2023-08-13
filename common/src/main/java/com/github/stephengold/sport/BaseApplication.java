@@ -66,11 +66,6 @@ abstract public class BaseApplication {
     // constants
 
     /**
-     * true to enable debugging output and optional runtime checks, or false to
-     * disable them
-     */
-    final private static boolean enableDebugging = false;
-    /**
      * mask size for multisample anti-aliasing (MSAA) if &ge;2, or 0 to disable
      * MSAA
      */
@@ -103,16 +98,6 @@ abstract public class BaseApplication {
     private static final Collection<Geometry> visibleGeometries
             = new HashSet<>(256);
     /**
-     * currently active global uniforms
-     */
-    private static final Collection<GlobalUniform> activeGlobalUniforms
-            = new HashSet<>(16);
-    /**
-     * shader programs that are currently in use
-     */
-    private static final Collection<ShaderProgram> programsInUse
-            = new HashSet<>(16);
-    /**
      * all visible geometries that omit depth testing, in the order they will be
      * rendered (in other words, from back to front)
      */
@@ -125,14 +110,6 @@ abstract public class BaseApplication {
     private static InputManager inputManager;
 
     private static int counter;
-    /**
-     * height of the displayed frame buffer (in pixels)
-     */
-    private static int frameBufferHeight = 600;
-    /**
-     * width of the displayed frame buffer (in pixels)
-     */
-    private static int frameBufferWidth = 800;
     /**
      * GLFW handle of the window used to render geometries
      */
@@ -160,7 +137,9 @@ abstract public class BaseApplication {
      * @return the width divided by the height (&gt;0)
      */
     public static float aspectRatio() {
-        float ratio = frameBufferWidth / (float) frameBufferHeight;
+        int width = Internals.framebufferWidth();
+        int height = Internals.framebufferHeight();
+        float ratio = width / (float) height;
 
         assert ratio > 0f : ratio;
         return ratio;
@@ -262,7 +241,7 @@ abstract public class BaseApplication {
      * @return true if enabled, otherwise false
      */
     public static boolean isDebuggingEnabled() {
-        return enableDebugging;
+        return Internals.isDebuggingEnabled();
     }
 
     /**
@@ -472,20 +451,6 @@ abstract public class BaseApplication {
     }
 
     /**
-     * Callback invoked by GLFW each time the frame buffer gets resized.
-     *
-     * @param window the affected window
-     * @param width the new framebuffer width
-     * @param height the new framebuffer height
-     */
-    static void framebufferSizeCallback(long window, int width, int height) {
-        frameBufferWidth = width;
-        frameBufferHeight = height;
-        GL11C.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
-        Utils.checkForOglError();
-    }
-
-    /**
      * Initialize this class.
      *
      * @param initialTitle the initial text for the window's title bar (not
@@ -506,7 +471,7 @@ abstract public class BaseApplication {
         GL.createCapabilities();
         Utils.checkForOglError();
 
-        if (enableDebugging) {
+        if (Internals.isDebuggingEnabled()) {
             debugMessengerCallback = GLUtil.setupDebugMessageCallback();
             Utils.checkForOglError();
             // If no debug mode is available, the callback remains null.
@@ -570,7 +535,7 @@ abstract public class BaseApplication {
      * null)
      */
     private static void initializeGlfw(String initialTitle) {
-        if (enableDebugging) {
+        if (Internals.isDebuggingEnabled()) {
             Configuration.DEBUG.set(true);
             Configuration.DEBUG_FUNCTIONS.set(true);
             Configuration.DEBUG_LOADER.set(true);
@@ -594,7 +559,7 @@ abstract public class BaseApplication {
         GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, requestMsaaSamples); // default=0
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
-        if (enableDebugging) {
+        if (Internals.isDebuggingEnabled()) {
             GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_DEBUG_CONTEXT,
                     GLFW.GLFW_TRUE); // default=GLFW_FALSE
         }
@@ -604,9 +569,10 @@ abstract public class BaseApplication {
                 GLFW.GLFW_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
 
         // Create the window:
+        int width = Internals.framebufferWidth();
+        int height = Internals.framebufferHeight();
         windowHandle = GLFW.glfwCreateWindow(
-                frameBufferWidth, frameBufferHeight, initialTitle,
-                MemoryUtil.NULL, MemoryUtil.NULL);
+                width, height, initialTitle, MemoryUtil.NULL, MemoryUtil.NULL);
         if (windowHandle == MemoryUtil.NULL) {
             throw new RuntimeException("Failed to create a GLFW window");
         }
@@ -614,12 +580,13 @@ abstract public class BaseApplication {
         // Center the window.
         GLFWVidMode videoMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
         GLFW.glfwSetWindowPos(windowHandle,
-                (videoMode.width() - frameBufferWidth) / 2,
-                (videoMode.height() - frameBufferHeight) / 2
+                (videoMode.width() - width) / 2,
+                (videoMode.height() - height) / 2
         );
 
         // Request callback when the frame buffer is resized:
-        GLFW.glfwSetFramebufferSizeCallback(windowHandle, BaseApplication::framebufferSizeCallback);
+        GLFW.glfwSetFramebufferSizeCallback(
+                windowHandle, Internals::framebufferSizeCallback);
     }
 
     /**
@@ -654,74 +621,15 @@ abstract public class BaseApplication {
     }
 
     /**
-     * Render the next frame.
-     */
-    private static void renderNextFrame() {
-        GL11C.glClear(GL11C.GL_COLOR_BUFFER_BIT | GL11C.GL_DEPTH_BUFFER_BIT);
-        Utils.checkForOglError();
-
-        updateGlobalUniforms();
-
-        // Render the depth-test geometries and defer the rest.
-        for (Geometry geometry : visibleGeometries) {
-            if (geometry.isDepthTest()) {
-                geometry.updateAndRender();
-            } else {
-                assert deferredQueue.contains(geometry);
-            }
-        }
-
-        // Render the no-depth-test geometries last, from back to front.
-        for (Geometry geometry : deferredQueue) {
-            assert visibleGeometries.contains(geometry);
-            assert !geometry.isDepthTest();
-
-            geometry.updateAndRender();
-        }
-    }
-
-    /**
      * The body of the main update loop.
      */
     private void updateBase() {
         updateWindowTitle();
-        renderNextFrame();
+        Internals.renderNextFrame();
         render();
         GLFW.glfwSwapBuffers(windowHandle);
         GLFW.glfwPollEvents();
 
         cameraInputProcessor.update();
-    }
-
-    /**
-     * Update the global uniform variables of all active programs.
-     */
-    private static void updateGlobalUniforms() {
-        // Update the collection of active programs.
-        programsInUse.clear();
-        for (Geometry geometry : listVisible()) {
-            ShaderProgram program = geometry.getProgram();
-            programsInUse.add(program);
-        }
-
-        // Update the collection of active global uniforms.
-        activeGlobalUniforms.clear();
-        for (ShaderProgram program : programsInUse) {
-            Collection<GlobalUniform> uniform = program.listAgus();
-            activeGlobalUniforms.addAll(uniform);
-        }
-
-        // Recalculate the values of the global uniforms.
-        for (GlobalUniform uniform : activeGlobalUniforms) {
-            uniform.updateValue();
-        }
-
-        // Update each program with the latest values.
-        for (ShaderProgram program : programsInUse) {
-            Collection<GlobalUniform> agus = program.listAgus();
-            for (GlobalUniform uniform : agus) {
-                uniform.sendValueTo(program);
-            }
-        }
     }
 }
