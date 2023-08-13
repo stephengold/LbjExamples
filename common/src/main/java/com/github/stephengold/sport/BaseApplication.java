@@ -343,19 +343,27 @@ abstract public class BaseApplication {
                     "%s v%d.%d.%d", appName, appMajor, appMinor, appPatch);
         }
 
-        // Initialize this class:
-        initializeBase(title);
+        try {
+            // Initialize this class:
+            initializeBase(title);
 
-        // Initialize the subclass.
-        initialize();
+            // Initialize the subclass.
+            initialize();
 
-        mainUpdateLoop();
+            mainUpdateLoop();
 
-        // Clean up the subclass.
-        cleanUp();
+            // Clean up the subclass.
+            cleanUp();
 
-        // Clean up this class.
-        cleanUpBase();
+        } catch (Exception exception) {
+            System.err.print("Caught ");
+            exception.printStackTrace();
+            System.err.flush();
+
+        } finally {
+            // Clean up this class.
+            cleanUpBase();
+        }
     }
 
     /**
