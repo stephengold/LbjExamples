@@ -266,6 +266,16 @@ abstract public class BaseApplication {
     }
 
     /**
+     * Enumerate all visible geometries that omit depth testing, in the order
+     * they will be rendered.
+     *
+     * @return the pre-existing object (not null)
+     */
+    static Deque<Geometry> listDeferred() {
+        return deferredQueue;
+    }
+
+    /**
      * Enumerate all the visible geometries.
      *
      * @return an unmodifiable collection of pre-existing objects
