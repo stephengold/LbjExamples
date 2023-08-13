@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2023, Stephen Gold
+ Copyright (c) 2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -63,13 +63,13 @@ final class Internals {
     private static final Collection<ShaderProgram> programsInUse
             = new HashSet<>(16);
     /**
-     * height of the displayed frame buffer (in pixels)
+     * height of the displayed framebuffer (in pixels)
      */
-    private static int frameBufferHeight = 600;
+    private static int framebufferHeight = 600;
     /**
-     * width of the displayed frame buffer (in pixels)
+     * width of the displayed framebuffer (in pixels)
      */
-    private static int frameBufferWidth = 800;
+    private static int framebufferWidth = 800;
     // *************************************************************************
     // constructors
 
@@ -90,9 +90,9 @@ final class Internals {
      * @param height the new framebuffer height
      */
     static void framebufferSizeCallback(long window, int width, int height) {
-        frameBufferWidth = width;
-        frameBufferHeight = height;
-        GL11C.glViewport(0, 0, frameBufferWidth, frameBufferHeight);
+        framebufferWidth = width;
+        framebufferHeight = height;
+        GL11C.glViewport(0, 0, framebufferWidth, framebufferHeight);
         Utils.checkForOglError();
     }
 
@@ -102,8 +102,8 @@ final class Internals {
      * @return the height (in pixels, &ge;0)
      */
     static int framebufferHeight() {
-        assert frameBufferHeight >= 0 : frameBufferHeight;
-        return frameBufferHeight;
+        assert framebufferHeight >= 0 : framebufferHeight;
+        return framebufferHeight;
     }
 
     /**
@@ -112,8 +112,8 @@ final class Internals {
      * @return the width (in pixels, &ge;0)
      */
     static int framebufferWidth() {
-        assert frameBufferWidth >= 0 : frameBufferWidth;
-        return frameBufferWidth;
+        assert framebufferWidth >= 0 : framebufferWidth;
+        return framebufferWidth;
     }
 
     /**
