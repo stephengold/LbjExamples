@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2019-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2019-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -31,12 +31,12 @@ package com.github.stephengold.sport.mesh;
 
 import com.github.stephengold.sport.IndexBuffer;
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.VertexBuffer;
 import jme3utilities.Validate;
-import org.lwjgl.opengl.GL11C;
 
 /**
- * A GL_TRIANGLES mesh (with indices and normals but no texture coordinates)
+ * A TriangleList mesh (with indices and normals but no texture coordinates)
  * that renders a subdivided rectangle.
  *
  * @author Stephen Gold sgold@sonic.net
@@ -67,7 +67,7 @@ public class ClothGrid extends Mesh {
      * lines (in mesh units, &gt;0)
      */
     public ClothGrid(int xLines, int zLines, float lineSpacing) {
-        super(GL11C.GL_TRIANGLES, xLines * zLines);
+        super(Topology.TriangleList, xLines * zLines);
         Validate.inRange(xLines, "X lines", 2, Integer.MAX_VALUE);
         Validate.inRange(zLines, "Z lines", 2, Integer.MAX_VALUE);
         Validate.positive(lineSpacing, "line spacing");

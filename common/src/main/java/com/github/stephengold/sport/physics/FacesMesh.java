@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -31,16 +31,16 @@ package com.github.stephengold.sport.physics;
 
 import com.github.stephengold.sport.IndexBuffer;
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.bullet.objects.PhysicsSoftBody;
 import com.jme3.bullet.util.NativeSoftBodyUtil;
 import com.jme3.math.Transform;
 import com.jme3.util.BufferUtils;
 import java.nio.IntBuffer;
-import org.lwjgl.opengl.GL11C;
 
 /**
- * An auto-generated GL_TRIANGLES mesh to visualize the faces in a soft body.
+ * An auto-generated TriangleList mesh to visualize the faces in a soft body.
  */
 class FacesMesh extends Mesh {
     // *************************************************************************
@@ -64,7 +64,7 @@ class FacesMesh extends Mesh {
      * alias created)
      */
     FacesMesh(PhysicsSoftBody softBody) {
-        super(GL11C.GL_TRIANGLES, softBody.countNodes());
+        super(Topology.TriangleList, softBody.countNodes());
 
         this.softBody = softBody;
 

@@ -29,13 +29,13 @@
  */
 package com.github.stephengold.sport.mesh;
 
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.math.Vector3f;
-import org.lwjgl.opengl.GL11C;
 
 /**
- * A GL_TRIANGLES mesh that renders an axis-aligned box.
+ * A TriangleList mesh that renders an axis-aligned box.
  * <p>
  * The box extends from (x1,y1,z1) to (x2,y2,z2). All triangles face outward
  * with right-handed winding.
@@ -90,7 +90,7 @@ public class BoxMesh extends Mesh {
      */
     public BoxMesh(float x1, float y1, float z1,
             float x2, float y2, float z2) {
-        super(GL11C.GL_TRIANGLES, 36);
+        super(Topology.TriangleList, 36);
 
         VertexBuffer posBuffer = super.createPositions();
         for (int vertexIndex : cubeIndices) {

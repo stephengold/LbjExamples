@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -30,9 +30,9 @@
 package com.github.stephengold.sport.physics;
 
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.Topology;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.util.DebugShapeFactory;
-import org.lwjgl.opengl.GL11C;
 
 /**
  * An auto-generated mesh to visualize a collision shape.
@@ -42,7 +42,7 @@ class ShapeMesh extends Mesh {
     // constructors
 
     /**
-     * Auto-generate a mutable GL_TRIANGLES mesh for the specified collision
+     * Auto-generate a mutable TriangleList mesh for the specified collision
      * shape using {@code DebugShapeFactory}.
      *
      * @param shape the shape from which to generate the mesh (not null,
@@ -52,7 +52,7 @@ class ShapeMesh extends Mesh {
      * {@link com.jme3.bullet.util.DebugShapeFactory#highResolution} (1)
      */
     ShapeMesh(CollisionShape shape, int positionsOption) {
-        super(GL11C.GL_TRIANGLES,
+        super(Topology.TriangleList,
                 DebugShapeFactory.getDebugTriangles(shape, positionsOption));
     }
 }

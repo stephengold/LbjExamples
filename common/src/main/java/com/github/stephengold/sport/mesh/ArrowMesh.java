@@ -29,14 +29,14 @@
  */
 package com.github.stephengold.sport.mesh;
 
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.Mesh;
 import com.jme3.math.FastMath;
 import jme3utilities.Validate;
 import jme3utilities.math.MyVector3f;
-import org.lwjgl.opengl.GL11C;
 
 /**
- * A GL_LINES mesh that renders a crude 3-D arrow.
+ * A LineList mesh that renders a crude 3-D arrow.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -74,7 +74,7 @@ public class ArrowMesh extends Mesh {
      * @param barbLength the length of each barb (in local units, &ge;0)
      */
     public ArrowMesh(float barbAngle, float barbLength) {
-        super(GL11C.GL_LINES, 10);
+        super(Topology.LineList, 10);
         Validate.inRange(barbAngle, "barb angle", 0f, FastMath.PI);
         Validate.nonNegative(barbLength, "barb length");
 

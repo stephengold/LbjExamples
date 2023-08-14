@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -34,6 +34,7 @@ import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.TextureKey;
+import com.github.stephengold.sport.Topology;
 import com.jme3.math.Vector3f;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL12C;
@@ -77,7 +78,7 @@ public class SpriteTest extends BaseApplication {
         // a mesh composed of 2 points
         Vector3f p0 = new Vector3f(0f, 0f, 0f);
         Vector3f p1 = new Vector3f(0f, 1f, 0f);
-        Mesh pointsMesh = new Mesh(GL11C.GL_POINTS, p0, p1);
+        Mesh pointsMesh = new Mesh(Topology.PointList, p0, p1);
 
         String resourceName = "/Textures/shapes/pin.png";
         int magFilter = GL11C.GL_LINEAR;

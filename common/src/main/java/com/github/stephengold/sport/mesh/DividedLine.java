@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2019-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2019-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -31,11 +31,11 @@ package com.github.stephengold.sport.mesh;
 
 import com.github.stephengold.sport.IndexBuffer;
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 import jme3utilities.math.MyVector3f;
-import org.lwjgl.opengl.GL11C;
 
 /**
  * A GL-LINES mesh (with indices) that renders a subdivided line segment.
@@ -56,9 +56,9 @@ public class DividedLine extends Mesh {
      * null, unaffected)
      * @param numSegments number of sub-segments (&ge;1)
      */
-    public DividedLine(Vector3f endPoint1, Vector3f endPoint2,
-            int numSegments) {
-        super(GL11C.GL_LINES, numSegments + 1);
+    public DividedLine(
+            Vector3f endPoint1, Vector3f endPoint2, int numSegments) {
+        super(Topology.LineList, numSegments + 1);
         Validate.positive(numSegments, "number of segments");
 
         int numVertices = super.countVertices();

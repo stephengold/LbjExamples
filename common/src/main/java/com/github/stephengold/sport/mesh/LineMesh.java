@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -30,12 +30,12 @@
 package com.github.stephengold.sport.mesh;
 
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.Topology;
 import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
-import org.lwjgl.opengl.GL11C;
 
 /**
- * A GL_LINES mesh that renders a single line segment.
+ * A LineList mesh that renders a single line segment.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -52,7 +52,7 @@ public class LineMesh extends Mesh {
      * null, unaffected)
      */
     public LineMesh(Vector3f start, Vector3f end) {
-        super(GL11C.GL_LINES, 2);
+        super(Topology.LineList, 2);
         Validate.nonNull(start, "start");
         Validate.nonNull(end, "end");
 

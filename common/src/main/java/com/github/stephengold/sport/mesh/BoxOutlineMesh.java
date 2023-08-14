@@ -29,13 +29,13 @@
  */
 package com.github.stephengold.sport.mesh;
 
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.math.Vector3f;
-import org.lwjgl.opengl.GL11C;
 
 /**
- * A GL_LINES mesh that renders the outline of an axis-aligned box.
+ * A LineList mesh that renders the outline of an axis-aligned box.
  * <p>
  * The box extends from (x1,y1,z1) to (x2,y2,z2).
  *
@@ -87,7 +87,7 @@ public class BoxOutlineMesh extends Mesh {
      */
     public BoxOutlineMesh(float x1, float y1, float z1,
             float x2, float y2, float z2) {
-        super(GL11C.GL_LINES, 48);
+        super(Topology.LineList, 48);
 
         VertexBuffer posBuffer = super.createPositions();
         for (int vertexIndex : cubeIndices) {

@@ -29,12 +29,11 @@
  */
 package com.github.stephengold.sport.mesh;
 
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.Mesh;
-import org.lwjgl.opengl.GL11C;
 
 /**
- * A GL_TRIANGLE_FAN mesh that renders an axis-aligned rectangle in the X-Y
- * plane.
+ * A TriangleFan mesh that renders an axis-aligned rectangle in the X-Y plane.
  * <p>
  * In mesh space, the rectangle extends from (x1,y1,0) to (x2,y2,0) with normals
  * set to (0,0,zNorm).
@@ -64,7 +63,7 @@ public class RectangleMesh extends Mesh {
      */
     public RectangleMesh(float x1, float x3, float y1, float y3,
             float normalZ) {
-        super(GL11C.GL_TRIANGLE_FAN, 4);
+        super(Topology.TriangleFan, 4);
         /*
          * The correct winding order depends on the coordinates chosen
          * and the direction of the normal.

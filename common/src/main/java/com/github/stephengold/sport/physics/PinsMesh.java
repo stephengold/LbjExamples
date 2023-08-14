@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -30,10 +30,10 @@
 package com.github.stephengold.sport.physics;
 
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.bullet.objects.PhysicsSoftBody;
 import com.jme3.bullet.util.NativeSoftBodyUtil;
-import org.lwjgl.opengl.GL11C;
 
 /**
  * An auto-generated mesh to visualize the pinned nodes in a soft body.
@@ -50,13 +50,13 @@ class PinsMesh extends Mesh {
     // constructors
 
     /**
-     * Auto-generate a mutable GL_POINTS mesh for the specified soft body.
+     * Auto-generate a mutable PointList mesh for the specified soft body.
      *
      * @param softBody the soft body from which to generate the mesh (not null,
      * unaffected)
      */
     PinsMesh(PhysicsSoftBody softBody) {
-        super(GL11C.GL_POINTS, softBody.countPinnedNodes());
+        super(Topology.PointList, softBody.countPinnedNodes());
 
         this.softBody = softBody;
 

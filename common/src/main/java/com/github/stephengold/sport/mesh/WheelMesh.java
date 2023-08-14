@@ -29,13 +29,13 @@
  */
 package com.github.stephengold.sport.mesh;
 
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.math.FastMath;
-import org.lwjgl.opengl.GL11C;
 
 /**
- * A GL_LINES mesh that renders a 6-spoke wheel in the Y-Z plane.
+ * A LineList mesh that renders a 6-spoke wheel in the Y-Z plane.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -48,7 +48,7 @@ public class WheelMesh extends Mesh {
      * center at (0,0,0).
      */
     public WheelMesh() {
-        super(GL11C.GL_LINES, 66);
+        super(Topology.LineList, 66);
 
         VertexBuffer positionBuffer = super.createPositions();
         int numEdges = super.countLines();

@@ -29,6 +29,7 @@
  */
 package com.github.stephengold.sport.physics;
 
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.IndexBuffer;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.VertexBuffer;
@@ -37,10 +38,9 @@ import com.jme3.bullet.util.NativeSoftBodyUtil;
 import com.jme3.math.Transform;
 import com.jme3.util.BufferUtils;
 import java.nio.IntBuffer;
-import org.lwjgl.opengl.GL11C;
 
 /**
- * An auto-generated GL_LINES mesh to visualize the links in a soft body.
+ * An auto-generated LineList mesh to visualize the links in a soft body.
  */
 class LinksMesh extends Mesh {
     // *************************************************************************
@@ -64,7 +64,7 @@ class LinksMesh extends Mesh {
      * alias created)
      */
     LinksMesh(PhysicsSoftBody softBody) {
-        super(GL11C.GL_LINES, softBody.countNodes());
+        super(Topology.LineList, softBody.countNodes());
 
         this.softBody = softBody;
 

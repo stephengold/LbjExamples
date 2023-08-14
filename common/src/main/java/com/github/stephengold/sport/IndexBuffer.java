@@ -132,9 +132,9 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
      * its data store (if needed).
      *
      * @param drawMode the kind of geometric primitives to draw, such as
-     * GL_LINE_LOOP
+     * LineLoop
      */
-    void drawElements(int drawMode) {
+    void drawElements(Topology drawMode) {
         if (vbo == null) {
             generateVbo();
         }
@@ -144,9 +144,10 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
         }
 
         bindVbo();
+        int code = drawMode.code();
         long indices = 0L;
         int numIndices = capacity();
-        GL11C.glDrawElements(drawMode, numIndices, elementType, indices);
+        GL11C.glDrawElements(code, numIndices, elementType, indices);
         Utils.checkForOglError();
     }
 

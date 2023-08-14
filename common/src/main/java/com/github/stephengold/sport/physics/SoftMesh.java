@@ -31,6 +31,7 @@ package com.github.stephengold.sport.physics;
 
 import com.github.stephengold.sport.IndexBuffer;
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.bullet.objects.PhysicsSoftBody;
 import com.jme3.bullet.util.NativeSoftBodyUtil;
@@ -38,7 +39,6 @@ import com.jme3.math.Transform;
 import com.jme3.util.BufferUtils;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import org.lwjgl.opengl.GL11C;
 
 /**
  * An auto-generated mesh to visualize the nodes in a soft body.
@@ -61,11 +61,11 @@ class SoftMesh extends Mesh {
     /**
      * Auto-generate a mutable for the specified soft body.
      *
-     * @param drawMode GL_LINES to visualize links
+     * @param drawMode LineList to visualize links
      * @param softBody the soft body from which to generate the mesh (not null,
      * unaffected)
      */
-    SoftMesh(int drawMode, PhysicsSoftBody softBody) {
+    SoftMesh(Topology drawMode, PhysicsSoftBody softBody) {
         super(drawMode, softBody.countNodes());
 
         this.softBody = softBody;
@@ -75,7 +75,7 @@ class SoftMesh extends Mesh {
         softBody.copyLocations(locations);
         positions.setDynamic();
 
-        if (drawMode == GL11C.GL_LINES) {
+        if (drawMode == Topology.LineList) {
             int numLinks = softBody.countLinks();
             this.links = BufferUtils.createIntBuffer(2 * numLinks);
             softBody.copyLinks(links);
@@ -110,7 +110,7 @@ class SoftMesh extends Mesh {
         NativeSoftBodyUtil.updateMesh(softBody, indexMap, this, localFlag,
                 normalsFlag, transform);
 
-        if (drawMode() == GL11C.GL_LINES) {
+        if (topology() == Topology.LineList) {
             int numLinks = softBody.countLinks();
             if (2 * numLinks != links.capacity()) {
                 return false;

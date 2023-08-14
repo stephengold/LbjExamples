@@ -82,11 +82,6 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     private IndexBuffer indexBuffer;
     /**
-     * kind of geometric primitives the mesh contains, such as GL_TRIANGLES,
-     * GL_LINE_LOOP, or GL_POINTS
-     */
-    private final int drawMode;
-    /**
      * number of vertices (based on buffer sizes, unmodified by indexing)
      */
     private final int vertexCount;
@@ -95,6 +90,10 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * been generated yet TODO rename
      */
     private Integer vaoId;
+    /**
+     * how vertices are organized into primitives (not null)
+     */
+    private final Topology topology;
     /**
      * vertex normals (3 floats per vertex) or null if none
      */
@@ -111,14 +110,18 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     // constructors
 
     /**
-     * Instantiate a mutable triangle mesh from vertices and optional indices.
+     * Instantiate a mutable mesh from vertices and optional indices.
      *
+     * @param topology the desired topology (not null)
      * @param indices the vertex indices to use (unaffected) or null if none
      * @param vertices the vertex data to use (not null, unaffected)
      */
-    public Mesh(List<Integer> indices, List<Vertex> vertices) {
-        this(GL11C.GL_TRIANGLES, vertices.size());
+    public Mesh(
+            Topology topology, List<Integer> indices, List<Vertex> vertices) {
+        Validate.nonNull(topology, "topology");
 
+        this.topology = topology;
+        this.vertexCount = vertices.size();
         if (indices == null) {
             this.indexBuffer = null;
         } else {
@@ -172,15 +175,15 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Instantiate a mutable mesh with the specified mode and vertex positions,
-     * but no indices, normals, or texture coordinates.
+     * Instantiate a mutable mesh with the specified tppology and vertex
+     * positions, but no indices, normals, or texture coordinates.
      *
-     * @param drawMode draw mode, such as GL_TRIANGLES
+     * @param topology the desired topology (not null)
      * @param positionsArray vertex positions (not null, not empty, length a
      * multiple of 3, unaffected)
      */
-    public Mesh(int drawMode, float... positionsArray) {
-        this(drawMode, positionsArray.length / numAxes);
+    public Mesh(Topology topology, float... positionsArray) {
+        this(topology, positionsArray.length / numAxes);
         Validate.require(
                 positionsArray.length % numAxes == 0, "length a multiple of 3");
 
@@ -190,18 +193,15 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Instantiate a mutable mesh with the specified mode and vertex positions,
-     * but no indices, normals, or texture coordinates.
+     * Instantiate a mutable mesh with the specified topology and vertex
+     * positions, but no indices, normals, or texture coordinates.
      *
-     * @param drawMode draw mode, such as GL_TRIANGLES
-     * @param positionsBuffer vertex positions (not null, not empty, capacity a
-     * multiple of 3, alias created)
+     * @param topology an enum value (not null)
+     * @param positionsBuffer vertex positions (not null, not empty)
      */
-    protected Mesh(int drawMode, FloatBuffer positionsBuffer) {
-        this(drawMode, positionsBuffer.capacity() / numAxes);
+    protected Mesh(Topology topology, FloatBuffer positionsBuffer) {
+        this(topology, positionsBuffer.capacity() / numAxes);
         int capacity = positionsBuffer.capacity();
-        Validate.require(capacity % numAxes == 0, "capacity a multiple of 3");
-
         positionsBuffer.rewind();
         positionsBuffer.limit(capacity);
 
@@ -210,15 +210,15 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Instantiate a mutable mesh with the specified mode and vertex positions,
-     * but no indices, normals, or texture coordinates.
+     * Instantiate a mutable mesh with the specified topology and vertex
+     * positions, but no indices, normals, or texture coordinates.
      *
-     * @param drawMode draw mode, such as GL_TRIANGLES
+     * @param topology an enum value (not null)
      * @param positionsArray vertex positions (in mesh coordinates, not null,
      * not empty)
      */
-    public Mesh(int drawMode, Vector3f... positionsArray) {
-        this(drawMode, positionsArray.length);
+    public Mesh(Topology topology, Vector3f... positionsArray) {
+        this(topology, positionsArray.length);
 
         FloatBuffer data = BufferUtils.createFloatBuffer(positionsArray);
         this.positionBuffer = new VertexBuffer(
@@ -226,16 +226,18 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Instantiate a mutable mesh with the specified mode and number of
-     * vertices, but no indices, normals, positions, or texture coordinates.
+     * Instantiate an incomplete mutable mesh with the specified topology and
+     * number of vertices, but no indices, normals, positions, or texture
+     * coordinates.
      *
-     * @param drawMode draw mode, such as GL_TRIANGLES
+     * @param topology the desired topology (not null)
      * @param vertexCount number of vertices (&ge;0)
      */
-    protected Mesh(int drawMode, int vertexCount) {
+    protected Mesh(Topology topology, int vertexCount) {
+        Validate.nonNull(topology, "topology");
         Validate.nonNegative(vertexCount, "vertex count");
 
-        this.drawMode = drawMode;
+        this.topology = topology;
         this.vertexCount = vertexCount;
     }
     // *************************************************************************
@@ -304,7 +306,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
     /**
      * Count how many vertices the mesh renders, taking indexing into account,
-     * but not the draw mode.
+     * but not the topology.
      *
      * @return the count (&ge;0)
      */
@@ -320,31 +322,17 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * @return the count (&ge;0)
      */
     public int countLines() {
-        int numIndices = countIndexedVertices();
         int result;
-        switch (drawMode) {
-            case GL11C.GL_LINES:
-                result = numIndices / 2;
-                break;
-
-            case GL11C.GL_LINE_LOOP:
-                result = numIndices;
-                break;
-
-            case GL11C.GL_LINE_STRIP:
-                result = numIndices - 1;
-                break;
-
-            case GL11C.GL_POINTS:
-            case GL11C.GL_TRIANGLES:
-            case GL11C.GL_TRIANGLE_STRIP:
-            case GL11C.GL_TRIANGLE_FAN:
-            case GL11C.GL_QUADS:
-                result = 0;
-                break;
-
-            default:
-                throw new IllegalStateException("drawMode = " + drawMode);
+        int vpp = topology.vpp();
+        if (vpp == 2) {
+            int numIndices = countIndexedVertices();
+            int numShared = topology.numShared();
+            result = (numIndices - numShared) / (vpp - numShared);
+            if (topology == Topology.LineLoop) {
+                ++result; // complete the loop
+            }
+        } else {
+            result = 0;
         }
 
         return result;
@@ -356,25 +344,11 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * @return the count (&ge;0)
      */
     public int countPoints() {
-        int numIndices = countIndexedVertices();
         int result;
-        switch (drawMode) {
-            case GL11C.GL_POINTS:
-                result = numIndices;
-                break;
-
-            case GL11C.GL_LINES:
-            case GL11C.GL_LINE_LOOP:
-            case GL11C.GL_LINE_STRIP:
-            case GL11C.GL_TRIANGLES:
-            case GL11C.GL_TRIANGLE_STRIP:
-            case GL11C.GL_TRIANGLE_FAN:
-            case GL11C.GL_QUADS:
-                result = 0;
-                break;
-
-            default:
-                throw new IllegalStateException("drawMode = " + drawMode);
+        if (topology == Topology.PointList) {
+            result = countIndexedVertices();
+        } else {
+            result = 0;
         }
 
         return result;
@@ -386,36 +360,22 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * @return the count (&ge;0)
      */
     public int countTriangles() {
-        int numIndices = countIndexedVertices();
         int result;
-        switch (drawMode) {
-            case GL11C.GL_POINTS:
-            case GL11C.GL_LINES:
-            case GL11C.GL_LINE_LOOP:
-            case GL11C.GL_LINE_STRIP:
-            case GL11C.GL_QUADS:
-                result = 0;
-                break;
-
-            case GL11C.GL_TRIANGLES:
-                result = numIndices / vpt;
-                break;
-
-            case GL11C.GL_TRIANGLE_STRIP:
-            case GL11C.GL_TRIANGLE_FAN:
-                result = numIndices - 2;
-                break;
-
-            default:
-                throw new IllegalStateException("drawMode = " + drawMode);
+        int vpp = topology.vpp();
+        if (vpp == 3) {
+            int numIndices = countIndexedVertices();
+            int numShared = topology.numShared();
+            result = (numIndices - numShared) / (vpp - numShared);
+        } else {
+            result = 0;
         }
 
         return result;
     }
 
     /**
-     * Count how many vertices the mesh contains, based on VertexBuffer
-     * capacities, unmodified by draw mode and indexing.
+     * Count how many vertices the mesh contains, based on buffer capacities,
+     * unmodified by topology and indexing.
      *
      * @return the count (&ge;0)
      */
@@ -424,25 +384,15 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Return the draw mode, which indicates the kind of geometric primitives
-     * the mesh contains.
-     *
-     * @return the mode, such as: GL_TRIANGLES, GL_LINE_LOOP, or GL_POINTS
-     */
-    public int drawMode() {
-        return drawMode;
-    }
-
-    /**
      * Generate normals on a triangle-by-triangle basis for a non-indexed,
-     * GL_TRIANGLES mesh. Any pre-existing normals are discarded.
+     * TriangleList mesh. Any pre-existing normals are discarded.
      *
      * @return the (modified) current instance (for chaining)
      */
     public Mesh generateFacetNormals() {
         verifyMutable();
-        if (drawMode != GL11C.GL_TRIANGLES) {
-            throw new IllegalStateException("drawMode = " + drawMode);
+        if (topology != Topology.TriangleList) {
+            throw new IllegalStateException("topology = " + topology);
         }
         if (indexBuffer != null) {
             throw new IllegalStateException("must be non-indexed");
@@ -634,22 +584,26 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         Utils.checkForOglError();
 
         if (indexBuffer == null) {
+            int code = topology.code();
             int startVertex = 0;
-            GL11C.glDrawArrays(drawMode, startVertex, vertexCount);
+            GL11C.glDrawArrays(code, startVertex, vertexCount);
             Utils.checkForOglError();
 
         } else {
-            indexBuffer.drawElements(drawMode);
+            indexBuffer.drawElements(topology);
         }
     }
 
     /**
-     * Create a mutable triangle mesh by de-duplicating a list of vertices.
+     * Create a mutable mesh by de-duplicating a list of vertices.
      *
+     * @param topology an enum value (not null)
      * @param vertices the vertex data to use (not null, unaffected)
      * @return a new instance
      */
-    public static Mesh newInstance(List<Vertex> vertices) {
+    public static Mesh newInstance(Topology topology, List<Vertex> vertices) {
+        Validate.nonNull(topology, "topology");
+
         int count = vertices.size();
         List<Integer> tempIndices = new ArrayList<>(count);
         List<Vertex> tempVertices = new ArrayList<>(count);
@@ -667,7 +621,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             }
         }
 
-        Mesh result = new Mesh(tempIndices, tempVertices);
+        Mesh result = new Mesh(topology, tempIndices, tempVertices);
         return result;
     }
 
@@ -783,31 +737,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * @return the count (&ge;1, &le;4)
      */
     public int vpp() {
-        int result;
-        switch (drawMode) {
-            case GL11C.GL_POINTS:
-                return 1;
-
-            case GL11C.GL_LINES:
-            case GL11C.GL_LINE_LOOP:
-            case GL11C.GL_LINE_STRIP:
-                result = vpe;
-                break;
-
-            case GL11C.GL_TRIANGLES:
-            case GL11C.GL_TRIANGLE_STRIP:
-            case GL11C.GL_TRIANGLE_FAN:
-                result = vpt;
-                break;
-
-            case GL11C.GL_QUADS:
-                result = 4;
-                break;
-
-            default:
-                throw new IllegalStateException("drawMode = " + drawMode);
-        }
-
+        int result = topology.vpp();
         return result;
     }
     // *************************************************************************
@@ -946,24 +876,24 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Test whether the draw mode is GL_LINES. Indexing is ignored.
+     * Test whether the topology is LineList. Indexing is ignored.
      *
      * @return true if pure lines, otherwise false
      */
     @Override
     public boolean isPureLines() {
-        boolean result = (drawMode == GL11C.GL_LINES);
+        boolean result = (topology == Topology.LineList);
         return result;
     }
 
     /**
-     * Test whether the draw mode is GL_TRIANGLES. Indexing is ignored.
+     * Test whether the topology is TriangleList. Indexing is ignored.
      *
      * @return true if pure triangles, otherwise false
      */
     @Override
     public boolean isPureTriangles() {
-        boolean result = (drawMode == GL11C.GL_TRIANGLES);
+        boolean result = (topology == Topology.TriangleList);
         return result;
     }
 
@@ -1006,10 +936,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             String elementString = Utils.describeCode(indexType);
             result.append(elementString);
         }
-        result.append("-indexed, ");
-        String modeString = Utils.describeCode(drawMode);
-        result.append(modeString);
-        result.append("-mode mesh (");
+        result.append("-indexed ");
+        result.append(topology);
+        result.append(" mesh (");
         result.append(vertexCount);
         if (vertexCount == 1) {
             result.append(" vertex");
@@ -1048,19 +977,17 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             }
         }
         result.append(")");
-        /*
-         * In the body of the description, vertices appear in groups,
-         * separated by empty lines.
-         *
-         * Determine how many vertices to describe after each empty line:
-         */
-        int vpp = vpp();
-        int linesPerGroup = (vpp == 1) ? numToDescribe : vpp;
-
         String nl = System.lineSeparator();
+        result.append(nl);
+        /*
+         * In the body of the description, vertices are grouped into primitives,
+         * separated by empty lines.
+         */
+        int vpp = topology.vpp();
+        int numShared = topology.numShared();
 
         for (int i = 0; i < numToDescribe; ++i) {
-            if ((i % linesPerGroup) == 0) {
+            if (i >= vpp && ((i - numShared) % (vpp - numShared)) == 0) {
                 result.append(nl);
             }
 
