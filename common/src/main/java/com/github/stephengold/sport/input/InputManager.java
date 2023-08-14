@@ -50,7 +50,7 @@ public class InputManager {
     /**
      * GLFW handle of the window used for input (not null)
      */
-    final private long glfwWindowId;
+    final private long glfwWindowHandle;
     /**
      * last-known location of the mouse cursor (in screen units, relative to the
      * top-left corner of the window's content area) or null if the application
@@ -68,16 +68,16 @@ public class InputManager {
     /**
      * Instantiate a manager for the specified window.
      *
-     * @param windowId the GLFW handle of the window (not null)
+     * @param windowHandle the GLFW handle of the window (not null)
      */
-    public InputManager(long windowId) {
-        this.glfwWindowId = windowId;
+    public InputManager(long windowHandle) {
+        this.glfwWindowHandle = windowHandle;
 
         // Set up the user-input callbacks.
-        GLFW.glfwSetCursorPosCallback(glfwWindowId, this::glfwCursorPosCallback);
-        GLFW.glfwSetKeyCallback(glfwWindowId, this::glfwKeyCallback);
-        GLFW.glfwSetMouseButtonCallback(glfwWindowId, this::glfwMouseButtonCallback);
-        GLFW.glfwSetScrollCallback(glfwWindowId, new GLFWScrollCallback() {
+        GLFW.glfwSetCursorPosCallback(glfwWindowHandle, this::glfwCursorPosCallback);
+        GLFW.glfwSetKeyCallback(glfwWindowHandle, this::glfwKeyCallback);
+        GLFW.glfwSetMouseButtonCallback(glfwWindowHandle, this::glfwMouseButtonCallback);
+        GLFW.glfwSetScrollCallback(glfwWindowHandle, new GLFWScrollCallback() {
             @Override
             public void invoke(long window, double xOffset, double yOffset) {
                 glfwScrollCallback(window, xOffset, yOffset);
@@ -114,7 +114,7 @@ public class InputManager {
      */
     public boolean isLmbPressed() {
         int state = GLFW.glfwGetMouseButton(
-                glfwWindowId, GLFW.GLFW_MOUSE_BUTTON_LEFT);
+                glfwWindowHandle, GLFW.GLFW_MOUSE_BUTTON_LEFT);
         if (state == GLFW.GLFW_PRESS) {
             return true;
         } else {
@@ -129,7 +129,7 @@ public class InputManager {
      */
     public boolean isMmbPressed() {
         int state = GLFW.glfwGetMouseButton(
-                glfwWindowId, GLFW.GLFW_MOUSE_BUTTON_MIDDLE);
+                glfwWindowHandle, GLFW.GLFW_MOUSE_BUTTON_MIDDLE);
         if (state == GLFW.GLFW_PRESS) {
             return true;
         } else {
@@ -144,7 +144,7 @@ public class InputManager {
      */
     public boolean isRmbPressed() {
         int state = GLFW.glfwGetMouseButton(
-                glfwWindowId, GLFW.GLFW_MOUSE_BUTTON_RIGHT);
+                glfwWindowHandle, GLFW.GLFW_MOUSE_BUTTON_RIGHT);
         if (state == GLFW.GLFW_PRESS) {
             return true;
         } else {
@@ -157,19 +157,19 @@ public class InputManager {
     /**
      * Callback invoked by GLFW for every cursor-motion event.
      *
-     * @param windowId the GLFW handle of the window that received the event
+     * @param windowHandle the GLFW handle of the window that received the event
      * (not null)
      * @param x the horizontal offset of the cursor from the left edge of the
      * window's content area (in screen units)
      * @param y the vertical offset of the cursor from the top edge of the
      * window's content area (in screen units)
      */
-    private void glfwCursorPosCallback(long windowId, double x, double y) {
-        assert windowId == glfwWindowId;
+    private void glfwCursorPosCallback(long windowHandle, double x, double y) {
+        assert windowHandle == glfwWindowHandle;
 
         int[] windowHeight = new int[1];
         int[] windowWidth = new int[1];
-        GLFW.glfwGetWindowSize(windowId, windowWidth, windowHeight);
+        GLFW.glfwGetWindowSize(windowHandle, windowWidth, windowHeight);
 
         if (glfwCursorPos == null) {
             this.glfwCursorPos = new Vector2d(x, y);
@@ -196,7 +196,7 @@ public class InputManager {
     /**
      * Callback invoked by GLFW for every keyboard event.
      *
-     * @param windowId the GLFW handle of the window that received the event
+     * @param windowHandle the GLFW handle of the window that received the event
      * (not null)
      * @param keyId the ID of the key that caused the event
      * @param scancode the system-specific scan code of the key
@@ -205,9 +205,9 @@ public class InputManager {
      * @param modifiers a bitmask of the modifier keys that were depressed at
      * the time of the event
      */
-    private void glfwKeyCallback(long windowId, int keyId, int scancode,
-            int action, int mods) {
-        assert windowId == glfwWindowId;
+    private void glfwKeyCallback(long windowHandle, int keyId, int scancode,
+            int action, int modifiers) {
+        assert windowHandle == glfwWindowHandle;
 
         if (action != GLFW.GLFW_REPEAT && firstProcessor != null) {
             boolean isPress = (action == GLFW.GLFW_PRESS);
@@ -218,7 +218,7 @@ public class InputManager {
     /**
      * Callback invoked by GLFW for every mouse-button event.
      *
-     * @param windowId the GLFW handle of the window that received the event
+     * @param windowHandle the GLFW handle of the window that received the event
      * (not null)
      * @param buttonId the ID of the button that caused the event
      * @param action the type of event (GLFW_PRESS or GLFW_RELEASE)
@@ -226,8 +226,8 @@ public class InputManager {
      * the time of the event
      */
     private void glfwMouseButtonCallback(
-            long windowId, int buttonId, int action, int mods) {
-        assert windowId == glfwWindowId;
+            long windowHandle, int buttonId, int action, int modifiers) {
+        assert windowHandle == glfwWindowHandle;
 
         boolean isPress = (action == GLFW.GLFW_PRESS);
         if (firstProcessor != null) {
@@ -238,14 +238,14 @@ public class InputManager {
     /**
      * Callback invoked by GLFW for every scrolling-device event.
      *
-     * @param windowId the GLFW handle of the window that received the event
+     * @param windowHandle the GLFW handle of the window that received the event
      * (not null)
      * @param xOffset the X component of the scroll offset
      * @param yOffset the Y component of the scroll offset
      */
     private void glfwScrollCallback(
-            long windowId, double xOffset, double yOffset) {
-        assert windowId == glfwWindowId;
+            long windowHandle, double xOffset, double yOffset) {
+        assert windowHandle == glfwWindowHandle;
 
         if (firstProcessor != null) {
             firstProcessor.onMouseScroll(xOffset, yOffset);

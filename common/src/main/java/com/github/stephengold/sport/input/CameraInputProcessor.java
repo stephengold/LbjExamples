@@ -76,7 +76,7 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * GLFW handle of the window
      */
-    final private long windowId;
+    final private long windowHandle;
     /**
      * time of the previous moveCamera() in nanoseconds, or null if not invoked
      */
@@ -95,11 +95,11 @@ public class CameraInputProcessor extends InputProcessor {
     /**
      * Instantiate a processor for the specified window.
      *
-     * @param windowId the GLFW handle of the window (not null)
+     * @param windowHandle the GLFW handle of the window (not null)
      */
-    public CameraInputProcessor(long windowId) {
+    public CameraInputProcessor(long windowHandle) {
         this.rotationMode = RotateMode.None;
-        this.windowId = windowId;
+        this.windowHandle = windowHandle;
         this.keyIdsSeen = new HashSet<>(99);
     }
     // *************************************************************************
@@ -226,14 +226,15 @@ public class CameraInputProcessor extends InputProcessor {
 
     private void activateRotation() {
         this.savedCursorInputMode
-                = GLFW.glfwGetInputMode(windowId, GLFW.GLFW_CURSOR);
+                = GLFW.glfwGetInputMode(windowHandle, GLFW.GLFW_CURSOR);
         GLFW.glfwSetInputMode(
-                windowId, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
+                windowHandle, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
         this.isRotationActive = true;
     }
 
     private void deactivateRotation() {
-        GLFW.glfwSetInputMode(windowId, GLFW.GLFW_CURSOR, savedCursorInputMode);
+        GLFW.glfwSetInputMode(
+                windowHandle, GLFW.GLFW_CURSOR, savedCursorInputMode);
         this.isRotationActive = false;
     }
 
@@ -281,7 +282,7 @@ public class CameraInputProcessor extends InputProcessor {
      */
     private boolean pollKey(int keyId) {
         boolean seen = keyIdsSeen.contains(keyId);
-        int state = GLFW.glfwGetKey(windowId, keyId);
+        int state = GLFW.glfwGetKey(windowHandle, keyId);
         boolean result = seen && (state == GLFW.GLFW_PRESS);
 
         return result;
