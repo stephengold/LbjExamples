@@ -74,13 +74,15 @@ public class InputManager {
         this.glfwWindowHandle = windowHandle;
 
         // Set up the user-input callbacks.
-        GLFW.glfwSetCursorPosCallback(glfwWindowHandle, this::glfwCursorPosCallback);
-        GLFW.glfwSetKeyCallback(glfwWindowHandle, this::glfwKeyCallback);
-        GLFW.glfwSetMouseButtonCallback(glfwWindowHandle, this::glfwMouseButtonCallback);
+        GLFW.glfwSetCursorPosCallback(
+                glfwWindowHandle, this::cursorPosCallback);
+        GLFW.glfwSetKeyCallback(glfwWindowHandle, this::keyCallback);
+        GLFW.glfwSetMouseButtonCallback(
+                glfwWindowHandle, this::mouseButtonCallback);
         GLFW.glfwSetScrollCallback(glfwWindowHandle, new GLFWScrollCallback() {
             @Override
             public void invoke(long window, double xOffset, double yOffset) {
-                glfwScrollCallback(window, xOffset, yOffset);
+                scrollCallback(window, xOffset, yOffset);
             }
         });
     }
@@ -164,7 +166,7 @@ public class InputManager {
      * @param y the vertical offset of the cursor from the top edge of the
      * window's content area (in screen units)
      */
-    private void glfwCursorPosCallback(long windowHandle, double x, double y) {
+    private void cursorPosCallback(long windowHandle, double x, double y) {
         assert windowHandle == glfwWindowHandle;
 
         int[] windowHeight = new int[1];
@@ -205,7 +207,7 @@ public class InputManager {
      * @param modifiers a bitmask of the modifier keys that were depressed at
      * the time of the event
      */
-    private void glfwKeyCallback(long windowHandle, int keyId, int scancode,
+    private void keyCallback(long windowHandle, int keyId, int scancode,
             int action, int modifiers) {
         assert windowHandle == glfwWindowHandle;
 
@@ -225,7 +227,7 @@ public class InputManager {
      * @param modifiers a bitmask of the modifier keys that were depressed at
      * the time of the event
      */
-    private void glfwMouseButtonCallback(
+    private void mouseButtonCallback(
             long windowHandle, int buttonId, int action, int modifiers) {
         assert windowHandle == glfwWindowHandle;
 
@@ -243,7 +245,7 @@ public class InputManager {
      * @param xOffset the X component of the scroll offset
      * @param yOffset the Y component of the scroll offset
      */
-    private void glfwScrollCallback(
+    private void scrollCallback(
             long windowHandle, double xOffset, double yOffset) {
         assert windowHandle == glfwWindowHandle;
 
