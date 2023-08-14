@@ -242,7 +242,7 @@ public class Camera {
      */
     public Vector3f rightDirection(Vector3f storeResult) {
         if (storeResult == null) {
-            return rightDirection.clone();
+            return new Vector3f(rightDirection);
         } else {
             return storeResult.set(rightDirection);
         }
@@ -413,7 +413,7 @@ public class Camera {
      */
     public Vector3f upDirection(Vector3f storeResult) {
         if (storeResult == null) {
-            return upDirection.clone();
+            return new Vector3f(upDirection);
         } else {
             return storeResult.set(upDirection);
         }
