@@ -674,6 +674,17 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
+     * Return the topology, which determines how vertices/indices are organized
+     * into primitives.
+     *
+     * @return an enum value (not null)
+     */
+    public Topology topology() {
+        assert topology != null;
+        return topology;
+    }
+
+    /**
      * Apply the specified transform to all vertices.
      *
      * @param transform the transform to apply (not null, unaffected)
