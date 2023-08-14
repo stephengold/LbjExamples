@@ -435,9 +435,9 @@ public class TextureKey {
     }
 
     /**
-     * Generate a square texture for a 2-color checkerboard pattern.
+     * Generate a square texture for a 2-by-2 checkerboard pattern.
      *
-     * @param argMap argument map (not null, unaffected
+     * @param argMap to map argument names to values (not null, unaffected)
      * @return a new instance
      */
     private Texture synthesizeCheckerboard(Map<String, String> argMap) {

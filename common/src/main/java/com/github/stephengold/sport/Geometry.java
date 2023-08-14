@@ -41,8 +41,8 @@ import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL11C;
 
 /**
- * A 3-D object rendered by a BaseApplication, including a Mesh, a
- * ShaderProgram, a coordinate transform, and a color.
+ * A 3-D object to be rendered by SPORT, including a Mesh, a Texture, a shader
+ * program, a coordinate transform, and a color.
  */
 public class Geometry {
     // *************************************************************************
@@ -85,7 +85,7 @@ public class Geometry {
      */
     private ShaderProgram program;
     /**
-     * primary texture (typically diffuse color), or null if none
+     * primary texture (typically diffuse color) or null if none
      */
     private Texture texture;
     /**
@@ -319,9 +319,9 @@ public class Geometry {
     /**
      * Alter the location of the mesh origin.
      *
-     * @param x the desired X offset
-     * @param y the desired Y offset
-     * @param z the desired Z offset
+     * @param x the desired X coordinate (in world coordinates)
+     * @param y the desired Y coordinate (in world coordinates)
+     * @param z the desired Z coordinate (in world coordinates)
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setLocation(float x, float y, float z) {
@@ -369,7 +369,8 @@ public class Geometry {
     }
 
     /**
-     * Alter the orientation.
+     * Alter the mesh-to-world coordinate rotation, without shifting the local
+     * origin.
      *
      * @param newOrientation the desired orientation (not null, not zero,
      * unaffected)
@@ -397,7 +398,7 @@ public class Geometry {
 
     /**
      * Replace the geometry's current shader program with the named program, or
-     * if the name is null, replace it with the default shader program.
+     * if the name is null, replace it with the default program.
      *
      * @param name the name of the desired program (may be null)
      * @return the (modified) current geometry (for chaining)
@@ -449,8 +450,7 @@ public class Geometry {
     }
 
     /**
-     * Replace the geometry's current primary texture with a texture obtained
-     * from the specified key.
+     * Replace the primary texture with one obtained using the specified key.
      *
      * @param textureKey a key to obtain the desired texture (not null)
      * @return the (modified) current geometry (for chaining)

@@ -155,7 +155,7 @@ public class Camera {
     }
 
     /**
-     * Return the look direction.
+     * Return the look direction. This is a convenience method.
      *
      * @return a new unit vector in world coordinates
      */
@@ -164,7 +164,7 @@ public class Camera {
     }
 
     /**
-     * Return the eye location.
+     * Return the eye location. This is a convenience method.
      *
      * @return a new location vector in world coordinates
      */
@@ -250,15 +250,15 @@ public class Camera {
 
     /**
      * Increase azimuth by {@code rightRadians} and increase the up angle by
-     * {@code upRadians}. The magnitude of the resulting up angle cannot exceed
+     * {@code upRadians}. The magnitude of the resulting up angle is limited to
      * {@code maxUpAngleRadians}.
      *
      * @param rightRadians (in radians)
      * @param upRadians (in radians)
      * @param maxUpAngleRadians (in radians)
      */
-    public void rotateLimited(float rightRadians, float upRadians,
-            float maxUpAngleRadians) {
+    public void rotateLimited(
+            float rightRadians, float upRadians, float maxUpAngleRadians) {
         azimuthRadians += rightRadians;
         azimuthRadians = MyMath.standardizeAngle(azimuthRadians);
 
@@ -432,9 +432,9 @@ public class Camera {
     // Object methods
 
     /**
-     * Represent this camera as a text string.
+     * Describe the camera in a string of text.
      *
-     * @return descriptive string of text (not null)
+     * @return a descriptive string of text (not null, not empty)
      */
     @Override
     public String toString() {
@@ -447,6 +447,11 @@ public class Camera {
     // *************************************************************************
     // private methods
 
+    /**
+     * Update the {@code lookDirection}, {@code rightDirection}, and
+     * {@code upDirection} after changes to {@code azimuthRadians} and/or
+     * {@code upAngleRadians}.
+     */
     private void updateDirectionVectors() {
         float cosAzimuth = FastMath.cos(azimuthRadians);
         float sinAzimuth = FastMath.sin(azimuthRadians);

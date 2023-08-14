@@ -55,14 +55,15 @@ public class RectangleMesh extends Mesh {
     /**
      * Instantiate an axis-aligned rectangle.
      *
-     * @param x1 the local X coordinate of the first vertex
-     * @param x3 the local X coordinate of the 3rd vertex
-     * @param y1 the local Y coordinate of the first vertex
-     * @param y3 the local Y coordinate of the 3rd vertex
-     * @param normalZ the Z component of the normal vector (must be +1 or -1)
+     * @param x1 the X coordinate of the first vertex (in mesh coordinates)
+     * @param x3 the X coordinate of the 3rd vertex (in mesh coordinates)
+     * @param y1 the Y coordinate of the first vertex (in mesh coordinates)
+     * @param y3 the Y coordinate of the 3rd vertex (in mesh coordinates)
+     * @param normalZ the Z component of the normal vector (in mesh coordinates,
+     * must be +1 or -1)
      */
-    public RectangleMesh(float x1, float x3, float y1, float y3,
-            float normalZ) {
+    public RectangleMesh(
+            float x1, float x3, float y1, float y3, float normalZ) {
         super(Topology.TriangleFan, 4);
         /*
          * The correct winding order depends on the coordinates chosen

@@ -56,7 +56,7 @@ import org.joml.Vector3fc;
  * <li>U is the azimuthal angle, measured (in half revs) from the +X axis to the
  * projection of the vector onto the X-Y plane. It ranges from -1 to +1.
  * <li>V is the polar angle, measured (in half revs) from the +Z axis. It ranges
- * from 0 (at Z=1) to 1 (at Z=-1).
+ * from 0 (at Z=+1) to 1 (at Z=-1).
  * </ul>
  * <p>
  * Vertices with Y=0 and X&lt;1 lie on the seam. Those vertices are doubled and
@@ -83,7 +83,7 @@ public class OctasphereMesh extends Mesh {
      * Vertices [4, 7, 9] occupy (0, 0, -1) in mesh space. Vertex [4] will have
      * U=-1, vertex [7] will have U=+1, and vertex [9] will have U=0.
      * <p>
-     * Vertices [5, 8, 10] occupy (0, 0, 1) in mesh space. Vertex [5] will have
+     * Vertices [5, 8, 10] occupy (0, 0, +1) in mesh space. Vertex [5] will have
      * U=-1, vertex [8] will have U=+1, and vertex [10] will have U=0.
      */
     final private static int[] octaIndices = {
@@ -390,7 +390,7 @@ public class OctasphereMesh extends Mesh {
      * @param input the location to transform (y = distance east of the plane of
      * the zero meridian, z=distance north of the equatorial plane, not null,
      * unaffected)
-     * @return the north latitude (in radians)
+     * @return the location's north latitude (in radians)
      */
     private static float latitude(Vector3fc input) {
         float result;
@@ -410,7 +410,7 @@ public class OctasphereMesh extends Mesh {
      * @param input the location to transform (y = distance east of the plane of
      * the zero meridian, z=distance north of the equatorial plane, not null,
      * unaffected)
-     * @return the east longitude (in radians)
+     * @return the location's east longitude (in radians)
      */
     private static float longitude(Vector3fc input) {
         float result;

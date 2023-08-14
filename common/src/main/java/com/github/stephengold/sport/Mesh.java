@@ -142,8 +142,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         }
         floatBuffer.flip();
 
-        // normal buffer:
         Vertex representativeVertex = vertices.get(0);
+
+        // normal buffer:
         boolean hasNormal = representativeVertex.hasNormal();
         if (hasNormal) {
             this.normalBuffer = new VertexBuffer(
@@ -866,7 +867,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Access the positions data buffer.
+     * Access the positions data buffer for writing.
      *
      * @return the pre-existing buffer (not null)
      */

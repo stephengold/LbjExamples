@@ -84,7 +84,7 @@ abstract public class InputProcessor {
     }
 
     /**
-     * Handle mouse-wheel movement. Meant to be overridden.
+     * Handle scrolling-device movement. Meant to be overridden.
      *
      * @param xOffset the rightward motion
      * @param yOffset the upward motion

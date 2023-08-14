@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -76,7 +76,7 @@ class Texture {
     // constructors
 
     /**
-     * Instantiate a new texture.
+     * Instantiate a 2-D texture for sampling.
      *
      * @param width the width (in pixels, &gt;0)
      * @param height the height (in pixels, &gt;0)
