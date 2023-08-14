@@ -742,16 +742,6 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         return this;
     }
-
-    /**
-     * Return the number of vertices (or indices) per geometric primitive.
-     *
-     * @return the count (&ge;1, &le;4)
-     */
-    public int vpp() {
-        int result = topology.vpp();
-        return result;
-    }
     // *************************************************************************
     // new protected methods
 
