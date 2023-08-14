@@ -259,14 +259,14 @@ public class Camera {
      */
     public void rotateLimited(
             float rightRadians, float upRadians, float maxUpAngleRadians) {
-        azimuthRadians += rightRadians;
-        azimuthRadians = MyMath.standardizeAngle(azimuthRadians);
+        this.azimuthRadians += rightRadians;
+        this.azimuthRadians = MyMath.standardizeAngle(azimuthRadians);
 
-        upAngleRadians += upRadians;
+        this.upAngleRadians += upRadians;
         if (upAngleRadians > maxUpAngleRadians) {
-            upAngleRadians = maxUpAngleRadians;
+            this.upAngleRadians = maxUpAngleRadians;
         } else if (upAngleRadians < -maxUpAngleRadians) {
-            upAngleRadians = -maxUpAngleRadians;
+            this.upAngleRadians = -maxUpAngleRadians;
         }
 
         updateDirectionVectors();
