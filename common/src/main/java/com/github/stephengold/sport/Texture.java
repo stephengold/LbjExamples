@@ -89,7 +89,7 @@ class Texture {
         Validate.positive(height, "height");
         Validate.nonNull(data, "data");
 
-        target = GL11C.GL_TEXTURE_2D;
+        this.target = GL11C.GL_TEXTURE_2D;
 
         this.textureName = GL11C.glGenTextures();
         Utils.checkForOglError();
