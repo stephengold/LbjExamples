@@ -29,8 +29,8 @@
  */
 package com.github.stephengold.sport.mesh;
 
-import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.VertexBuffer;
 import com.jme3.math.Vector3f;
 

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2017-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2017-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -29,8 +29,8 @@
  */
 package com.github.stephengold.sport.mesh;
 
-import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.Mesh;
+import com.github.stephengold.sport.Topology;
 
 /**
  * A TriangleFan mesh that renders an axis-aligned rectangle in the X-Y plane.
