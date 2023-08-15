@@ -137,8 +137,8 @@ public class HelloClothRigid extends BasePhysicsApp<PhysicsSoftSpace> {
     }
 
     //Not very efficient, experimental code
-    public static IndexedMesh createClothGrid(int xLines, int zLines, float lineSpacing) {
-
+    private static IndexedMesh createClothGrid(
+            int xLines, int zLines, float lineSpacing) {
         int numVertices = xLines * zLines;
         List<Vector3f> posBuffer = new ArrayList<>(3 * numVertices);
         for (int xIndex = 0; xIndex < zLines; ++xIndex) {
