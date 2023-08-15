@@ -179,19 +179,20 @@ public class IcosphereMesh extends Mesh {
             faces = newFaces;
         }
 
-//        System.out.println("numRefineSteps  = " + numRefineSteps);
-//        System.out.println("withIndices     = " + withIndices);
-//        System.out.println("numVertices     = " + numVertices);
-//        System.out.println("numLocations    = " + locations.size());
-//        System.out.println("numFaces        = " + faces.size() / vpt);
-//        System.out.println("numCacheEntries = " + midpointCache.size());
-//        System.out.println();
-//
+        //System.out.println("numRefineSteps  = " + numRefineSteps);
+        //System.out.println("withIndices     = " + withIndices);
+        //System.out.println("numVertices     = " + numVertices);
+        //System.out.println("numLocations    = " + locations.size());
+        //System.out.println("numFaces        = " + faces.size() / vpt);
+        //System.out.println("numCacheEntries = " + midpointCache.size());
+        //System.out.println();
+        //
         midpointCache.clear();
 
         VertexBuffer posBuffer = super.createPositions();
         if (withIndices) {
-            assert locations.size() == numVertices : locations.size() + " != " + numVertices;
+            assert locations.size() == numVertices :
+                    locations.size() + " != " + numVertices;
 
             IndexBuffer indexBuffer = super.createIndices(faces.size());
             for (int vertexIndex : faces) {

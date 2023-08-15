@@ -286,22 +286,47 @@ final public class Utils {
         }
     }
 
+    /**
+     * Copy the specified FloatBuffer to an array.
+     *
+     * @param buffer the buffer to copy (not null, unaffected)
+     * @return a new array (not null)
+     */
     public static float[] toArray(FloatBuffer buffer) {
         float[] array = new float[buffer.limit()];
         for (int i = 0; i < buffer.limit(); i++) {
             array[i] = buffer.get(i);
         }
+
         return array;
     }
 
+    /**
+     * Copy the specified JOML vector to a JME vector.
+     *
+     * @param vector3f the JOML vector to copy (not null, unaffected)
+     * @return a new JME vector (not null)
+     */
     public static Vector3f toJmeVector(org.joml.Vector3f vector3f) {
         return new Vector3f(vector3f.x, vector3f.y, vector3f.z);
     }
 
+    /**
+     * Copy the specified JME quaternion to a JOML quaternion.
+     *
+     * @param quat the JME quaternion to copy (not null, unaffected)
+     * @return a new JOML quaternion (not null)
+     */
     public static Quaternionf toJomlQuat(Quaternion quat) {
         return new Quaternionf(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
     }
 
+    /**
+     * Copy the specified JME vector to a JOML vector.
+     *
+     * @param vector3f the JME vector to copy (not null, unaffected)
+     * @return a new JOML vector (not null)
+     */
     public static org.joml.Vector3f toJomlVector(Vector3f vector3f) {
         return new org.joml.Vector3f(vector3f.x, vector3f.y, vector3f.z);
     }

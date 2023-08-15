@@ -430,7 +430,8 @@ abstract public class BaseApplication {
         if (deltaTime >= 1f / 10) {
             int fps = (int) ((1f / deltaTime) * counter);
             int ms = (int) ((deltaTime / counter) * 1000);
-            String title = getClass().getSimpleName() + " FPS : " + fps + " / ms : " + ms;
+            String title = getClass().getSimpleName()
+                    + " FPS : " + fps + " / ms : " + ms;
             setWindowTitle(title);
 
             lastFrame = currentFrame;
@@ -571,19 +572,21 @@ abstract public class BaseApplication {
 
         GLFW.glfwDefaultWindowHints();
 
-        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);     // default=GLFW_TRUE
-//        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE); // default=GLFW_TRUE
+        GLFW.glfwWindowHint(
+                GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);     // default=TRUE
+        //GLFW.glfwWindowHint(
+        //        GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE); // default=TRUE
         GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, requestMsaaSamples); // default=0
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
         if (Internals.isDebuggingEnabled()) {
             GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_DEBUG_CONTEXT,
-                    GLFW.GLFW_TRUE); // default=GLFW_FALSE
+                    GLFW.GLFW_TRUE); // default=FALSE
         }
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE,
-                GLFW.GLFW_OPENGL_CORE_PROFILE); // default=GLFW_OPENGL_ANY_PROFILE
+                GLFW.GLFW_OPENGL_CORE_PROFILE); // default=OPENGL_ANY_PROFILE
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT,
-                GLFW.GLFW_TRUE); // default=GLFW_FALSE (set GLFW_TRUE to please macOS)
+                GLFW.GLFW_TRUE); // default=FALSE (set TRUE to please macOS)
 
         // Create the window:
         int width = Internals.framebufferWidth();

@@ -269,6 +269,9 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     // *************************************************************************
     // BaseApplication methods
 
+    /**
+     * Callback invoked after the main update loop terminates.
+     */
     @Override
     protected void cleanUp() {
         physicsSpace.destroy();
@@ -280,6 +283,10 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
         //physicsThread.stop();
     }
 
+    /**
+     * Callback invoked before the main update loop begins. Meant to
+     * be overridden.
+     */
     @Override
     protected void initialize() {
         // Load the Libbulletjme native library for this platform.
@@ -325,7 +332,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      * the PhysicsSpace.
      */
     private void cleanUpGeometries() {
-        Collection<Geometry> geometriesToHide = new ArrayList<>(); // TODO garbage
+        Collection<Geometry> geometriesToHide
+                = new ArrayList<>(); // TODO garbage
         for (Geometry geometry : listVisible()) {
             if (geometry.wasRemovedFrom(physicsSpace)) {
                 geometriesToHide.add(geometry);

@@ -36,7 +36,7 @@ import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL30C;
 
 /**
- * Encapsulate an OpenGL texture object, generated using a TextureKey.
+ * Encapsulate an OpenGL texture object, obtained using a TextureKey.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -78,8 +78,10 @@ class Texture {
     /**
      * Instantiate a 2-D texture for sampling.
      *
+     * @param key the key used to obtain this texture (not null)
      * @param width the width (in pixels, &gt;0)
      * @param height the height (in pixels, &gt;0)
+     * @param data the image data to use (not null)
      */
     Texture(TextureKey key, int width, int height, FloatBuffer data) {
         Validate.nonNull(key, "key");

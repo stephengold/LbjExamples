@@ -79,6 +79,11 @@ public class ProjectionMatrix extends GlobalUniform {
 
     /**
      * Instantiate the uniform.
+     *
+     * @param zNear the desired distance from the camera to the near clipping
+     * plane (in world units, &gt;0, &lt;zFar)
+     * @param zFar the desired distance from the camera to the far clipping
+     * plane (in world units; &gt;zNear) (&gt;zNear)
      */
     ProjectionMatrix(float zNear, float zFar) {
         super("projectionMatrix");

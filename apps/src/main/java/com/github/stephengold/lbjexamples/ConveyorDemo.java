@@ -142,8 +142,8 @@ public class ConveyorDemo extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public PhysicsSpace createSpace() {
-        PhysicsSpace result
-                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT) {
+        PhysicsSpace result = new PhysicsSpace(
+                PhysicsSpace.BroadphaseType.DBVT) {
             @Override
             public void onContactProcessed(PhysicsCollisionObject pcoA,
                     PhysicsCollisionObject pcoB, long contactPointId) {
