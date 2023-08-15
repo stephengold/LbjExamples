@@ -294,7 +294,7 @@ final public class Utils {
      */
     public static float[] toArray(FloatBuffer buffer) {
         float[] array = new float[buffer.limit()];
-        for (int i = 0; i < buffer.limit(); i++) {
+        for (int i = 0; i < buffer.limit(); ++i) {
             array[i] = buffer.get(i);
         }
 

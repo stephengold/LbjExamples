@@ -426,7 +426,7 @@ abstract public class BaseApplication {
     protected void updateWindowTitle() {
         float currentFrame = (float) GLFW.glfwGetTime();
         float deltaTime = currentFrame - lastFrame;
-        counter++;
+        ++counter;
         if (deltaTime >= 1f / 10) {
             int fps = (int) ((1f / deltaTime) * counter);
             int ms = (int) ((deltaTime / counter) * 1000);

@@ -140,9 +140,9 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(floor);
         visualizeShape(floor, 0.05f);
 
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                for (int k = 0; k < 10; k++) {
+        for (int i = 0; i < 10; ++i) {
+            for (int j = 0; j < 10; ++j) {
+                for (int k = 0; k < 10; ++k) {
                     addBox(2f * i, 2f * j, 2f * k - 2.5f);
                 }
             }
