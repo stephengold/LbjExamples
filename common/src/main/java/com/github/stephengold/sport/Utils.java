@@ -375,10 +375,10 @@ final public class Utils {
         int index = 0;
         for (int y = 0; y < imageHeight; ++y) {
             for (int x = 0; x < imageWidth; ++x) {
-                int sRGB = image.getRGB(x, y);
-                double red = ((sRGB >> 16) & 0xFF) / 255.0;
-                double green = ((sRGB >> 8) & 0xFF) / 255.0;
-                double blue = (sRGB & 0xFF) / 255.0;
+                int srgb = image.getRGB(x, y);
+                double red = ((srgb >> 16) & 0xFF) / 255.0;
+                double green = ((srgb >> 8) & 0xFF) / 255.0;
+                double blue = (srgb & 0xFF) / 255.0;
 
                 // linearize the pixel's color
                 red = Math.pow(red, 2.2);
