@@ -318,7 +318,9 @@ final public class Utils {
      * @return a new JOML quaternion (not null)
      */
     public static Quaternionf toJomlQuat(Quaternion quat) {
-        return new Quaternionf(quat.getX(), quat.getY(), quat.getZ(), quat.getW());
+        Quaternionf result = new Quaternionf(
+                quat.getX(), quat.getY(), quat.getZ(), quat.getW());
+        return result;
     }
 
     /**
