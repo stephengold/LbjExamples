@@ -38,8 +38,8 @@ import org.joml.Vector2fc;
 import org.joml.Vector3fc;
 
 /**
- * A viewpoint for 3-D rendering, including its eye location, look direction,
- * and (vertical) field-of-view.
+ * A viewpoint for 3-D rendering, including an eye location, a "look" direction,
+ * an "up" direction, and a (vertical) field-of-view.
  * <p>
  * Intended for a Y-up environment. When the camera's azimuth and up angle are
  * both zero, it looks in the +X direction.
@@ -49,7 +49,7 @@ public class Camera {
     // fields
 
     /**
-     * rightward angle of the X-Z component of the look direction relative to
+     * rightward angle of the X-Z component of the "look" direction relative to
      * the world +X axis (in radians)
      */
     private float azimuthRadians;
@@ -59,7 +59,7 @@ public class Camera {
      */
     private float fovy = MyMath.toRadians(45f);
     /**
-     * angle of the look direction above the world X-Z plane (in radians)
+     * angle of the "look" direction above the world X-Z plane (in radians)
      */
     private float upAngleRadians;
     /**
@@ -67,11 +67,11 @@ public class Camera {
      */
     final private Vector3f eyeLocation = new Vector3f(0f, 0f, 10f);
     /**
-     * look direction (unit vector in world coordinates)
+     * "look" direction (unit vector in world coordinates)
      */
     final private Vector3f lookDirection = new Vector3f(0f, 0f, -1f);
     /**
-     * right direction (unit vector in world coordinates)
+     * "right" direction (unit vector in world coordinates)
      */
     final private Vector3f rightDirection = new Vector3f(1f, 0f, 0f);
     /**
@@ -82,14 +82,14 @@ public class Camera {
     // constructors
 
     /**
-     * Instantiate a camera.
+     * Instantiate a camera in the default position.
      */
     public Camera() {
         updateDirectionVectors();
     }
 
     /**
-     * Instantiate a camera with the specified initial position.
+     * Instantiate a camera in the specified position.
      *
      * @param initLocation the desired initial location (in world coordinates,
      * not null)
@@ -155,18 +155,18 @@ public class Camera {
     }
 
     /**
-     * Return the look direction. This is a convenience method.
+     * Return a copy of the "look" direction.
      *
-     * @return a new unit vector in world coordinates
+     * @return a new unit vector in world coordinates (not null)
      */
     public Vector3f getDirection() {
         return lookDirection(null);
     }
 
     /**
-     * Return the eye location. This is a convenience method.
+     * Return a copy of the eye location.
      *
-     * @return a new location vector in world coordinates
+     * @return a new location vector in world coordinates (not null)
      */
     public Vector3f getLocation() {
         return location(null);
@@ -398,14 +398,14 @@ public class Camera {
     /**
      * Return the altitude/climb/elevation/pitch angle.
      *
-     * @return the upward angle of the look direction (in radians)
+     * @return the upward angle of the "look" direction (in radians,
      */
     public float upAngle() {
         return upAngleRadians;
     }
 
     /**
-     * Return the camera's "up" direction.
+     * Return a copy of the camera's "up" direction.
      *
      * @param storeResult storage for the result (modified if not null)
      * @return a unit vector in world coordinates (either {@code storeResult} or

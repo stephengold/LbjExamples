@@ -41,7 +41,7 @@ import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL11C;
 
 /**
- * A 3-D object to be rendered by SPORT, including a Mesh, a Texture, a shader
+ * A 3-D object to be rendered by SPORT, including a mesh, a texture, a shader
  * program, a coordinate transform, and a color.
  */
 public class Geometry {
@@ -104,8 +104,8 @@ public class Geometry {
     // constructors
 
     /**
-     * Instantiate a Geometry with the specified Mesh and default ShaderProgram
-     * and make it visible.
+     * Instantiate a geometry with the specified mesh and the default
+     * ShaderProgram and make it visible.
      *
      * @param mesh the desired Mesh (not null, alias created)
      */
@@ -118,8 +118,8 @@ public class Geometry {
     }
 
     /**
-     * Instantiate a Geometry with no Mesh and default ShaderProgram. Don't make
-     * it visible.
+     * Instantiate a geometry with no mesh and the default ShaderProgram. Don't
+     * make it visible.
      */
     protected Geometry() {
         this.program = getDefaultProgram();
@@ -137,7 +137,7 @@ public class Geometry {
     }
 
     /**
-     * Return the base color in the Linear colorspace.
+     * Return a copy of the mesh-to-world scale factors.
      *
      * @return the pre-existing object (not null)
      */
@@ -146,7 +146,7 @@ public class Geometry {
     }
 
     /**
-     * Return the location of the mesh origin.
+     * Return a copy of the mesh-to-world scale factors.
      *
      * @param storeResult storage for the result (modified if not null)
      * @return a location vector in world coordinates (either
@@ -291,7 +291,7 @@ public class Geometry {
     }
 
     /**
-     * Enable or disable depth test.
+     * Enable or disable depth testing.
      *
      * @param newSetting true to enable, false to disable (default=true)
      * @return the (modified) current geometry (for chaining)
@@ -308,7 +308,7 @@ public class Geometry {
     /**
      * Enable or disable front-face culling.
      *
-     * @param newSetting true to enable, false to disable
+     * @param newSetting true to enable, false to disable (default=false)
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setFrontCulling(boolean newSetting) {
@@ -319,9 +319,9 @@ public class Geometry {
     /**
      * Alter the location of the mesh origin.
      *
-     * @param x the desired X coordinate (in world coordinates)
-     * @param y the desired Y coordinate (in world coordinates)
-     * @param z the desired Z coordinate (in world coordinates)
+     * @param x the desired X coordinate (in world coordinates, default=0)
+     * @param y the desired Y coordinate (in world coordinates, default=0)
+     * @param z the desired Z coordinate (in world coordinates, default=0)
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setLocation(float x, float y, float z) {
@@ -355,12 +355,12 @@ public class Geometry {
     }
 
     /**
-     * Alter the orientation using specified Tait-Bryan angles, applying the
-     * rotations in x-z-y extrinsic order or y-z'-x" intrinsic order.
+     * Alter the orientation using Tait-Bryan angles, applying the rotations in
+     * x-z-y extrinsic order or y-z'-x" intrinsic order.
      *
-     * @param xAngle the desired X angle (in radians)
-     * @param yAngle the desired Y angle (in radians)
-     * @param zAngle the desired Z angle (in radians)
+     * @param xAngle the desired X angle (in radians, finite)
+     * @param yAngle the desired Y angle (in radians, finite)
+     * @param zAngle the desired Z angle (in radians, finite)
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setOrientation(float xAngle, float yAngle, float zAngle) {
@@ -414,7 +414,7 @@ public class Geometry {
     }
 
     /**
-     * Alter the scale.
+     * Alter the mesh-to-world scale factors.
      *
      * @param newScale the desired uniform scale factor
      * @return the (modified) current geometry (for chaining)
@@ -425,7 +425,7 @@ public class Geometry {
     }
 
     /**
-     * Alter the scale.
+     * Alter the mesh-to-world scale factors.
      *
      * @param newScale the desired scale factor for each mesh axis (not null,
      * unaffected)

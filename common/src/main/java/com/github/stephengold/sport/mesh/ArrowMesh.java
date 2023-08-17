@@ -97,7 +97,7 @@ public class ArrowMesh extends Mesh {
     // new methods exposed
 
     /**
-     * Return the shared mesh to represent the specified axis.
+     * Return the immutable shared mesh to represent the specified axis.
      *
      * @param axisIndex which axis: 0&rarr;X, 1&rarr;Y, 2&rarr;Z
      * @return the shared mesh (immutable)

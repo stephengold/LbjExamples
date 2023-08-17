@@ -36,7 +36,8 @@ import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL30C;
 
 /**
- * Encapsulate an OpenGL texture object, obtained using a TextureKey.
+ * Encapsulate an OpenGL texture object for sampling, obtained using a
+ * TextureKey.
  *
  * @author Stephen Gold sgold@sonic.net
  */

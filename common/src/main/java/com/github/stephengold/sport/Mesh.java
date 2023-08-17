@@ -74,7 +74,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     // fields
 
     /**
-     * true for mutable, or false if immutable
+     * true for a mutable mesh, or false if immutable
      */
     private boolean mutable = true;
     /**
@@ -95,7 +95,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     private final Topology topology;
     /**
-     * vertex normals (3 floats per vertex) or null if none
+     * vertex normals (3 floats per vertex) or null if not present
      */
     private VertexBuffer normalBuffer;
     /**
@@ -103,7 +103,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     private VertexBuffer positionBuffer;
     /**
-     * vertex texture coordinates (2 floats per vertex) or null if none
+     * vertex texture coordinates (2 floats per vertex) or null if not present
      */
     private VertexBuffer texCoordsBuffer;
     // *************************************************************************
@@ -376,7 +376,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
     /**
      * Count how many vertices the mesh contains, based on buffer capacities,
-     * unmodified by topology and indexing.
+     * unmodified by primitive topology and indexing.
      *
      * @return the count (&ge;0)
      */
@@ -598,7 +598,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     /**
      * Create a mutable mesh by de-duplicating a list of vertices.
      *
-     * @param topology an enum value (not null)
+     * @param topology the desired primitive topology (not null)
      * @param vertices the vertex data to use (not null, unaffected)
      * @return a new instance
      */
@@ -612,12 +612,12 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         for (Vertex vertex : vertices) {
             Integer index = tempMap.get(vertex);
-            if (index == null) {
+            if (index == null) { // assign a new index to the vertex
                 int nextIndex = tempVertices.size();
                 tempIndices.add(nextIndex);
                 tempVertices.add(vertex);
                 tempMap.put(vertex, nextIndex);
-            } else { // reuse a vertex we've already seen
+            } else { // reuse an index that's already been assigned
                 tempIndices.add(index);
             }
         }
@@ -674,8 +674,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Return the topology, which determines how vertices/indices are organized
-     * into primitives.
+     * Return the primitive topology, which indicates how mesh vertices/indices
+     * are organized into primitives.
      *
      * @return an enum value (not null)
      */
@@ -860,7 +860,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     /**
      * Access the normals data buffer.
      *
-     * @return the pre-existing buffer (not null)
+     * @return the pre-existing direct buffer (not null)
      */
     @Override
     public FloatBuffer getNormalsData() {
@@ -868,9 +868,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Access the positions data buffer for writing.
+     * Access the positions data buffer.
      *
-     * @return the pre-existing buffer (not null)
+     * @return the pre-existing direct buffer (not null)
      */
     @Override
     public FloatBuffer getPositionsData() {
@@ -900,7 +900,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Indicate that the normals data has changed.
+     * Indicate that the normals data buffer is dirty.
      */
     @Override
     public void setNormalsModified() {
@@ -908,7 +908,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Indicate that the positions data has changed.
+     * Indicate that the positions data buffer is dirty.
      */
     @Override
     public void setPositionsModified() {

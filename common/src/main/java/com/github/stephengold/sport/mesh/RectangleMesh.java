@@ -67,7 +67,7 @@ public class RectangleMesh extends Mesh {
         super(Topology.TriangleFan, 4);
         /*
          * The correct winding order depends on the coordinates chosen
-         * and the direction of the normal.
+         * and the direction of the normals.
          */
         if ((x3 - x1) * (y3 - y1) * normalZ < 0f) {
             super.setPositions(

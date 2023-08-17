@@ -356,7 +356,7 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
      * Split all rigid bodies in the PhysicsSpace.
      */
     private void splitAll() {
-        Vector3f world3 = cam.getLocation(); // alias
+        Vector3f world3 = cam.getLocation();
         Triangle triangle = new Triangle(world1, world2, world3);
 
         Collection<PhysicsCollisionObject> allPcos = physicsSpace.getPcoList();

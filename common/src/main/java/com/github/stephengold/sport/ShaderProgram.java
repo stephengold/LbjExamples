@@ -130,7 +130,8 @@ class ShaderProgram {
     /**
      * Instantiate the named program.
      *
-     * @param programName the base name of the vertex shader to load (not null)
+     * @param programName the base name of the shaders to load (not null, not
+     * empty)
      */
     ShaderProgram(String programName) {
         assert programName != null;

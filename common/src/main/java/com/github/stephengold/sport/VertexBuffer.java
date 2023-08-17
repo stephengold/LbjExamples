@@ -4,14 +4,17 @@
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
- * Redistributions of source code must retain the above copyright
- notice, this list of conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright
- notice, this list of conditions and the following disclaimer in the
- documentation and/or other materials provided with the distribution.
- * Neither the name of the copyright holder nor the names of its contributors
- may be used to endorse or promote products derived from this software without
- specific prior written permission.
+
+ 1. Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+ 3. Neither the name of the copyright holder nor the names of its
+    contributors may be used to endorse or promote products derived from
+    this software without specific prior written permission.
 
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -112,7 +115,7 @@ public class VertexBuffer {
     }
 
     /**
-     * Instantiate a mutable VertexBuffer with the specified data buffer.
+     * Instantiate a VertexBuffer by wrapping the specified FloatBuffer.
      *
      * @param data data for initialization (not null, capacity a multiple of
      * {@code fpv}, alias created)
@@ -133,8 +136,8 @@ public class VertexBuffer {
     }
 
     /**
-     * Instantiate a mutable VertexBuffer with a new direct, writable data
-     * buffer.
+     * Instantiate a mutable VertexBuffer with a new direct, empty, writable
+     * data buffer.
      *
      * @param numVertices number of vertices (&ge;0)
      * @param fpv number of float values per vertex (&ge;1, &le;4)
@@ -156,7 +159,7 @@ public class VertexBuffer {
     /**
      * Return the buffer's capacity.
      *
-     * @return the element count (&ge;0)
+     * @return the count (in floats, &ge;0)
      */
     public int capacity() {
         int result = dataBuffer.capacity();
@@ -175,7 +178,7 @@ public class VertexBuffer {
 
     /**
      * Flip the buffer. The limit is set to the current read/write position, and
-     * then the read/write position is zeroed. The data in the buffer is
+     * then the read/write position is zeroed. The data in the buffer are
      * unaffected.
      *
      * @return the (modified) current instance (for chaining)
@@ -360,7 +363,7 @@ public class VertexBuffer {
     /**
      * Apply the specified rotation to all vertices.
      *
-     * @param quaternion the desired rotation (not null, unaffected)
+     * @param quaternion the rotation to apply (not null, not zero, unaffected)
      * @return the (modified) current instance (for chaining)
      */
     public VertexBuffer rotate(Quaternion quaternion) {
@@ -379,7 +382,7 @@ public class VertexBuffer {
     /**
      * Apply the specified scaling to all vertices.
      *
-     * @param scaleFactor the scale factor to apply
+     * @param scaleFactor the scale factor to apply (&ge;0, finite)
      * @return the (modified) current instance (for chaining)
      */
     public VertexBuffer scale(float scaleFactor) {
@@ -415,7 +418,7 @@ public class VertexBuffer {
     }
 
     /**
-     * Indicate that the buffer data has changed.
+     * Indicate that the buffer data have changed.
      *
      * @return the (modified) current instance (for chaining)
      */
@@ -426,7 +429,7 @@ public class VertexBuffer {
     }
 
     /**
-     * Apply the specified transform to all vertices.
+     * Apply the specified 3-D transform to all vertices. Requires fpv=3.
      *
      * @param transform the transform to apply (not null, unaffected)
      * @return the (modified) current instance (for chaining)

@@ -125,7 +125,7 @@ abstract public class BaseApplication {
     final private static Map<TextureKey, Texture> textureMap
             = new HashMap<>(16);
     /**
-     * current view-to-clip transform of the Camera
+     * view-to-clip coordinate transform for rendering
      */
     private static ProjectionMatrix projection;
     // *************************************************************************
@@ -146,7 +146,7 @@ abstract public class BaseApplication {
     }
 
     /**
-     * Access the current camera for rendering.
+     * Access the camera for rendering.
      *
      * @return the pre-existing instance (not null)
      */
@@ -531,11 +531,12 @@ abstract public class BaseApplication {
                 super.onKeyboard(keyId, isPress);
             }
         });
+
         inputManager.add(new InputProcessor() {
             @Override
             public void onKeyboard(int keyId, boolean isPressed) {
                 if (keyId == GLFW.GLFW_KEY_C) {
-                    if (isPressed) {
+                    if (isPressed) { // print camera state
                         System.out.println(cam);
                         System.out.flush();
                     }
@@ -650,7 +651,6 @@ abstract public class BaseApplication {
         render();
         GLFW.glfwSwapBuffers(windowHandle);
         GLFW.glfwPollEvents();
-
         cameraInputProcessor.update();
     }
 }

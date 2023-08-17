@@ -36,7 +36,7 @@ import org.joml.Vector2fc;
 import org.joml.Vector4f;
 
 /**
- * Provide the current camera-to-clip transform for use in shaders.
+ * The camera-to-clip transform for use in shaders.
  * <p>
  * In camera space:
  * <ul>
@@ -63,11 +63,12 @@ public class ProjectionMatrix extends GlobalUniform {
     // fields
 
     /**
-     * distance from the camera to the far clipping plane (in world units)
+     * distance of the far clipping plane from the eye location (in world units)
      */
     private float zFar;
     /**
-     * distance from the camera to the near clipping plane (in world units)
+     * distance of the near clipping plane from the eye location (in world
+     * units)
      */
     private float zNear;
     /**
@@ -78,7 +79,7 @@ public class ProjectionMatrix extends GlobalUniform {
     // constructors
 
     /**
-     * Instantiate the uniform.
+     * Instantiate a projection with the specified distances.
      *
      * @param zNear the desired distance from the camera to the near clipping
      * plane (in world units, &gt;0, &lt;zFar)
