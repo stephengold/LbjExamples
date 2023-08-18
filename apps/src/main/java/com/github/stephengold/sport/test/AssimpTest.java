@@ -118,7 +118,7 @@ public class AssimpTest extends BaseApplication {
 
         Vector3fc eye = new Vector3f(2f, 2f, 2f);
         Vector3fc target = new Vector3f(0f, 0f, 0f);
-        getCamera().setLocation(eye, target);
+        getCamera().reposition(eye, target);
 
         CameraInputProcessor cip = getCameraInputProcessor();
         cip.setMoveSpeed(2f);

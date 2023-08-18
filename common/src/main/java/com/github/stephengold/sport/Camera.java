@@ -339,7 +339,7 @@ public class Camera {
      * null, unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    public Camera setLocation(Vector3fc eyeLocation, Vector3fc targetLocation) {
+    public Camera reposition(Vector3fc eyeLocation, Vector3fc targetLocation) {
         this.eyeLocation.set(eyeLocation);
 
         Vector3f direction = new Vector3f(targetLocation).sub(eyeLocation);
