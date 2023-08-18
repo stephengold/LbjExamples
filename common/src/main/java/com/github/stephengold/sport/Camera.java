@@ -30,11 +30,11 @@
 package com.github.stephengold.sport;
 
 import com.jme3.math.FastMath;
-import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
 import org.joml.Vector2fc;
+import org.joml.Vector3f;
 import org.joml.Vector3fc;
 
 /**
@@ -96,7 +96,7 @@ public class Camera {
      * @param initAzimuthRadians the desired initial azimuth angle (in radians)
      * @param initUpAngleRadians the desired initial altitude angle (in radians)
      */
-    public Camera(Vector3f initLocation, float initAzimuthRadians,
+    public Camera(Vector3fc initLocation, float initAzimuthRadians,
             float initUpAngleRadians) {
         eyeLocation.set(initLocation);
 
@@ -126,19 +126,22 @@ public class Camera {
      * @return a location vector in world space (either {@code storeResult} or a
      * new vector)
      */
-    public Vector3f clipToWorld(Vector2fc clipXY, float clipZ,
-            Vector3f storeResult) {
+    public com.jme3.math.Vector3f clipToWorld(Vector2fc clipXY, float clipZ,
+            com.jme3.math.Vector3f storeResult) {
         ProjectionMatrix projection = BaseApplication.getProjection();
-        Vector3f result = projection.clipToCamera(clipXY, clipZ, storeResult);
+        com.jme3.math.Vector3f result
+                = projection.clipToCamera(clipXY, clipZ, storeResult);
 
         float right = result.x;
         float up = result.y;
         float forward = -result.z;
 
-        result.set(eyeLocation);
-        MyVector3f.accumulateScaled(result, rightDirection, right);
-        MyVector3f.accumulateScaled(result, upDirection, up);
-        MyVector3f.accumulateScaled(result, lookDirection, forward);
+        result.set(eyeLocation.x, eyeLocation.y, eyeLocation.z);
+        MyVector3f.accumulateScaled(
+                result, Utils.toJmeVector(rightDirection), right);
+        MyVector3f.accumulateScaled(result, Utils.toJmeVector(upDirection), up);
+        MyVector3f.accumulateScaled(
+                result, Utils.toJmeVector(lookDirection), forward);
 
         return result;
     }
@@ -159,8 +162,9 @@ public class Camera {
      *
      * @return a new unit vector in world coordinates (not null)
      */
-    public Vector3f getDirection() {
-        return lookDirection(null);
+    public com.jme3.math.Vector3f getDirection() {
+        com.jme3.math.Vector3f result = Utils.toJmeVector(lookDirection);
+        return result;
     }
 
     /**
@@ -168,8 +172,19 @@ public class Camera {
      *
      * @return a new location vector in world coordinates (not null)
      */
-    public Vector3f getLocation() {
-        return location(null);
+    public com.jme3.math.Vector3f getLocation() {
+        com.jme3.math.Vector3f result = Utils.toJmeVector(eyeLocation);
+        return result;
+    }
+
+    /**
+     * Return a copy of the camera's "right" direction.
+     *
+     * @return a new unit vector in world coordinates (not null)
+     */
+    public com.jme3.math.Vector3f getRight() {
+        com.jme3.math.Vector3f result = Utils.toJmeVector(rightDirection);
+        return result;
     }
 
     /**
@@ -181,20 +196,10 @@ public class Camera {
      */
     public Vector3f location(Vector3f storeResult) {
         if (storeResult == null) {
-            return eyeLocation.clone();
+            return new Vector3f(eyeLocation);
         } else {
             return storeResult.set(eyeLocation);
         }
-    }
-
-    /**
-     * Return the eye location.
-     *
-     * @return a new location vector in world coordinates
-     */
-    Vector3fc locationJoml() {
-        Vector3fc result = Utils.toJomlVector(eyeLocation);
-        return result;
     }
 
     /**
@@ -206,20 +211,10 @@ public class Camera {
      */
     public Vector3f lookDirection(Vector3f storeResult) {
         if (storeResult == null) {
-            return lookDirection.clone();
+            return new Vector3f(lookDirection);
         } else {
             return storeResult.set(lookDirection);
         }
-    }
-
-    /**
-     * Return the camera's look direction.
-     *
-     * @return a new unit vector in world coordinates
-     */
-    Vector3fc lookDirectionJoml() {
-        Vector3fc result = Utils.toJomlVector(lookDirection);
-        return result;
     }
 
     /**
@@ -229,8 +224,8 @@ public class Camera {
      * @param offset the desired offset (in world coordinates, not null,
      * unaffected)
      */
-    public void move(Vector3f offset) {
-        eyeLocation.addLocal(offset);
+    public void move(Vector3fc offset) {
+        eyeLocation.add(offset);
     }
 
     /**
@@ -326,12 +321,12 @@ public class Camera {
      * Teleport the eye to the specified location without changing its
      * orientation.
      *
-     * @param newLocation the desired location (in world coordinates, not null,
-     * unaffected)
+     * @param location the desired location (in world coordinates, not null,
+     * finite, unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    public Camera setLocation(Vector3f newLocation) {
-        eyeLocation.set(newLocation);
+    public Camera setLocation(com.jme3.math.Vector3f location) {
+        eyeLocation.set(location.x, location.y, location.z);
         return this;
     }
 
@@ -345,10 +340,10 @@ public class Camera {
      * null, unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    public Camera setLocation(Vector3f newLocation, Vector3f targetLocation) {
+    public Camera setLocation(Vector3fc newLocation, Vector3fc targetLocation) {
         eyeLocation.set(newLocation);
 
-        Vector3f direction = targetLocation.subtract(newLocation);
+        Vector3f direction = new Vector3f(targetLocation).sub(newLocation);
         setLookDirection(direction);
 
         return this;
@@ -360,10 +355,12 @@ public class Camera {
      * @param direction the desired direction (not null, unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    public Camera setLookDirection(Vector3f direction) {
-        azimuthRadians = FastMath.atan2(direction.z, direction.x);
-        float nxz = MyMath.hypotenuse(direction.x, direction.z);
-        upAngleRadians = FastMath.atan2(direction.y, nxz);
+    public Camera setLookDirection(Vector3fc direction) {
+        float x = direction.x();
+        float z = direction.z();
+        azimuthRadians = FastMath.atan2(z, x);
+        float nxz = MyMath.hypotenuse(x, z);
+        upAngleRadians = FastMath.atan2(direction.y(), nxz);
         updateDirectionVectors();
 
         return this;
@@ -418,16 +415,6 @@ public class Camera {
             return storeResult.set(upDirection);
         }
     }
-
-    /**
-     * Return the camera's "up" direction.
-     *
-     * @return a new unit vector in world coordinates
-     */
-    Vector3fc upDirectionJoml() {
-        Vector3fc result = Utils.toJomlVector(upDirection);
-        return result;
-    }
     // *************************************************************************
     // Object methods
 
@@ -468,9 +455,5 @@ public class Camera {
         rightDirection.set(rightX, 0f, rightZ);
 
         rightDirection.cross(lookDirection, upDirection);
-
-        assert lookDirection.isUnitVector() : lookDirection;
-        assert rightDirection.isUnitVector() : rightDirection;
-        assert upDirection.isUnitVector() : upDirection;
     }
 }

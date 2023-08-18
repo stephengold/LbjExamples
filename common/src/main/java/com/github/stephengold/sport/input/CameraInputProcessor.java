@@ -31,12 +31,11 @@ package com.github.stephengold.sport.input;
 
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Camera;
-import com.jme3.math.Vector3f;
 import java.util.HashSet;
 import java.util.Set;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
-import jme3utilities.math.MyVector3f;
+import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
 /**
@@ -252,21 +251,23 @@ public class CameraInputProcessor extends InputProcessor {
         long nanoTime = System.nanoTime();
         if (lastMove != null) {
             Camera camera = BaseApplication.getCamera();
-            Vector3f lookDirection = camera.getDirection(); // TODO garbage
+            Vector3f lookDirection = camera.lookDirection(null); // TODO garbage
             Vector3f rightDirection
                     = camera.rightDirection(null); // TODO garbage
 
-            Vector3f sum = new Vector3f(); // TODO garbage
-            MyVector3f.accumulateScaled(sum, lookDirection, forwardSignal);
-            MyVector3f.accumulateScaled(sum, Vector3f.UNIT_Y, upSignal);
-            MyVector3f.accumulateScaled(sum, rightDirection, rightSignal);
-            if (!MyVector3f.isZero(sum)) {
+            Vector3f sum = new Vector3f(lookDirection); // TODO garbage
+            sum.mul(forwardSignal);
+            sum.y += upSignal;
+            sum.fma(rightSignal, rightDirection);
+
+            float length = sum.length();
+            if (length > 0f) {
                 long nanoseconds = nanoTime - lastMove;
                 float seconds = 1e-9f * nanoseconds;
                 float distance = moveSpeed * seconds;
 
-                MyVector3f.normalizeLocal(sum);
-                sum.multLocal(distance); // convert from direction to offset
+                sum.div(length);
+                sum.mul(distance); // convert from direction to offset
                 camera.move(sum);
             }
         }

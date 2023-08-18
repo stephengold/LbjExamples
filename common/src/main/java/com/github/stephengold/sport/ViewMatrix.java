@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -79,10 +79,10 @@ class ViewMatrix extends GlobalUniform {
     @Override
     void updateValue() {
         Camera camera = BaseApplication.getCamera();
-        Vector3fc eye = camera.locationJoml();
-        Vector3fc lookDirection = camera.lookDirectionJoml();
+        Vector3fc eye = camera.location(null);
+        Vector3fc lookDirection = camera.lookDirection(null);
         eye.add(lookDirection, tmpTarget);
-        Vector3fc up = camera.upDirectionJoml();
+        Vector3fc up = camera.upDirection(null);
         value.setLookAt(eye, tmpTarget, up);
     }
 }

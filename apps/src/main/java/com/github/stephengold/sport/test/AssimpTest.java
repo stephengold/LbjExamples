@@ -38,11 +38,12 @@ import com.github.stephengold.sport.Vertex;
 import com.github.stephengold.sport.importers.AssimpUtils;
 import com.github.stephengold.sport.input.CameraInputProcessor;
 import com.github.stephengold.sport.input.RotateMode;
-import com.jme3.math.Vector3f;
 import java.util.ArrayList;
 import java.util.List;
 import org.joml.Matrix3f;
 import org.joml.Matrix3fc;
+import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import org.lwjgl.assimp.Assimp;
 
 /**
@@ -115,8 +116,8 @@ public class AssimpTest extends BaseApplication {
         // Configure the camera:
         getProjection().setZClip(0.1f, 10f);
 
-        Vector3f eye = new Vector3f(2f, 2f, 2f);
-        Vector3f target = new Vector3f(0f, 0f, 0f);
+        Vector3fc eye = new Vector3f(2f, 2f, 2f);
+        Vector3fc target = new Vector3f(0f, 0f, 0f);
         getCamera().setLocation(eye, target);
 
         CameraInputProcessor cip = getCameraInputProcessor();

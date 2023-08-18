@@ -202,7 +202,7 @@ public class HelloGhost
                 float right = walkRight ? 1f : 0f;
                 float left = walkLeft ? 1f : 0f;
                 MyVector3f.accumulateScaled(
-                        offset, cam.rightDirection(null), right - left);
+                        offset, cam.getRight(), right - left);
 
                 offset.y = 0f;
                 if (!MyVector3f.isZero(offset)) {
