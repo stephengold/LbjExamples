@@ -96,17 +96,17 @@ public class VertexBuffer {
     /**
      * Instantiate a mutable VertexBuffer with the specified data.
      *
-     * @param data data for initialization (not null, length a multiple of
-     * {@code fpv}, alias created)
-     * @param fpv number of float values per vertex (&ge;1, &le;4)
      * @param attribName name of the corresponding attrib variable in shaders
      * (not null, not empty)
+     * @param fpv number of float values per vertex (&ge;1, &le;4)
+     * @param data data for initialization (not null, length a multiple of
+     * {@code fpv}, alias created)
      */
-    VertexBuffer(float[] data, int fpv, String attribName) {
-        Validate.nonNull(data, "data");
+    VertexBuffer(String attribName, int fpv, float[] data) {
         Validate.inRange(fpv, "floats per vertex", 1, 4);
+        int capacity = data.length;
         Validate.require(
-                data.length % fpv == 0, "length a multiple of " + fpv);
+                capacity % fpv == 0, "length a multiple of " + fpv);
         Validate.nonEmpty(attribName, "attrib name");
 
         this.dataBuffer = BufferUtils.createFloatBuffer(data);
@@ -117,17 +117,17 @@ public class VertexBuffer {
     /**
      * Instantiate a VertexBuffer by wrapping the specified FloatBuffer.
      *
-     * @param data data for initialization (not null, capacity a multiple of
-     * {@code fpv}, alias created)
-     * @param fpv number of float values per vertex (&ge;1, &le;4)
      * @param attribName name of the corresponding attrib variable in shaders
      * (not null, not empty)
+     * @param fpv number of float values per vertex (&ge;1, &le;4)
+     * @param data data for initialization (not null, capacity a multiple of
+     * {@code fpv}, alias created)
      */
-    VertexBuffer(FloatBuffer data, int fpv, String attribName) {
-        Validate.nonNull(data, "data");
+    VertexBuffer(String attribName, int fpv, FloatBuffer data) {
         Validate.inRange(fpv, "floats per vertex", 1, 4);
+        int capacity = data.capacity();
         Validate.require(
-                data.capacity() % fpv == 0, "capacity a multiple of " + fpv);
+                capacity % fpv == 0, "capacity a multiple of " + fpv);
         Validate.nonEmpty(attribName, "attrib name");
 
         this.dataBuffer = data;
@@ -144,7 +144,7 @@ public class VertexBuffer {
      * @param attribName name of the corresponding attrib variable in shaders
      * (not null, not empty)
      */
-    VertexBuffer(int numVertices, int fpv, String attribName) {
+    VertexBuffer(String attribName, int fpv, int numVertices) {
         Validate.nonNegative(numVertices, "number of vertices");
         Validate.inRange(fpv, "floats per vertex", 1, 4);
         Validate.nonEmpty(attribName, "attrib name");
