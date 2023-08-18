@@ -135,7 +135,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         // position buffer:
         this.positionBuffer = new VertexBuffer(
-                vertexCount, numAxes, ShaderProgram.positionAttribName);
+                ShaderProgram.positionAttribName, numAxes, vertexCount);
         FloatBuffer floatBuffer = positionBuffer.getBuffer();
         for (Vertex vertex : vertices) {
             vertex.writePositionTo(floatBuffer);
@@ -148,7 +148,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         boolean hasNormal = representativeVertex.hasNormal();
         if (hasNormal) {
             this.normalBuffer = new VertexBuffer(
-                    vertexCount, numAxes, ShaderProgram.normalAttribName);
+                    ShaderProgram.normalAttribName, numAxes, vertexCount);
             floatBuffer = normalBuffer.getBuffer();
             for (Vertex vertex : vertices) {
                 vertex.writeNormalTo(floatBuffer);
@@ -163,7 +163,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         boolean hasTexCoords = representativeVertex.hasTexCoords();
         if (hasTexCoords) {
             this.texCoordsBuffer = new VertexBuffer(
-                    vertexCount, 2, ShaderProgram.uvAttribName);
+                    ShaderProgram.uvAttribName, 2, vertexCount);
             floatBuffer = texCoordsBuffer.getBuffer();
             for (Vertex vertex : vertices) {
                 vertex.writeTexCoordsTo(floatBuffer);
@@ -190,7 +190,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         FloatBuffer data = BufferUtils.createFloatBuffer(positionsArray);
         this.positionBuffer = new VertexBuffer(
-                data, numAxes, ShaderProgram.positionAttribName);
+                ShaderProgram.positionAttribName, numAxes, data);
     }
 
     /**
@@ -207,7 +207,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         positionsBuffer.limit(capacity);
 
         this.positionBuffer = new VertexBuffer(
-                positionsBuffer, numAxes, ShaderProgram.positionAttribName);
+                ShaderProgram.positionAttribName, numAxes, positionsBuffer);
     }
 
     /**
@@ -223,7 +223,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         FloatBuffer data = BufferUtils.createFloatBuffer(positionsArray);
         this.positionBuffer = new VertexBuffer(
-                data, numAxes, ShaderProgram.positionAttribName);
+                ShaderProgram.positionAttribName, numAxes, data);
     }
 
     /**
@@ -770,7 +770,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         }
 
         this.normalBuffer = new VertexBuffer(
-                vertexCount, numAxes, ShaderProgram.normalAttribName);
+                ShaderProgram.normalAttribName, numAxes, vertexCount);
 
         return normalBuffer;
     }
@@ -783,7 +783,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     protected VertexBuffer createPositions() {
         verifyMutable();
         this.positionBuffer = new VertexBuffer(
-                vertexCount, numAxes, ShaderProgram.positionAttribName);
+                ShaderProgram.positionAttribName, numAxes, vertexCount);
         return positionBuffer;
     }
 
@@ -795,7 +795,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     protected VertexBuffer createUvs() {
         verifyMutable();
         this.texCoordsBuffer
-                = new VertexBuffer(vertexCount, 2, ShaderProgram.uvAttribName);
+                = new VertexBuffer(ShaderProgram.uvAttribName, 2, vertexCount);
         return texCoordsBuffer;
     }
 
@@ -811,7 +811,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         verifyMutable();
 
         this.normalBuffer = new VertexBuffer(
-                normalArray, numAxes, ShaderProgram.normalAttribName);
+                ShaderProgram.normalAttribName, numAxes, normalArray);
     }
 
     /**
@@ -826,7 +826,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         verifyMutable();
 
         this.positionBuffer = new VertexBuffer(
-                positionArray, numAxes, ShaderProgram.positionAttribName);
+                ShaderProgram.positionAttribName, numAxes, positionArray);
     }
 
     /**
@@ -841,7 +841,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         verifyMutable();
 
         this.texCoordsBuffer
-                = new VertexBuffer(uvArray, 2, ShaderProgram.uvAttribName);
+                = new VertexBuffer(ShaderProgram.uvAttribName, 2, uvArray);
     }
     // *************************************************************************
     // jme3utilities.lbj.Mesh methods
