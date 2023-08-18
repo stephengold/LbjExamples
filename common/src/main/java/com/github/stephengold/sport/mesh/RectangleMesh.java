@@ -35,8 +35,8 @@ import com.github.stephengold.sport.Topology;
 /**
  * A TriangleFan mesh that renders an axis-aligned rectangle in the X-Y plane.
  * <p>
- * In mesh space, the rectangle extends from (x0,y0,0) to (x2,y2,0) with normals
- * set to (0,0,zNorm).
+ * In mesh space, the rectangle extends from (x0,y0,0) uv=(0,0) to (x2,y2,0)
+ * uv=(1,1), with normals set to (0,0,zNorm).
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -74,15 +74,23 @@ public class RectangleMesh extends Mesh {
                     x0, y0, 0f,
                     x0, y2, 0f,
                     x2, y2, 0f,
-                    x2, y0, 0f
-            );
+                    x2, y0, 0f);
+            super.setUvs(
+                    0f, 0f,
+                    0f, 1f,
+                    1f, 1f,
+                    1f, 0f);
         } else {
             super.setPositions(
                     x0, y0, 0f,
                     x2, y0, 0f,
                     x2, y2, 0f,
-                    x0, y2, 0f
-            );
+                    x0, y2, 0f);
+            super.setUvs(
+                    0f, 0f,
+                    1f, 0f,
+                    1f, 1f,
+                    0f, 1f);
         }
 
         super.setNormals(
