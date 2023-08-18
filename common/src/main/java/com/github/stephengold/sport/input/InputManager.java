@@ -33,7 +33,6 @@ import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWScrollCallback;
 
 /**
  * Provide applications with convenient access to user input (keyboard, mouse,
@@ -79,12 +78,7 @@ public class InputManager {
         GLFW.glfwSetKeyCallback(glfwWindowHandle, this::keyCallback);
         GLFW.glfwSetMouseButtonCallback(
                 glfwWindowHandle, this::mouseButtonCallback);
-        GLFW.glfwSetScrollCallback(glfwWindowHandle, new GLFWScrollCallback() {
-            @Override
-            public void invoke(long window, double xOffset, double yOffset) {
-                scrollCallback(window, xOffset, yOffset);
-            }
-        });
+        GLFW.glfwSetScrollCallback(glfwWindowHandle, this::scrollCallback);
     }
     // *************************************************************************
     // new methods exposed

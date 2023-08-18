@@ -49,7 +49,7 @@ public class RectangleMesh extends Mesh {
      * origin.
      */
     public RectangleMesh() {
-        this(0f, 1f, 0f, 1f, 1f);
+        this(0f, 1f, 0f, 1f, +1f);
     }
 
     /**
