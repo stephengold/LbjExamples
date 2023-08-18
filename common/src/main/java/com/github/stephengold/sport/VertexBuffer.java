@@ -83,6 +83,10 @@ public class VertexBuffer {
      */
     private int usageHint = GL15C.GL_STATIC_DRAW;
     /**
+     * number of vertices (based on buffer size, unmodified by indexing)
+     */
+    final private int vertexCount;
+    /**
      * OpenGL name of the VBO, or null if the VBO hasn't been generated yet
      */
     private Integer vbo;
@@ -113,6 +117,7 @@ public class VertexBuffer {
         this.isMutable = !dataBuffer.isReadOnly();
         this.fpv = fpv;
         this.attribName = attribName;
+        this.vertexCount = capacity / fpv;
     }
 
     /**
@@ -135,6 +140,7 @@ public class VertexBuffer {
         this.isMutable = !dataBuffer.isReadOnly();
         this.fpv = fpv;
         this.attribName = attribName;
+        this.vertexCount = capacity / fpv;
     }
 
     /**
@@ -155,6 +161,7 @@ public class VertexBuffer {
         this.isMutable = !dataBuffer.isReadOnly();
         this.fpv = fpv;
         this.attribName = attribName;
+        this.vertexCount = numVertices;
     }
     // *************************************************************************
     // new methods exposed
