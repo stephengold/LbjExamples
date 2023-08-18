@@ -91,17 +91,16 @@ public class Camera {
     /**
      * Instantiate a camera in the specified position.
      *
-     * @param initLocation the desired initial location (in world coordinates,
-     * not null)
-     * @param initAzimuthRadians the desired initial azimuth angle (in radians)
-     * @param initUpAngleRadians the desired initial altitude angle (in radians)
+     * @param location the desired eye location (in world coordinates, not null)
+     * @param azimuthRadians the desired azimuth angle (in radians)
+     * @param upAngleRadians the desired altitude angle (in radians)
      */
-    public Camera(Vector3fc initLocation, float initAzimuthRadians,
-            float initUpAngleRadians) {
-        eyeLocation.set(initLocation);
+    public Camera(
+            Vector3f location, float azimuthRadians, float upAngleRadians) {
+        eyeLocation.set(location);
 
-        this.azimuthRadians = initAzimuthRadians;
-        this.upAngleRadians = initUpAngleRadians;
+        this.azimuthRadians = azimuthRadians;
+        this.upAngleRadians = upAngleRadians;
         updateDirectionVectors();
     }
     // *************************************************************************
@@ -270,12 +269,12 @@ public class Camera {
     /**
      * Alter the azimuth/heading/yaw angle.
      *
-     * @param newAzimuthInRadians the desired rightward angle of the X-Z
-     * component of the look direction relative to the +X axis (in radians)
+     * @param azimuthRadians the desired rightward angle of the X-Z component of
+     * the "look" direction relative to the +X axis (in radians)
      * @return the (modified) current instance (for chaining)
      */
-    public Camera setAzimuth(float newAzimuthInRadians) {
-        this.azimuthRadians = newAzimuthInRadians;
+    public Camera setAzimuth(float azimuthRadians) {
+        this.azimuthRadians = azimuthRadians;
         updateDirectionVectors();
 
         return this;
@@ -284,12 +283,12 @@ public class Camera {
     /**
      * Alter the azimuth/heading/yaw angle.
      *
-     * @param newAzimuthInDegrees the desired rightward angle of the X-Z
-     * component of the look direction relative to the +X axis (in degrees)
+     * @param azimuthDegrees the desired rightward angle of the X-Z component of
+     * the "look" direction relative to the +X axis (in degrees)
      * @return the (modified) current instance (for chaining)
      */
-    public Camera setAzimuthDegrees(float newAzimuthInDegrees) {
-        setAzimuth(MyMath.toRadians(newAzimuthInDegrees));
+    public Camera setAzimuthDegrees(float azimuthDegrees) {
+        setAzimuth(MyMath.toRadians(azimuthDegrees));
         return this;
     }
 
@@ -334,16 +333,16 @@ public class Camera {
      * Teleport the eye to {@code newLocation} and orient it to look at
      * {@code targetLocation}.
      *
-     * @param newLocation the desired eye location (in world coordinates, not
+     * @param eyeLocation the desired eye location (in world coordinates, not
      * null, unaffected)
      * @param targetLocation the location to look at (in world coordinates, not
      * null, unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    public Camera setLocation(Vector3fc newLocation, Vector3fc targetLocation) {
-        eyeLocation.set(newLocation);
+    public Camera setLocation(Vector3fc eyeLocation, Vector3fc targetLocation) {
+        this.eyeLocation.set(eyeLocation);
 
-        Vector3f direction = new Vector3f(targetLocation).sub(newLocation);
+        Vector3f direction = new Vector3f(targetLocation).sub(eyeLocation);
         setLookDirection(direction);
 
         return this;
@@ -369,12 +368,12 @@ public class Camera {
     /**
      * Alter the altitude/climb/elevation/pitch angle.
      *
-     * @param newUpAngleRadians the desired upward angle of the look direction
+     * @param upAngleRadians the desired upward angle of the "look" direction
      * (in radians)
      * @return the (modified) current instance (for chaining)
      */
-    public Camera setUpAngle(float newUpAngleRadians) {
-        this.upAngleRadians = newUpAngleRadians;
+    public Camera setUpAngle(float upAngleRadians) {
+        this.upAngleRadians = upAngleRadians;
         updateDirectionVectors();
 
         return this;
@@ -383,12 +382,12 @@ public class Camera {
     /**
      * Alter the altitude/climb/elevation/pitch angle.
      *
-     * @param newUpAngleInDegrees the desired upward angle of the look direction
+     * @param upAngleDegrees the desired upward angle of the "look" direction
      * (in degrees)
      * @return the (modified) current instance (for chaining)
      */
-    public Camera setUpAngleDegrees(float newUpAngleInDegrees) {
-        setUpAngle(MyMath.toRadians(newUpAngleInDegrees));
+    public Camera setUpAngleDegrees(float upAngleDegrees) {
+        setUpAngle(MyMath.toRadians(upAngleDegrees));
         return this;
     }
 
