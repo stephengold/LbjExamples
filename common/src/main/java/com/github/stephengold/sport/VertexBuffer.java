@@ -69,7 +69,7 @@ public class VertexBuffer {
     /**
      * true for mutable, or false if immutable
      */
-    private boolean isMutable = true;
+    private boolean isMutable;
     /**
      * buffer data
      */
@@ -110,6 +110,7 @@ public class VertexBuffer {
         Validate.nonEmpty(attribName, "attrib name");
 
         this.dataBuffer = BufferUtils.createFloatBuffer(data);
+        this.isMutable = !dataBuffer.isReadOnly();
         this.fpv = fpv;
         this.attribName = attribName;
     }
@@ -131,6 +132,7 @@ public class VertexBuffer {
         Validate.nonEmpty(attribName, "attrib name");
 
         this.dataBuffer = data;
+        this.isMutable = !dataBuffer.isReadOnly();
         this.fpv = fpv;
         this.attribName = attribName;
     }
@@ -150,6 +152,7 @@ public class VertexBuffer {
         Validate.nonEmpty(attribName, "attrib name");
 
         this.dataBuffer = BufferUtils.createFloatBuffer(numVertices * fpv);
+        this.isMutable = !dataBuffer.isReadOnly();
         this.fpv = fpv;
         this.attribName = attribName;
     }
