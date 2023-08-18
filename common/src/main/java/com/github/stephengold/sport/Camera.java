@@ -208,7 +208,7 @@ public class Camera {
      * @return a unit vector in world coordinates (either {@code storeResult} or
      * a new vector)
      */
-    public Vector3f lookDirection(Vector3f storeResult) {
+    public Vector3f direction(Vector3f storeResult) {
         if (storeResult == null) {
             return new Vector3f(lookDirection);
         } else {

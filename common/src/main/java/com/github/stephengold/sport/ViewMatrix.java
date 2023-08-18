@@ -80,7 +80,7 @@ class ViewMatrix extends GlobalUniform {
     void updateValue() {
         Camera camera = BaseApplication.getCamera();
         Vector3fc eye = camera.location(null);
-        Vector3fc lookDirection = camera.lookDirection(null);
+        Vector3fc lookDirection = camera.direction(null);
         eye.add(lookDirection, tmpTarget);
         Vector3fc up = camera.upDirection(null);
         value.setLookAt(eye, tmpTarget, up);
