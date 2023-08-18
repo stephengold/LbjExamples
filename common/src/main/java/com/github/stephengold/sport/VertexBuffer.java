@@ -37,6 +37,10 @@ import java.nio.FloatBuffer;
 import jme3utilities.Validate;
 import jme3utilities.math.MyBuffer;
 import jme3utilities.math.MyQuaternion;
+import jme3utilities.math.MyVector3f;
+import org.joml.Vector2f;
+import org.joml.Vector2fc;
+import org.joml.Vector3fc;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL15C;
 import org.lwjgl.opengl.GL20C;
@@ -227,6 +231,57 @@ public class VertexBuffer {
     }
 
     /**
+     * Read a Vector2f from the specified vertex. Does not alter the buffer's
+     * read/write position. Requires fpv=2.
+     *
+     * @param vertexIndex the index of the vertex to read (&ge;0,
+     * &lt;vertexCount)
+     * @param storeResult storage for the result (modified if not null)
+     * @return the value that was read (either {@code storeResult} or a new
+     * vector)
+     */
+    public Vector2f get2f(int vertexIndex, Vector2f storeResult) {
+        Validate.inRange(vertexIndex, "vertex index", 0, vertexCount - 1);
+        if (fpv != 2) {
+            throw new IllegalStateException("fpv = " + fpv);
+        }
+        Vector2f result = (storeResult == null) ? new Vector2f() : storeResult;
+
+        int startPosition = vertexIndex * fpv;
+        result.x = dataBuffer.get(startPosition);
+        result.y = dataBuffer.get(startPosition + 1);
+
+        return result;
+    }
+
+    /**
+     * Read a Vector3f from the specified vertex. Does not alter the buffer's
+     * read/write position. Requires fpv=3.
+     *
+     * @param vertexIndex the index of the vertex to read (&ge;0,
+     * &lt;vertexCount)
+     * @param storeResult storage for the result (modified if not null)
+     * @return the value that was read (either {@code storeResult} or a new
+     * vector)
+     */
+    public org.joml.Vector3f get3f(
+            int vertexIndex, org.joml.Vector3f storeResult) {
+        Validate.inRange(vertexIndex, "vertex index", 0, vertexCount - 1);
+        if (fpv != Mesh.numAxes) {
+            throw new IllegalStateException("fpv = " + fpv);
+        }
+        org.joml.Vector3f result = (storeResult == null)
+                ? new org.joml.Vector3f() : storeResult;
+
+        int startPosition = vertexIndex * fpv;
+        result.x = dataBuffer.get(startPosition + MyVector3f.xAxis);
+        result.y = dataBuffer.get(startPosition + MyVector3f.yAxis);
+        result.z = dataBuffer.get(startPosition + MyVector3f.zAxis);
+
+        return result;
+    }
+
+    /**
      * Access the buffer data.
      *
      * @return the pre-existing buffer
@@ -365,6 +420,83 @@ public class VertexBuffer {
         dataBuffer.put(vector.x);
         dataBuffer.put(vector.y);
         dataBuffer.put(vector.z);
+        setModified();
+
+        return this;
+    }
+
+    /**
+     * Write the specified vector to the specified vertex. Does not alter the
+     * buffer's read/write position. Requires fpv=2.
+     *
+     * @param vertexIndex the index of the vertex to write (&ge;0,
+     * &lt;vertexCount)
+     * @param vector the vector to write (not null, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
+    public VertexBuffer put2f(int vertexIndex, Vector2fc vector) {
+        Validate.inRange(vertexIndex, "vertex index", 0, vertexCount - 1);
+        Validate.nonNull(vector, "vector");
+        verifyMutable();
+        if (fpv != 2) {
+            throw new IllegalStateException("fpv = " + fpv);
+        }
+
+        int startPosition = vertexIndex * fpv;
+        dataBuffer.put(startPosition + MyVector3f.xAxis, vector.x());
+        dataBuffer.put(startPosition + MyVector3f.yAxis, vector.y());
+        setModified();
+
+        return this;
+    }
+
+    /**
+     * Write the specified vector to the specified vertex. Does not alter the
+     * buffer's read/write position. Requires fpv=3.
+     *
+     * @param vertexIndex the index of the vertex to write (&ge;0,
+     * &lt;vertexCount)
+     * @param vector the vector to write (not null, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
+    public VertexBuffer put3f(int vertexIndex, Vector3fc vector) {
+        Validate.inRange(vertexIndex, "vertex index", 0, vertexCount - 1);
+        Validate.nonNull(vector, "vector");
+        verifyMutable();
+        if (fpv != Mesh.numAxes) {
+            throw new IllegalStateException("fpv = " + fpv);
+        }
+
+        int startPosition = vertexIndex * fpv;
+        dataBuffer.put(startPosition + MyVector3f.xAxis, vector.x());
+        dataBuffer.put(startPosition + MyVector3f.yAxis, vector.y());
+        dataBuffer.put(startPosition + MyVector3f.zAxis, vector.z());
+        setModified();
+
+        return this;
+    }
+
+    /**
+     * Write the specified floats to the specified vertex. Does not alter the
+     * buffer's read/write position.
+     *
+     * @param vertexIndex the index of the vertex to write (&ge;0, &lt;limit)
+     * @param floatArray the floats to write (not null, length=fpv, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
+    public VertexBuffer putArray(int vertexIndex, float... floatArray) {
+        Validate.inRange(vertexIndex, "vertex index", 0, vertexCount - 1);
+        Validate.nonNull(floatArray, "float array");
+        verifyMutable();
+        if (fpv != floatArray.length) {
+            throw new IllegalStateException("fpv = " + fpv);
+        }
+
+        int bufferPosition = vertexIndex * fpv;
+        for (float fValue : floatArray) {
+            dataBuffer.put(bufferPosition, fValue);
+            ++bufferPosition;
+        }
         setModified();
 
         return this;
