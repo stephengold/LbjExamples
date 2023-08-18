@@ -199,17 +199,6 @@ final public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
     }
 
     /**
-     * Make the buffer immutable.
-     *
-     * @return the (modified) current instance (for chaining)
-     */
-    @Override
-    public IndexBuffer makeImmutable() {
-        super.makeImmutable();
-        return this;
-    }
-
-    /**
      * Create an index buffer without initializing its contents.
      *
      * @param maxVertices one more than the highest index value (&ge;0)
@@ -282,21 +271,6 @@ final public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
     }
 
     /**
-     * Write the specified index at the current read/write position, then
-     * increment the position.
-     *
-     * @param index the index to be written (&ge;0, &lt;numVertices)
-     * @return the (modified) current instance (for chaining)
-     */
-    @Override
-    public IndexBuffer put(int index) {
-        super.put(index);
-        setModified();
-
-        return this;
-    }
-
-    /**
      * Rewind the buffer. The read/write position is zeroed. The data in the
      * buffer is unaffected.
      *
@@ -330,6 +304,34 @@ final public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
     public IndexBuffer setModified() {
         verifyMutable();
         this.isModified = true;
+        return this;
+    }
+    // *************************************************************************
+    // jme3utilities.lbj.IndexBuffer methods
+
+    /**
+     * Make the buffer immutable.
+     *
+     * @return the (modified) current instance (for chaining)
+     */
+    @Override
+    public IndexBuffer makeImmutable() {
+        super.makeImmutable();
+        return this;
+    }
+
+    /**
+     * Write the specified index at the current read/write position, then
+     * increment the position.
+     *
+     * @param index the index to be written (&ge;0, &lt;numVertices)
+     * @return the (modified) current instance (for chaining)
+     */
+    @Override
+    public IndexBuffer put(int index) {
+        super.put(index);
+        setModified();
+
         return this;
     }
     // *************************************************************************
