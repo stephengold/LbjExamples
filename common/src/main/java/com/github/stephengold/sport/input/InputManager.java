@@ -33,6 +33,7 @@ import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.system.Callback;
 
 /**
  * Provide applications with convenient access to user input (keyboard, mouse,
@@ -91,6 +92,33 @@ public class InputManager {
     public void add(InputProcessor processor) {
         processor.setNext(firstProcessor);
         this.firstProcessor = processor;
+    }
+
+    /**
+     * Destroy all resources owned by the input manager.
+     *
+     * @return null
+     */
+    public InputManager destroy() {
+        Callback callback
+                = GLFW.glfwSetCursorPosCallback(glfwWindowHandle, null);
+        if (callback != null) {
+            callback.free();
+        }
+        callback = GLFW.glfwSetKeyCallback(glfwWindowHandle, null);
+        if (callback != null) {
+            callback.free();
+        }
+        callback = GLFW.glfwSetMouseButtonCallback(glfwWindowHandle, null);
+        if (callback != null) {
+            callback.free();
+        }
+        callback = GLFW.glfwSetScrollCallback(glfwWindowHandle, null);
+        if (callback != null) {
+            callback.free();
+        }
+
+        return null;
     }
 
     /**

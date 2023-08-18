@@ -445,6 +445,9 @@ abstract public class BaseApplication {
      * Cleanly terminate the application after the window closes for any reason.
      */
     private static void cleanUpBase() {
+        if (inputManager != null) {
+            inputManager = inputManager.destroy();
+        }
         deferredQueue.clear();
         visibleGeometries.clear();
 
