@@ -30,7 +30,6 @@
 package com.github.stephengold.sport;
 
 import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
 import com.jme3.util.BufferUtils;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -42,6 +41,7 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 import jme3utilities.MyString;
 import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL12C;
@@ -326,8 +326,8 @@ final public class Utils {
      * @param vector3f the JOML vector to copy (not null, unaffected)
      * @return a new JME vector (not null)
      */
-    public static Vector3f toJmeVector(org.joml.Vector3f vector3f) {
-        return new Vector3f(vector3f.x, vector3f.y, vector3f.z);
+    public static com.jme3.math.Vector3f toJmeVector(Vector3f vector3f) {
+        return new com.jme3.math.Vector3f(vector3f.x, vector3f.y, vector3f.z);
     }
 
     /**
@@ -348,8 +348,8 @@ final public class Utils {
      * @param vector3f the JME vector to copy (not null, unaffected)
      * @return a new JOML vector (not null)
      */
-    public static org.joml.Vector3f toJomlVector(Vector3f vector3f) {
-        return new org.joml.Vector3f(vector3f.x, vector3f.y, vector3f.z);
+    public static Vector3f toJomlVector(com.jme3.math.Vector3f vector3f) {
+        return new Vector3f(vector3f.x, vector3f.y, vector3f.z);
     }
 
     /**
@@ -436,7 +436,7 @@ final public class Utils {
      *
      * @param vec the vector to convert (not null, modified)
      */
-    public static void toSpherical(Vector3f vec) {
+    public static void toSpherical(com.jme3.math.Vector3f vec) {
         double xx = vec.x;
         double yy = vec.y;
         double zz = vec.z;
