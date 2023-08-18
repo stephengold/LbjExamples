@@ -146,6 +146,21 @@ public class Camera {
     }
 
     /**
+     * Return the camera's look direction.
+     *
+     * @param storeResult storage for the result (modified if not null)
+     * @return a unit vector in world coordinates (either {@code storeResult} or
+     * a new vector)
+     */
+    public Vector3f direction(Vector3f storeResult) {
+        if (storeResult == null) {
+            return new Vector3f(lookDirection);
+        } else {
+            return storeResult.set(lookDirection);
+        }
+    }
+
+    /**
      * Return the vertical field-of-view angle.
      *
      * @return the angle (in radians, &gt;0, &lt;PI)
@@ -202,21 +217,6 @@ public class Camera {
     }
 
     /**
-     * Return the camera's look direction.
-     *
-     * @param storeResult storage for the result (modified if not null)
-     * @return a unit vector in world coordinates (either {@code storeResult} or
-     * a new vector)
-     */
-    public Vector3f direction(Vector3f storeResult) {
-        if (storeResult == null) {
-            return new Vector3f(lookDirection);
-        } else {
-            return storeResult.set(lookDirection);
-        }
-    }
-
-    /**
      * Teleport the eye by the specified offset without changing its
      * orientation.
      *
@@ -225,6 +225,25 @@ public class Camera {
      */
     public void move(Vector3fc offset) {
         eyeLocation.add(offset);
+    }
+
+    /**
+     * Teleport the eye to {@code newLocation} and orient it to look at
+     * {@code targetLocation}.
+     *
+     * @param eyeLocation the desired eye location (in world coordinates, not
+     * null, unaffected)
+     * @param targetLocation the location to look at (in world coordinates, not
+     * null, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
+    public Camera reposition(Vector3fc eyeLocation, Vector3fc targetLocation) {
+        this.eyeLocation.set(eyeLocation);
+
+        Vector3f direction = new Vector3f(targetLocation).sub(eyeLocation);
+        setLookDirection(direction);
+
+        return this;
     }
 
     /**
@@ -326,25 +345,6 @@ public class Camera {
      */
     public Camera setLocation(com.jme3.math.Vector3f location) {
         eyeLocation.set(location.x, location.y, location.z);
-        return this;
-    }
-
-    /**
-     * Teleport the eye to {@code newLocation} and orient it to look at
-     * {@code targetLocation}.
-     *
-     * @param eyeLocation the desired eye location (in world coordinates, not
-     * null, unaffected)
-     * @param targetLocation the location to look at (in world coordinates, not
-     * null, unaffected)
-     * @return the (modified) current instance (for chaining)
-     */
-    public Camera reposition(Vector3fc eyeLocation, Vector3fc targetLocation) {
-        this.eyeLocation.set(eyeLocation);
-
-        Vector3f direction = new Vector3f(targetLocation).sub(eyeLocation);
-        setLookDirection(direction);
-
         return this;
     }
 
