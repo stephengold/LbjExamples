@@ -29,8 +29,10 @@
  */
 package com.github.stephengold.sport;
 
+import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
+import jme3utilities.math.MyMath;
 import org.joml.Matrix4f;
 import org.joml.Vector2fc;
 import org.joml.Vector4f;
@@ -62,6 +64,11 @@ public class ProjectionMatrix extends GlobalUniform {
     // *************************************************************************
     // fields
 
+    /**
+     * vertical field-of-view angle (between the bottom plane and the top plane,
+     * in radians, &gt;0, &lt;PI)
+     */
+    private float fovy = MyMath.toRadians(45f);
     /**
      * distance of the far clipping plane from the eye location (in world units)
      */
@@ -147,6 +154,17 @@ public class ProjectionMatrix extends GlobalUniform {
     }
 
     /**
+     * Return the vertical field-of-view angle.
+     *
+     * @return the angle (in radians, &gt;0, &lt;PI)
+     */
+    public float fovy() {
+        assert fovy > 0f : fovy;
+        assert fovy < FastMath.PI : fovy;
+        return fovy;
+    }
+
+    /**
      * Return the distance from the camera to the far clipping plane.
      *
      * @return the distance (in world units, &gt;0)
@@ -162,6 +180,30 @@ public class ProjectionMatrix extends GlobalUniform {
      */
     public float getZNear() {
         return zNear;
+    }
+
+    /**
+     * Alter the vertical field-of-view angle.
+     *
+     * @param fovy the desired angle (in radians, &gt;0, &lt;PI)
+     * @return the (modified) current instance (for chaining)
+     */
+    public ProjectionMatrix setFovy(float fovy) {
+        Validate.inRange(fovy, "fovy", Float.MIN_VALUE, FastMath.PI);
+        this.fovy = fovy;
+        return this;
+    }
+
+    /**
+     * Alter the vertical field-of-view angle.
+     *
+     * @param newFovyInDegrees the desired angle (in degrees, &gt;0, &lt;180)
+     * @return the (modified) current instance (for chaining)
+     */
+    public ProjectionMatrix setFovyDegrees(float newFovyInDegrees) {
+        Validate.inRange(newFovyInDegrees, "new fovy", Float.MIN_VALUE, 180f);
+        setFovy(MyMath.toRadians(newFovyInDegrees));
+        return this;
     }
 
     /**
@@ -215,7 +257,6 @@ public class ProjectionMatrix extends GlobalUniform {
      */
     @Override
     void updateValue() {
-        float fovy = BaseApplication.getCamera().fovy();
         float aspectRatio = BaseApplication.aspectRatio();
         value.setPerspective(fovy, aspectRatio, zNear, zFar);
     }

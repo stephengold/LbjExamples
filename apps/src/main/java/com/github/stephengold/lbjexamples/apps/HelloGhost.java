@@ -251,14 +251,14 @@ public class HelloGhost
     }
 
     /**
-     * Configure the Camera and CIP during startup.
+     * Configure the camera, projection, and CIP during startup.
      */
     private static void configureCamera() {
         getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
         cam.setAzimuth(-1.9f);
-        cam.setFovyDegrees(30f);
         cam.setLocation(new Vector3f(35f, 35f, 60f));
         cam.setUpAngle(-0.5f);
+        getProjection().setFovyDegrees(30f);
     }
 
     /**

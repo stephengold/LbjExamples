@@ -30,7 +30,6 @@
 package com.github.stephengold.sport;
 
 import com.jme3.math.FastMath;
-import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
 import org.joml.Vector2fc;
@@ -39,7 +38,7 @@ import org.joml.Vector3fc;
 
 /**
  * A viewpoint for 3-D rendering, including an eye location, a "look" direction,
- * an "up" direction, and a (vertical) field-of-view.
+ * and an "up" direction.
  * <p>
  * Intended for a Y-up environment. When the camera's azimuth and up angle are
  * both zero, it looks in the +X direction.
@@ -53,11 +52,6 @@ public class Camera {
      * the world +X axis (in radians)
      */
     private float azimuthRadians;
-    /**
-     * vertical field-of-view angle (between the bottom plane and the top plane,
-     * in radians, &gt;0, &lt;PI)
-     */
-    private float fovy = MyMath.toRadians(45f);
     /**
      * angle of the "look" direction above the world X-Z plane (in radians)
      */
@@ -158,17 +152,6 @@ public class Camera {
         } else {
             return storeResult.set(lookDirection);
         }
-    }
-
-    /**
-     * Return the vertical field-of-view angle.
-     *
-     * @return the angle (in radians, &gt;0, &lt;PI)
-     */
-    public float fovy() {
-        assert fovy > 0f : fovy;
-        assert fovy < FastMath.PI : fovy;
-        return fovy;
     }
 
     /**
@@ -312,30 +295,6 @@ public class Camera {
     }
 
     /**
-     * Alter the vertical field-of-view angle.
-     *
-     * @param newFovy the desired angle (in radians, &gt;0, &lt;PI)
-     * @return the (modified) current instance (for chaining)
-     */
-    public Camera setFovy(float newFovy) {
-        Validate.inRange(newFovy, "new fovy", Float.MIN_VALUE, FastMath.PI);
-        this.fovy = newFovy;
-        return this;
-    }
-
-    /**
-     * Alter the vertical field-of-view angle.
-     *
-     * @param newFovyInDegrees the desired angle (in degrees, &gt;0, &lt;180)
-     * @return the (modified) current instance (for chaining)
-     */
-    public Camera setFovyDegrees(float newFovyInDegrees) {
-        Validate.inRange(newFovyInDegrees, "new fovy", Float.MIN_VALUE, 180f);
-        setFovy(MyMath.toRadians(newFovyInDegrees));
-        return this;
-    }
-
-    /**
      * Teleport the eye to the specified location without changing its
      * orientation.
      *
@@ -425,9 +384,10 @@ public class Camera {
     @Override
     public String toString() {
         String result = String.format(
-                "loc=%s az=%.2f upAng=%.2f fovy=%.2f look=%s up=%s right=%s",
-                eyeLocation, azimuthRadians, upAngleRadians, fovy,
-                lookDirection, upDirection, rightDirection);
+                "loc=%s az=%.2f upAng=%.2f look=%s up=%s right=%s",
+                eyeLocation, azimuthRadians, upAngleRadians,
+                lookDirection, upDirection, rightDirection
+        );
         return result;
     }
     // *************************************************************************
