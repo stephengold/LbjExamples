@@ -100,16 +100,6 @@ public class InputManager {
     }
 
     /**
-     * Return the last-known location of the mouse cursor.
-     *
-     * @return a pre-existing location vector (in clip space) or null if the
-     * application hasn't received a cursor position callback
-     */
-    public Vector2fc locateCursor() {
-        return cursorLocationClipspace;
-    }
-
-    /**
      * Test whether the left mouse button (LMB) is pressed.
      *
      * @return true if pressed, otherwise false
@@ -152,6 +142,16 @@ public class InputManager {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Return the last-known location of the mouse cursor.
+     *
+     * @return a pre-existing location vector (in clip space) or null if the
+     * application hasn't received a cursor position callback
+     */
+    public Vector2fc locateCursor() {
+        return cursorLocationClipspace;
     }
     // *************************************************************************
     // private methods
