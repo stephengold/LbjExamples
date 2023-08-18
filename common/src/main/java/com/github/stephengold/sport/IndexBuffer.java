@@ -59,10 +59,10 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
      */
     private boolean isModified = true;
     /**
-     * OpenGL data type of the elements (GL_UNSIGNED_BYTE, GL_UNSIGNED_SHORT, or
+     * OpenGL data type of the indices (GL_UNSIGNED_BYTE, GL_UNSIGNED_SHORT, or
      * GL_UNSIGNED_INT)
      */
-    final private int elementType;
+    final private int indexType;
     /**
      * expected usage pattern
      */
@@ -87,12 +87,12 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
 
         Buffer buffer = super.getBuffer();
         if (buffer instanceof ByteBuffer) {
-            this.elementType = GL11C.GL_UNSIGNED_BYTE;
+            this.indexType = GL11C.GL_UNSIGNED_BYTE;
         } else if (buffer instanceof ShortBuffer) {
-            this.elementType = GL11C.GL_UNSIGNED_SHORT;
+            this.indexType = GL11C.GL_UNSIGNED_SHORT;
         } else {
             assert buffer instanceof IntBuffer;
-            this.elementType = GL11C.GL_UNSIGNED_INT;
+            this.indexType = GL11C.GL_UNSIGNED_INT;
         }
     }
     // *************************************************************************
@@ -150,7 +150,7 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
         int code = drawMode.code();
         long indices = 0L;
         int numIndices = capacity();
-        GL11C.glDrawElements(code, numIndices, elementType, indices);
+        GL11C.glDrawElements(code, numIndices, indexType, indices);
         Utils.checkForOglError();
     }
 
@@ -173,7 +173,7 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
      * GL_UNSIGNED_INT)
      */
     int indexType() {
-        return elementType;
+        return indexType;
     }
 
     /**
