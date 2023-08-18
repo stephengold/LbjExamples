@@ -35,7 +35,7 @@ import com.github.stephengold.sport.Topology;
 /**
  * A TriangleFan mesh that renders an axis-aligned rectangle in the X-Y plane.
  * <p>
- * In mesh space, the rectangle extends from (x1,y1,0) to (x2,y2,0) with normals
+ * In mesh space, the rectangle extends from (x0,y0,0) to (x2,y2,0) with normals
  * set to (0,0,zNorm).
  *
  * @author Stephen Gold sgold@sonic.net
@@ -55,33 +55,33 @@ public class RectangleMesh extends Mesh {
     /**
      * Instantiate an axis-aligned rectangle.
      *
-     * @param x1 the X coordinate of the first vertex (in mesh coordinates)
-     * @param x3 the X coordinate of the 3rd vertex (in mesh coordinates)
-     * @param y1 the Y coordinate of the first vertex (in mesh coordinates)
-     * @param y3 the Y coordinate of the 3rd vertex (in mesh coordinates)
+     * @param x0 the X coordinate of the first vertex (in mesh coordinates)
+     * @param x2 the X coordinate of the 3rd vertex (in mesh coordinates)
+     * @param y0 the Y coordinate of the first vertex (in mesh coordinates)
+     * @param y2 the Y coordinate of the 3rd vertex (in mesh coordinates)
      * @param normalZ the Z component of the normal vector (in mesh coordinates,
      * must be +1 or -1)
      */
     public RectangleMesh(
-            float x1, float x3, float y1, float y3, float normalZ) {
+            float x0, float x2, float y0, float y2, float normalZ) {
         super(Topology.TriangleFan, 4);
         /*
          * The correct winding order depends on the coordinates chosen
          * and the direction of the normals.
          */
-        if ((x3 - x1) * (y3 - y1) * normalZ < 0f) {
+        if ((x2 - x0) * (y2 - y0) * normalZ < 0f) {
             super.setPositions(
-                    x1, y1, 0f,
-                    x1, y3, 0f,
-                    x3, y3, 0f,
-                    x3, y1, 0f
+                    x0, y0, 0f,
+                    x0, y2, 0f,
+                    x2, y2, 0f,
+                    x2, y0, 0f
             );
         } else {
             super.setPositions(
-                    x1, y1, 0f,
-                    x3, y1, 0f,
-                    x3, y3, 0f,
-                    x1, y3, 0f
+                    x0, y0, 0f,
+                    x2, y0, 0f,
+                    x2, y2, 0f,
+                    x0, y2, 0f
             );
         }
 
