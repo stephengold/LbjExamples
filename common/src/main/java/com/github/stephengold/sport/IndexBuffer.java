@@ -33,6 +33,8 @@ import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
+import java.util.Collection;
+import java.util.Collections;
 import jme3utilities.Validate;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL15C;
@@ -43,7 +45,7 @@ import org.lwjgl.opengl.GL15C;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
+final public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
     // *************************************************************************
     // constants
 
@@ -80,7 +82,7 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
      * @param maxVertices one more than the highest index value (&ge;0)
      * @param capacity number of indices (&ge;0)
      */
-    public IndexBuffer(int maxVertices, int capacity) {
+    private IndexBuffer(int maxVertices, int capacity) {
         super(maxVertices, capacity);
         Validate.nonNegative(maxVertices, "max vertices");
         Validate.nonNegative(capacity, "capacity");
@@ -205,6 +207,56 @@ public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
     public IndexBuffer makeImmutable() {
         super.makeImmutable();
         return this;
+    }
+
+    /**
+     * Create an index buffer without initializing its contents.
+     *
+     * @param maxVertices one more than the highest index value (&ge;0)
+     * @param capacity the desired number of indices (&ge;0)
+     * @return a new instance (not null)
+     */
+    static IndexBuffer newInstance(int maxVertices, int capacity) {
+        IndexBuffer result = new IndexBuffer(maxVertices, capacity);
+        return result;
+    }
+
+    /**
+     * Create an IndexBuffer from an array of vertex indices.
+     *
+     * @param indices the desired indices (not null, unaffected)
+     * @return a new instance (not null)
+     */
+    static IndexBuffer newInstance(int[] indices) {
+        int capacity = indices.length;
+        int maxIndex = Utils.maxInt(indices);
+        int maxVertices = 1 + maxIndex;
+
+        IndexBuffer result = newInstance(maxVertices, capacity);
+        for (int vIndex : indices) {
+            result.put(vIndex);
+        }
+
+        return result;
+    }
+
+    /**
+     * Create an IndexBuffer from a list of indices.
+     *
+     * @param indices the desired indices (not null, unaffected)
+     * @return a new instance (not null)
+     */
+    static IndexBuffer newInstance(Collection<Integer> indices) {
+        int capacity = indices.size();
+        int maxIndex = Collections.max(indices);
+        int maxVertices = 1 + maxIndex;
+
+        IndexBuffer result = new IndexBuffer(maxVertices, capacity);
+        for (int vIndex : indices) {
+            result.put(vIndex);
+        }
+
+        return result;
     }
 
     /**

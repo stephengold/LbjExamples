@@ -126,7 +126,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             this.indexBuffer = null;
         } else {
             int capacity = indices.size();
-            this.indexBuffer = new IndexBuffer(vertexCount, capacity);
+            this.indexBuffer = IndexBuffer.newInstance(vertexCount, capacity);
             for (int index : indices) {
                 indexBuffer.put(index);
             }
@@ -753,7 +753,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     protected IndexBuffer createIndices(int capacity) {
         verifyMutable();
-        this.indexBuffer = new IndexBuffer(vertexCount, capacity);
+        this.indexBuffer = IndexBuffer.newInstance(vertexCount, capacity);
         return indexBuffer;
     }
 
