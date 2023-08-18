@@ -271,6 +271,25 @@ final public class Utils {
     }
 
     /**
+     * Find the maximum of some int values.
+     *
+     * @param iValues the input values
+     * @return the most positive value
+     * @see Collections#max()
+     * @see java.lang.Math#max(int, int)
+     */
+    public static int maxInt(int... iValues) {
+        int result = Integer.MIN_VALUE;
+        for (int iValue : iValues) {
+            if (iValue > result) {
+                result = iValue;
+            }
+        }
+
+        return result;
+    }
+
+    /**
      * Enable or disable the specified OpenGL capability.
      *
      * @param capability the numeric code for the capability
