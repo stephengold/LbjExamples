@@ -42,6 +42,7 @@ import javax.imageio.ImageIO;
 import jme3utilities.MyString;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
 import org.joml.Vector4f;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL12C;
@@ -326,8 +327,10 @@ final public class Utils {
      * @param vector3f the JOML vector to copy (not null, unaffected)
      * @return a new JME vector (not null)
      */
-    public static com.jme3.math.Vector3f toJmeVector(Vector3f vector3f) {
-        return new com.jme3.math.Vector3f(vector3f.x, vector3f.y, vector3f.z);
+    public static com.jme3.math.Vector3f toJmeVector(Vector3fc vector3f) {
+        com.jme3.math.Vector3f result = new com.jme3.math.Vector3f(
+                vector3f.x(), vector3f.y(), vector3f.z());
+        return result;
     }
 
     /**
