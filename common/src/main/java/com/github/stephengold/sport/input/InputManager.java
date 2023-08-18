@@ -250,7 +250,7 @@ public class InputManager {
         assert windowHandle == glfwWindowHandle;
 
         if (firstProcessor != null) {
-            firstProcessor.onMouseScroll(xOffset, yOffset);
+            firstProcessor.onScrollMotion(xOffset, yOffset);
         }
     }
 }

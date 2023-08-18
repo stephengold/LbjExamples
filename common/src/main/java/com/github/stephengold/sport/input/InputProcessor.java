@@ -89,9 +89,9 @@ abstract public class InputProcessor {
      * @param xOffset the rightward motion
      * @param yOffset the upward motion
      */
-    public void onMouseScroll(double xOffset, double yOffset) {
+    public void onScrollMotion(double xOffset, double yOffset) {
         if (nextProcessor != null) {
-            nextProcessor.onMouseScroll(xOffset, yOffset);
+            nextProcessor.onScrollMotion(xOffset, yOffset);
         }
     }
 
