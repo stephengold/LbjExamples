@@ -91,7 +91,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     /**
      * how vertices are organized into primitives (not null)
      */
-    private final Topology topology;
+    private Topology topology;
     /**
      * vertex normals (3 floats per vertex) or null if not present
      */
@@ -364,6 +364,22 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     public int countVertices() {
         return vertexCount;
+    }
+
+    /**
+     * Remove the normals, if any.
+     */
+    public void dropNormals() {
+        verifyMutable();
+        this.normalBuffer = null;
+    }
+
+    /**
+     * Remove the texture coordinates, if any.
+     */
+    public void dropTexCoords() {
+        verifyMutable();
+        this.texCoordsBuffer = null;
     }
 
     /**
@@ -650,6 +666,17 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
+     * Alter the primitive topology, which determines how vertices/indices are
+     * organized into primitives.
+     *
+     * @param topology the enum value for the desired topology (not null)
+     */
+    public void setTopology(Topology topology) {
+        verifyMutable();
+        this.topology = topology;
+    }
+
+    /**
      * Return the primitive topology, which indicates how mesh vertices/indices
      * are organized into primitives.
      *
@@ -734,6 +761,19 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
+     * Replace any existing index buffer with a new one containing the specified
+     * indices.
+     *
+     * @param indices the desired vertex indices (not null, unaffected)
+     * @return a new IndexBuffer with the specified capacity
+     */
+    protected IndexBuffer createIndices(List<Integer> indices) {
+        verifyMutable();
+        this.indexBuffer = IndexBuffer.newInstance(indices);
+        return indexBuffer;
+    }
+
+    /**
      * Create a buffer for putting vertex normals.
      *
      * @return a new buffer with a capacity of 3 * vertexCount floats
@@ -773,6 +813,16 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         this.texCoordsBuffer = VertexBuffer.newInstance(
                 ShaderProgram.uvAttribName, 2, vertexCount);
         return texCoordsBuffer;
+    }
+
+    /**
+     * Assign new vertex indices.
+     *
+     * @param indexArray the vertex indices to use (not null, unaffected)
+     */
+    protected void setIndices(int... indexArray) {
+        verifyMutable();
+        this.indexBuffer = IndexBuffer.newInstance(indexArray);
     }
 
     /**
