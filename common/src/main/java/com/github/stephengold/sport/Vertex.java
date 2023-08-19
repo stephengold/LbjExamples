@@ -136,9 +136,9 @@ public class Vertex {
      * @param rotation the rotation matrix to apply (not null, unaffected)
      */
     public void rotate(Matrix3fc rotation) {
-        position.mulTranspose(rotation);
+        position.mul(rotation);
         if (normal != null) {
-            normal.mulTranspose(rotation);
+            normal.mul(rotation);
         }
     }
 
