@@ -157,6 +157,17 @@ final public class VertexBuffer {
     }
 
     /**
+     * Return the number of floats per vertex.
+     *
+     * @return the count (&ge;1, &le;4)
+     */
+    public int fpv() {
+        assert fpv >= 1 : fpv;
+        assert fpv <= 4 : fpv;
+        return fpv;
+    }
+
+    /**
      * Read a float from the specified buffer position. Does not alter the
      * buffer's read/write position.
      *
