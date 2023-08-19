@@ -222,6 +222,30 @@ public class Camera {
      * null, finite, unaffected)
      * @return the (modified) current instance (for chaining)
      */
+    public Camera reposition(com.jme3.math.Vector3f eyeLocation,
+            com.jme3.math.Vector3f targetLocation) {
+        Validate.finite(eyeLocation, "eye location");
+        Validate.finite(targetLocation, "target location");
+
+        this.eyeLocation.set(eyeLocation.x, eyeLocation.y, eyeLocation.z);
+
+        Vector3f offset
+                = Utils.toJomlVector(targetLocation).sub(this.eyeLocation);
+        setLookDirection(offset);
+
+        return this;
+    }
+
+    /**
+     * Translate the eye to {@code newLocation} and orient it to look at
+     * {@code targetLocation}.
+     *
+     * @param eyeLocation the desired eye location (in world coordinates, not
+     * null, finite, unaffected)
+     * @param targetLocation the location to look at (in world coordinates, not
+     * null, finite, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
     public Camera reposition(Vector3fc eyeLocation, Vector3fc targetLocation) {
         Validate.require(eyeLocation.isFinite(), "eye location");
         Validate.require(targetLocation.isFinite(), "target location");
