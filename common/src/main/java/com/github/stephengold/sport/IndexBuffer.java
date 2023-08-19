@@ -225,6 +225,7 @@ final public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
         for (int vIndex : indices) {
             result.put(vIndex);
         }
+        result.flip();
 
         return result;
     }
@@ -244,6 +245,7 @@ final public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
         for (int vIndex : indices) {
             result.put(vIndex);
         }
+        result.flip();
 
         return result;
     }
