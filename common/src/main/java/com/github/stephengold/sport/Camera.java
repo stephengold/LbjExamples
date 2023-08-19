@@ -30,6 +30,7 @@
 package com.github.stephengold.sport;
 
 import com.jme3.math.FastMath;
+import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
 import org.joml.Vector2fc;
@@ -203,10 +204,11 @@ public class Camera {
      * Translate the eye by the specified offset without changing its
      * orientation.
      *
-     * @param offset the desired offset (in world coordinates, not null,
+     * @param offset the desired offset (in world coordinates, not null, finite,
      * unaffected)
      */
     public void move(Vector3fc offset) {
+        Validate.require(offset.isFinite(), "a finite offset");
         eyeLocation.add(offset);
     }
 
@@ -215,12 +217,15 @@ public class Camera {
      * {@code targetLocation}.
      *
      * @param eyeLocation the desired eye location (in world coordinates, not
-     * null, unaffected)
+     * null, finite, unaffected)
      * @param targetLocation the location to look at (in world coordinates, not
-     * null, unaffected)
+     * null, finite, unaffected)
      * @return the (modified) current instance (for chaining)
      */
     public Camera reposition(Vector3fc eyeLocation, Vector3fc targetLocation) {
+        Validate.require(eyeLocation.isFinite(), "eye location");
+        Validate.require(targetLocation.isFinite(), "target location");
+
         this.eyeLocation.set(eyeLocation);
 
         Vector3f direction = new Vector3f(targetLocation).sub(eyeLocation);
@@ -303,6 +308,7 @@ public class Camera {
      * @return the (modified) current instance (for chaining)
      */
     public Camera setLocation(com.jme3.math.Vector3f location) {
+        Validate.finite(location, "location");
         eyeLocation.set(location.x, location.y, location.z);
         return this;
     }
