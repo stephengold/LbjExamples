@@ -167,7 +167,7 @@ public class Vertex {
     }
 
     /**
-     * Write the vertex position data to the specified ByteBuffer, starting at
+     * Write the vertex position data to the specified FloatBuffer, starting at
      * the current buffer position) and advance the buffer position.
      *
      * @param target the buffer to write to (not null, modified)
@@ -179,8 +179,8 @@ public class Vertex {
     }
 
     /**
-     * Write the texture coordinate data to the specified ByteBuffer, starting
-     * at the current buffer position) and advances the buffer position.
+     * Write the texture coordinate data to the specified FloatBuffer, starting
+     * at the current buffer position) and advance the buffer position.
      *
      * @param target the buffer to write to (not null, modified)
      */
@@ -207,6 +207,7 @@ public class Vertex {
         } else if (otherObject != null
                 && otherObject.getClass() == getClass()) {
             Vertex otherVertex = (Vertex) otherObject;
+            // TODO use Object.equals()
             result = otherVertex.position.equals(position);
             if (result && color != otherVertex.color) {
                 result = (color != null && color.equals(otherVertex.color));

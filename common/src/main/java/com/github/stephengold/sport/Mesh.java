@@ -240,7 +240,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * number of vertices, but no indices, colors, normals, positions, or
      * texture coordinates.
      *
-     * @param topology the desired topology (not null)
+     * @param topology the desired primitive topology (not null)
      * @param vertexCount number of vertices (&ge;0)
      */
     protected Mesh(Topology topology, int vertexCount) {
@@ -698,8 +698,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             return this;
         }
         verifyMutable();
-        positionBuffer.scale(scaleFactor);
 
+        positionBuffer.scale(scaleFactor);
         return this;
     }
 
