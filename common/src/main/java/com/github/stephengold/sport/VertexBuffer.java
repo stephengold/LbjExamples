@@ -31,7 +31,6 @@ package com.github.stephengold.sport;
 
 import com.jme3.math.Quaternion;
 import com.jme3.math.Transform;
-import com.jme3.math.Vector3f;
 import com.jme3.util.BufferUtils;
 import java.nio.FloatBuffer;
 import jme3utilities.Validate;
@@ -40,6 +39,7 @@ import jme3utilities.math.MyQuaternion;
 import jme3utilities.math.MyVector3f;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
+import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL15C;
@@ -189,8 +189,10 @@ final public class VertexBuffer {
      * @return the value that was read (either {@code storeResult} or a new
      * vector)
      */
-    public Vector3f get(int position, Vector3f storeResult) {
-        Vector3f result = (storeResult == null) ? new Vector3f() : storeResult;
+    public com.jme3.math.Vector3f get(
+            int position, com.jme3.math.Vector3f storeResult) {
+        com.jme3.math.Vector3f result = (storeResult == null)
+                ? new com.jme3.math.Vector3f() : storeResult;
         MyBuffer.get(dataBuffer, position, storeResult);
         return result;
     }
@@ -229,14 +231,12 @@ final public class VertexBuffer {
      * @return the value that was read (either {@code storeResult} or a new
      * vector)
      */
-    public org.joml.Vector3f get3f(
-            int vertexIndex, org.joml.Vector3f storeResult) {
+    public Vector3f get3f(int vertexIndex, Vector3f storeResult) {
         Validate.inRange(vertexIndex, "vertex index", 0, vertexCount - 1);
         if (fpv != Mesh.numAxes) {
             throw new IllegalStateException("fpv = " + fpv);
         }
-        org.joml.Vector3f result = (storeResult == null)
-                ? new org.joml.Vector3f() : storeResult;
+        Vector3f result = (storeResult == null) ? new Vector3f() : storeResult;
 
         int startPosition = vertexIndex * fpv;
         result.x = dataBuffer.get(startPosition + MyVector3f.xAxis);
@@ -447,7 +447,7 @@ final public class VertexBuffer {
      * @param vector the vector to write (not null, unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    public VertexBuffer put(int position, Vector3f vector) {
+    public VertexBuffer put(int position, com.jme3.math.Vector3f vector) {
         verifyMutable();
 
         MyBuffer.put(dataBuffer, position, vector);
@@ -463,7 +463,7 @@ final public class VertexBuffer {
      * @param vector the value to be written (not null, unaffected)
      * @return the (modified) current instance (for chaining)
      */
-    public VertexBuffer put(Vector3f vector) {
+    public VertexBuffer put(com.jme3.math.Vector3f vector) {
         verifyMutable();
 
         dataBuffer.put(vector.x);
