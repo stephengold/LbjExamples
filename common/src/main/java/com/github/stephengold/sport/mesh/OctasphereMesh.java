@@ -29,7 +29,6 @@
  */
 package com.github.stephengold.sport.mesh;
 
-import com.github.stephengold.sport.IndexBuffer;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.Topology;
 import com.github.stephengold.sport.VertexBuffer;
@@ -182,7 +181,7 @@ public class OctasphereMesh extends Mesh {
                 countVertices(numRefineSteps, withIndices));
         Validate.inRange(numRefineSteps, "number of refinement steps", 0, 13);
 
-        int numVertices = super.countVertices();
+        int numVertices = countVertices();
         this.uOverrides = new ArrayList<>(numVertices);
         this.locations = new ArrayList<>(numVertices);
         this.midpointCache = new HashMap<>(numVertices);
@@ -258,21 +257,15 @@ public class OctasphereMesh extends Mesh {
         midpointCache.clear();
         assert faces.size() == 3 << (3 + 2 * numRefineSteps);
 
-        this.posBuffer = super.createPositions();
-        this.normBuffer = super.createNormals();
-        this.uvBuffer = super.createUvs();
+        this.posBuffer = createPositions();
+        this.normBuffer = createNormals();
+        this.uvBuffer = createUvs();
 
         if (withIndices) {
             assert locations.size() == numVertices :
                     locations.size() + " != " + numVertices;
 
-            IndexBuffer indexBuffer = super.createIndices(faces.size());
-            for (int vertexIndex : faces) {
-                indexBuffer.put(vertexIndex);
-            }
-            indexBuffer.flip();
-            assert indexBuffer.limit() == indexBuffer.capacity();
-
+            createIndices(faces);
             for (int vIndex = 0; vIndex < locations.size(); ++vIndex) {
                 putVertex(vIndex);
             }
@@ -285,13 +278,6 @@ public class OctasphereMesh extends Mesh {
                 putVertex(vertexIndex);
             }
         }
-
-        posBuffer.flip();
-        assert posBuffer.limit() == posBuffer.capacity();
-        normBuffer.flip();
-        assert normBuffer.limit() == normBuffer.capacity();
-        uvBuffer.flip();
-        assert uvBuffer.limit() == uvBuffer.capacity();
 
         locations.clear();
         uOverrides.clear();
@@ -470,12 +456,8 @@ public class OctasphereMesh extends Mesh {
      */
     private void putVertex(int vIndex) {
         Vector3fc pos = locations.get(vIndex); // alias
-        posBuffer.put(pos.x())
-                .put(pos.y())
-                .put(pos.z());
-        normBuffer.put(pos.x())
-                .put(pos.y())
-                .put(pos.z());
+        posBuffer.put3f(vIndex, pos);
+        normBuffer.put3f(vIndex, pos);
 
         float u;
         if (pos.y() == 0f) {
@@ -489,6 +471,6 @@ public class OctasphereMesh extends Mesh {
         float latitude = latitude(pos);
         float v = 0.5f - latitude / FastMath.PI;
 
-        uvBuffer.put(u).put(v);
+        uvBuffer.putArray(vIndex, u, v);
     }
 }
