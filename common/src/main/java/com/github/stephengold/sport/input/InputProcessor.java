@@ -84,15 +84,6 @@ abstract public class InputProcessor {
     }
 
     /**
-     * Set the next processor in the series.
-     *
-     * @param newNextProcessor the desired processor, or null if none
-     */
-    public void setNext(InputProcessor newNextProcessor) {
-        this.nextProcessor = newNextProcessor;
-    }
-
-    /**
      * Handle scrolling-device movement. Meant to be overridden.
      *
      * @param xOffset the rightward motion
@@ -102,5 +93,14 @@ abstract public class InputProcessor {
         if (nextProcessor != null) {
             nextProcessor.onScrollMotion(xOffset, yOffset);
         }
+    }
+
+    /**
+     * Set the next processor in the series.
+     *
+     * @param newNextProcessor the desired processor, or null if none
+     */
+    public void setNext(InputProcessor newNextProcessor) {
+        this.nextProcessor = newNextProcessor;
     }
 }
