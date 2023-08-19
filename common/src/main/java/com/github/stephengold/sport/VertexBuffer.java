@@ -552,16 +552,20 @@ final public class VertexBuffer {
     }
 
     /**
-     * Apply the specified rotation to all vertices.
+     * Apply the specified 3-D rotation to all vertices. Requires fpv=3.
      *
      * @param quaternion the rotation to apply (not null, not zero, unaffected)
      * @return the (modified) current instance (for chaining)
      */
     public VertexBuffer rotate(Quaternion quaternion) {
+        Validate.nonZero(quaternion, "quaternion");
         if (MyQuaternion.isRotationIdentity(quaternion)) {
             return this;
         }
         verifyMutable();
+        if (fpv != Mesh.numAxes) {
+            throw new IllegalStateException("fpv = " + fpv);
+        }
 
         int numFloats = capacity();
         MyBuffer.rotate(dataBuffer, 0, numFloats, quaternion);
@@ -577,6 +581,8 @@ final public class VertexBuffer {
      * @return the (modified) current instance (for chaining)
      */
     public VertexBuffer scale(float scaleFactor) {
+        Validate.nonNegative(scaleFactor, "scale factor");
+        Validate.finite(scaleFactor, "scale factor");
         if (scaleFactor == 1f) {
             return this;
         }
@@ -626,6 +632,7 @@ final public class VertexBuffer {
      * @return the (modified) current instance (for chaining)
      */
     public VertexBuffer transform(Transform transform) {
+        Validate.nonNull(transform, "transform");
         verifyMutable();
         if (fpv != Mesh.numAxes) {
             throw new IllegalStateException("fpv = " + fpv);
