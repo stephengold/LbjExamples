@@ -33,6 +33,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Transform;
 import com.jme3.util.BufferUtils;
 import java.nio.FloatBuffer;
+import java.util.List;
 import jme3utilities.Validate;
 import jme3utilities.math.MyBuffer;
 import jme3utilities.math.MyQuaternion;
@@ -275,6 +276,26 @@ final public class VertexBuffer {
     public VertexBuffer makeImmutable() {
         this.isMutable = false;
         return this;
+    }
+
+    /**
+     * Create a mutable color buffer from a list of vertices.
+     *
+     * @param vertices the vertices to use (not null, unaffected)
+     * @return a new instance (not null)
+     */
+    static VertexBuffer newColor(List<Vertex> vertices) {
+        String attribName = ShaderProgram.colorAttribName;
+        int fpv = 3;
+        int numVertices = vertices.size();
+        VertexBuffer result = newInstance(attribName, fpv, numVertices);
+
+        FloatBuffer data = result.getData();
+        for (Vertex vertex : vertices) {
+            vertex.writeColorTo(data);
+        }
+
+        return result;
     }
 
     /**

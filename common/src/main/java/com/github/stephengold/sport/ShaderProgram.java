@@ -55,6 +55,10 @@ class ShaderProgram {
     // constants
 
     /**
+     * name of the attrib for vertex colors
+     */
+    final static String colorAttribName = "vertexColor";
+    /**
      * name of the attrib for vertex normals
      */
     final static String normalAttribName = "vertexNormal_modelspace";
@@ -79,6 +83,7 @@ class ShaderProgram {
      */
     final private static String[] attribNames = {
         positionAttribName, // vec3
+        colorAttribName, //    vec3
         normalAttribName, //   vec3
         uvAttribName //        vec2
     };

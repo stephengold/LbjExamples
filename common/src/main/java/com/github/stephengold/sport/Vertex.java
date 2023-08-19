@@ -54,6 +54,10 @@ public class Vertex {
      */
     final private Vector2f texCoords;
     /**
+     * vertex color (3 floats) or null if not present
+     */
+    final private Vector3f color;
+    /**
      * vertex normal in mesh coordinates (3 floats) or null if not present
      */
     final private Vector3f normal;
@@ -69,15 +73,18 @@ public class Vertex {
      *
      * @param position the desired position (in mesh coordinates, not null,
      * unaffected)
+     * @param color the desired vertex color (may be null, unaffected)
      * @param normal the desired normal direction (unit vector in mesh
      * coordinates, may be null, unaffected)
      * @param texCoords the desired texture coordinates (may be null,
      * unaffected)
      */
-    public Vertex(Vector3fc position, Vector3fc normal, Vector2fc texCoords) {
+    public Vertex(Vector3fc position, Vector3fc color, Vector3fc normal,
+            Vector2fc texCoords) {
         Validate.nonNull(position, "position");
 
         this.position = new Vector3f(position);
+        this.color = (color == null) ? null : new Vector3f(color);
         this.normal = (normal == null) ? null : new Vector3f(normal);
         this.texCoords = (texCoords == null) ? null : new Vector2f(texCoords);
     }
@@ -85,7 +92,20 @@ public class Vertex {
     // new methods exposed
 
     /**
-     * Text whether the normal attribute is present.
+     * Text whether the color attribute is present.
+     *
+     * @return true if present, otherwise false
+     */
+    public boolean hasColor() {
+        if (color == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Text whether the vertex-normal attribute is present.
      *
      * @return true if present, otherwise false
      */
@@ -123,8 +143,20 @@ public class Vertex {
     }
 
     /**
-     * Write the vertex normal data to the specified ByteBuffer, starting at the
+     * Write the vertex color data to the specified FloatBuffer, starting at the
      * current buffer position) and advance the buffer position.
+     *
+     * @param target the buffer to write to (not null, modified)
+     */
+    void writeColorTo(FloatBuffer target) {
+        target.put(color.x());
+        target.put(color.y());
+        target.put(color.z());
+    }
+
+    /**
+     * Write the vertex normal data to the specified FloatBuffer, starting at
+     * the current buffer position) and advance the buffer position.
      *
      * @param target the buffer to write to (not null, modified)
      */
@@ -176,6 +208,9 @@ public class Vertex {
                 && otherObject.getClass() == getClass()) {
             Vertex otherVertex = (Vertex) otherObject;
             result = otherVertex.position.equals(position);
+            if (result && color != otherVertex.color) {
+                result = (color != null && color.equals(otherVertex.color));
+            }
             if (result && normal != otherVertex.normal) {
                 result = (normal != null && normal.equals(otherVertex.normal));
             }
@@ -200,6 +235,9 @@ public class Vertex {
     public int hashCode() {
         int result = 707;
         result = 29 * result + position.hashCode();
+        if (color != null) {
+            result = 29 * result + color.hashCode();
+        }
         if (normal != null) {
             result = 31 * result + normal.hashCode();
         }
@@ -228,6 +266,18 @@ public class Vertex {
         result.append(", ");
         result.append(position.z());
         result.append(")");
+
+        if (color != null) {
+            result.append(" color=(");
+            result.append(color.x());
+            result.append(", ");
+
+            result.append(color.y());
+            result.append(", ");
+
+            result.append(color.z());
+            result.append(")");
+        }
 
         if (normal != null) {
             result.append(" normal=(");

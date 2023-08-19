@@ -93,6 +93,10 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     private Topology topology;
     /**
+     * vertex colors (3 floats per vertex) or null if not present
+     */
+    private VertexBuffer colorBuffer;
+    /**
      * vertex normals (3 floats per vertex) or null if not present
      */
     private VertexBuffer normalBuffer;
@@ -137,6 +141,21 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         Vertex representativeVertex = vertices.get(0);
 
+        // color buffer:
+        boolean hasColor = representativeVertex.hasColor();
+        if (hasColor) {
+            this.colorBuffer = VertexBuffer.newInstance(
+                    ShaderProgram.colorAttribName, 3, vertexCount);
+            floatBuffer = colorBuffer.getData();
+            for (Vertex vertex : vertices) {
+                vertex.writeColorTo(floatBuffer);
+            }
+            floatBuffer.flip();
+
+        } else {
+            this.colorBuffer = null;
+        }
+
         // normal buffer:
         boolean hasNormal = representativeVertex.hasNormal();
         if (hasNormal) {
@@ -170,7 +189,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
     /**
      * Instantiate a mutable mesh with the specified tppology and vertex
-     * positions, but no indices, normals, or texture coordinates.
+     * positions, but no indices, colors, normals, or texture coordinates.
      *
      * @param topology the desired topology (not null)
      * @param positionsArray vertex positions (not null, not empty, length a
@@ -187,7 +206,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
     /**
      * Instantiate a mutable mesh with the specified topology and vertex
-     * positions, but no indices, normals, or texture coordinates.
+     * positions, but no indices, colors, normals, or texture coordinates.
      *
      * @param topology an enum value (not null)
      * @param positionsBuffer vertex positions (not null, not empty)
@@ -204,7 +223,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
     /**
      * Instantiate a mutable mesh with the specified topology and vertex
-     * positions, but no indices, normals, or texture coordinates.
+     * positions, but no indices, colors, normals, or texture coordinates.
      *
      * @param topology an enum value (not null)
      * @param positionsArray vertex positions (in mesh coordinates, not null,
@@ -218,8 +237,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
     /**
      * Instantiate an incomplete mutable mesh with the specified topology and
-     * number of vertices, but no indices, normals, positions, or texture
-     * coordinates.
+     * number of vertices, but no indices, colors, normals, positions, or
+     * texture coordinates.
      *
      * @param topology the desired topology (not null)
      * @param vertexCount number of vertices (&ge;0)
@@ -251,6 +270,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         if (positionBuffer != null) {
             positionBuffer.cleanUp();
         }
+        if (colorBuffer != null) {
+            colorBuffer.cleanUp();
+        }
         if (normalBuffer != null) {
             normalBuffer.cleanUp();
         }
@@ -273,6 +295,11 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         Vector3fc position = positionBuffer.get3f(vertexIndex, null);
 
+        Vector3fc color = null;
+        if (colorBuffer != null) {
+            color = colorBuffer.get3f(vertexIndex, null);
+        }
+
         Vector3fc normal = null;
         if (normalBuffer != null) {
             normal = normalBuffer.get3f(vertexIndex, null);
@@ -283,7 +310,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             texCoords = texCoordsBuffer.get2f(vertexIndex, null);
         }
 
-        Vertex result = new Vertex(position, normal, texCoords);
+        Vertex result = new Vertex(position, color, normal, texCoords);
         return result;
     }
 
@@ -364,6 +391,14 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     public int countVertices() {
         return vertexCount;
+    }
+
+    /**
+     * Remove the colors, if any.
+     */
+    public void dropColors() {
+        verifyMutable();
+        this.colorBuffer = null;
     }
 
     /**
@@ -560,6 +595,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         if (normalBuffer != null) {
             normalBuffer.makeImmutable();
         }
+        if (colorBuffer != null) {
+            colorBuffer.makeImmutable();
+        }
         if (texCoordsBuffer != null) {
             texCoordsBuffer.makeImmutable();
         }
@@ -749,6 +787,18 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     // new protected methods
 
     /**
+     * Create a buffer for putting vertex colors.
+     *
+     * @return a new buffer with a capacity of 3 * vertexCount floats
+     */
+    protected VertexBuffer createColors() {
+        verifyMutable();
+        this.colorBuffer = VertexBuffer.newInstance(
+                ShaderProgram.colorAttribName, 3, vertexCount);
+        return colorBuffer;
+    }
+
+    /**
      * Create a buffer for putting vertex indices.
      *
      * @param capacity the desired capacity (in indices, &ge;0)
@@ -823,6 +873,21 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     protected void setIndices(int... indexArray) {
         verifyMutable();
         this.indexBuffer = IndexBuffer.newInstance(indexArray);
+    }
+
+    /**
+     * Assign new colors to the vertices.
+     *
+     * @param colorArray the desired vertex colors (not null,
+     * length=3*vertexCount, unaffected)
+     */
+    protected void setColors(float... colorArray) {
+        int numFloats = colorArray.length;
+        Validate.require(numFloats == vertexCount * 3, "correct length");
+        verifyMutable();
+
+        this.colorBuffer = VertexBuffer.newInstance(
+                ShaderProgram.colorAttribName, 3, colorArray);
     }
 
     /**
@@ -1062,6 +1127,9 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         }
 
         positionBuffer.prepareToDraw(program);
+        if (colorBuffer != null) {
+            colorBuffer.prepareToDraw(program);
+        }
         if (normalBuffer != null) {
             normalBuffer.prepareToDraw(program);
         }

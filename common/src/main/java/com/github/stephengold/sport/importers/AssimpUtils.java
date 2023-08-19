@@ -180,6 +180,13 @@ final public class AssimpUtils {
             Vector3fc position = new Vector3f(
                     aiPosition.x(), aiPosition.y(), aiPosition.z());
 
+            Vector3fc color = null;
+            if (pAiColors != null) {
+                AIColor4D aiColor = pAiColors.get(vertexIndex);
+                color = new Vector3f(aiColor.r(), aiColor.g(), aiColor.b());
+                // Note:  alpha gets dropped
+            }
+
             Vector3fc normal = null;
             if (pAiNormals != null) {
                 AIVector3D aiNormal = pAiNormals.get(vertexIndex);
@@ -192,7 +199,7 @@ final public class AssimpUtils {
                 texCoords = new Vector2f(aiTexCoords.x(), aiTexCoords.y());
             }
 
-            Vertex vertex = new Vertex(position, normal, texCoords);
+            Vertex vertex = new Vertex(position, color, normal, texCoords);
             addVertices.add(vertex);
         }
 
