@@ -122,7 +122,7 @@ public class Camera {
      */
     public com.jme3.math.Vector3f clipToWorld(Vector2fc clipXy, float clipZ,
             com.jme3.math.Vector3f storeResult) {
-        ProjectionMatrix projection = BaseApplication.getProjection();
+        Projection projection = BaseApplication.getProjection();
         com.jme3.math.Vector3f result
                 = projection.clipToCamera(clipXy, clipZ, storeResult);
 

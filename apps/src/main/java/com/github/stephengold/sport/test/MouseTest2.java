@@ -33,7 +33,7 @@ import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
-import com.github.stephengold.sport.ProjectionMatrix;
+import com.github.stephengold.sport.Projection;
 import com.github.stephengold.sport.mesh.OctasphereMesh;
 import com.jme3.math.Vector3f;
 import org.joml.Vector2fc;
@@ -116,7 +116,7 @@ public class MouseTest2 extends BaseApplication {
             return;
         }
 
-        ProjectionMatrix pm = getProjection();
+        Projection pm = getProjection();
 
         Vector3f nearLocation = pm.clipToCamera(cursorInClipspace, -1f, null);
         nearBall.setLocation(nearLocation);

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -60,7 +60,7 @@ import org.joml.Vector4f;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class ProjectionMatrix extends GlobalUniform {
+public class Projection extends GlobalUniform {
     // *************************************************************************
     // fields
 
@@ -93,7 +93,7 @@ public class ProjectionMatrix extends GlobalUniform {
      * @param zFar the desired distance from the camera to the far clipping
      * plane (in world units; &gt;zNear) (&gt;zNear)
      */
-    ProjectionMatrix(float zNear, float zFar) {
+    Projection(float zNear, float zFar) {
         super("projectionMatrix");
 
         this.zNear = zNear;
@@ -188,7 +188,7 @@ public class ProjectionMatrix extends GlobalUniform {
      * @param fovy the desired angle (in radians, &gt;0, &lt;PI)
      * @return the (modified) current instance (for chaining)
      */
-    public ProjectionMatrix setFovy(float fovy) {
+    public Projection setFovy(float fovy) {
         Validate.inRange(fovy, "fovy", Float.MIN_VALUE, FastMath.PI);
         this.fovy = fovy;
         return this;
@@ -200,7 +200,7 @@ public class ProjectionMatrix extends GlobalUniform {
      * @param newFovyInDegrees the desired angle (in degrees, &gt;0, &lt;180)
      * @return the (modified) current instance (for chaining)
      */
-    public ProjectionMatrix setFovyDegrees(float newFovyInDegrees) {
+    public Projection setFovyDegrees(float newFovyInDegrees) {
         Validate.inRange(newFovyInDegrees, "new fovy", Float.MIN_VALUE, 180f);
         setFovy(MyMath.toRadians(newFovyInDegrees));
         return this;

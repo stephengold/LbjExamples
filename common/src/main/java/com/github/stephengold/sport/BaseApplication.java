@@ -127,7 +127,7 @@ abstract public class BaseApplication {
     /**
      * view-to-clip coordinate transform for rendering
      */
-    private static ProjectionMatrix projection;
+    private static Projection projection;
     // *************************************************************************
     // new methods exposed
 
@@ -198,9 +198,9 @@ abstract public class BaseApplication {
      *
      * @return the pre-existing instance (not null)
      */
-    public static ProjectionMatrix getProjection() {
+    public static Projection getProjection() {
         if (projection == null) {
-            projection = new ProjectionMatrix(1f, 1_000f);
+            projection = new Projection(1f, 1_000f);
         }
 
         return projection;
