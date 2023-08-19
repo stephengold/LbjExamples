@@ -314,6 +314,22 @@ public class Camera {
     }
 
     /**
+     * Teleport the eye to the specified location without changing its
+     * orientation.
+     *
+     * @param location the desired location (in world coordinates, not null,
+     * finite, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
+    public Camera setLocation(Vector3fc location) {
+        Validate.nonNull(location, "location");
+        Validate.require(location.isFinite(), "a finite location");
+
+        eyeLocation.set(location);
+        return this;
+    }
+
+    /**
      * Re-orient the camera to look in the specified direction.
      *
      * @param direction the desired direction (not null, unaffected)
