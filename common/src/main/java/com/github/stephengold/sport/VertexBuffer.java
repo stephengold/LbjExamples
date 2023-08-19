@@ -382,6 +382,66 @@ final public class VertexBuffer {
     }
 
     /**
+     * Create a mutable normal buffer from a list of vertices.
+     *
+     * @param vertices the vertices to use (not null, unaffected)
+     * @return a new instance (not null)
+     */
+    static VertexBuffer newNormal(List<Vertex> vertices) {
+        String attribName = ShaderProgram.normalAttribName;
+        int fpv = Mesh.numAxes;
+        int numVertices = vertices.size();
+        VertexBuffer result = newInstance(attribName, fpv, numVertices);
+
+        FloatBuffer data = result.getData();
+        for (Vertex vertex : vertices) {
+            vertex.writeNormalTo(data);
+        }
+
+        return result;
+    }
+
+    /**
+     * Create a mutable position buffer from a list of vertices.
+     *
+     * @param vertices the vertices to use (not null, unaffected)
+     * @return a new instance (not null)
+     */
+    static VertexBuffer newPosition(List<Vertex> vertices) {
+        String attribName = ShaderProgram.positionAttribName;
+        int fpv = Mesh.numAxes;
+        int numVertices = vertices.size();
+        VertexBuffer result = newInstance(attribName, fpv, numVertices);
+
+        FloatBuffer data = result.getData();
+        for (Vertex vertex : vertices) {
+            vertex.writePositionTo(data);
+        }
+
+        return result;
+    }
+
+    /**
+     * Create a texture-coordinates buffer from a list of vertices.
+     *
+     * @param vertices the vertices to use (not null, unaffected)
+     * @return a new instance (not null)
+     */
+    static VertexBuffer newTexCoords(List<Vertex> vertices) {
+        String attribName = ShaderProgram.uvAttribName;
+        int fpv = 2;
+        int numVertices = vertices.size();
+        VertexBuffer result = newInstance(attribName, fpv, numVertices);
+
+        FloatBuffer data = result.getData();
+        for (Vertex vertex : vertices) {
+            vertex.writeTexCoordsTo(data);
+        }
+
+        return result;
+    }
+
+    /**
      * Return the buffer's read/write position.
      *
      * @return the position (&ge;0, &le;limit)
@@ -489,6 +549,24 @@ final public class VertexBuffer {
         dataBuffer.put(vector.x);
         dataBuffer.put(vector.y);
         dataBuffer.put(vector.z);
+        setModified();
+
+        return this;
+    }
+
+    /**
+     * Write the specified vector at the current read/write position, then
+     * increment the position by 3.
+     *
+     * @param vector the value to be written (not null, unaffected)
+     * @return the (modified) current instance (for chaining)
+     */
+    public VertexBuffer put(Vector3fc vector) {
+        verifyMutable();
+
+        dataBuffer.put(vector.x());
+        dataBuffer.put(vector.y());
+        dataBuffer.put(vector.z());
         setModified();
 
         return this;
