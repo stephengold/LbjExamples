@@ -112,18 +112,18 @@ public class Camera {
     /**
      * Convert the specified clip-space coordinates to world coordinates.
      *
-     * @param clipXY the clip-space X and Y coordinates (not null, unaffected)
+     * @param clipXy the clip-space X and Y coordinates (not null, unaffected)
      * @param clipZ the clip-space Z coordinate (-1 for near plane, +1 for far
      * plane)
      * @param storeResult storage for the result (modified if not null)
      * @return a location vector in world space (either {@code storeResult} or a
      * new vector)
      */
-    public com.jme3.math.Vector3f clipToWorld(Vector2fc clipXY, float clipZ,
+    public com.jme3.math.Vector3f clipToWorld(Vector2fc clipXy, float clipZ,
             com.jme3.math.Vector3f storeResult) {
         ProjectionMatrix projection = BaseApplication.getProjection();
         com.jme3.math.Vector3f result
-                = projection.clipToCamera(clipXY, clipZ, storeResult);
+                = projection.clipToCamera(clipXy, clipZ, storeResult);
 
         float right = result.x;
         float up = result.y;
