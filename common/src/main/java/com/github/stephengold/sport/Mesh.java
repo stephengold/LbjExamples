@@ -41,7 +41,6 @@ import java.util.Map;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
-import org.joml.Vector2f;
 import org.joml.Vector2fc;
 import org.joml.Vector3fc;
 import org.joml.Vector4fc;
@@ -124,12 +123,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         if (indices == null) {
             this.indexBuffer = null;
         } else {
-            int capacity = indices.size();
-            this.indexBuffer = IndexBuffer.newInstance(vertexCount, capacity);
-            for (int index : indices) {
-                indexBuffer.put(index);
-            }
-            indexBuffer.flip();
+            this.indexBuffer = IndexBuffer.newInstance(indices);
         }
 
         // position buffer:
@@ -277,24 +271,16 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     Vertex copyVertex(int vertexIndex) {
         Validate.inRange(vertexIndex, "vertex index", 0, vertexCount - 1);
 
-        float xPos = positionBuffer.get(numAxes * vertexIndex);
-        float yPos = positionBuffer.get(numAxes * vertexIndex + 1);
-        float zPos = positionBuffer.get(numAxes * vertexIndex + 2);
-        Vector3fc position = new org.joml.Vector3f(xPos, yPos, zPos);
+        Vector3fc position = positionBuffer.get3f(vertexIndex, null);
 
         Vector3fc normal = null;
         if (normalBuffer != null) {
-            float x = normalBuffer.get(numAxes * vertexIndex);
-            float y = normalBuffer.get(numAxes * vertexIndex + 1);
-            float z = normalBuffer.get(numAxes * vertexIndex + 2);
-            normal = new org.joml.Vector3f(x, y, z);
+            normal = normalBuffer.get3f(vertexIndex, null);
         }
 
         Vector2fc texCoords = null;
         if (texCoordsBuffer != null) {
-            float u = texCoordsBuffer.get(2 * vertexIndex);
-            float v = texCoordsBuffer.get(2 * vertexIndex + 1);
-            texCoords = new Vector2f(u, v);
+            texCoords = texCoordsBuffer.get2f(vertexIndex, null);
         }
 
         Vertex result = new Vertex(position, normal, texCoords);
@@ -658,13 +644,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
             return this;
         }
         verifyMutable();
-
-        int numFloats = vertexCount * numAxes;
-        for (int floatIndex = 0; floatIndex < numFloats; ++floatIndex) {
-            float floatValue = positionBuffer.get(floatIndex);
-            floatValue *= scaleFactor;
-            positionBuffer.put(floatIndex, floatValue);
-        }
+        positionBuffer.scale(scaleFactor);
 
         return this;
     }
