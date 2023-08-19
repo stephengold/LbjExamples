@@ -51,7 +51,7 @@ import org.lwjgl.opengl.GL20C;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class VertexBuffer {
+final public class VertexBuffer {
     // *************************************************************************
     // constants
 
@@ -102,61 +102,15 @@ public class VertexBuffer {
     // constructors
 
     /**
-     * Instantiate a mutable VertexBuffer with the specified data.
-     *
-     * @param attribName name of the corresponding attrib variable in shaders
-     * (not null, not empty)
-     * @param fpv number of float values per vertex (&ge;1, &le;4)
-     * @param data data for initialization (not null, length a multiple of
-     * {@code fpv}, alias created)
-     */
-    VertexBuffer(String attribName, int fpv, float[] data) {
-        Validate.inRange(fpv, "floats per vertex", 1, 4);
-        int capacity = data.length;
-        Validate.require(
-                capacity % fpv == 0, "length a multiple of " + fpv);
-        Validate.nonEmpty(attribName, "attrib name");
-
-        this.dataBuffer = BufferUtils.createFloatBuffer(data);
-        this.isMutable = !dataBuffer.isReadOnly();
-        this.fpv = fpv;
-        this.attribName = attribName;
-        this.vertexCount = capacity / fpv;
-    }
-
-    /**
-     * Instantiate a VertexBuffer by wrapping the specified FloatBuffer.
-     *
-     * @param attribName name of the corresponding attrib variable in shaders
-     * (not null, not empty)
-     * @param fpv number of float values per vertex (&ge;1, &le;4)
-     * @param data data for initialization (not null, capacity a multiple of
-     * {@code fpv}, alias created)
-     */
-    VertexBuffer(String attribName, int fpv, FloatBuffer data) {
-        Validate.inRange(fpv, "floats per vertex", 1, 4);
-        int capacity = data.capacity();
-        Validate.require(
-                capacity % fpv == 0, "capacity a multiple of " + fpv);
-        Validate.nonEmpty(attribName, "attrib name");
-
-        this.dataBuffer = data;
-        this.isMutable = !dataBuffer.isReadOnly();
-        this.fpv = fpv;
-        this.attribName = attribName;
-        this.vertexCount = capacity / fpv;
-    }
-
-    /**
      * Instantiate a mutable VertexBuffer with a new direct, empty, writable
      * data buffer.
      *
-     * @param numVertices number of vertices (&ge;0)
+     * @param numVertices the desired number of vertices (&ge;0)
      * @param fpv number of float values per vertex (&ge;1, &le;4)
-     * @param attribName name of the corresponding attrib variable in shaders
-     * (not null, not empty)
+     * @param attribName the name of the corresponding attrib variable in
+     * shaders (not null, not empty)
      */
-    VertexBuffer(String attribName, int fpv, int numVertices) {
+    private VertexBuffer(String attribName, int fpv, int numVertices) {
         Validate.nonNegative(numVertices, "number of vertices");
         Validate.inRange(fpv, "floats per vertex", 1, 4);
         Validate.nonEmpty(attribName, "attrib name");
@@ -310,6 +264,90 @@ public class VertexBuffer {
     public VertexBuffer makeImmutable() {
         this.isMutable = false;
         return this;
+    }
+
+    /**
+     * Create a mutable vertex buffer initialized from an array of floats.
+     *
+     * @param attribName the name of the corresponding attrib variable in
+     * shaders (not null, not empty)
+     * @param fpv the number of floats per vertex (&ge;1, &le;4)
+     * @param floatArray the initial data (not null, unaffected)
+     * @return a new instance (not null)
+     */
+    static VertexBuffer newInstance(
+            String attribName, int fpv, float... floatArray) {
+        int numVertices = floatArray.length / fpv;
+        VertexBuffer result
+                = VertexBuffer.newInstance(attribName, fpv, numVertices);
+
+        FloatBuffer data = result.getBuffer();
+        for (int i = 0; i < floatArray.length; ++i) {
+            float fValue = floatArray[i];
+            data.put(i, fValue);
+        }
+
+        return result;
+    }
+
+    /**
+     * Create a mutable vertex buffer initialized from a FloatBuffer.
+     *
+     * @param attribName the name of the corresponding attrib variable in
+     * shaders (not null, not empty)
+     * @param fpv the number of floats per vertex (&ge;1, &le;4)
+     * @param floatBuffer the initial data (not null, unaffected)
+     * @return a new instance (not null)
+     */
+    static VertexBuffer newInstance(
+            String attribName, int fpv, FloatBuffer floatBuffer) {
+        int numFloats = floatBuffer.capacity();
+        int numVertices = numFloats / fpv;
+        VertexBuffer result
+                = VertexBuffer.newInstance(attribName, fpv, numVertices);
+
+        FloatBuffer data = result.getBuffer();
+        for (int i = 0; i < numFloats; ++i) {
+            float fValue = floatBuffer.get(i);
+            data.put(i, fValue);
+        }
+
+        return result;
+    }
+
+    /**
+     * Create a mutable, uninitialized vertex buffer.
+     *
+     * @param attribName the name of the corresponding attrib variable in
+     * shaders (not null, not empty)
+     * @param fpv the number of floats per vertex (&ge;1, &le;4)
+     * @param numVertices the desired capacity (in vertices)
+     * @return a new instance (not null)
+     */
+    static VertexBuffer newInstance(
+            String attribName, int fpv, int numVertices) {
+        VertexBuffer result = new VertexBuffer(attribName, fpv, numVertices);
+        return result;
+    }
+
+    /**
+     * Create a mutable vertex buffer initialized from an array of vectors.
+     *
+     * @param attribName the name of the corresponding attrib variable in
+     * shaders (not null, not empty)
+     * @param vectors the initial data (not null, unaffected)
+     * @return a new instance (not null)
+     */
+    static VertexBuffer newInstance(
+            String attribName, com.jme3.math.Vector3f... vectors) {
+        int numVertices = vectors.length;
+        VertexBuffer result = VertexBuffer.newInstance(
+                attribName, Mesh.numAxes, numVertices);
+        for (com.jme3.math.Vector3f vector : vectors) {
+            result.put(vector);
+        }
+
+        return result;
     }
 
     /**
