@@ -32,7 +32,6 @@ package com.github.stephengold.sport;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Transform;
-import com.jme3.math.Vector3f;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +41,7 @@ import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
 import org.joml.Vector2fc;
+import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL11C;
@@ -229,7 +229,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * @param positionsArray vertex positions (in mesh coordinates, not null,
      * not empty)
      */
-    public Mesh(Topology topology, Vector3f... positionsArray) {
+    public Mesh(Topology topology, com.jme3.math.Vector3f... positionsArray) {
         this(topology, positionsArray.length);
         this.positionBuffer = VertexBuffer.newInstance(
                 ShaderProgram.positionAttribName, positionsArray);
@@ -434,11 +434,11 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         int numTriangles = countTriangles();
         assert vertexCount == vpt * numTriangles;
 
-        Vector3f posA = new Vector3f();
-        Vector3f posB = new Vector3f();
-        Vector3f posC = new Vector3f();
-        Vector3f ac = new Vector3f();
-        Vector3f normal = new Vector3f();
+        com.jme3.math.Vector3f posA = new com.jme3.math.Vector3f();
+        com.jme3.math.Vector3f posB = new com.jme3.math.Vector3f();
+        com.jme3.math.Vector3f posC = new com.jme3.math.Vector3f();
+        com.jme3.math.Vector3f ac = new com.jme3.math.Vector3f();
+        com.jme3.math.Vector3f normal = new com.jme3.math.Vector3f();
 
         createNormals();
         for (int triIndex = 0; triIndex < numTriangles; ++triIndex) {
@@ -503,13 +503,10 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         Vector3f tmpVector = new Vector3f();
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
-            int bufferPosition = vertexIndex * numAxes;
-            positionBuffer.get(bufferPosition, tmpVector);
-            MyVector3f.normalizeLocal(tmpVector);
-            normalBuffer.put(tmpVector.x).put(tmpVector.y).put(tmpVector.z);
+            positionBuffer.get3f(vertexIndex, tmpVector);
+            tmpVector.normalize();
+            normalBuffer.put3f(vertexIndex, tmpVector);
         }
-        normalBuffer.flip();
-        assert normalBuffer.limit() == normalBuffer.capacity();
 
         return this;
     }
@@ -534,7 +531,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         }
         createUvs();
 
-        Vector3f tmpVector = new Vector3f();
+        com.jme3.math.Vector3f tmpVector = new com.jme3.math.Vector3f();
         for (int vertIndex = 0; vertIndex < vertexCount; ++vertIndex) {
             int inPosition = vertIndex * numAxes;
             positionBuffer.get(inPosition, tmpVector);
@@ -1147,11 +1144,12 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         assert indexBuffer == null;
         assert normalBuffer != null;
 
-        Map<Vector3f, Integer> mapPosToDpid = new HashMap<>(vertexCount);
+        Map<com.jme3.math.Vector3f, Integer> mapPosToDpid
+                = new HashMap<>(vertexCount);
         int numDistinctPositions = 0;
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
             int start = vertexIndex * numAxes;
-            Vector3f position = new Vector3f();
+            com.jme3.math.Vector3f position = new com.jme3.math.Vector3f();
             positionBuffer.get(start, position);
             MyVector3f.standardize(position, position);
             if (!mapPosToDpid.containsKey(position)) {
@@ -1161,13 +1159,14 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         }
 
         // Initialize the normal sum for each distinct position.
-        Vector3f[] normalSums = new Vector3f[numDistinctPositions];
+        com.jme3.math.Vector3f[] normalSums
+                = new com.jme3.math.Vector3f[numDistinctPositions];
         for (int dpid = 0; dpid < numDistinctPositions; ++dpid) {
-            normalSums[dpid] = new Vector3f();
+            normalSums[dpid] = new com.jme3.math.Vector3f();
         }
 
-        Vector3f tmpPosition = new Vector3f();
-        Vector3f tmpNormal = new Vector3f();
+        com.jme3.math.Vector3f tmpPosition = new com.jme3.math.Vector3f();
+        com.jme3.math.Vector3f tmpNormal = new com.jme3.math.Vector3f();
         for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex) {
             int start = vertexIndex * numAxes;
             positionBuffer.get(start, tmpPosition);
@@ -1179,7 +1178,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         }
 
         // Re-normalize the normal sum for each distinct position.
-        for (Vector3f normal : normalSums) {
+        for (com.jme3.math.Vector3f normal : normalSums) {
             MyVector3f.normalizeLocal(normal);
         }
 
