@@ -82,7 +82,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     /**
      * number of vertices (based on buffer sizes, unmodified by indexing)
      */
-    private final int vertexCount;
+    final private int vertexCount;
     /**
      * OpenGL name of the VAO (for binding or deleting) or null if it hasn't
      * been generated yet TODO rename
@@ -592,17 +592,17 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     public Mesh makeImmutable() {
         this.mutable = false;
         positionBuffer.makeImmutable();
-        if (normalBuffer != null) {
-            normalBuffer.makeImmutable();
+        if (indexBuffer != null) {
+            indexBuffer.makeImmutable();
         }
         if (colorBuffer != null) {
             colorBuffer.makeImmutable();
         }
+        if (normalBuffer != null) {
+            normalBuffer.makeImmutable();
+        }
         if (texCoordsBuffer != null) {
             texCoordsBuffer.makeImmutable();
-        }
-        if (indexBuffer != null) {
-            indexBuffer.makeImmutable();
         }
 
         return this;

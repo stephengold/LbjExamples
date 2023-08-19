@@ -36,6 +36,7 @@ import java.nio.FloatBuffer;
 import java.util.List;
 import jme3utilities.Validate;
 import jme3utilities.math.MyBuffer;
+import jme3utilities.math.MyMath;
 import jme3utilities.math.MyQuaternion;
 import jme3utilities.math.MyVector3f;
 import org.joml.Vector2f;
@@ -310,8 +311,7 @@ final public class VertexBuffer {
     static VertexBuffer newInstance(
             String attribName, int fpv, float... floatArray) {
         int numVertices = floatArray.length / fpv;
-        VertexBuffer result
-                = VertexBuffer.newInstance(attribName, fpv, numVertices);
+        VertexBuffer result = newInstance(attribName, fpv, numVertices);
 
         FloatBuffer data = result.getData();
         for (int i = 0; i < floatArray.length; ++i) {
@@ -335,8 +335,7 @@ final public class VertexBuffer {
             String attribName, int fpv, FloatBuffer floatBuffer) {
         int numFloats = floatBuffer.capacity();
         int numVertices = numFloats / fpv;
-        VertexBuffer result
-                = VertexBuffer.newInstance(attribName, fpv, numVertices);
+        VertexBuffer result = newInstance(attribName, fpv, numVertices);
 
         FloatBuffer data = result.getData();
         for (int i = 0; i < numFloats; ++i) {
@@ -372,9 +371,9 @@ final public class VertexBuffer {
      */
     static VertexBuffer newInstance(
             String attribName, com.jme3.math.Vector3f... vectors) {
+        int fpv = Mesh.numAxes;
         int numVertices = vectors.length;
-        VertexBuffer result = VertexBuffer.newInstance(
-                attribName, Mesh.numAxes, numVertices);
+        VertexBuffer result = newInstance(attribName, fpv, numVertices);
         for (com.jme3.math.Vector3f vector : vectors) {
             result.put(vector);
         }
@@ -654,6 +653,9 @@ final public class VertexBuffer {
      */
     public VertexBuffer transform(Transform transform) {
         Validate.nonNull(transform, "transform");
+        if (MyMath.isIdentity(transform)) {
+            return this;
+        }
         verifyMutable();
         if (fpv != Mesh.numAxes) {
             throw new IllegalStateException("fpv = " + fpv);
