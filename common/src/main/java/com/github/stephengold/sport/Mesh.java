@@ -135,7 +135,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         // position buffer:
         this.positionBuffer = VertexBuffer.newInstance(
                 ShaderProgram.positionAttribName, numAxes, vertexCount);
-        FloatBuffer floatBuffer = positionBuffer.getBuffer();
+        FloatBuffer floatBuffer = positionBuffer.getData();
         for (Vertex vertex : vertices) {
             vertex.writePositionTo(floatBuffer);
         }
@@ -148,7 +148,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         if (hasNormal) {
             this.normalBuffer = VertexBuffer.newInstance(
                     ShaderProgram.normalAttribName, numAxes, vertexCount);
-            floatBuffer = normalBuffer.getBuffer();
+            floatBuffer = normalBuffer.getData();
             for (Vertex vertex : vertices) {
                 vertex.writeNormalTo(floatBuffer);
             }
@@ -163,7 +163,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         if (hasTexCoords) {
             this.texCoordsBuffer = VertexBuffer.newInstance(
                     ShaderProgram.uvAttribName, 2, vertexCount);
-            floatBuffer = texCoordsBuffer.getBuffer();
+            floatBuffer = texCoordsBuffer.getData();
             for (Vertex vertex : vertices) {
                 vertex.writeTexCoordsTo(floatBuffer);
             }
@@ -860,7 +860,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     @Override
     public FloatBuffer getNormalsData() {
-        return normalBuffer.getBuffer();
+        return normalBuffer.getData();
     }
 
     /**
@@ -870,7 +870,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     @Override
     public FloatBuffer getPositionsData() {
-        return positionBuffer.getBuffer();
+        return positionBuffer.getData();
     }
 
     /**

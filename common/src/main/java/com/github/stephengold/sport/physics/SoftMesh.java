@@ -71,7 +71,7 @@ class SoftMesh extends Mesh {
         this.softBody = softBody;
 
         VertexBuffer positions = super.createPositions();
-        FloatBuffer locations = positions.getBuffer();
+        FloatBuffer locations = positions.getData();
         softBody.copyLocations(locations);
         positions.setDynamic();
 

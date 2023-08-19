@@ -240,7 +240,7 @@ final public class VertexBuffer {
      *
      * @return the pre-existing buffer
      */
-    public FloatBuffer getBuffer() {
+    public FloatBuffer getData() {
         verifyMutable();
         assert dataBuffer != null;
         return dataBuffer;
@@ -281,7 +281,7 @@ final public class VertexBuffer {
         VertexBuffer result
                 = VertexBuffer.newInstance(attribName, fpv, numVertices);
 
-        FloatBuffer data = result.getBuffer();
+        FloatBuffer data = result.getData();
         for (int i = 0; i < floatArray.length; ++i) {
             float fValue = floatArray[i];
             data.put(i, fValue);
@@ -306,7 +306,7 @@ final public class VertexBuffer {
         VertexBuffer result
                 = VertexBuffer.newInstance(attribName, fpv, numVertices);
 
-        FloatBuffer data = result.getBuffer();
+        FloatBuffer data = result.getData();
         for (int i = 0; i < numFloats; ++i) {
             float fValue = floatBuffer.get(i);
             data.put(i, fValue);
