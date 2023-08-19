@@ -384,10 +384,14 @@ public class Camera {
      */
     @Override
     public String toString() {
-        String result = String.format(
-                "loc=%s az=%.2f upAng=%.2f look=%s up=%s right=%s",
-                eyeLocation, azimuthRadians, upAngleRadians,
-                lookDirection, upDirection, rightDirection
+        String result = String.format("loc[%g %g %g] az=%.2f upAng=%.2f%n"
+                + " look[%.2f %.2f %.2f] up[%.2f %.2f %.2f]"
+                + " right[%.2f %.2f %.2f]",
+                eyeLocation.x(), eyeLocation.y(), eyeLocation.z(),
+                azimuthRadians, upAngleRadians,
+                lookDirection.x(), lookDirection.y(), lookDirection.z(),
+                upDirection.x(), upDirection.y(), upDirection.z(),
+                rightDirection.x(), rightDirection.y(), rightDirection.z()
         );
         return result;
     }
