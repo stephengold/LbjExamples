@@ -40,6 +40,7 @@ import java.util.Map;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
+import org.joml.Vector2f;
 import org.joml.Vector2fc;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
@@ -763,19 +764,20 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         if (texCoordsBuffer == null) {
             throw new IllegalStateException("There are no UVs in the mesh.");
         }
+        Vector2f tmpVector = new Vector2f();
 
         for (int vIndex = 0; vIndex < vertexCount; ++vIndex) {
-            int startPosition = 2 * vIndex;
-            float oldU = texCoordsBuffer.get(startPosition);
-            float oldV = texCoordsBuffer.get(startPosition + 1);
+            texCoordsBuffer.get2f(vIndex, tmpVector);
 
             float newU = uCoefficients.w()
-                    + uCoefficients.x() * oldU + uCoefficients.y() * oldV;
+                    + uCoefficients.x() * tmpVector.x
+                    + uCoefficients.y() * tmpVector.y;
             float newV = vCoefficients.w()
-                    + vCoefficients.x() * oldU + vCoefficients.y() * oldV;
+                    + vCoefficients.x() * tmpVector.x
+                    + vCoefficients.y() * tmpVector.y;
+            tmpVector.set(newU, newV);
 
-            texCoordsBuffer.put(startPosition, newU);
-            texCoordsBuffer.put(startPosition + 1, newV);
+            texCoordsBuffer.put2f(vIndex, tmpVector);
         }
 
         return this;
