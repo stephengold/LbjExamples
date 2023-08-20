@@ -182,7 +182,7 @@ public class Projection extends GlobalUniform {
      *
      * @return the distance (in world units, &gt;0)
      */
-    public float getZFar() {
+    public float zFar() {
         return zFar;
     }
 
@@ -191,7 +191,7 @@ public class Projection extends GlobalUniform {
      *
      * @return the distance (in world units, &gt;0)
      */
-    public float getZNear() {
+    public float zNear() {
         return zNear;
     }
 
