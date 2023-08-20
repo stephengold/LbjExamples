@@ -208,32 +208,38 @@ public class Projection extends GlobalUniform {
      *
      * @param newZNear the desired near-plane distance (&gt;0, &lt;zFar)
      * @param newZFar the desired far-plane distance (&gt;zNear)
+     * @return the (modified) current instance (for chaining)
      */
-    public void setZClip(float newZNear, float newZFar) {
+    public Projection setZClip(float newZNear, float newZFar) {
         Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, newZFar);
 
         this.zNear = newZNear;
         this.zFar = newZFar;
+        return this;
     }
 
     /**
      * Alter the distance of the far clipping plane.
      *
      * @param newZFar the desired distance (in world units, &gt;zNear)
+     * @return the (modified) current instance (for chaining)
      */
-    public void setZFar(float newZFar) {
+    public Projection setZFar(float newZFar) {
         Validate.inRange(newZFar, "new zFar", zNear, Float.MAX_VALUE);
         this.zFar = newZFar;
+        return this;
     }
 
     /**
      * Alter the distance of the near clipping plane.
      *
      * @param newZNear the desired distance (in world units, &gt;0, &lt;zFar)
+     * @return the (modified) current instance (for chaining)
      */
-    public void setZNear(float newZNear) {
+    public Projection setZNear(float newZNear) {
         Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, zNear);
         this.zNear = newZNear;
+        return this;
     }
 
     /**
