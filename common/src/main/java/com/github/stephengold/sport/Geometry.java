@@ -268,6 +268,33 @@ public class Geometry {
     }
 
     /**
+     * Translate by the specified offset without changing the orientation.
+     *
+     * @param offset the offset (in world coordinates, not null, finite,
+     * unaffected)
+     */
+    public void move(com.jme3.math.Vector3f offset) {
+        Validate.finite(offset, "offset");
+
+        com.jme3.math.Vector3f location = meshToWorld.getTranslation(); // alias
+        location.addLocal(offset);
+    }
+
+    /**
+     * Translate by the specified offset without changing the orientation.
+     *
+     * @param offset the offset (in world coordinates, not null, finite,
+     * unaffected)
+     */
+    public void move(Vector3fc offset) {
+        Validate.nonNull(offset, "offset");
+        Validate.require(offset.isFinite(), "finite offset");
+
+        com.jme3.math.Vector3f location = meshToWorld.getTranslation(); // alias
+        location.addLocal(offset.x(), offset.y(), offset.z());
+    }
+
+    /**
      * Return a copy of the mesh-to-world coordinate rotation.
      *
      * @param storeResult storage for the result (modified if not null)
