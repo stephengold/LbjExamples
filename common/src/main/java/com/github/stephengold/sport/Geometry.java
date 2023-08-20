@@ -33,9 +33,9 @@ import com.jme3.bullet.CollisionSpace;
 import com.jme3.math.Matrix4f;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Transform;
-import com.jme3.math.Vector3f;
 import java.nio.FloatBuffer;
 import jme3utilities.Validate;
+import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
@@ -144,10 +144,10 @@ public class Geometry {
      * @return a vector of scale factors (either {@code storeResult} or a new
      * instance, not null)
      */
-    public org.joml.Vector3f copyScale(org.joml.Vector3f storeResult) {
-        Vector3f scale = meshToWorld.getScale(); // alias
+    public Vector3f copyScale(Vector3f storeResult) {
+        com.jme3.math.Vector3f scale = meshToWorld.getScale(); // alias
         if (storeResult == null) {
-            return new org.joml.Vector3f(scale.x, scale.y, scale.z);
+            return new Vector3f(scale.x, scale.y, scale.z);
         } else {
             return storeResult.set(scale.x, scale.y, scale.z);
         }
@@ -162,7 +162,7 @@ public class Geometry {
      */
     public com.jme3.math.Vector3f copyScaleJme(
             com.jme3.math.Vector3f storeResult) {
-        Vector3f scale = meshToWorld.getScale(); // alias
+        com.jme3.math.Vector3f scale = meshToWorld.getScale(); // alias
         if (storeResult == null) {
             return scale.clone();
         } else {
@@ -242,10 +242,10 @@ public class Geometry {
      * @return a location vector in world coordinates (either
      * {@code storeResult} or a new vector, not null)
      */
-    public org.joml.Vector3f location(org.joml.Vector3f storeResult) {
-        Vector3f location = meshToWorld.getTranslation(); // alias
+    public Vector3f location(Vector3f storeResult) {
+        com.jme3.math.Vector3f location = meshToWorld.getTranslation(); // alias
         if (storeResult == null) {
-            return new org.joml.Vector3f(location.x, location.y, location.z);
+            return new Vector3f(location.x, location.y, location.z);
         } else {
             return storeResult.set(location.x, location.y, location.z);
         }
@@ -258,8 +258,9 @@ public class Geometry {
      * @return a location vector in world coordinates (either
      * {@code storeResult} or a new vector, not null)
      */
-    public Vector3f locationJme(Vector3f storeResult) {
-        Vector3f location = meshToWorld.getTranslation(); // an alias
+    public com.jme3.math.Vector3f locationJme(
+            com.jme3.math.Vector3f storeResult) {
+        com.jme3.math.Vector3f location = meshToWorld.getTranslation(); // alias
         if (storeResult == null) {
             return location.clone();
         } else {
@@ -436,7 +437,7 @@ public class Geometry {
      * unaffected)
      * @return the (modified) current geometry (for chaining)
      */
-    public Geometry setLocation(Vector3f location) {
+    public Geometry setLocation(com.jme3.math.Vector3f location) {
         Validate.finite(location, "location");
         meshToWorld.setTranslation(location);
         return this;
@@ -573,7 +574,7 @@ public class Geometry {
      * null, unaffected)
      * @return the (modified) current geometry (for chaining)
      */
-    public Geometry setScale(Vector3f scaleFactors) {
+    public Geometry setScale(com.jme3.math.Vector3f scaleFactors) {
         Validate.finite(scaleFactors, "scale factors");
         meshToWorld.setScale(scaleFactors);
         return this;
