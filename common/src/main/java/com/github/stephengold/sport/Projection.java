@@ -40,7 +40,7 @@ import org.joml.Vector4f;
 /**
  * The camera-to-clip transform for use in shaders.
  * <p>
- * In camera space:
+ * In cameraspace:
  * <ul>
  * <li>coordinates are measured in world units from the eye location</li>
  * <li>right is +X</li>
@@ -48,7 +48,7 @@ import org.joml.Vector4f;
  * <li>the camera's look direction is -Z</li>
  * </ul>
  * <p>
- * In clip space:
+ * In clipspace:
  * <ul>
  * <li>the top clipping plane is Y=+1</li>
  * <li>the bottom clipping plane is Y=-1</li>
@@ -57,6 +57,9 @@ import org.joml.Vector4f;
  * <li>the near clipping plane is Z=-1</li>
  * <li>the far clipping plane is Z=+1</li>
  * </ul>
+ *
+ * Note that cameraspace is a right-handed coordinate system, but clipspace is a
+ * left-handed coordinate system.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -70,12 +73,11 @@ public class Projection extends GlobalUniform {
      */
     private float fovy = MyMath.toRadians(45f);
     /**
-     * distance of the far clipping plane from the eye location (in world units)
+     * distance of the far clipping plane from the eye (in world units)
      */
     private float zFar;
     /**
-     * distance of the near clipping plane from the eye location (in world
-     * units)
+     * distance of the near clipping plane from the eye (in world units)
      */
     private float zNear;
     /**
@@ -88,10 +90,10 @@ public class Projection extends GlobalUniform {
     /**
      * Instantiate a projection with the specified distances.
      *
-     * @param zNear the desired distance from the camera to the near clipping
-     * plane (in world units, &gt;0, &lt;zFar)
-     * @param zFar the desired distance from the camera to the far clipping
-     * plane (in world units; &gt;zNear) (&gt;zNear)
+     * @param zNear the desired distance of the near clipping plane (in world
+     * units, &gt;0, &lt;zFar)
+     * @param zFar the desired distance of the far clipping plane (in world
+     * units; &gt;zNear) (&gt;zNear)
      */
     Projection(float zNear, float zFar) {
         super("projectionMatrix");
@@ -108,8 +110,8 @@ public class Projection extends GlobalUniform {
      * @param location the camera-space coordinates to convert (not null,
      * unaffected)
      * @param storeResult storage for the result (modified if not null)
-     * @return a location vector in camera space (either {@code storeResult} or
-     * a new vector)
+     * @return a location vector in clip space (either {@code storeResult} or a
+     * new vector)
      */
     public Vector3f cameraToClip(Vector3f location, Vector3f storeResult) {
         updateValue();

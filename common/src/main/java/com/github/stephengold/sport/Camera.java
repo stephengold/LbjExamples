@@ -204,7 +204,7 @@ public class Camera {
      * Translate the eye by the specified offset without changing its
      * orientation.
      *
-     * @param offset the desired offset (in world coordinates, not null, finite,
+     * @param offset the offset (in world coordinates, not null, finite,
      * unaffected)
      */
     public void move(Vector3fc offset) {
@@ -213,7 +213,7 @@ public class Camera {
     }
 
     /**
-     * Translate the eye to {@code newLocation} and orient it to look at
+     * Translate the eye to {@code eyeLocation} and orient it to look at
      * {@code targetLocation}.
      *
      * @param eyeLocation the desired eye location (in world coordinates, not
@@ -237,7 +237,7 @@ public class Camera {
     }
 
     /**
-     * Translate the eye to {@code newLocation} and orient it to look at
+     * Translate the eye to {@code eyeLocation} and orient it to look at
      * {@code targetLocation}.
      *
      * @param eyeLocation the desired eye location (in world coordinates, not
@@ -324,7 +324,7 @@ public class Camera {
     }
 
     /**
-     * Teleport the eye to the specified location without changing its
+     * Translate the eye to the specified location without changing its
      * orientation.
      *
      * @param location the desired location (in world coordinates, not null,
@@ -338,7 +338,7 @@ public class Camera {
     }
 
     /**
-     * Teleport the eye to the specified location without changing its
+     * Translate the eye to the specified location without changing its
      * orientation.
      *
      * @param location the desired location (in world coordinates, not null,
