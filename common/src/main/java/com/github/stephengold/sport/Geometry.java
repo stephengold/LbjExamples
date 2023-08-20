@@ -180,22 +180,6 @@ public class Geometry {
     }
 
     /**
-     * Return a copy of the mesh-to-world scale factors.
-     *
-     * @param storeResult storage for the result (modified if not null)
-     * @return a location vector in world coordinates (either
-     * {@code storeResult} or a new instance)
-     */
-    public Vector3f getLocation(Vector3f storeResult) {
-        Vector3f location = meshToWorld.getTranslation(); // an alias
-        if (storeResult == null) {
-            return location.clone();
-        } else {
-            return storeResult.set(location);
-        }
-    }
-
-    /**
      * Access the Mesh.
      *
      * @return the pre-existing object (not null)
@@ -264,6 +248,22 @@ public class Geometry {
      */
     public boolean isWireframe() {
         return wireframe;
+    }
+
+    /**
+     * Return a copy of the location of the mesh origin.
+     *
+     * @param storeResult storage for the result (modified if not null)
+     * @return a location vector in world coordinates (either
+     * {@code storeResult} or a new instance)
+     */
+    public Vector3f locationJme(Vector3f storeResult) {
+        Vector3f location = meshToWorld.getTranslation(); // an alias
+        if (storeResult == null) {
+            return location.clone();
+        } else {
+            return storeResult.set(location);
+        }
     }
 
     /**
