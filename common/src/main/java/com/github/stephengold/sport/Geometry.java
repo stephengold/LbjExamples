@@ -421,6 +421,10 @@ public class Geometry {
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setLocation(float x, float y, float z) {
+        Validate.finite(x, "x");
+        Validate.finite(y, "y");
+        Validate.finite(z, "z");
+
         meshToWorld.getTranslation().set(x, y, z);
         return this;
     }
@@ -433,7 +437,7 @@ public class Geometry {
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setLocation(Vector3f location) {
-        Validate.nonNull(location, "location");
+        Validate.finite(location, "location");
         meshToWorld.setTranslation(location);
         return this;
     }
@@ -460,6 +464,10 @@ public class Geometry {
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setOrientation(float xAngle, float yAngle, float zAngle) {
+        Validate.finite(xAngle, "x angle");
+        Validate.finite(xAngle, "y angle");
+        Validate.finite(xAngle, "z angle");
+
         meshToWorld.getRotation().fromAngles(xAngle, yAngle, zAngle);
         return this;
     }
@@ -477,6 +485,9 @@ public class Geometry {
      */
     public Geometry setOrientation(float angle, float x, float y, float z) {
         Validate.finite(angle, "angle");
+        Validate.inRange(x, "x", -1f, 1f);
+        Validate.inRange(y, "y", -1f, 1f);
+        Validate.inRange(z, "z", -1f, 1f);
 
         com.jme3.math.Vector3f axis = new com.jme3.math.Vector3f(x, y, z);
         meshToWorld.getRotation().fromAngleNormalAxis(angle, axis);
@@ -547,7 +558,7 @@ public class Geometry {
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setScale(Vector3f scaleFactors) {
-        Validate.nonNull(scaleFactors, "scale factors");
+        Validate.finite(scaleFactors, "scale factors");
         meshToWorld.setScale(scaleFactors);
         return this;
     }
