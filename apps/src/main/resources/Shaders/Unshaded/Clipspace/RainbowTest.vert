@@ -13,7 +13,7 @@ uniform mat4 modelMatrix;
 out vec2 UV;
 
 void main() {
-    // vertex position in clip space
+    // vertex position in clipspace
     gl_Position = modelMatrix * vec4(vertexPosition_modelspace, 1.0);
 
     // texture coordinates of the vertex

@@ -51,7 +51,7 @@ public class CheckerboardTest extends BaseApplication {
     // fields
 
     /**
-     * multi-colored square in clip space
+     * multi-colored square in clipspace
      */
     private static Geometry squareGeometry;
     // *************************************************************************

@@ -15,6 +15,6 @@ void main() {
     // vertex point size, in pixels
     gl_PointSize = pointMaterialSize;
 
-    // vertex position in clip space
+    // vertex position in clipspace
     gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(vertexPosition_modelspace, 1.0);
 }

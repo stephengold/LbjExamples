@@ -39,7 +39,7 @@ import com.jme3.math.Vector3f;
 import org.joml.Vector2fc;
 
 /**
- * A simple graphics test: control 2 camera-space geometries by polling the
+ * A simple graphics test: control 2 cameraspace geometries by polling the
  * mouse.
  *
  * @author Stephen Gold sgold@sonic.net
@@ -49,11 +49,11 @@ public class MouseTest2 extends BaseApplication {
     // fields
 
     /**
-     * red ball at the far clipping plane, in camera space
+     * red ball at the far clipping plane, in cameraspace
      */
     private static Geometry farBall;
     /**
-     * yellow ball at the near clipping plane, in camera space
+     * yellow ball at the near clipping plane, in cameraspace
      */
     private static Geometry nearBall;
     // *************************************************************************
@@ -62,7 +62,7 @@ public class MouseTest2 extends BaseApplication {
     /**
      * Main entry point for the MouseTest2 application.
      *
-     * @param arguments array of command-line arguments (not null)
+     * @param arguments the array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         MouseTest2 application = new MouseTest2();
@@ -80,7 +80,7 @@ public class MouseTest2 extends BaseApplication {
     }
 
     /**
-     * Initialize this application.
+     * Initialize the application.
      */
     @Override
     public void initialize() {

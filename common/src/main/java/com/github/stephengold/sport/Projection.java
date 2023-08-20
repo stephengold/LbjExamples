@@ -116,12 +116,12 @@ public class Projection extends GlobalUniform {
     // new methods exposed
 
     /**
-     * Convert the specified camera-space coordinates to clip-space coordinates.
+     * Convert the specified cameraspace coordinates to clipspace coordinates.
      *
-     * @param location the camera-space coordinates to convert (not null,
+     * @param location the cameraspace coordinates to convert (not null,
      * unaffected)
      * @param storeResult storage for the result (modified if not null)
-     * @return a location vector in clip space (either {@code storeResult} or a
+     * @return a location vector in clipspace (either {@code storeResult} or a
      * new vector)
      */
     public Vector3f cameraToClip(Vector3f location, Vector3f storeResult) {
@@ -139,17 +139,17 @@ public class Projection extends GlobalUniform {
     }
 
     /**
-     * Convert the specified clip-space coordinates to camera-space coordinates.
+     * Convert the specified clipspace coordinates to cameraspace coordinates.
      *
-     * @param clipXy the clip-space X and Y coordinates (not null, unaffected)
-     * @param clipZ the clip-space Z coordinate (-1 for near plane, +1 for far
+     * @param clipXy the clipspace X and Y coordinates (not null, unaffected)
+     * @param clipZ the clipspace Z coordinate (-1 for near plane, +1 for far
      * plane)
      * @param storeResult storage for the result (modified if not null)
-     * @return a location vector in camera space (either {@code storeResult} or
+     * @return a location vector in cameraspace (either {@code storeResult} or
      * a new vector)
      */
-    public Vector3f clipToCamera(Vector2fc clipXy, float clipZ,
-            Vector3f storeResult) {
+    public Vector3f clipToCamera(
+            Vector2fc clipXy, float clipZ, Vector3f storeResult) {
         // invert the camera-to-clip transform matrix
         updateValue();
         Matrix4f inverse = new Matrix4f();
@@ -202,10 +202,10 @@ public class Projection extends GlobalUniform {
     }
 
     /**
-     * Alter both the near and far clipping planes.
+     * Alter the distances of both the near and far clipping planes.
      *
-     * @param newZNear (&gt;0, &lt;zFar)
-     * @param newZFar (&gt;zFar)
+     * @param newZNear the desired near-plane distance (&gt;0, &lt;zFar)
+     * @param newZFar the desired far-plane distance (&gt;zNear)
      */
     public void setZClip(float newZNear, float newZFar) {
         Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, newZFar);
@@ -215,9 +215,9 @@ public class Projection extends GlobalUniform {
     }
 
     /**
-     * Alter the distance from the camera to the far clipping plane.
+     * Alter the distance of the far clipping plane.
      *
-     * @param newZFar (in world units, &gt;zNear)
+     * @param newZFar the desired distance (in world units, &gt;zNear)
      */
     public void setZFar(float newZFar) {
         Validate.inRange(newZFar, "new zFar", zNear, Float.MAX_VALUE);
@@ -225,9 +225,9 @@ public class Projection extends GlobalUniform {
     }
 
     /**
-     * Alter the distance from the camera to the near clipping plane.
+     * Alter the distance of the near clipping plane.
      *
-     * @param newZNear (in world units, &gt;0, &lt;zFar)
+     * @param newZNear the desired distance (in world units, &gt;0, &lt;zFar)
      */
     public void setZNear(float newZNear) {
         Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, zNear);
@@ -235,18 +235,18 @@ public class Projection extends GlobalUniform {
     }
 
     /**
-     * Return the distance from the camera to the far clipping plane.
+     * Return the distance of the far clipping plane.
      *
-     * @return the distance (in world units, &gt;0)
+     * @return the distance (in world units, &gt;zNear)
      */
     public float zFar() {
         return zFar;
     }
 
     /**
-     * Return the distance from the camera to the near clipping plane.
+     * Return the distance of the near clipping plane.
      *
-     * @return the distance (in world units, &gt;0)
+     * @return the distance (in world units, &gt;0, &lt;zFar)
      */
     public float zNear() {
         return zNear;

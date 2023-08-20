@@ -37,7 +37,7 @@ import com.github.stephengold.sport.mesh.RectangleMesh;
 import com.jme3.math.Vector3f;
 
 /**
- * A simple graphics test: display a yellow square in clip space.
+ * A simple graphics test: display a yellow square in clipspace.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -46,7 +46,7 @@ public class ClipspaceTest extends BaseApplication {
     // fields
 
     /**
-     * yellow square in clip space
+     * yellow square in clipspace
      */
     private static Geometry squareGeometry;
     // *************************************************************************

@@ -58,7 +58,7 @@ public class InputManager {
      */
     private Vector2d glfwCursorPos;
     /**
-     * last-known location of the mouse cursor (in clip space) or null if the
+     * last-known location of the mouse cursor (in clipspace) or null if the
      * application hasn't received a cursor position callback
      */
     private Vector2f cursorLocationClipspace;
@@ -169,7 +169,7 @@ public class InputManager {
     /**
      * Return the last-known location of the mouse cursor.
      *
-     * @return a pre-existing location vector (in clip space) or null if the
+     * @return a pre-existing location vector (in clipspace) or null if the
      * application hasn't received a cursor position callback
      */
     public Vector2fc locateCursor() {

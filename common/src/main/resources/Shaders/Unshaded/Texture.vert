@@ -13,7 +13,7 @@ in vec2 vertexUV; // texture coordinates from a vertex buffer
 out vec2 UV; // texture coordinates to the frag shader
 
 void main() {
-    // vertex position in clip space
+    // vertex position in clipspace
     gl_Position = projectionMatrix * viewMatrix * modelMatrix
                 * vec4(vertexPosition_modelspace, 1.0);
 

@@ -13,7 +13,7 @@ in vec3 vertexPosition_modelspace;
 out vec3 Normal_modelspace; // normals to the frag shader
 
 void main() {
-    // vertex position in clip space
+    // vertex position in clipspace
     gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(vertexPosition_modelspace, 1.0);
 
     // vertex normal in model space

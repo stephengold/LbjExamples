@@ -51,7 +51,7 @@ public class DynamicMeshTest extends BaseApplication {
     // fields
 
     /**
-     * textured quad in clip space
+     * textured quad in clipspace
      */
     private static Geometry quadGeometry;
     // *************************************************************************

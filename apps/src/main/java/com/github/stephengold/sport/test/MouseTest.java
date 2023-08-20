@@ -39,7 +39,7 @@ import org.joml.Vector2fc;
 import org.joml.Vector4f;
 
 /**
- * A simple graphics test: control a clip-space Geometry by polling the mouse.
+ * A simple graphics test: control a clipspace Geometry by polling the mouse.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -48,7 +48,7 @@ public class MouseTest extends BaseApplication {
     // fields
 
     /**
-     * crosshairs in clip space, controlled by the mouse
+     * crosshairs in clipspace, controlled by the mouse
      */
     private static Geometry crosshairs;
     // *************************************************************************
@@ -57,7 +57,7 @@ public class MouseTest extends BaseApplication {
     /**
      * Main entry point for the MouseTest application.
      *
-     * @param arguments array of command-line arguments (not null)
+     * @param arguments the array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         MouseTest application = new MouseTest();
@@ -75,7 +75,7 @@ public class MouseTest extends BaseApplication {
     }
 
     /**
-     * Initialize this application.
+     * Initialize the application.
      */
     @Override
     public void initialize() {
@@ -136,7 +136,6 @@ public class MouseTest extends BaseApplication {
         float yScale = Math.min(1f, aspectRatio);
         float xScale = yScale / aspectRatio;
         Vector3f newScale = new Vector3f(xScale, yScale, 1f);
-
         crosshairs.setScale(newScale);
     }
 }

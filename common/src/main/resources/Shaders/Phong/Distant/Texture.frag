@@ -19,10 +19,10 @@ in vec3 Normal_cameraspace;
 out vec3 fragColor;
 
 void main() {
-    // normal of the fragment, in world space
+    // normal of the fragment, in worldspace
     vec3 N = normalize(Normal_cameraspace);
 
-    // direction from the fragment to the light, in camera space
+    // direction from the fragment to the light, in cameraspace
     vec3 L = normalize(LightDirection_cameraspace);
 
     // cosine of the angle between the normal and the light direction,

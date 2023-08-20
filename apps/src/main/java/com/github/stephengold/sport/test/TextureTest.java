@@ -40,7 +40,7 @@ import com.jme3.math.Vector3f;
 import org.joml.Vector4f;
 
 /**
- * A simple graphics test: load and display a PNG image in clip space.
+ * A simple graphics test: load and display a PNG image in clipspace.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -49,7 +49,7 @@ public class TextureTest extends BaseApplication {
     // fields
 
     /**
-     * textured square in clip space
+     * textured square in clipspace
      */
     private static Geometry squareGeometry;
     // *************************************************************************
