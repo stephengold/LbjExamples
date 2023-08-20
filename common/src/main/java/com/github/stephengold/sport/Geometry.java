@@ -327,11 +327,11 @@ public class Geometry {
     /**
      * Alter the alpha discard threshold.
      *
-     * @param newThreshold the desired threshold (default=0.5)
+     * @param threshold the desired threshold (default=0.5)
      * @return the (modified) current geometry (for chaining)
      */
-    public Geometry setAlphaDiscardThreshold(float newThreshold) {
-        this.alphaDiscardThreshold = newThreshold;
+    public Geometry setAlphaDiscardThreshold(float threshold) {
+        this.alphaDiscardThreshold = threshold;
         return this;
     }
 
@@ -349,12 +349,13 @@ public class Geometry {
     /**
      * Alter the base color.
      *
-     * @param newColor the desired color (in the Linear colorspace, not null)
+     * @param color the desired color (in the Linear colorspace, not null,
+     * unaffected)
      * @return the (modified) current geometry (for chaining)
      */
-    public Geometry setColor(Vector4fc newColor) {
-        Validate.nonNull(newColor, "new color");
-        baseColor.set(newColor);
+    public Geometry setColor(Vector4fc color) {
+        Validate.nonNull(color, "color");
+        baseColor.set(color);
         return this;
     }
 
@@ -440,14 +441,14 @@ public class Geometry {
      * Alter the mesh-to-world coordinate rotation, without shifting the local
      * origin.
      *
-     * @param newOrientation the desired orientation (not null, not zero,
+     * @param orientation the desired orientation (not null, not zero,
      * unaffected)
      * @return the (modified) current geometry (for chaining)
      */
-    public Geometry setOrientation(Quaternion newOrientation) {
-        Validate.nonZero(newOrientation, "new orientation");
+    public Geometry setOrientation(Quaternion orientation) {
+        Validate.nonZero(orientation, "orientation");
 
-        meshToWorld.setRotation(newOrientation);
+        meshToWorld.setRotation(orientation);
         meshToWorld.getRotation().normalizeLocal();
 
         return this;
@@ -456,11 +457,11 @@ public class Geometry {
     /**
      * Alter the point size for sprites.
      *
-     * @param newSize the desired size (in pixels, default=32)
+     * @param size the desired size (in pixels, default=32)
      * @return the (modified) current geometry (for chaining)
      */
-    public Geometry setPointSize(float newSize) {
-        this.pointSize = newSize;
+    public Geometry setPointSize(float size) {
+        this.pointSize = size;
         return this;
     }
 
@@ -484,11 +485,12 @@ public class Geometry {
     /**
      * Alter the mesh-to-world scale factors.
      *
-     * @param newScale the desired uniform scale factor
+     * @param scaleFactor the desired mesh-to-world scale factor for all axes
+     * (default=1)
      * @return the (modified) current geometry (for chaining)
      */
-    public Geometry setScale(float newScale) {
-        meshToWorld.setScale(newScale);
+    public Geometry setScale(float scaleFactor) {
+        meshToWorld.setScale(scaleFactor);
         return this;
     }
 
@@ -508,12 +510,13 @@ public class Geometry {
     /**
      * Alter the specular color.
      *
-     * @param newColor the desired color (in the Linear colorspace, not null)
+     * @param color the desired color (in the Linear colorspace, not null,
+     * unaffected)
      * @return the (modified) current geometry (for chaining)
      */
-    public Geometry setSpecularColor(Vector4fc newColor) {
-        Validate.nonNull(newColor, "new color");
-        specularColor.set(newColor);
+    public Geometry setSpecularColor(Vector4fc color) {
+        Validate.nonNull(color, "color");
+        specularColor.set(color);
         return this;
     }
 
