@@ -171,7 +171,7 @@ public class Geometry {
     }
 
     /**
-     * Return a copy of the mesh-to-world scale factors.
+     * Return the base color in the Linear colorspace.
      *
      * @return the pre-existing object (not null)
      */
@@ -416,9 +416,12 @@ public class Geometry {
     /**
      * Alter the location of the mesh origin.
      *
-     * @param x the desired X coordinate (in world coordinates, default=0)
-     * @param y the desired Y coordinate (in world coordinates, default=0)
-     * @param z the desired Z coordinate (in world coordinates, default=0)
+     * @param x the desired X coordinate (in world coordinates, finite,
+     * default=0)
+     * @param y the desired Y coordinate (in world coordinates, finite,
+     * default=0)
+     * @param z the desired Z coordinate (in world coordinates, finite,
+     * default=0)
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setLocation(float x, float y, float z) {
@@ -434,7 +437,7 @@ public class Geometry {
      * Translate the mesh origin to the specified location.
      *
      * @param location the desired location (in world coordinates, not null,
-     * unaffected)
+     * finite, unaffected, default=(0,0,0))
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setLocation(com.jme3.math.Vector3f location) {
@@ -559,7 +562,7 @@ public class Geometry {
      * Alter the mesh-to-world scale factors.
      *
      * @param scaleFactor the desired mesh-to-world scale factor for all axes
-     * (default=1)
+     * (finite, default=1)
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setScale(float scaleFactor) {
@@ -571,7 +574,7 @@ public class Geometry {
      * Alter the mesh-to-world scale factors.
      *
      * @param scaleFactors the desired scale factor for each mesh axis (not
-     * null, unaffected)
+     * null, finite, unaffected, default=(1,1,1))
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setScale(com.jme3.math.Vector3f scaleFactors) {
