@@ -304,6 +304,27 @@ public class Geometry {
     }
 
     /**
+     * Rotate the model by the specified angle around the specified axis,
+     * without shifting the mesh origin.
+     * <p>
+     * The rotation axis is assumed to be a unit vector.
+     *
+     * @param angle the rotation angle (in radians, 0&rarr;no effect)
+     * @param x the X component of the rotation axis
+     * @param y the Y component of the rotation axis
+     * @param z the Z component of the rotation axis
+     * @return the (modified) current geometry (for chaining)
+     */
+    public Geometry rotate(float angle, float x, float y, float z) {
+        com.jme3.math.Vector3f axis = new com.jme3.math.Vector3f(x, y, z);
+        Quaternion q = new Quaternion().fromAngleNormalAxis(angle, axis);
+        Quaternion rotation = meshToWorld.getRotation(); // alias
+        q.mult(rotation, rotation);
+
+        return this;
+    }
+
+    /**
      * Alter the alpha discard threshold.
      *
      * @param newThreshold the desired threshold (default=0.5)
