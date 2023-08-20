@@ -223,20 +223,6 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Instantiate a mutable mesh with the specified topology and vertex
-     * positions, but no indices, colors, normals, or texture coordinates.
-     *
-     * @param topology an enum value (not null)
-     * @param positionsArray vertex positions (in mesh coordinates, not null,
-     * not empty)
-     */
-    public Mesh(Topology topology, com.jme3.math.Vector3f... positionsArray) {
-        this(topology, positionsArray.length);
-        this.positionBuffer = VertexBuffer.newInstance(
-                ShaderProgram.positionAttribName, positionsArray);
-    }
-
-    /**
      * Instantiate an incomplete mutable mesh with the specified topology and
      * number of vertices, but no indices, colors, normals, positions, or
      * texture coordinates.
@@ -250,6 +236,20 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         this.topology = topology;
         this.vertexCount = vertexCount;
+    }
+
+    /**
+     * Instantiate a mutable mesh with the specified topology and vertex
+     * positions, but no indices, colors, normals, or texture coordinates.
+     *
+     * @param topology an enum value (not null)
+     * @param positionsArray vertex positions (in mesh coordinates, not null,
+     * not empty)
+     */
+    public Mesh(Topology topology, com.jme3.math.Vector3f... positionsArray) {
+        this(topology, positionsArray.length);
+        this.positionBuffer = VertexBuffer.newInstance(
+                ShaderProgram.positionAttribName, positionsArray);
     }
     // *************************************************************************
     // new methods exposed
