@@ -262,4 +262,18 @@ public class Projection extends GlobalUniform {
         float aspectRatio = BaseApplication.aspectRatio();
         value.setPerspective(fovy, aspectRatio, zNear, zFar);
     }
+    // *************************************************************************
+    // Object methods
+
+    /**
+     * Describe the projection in a string of text.
+     *
+     * @return a descriptive string of text (not null, not empty)
+     */
+    @Override
+    public String toString() {
+        String result = String.format(
+                "fovy=%.2f near=%.2f far=%g", fovy, zNear, zFar);
+        return result;
+    }
 }
