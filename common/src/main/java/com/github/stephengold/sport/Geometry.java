@@ -277,6 +277,17 @@ public class Geometry {
     }
 
     /**
+     * Reset the model transform so that mesh coordinates and world coordinates
+     * are the same.
+     *
+     * @return the (modified) current geometry (for chaining)
+     */
+    public Geometry resetModelTransform() {
+        meshToWorld.loadIdentity();
+        return this;
+    }
+
+    /**
      * Alter the alpha discard threshold.
      *
      * @param newThreshold the desired threshold (default=0.5)
