@@ -443,6 +443,22 @@ public class Geometry {
     }
 
     /**
+     * Translate the mesh origin to the specified location.
+     *
+     * @param location the desired location (in world coordinates, not null,
+     * finite, unaffected, default=(0,0,0))
+     * @return the (modified) current geometry (for chaining)
+     */
+    public Geometry setLocation(Vector3fc location) {
+        Validate.nonNull(location, "location");
+        Validate.require(location.isFinite(), "finite location");
+
+        meshToWorld.getTranslation()
+                .set(location.x(), location.y(), location.z());
+        return this;
+    }
+
+    /**
      * Replace the geometry's current mesh with the specified one.
      *
      * @param mesh the desired mesh (not null, alias created)
@@ -560,6 +576,22 @@ public class Geometry {
     public Geometry setScale(Vector3f scaleFactors) {
         Validate.finite(scaleFactors, "scale factors");
         meshToWorld.setScale(scaleFactors);
+        return this;
+    }
+
+    /**
+     * Alter the mesh-to-world scale factors.
+     *
+     * @param scaleFactors the desired scale factor for each mesh axis (not
+     * null, finite, unaffected)
+     * @return the (modified) current geometry (for chaining)
+     */
+    public Geometry setScale(Vector3fc scaleFactors) {
+        Validate.nonNull(scaleFactors, "scale factors");
+        Validate.require(scaleFactors.isFinite(), "finite scale factors");
+
+        meshToWorld.getScale()
+                .set(scaleFactors.x(), scaleFactors.y(), scaleFactors.z());
         return this;
     }
 
