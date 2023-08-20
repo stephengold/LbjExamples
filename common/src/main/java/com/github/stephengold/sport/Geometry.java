@@ -428,13 +428,13 @@ public class Geometry {
     /**
      * Translate the mesh origin to the specified location.
      *
-     * @param newLocation the desired location (in world coordinates, not null,
+     * @param location the desired location (in world coordinates, not null,
      * unaffected)
      * @return the (modified) current geometry (for chaining)
      */
-    public Geometry setLocation(Vector3f newLocation) {
-        Validate.nonNull(newLocation, "new location");
-        meshToWorld.setTranslation(newLocation);
+    public Geometry setLocation(Vector3f location) {
+        Validate.nonNull(location, "location");
+        meshToWorld.setTranslation(location);
         return this;
     }
 
@@ -542,13 +542,13 @@ public class Geometry {
     /**
      * Alter the mesh-to-world scale factors.
      *
-     * @param newScale the desired scale factor for each mesh axis (not null,
-     * unaffected)
+     * @param scaleFactors the desired scale factor for each mesh axis (not
+     * null, unaffected)
      * @return the (modified) current geometry (for chaining)
      */
-    public Geometry setScale(Vector3f newScale) {
-        Validate.nonNull(newScale, "new scale");
-        meshToWorld.getScale().set(newScale);
+    public Geometry setScale(Vector3f scaleFactors) {
+        Validate.nonNull(scaleFactors, "scale factors");
+        meshToWorld.setScale(scaleFactors);
         return this;
     }
 
