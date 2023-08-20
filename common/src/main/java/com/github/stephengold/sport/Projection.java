@@ -180,24 +180,26 @@ public class Projection extends GlobalUniform {
     /**
      * Alter the vertical field-of-view angle.
      *
-     * @param fovy the desired angle (in radians, &gt;0, &lt;PI)
+     * @param fovyRadians the desired angle (in radians, &gt;0, &lt;PI)
      * @return the (modified) current instance (for chaining)
      */
-    public Projection setFovy(float fovy) {
-        Validate.inRange(fovy, "fovy", Float.MIN_VALUE, FastMath.PI);
-        this.fovy = fovy;
+    public Projection setFovy(float fovyRadians) {
+        Validate.inRange(
+                fovyRadians, "fovy in radians", Float.MIN_VALUE, FastMath.PI);
+        this.fovy = fovyRadians;
         return this;
     }
 
     /**
      * Alter the vertical field-of-view angle.
      *
-     * @param newFovyInDegrees the desired angle (in degrees, &gt;0, &lt;180)
+     * @param fovyDegrees the desired angle (in degrees, &gt;0, &lt;180)
      * @return the (modified) current instance (for chaining)
      */
-    public Projection setFovyDegrees(float newFovyInDegrees) {
-        Validate.inRange(newFovyInDegrees, "new fovy", Float.MIN_VALUE, 180f);
-        setFovy(MyMath.toRadians(newFovyInDegrees));
+    public Projection setFovyDegrees(float fovyDegrees) {
+        Validate.inRange(
+                fovyDegrees, "fovy in degrees", Float.MIN_VALUE, 180f);
+        setFovy(MyMath.toRadians(fovyDegrees));
         return this;
     }
 
