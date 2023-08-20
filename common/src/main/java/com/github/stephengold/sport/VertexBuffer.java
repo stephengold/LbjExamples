@@ -377,6 +377,7 @@ final public class VertexBuffer {
         for (com.jme3.math.Vector3f vector : vectors) {
             result.put(vector);
         }
+        result.flip();
 
         return result;
     }
