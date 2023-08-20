@@ -65,6 +65,17 @@ import org.joml.Vector4f;
  */
 public class Projection extends GlobalUniform {
     // *************************************************************************
+    // constants
+
+    /**
+     * Z coordinate of the far plane in clipspace
+     */
+    final public static float farClipZ = 1f;
+    /**
+     * Z coordinate of the near plane in clipspace
+     */
+    final public static float nearClipZ = -1f;
+    // *************************************************************************
     // fields
 
     /**
