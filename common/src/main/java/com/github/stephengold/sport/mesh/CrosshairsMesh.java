@@ -59,8 +59,8 @@ public class CrosshairsMesh extends Mesh {
      */
     public CrosshairsMesh(float width, float height) {
         super(Topology.LineList, 4);
-        Validate.positive(width, "width");
-        Validate.positive(height, "height");
+        Validate.nonNegative(width, "width");
+        Validate.nonNegative(height, "height");
 
         super.setPositions(
                 -0.5f * width, 0f, 0f,
