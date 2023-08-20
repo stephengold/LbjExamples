@@ -117,11 +117,12 @@ public class MouseTest2 extends BaseApplication {
         }
 
         Projection pm = getProjection();
-
-        Vector3f nearLocation = pm.clipToCamera(cursorInClipspace, -1f, null);
+        Vector3f nearLocation = pm.clipToCamera(
+                cursorInClipspace, Projection.nearClipZ, null);
         nearBall.setLocation(nearLocation);
 
-        Vector3f farLocation = pm.clipToCamera(cursorInClipspace, +1f, null);
+        Vector3f farLocation
+                = pm.clipToCamera(cursorInClipspace, Projection.farClipZ, null);
         farBall.setLocation(farLocation);
     }
 }
