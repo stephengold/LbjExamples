@@ -240,7 +240,23 @@ public class Geometry {
      *
      * @param storeResult storage for the result (modified if not null)
      * @return a location vector in world coordinates (either
-     * {@code storeResult} or a new instance)
+     * {@code storeResult} or a new vector, not null)
+     */
+    public org.joml.Vector3f location(org.joml.Vector3f storeResult) {
+        Vector3f location = meshToWorld.getTranslation(); // alias
+        if (storeResult == null) {
+            return new org.joml.Vector3f(location.x, location.y, location.z);
+        } else {
+            return storeResult.set(location.x, location.y, location.z);
+        }
+    }
+
+    /**
+     * Return a copy of the location of the mesh origin.
+     *
+     * @param storeResult storage for the result (modified if not null)
+     * @return a location vector in world coordinates (either
+     * {@code storeResult} or a new vector, not null)
      */
     public Vector3f locationJme(Vector3f storeResult) {
         Vector3f location = meshToWorld.getTranslation(); // an alias
