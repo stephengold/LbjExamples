@@ -190,21 +190,6 @@ public class Geometry {
     }
 
     /**
-     * Return the orientation of the Mesh relative to the world axes.
-     *
-     * @param storeResult storage for the result (modified if not null)
-     * @return a unit quaternion (either {@code storeResult} or a new instance)
-     */
-    public Quaternion getOrientation(Quaternion storeResult) {
-        Quaternion orientation = meshToWorld.getRotation(); // an alias
-        if (storeResult == null) {
-            return orientation.clone();
-        } else {
-            return storeResult.set(orientation);
-        }
-    }
-
-    /**
      * Access the shader program.
      *
      * @return the pre-existing instance (not null)
@@ -263,6 +248,22 @@ public class Geometry {
             return location.clone();
         } else {
             return storeResult.set(location);
+        }
+    }
+
+    /**
+     * Return a copy of the mesh-to-world coordinate rotation.
+     *
+     * @param storeResult storage for the result (modified if not null)
+     * @return a unit quaternion (either {@code storeResult} or a new
+     * quaternion)
+     */
+    public Quaternion orientationJme(Quaternion storeResult) {
+        Quaternion orientation = meshToWorld.getRotation(); // alias
+        if (storeResult == null) {
+            return orientation.clone();
+        } else {
+            return storeResult.set(orientation);
         }
     }
 
