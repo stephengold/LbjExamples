@@ -36,6 +36,7 @@ import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import java.nio.FloatBuffer;
 import jme3utilities.Validate;
+import org.joml.Vector3fc;
 import org.joml.Vector4f;
 import org.joml.Vector4fc;
 import org.lwjgl.opengl.GL11C;
@@ -139,6 +140,39 @@ public class Geometry {
     /**
      * Return a copy of the mesh-to-world scale factors.
      *
+     * @param storeResult storage for the result (modified if not null)
+     * @return a vector of scale factors (either {@code storeResult} or a new
+     * instance, not null)
+     */
+    public org.joml.Vector3f copyScale(org.joml.Vector3f storeResult) {
+        Vector3f scale = meshToWorld.getScale(); // alias
+        if (storeResult == null) {
+            return new org.joml.Vector3f(scale.x, scale.y, scale.z);
+        } else {
+            return storeResult.set(scale.x, scale.y, scale.z);
+        }
+    }
+
+    /**
+     * Return a copy of the mesh-to-world scale factors.
+     *
+     * @param storeResult storage for the result (modified if not null)
+     * @return a vector of scale factors (either {@code storeResult} or a new
+     * instance, not null)
+     */
+    public com.jme3.math.Vector3f copyScaleJme(
+            com.jme3.math.Vector3f storeResult) {
+        Vector3f scale = meshToWorld.getScale(); // alias
+        if (storeResult == null) {
+            return scale.clone();
+        } else {
+            return storeResult.set(scale);
+        }
+    }
+
+    /**
+     * Return a copy of the mesh-to-world scale factors.
+     *
      * @return the pre-existing object (not null)
      */
     public Vector4fc getColor() {
@@ -194,21 +228,6 @@ public class Geometry {
     ShaderProgram getProgram() {
         assert program != null;
         return program;
-    }
-
-    /**
-     * Return the scale factors applied to the mesh.
-     *
-     * @param storeResult storage for the result (modified if not null)
-     * @return a scale vector (either {@code storeResult} or a new instance)
-     */
-    public Vector3f getScale(Vector3f storeResult) {
-        Vector3f scale = meshToWorld.getScale(); // an alias
-        if (storeResult == null) {
-            return scale.clone();
-        } else {
-            return storeResult.set(scale);
-        }
     }
 
     /**
