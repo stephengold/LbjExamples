@@ -50,6 +50,10 @@ public class Geometry {
     // fields
 
     /**
+     * true to enable depth test, false to disable it
+     */
+    private boolean depthTest = true;
+    /**
      * true to enable back-face culling, false to disable it
      */
     private boolean isBackCulling = true;
@@ -57,10 +61,6 @@ public class Geometry {
      * true to enable front-face culling, false to disable it
      */
     private boolean isFrontCulling;
-    /**
-     * true to enable depth test, false to disable it
-     */
-    private boolean depthTest = true;
     /**
      * true to enable wireframe rendering, false to disable it
      */
