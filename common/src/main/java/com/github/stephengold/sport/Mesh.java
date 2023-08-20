@@ -34,6 +34,7 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Transform;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,8 +120,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * @param indices the vertex indices to use (unaffected) or null if none
      * @param vertices the vertex data to use (not null, unaffected)
      */
-    public Mesh(
-            Topology topology, List<Integer> indices, List<Vertex> vertices) {
+    public Mesh(Topology topology, Collection<Integer> indices,
+            List<Vertex> vertices) {
         Validate.nonNull(topology, "topology");
 
         this.topology = topology;
