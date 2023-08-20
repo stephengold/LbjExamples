@@ -465,8 +465,26 @@ public class Geometry {
     }
 
     /**
-     * Alter the mesh-to-world coordinate rotation, without shifting the local
-     * origin.
+     * Alter the orientation without shifting the mesh origin.
+     * <p>
+     * The rotation axis is assumed to be a unit vector.
+     *
+     * @param angle the desired rotation angle (in radians, finite, default=0)
+     * @param x the X component of the rotation axis (&ge;-1, &le;1)
+     * @param y the Y component of the rotation axis (&ge;-1, &le;1)
+     * @param z the Z component of the rotation axis (&ge;-1, &le;1)
+     * @return the (modified) current geometry (for chaining)
+     */
+    public Geometry setOrientation(float angle, float x, float y, float z) {
+        Validate.finite(angle, "angle");
+
+        com.jme3.math.Vector3f axis = new com.jme3.math.Vector3f(x, y, z);
+        meshToWorld.getRotation().fromAngleNormalAxis(angle, axis);
+        return this;
+    }
+
+    /**
+     * Alter the orientation without shifting the mesh origin.
      *
      * @param orientation the desired orientation (not null, not zero,
      * unaffected)
