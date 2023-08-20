@@ -178,24 +178,6 @@ public class Projection extends GlobalUniform {
     }
 
     /**
-     * Return the distance from the camera to the far clipping plane.
-     *
-     * @return the distance (in world units, &gt;0)
-     */
-    public float zFar() {
-        return zFar;
-    }
-
-    /**
-     * Return the distance from the camera to the near clipping plane.
-     *
-     * @return the distance (in world units, &gt;0)
-     */
-    public float zNear() {
-        return zNear;
-    }
-
-    /**
      * Alter the vertical field-of-view angle.
      *
      * @param fovy the desired angle (in radians, &gt;0, &lt;PI)
@@ -250,6 +232,24 @@ public class Projection extends GlobalUniform {
     public void setZNear(float newZNear) {
         Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, zNear);
         this.zNear = newZNear;
+    }
+
+    /**
+     * Return the distance from the camera to the far clipping plane.
+     *
+     * @return the distance (in world units, &gt;0)
+     */
+    public float zFar() {
+        return zFar;
+    }
+
+    /**
+     * Return the distance from the camera to the near clipping plane.
+     *
+     * @return the distance (in world units, &gt;0)
+     */
+    public float zNear() {
+        return zNear;
     }
     // *************************************************************************
     // GlobalUniform methods
