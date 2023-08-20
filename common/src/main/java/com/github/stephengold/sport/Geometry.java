@@ -52,11 +52,11 @@ public class Geometry {
     /**
      * true to enable back-face culling, false to disable it
      */
-    private boolean cullBack = true;
+    private boolean isBackCulling = true;
     /**
      * true to enable front-face culling, false to disable it
      */
-    private boolean cullFront;
+    private boolean isFrontCulling;
     /**
      * true to enable depth test, false to disable it
      */
@@ -205,7 +205,7 @@ public class Geometry {
      * @return true if enabled, otherwise false
      */
     public boolean isBackCulling() {
-        return cullBack;
+        return isBackCulling;
     }
 
     /**
@@ -223,7 +223,7 @@ public class Geometry {
      * @return true if enabled, otherwise false
      */
     public boolean isFrontCulling() {
-        return cullFront;
+        return isFrontCulling;
     }
 
     /**
@@ -370,7 +370,7 @@ public class Geometry {
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setBackCulling(boolean newSetting) {
-        this.cullBack = newSetting;
+        this.isBackCulling = newSetting;
         return this;
     }
 
@@ -409,7 +409,7 @@ public class Geometry {
      * @return the (modified) current geometry (for chaining)
      */
     public Geometry setFrontCulling(boolean newSetting) {
-        this.cullFront = newSetting;
+        this.isFrontCulling = newSetting;
         return this;
     }
 
@@ -681,18 +681,18 @@ public class Geometry {
 
         Utils.setOglCapability(GL11C.GL_DEPTH_TEST, depthTest);
 
-        boolean cullFace = (cullBack || cullFront);
+        boolean cullFace = (isBackCulling || isFrontCulling);
         Utils.setOglCapability(GL11C.GL_CULL_FACE, cullFace);
 
-        if (cullBack && cullFront) {
+        if (isBackCulling && isFrontCulling) {
             GL11C.glCullFace(GL11C.GL_FRONT_AND_BACK);
             Utils.checkForOglError();
 
-        } else if (cullBack) {
+        } else if (isBackCulling) {
             GL11C.glCullFace(GL11C.GL_BACK);
             Utils.checkForOglError();
 
-        } else if (cullFront) {
+        } else if (isFrontCulling) {
             GL11C.glCullFace(GL11C.GL_FRONT);
             Utils.checkForOglError();
         }
