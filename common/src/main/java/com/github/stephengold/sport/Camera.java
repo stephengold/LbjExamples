@@ -360,11 +360,11 @@ public class Camera {
      * @return the (modified) current instance (for chaining)
      */
     public Camera setLookDirection(Vector3fc direction) {
-        float x = direction.x();
+        float y = direction.y();
         float z = direction.z();
-        azimuthRadians = FastMath.atan2(z, x);
-        float nxz = MyMath.hypotenuse(x, z);
-        upAngleRadians = FastMath.atan2(direction.y(), nxz);
+        this.azimuthRadians = FastMath.atan2(z, direction.x());
+        float nxz = MyMath.hypotenuse(direction.x(), z);
+        this.upAngleRadians = FastMath.atan2(y, nxz);
         updateDirectionVectors();
 
         return this;
