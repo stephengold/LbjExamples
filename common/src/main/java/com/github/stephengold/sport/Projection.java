@@ -248,6 +248,7 @@ public class Projection extends GlobalUniform {
      * @return the distance (in world units, &gt;zNear)
      */
     public float zFar() {
+        assert zNear < zFar : "zNear = " + zNear + ", zFar = " + zFar;
         return zFar;
     }
 
@@ -257,6 +258,8 @@ public class Projection extends GlobalUniform {
      * @return the distance (in world units, &gt;0, &lt;zFar)
      */
     public float zNear() {
+        assert zNear > 0f : zNear;
+        assert zNear < zFar : "zNear = " + zNear + ", zFar = " + zFar;
         return zNear;
     }
     // *************************************************************************
