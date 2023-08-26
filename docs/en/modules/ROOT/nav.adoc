@@ -33,6 +33,7 @@
 ** https://stephengold.github.io/Minie[Minie]
 ** https://dynamx.fr/[DynamX]
 ** https://github.com/stephengold/LbjExamples[LbjExamples]
+** https://github.com/stephengold/V-Sport[V-Sport]
 * Other related projects
 ** https://pybullet.org/wordpress[Bullet]
 ** https://jmonkeyengine.org[JMonkeyEngine]
