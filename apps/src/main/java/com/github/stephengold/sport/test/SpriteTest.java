@@ -51,7 +51,7 @@ public class SpriteTest extends BaseApplication {
     /**
      * Main entry point for the SpriteTest application.
      *
-     * @param arguments array of command-line arguments (not null)
+     * @param arguments the array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         SpriteTest application = new SpriteTest();
@@ -69,7 +69,7 @@ public class SpriteTest extends BaseApplication {
     }
 
     /**
-     * Initialize this application.
+     * Initialize the application.
      */
     @Override
     public void initialize() {

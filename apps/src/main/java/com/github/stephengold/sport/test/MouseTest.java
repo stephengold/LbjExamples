@@ -109,6 +109,7 @@ public class MouseTest extends BaseApplication {
         color.y = im.isMmbPressed() ? 0f : 1f;
         color.z = im.isRmbPressed() ? 0f : 1f;
         color.w = 1f;
+
         crosshairs.setColor(color);
     }
 
@@ -124,6 +125,7 @@ public class MouseTest extends BaseApplication {
         float x = cursorInClipspace.x();
         float y = cursorInClipspace.y();
         Vector3f location3d = new Vector3f(x, y, 0f);
+
         crosshairs.setLocation(location3d);
     }
 
@@ -136,6 +138,7 @@ public class MouseTest extends BaseApplication {
         float yScale = Math.min(1f, aspectRatio);
         float xScale = yScale / aspectRatio;
         Vector3f newScale = new Vector3f(xScale, yScale, 1f);
+
         crosshairs.setScale(newScale);
     }
 }

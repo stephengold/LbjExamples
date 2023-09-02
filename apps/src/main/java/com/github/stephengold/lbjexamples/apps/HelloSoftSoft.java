@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2019-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2019-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -78,13 +78,13 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
                 worldMin, worldMax, PhysicsSpace.BroadphaseType.DBVT);
 
         // Set gravity to zero.
-        result.setGravity(Vector3f.ZERO); // default = default=(0,-9.81,0)
+        result.setGravity(Vector3f.ZERO); // default = (0,-9.81,0)
 
         return result;
     }
 
     /**
-     * Initialize this application.
+     * Initialize the application.
      */
     @Override
     public void initialize() {

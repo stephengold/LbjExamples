@@ -126,7 +126,7 @@ public class Pachinko
     }
 
     /**
-     * Initialize this application.
+     * Initialize the application.
      */
     @Override
     public void initialize() {

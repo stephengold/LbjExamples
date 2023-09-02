@@ -83,7 +83,7 @@ public class HelloClothRigid extends BasePhysicsApp<PhysicsSoftSpace> {
     }
 
     /**
-     * Initialize this application.
+     * Initialize the application.
      */
     @Override
     public void initialize() {

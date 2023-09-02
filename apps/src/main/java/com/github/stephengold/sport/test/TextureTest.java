@@ -58,7 +58,7 @@ public class TextureTest extends BaseApplication {
     /**
      * Main entry point for the TextureTest application.
      *
-     * @param arguments array of command-line arguments (not null)
+     * @param arguments the array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
         TextureTest application = new TextureTest();
@@ -76,7 +76,7 @@ public class TextureTest extends BaseApplication {
     }
 
     /**
-     * Initialize this application.
+     * Initialize the application.
      */
     @Override
     public void initialize() {

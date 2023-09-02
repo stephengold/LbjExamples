@@ -78,7 +78,7 @@ public class DynamicMeshTest extends BaseApplication {
     }
 
     /**
-     * Initialize this application.
+     * Initialize the application.
      */
     @Override
     public void initialize() {

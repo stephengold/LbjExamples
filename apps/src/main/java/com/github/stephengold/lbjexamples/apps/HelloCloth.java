@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2019-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2019-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -83,7 +83,7 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
     }
 
     /**
-     * Initialize this application.
+     * Initialize the application.
      */
     @Override
     public void initialize() {

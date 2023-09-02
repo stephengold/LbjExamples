@@ -109,7 +109,7 @@ public class HelloWalk
     }
 
     /**
-     * Initialize this application.
+     * Initialize the application.
      */
     @Override
     public void initialize() {

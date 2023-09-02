@@ -104,7 +104,7 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Initialize this application.
+     * Initialize the application.
      */
     @Override
     public void initialize() {

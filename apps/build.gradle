@@ -24,7 +24,7 @@ tasks.register('AppChooser', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.AppChooser'
 }
 
-// demos
+// physics demos
 tasks.register('ConveyorDemo', JavaExec) {
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.ConveyorDemo'
@@ -54,7 +54,7 @@ tasks.register('Windlass', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.Windlass'
 }
 
-// console apps (no graphics)
+// physics console apps (no graphics)
 tasks.register('HelloLibbulletjme', JavaExec) {
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.console.HelloLibbulletjme'
@@ -76,7 +76,7 @@ tasks.register('SpeedTest2', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.console.SpeedTest'
 }
 
-// physics tutorials (very simple)
+// physics tutorial apps (very simple)
 tasks.register('HelloCcd', JavaExec) {
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCcd'
@@ -190,7 +190,7 @@ tasks.register('HelloWind', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWind'
 }
 
-// graphics-only tests
+// graphics-only tests (no physics)
 tasks.register('AssimpTest', JavaExec) {
     description 'Runs the Assimp test app.'
     enableAssertions true
