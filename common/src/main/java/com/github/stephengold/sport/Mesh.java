@@ -116,7 +116,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     /**
      * Instantiate a mutable mesh from vertices and optional indices.
      *
-     * @param topology the desired topology (not null)
+     * @param topology the desired primitive topology (not null)
      * @param indices the vertex indices to use (unaffected) or null if none
      * @param vertices the vertex data to use (not null, unaffected)
      */
@@ -210,8 +210,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      * Instantiate a mutable mesh with the specified topology and vertex
      * positions, but no indices, colors, normals, or texture coordinates.
      *
-     * @param topology an enum value (not null)
-     * @param positionsBuffer vertex positions (not null, not empty)
+     * @param topology the desired primitive topology (not null)
+     * @param positionsBuffer the desired vertex positions (not null)
      */
     protected Mesh(Topology topology, FloatBuffer positionsBuffer) {
         this(topology, positionsBuffer.capacity() / numAxes);
@@ -225,11 +225,11 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
     /**
      * Instantiate an incomplete mutable mesh with the specified topology and
-     * number of vertices, but no indices, colors, normals, positions, or
+     * number of vertices, but no indices, positions, colors, normals, or
      * texture coordinates.
      *
      * @param topology the desired primitive topology (not null)
-     * @param vertexCount number of vertices (&ge;0)
+     * @param vertexCount the expected number of vertices (&ge;0)
      */
     protected Mesh(Topology topology, int vertexCount) {
         Validate.nonNull(topology, "topology");
@@ -329,7 +329,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Count how many line primitives the mesh contains.
+     * Count how many line primitives the mesh contains, taking indexing and
+     * topology into account.
      *
      * @return the count (&ge;0)
      */
@@ -351,7 +352,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Count how many point primitives the mesh contains.
+     * Count how many point primitives the mesh contains, taking indexing and
+     * topology into account.
      *
      * @return the count (&ge;0)
      */
@@ -367,7 +369,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
     }
 
     /**
-     * Count how many triangle primitives the mesh contains.
+     * Count how many triangle primitives the mesh contains, taking indexing and
+     * topology into account.
      *
      * @return the count (&ge;0)
      */
@@ -837,7 +840,6 @@ public class Mesh implements jme3utilities.lbj.Mesh {
 
         this.normalBuffer = VertexBuffer.newInstance(
                 ShaderProgram.normalAttribName, numAxes, vertexCount);
-
         return normalBuffer;
     }
 

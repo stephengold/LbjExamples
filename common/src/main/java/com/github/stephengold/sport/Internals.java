@@ -63,11 +63,11 @@ final class Internals {
     private static final Collection<ShaderProgram> programsInUse
             = new HashSet<>(16);
     /**
-     * height of the displayed framebuffer (in pixels)
+     * height of the displayed frame buffer (in pixels)
      */
     private static int framebufferHeight = 600;
     /**
-     * width of the displayed framebuffer (in pixels)
+     * width of the displayed frame buffer (in pixels)
      */
     private static int framebufferWidth = 800;
     // *************************************************************************
@@ -134,7 +134,7 @@ final class Internals {
 
         updateGlobalUniforms();
 
-        // Render the depth-test geometries and defer the rest.
+        // Render the depth-test geometries and defer the rest:
         Collection<Geometry> visibleGeometries = BaseApplication.listVisible();
         Deque<Geometry> deferredQueue = BaseApplication.listDeferred();
         for (Geometry geometry : visibleGeometries) {
@@ -145,7 +145,7 @@ final class Internals {
             }
         }
 
-        // Render the no-depth-test geometries last, from back to front.
+        // Render the no-depth-test geometries last, from back to front:
         for (Geometry geometry : deferredQueue) {
             assert visibleGeometries.contains(geometry);
             assert !geometry.isDepthTest();

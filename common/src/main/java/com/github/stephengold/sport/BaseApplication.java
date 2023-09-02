@@ -89,7 +89,7 @@ abstract public class BaseApplication {
     protected static Camera cam
             = new Camera(new Vector3f(0f, 0f, 10f), -FastMath.HALF_PI, 0f);
     /**
-     * process user input for the camera
+     * process user input to control the camera
      */
     private static CameraInputProcessor cameraInputProcessor;
     /**
@@ -308,7 +308,7 @@ abstract public class BaseApplication {
     }
 
     /**
-     * Alter the title of the window.
+     * Alter the text in the window's title bar.
      *
      * @param text the desired text (in UTF-8 encoding)
      */

@@ -205,6 +205,10 @@ public class InputManager {
         double xScale = 2.0 / windowWidth[0];
         double yScale = 2.0 / windowHeight[0];
         float xClip = (float) (xScale * x - 1.0);
+        /*
+         * In OpenGL's clipspace, Y coordinates increase upward,
+         * which is the opposite of GLFW's screen space.
+         */
         float yClip = (float) (1.0 - yScale * y);
         if (cursorLocationClipspace == null) {
             this.cursorLocationClipspace = new Vector2f(xClip, yClip);

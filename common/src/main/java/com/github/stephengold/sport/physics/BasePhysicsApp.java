@@ -284,8 +284,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     }
 
     /**
-     * Callback invoked before the main update loop begins. Meant to
-     * be overridden.
+     * Callback invoked before the main update loop begins. Meant to be
+     * overridden.
      */
     @Override
     protected void initialize() {
@@ -299,9 +299,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
 
         this.physicsSpace = createSpace();
         populateSpace();
-
-        //physicsThread = new PhysicsThread(space);
-        //physicsThread.start();
     }
 
     /**

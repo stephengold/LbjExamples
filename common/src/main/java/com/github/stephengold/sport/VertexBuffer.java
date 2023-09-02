@@ -306,7 +306,7 @@ final public class VertexBuffer {
      * shaders (not null, not empty)
      * @param fpv the number of floats per vertex (&ge;1, &le;4)
      * @param floatArray the initial data (not null, unaffected)
-     * @return a new instance (not null)
+     * @return a new flipped instance (not null)
      */
     static VertexBuffer newInstance(
             String attribName, int fpv, float... floatArray) {

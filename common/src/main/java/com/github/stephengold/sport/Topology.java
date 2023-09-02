@@ -42,7 +42,7 @@ public enum Topology {
     // values
 
     /**
-     * lines (edges) that don't overlap
+     * lines (edges) that don't overlap (list mode)
      */
     LineList(Mesh.vpe, 0, GL11C.GL_LINES),
     /**
@@ -55,7 +55,7 @@ public enum Topology {
      */
     LineStrip(Mesh.vpe, 1, GL11C.GL_LINE_STRIP),
     /**
-     * unconnected points
+     * unconnected points (list mode)
      */
     PointList(1, 0, GL11C.GL_POINTS),
     /**
@@ -68,7 +68,7 @@ public enum Topology {
      */
     TriangleFan(Mesh.vpt, 2, GL11C.GL_TRIANGLE_FAN),
     /**
-     * triangles that don't overlap
+     * triangles that don't overlap (list mode)
      */
     TriangleList(Mesh.vpt, 0, GL11C.GL_TRIANGLES),
     /**
@@ -101,7 +101,7 @@ public enum Topology {
      * &le;4, 3&rarr;triangles)
      * @param numShared the number of indices (or vertices) shared between
      * successive primitives (&ge;0, &le;2)
-     * @param code the OpenGL draw code (&ge;0)
+     * @param code the OpenGL draw code
      */
     Topology(int vpp, int numShared, int code) {
         this.vpp = vpp;

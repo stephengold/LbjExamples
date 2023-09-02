@@ -145,8 +145,8 @@ public class Projection extends GlobalUniform {
      * @param clipZ the clipspace Z coordinate (-1 for near plane, +1 for far
      * plane)
      * @param storeResult storage for the result (modified if not null)
-     * @return a location vector in cameraspace (either {@code storeResult} or
-     * a new vector)
+     * @return a location vector in cameraspace (either {@code storeResult} or a
+     * new vector)
      */
     public Vector3f clipToCamera(
             Vector2fc clipXy, float clipZ, Vector3f storeResult) {

@@ -119,7 +119,7 @@ public class TextureKey {
     }
 
     /**
-     * Instantiate a key with the specified URI and filters.
+     * Instantiate a key with the specified URI and mag/min filters.
      *
      * @param uriString unparsed URI to load/generate image data (not null, not
      * empty)
@@ -133,7 +133,7 @@ public class TextureKey {
     }
 
     /**
-     * Instantiate a custom key.
+     * Instantiate a fully custom key.
      *
      * @param uriString unparsed URI to load/generate image data (not null, not
      * empty)
@@ -269,7 +269,7 @@ public class TextureKey {
     }
 
     /**
-     * Alter the default mag aniso for new texture keys.
+     * Alter the default max aniso for new texture keys.
      *
      * @param degree the maximum degree to be assigned (&ge;1, default=1)
      */
@@ -290,9 +290,9 @@ public class TextureKey {
     }
 
     /**
-     * Alter the default MIP maps setting for new texture keys.
+     * Alter the default MIP-maps setting for new texture keys.
      *
-     * @param enable the setting to be assigned (default=true)
+     * @param enable the setting to become the default (default=true)
      */
     public static void setDefaultMipmaps(boolean enable) {
         mipmapsDefault = enable;

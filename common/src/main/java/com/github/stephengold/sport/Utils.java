@@ -276,7 +276,7 @@ final public class Utils {
      *
      * @param iValues the input values
      * @return the most positive value
-     * @see Collections#max()
+     * @see java.util.Collections#max(java.util.Collection)
      * @see java.lang.Math#max(int, int)
      */
     public static int maxInt(int... iValues) {

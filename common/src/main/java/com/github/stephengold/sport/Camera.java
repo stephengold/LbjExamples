@@ -58,19 +58,19 @@ public class Camera {
      */
     private float upAngleRadians;
     /**
-     * eye location (in world coordinates)
+     * eye location (in worldspace)
      */
     final private Vector3f eyeLocation = new Vector3f(0f, 0f, 10f);
     /**
-     * "look" direction (unit vector in world coordinates)
+     * "look" direction (unit vector in worldspace)
      */
     final private Vector3f lookDirection = new Vector3f(0f, 0f, -1f);
     /**
-     * "right" direction (unit vector in world coordinates)
+     * "right" direction (unit vector in worldspace)
      */
     final private Vector3f rightDirection = new Vector3f(1f, 0f, 0f);
     /**
-     * "up" direction (unit vector in world coordinates)
+     * "up" direction (unit vector in worldspace)
      */
     final private Vector3f upDirection = new Vector3f(0f, 1f, 0f);
     // *************************************************************************
@@ -86,7 +86,8 @@ public class Camera {
     /**
      * Instantiate a camera in the specified position.
      *
-     * @param location the desired eye location (in world coordinates, not null)
+     * @param location the desired eye location (in worldspace, not null,
+     * unaffected)
      * @param azimuthRadians the desired azimuth angle (in radians)
      * @param upAngleRadians the desired altitude angle (in radians)
      */
@@ -111,7 +112,7 @@ public class Camera {
     }
 
     /**
-     * Convert the specified clipspace coordinates to world coordinates.
+     * Convert the specified clipspace coordinates to worldspace.
      *
      * @param clipXy the clipspace X and Y coordinates (not null, unaffected)
      * @param clipZ the clipspace Z coordinate (-1 for near plane, +1 for far
@@ -144,8 +145,8 @@ public class Camera {
      * Return a copy of the "look" direction.
      *
      * @param storeResult storage for the result (modified if not null)
-     * @return a unit vector in world coordinates (either {@code storeResult} or
-     * a new vector)
+     * @return a unit vector in worldspace (either {@code storeResult} or a new
+     * vector)
      */
     public Vector3f direction(Vector3f storeResult) {
         if (storeResult == null) {
@@ -158,7 +159,7 @@ public class Camera {
     /**
      * Return a copy of the "look" direction.
      *
-     * @return a new unit vector in world coordinates (not null)
+     * @return a new unit vector in worldspace (not null)
      */
     public com.jme3.math.Vector3f getDirection() {
         com.jme3.math.Vector3f result = Utils.toJmeVector(lookDirection);
@@ -168,7 +169,7 @@ public class Camera {
     /**
      * Return a copy of the eye location.
      *
-     * @return a new location vector in world coordinates (not null)
+     * @return a new location vector in worldspace (not null)
      */
     public com.jme3.math.Vector3f getLocation() {
         com.jme3.math.Vector3f result = Utils.toJmeVector(eyeLocation);
@@ -178,7 +179,7 @@ public class Camera {
     /**
      * Return a copy of the camera's "right" direction.
      *
-     * @return a new unit vector in world coordinates (not null)
+     * @return a new unit vector in worldspace (not null)
      */
     public com.jme3.math.Vector3f getRight() {
         com.jme3.math.Vector3f result = Utils.toJmeVector(rightDirection);
@@ -189,8 +190,8 @@ public class Camera {
      * Return a copy of the eye location.
      *
      * @param storeResult storage for the result (modified if not null)
-     * @return a location vector in world coordinates (either
-     * {@code storeResult} or a new vector)
+     * @return a location vector in worldspace (either {@code storeResult} or a
+     * new vector)
      */
     public Vector3f location(Vector3f storeResult) {
         if (storeResult == null) {
@@ -204,8 +205,7 @@ public class Camera {
      * Translate the eye by the specified offset without changing its
      * orientation.
      *
-     * @param offset the offset (in world coordinates, not null, finite,
-     * unaffected)
+     * @param offset the offset (in worldspace, not null, finite, unaffected)
      */
     public void move(Vector3fc offset) {
         Validate.require(offset.isFinite(), "a finite offset");
@@ -216,10 +216,10 @@ public class Camera {
      * Translate the eye to {@code eyeLocation} and orient it to look at
      * {@code targetLocation}.
      *
-     * @param eyeLocation the desired eye location (in world coordinates, not
-     * null, finite, unaffected)
-     * @param targetLocation the location to look at (in world coordinates, not
-     * null, finite, unaffected)
+     * @param eyeLocation the desired eye location (in worldspace, not null,
+     * finite, unaffected)
+     * @param targetLocation the location to look at (in worldspace, not null,
+     * finite, unaffected)
      * @return the (modified) current instance (for chaining)
      */
     public Camera reposition(com.jme3.math.Vector3f eyeLocation,
@@ -240,10 +240,10 @@ public class Camera {
      * Translate the eye to {@code eyeLocation} and orient it to look at
      * {@code targetLocation}.
      *
-     * @param eyeLocation the desired eye location (in world coordinates, not
-     * null, finite, unaffected)
-     * @param targetLocation the location to look at (in world coordinates, not
-     * null, finite, unaffected)
+     * @param eyeLocation the desired eye location (in worldspace, not null,
+     * finite, unaffected)
+     * @param targetLocation the location to look at (in worldspace, not null,
+     * finite, unaffected)
      * @return the (modified) current instance (for chaining)
      */
     public Camera reposition(Vector3fc eyeLocation, Vector3fc targetLocation) {
@@ -262,8 +262,8 @@ public class Camera {
      * Return a copy of the camera's "right" direction.
      *
      * @param storeResult storage for the result (modified if not null)
-     * @return a unit vector in world coordinates (either {@code storeResult} or
-     * a new vector)
+     * @return a unit vector in worldspace (either {@code storeResult} or a new
+     * vector)
      */
     public Vector3f rightDirection(Vector3f storeResult) {
         if (storeResult == null) {
@@ -327,8 +327,8 @@ public class Camera {
      * Translate the eye to the specified location without changing its
      * orientation.
      *
-     * @param location the desired location (in world coordinates, not null,
-     * finite, unaffected)
+     * @param location the desired location (in worldspace, not null, finite,
+     * unaffected)
      * @return the (modified) current instance (for chaining)
      */
     public Camera setLocation(com.jme3.math.Vector3f location) {
@@ -341,8 +341,8 @@ public class Camera {
      * Translate the eye to the specified location without changing its
      * orientation.
      *
-     * @param location the desired location (in world coordinates, not null,
-     * finite, unaffected)
+     * @param location the desired location (in worldspace, not null, finite,
+     * unaffected)
      * @return the (modified) current instance (for chaining)
      */
     public Camera setLocation(Vector3fc location) {
@@ -410,8 +410,8 @@ public class Camera {
      * Return a copy of the camera's "up" direction.
      *
      * @param storeResult storage for the result (modified if not null)
-     * @return a unit vector in world coordinates (either {@code storeResult} or
-     * a new vector)
+     * @return a unit vector in worldspace (either {@code storeResult} or a new
+     * vector)
      */
     public Vector3f upDirection(Vector3f storeResult) {
         if (storeResult == null) {

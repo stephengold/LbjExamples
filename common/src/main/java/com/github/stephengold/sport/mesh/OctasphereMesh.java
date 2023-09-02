@@ -47,8 +47,8 @@ import org.joml.Vector3fc;
  * resulting mesh is more isotropic than a U-V sphere and handles textures
  * better than an icosphere.
  * <p>
- * The center is at (0,0,0). All triangles face outward with right-handed
- * winding.
+ * In mesh space, the center is at (0,0,0). All triangles face outward with
+ * right-handed winding.
  * <p>
  * Texture coordinates are generated for an equirectangular projection:
  * <ul>
