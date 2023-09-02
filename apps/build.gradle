@@ -192,46 +192,57 @@ tasks.register('HelloWind', JavaExec) {
 
 // graphics-only tests
 tasks.register('AssimpTest', JavaExec) {
+    description 'Runs the Assimp test app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.AssimpTest'
 }
 tasks.register('CheckerboardTest', JavaExec) {
+    description 'Runs the checkerboard test app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.CheckerboardTest'
 }
 tasks.register('ClipspaceTest', JavaExec) {
+    description 'Runs the clipspace test app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.ClipspaceTest'
 }
 tasks.register('DynamicMeshTest', JavaExec) {
+    description 'Runs the dynamic-mesh test app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.DynamicMeshTest'
 }
 tasks.register('IcosphereTest', JavaExec) {
+    description 'Runs the icosphere test app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.IcosphereTest'
 }
 tasks.register('MouseTest', JavaExec) {
+    description 'Runs the first mouse test app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.MouseTest'
 }
 tasks.register('MouseTest2', JavaExec) {
+    description 'Runs the 2nd mouse test app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.MouseTest2'
 }
 tasks.register('OctasphereTest', JavaExec) {
+    description 'Runs the octasphere test app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.OctasphereTest'
 }
 tasks.register('RainbowTest', JavaExec) {
+    description 'Runs the rainbow test app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.RainbowTest'
 }
 tasks.register('SpriteTest', JavaExec) {
+    description 'Runs the sprite test app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.SpriteTest'
 }
 tasks.register('TextureTest', JavaExec) {
+    description 'Runs the texture test app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.sport.test.TextureTest'
 }
