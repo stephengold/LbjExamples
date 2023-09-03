@@ -46,7 +46,6 @@ import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.opengl.GL11C;
 import org.lwjgl.system.Configuration;
 import org.lwjgl.system.MemoryUtil;
 
@@ -271,12 +270,7 @@ abstract public class BaseApplication {
      * default=black)
      */
     public static void setBackgroundColor(Vector4fc desiredColor) {
-        float red = desiredColor.x();
-        float green = desiredColor.y();
-        float blue = desiredColor.z();
-        float alpha = desiredColor.w();
-        GL11C.glClearColor(red, green, blue, alpha);
-        Utils.checkForOglError();
+        Internals.setBackgroundColor(desiredColor);
     }
 
     /**
@@ -478,6 +472,8 @@ abstract public class BaseApplication {
      * Destroy the window and cleanly terminate GLFW.
      */
     private static void cleanUpGlfw() {
+        Internals.freeDebugMessengerCallback();
+
         Callbacks.glfwFreeCallbacks(windowHandle);
         GLFW.glfwDestroyWindow(windowHandle);
         GLFW.glfwTerminate();
@@ -553,7 +549,7 @@ abstract public class BaseApplication {
             throw new IllegalStateException("Unable to initialize GLFW");
         }
 
-        GLFW.glfwDefaultWindowHints();
+        Internals.glfwWindowHints();
 
         // Create the window:
         int width = Internals.framebufferWidth();

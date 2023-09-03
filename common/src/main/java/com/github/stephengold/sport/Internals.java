@@ -33,6 +33,7 @@ import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashSet;
+import org.joml.Vector4fc;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11C;
@@ -139,6 +140,38 @@ final class Internals {
     }
 
     /**
+     * Free the callback that handles OpenGL debugging information.
+     */
+    static void freeDebugMessengerCallback() {
+        if (debugMessengerCallback != null) {
+            debugMessengerCallback.free();
+        }
+    }
+
+    /**
+     * Configure hints for GLFW window creation.
+     */
+    static void glfwWindowHints() {
+        GLFW.glfwDefaultWindowHints();
+
+        GLFW.glfwWindowHint(
+                GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);     // default=TRUE
+        //GLFW.glfwWindowHint(
+        //        GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE); // default=TRUE
+        GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, requestMsaaSamples); // default=0
+        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
+        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
+        if (Internals.isDebuggingEnabled()) {
+            GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_DEBUG_CONTEXT,
+                    GLFW.GLFW_TRUE); // default=FALSE
+        }
+        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE,
+                GLFW.GLFW_OPENGL_CORE_PROFILE); // default=OPENGL_ANY_PROFILE
+        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT,
+                GLFW.GLFW_TRUE); // default=FALSE (set TRUE to please macOS)
+    }
+
+    /**
      * Initialize OpenGL on the specified window.
      *
      * @param windowHandle the handle of a new GLFW window (not null)
@@ -217,6 +250,21 @@ final class Internals {
 
             geometry.updateAndRender();
         }
+    }
+
+    /**
+     * Alter the background color of the window.
+     *
+     * @param desiredColor the desired color (not null, unaffected,
+     * default=black)
+     */
+    static void setBackgroundColor(Vector4fc desiredColor) {
+        float red = desiredColor.x();
+        float green = desiredColor.y();
+        float blue = desiredColor.z();
+        float alpha = desiredColor.w();
+        GL11C.glClearColor(red, green, blue, alpha);
+        Utils.checkForOglError();
     }
 
     /**
