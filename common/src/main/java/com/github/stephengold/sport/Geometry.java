@@ -35,6 +35,8 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Transform;
 import java.nio.FloatBuffer;
 import jme3utilities.Validate;
+import org.joml.Quaternionf;
+import org.joml.Quaternionfc;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.joml.Vector4f;
@@ -300,6 +302,27 @@ public class Geometry {
      * @return a unit quaternion (either {@code storeResult} or a new
      * quaternion)
      */
+    public Quaternionf orientation(Quaternionf storeResult) {
+        Quaternion orientation = meshToWorld.getRotation(); // alias
+        float x = orientation.getX();
+        float y = orientation.getY();
+        float z = orientation.getZ();
+        float w = orientation.getW();
+
+        if (storeResult == null) {
+            return new Quaternionf(x, y, z, w);
+        } else {
+            return storeResult.set(x, y, z, w);
+        }
+    }
+
+    /**
+     * Return a copy of the mesh-to-world coordinate rotation.
+     *
+     * @param storeResult storage for the result (modified if not null)
+     * @return a unit quaternion (either {@code storeResult} or a new
+     * quaternion)
+     */
     public Quaternion orientationJme(Quaternion storeResult) {
         Quaternion orientation = meshToWorld.getRotation(); // alias
         if (storeResult == null) {
@@ -346,6 +369,17 @@ public class Geometry {
         Quaternion rotation = meshToWorld.getRotation(); // alias
         q.mult(rotation, rotation);
 
+        return this;
+    }
+
+    /**
+     * Uniformly scale the model by the specified factor.
+     *
+     * @param factor the scaling factor (1&rarr;no effect)
+     * @return the (modified) current geometry (for chaining)
+     */
+    public Geometry scale(float factor) {
+        meshToWorld.getScale().multLocal(factor);
         return this;
     }
 
@@ -520,6 +554,46 @@ public class Geometry {
 
         meshToWorld.setRotation(orientation);
         meshToWorld.getRotation().normalizeLocal();
+
+        return this;
+    }
+
+    /**
+     * Alter the orientation without translating the mesh origin.
+     *
+     * @param orientation the desired orientation (not null, not zero,
+     * unaffected)
+     * @return the (modified) current geometry (for chaining)
+     */
+    public Geometry setOrientation(Quaternionfc orientation) {
+        Validate.nonNull(orientation, "orientation");
+        meshToWorld.getRotation().set(orientation.x(), orientation.y(),
+                orientation.z(), orientation.w());
+        return this;
+    }
+
+    /**
+     * Alter the orientation without translating the mesh origin.
+     * <p>
+     * The arguments are assumed to form an orthonormal basis.
+     *
+     * @param xDir the desired direction of the mesh X axis (unit vector in
+     * world coordinates, not null, unaffected)
+     * @param yDir the desired direction of the mesh Y axis (unit vector in
+     * world coordinates, not null, unaffected)
+     * @param zDir the desired direction of the mesh Z axis (unit vector in
+     * world coordinates, not null, unaffected)
+     * @return the (modified) current geometry (for chaining)
+     */
+    public Geometry setOrientation(com.jme3.math.Vector3f xDir,
+            com.jme3.math.Vector3f yDir, com.jme3.math.Vector3f zDir) {
+        Validate.nonZero(xDir, "x direction");
+        Validate.nonZero(yDir, "y direction");
+        Validate.nonZero(zDir, "z direction");
+
+        com.jme3.math.Quaternion q = new Quaternion();
+        q.fromAxes(xDir, yDir, zDir);
+        meshToWorld.getRotation().set(q);
 
         return this;
     }
