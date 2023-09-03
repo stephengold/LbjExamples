@@ -73,8 +73,8 @@ public class CharacterShapeGeometry extends Geometry {
      * @param character the character to visualize (not null, alias created)
      * @param meshingStrategy how to generate meshes (not null)
      */
-    CharacterShapeGeometry(PhysicsCharacter character,
-            MeshingStrategy meshingStrategy) {
+    CharacterShapeGeometry(
+            PhysicsCharacter character, MeshingStrategy meshingStrategy) {
         super();
         Validate.nonNull(character, "character");
         Validate.nonNull(meshingStrategy, "meshing strategy");

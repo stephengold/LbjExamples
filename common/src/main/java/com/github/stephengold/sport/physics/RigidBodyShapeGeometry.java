@@ -72,8 +72,8 @@ public class RigidBodyShapeGeometry extends Geometry {
      * @param rigidBody the body to visualize (not null, alias created)
      * @param meshingStrategy how to generate meshes (not null)
      */
-    RigidBodyShapeGeometry(PhysicsRigidBody rigidBody,
-            MeshingStrategy meshingStrategy) {
+    RigidBodyShapeGeometry(
+            PhysicsRigidBody rigidBody, MeshingStrategy meshingStrategy) {
         super();
         Validate.nonNull(rigidBody, "rigid body");
         Validate.nonNull(meshingStrategy, "meshing strategy");

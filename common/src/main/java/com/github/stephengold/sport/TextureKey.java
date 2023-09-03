@@ -58,6 +58,9 @@ public class TextureKey {
      * true to generate MIP maps, false to skip generating them
      */
     final private boolean mipmaps;
+    /**
+     * default setting for MIP-map generation
+     */
     private static boolean mipmapsDefault = true;
     /**
      * filter to use when magnifying
@@ -87,6 +90,9 @@ public class TextureKey {
      * maximum degree of anisotropic filtering
      */
     final private float maxAniso;
+    /**
+     * default for max aniso
+     */
     private static float maxAnisoDefault = 1f;
     /**
      * URI to load/generate image data
@@ -520,6 +526,14 @@ public class TextureKey {
         return result;
     }
 
+    /**
+     * Synthesize a texture using parameters encoded in a path string and a
+     * query string.
+     *
+     * @param path the path string to parse (not null)
+     * @param query the query string to parse (not null)
+     * @return a new texture (not null)
+     */
     private Texture synthesizeTexture(String path, String query) {
         Map<String, String> queryMap = new HashMap<>(16);
         if (query != null) {
