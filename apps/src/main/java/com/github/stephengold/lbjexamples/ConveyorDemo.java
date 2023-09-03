@@ -339,7 +339,7 @@ public class ConveyorDemo extends BasePhysicsApp<PhysicsSpace> {
      */
     private static void configureCamera() {
         CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setRotationMode(RotateMode.Immediate);
+        cip.setRotationMode(RotateMode.DragLMB);
         cip.setMoveSpeed(5f);
 
         cam.setLocation(new Vector3f(12f, 6f, 5f));

@@ -72,7 +72,7 @@ public class OctasphereTest extends BaseApplication {
      */
     @Override
     public void initialize() {
-        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
+        getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
         setBackgroundColor(Constants.SKY_BLUE);
 
         Mesh sphereMesh = OctasphereMesh.getMesh(4); // unit sphere

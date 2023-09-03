@@ -206,7 +206,7 @@ public class TestGearJoint
      */
     private void configureCamera() {
         CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setRotationMode(RotateMode.Immediate);
+        cip.setRotationMode(RotateMode.DragLMB);
         cip.setMoveSpeed(4f);
 
         cam.setLocation(new Vector3f(2.2f, 2f, 7.7f))

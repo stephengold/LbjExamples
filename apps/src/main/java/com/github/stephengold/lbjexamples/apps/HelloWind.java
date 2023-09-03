@@ -258,7 +258,7 @@ public class HelloWind
      */
     private static void configureCamera() {
         CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setRotationMode(RotateMode.Immediate);
+        cip.setRotationMode(RotateMode.DragLMB);
 
         cam.setLocation(new Vector3f(7f, 1.2f, -0.7f))
                 .setAzimuth(3f)

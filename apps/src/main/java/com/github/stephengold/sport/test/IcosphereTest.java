@@ -74,7 +74,7 @@ public class IcosphereTest extends BaseApplication {
      */
     @Override
     public void initialize() {
-        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
+        getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
         setBackgroundColor(Constants.SKY_BLUE);
 
         Mesh sphereMesh = new IcosphereMesh(4, true); // unit sphere

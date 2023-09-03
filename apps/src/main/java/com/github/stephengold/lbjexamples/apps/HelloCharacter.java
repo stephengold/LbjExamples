@@ -93,7 +93,7 @@ public class HelloCharacter
     public void initialize() {
         super.initialize();
 
-        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
+        getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
         setBackgroundColor(Constants.SKY_BLUE);
     }
 

@@ -203,7 +203,7 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      * Configure the Camera and CIP during startup.
      */
     private static void configureCamera() {
-        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
+        getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
         cam.setLocation(new Vector3f(60f, 15f, 28f))
                 .setAzimuth(-2.7f)
                 .setUpAngle(-0.25f);

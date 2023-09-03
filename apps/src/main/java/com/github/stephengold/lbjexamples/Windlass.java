@@ -454,7 +454,7 @@ public class Windlass
 
         CameraInputProcessor cip = getCameraInputProcessor();
         cip.setMoveSpeed(20f);
-        cip.setRotationMode(RotateMode.Immediate);
+        cip.setRotationMode(RotateMode.DragLMB);
     }
 
     /**

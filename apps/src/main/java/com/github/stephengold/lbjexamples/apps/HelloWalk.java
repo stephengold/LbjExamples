@@ -221,7 +221,7 @@ public class HelloWalk
      * Configure the projection and CIP during startup.
      */
     private static void configureCamera() {
-        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
+        getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
         getProjection().setFovyDegrees(30f);
 
         // Bring the near plane closer to reduce clipping.

@@ -208,7 +208,7 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
      */
     private static void configureCamera() {
         CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setRotationMode(RotateMode.Immediate);
+        cip.setRotationMode(RotateMode.DragLMB);
         cip.setMoveSpeed(5f);
 
         cam.setLocation(new Vector3f(0f, 1.5f, 4f));

@@ -79,7 +79,7 @@ public class HelloMinkowski extends BasePhysicsApp<PhysicsSpace> {
     @Override
     public void initialize() {
         super.initialize();
-        getCameraInputProcessor().setRotationMode(RotateMode.Immediate);
+        getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
     }
 
     /**
