@@ -30,6 +30,7 @@
 package com.github.stephengold.sport;
 
 import java.nio.FloatBuffer;
+import java.util.Objects;
 import jme3utilities.Validate;
 import org.joml.Matrix3fc;
 import org.joml.Vector2f;
@@ -207,18 +208,10 @@ public class Vertex {
         } else if (otherObject != null
                 && otherObject.getClass() == getClass()) {
             Vertex otherVertex = (Vertex) otherObject;
-            // TODO use Object.equals()
-            result = otherVertex.position.equals(position);
-            if (result && color != otherVertex.color) {
-                result = (color != null && color.equals(otherVertex.color));
-            }
-            if (result && normal != otherVertex.normal) {
-                result = (normal != null && normal.equals(otherVertex.normal));
-            }
-            if (result && texCoords != otherVertex.texCoords) {
-                result = (texCoords != null
-                        && texCoords.equals(otherVertex.texCoords));
-            }
+            result = Objects.equals(otherVertex.position, position)
+                    && Objects.equals(otherVertex.color, color)
+                    && Objects.equals(otherVertex.normal, normal)
+                    && Objects.equals(otherVertex.texCoords, texCoords);
 
         } else {
             result = false;
