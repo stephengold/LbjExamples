@@ -295,6 +295,7 @@ final public class VertexBuffer {
         for (Vertex vertex : vertices) {
             vertex.writeColorTo(data);
         }
+        data.flip();
 
         return result;
     }
@@ -399,6 +400,7 @@ final public class VertexBuffer {
         for (Vertex vertex : vertices) {
             vertex.writeNormalTo(data);
         }
+        data.flip();
 
         return result;
     }
@@ -419,6 +421,7 @@ final public class VertexBuffer {
         for (Vertex vertex : vertices) {
             vertex.writePositionTo(data);
         }
+        data.flip();
 
         return result;
     }
@@ -439,6 +442,7 @@ final public class VertexBuffer {
         for (Vertex vertex : vertices) {
             vertex.writeTexCoordsTo(data);
         }
+        data.flip();
 
         return result;
     }
