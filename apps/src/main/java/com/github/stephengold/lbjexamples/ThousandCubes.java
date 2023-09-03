@@ -80,6 +80,14 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      */
     private static float physicsSpeed = 1f;
     /**
+     * cross geometry for the crosshairs
+     */
+    private static Geometry cross;
+    /**
+     * loop geometry for the crosshairs
+     */
+    private static Geometry loop;
+    /**
      * generate random colors
      */
     final private Random random = new Random();
@@ -150,6 +158,15 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
+     * Callback invoked during each iteration of the main update loop.
+     */
+    @Override
+    public void render() {
+        updateScale();
+        super.render();
+    }
+
+    /**
      * Advance the physics simulation by the specified amount. Invoked during
      * each update.
      *
@@ -189,12 +206,11 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
 
     private static void addCrosshairs() {
         float crossWidth = 0.1f;
-        float crossHeight = crossWidth * aspectRatio();
-
-        new Geometry(new CrosshairsMesh(crossWidth, crossHeight))
+        cross = new Geometry(new CrosshairsMesh(crossWidth, crossWidth))
                 .setColor(Constants.YELLOW)
                 .setProgram("Unshaded/Clipspace/Monochrome");
-        new Geometry(new LoopMesh(32, 0.3f * crossWidth, 0.3f * crossHeight))
+        loop = new Geometry(
+                new LoopMesh(32, 0.3f * crossWidth, 0.3f * crossWidth))
                 .setColor(Constants.YELLOW)
                 .setProgram("Unshaded/Clipspace/Monochrome");
     }
@@ -259,5 +275,19 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
 
     private static void togglePause() {
         physicsSpeed = (physicsSpeed <= PAUSED_SPEED) ? 1f : PAUSED_SPEED;
+    }
+
+    /**
+     * Scale the crosshair geometries so they will render as an equal-armed
+     * cross and a circle, regardless of the window's aspect ratio.
+     */
+    private static void updateScale() {
+        float aspectRatio = aspectRatio();
+        float yScale = Math.min(1f, aspectRatio);
+        float xScale = yScale / aspectRatio;
+        Vector3f newScale = new Vector3f(xScale, yScale, 1f);
+
+        cross.setScale(newScale);
+        loop.setScale(newScale);
     }
 }
