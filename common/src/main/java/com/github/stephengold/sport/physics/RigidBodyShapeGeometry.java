@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,8 @@ import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.bullet.objects.infos.RigidBodyMotionState;
-import com.jme3.math.Transform;
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 import org.joml.Vector4fc;
 
@@ -178,7 +179,12 @@ public class RigidBodyShapeGeometry extends Geometry {
      */
     private void updateTransform() {
         RigidBodyMotionState state = rigidBody.getMotionState();
-        Transform meshToWorld = getMeshToWorldTransform();
-        state.physicsTransform(meshToWorld);
+        Vector3f location = state.getLocation(null);
+        setLocation(location);
+
+        Quaternion orientation = state.getOrientation((Quaternion) null);
+        setOrientation(orientation);
+
+        setScale(1f);
     }
 }

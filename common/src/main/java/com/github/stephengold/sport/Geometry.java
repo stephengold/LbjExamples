@@ -818,17 +818,6 @@ public class Geometry {
         storeBuffer.position(startPosition);
     }
     // *************************************************************************
-    // new protected methods
-
-    /**
-     * Directly access the mesh-to-world transform.
-     *
-     * @return the pre-existing instance
-     */
-    protected Transform getMeshToWorldTransform() {
-        return meshToWorld;
-    }
-    // *************************************************************************
     // private methods
 
     /**

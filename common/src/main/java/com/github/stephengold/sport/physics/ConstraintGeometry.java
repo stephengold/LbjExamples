@@ -101,8 +101,7 @@ public class ConstraintGeometry extends Geometry {
      */
     @Override
     public void updateAndRender() {
-        Transform meshToWorld = getMeshToWorldTransform(); // alias
-        meshToWorld.getTranslation().zero();
+        Transform meshToWorld = new Transform();
 
         Vector3f zDir = constraint.getPivot(end, null); // TODO garbage
         float length = zDir.length();
@@ -123,6 +122,9 @@ public class ConstraintGeometry extends Geometry {
         state.physicsTransform(bodyToWorld);
 
         MyMath.combine(meshToWorld, bodyToWorld, meshToWorld);
+        setLocation(meshToWorld.getTranslation());
+        setOrientation(meshToWorld.getRotation());
+        setScale(meshToWorld.getScale());
 
         super.updateAndRender();
     }

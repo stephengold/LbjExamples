@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,6 @@ import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.objects.PhysicsVehicle;
 import com.jme3.bullet.objects.VehicleWheel;
 import com.jme3.math.Quaternion;
-import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 
@@ -122,16 +121,16 @@ public class WheelGeometry extends Geometry {
      * Update the mesh-to-world transform.
      */
     private void updateTransform() {
-        Transform meshToWorld = getMeshToWorldTransform();
-        Vector3f translation = meshToWorld.getTranslation();
-        Quaternion rotation = meshToWorld.getRotation();
-
         VehicleWheel vw = vehicle.getWheel(wheelIndex);
         vw.updatePhysicsState();
-        vw.getWheelWorldLocation(translation);
-        vw.getWheelWorldRotation(rotation);
+
+        Vector3f location = vw.getWheelWorldLocation(null);
+        setLocation(location);
+
+        Quaternion orientation = vw.getWheelWorldRotation(null);
+        setOrientation(orientation);
 
         float radius = vw.getRadius();
-        meshToWorld.setScale(radius);
+        setScale(radius);
     }
 }

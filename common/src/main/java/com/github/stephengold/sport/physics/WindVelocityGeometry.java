@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,6 @@ import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.mesh.ArrowMesh;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.objects.PhysicsSoftBody;
-import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 import jme3utilities.math.MyVector3f;
@@ -104,17 +103,15 @@ public class WindVelocityGeometry extends Geometry {
      * Update the Mesh.
      */
     private void updateMesh() {
-        Transform meshToWorld = getMeshToWorldTransform(); // alias
-
         Vector3f zDir = softBody.windVelocity(null); // TODO garbage
         float length = zDir.length();
-        meshToWorld.setScale(length);
+        setScale(length);
 
         if (length > 0f) {
             Vector3f xDir = new Vector3f(); // TODO garbage
             Vector3f yDir = new Vector3f(); // TODO garbage
             MyVector3f.generateBasis(zDir, xDir, yDir);
-            meshToWorld.getRotation().fromAxes(xDir, yDir, zDir);
+            setOrientation(xDir, yDir, zDir);
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -38,7 +38,8 @@ import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.bullet.objects.infos.RigidBodyMotionState;
-import com.jme3.math.Transform;
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 import org.joml.Vector4fc;
 
@@ -130,14 +131,21 @@ public class LocalAxisGeometry extends Geometry {
      * Update the mesh-to-world transform.
      */
     private void updateTransform() {
-        Transform meshToWorld = getMeshToWorldTransform(); // alias
         if (pco instanceof PhysicsRigidBody) {
             PhysicsRigidBody body = (PhysicsRigidBody) pco;
             RigidBodyMotionState state = body.getMotionState();
-            state.physicsTransform(meshToWorld);
+
+            Vector3f location = state.getLocation(null);
+            setLocation(location);
+            Quaternion orientation = state.getOrientation((Quaternion) null);
+            setOrientation(orientation);
+
         } else if (pco != null) {
-            pco.getTransform(meshToWorld);
+            Vector3f location = pco.getPhysicsLocation(null);
+            setLocation(location);
+            Quaternion orientation = pco.getPhysicsRotation(null);
+            setOrientation(orientation);
         }
-        meshToWorld.setScale(length);
+        setScale(length);
     }
 }

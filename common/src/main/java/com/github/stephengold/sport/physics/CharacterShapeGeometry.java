@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,8 @@ import com.github.stephengold.sport.Mesh;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.collision.shapes.CollisionShape;
 import com.jme3.bullet.objects.PhysicsCharacter;
-import com.jme3.math.Transform;
+import com.jme3.math.Quaternion;
+import com.jme3.math.Vector3f;
 import jme3utilities.Validate;
 import org.joml.Vector4fc;
 
@@ -175,8 +176,12 @@ public class CharacterShapeGeometry extends Geometry {
      * Update the mesh-to-world transform.
      */
     private void updateTransform() {
-        Transform meshToWorld = getMeshToWorldTransform();
-        character.getTransform(meshToWorld);
-        meshToWorld.setScale(1f);
+        Vector3f location = character.getPhysicsLocation(null);
+        setLocation(location);
+
+        Quaternion orientation = character.getPhysicsRotation(null);
+        setOrientation(orientation);
+
+        setScale(1f);
     }
 }
