@@ -465,30 +465,6 @@ public class TextureKey {
     // *************************************************************************
     // private methods
 
-    private Texture synthesizeTexture(String path, String query) {
-        Map<String, String> queryMap = new HashMap<>(16);
-        if (query != null) {
-            String[] assignments = query.split("&");
-            for (String assignment : assignments) {
-                String[] terms = assignment.split("=", 2);
-                String name = terms[0];
-                String value = terms[1];
-                queryMap.put(name, value);
-            }
-        }
-
-        Texture result;
-        switch (path) {
-            case "/checkerboard":
-                result = synthesizeCheckerboard(queryMap);
-                break;
-            default:
-                String q = MyString.quote(path);
-                throw new IllegalArgumentException("path = " + q);
-        }
-        return result;
-    }
-
     /**
      * Generate a square texture for a 2-by-2 checkerboard pattern.
      *
@@ -541,6 +517,30 @@ public class TextureKey {
 
         Texture result = new Texture(this, size, size, data);
 
+        return result;
+    }
+
+    private Texture synthesizeTexture(String path, String query) {
+        Map<String, String> queryMap = new HashMap<>(16);
+        if (query != null) {
+            String[] assignments = query.split("&");
+            for (String assignment : assignments) {
+                String[] terms = assignment.split("=", 2);
+                String name = terms[0];
+                String value = terms[1];
+                queryMap.put(name, value);
+            }
+        }
+
+        Texture result;
+        switch (path) {
+            case "/checkerboard":
+                result = synthesizeCheckerboard(queryMap);
+                break;
+            default:
+                String q = MyString.quote(path);
+                throw new IllegalArgumentException("path = " + q);
+        }
         return result;
     }
 
