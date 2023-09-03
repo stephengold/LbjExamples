@@ -30,7 +30,6 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.sport.Constants;
-import com.github.stephengold.sport.LightDirection;
 import com.github.stephengold.sport.TextureKey;
 import com.github.stephengold.sport.input.InputProcessor;
 import com.github.stephengold.sport.input.RotateMode;
@@ -296,8 +295,7 @@ public class HelloGhost
      * Configure lighting and the background color.
      */
     private void configureLighting() {
-        Vector3f direction = new Vector3f(7f, 3f, 5f);
-        LightDirection.set(direction);
+        setLightDirection(7f, 3f, 5f);
 
         // Set the background color to light blue.
         setBackgroundColor(Constants.SKY_BLUE);

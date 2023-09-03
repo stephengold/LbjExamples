@@ -30,7 +30,6 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.sport.Constants;
-import com.github.stephengold.sport.LightDirection;
 import com.github.stephengold.sport.TextureKey;
 import com.github.stephengold.sport.input.RotateMode;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
@@ -124,7 +123,7 @@ public class HelloSpring
         super.initialize();
 
         configureCamera();
-        LightDirection.set(new Vector3f(7f, 3f, 5f));
+        setLightDirection(7f, 3f, 5f);
 
         // Disable VSync for more frequent mouse-position updates.
         setVsync(false);

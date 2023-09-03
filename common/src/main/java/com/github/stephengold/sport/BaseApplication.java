@@ -307,6 +307,28 @@ abstract public class BaseApplication {
     }
 
     /**
+     * Alter the color and intensity of lights.
+     *
+     * @param red the red component of the desired color (default=1)
+     * @param green the green component of the desired color (default=1)
+     * @param blue the blue component of the desired color (default=1)
+     */
+    public static void setLightColor(float red, float green, float blue) {
+        LightColor.set(red, green, blue);
+    }
+
+    /**
+     * Alter the direction to the distant light.
+     *
+     * @param x the X component of the desired direction
+     * @param y the Y component of the desired direction
+     * @param z the Z component of the desired direction
+     */
+    public static void setLightDirection(float x, float y, float z) {
+        LightDirection.set(x, y, z);
+    }
+
+    /**
      * Alter the "VSync" setting.
      *
      * @param newSetting true to await a monitor retrace before swapping

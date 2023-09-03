@@ -29,9 +29,7 @@
  */
 package com.github.stephengold.sport;
 
-import jme3utilities.Validate;
 import org.joml.Vector4f;
-import org.joml.Vector4fc;
 
 /**
  * Provide the color of the main light, for use in shaders.
@@ -59,13 +57,14 @@ public class LightColor extends GlobalUniform {
     // new methods exposed
 
     /**
-     * Alter the color of the main light.
+     * Alter the color and intensity of lights.
      *
-     * @param newColor the desired value (not null)
+     * @param red the red component of the desired color (default=1)
+     * @param green the green component of the desired color (default=1)
+     * @param blue the blue component of the desired color (default=1)
      */
-    public static void set(Vector4fc newColor) {
-        Validate.nonNull(newColor, "new color");
-        value.set(newColor);
+    public static void set(float red, float blue, float green) {
+        value.set(red, green, blue, 1f);
     }
     // *************************************************************************
     // GlobalUniform methods

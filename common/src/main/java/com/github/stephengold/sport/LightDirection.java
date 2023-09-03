@@ -30,7 +30,6 @@
 package com.github.stephengold.sport;
 
 import com.jme3.math.Vector3f;
-import jme3utilities.Validate;
 import jme3utilities.math.MyVector3f;
 
 /**
@@ -61,12 +60,12 @@ public class LightDirection extends GlobalUniform {
     /**
      * Alter the direction to the distant light.
      *
-     * @param newDirection the desired value (not null, not zero, unaffected)
+     * @param x the X component of the desired direction
+     * @param y the Y component of the desired direction
+     * @param z the Z component of the desired direction
      */
-    public static void set(Vector3f newDirection) {
-        Validate.nonZero(newDirection, "new direction");
-
-        value.set(newDirection);
+    public static void set(float x, float y, float z) {
+        value.set(x, y, z);
         MyVector3f.normalizeLocal(value);
     }
     // *************************************************************************
