@@ -133,15 +133,15 @@ public class OctasphereMesh extends Mesh {
     /**
      * vertex normals
      */
-    private VertexBuffer normBuffer;
+    final private VertexBuffer normBuffer;
     /**
      * vertex positions
      */
-    private VertexBuffer posBuffer;
+    final private VertexBuffer posBuffer;
     /**
      * vertex texture coordinates
      */
-    private VertexBuffer uvBuffer;
+    final private VertexBuffer uvBuffer;
     // *************************************************************************
     // constructors
 
