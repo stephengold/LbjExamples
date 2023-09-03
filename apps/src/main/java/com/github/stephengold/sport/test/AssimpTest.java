@@ -110,6 +110,7 @@ public class AssimpTest extends BaseApplication {
                 "classpath:/Models/viking_room/viking_room.png");
 
         Geometry room = new Geometry(roomMesh);
+        room.setBackCulling(false);
         room.setProgram("Unshaded/Texture");
         room.setTexture(roomKey);
 
