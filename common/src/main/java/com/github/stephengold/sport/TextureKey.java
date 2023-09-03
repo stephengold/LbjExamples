@@ -554,8 +554,10 @@ public class TextureKey {
                 result = synthesizeCheckerboard(queryMap);
                 break;
             default:
-                String q = MyString.quote(path);
-                throw new IllegalArgumentException("path = " + q);
+                String qPath = MyString.quote(path);
+                String qQuery = MyString.quote(query);
+                throw new IllegalArgumentException(
+                        "path=" + qPath + ", query=" + qQuery);
         }
         return result;
     }
