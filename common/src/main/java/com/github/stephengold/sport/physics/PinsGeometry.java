@@ -32,6 +32,7 @@ package com.github.stephengold.sport.physics;
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Filter;
+import com.github.stephengold.sport.FlipAxes;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.TextureKey;
@@ -79,8 +80,9 @@ public class PinsGeometry extends Geometry {
         WrapFunction wrapV = WrapFunction.ClampToEdge;
         boolean mipmaps = true;
         float maxAniso = 1f;
-        TextureKey textureKey = new TextureKey("classpath://" + resourceName,
-                magFilter, minFilter, wrapU, wrapV, mipmaps, maxAniso);
+        TextureKey textureKey = new TextureKey(
+                "classpath://" + resourceName, magFilter, minFilter, wrapU,
+                wrapV, mipmaps, FlipAxes.noFlip, maxAniso);
         super.setTexture(textureKey);
 
         BaseApplication.makeVisible(this);

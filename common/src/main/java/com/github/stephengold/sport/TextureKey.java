@@ -77,6 +77,10 @@ public class TextureKey {
      */
     private static Filter minFilterDefault = Filter.NearestMipmapLinear;
     /**
+     * option for flipping axes (not null)
+     */
+    final private FlipAxes flipAxes;
+    /**
      * default setting for the {@code flipAxes} parameter (not null)
      */
     private static FlipAxes flipAxesDefault = FlipAxes.noFlip;
@@ -127,8 +131,8 @@ public class TextureKey {
      * default=1)
      */
     public TextureKey(String uriString, float maxAniso) {
-        this(uriString, magFilterDefault, minFilterDefault,
-                wrapUDefault, wrapVDefault, mipmapsDefault, maxAniso);
+        this(uriString, magFilterDefault, minFilterDefault, wrapUDefault,
+                wrapVDefault, mipmapsDefault, flipAxesDefault, maxAniso);
     }
 
     /**
@@ -142,7 +146,7 @@ public class TextureKey {
      */
     public TextureKey(String uriString, Filter magFilter, Filter minFilter) {
         this(uriString, magFilter, minFilter, wrapUDefault, wrapVDefault,
-                mipmapsDefault, maxAnisoDefault);
+                mipmapsDefault, flipAxesDefault, maxAnisoDefault);
     }
 
     /**
@@ -159,12 +163,13 @@ public class TextureKey {
      * @param wrapV the wrap function for the 2nd (V) texture coordinate (not
      * null, default=Repeat)
      * @param mipmaps true to generate MIP maps, false to skip (default=true)
+     * @param flipAxes option for flipping texture axes (not null)
      * @param maxAniso the maximum degree of anisotropic filtering (&ge;1,
      * default=1)
      */
     public TextureKey(String uriString, Filter magFilter, Filter minFilter,
-            WrapFunction wrapU, WrapFunction wrapV, boolean mipmaps,
-            float maxAniso) {
+            WrapFunction wrapU, WrapFunction wrapV,
+            boolean mipmaps, FlipAxes flipAxes, float maxAniso) {
         Validate.nonEmpty(uriString, "path");
         Validate.nonNull(magFilter, "mag filter");
         Validate.require(
@@ -172,6 +177,7 @@ public class TextureKey {
         Validate.nonNull(minFilter, "min filter");
         Validate.nonNull(wrapU, "wrap u");
         Validate.nonNull(wrapV, "wrap v");
+        Validate.nonNull(flipAxes, "flip axes");
         Validate.inRange(maxAniso, "max anisotropy", 1f, Float.MAX_VALUE);
 
         // It's better to report URI errors now than during load()!
@@ -188,6 +194,7 @@ public class TextureKey {
         this.wrapU = wrapU;
         this.wrapV = wrapV;
         this.mipmaps = mipmaps;
+        this.flipAxes = flipAxes;
         this.maxAniso = maxAniso;
     }
     // *************************************************************************
@@ -272,6 +279,15 @@ public class TextureKey {
      */
     public boolean mipmaps() {
         return mipmaps;
+    }
+
+    /**
+     * Alter the default {@code flipAxes} setting for new texture keys.
+     *
+     * @param flipAxes the setting to become the default (default=noFlip)
+     */
+    public static void setDefaultFlipAxes(FlipAxes flipAxes) {
+        flipAxesDefault = flipAxes;
     }
 
     /**
@@ -378,6 +394,7 @@ public class TextureKey {
             TextureKey otherKey = (TextureKey) otherObject;
             result = uri.equals(otherKey.uri)
                     && mipmaps == otherKey.mipmaps
+                    && flipAxes == otherKey.flipAxes
                     && Float.compare(maxAniso, otherKey.maxAniso) == 0
                     && magFilter == otherKey.magFilter
                     && minFilter == otherKey.minFilter
@@ -400,6 +417,7 @@ public class TextureKey {
     public int hashCode() {
         int hash = uri.hashCode();
         hash = 707 * hash + (mipmaps ? 1 : 0);
+        hash = 707 * hash + flipAxes.ordinal();
         hash = 707 * hash + Float.hashCode(maxAniso);
         hash = 707 * hash + magFilter.ordinal();
         hash = 707 * hash + minFilter.ordinal();
@@ -419,9 +437,9 @@ public class TextureKey {
         String mm = mipmaps ? "+" : "-";
         String quri = MyString.quote(uri.toString());
         String result = String.format("TextureKey(%s%n"
-                + " mag=%s min=%s wrap(%s %s) %smipmaps maxAniso=%.1f)",
+                + " %s mag=%s min=%s wrap(%s %s) %smipmaps maxAniso=%.1f)",
                 quri,
-                magFilter, minFilter, wrapU, wrapV, mm, maxAniso);
+                flipAxes, magFilter, minFilter, wrapU, wrapV, mm, maxAniso);
 
         return result;
     }

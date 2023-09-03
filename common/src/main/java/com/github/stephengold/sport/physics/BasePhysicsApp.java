@@ -32,6 +32,7 @@ package com.github.stephengold.sport.physics;
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
 import com.github.stephengold.sport.Filter;
+import com.github.stephengold.sport.FlipAxes;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.NormalsOption;
@@ -198,7 +199,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
             programName = "Phong/Distant/Texture";
             textureKey = new TextureKey("procedural:///checkerboard?size=128",
                     Filter.Linear, Filter.NearestMipmapLinear,
-                    WrapFunction.Repeat, WrapFunction.Repeat, true, 16f);
+                    WrapFunction.Repeat, WrapFunction.Repeat, true,
+                    FlipAxes.noFlip, 16f);
 
         } else if (shape instanceof SphereCollisionShape) {
             meshingStrategy = new MeshingStrategy(-3,
