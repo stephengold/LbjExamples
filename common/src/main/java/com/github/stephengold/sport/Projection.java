@@ -206,39 +206,39 @@ public class Projection extends GlobalUniform {
     /**
      * Alter the distances of both the near and far clipping planes.
      *
-     * @param newZNear the desired near-plane distance (&gt;0, &lt;zFar)
-     * @param newZFar the desired far-plane distance (&gt;zNear)
+     * @param zNear the desired near-plane distance (&gt;0, &lt;zFar)
+     * @param zFar the desired far-plane distance (&gt;zNear)
      * @return the (modified) current instance (for chaining)
      */
-    public Projection setZClip(float newZNear, float newZFar) {
-        Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, newZFar);
+    public Projection setZClip(float zNear, float zFar) {
+        Validate.inRange(zNear, "zNear", Float.MIN_VALUE, zFar);
 
-        this.zNear = newZNear;
-        this.zFar = newZFar;
+        this.zNear = zNear;
+        this.zFar = zFar;
         return this;
     }
 
     /**
      * Alter the distance of the far clipping plane.
      *
-     * @param newZFar the desired distance (in world units, &gt;zNear)
+     * @param zFar the desired distance (in world units, &gt;zNear)
      * @return the (modified) current instance (for chaining)
      */
-    public Projection setZFar(float newZFar) {
-        Validate.inRange(newZFar, "new zFar", zNear, Float.MAX_VALUE);
-        this.zFar = newZFar;
+    public Projection setZFar(float zFar) {
+        Validate.inRange(zFar, "zFar", zNear, Float.MAX_VALUE);
+        this.zFar = zFar;
         return this;
     }
 
     /**
      * Alter the distance of the near clipping plane.
      *
-     * @param newZNear the desired distance (in world units, &gt;0, &lt;zFar)
+     * @param zNear the desired distance (in world units, &gt;0, &lt;zFar)
      * @return the (modified) current instance (for chaining)
      */
-    public Projection setZNear(float newZNear) {
-        Validate.inRange(newZNear, "new zNear", Float.MIN_VALUE, zNear);
-        this.zNear = newZNear;
+    public Projection setZNear(float zNear) {
+        Validate.inRange(zNear, "zNear", Float.MIN_VALUE, zNear);
+        this.zNear = zNear;
         return this;
     }
 
