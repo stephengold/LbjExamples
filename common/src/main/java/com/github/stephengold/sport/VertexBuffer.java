@@ -341,7 +341,7 @@ final public class VertexBuffer {
         FloatBuffer data = result.getData();
         for (int i = 0; i < numFloats; ++i) {
             float fValue = floatBuffer.get(i);
-            data.put(i, fValue);
+            data.put(fValue);
         }
         data.flip();
 
