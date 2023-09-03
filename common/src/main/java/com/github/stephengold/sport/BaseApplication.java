@@ -297,16 +297,6 @@ abstract public class BaseApplication {
     }
 
     /**
-     * Alter whether the debugging aids are enabled. Not allowed after
-     * {@code start()} is invoked.
-     *
-     * @param newSetting true to enable, false to disable (default=false)
-     */
-    protected static void setDebuggingEnabled(boolean newSetting) {
-        Internals.setDebuggingEnabled(newSetting);
-    }
-
-    /**
      * Alter the color and intensity of lights.
      *
      * @param red the red component of the desired color (default=1)
@@ -449,6 +439,16 @@ abstract public class BaseApplication {
      */
     protected void render() {
         // do nothing
+    }
+
+    /**
+     * Alter whether the debugging aids are enabled. Not allowed after
+     * {@code start()} is invoked.
+     *
+     * @param newSetting true to enable, false to disable (default=false)
+     */
+    protected static void setDebuggingEnabled(boolean newSetting) {
+        Internals.setDebuggingEnabled(newSetting);
     }
 
     /**
