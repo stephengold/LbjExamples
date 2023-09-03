@@ -14,6 +14,16 @@ Complete source code (in [Java]) is provided under
 [a BSD 3-Clause license][license].
 
 
+<a name="toc"></a>
+
+## Contents of this document
+
++ [About SPORT](#about)
++ [How to build and run SPORT from source](#build)
+
+
+<a name="about"></a>
+
 ## About SPORT
 
 SPORT is a Simple Phyisics-ORienTed graphics engine written in Java 1.8.
@@ -21,6 +31,10 @@ In addition to [Libbulletjme],
 it uses [LWJGL], [Assimp], [GLFW], [JOML], and [OpenGL].
 It has been tested on Windows, Linux, and macOS.
 
+[Jump to table of contents](#toc)
+
+
+<a name="build"></a>
 
 ## How to build and run LbjExamples from source
 
@@ -80,6 +94,9 @@ To run the chooser:
 You can restore the project to a pristine state:
 + using Bash or PowerShell or Zsh: `./gradlew clean`
 + using Windows Command Prompt: `.\gradlew clean`
+
+
+[Jump to table of contents](#toc)
 
 
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
