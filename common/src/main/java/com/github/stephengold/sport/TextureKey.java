@@ -44,7 +44,6 @@ import jme3utilities.MyString;
 import jme3utilities.Validate;
 import org.joml.Vector4fc;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11C;
 
 /**
  * Used to load and cache textures. Note: immutable.
@@ -585,25 +584,6 @@ public class TextureKey {
         Texture result = new Texture(this, width, height, data);
 
         return result;
-    }
-
-    /**
-     * Verify that the argument is a valid OpenGL code for a magnification
-     * filter.
-     *
-     * @param filter the value to test
-     * @return true (for use in assertions)
-     * @throws IllegalArgumentException for an invalid code
-     */
-    private static boolean validateMagFilter(int filter) {
-        switch (filter) {
-            case GL11C.GL_NEAREST:
-            case GL11C.GL_LINEAR:
-                return true;
-
-            default:
-                throw new IllegalArgumentException("filter = " + filter);
-        }
     }
 
     /**
