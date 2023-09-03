@@ -93,6 +93,15 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      */
     public T physicsSpace;
     // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    protected BasePhysicsApp() {
+        // do nothing
+    }
+    // *************************************************************************
     // new methods exposed
 
     /**
