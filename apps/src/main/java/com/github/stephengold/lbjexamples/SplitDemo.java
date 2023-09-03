@@ -156,6 +156,7 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        Logger.getLogger("").setLevel(Level.WARNING);
         SplitDemo application = new SplitDemo();
         application.start();
     }

@@ -53,6 +53,8 @@ import com.jme3.math.Transform;
 import com.jme3.math.Vector3f;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVector3f;
 import org.lwjgl.glfw.GLFW;
@@ -122,6 +124,7 @@ public class Windlass
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        Logger.getLogger("").setLevel(Level.WARNING);
         Windlass application = new Windlass();
         application.start();
     }
