@@ -87,7 +87,6 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
      */
     final private static Map<ShapeSummary, Mesh> meshCache
             = new WeakHashMap<>(200);
-    //private PhysicsThread physicsThread;
     /**
      * space for physics simulation
      */
