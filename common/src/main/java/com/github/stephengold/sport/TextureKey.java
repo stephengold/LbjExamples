@@ -29,7 +29,6 @@
  */
 package com.github.stephengold.sport;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -39,7 +38,6 @@ import java.net.URL;
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.Map;
-import javax.imageio.ImageIO;
 import jme3utilities.MyString;
 import jme3utilities.Validate;
 import org.joml.Vector4fc;
@@ -249,14 +247,7 @@ public class TextureKey {
                 }
             }
 
-            try {
-                result = textureFromStream(stream);
-            } catch (IOException exception) {
-                String q = MyString.quote(uri.toString());
-                String message
-                        = "URI = " + q + System.lineSeparator() + exception;
-                throw new RuntimeException(message, exception);
-            }
+            result = Texture.newInstance(stream, this);
         }
 
         return result;
@@ -559,48 +550,6 @@ public class TextureKey {
                 throw new IllegalArgumentException(
                         "path=" + qPath + ", query=" + qQuery);
         }
-        return result;
-    }
-
-    /**
-     * Load image data from the specified stream and create a Texture from it.
-     *
-     * @param stream the input stream (not null)
-     * @return a new instance
-     *
-     * @throws IOException from the stream
-     */
-    private Texture textureFromStream(InputStream stream) throws IOException {
-        ImageIO.setUseCache(false);
-        BufferedImage image = ImageIO.read(stream);
-
-        int width = image.getWidth();
-        int height = image.getHeight();
-        int floatsPerTexel = 4;
-        int numFloats = width * height * floatsPerTexel;
-        FloatBuffer data = BufferUtils.createFloatBuffer(numFloats);
-
-        for (int y = 0; y < height; ++y) {
-            for (int x = 0; x < width; ++x) {
-                int srgbPixel = image.getRGB(x, y);
-                double red = ((srgbPixel >> 16) & 0xFF) / 255.0;
-                double green = ((srgbPixel >> 8) & 0xFF) / 255.0;
-                double blue = (srgbPixel & 0xFF) / 255.0;
-
-                // Linearize the pixel's color channels.
-                float r = (float) Math.pow(red, 2.2);
-                float g = (float) Math.pow(green, 2.2);
-                float b = (float) Math.pow(blue, 2.2);
-
-                float a = ((srgbPixel >> 24) & 0xFF) / 255f;
-                data.put(r).put(g).put(b).put(a);
-            }
-        }
-        data.flip();
-        assert data.limit() == data.capacity();
-
-        Texture result = new Texture(this, width, height, data);
-
         return result;
     }
 
