@@ -228,35 +228,37 @@ public class TextureKey {
             String path = uri.getPath();
             String query = uri.getQuery();
             result = synthesizeTexture(path, query);
-            return result;
-        }
 
-        InputStream stream;
-        if (scheme.equals("classpath")) {
-            String path = uri.getPath();
-            stream = Utils.class.getResourceAsStream(path);
+        } else {
+            InputStream stream;
+            if (scheme.equals("classpath")) {
+                String path = uri.getPath();
+                stream = Utils.class.getResourceAsStream(path);
 
-        } else { // The URI must also be a URL.
-            URL url;
-            try {
-                url = uri.toURL();
-            } catch (MalformedURLException exception) {
-                throw new RuntimeException(exception);
+            } else { // The URI must also be a URL.
+                URL url;
+                try {
+                    url = uri.toURL();
+                } catch (MalformedURLException exception) {
+                    throw new RuntimeException(exception);
+                }
+                try {
+                    stream = url.openStream();
+                } catch (IOException exception) {
+                    throw new RuntimeException(exception);
+                }
             }
+
             try {
-                stream = url.openStream();
+                result = textureFromStream(stream);
             } catch (IOException exception) {
-                throw new RuntimeException(exception);
+                String q = MyString.quote(uri.toString());
+                String message
+                        = "URI = " + q + System.lineSeparator() + exception;
+                throw new RuntimeException(message, exception);
             }
         }
 
-        try {
-            result = textureFromStream(stream);
-        } catch (IOException exception) {
-            String q = MyString.quote(uri.toString());
-            String message = "URI = " + q + System.lineSeparator() + exception;
-            throw new RuntimeException(message, exception);
-        }
         return result;
     }
 
