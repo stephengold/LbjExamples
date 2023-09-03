@@ -159,6 +159,8 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         } else {
             this.texCoordsBuffer = null;
         }
+
+        assert mutable;
     }
 
     /**
