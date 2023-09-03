@@ -68,7 +68,7 @@ abstract public class BaseApplication {
      * viewpoint for 3-D rendering (initially at z=10, looking toward the
      * origin)
      */
-    protected static Camera cam
+    final protected static Camera cam
             = new Camera(new Vector3f(0f, 0f, 10f), -FastMath.HALF_PI, 0f);
     /**
      * process user input to control the camera
