@@ -95,6 +95,7 @@ You can restore the project to a pristine state:
 + using Bash or PowerShell or Zsh: `./gradlew clean`
 + using Windows Command Prompt: `.\gradlew clean`
 
+Note:  these commands will delete any downloaded native libraries.
 
 [Jump to table of contents](#toc)
 
