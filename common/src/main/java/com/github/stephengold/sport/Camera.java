@@ -77,13 +77,6 @@ public class Camera {
     // constructors
 
     /**
-     * Instantiate a camera in the default position.
-     */
-    public Camera() {
-        updateDirectionVectors();
-    }
-
-    /**
      * Instantiate a camera in the specified position.
      *
      * @param location the desired eye location (in worldspace, not null,
