@@ -33,7 +33,6 @@ import com.github.stephengold.sport.input.CameraInputProcessor;
 import com.github.stephengold.sport.input.InputManager;
 import com.github.stephengold.sport.input.InputProcessor;
 import com.jme3.math.FastMath;
-import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Deque;
@@ -47,13 +46,7 @@ import org.lwjgl.glfw.Callbacks;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11C;
-import org.lwjgl.opengl.GL13C;
-import org.lwjgl.opengl.GL30C;
-import org.lwjgl.opengl.GL32C;
-import org.lwjgl.opengl.GLUtil;
-import org.lwjgl.system.Callback;
 import org.lwjgl.system.Configuration;
 import org.lwjgl.system.MemoryUtil;
 
@@ -66,22 +59,12 @@ abstract public class BaseApplication {
     // constants
 
     /**
-     * mask size for multisample anti-aliasing (MSAA) if &ge;2, or 0 to disable
-     * MSAA
-     */
-    final private static int requestMsaaSamples = 4;
-    /**
      * name of the graphics engine
      */
     final public static String engineName = "Sport";
     // *************************************************************************
     // fields
 
-    /**
-     * print OpenGL debugging information (typically to the console) or null if
-     * not created
-     */
-    private static Callback debugMessengerCallback;
     /**
      * viewpoint for 3-D rendering (initially at z=10, looking toward the
      * origin)
@@ -495,10 +478,6 @@ abstract public class BaseApplication {
      * Destroy the window and cleanly terminate GLFW.
      */
     private static void cleanUpGlfw() {
-        if (debugMessengerCallback != null) {
-            debugMessengerCallback.free();
-        }
-
         Callbacks.glfwFreeCallbacks(windowHandle);
         GLFW.glfwDestroyWindow(windowHandle);
         GLFW.glfwTerminate();
@@ -517,41 +496,7 @@ abstract public class BaseApplication {
         // Create and initialize the InputManager.
         inputManager = new InputManager(windowHandle);
 
-        // Use the new window as the current OpenGL context.
-        GLFW.glfwMakeContextCurrent(windowHandle);
-
-        // Make the window visible.
-        GLFW.glfwShowWindow(windowHandle);
-
-        GL.createCapabilities();
-        Utils.checkForOglError();
-
-        if (Internals.isDebuggingEnabled()) {
-            debugMessengerCallback = GLUtil.setupDebugMessageCallback();
-            Utils.checkForOglError();
-            // If no debug mode is available, the callback remains null.
-        }
-
-        if (requestMsaaSamples == 0) {
-            Utils.setOglCapability(GL13C.GL_MULTISAMPLE, false);
-            Utils.checkForOglError();
-        }
-        printMsaaStatus(System.out);
-
-        Utils.setOglCapability(GL11C.GL_DEPTH_TEST, true);
-        /*
-         * Encode fragment colors for sRGB
-         * before writing them to the framebuffer.
-         *
-         * This displays reasonably accurate colors
-         * when fragment colors are generated in the Linear colorspace.
-         */
-        Utils.setOglCapability(GL30C.GL_FRAMEBUFFER_SRGB, true);
-
-        // Enable point sizes so we can render sprites.
-        Utils.setOglCapability(GL32C.GL_PROGRAM_POINT_SIZE, true);
-
-        ShaderProgram.initializeStaticData();
+        Internals.initializeOpenGL(windowHandle);
 
         setBackgroundColor(Constants.DARK_GRAY);
 
@@ -610,22 +555,6 @@ abstract public class BaseApplication {
 
         GLFW.glfwDefaultWindowHints();
 
-        GLFW.glfwWindowHint(
-                GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);     // default=TRUE
-        //GLFW.glfwWindowHint(
-        //        GLFW.GLFW_RESIZABLE, GLFW.GLFW_FALSE); // default=TRUE
-        GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, requestMsaaSamples); // default=0
-        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
-        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 3);
-        if (Internals.isDebuggingEnabled()) {
-            GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_DEBUG_CONTEXT,
-                    GLFW.GLFW_TRUE); // default=FALSE
-        }
-        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE,
-                GLFW.GLFW_OPENGL_CORE_PROFILE); // default=OPENGL_ANY_PROFILE
-        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT,
-                GLFW.GLFW_TRUE); // default=FALSE (set TRUE to please macOS)
-
         // Create the window:
         int width = Internals.framebufferWidth();
         int height = Internals.framebufferHeight();
@@ -655,28 +584,6 @@ abstract public class BaseApplication {
         while (!GLFW.glfwWindowShouldClose(windowHandle)) {
             updateBase();
         }
-    }
-
-    /**
-     * Print the MSAA configuration to the specified stream.
-     *
-     * @param stream stream for output (not null)
-     */
-    private static void printMsaaStatus(PrintStream stream) {
-        boolean isMsaa = GL11C.glIsEnabled(GL13C.GL_MULTISAMPLE);
-        Utils.checkForOglError();
-
-        stream.printf("Requested %d MSAA samples; multisample is ",
-                requestMsaaSamples);
-        if (isMsaa) {
-            int[] tmpArray = new int[1];
-            GL11C.glGetIntegerv(GL13C.GL_SAMPLES, tmpArray);
-            Utils.checkForOglError();
-            stream.printf("enabled, with samples=%d.%n", tmpArray[0]);
-        } else {
-            stream.println("disabled.");
-        }
-        stream.flush();
     }
 
     /**

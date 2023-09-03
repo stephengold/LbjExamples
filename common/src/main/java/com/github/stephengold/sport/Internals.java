@@ -29,10 +29,18 @@
  */
 package com.github.stephengold.sport;
 
+import java.io.PrintStream;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashSet;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11C;
+import org.lwjgl.opengl.GL13C;
+import org.lwjgl.opengl.GL30C;
+import org.lwjgl.opengl.GL32C;
+import org.lwjgl.opengl.GLUtil;
+import org.lwjgl.system.Callback;
 
 /**
  * Utility methods and static data that are internal to the SPORT library,
@@ -41,6 +49,14 @@ import org.lwjgl.opengl.GL11C;
  * @author Stephen Gold sgold@sonic.net
  */
 final class Internals {
+    // *************************************************************************
+    // constants
+
+    /**
+     * mask size for multisample anti-aliasing (MSAA) if &ge;2, or 0 to disable
+     * MSAA
+     */
+    final private static int requestMsaaSamples = 4;
     // *************************************************************************
     // fields
 
@@ -53,6 +69,11 @@ final class Internals {
      * true after {@code start()} has been invoked
      */
     private static boolean hasStarted = false;
+    /**
+     * print OpenGL debugging information (typically to the console) or null if
+     * not created
+     */
+    private static Callback debugMessengerCallback;
     /**
      * currently active global uniforms
      */
@@ -118,6 +139,49 @@ final class Internals {
     }
 
     /**
+     * Initialize OpenGL on the specified window.
+     *
+     * @param windowHandle the handle of a new GLFW window (not null)
+     */
+    static void initializeOpenGL(long windowHandle) {
+        // Use the new window as the current OpenGL context.
+        GLFW.glfwMakeContextCurrent(windowHandle);
+
+        // Make the window visible.
+        GLFW.glfwShowWindow(windowHandle);
+
+        GL.createCapabilities();
+        Utils.checkForOglError();
+
+        if (isDebuggingEnabled()) {
+            debugMessengerCallback = GLUtil.setupDebugMessageCallback();
+            Utils.checkForOglError();
+            // If no debug mode is available, the callback remains null.
+        }
+
+        if (requestMsaaSamples == 0) {
+            Utils.setOglCapability(GL13C.GL_MULTISAMPLE, false);
+            Utils.checkForOglError();
+        }
+        printMsaaStatus(System.out);
+
+        Utils.setOglCapability(GL11C.GL_DEPTH_TEST, true);
+        /*
+         * Encode fragment colors for sRGB
+         * before writing them to the framebuffer.
+         *
+         * This displays reasonably accurate colors
+         * when fragment colors are generated in the Linear colorspace.
+         */
+        Utils.setOglCapability(GL30C.GL_FRAMEBUFFER_SRGB, true);
+
+        // Enable point sizes so we can render sprites.
+        Utils.setOglCapability(GL32C.GL_PROGRAM_POINT_SIZE, true);
+
+        ShaderProgram.initializeStaticData();
+    }
+
+    /**
      * Test whether the debugging aids should be enabled.
      *
      * @return true if enabled, otherwise false
@@ -179,6 +243,28 @@ final class Internals {
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * Print the MSAA configuration to the specified stream.
+     *
+     * @param stream stream for output (not null)
+     */
+    private static void printMsaaStatus(PrintStream stream) {
+        boolean isMsaa = GL11C.glIsEnabled(GL13C.GL_MULTISAMPLE);
+        Utils.checkForOglError();
+
+        stream.printf("Requested %d MSAA samples; multisample is ",
+                requestMsaaSamples);
+        if (isMsaa) {
+            int[] tmpArray = new int[1];
+            GL11C.glGetIntegerv(GL13C.GL_SAMPLES, tmpArray);
+            Utils.checkForOglError();
+            stream.printf("enabled, with samples=%d.%n", tmpArray[0]);
+        } else {
+            stream.println("disabled.");
+        }
+        stream.flush();
+    }
 
     /**
      * Update the global uniform variables of all active programs.
