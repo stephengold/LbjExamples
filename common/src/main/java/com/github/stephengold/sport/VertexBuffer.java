@@ -314,10 +314,10 @@ final public class VertexBuffer {
         VertexBuffer result = newInstance(attribName, fpv, numVertices);
 
         FloatBuffer data = result.getData();
-        for (int i = 0; i < floatArray.length; ++i) {
-            float fValue = floatArray[i];
-            data.put(i, fValue);
+        for (float fValue : floatArray) {
+            data.put(fValue);
         }
+        data.flip();
 
         return result;
     }
@@ -342,6 +342,7 @@ final public class VertexBuffer {
             float fValue = floatBuffer.get(i);
             data.put(i, fValue);
         }
+        data.flip();
 
         return result;
     }
