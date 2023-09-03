@@ -29,7 +29,6 @@
  */
 package com.github.stephengold.sport;
 
-import com.jme3.math.Quaternion;
 import com.jme3.util.BufferUtils;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -40,7 +39,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import jme3utilities.MyString;
-import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
 import org.joml.Vector4f;
@@ -330,18 +328,6 @@ final public class Utils {
     public static com.jme3.math.Vector3f toJmeVector(Vector3fc vector3f) {
         com.jme3.math.Vector3f result = new com.jme3.math.Vector3f(
                 vector3f.x(), vector3f.y(), vector3f.z());
-        return result;
-    }
-
-    /**
-     * Copy the specified JME quaternion to a JOML quaternion.
-     *
-     * @param quat the JME quaternion to copy (not null, unaffected)
-     * @return a new JOML quaternion (not null)
-     */
-    public static Quaternionf toJomlQuat(Quaternion quat) {
-        Quaternionf result = new Quaternionf(
-                quat.getX(), quat.getY(), quat.getZ(), quat.getW());
         return result;
     }
 
