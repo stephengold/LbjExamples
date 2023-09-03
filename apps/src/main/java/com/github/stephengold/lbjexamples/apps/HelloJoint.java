@@ -30,6 +30,7 @@
 package com.github.stephengold.lbjexamples.apps;
 
 import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.Projection;
 import com.github.stephengold.sport.TextureKey;
 import com.github.stephengold.sport.input.RotateMode;
 import com.github.stephengold.sport.physics.BasePhysicsApp;
@@ -165,10 +166,10 @@ public class HelloJoint
         // Calculate the ground location (if any) indicated by the mouse cursor.
         Vector2fc screenXy = getInputManager().locateCursor();
         if (screenXy != null) {
-            float nearZ = -1f;
-            Vector3f nearLocation = cam.clipToWorld(screenXy, nearZ, null);
-            float farZ = +1f;
-            Vector3f farLocation = cam.clipToWorld(screenXy, farZ, null);
+            Vector3f nearLocation
+                    = cam.clipToWorld(screenXy, Projection.nearClipZ, null);
+            Vector3f farLocation
+                    = cam.clipToWorld(screenXy, Projection.farClipZ, null);
             if (nearLocation.y > groundY && farLocation.y < groundY) {
                 float dy = nearLocation.y - farLocation.y;
                 float t = (nearLocation.y - groundY) / dy;
