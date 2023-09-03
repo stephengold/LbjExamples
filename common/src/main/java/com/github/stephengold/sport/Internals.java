@@ -248,7 +248,6 @@ final class Internals {
         for (Geometry geometry : deferredQueue) {
             assert visibleGeometries.contains(geometry);
             assert !geometry.isDepthTest();
-
             geometry.updateAndRender();
             assert !geometry.isDepthTest();
         }
