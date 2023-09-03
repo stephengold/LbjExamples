@@ -133,27 +133,13 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         }
 
         // position buffer:
-        this.positionBuffer = VertexBuffer.newInstance(
-                ShaderProgram.positionAttribName, numAxes, vertexCount);
-        FloatBuffer floatBuffer = positionBuffer.getData();
-        for (Vertex vertex : vertices) {
-            vertex.writePositionTo(floatBuffer);
-        }
-        floatBuffer.flip();
-
+        this.positionBuffer = VertexBuffer.newPosition(vertices);
         Vertex representativeVertex = vertices.get(0);
 
         // color buffer:
         boolean hasColor = representativeVertex.hasColor();
         if (hasColor) {
-            this.colorBuffer = VertexBuffer.newInstance(
-                    ShaderProgram.colorAttribName, 3, vertexCount);
-            floatBuffer = colorBuffer.getData();
-            for (Vertex vertex : vertices) {
-                vertex.writeColorTo(floatBuffer);
-            }
-            floatBuffer.flip();
-
+            this.colorBuffer = VertexBuffer.newColor(vertices);
         } else {
             this.colorBuffer = null;
         }
@@ -161,14 +147,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         // normal buffer:
         boolean hasNormal = representativeVertex.hasNormal();
         if (hasNormal) {
-            this.normalBuffer = VertexBuffer.newInstance(
-                    ShaderProgram.normalAttribName, numAxes, vertexCount);
-            floatBuffer = normalBuffer.getData();
-            for (Vertex vertex : vertices) {
-                vertex.writeNormalTo(floatBuffer);
-            }
-            floatBuffer.flip();
-
+            this.normalBuffer = VertexBuffer.newNormal(vertices);
         } else {
             this.normalBuffer = null;
         }
@@ -176,14 +155,7 @@ public class Mesh implements jme3utilities.lbj.Mesh {
         // texture-coordinates buffer:
         boolean hasTexCoords = representativeVertex.hasTexCoords();
         if (hasTexCoords) {
-            this.texCoordsBuffer = VertexBuffer.newInstance(
-                    ShaderProgram.uvAttribName, 2, vertexCount);
-            floatBuffer = texCoordsBuffer.getData();
-            for (Vertex vertex : vertices) {
-                vertex.writeTexCoordsTo(floatBuffer);
-            }
-            floatBuffer.flip();
-
+            this.texCoordsBuffer = VertexBuffer.newTexCoords(vertices);
         } else {
             this.texCoordsBuffer = null;
         }
