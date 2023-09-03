@@ -496,10 +496,18 @@ abstract public class BaseApplication {
     private static void cleanUpGlfw() {
         Internals.freeDebugMessengerCallback();
 
-        Callbacks.glfwFreeCallbacks(windowHandle);
-        GLFW.glfwDestroyWindow(windowHandle);
+        if (windowHandle != MemoryUtil.NULL) {
+            Callbacks.glfwFreeCallbacks(windowHandle);
+            GLFW.glfwDestroyWindow(windowHandle);
+            windowHandle = MemoryUtil.NULL;
+        }
         GLFW.glfwTerminate();
-        GLFW.glfwSetErrorCallback(null).free();
+
+        // Cancel the error callback:
+        GLFWErrorCallback errorCallback = GLFW.glfwSetErrorCallback(null);
+        if (errorCallback != null) {
+            errorCallback.free();
+        }
     }
 
     /**
