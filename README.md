@@ -22,7 +22,7 @@ it uses [LWJGL], [Assimp], [GLFW], [JOML], and [OpenGL].
 It has been tested on Windows, Linux, and macOS.
 
 
-## How to build and run LbjExamples
+## How to build and run LbjExamples from source
 
 ### Initial build
 
