@@ -154,7 +154,7 @@ final class AppChooser extends JFrame {
         new AppChooser(apps);
     }
 
-    private AppChooser(List<BaseApplication> apps) {
+    private AppChooser(List<? extends BaseApplication> apps) {
         setTitle("LbjExamples AppChooser");
         setSize(500, 100);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
