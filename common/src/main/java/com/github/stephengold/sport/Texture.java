@@ -29,8 +29,15 @@
  */
 package com.github.stephengold.sport;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
 import java.nio.FloatBuffer;
+import javax.imageio.ImageIO;
+import jme3utilities.MyString;
 import jme3utilities.Validate;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.EXTTextureFilterAnisotropic;
 import org.lwjgl.opengl.GL11C;
 import org.lwjgl.opengl.GL30C;
@@ -132,6 +139,30 @@ class Texture {
     // new methods exposed
 
     /**
+     * Create a texture from the specified InputStream.
+     *
+     * @param stream the stream to read from (not null)
+     * @param key the key for this texture (not null)
+     * @return a new texture (not null)
+     */
+    static Texture newInstance(InputStream stream, TextureKey key) {
+        ImageIO.setUseCache(false);
+        BufferedImage image;
+        try {
+            image = ImageIO.read(stream);
+
+        } catch (IOException exception) {
+            URI uri = key.uri();
+            String q = MyString.quote(uri.toString());
+            String message = "URI=" + q + System.lineSeparator() + exception;
+            throw new RuntimeException(message, exception);
+        }
+
+        Texture result = newInstance(image, key);
+        return result;
+    }
+
+    /**
      * Prepare the texture for rendering with the specified texture unit.
      *
      * @param unitNumber which texture unit to use (&ge;0, &le;31)
@@ -144,6 +175,59 @@ class Texture {
     }
     // *************************************************************************
     // private methods
+
+    /**
+     * Create a texture from the specified BufferedImage.
+     *
+     * @param image the image to use (not null)
+     * @param key the key for this texture (not null)
+     * @return a new instance (not null)
+     */
+    private static Texture newInstance(BufferedImage image, TextureKey key) {
+        /*
+         * Note: loading with AWT instead of STB
+         * (which doesn't handle InputStream input).
+         */
+        int numChannels = 4;
+        int w = image.getWidth();
+        int h = image.getHeight();
+        int numFloats = w * h * numChannels;
+        FloatBuffer data = BufferUtils.createFloatBuffer(numFloats);
+        /*
+         * Copy pixel-by-pixel from the BufferedImage, in row-major
+         * order, starting from uv=(0,0).
+         *
+         * In an AWT BufferedImage, xy=(0,0) is in the upper left, hence
+         * we often want FlipAxes.flipY.
+         */
+        for (int uu = 0; uu < h; ++uu) { // row index starting from U=0
+            int y;
+            if (key.flipAxes() == FlipAxes.flipY) {
+                y = h - uu - 1;
+            } else {
+                y = uu;
+            }
+
+            for (int x = 0; x < w; ++x) { // column index
+                int srgb = image.getRGB(x, y);
+                double red = ((srgb >> 16) & 0xFF) / 255.0;
+                double green = ((srgb >> 8) & 0xFF) / 255.0;
+                double blue = (srgb & 0xFF) / 255.0;
+
+                // Linearize the pixel's color channels.
+                float r = (float) Math.pow(red, 2.2);
+                float g = (float) Math.pow(green, 2.2);
+                float b = (float) Math.pow(blue, 2.2);
+
+                float a = ((srgb >> 24) & 0xFF) / 255f;
+                data.put(r).put(g).put(b).put(a);
+            }
+        }
+        data.flip();
+
+        Texture result = new Texture(key, w, h, data);
+        return result;
+    }
 
     /**
      * Alter the value of a texture parameter.
