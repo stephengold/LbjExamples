@@ -187,10 +187,6 @@ public class Mesh implements jme3utilities.lbj.Mesh {
      */
     protected Mesh(Topology topology, FloatBuffer positionsBuffer) {
         this(topology, positionsBuffer.capacity() / numAxes);
-        int capacity = positionsBuffer.capacity();
-        positionsBuffer.rewind();
-        positionsBuffer.limit(capacity);
-
         this.positionBuffer = VertexBuffer.newInstance(
                 ShaderProgram.positionAttribName, numAxes, positionsBuffer);
     }
