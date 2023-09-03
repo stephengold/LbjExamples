@@ -543,7 +543,7 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
         }
     }
 
-    private void togglePause() {
+    private static void togglePause() {
         physicsSpeed = (physicsSpeed <= PAUSED_SPEED) ? 1f : PAUSED_SPEED;
     }
 

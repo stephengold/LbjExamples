@@ -64,7 +64,7 @@ public class TestGearJoint
     /**
      * simulation speed (simulated seconds per wall-clock second)
      */
-    private float physicsSpeed = 1f;
+    private static float physicsSpeed = 1f;
     /**
      * input signal: 1&rarr;apply +Y torque to the driveshaft
      */
@@ -246,7 +246,7 @@ public class TestGearJoint
         });
     }
 
-    private void togglePause() {
+    private static void togglePause() {
         physicsSpeed = (physicsSpeed <= PAUSED_SPEED) ? 1f : PAUSED_SPEED;
     }
 }
