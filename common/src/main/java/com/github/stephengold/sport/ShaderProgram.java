@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import jme3utilities.MyString;
+import jme3utilities.Validate;
 import jme3utilities.math.MyVector3f;
 import org.joml.Matrix3fc;
 import org.joml.Matrix4fc;
@@ -139,7 +140,7 @@ class ShaderProgram {
      * empty)
      */
     ShaderProgram(String programName) {
-        assert programName != null;
+        Validate.nonEmpty(programName, "program name");
         this.programName = programName;
         // Defer program-object creation until use().
     }
