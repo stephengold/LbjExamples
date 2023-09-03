@@ -68,15 +68,15 @@ public class TestGearJoint
     /**
      * input signal: 1&rarr;apply +Y torque to the driveshaft
      */
-    private int signalCcw;
+    private static int signalCcw;
     /**
      * input signal: 1&rarr;apply -Y torque to the driveshaft
      */
-    private int signalCw;
+    private static int signalCw;
     /**
      * subject body to which torques are applied
      */
-    private PhysicsRigidBody driveshaft;
+    private static PhysicsRigidBody driveshaft;
     // *************************************************************************
     // new methods exposed
 
