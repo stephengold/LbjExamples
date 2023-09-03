@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@ import org.joml.Vector4f;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class LightColor extends GlobalUniform {
+class LightColor extends GlobalUniform {
     // *************************************************************************
     // fields
 
@@ -63,7 +63,7 @@ public class LightColor extends GlobalUniform {
      * @param green the green component of the desired color (default=1)
      * @param blue the blue component of the desired color (default=1)
      */
-    public static void set(float red, float blue, float green) {
+    static void set(float red, float blue, float green) {
         value.set(red, green, blue, 1f);
     }
     // *************************************************************************

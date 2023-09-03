@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -37,7 +37,7 @@ import jme3utilities.math.MyVector3f;
  *
  * @author Stephen Gold sgold@sonic.net
  */
-public class LightDirection extends GlobalUniform {
+class LightDirection extends GlobalUniform {
     // *************************************************************************
     // fields
 
@@ -64,7 +64,7 @@ public class LightDirection extends GlobalUniform {
      * @param y the Y component of the desired direction
      * @param z the Z component of the desired direction
      */
-    public static void set(float x, float y, float z) {
+    static void set(float x, float y, float z) {
         value.set(x, y, z);
         MyVector3f.normalizeLocal(value);
     }
