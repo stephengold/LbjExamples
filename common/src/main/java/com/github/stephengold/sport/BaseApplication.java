@@ -297,6 +297,16 @@ abstract public class BaseApplication {
     }
 
     /**
+     * Alter whether the debugging aids are enabled. Not allowed after
+     * {@code start()} is invoked.
+     *
+     * @param newSetting true to enable, false to disable (default=false)
+     */
+    protected static void setDebuggingEnabled(boolean newSetting) {
+        Internals.setDebuggingEnabled(newSetting);
+    }
+
+    /**
      * Alter the "VSync" setting.
      *
      * @param newSetting true to await a monitor retrace before swapping
@@ -334,6 +344,8 @@ abstract public class BaseApplication {
      */
     public void start(
             String appName, int appMajor, int appMinor, int appPatch) {
+        Internals.start();
+
         // Generate the initial text for the window's title bar:
         String title;
         if (appMajor == 0 && appMinor == 0 && appPatch == 0) {

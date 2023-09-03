@@ -42,16 +42,17 @@ import org.lwjgl.opengl.GL11C;
  */
 final class Internals {
     // *************************************************************************
-    // constants
+    // fields
 
     /**
      * true to enable debugging output and optional runtime checks, or false to
      * disable them
      */
-    final private static boolean enableDebugging = false;
-    // *************************************************************************
-    // fields
-
+    private static boolean enableDebugging = false;
+    /**
+     * true after {@code start()} has been invoked
+     */
+    private static boolean hasStarted = false;
     /**
      * currently active global uniforms
      */
@@ -152,6 +153,29 @@ final class Internals {
 
             geometry.updateAndRender();
         }
+    }
+
+    /**
+     * Alter whether the debugging aids are enabled. Not allowed after
+     * {@code start()} is invoked.
+     *
+     * @param newSetting true to enable, false to disable (default=false)
+     */
+    static void setDebuggingEnabled(boolean newSetting) {
+        if (hasStarted) {
+            throw new IllegalStateException(
+                    "Can't alter debug settings after start().");
+        } else {
+            enableDebugging = newSetting;
+        }
+    }
+
+    /**
+     * Finalize whether debugging is enabled.
+     */
+    static void start() {
+        assert !hasStarted;
+        hasStarted = true;
     }
     // *************************************************************************
     // private methods
