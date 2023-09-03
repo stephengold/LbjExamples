@@ -20,36 +20,44 @@ ext {
 // tasks to run specific apps:
 
 tasks.register('AppChooser', JavaExec) {
+    description 'Runs the AppChooser app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.AppChooser'
 }
 
 // physics demos
 tasks.register('ConveyorDemo', JavaExec) {
+    description 'Runs the ConveyorDemo app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.ConveyorDemo'
 }
 tasks.register('NewtonsCradle', JavaExec) {
+    description 'Runs the NewtonsCradle demo app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.NewtonsCradle'
 }
 tasks.register('Pachinko', JavaExec) {
+    description 'Runs the Pachinko demo app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.Pachinko'
 }
 tasks.register('SplitDemo', JavaExec) {
+    description 'Runs the SplitDemo app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.SplitDemo'
 }
 tasks.register('TestGearJoint', JavaExec) {
+    description 'Runs the TestGearJoint app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.TestGearJoint'
 }
 tasks.register('ThousandCubes', JavaExec) {
+    description 'Runs the ThousandCubes demo app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.ThousandCubes'
 }
 tasks.register('Windlass', JavaExec) {
+    description 'Runs the Windlass demo app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.Windlass'
 }
@@ -78,70 +86,87 @@ tasks.register('SpeedTest2', JavaExec) {
 
 // physics tutorial apps (very simple)
 tasks.register('HelloCcd', JavaExec) {
+    description 'Runs the HelloCcd tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCcd'
 }
 tasks.register('HelloCharacter', JavaExec) {
+    description 'Runs the HelloCharacter tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCharacter'
 }
 tasks.register('HelloCloth', JavaExec) {
+    description 'Runs the HelloCloth tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCloth'
 }
 tasks.register('HelloContactResponse', JavaExec) {
+    description 'Runs the HelloContactResponse tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloContactResponse'
 }
 tasks.register('HelloDamping', JavaExec) {
+    description 'Runs the HelloDamping tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDamping'
 }
 tasks.register('HelloDeactivation', JavaExec) {
+    description 'Runs the HelloDeactivation tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDeactivation'
 }
 tasks.register('HelloDoubleEnded', JavaExec) {
+    description 'Runs the HelloDoubleEnded tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDoubleEnded'
 }
 tasks.register('HelloGhost', JavaExec) {
+    description 'Runs the HelloGhost tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloGhost'
 }
 tasks.register('HelloJoint', JavaExec) {
+    description 'Runs the HelloJoint tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloJoint'
 }
 tasks.register('HelloKinematics', JavaExec) {
+    description 'Runs the HelloKinematics tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloKinematics'
 }
 tasks.register('HelloLimit', JavaExec) {
+    description 'Runs the HelloLimit tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloLimit'
 }
 tasks.register('HelloMadMallet', JavaExec) {
+    description 'Runs the HelloMadMallet tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMadMallet'
 }
 tasks.register('HelloMassDistribution', JavaExec) {
+    description 'Runs the HelloMassDistribution tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMassDistribution'
 }
 tasks.register('HelloMinkowski', JavaExec) {
+    description 'Runs the HelloMinkowski tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMinkowski'
 }
 tasks.register('HelloMotor', JavaExec) {
+    description 'Runs the HelloMotor tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMotor'
 }
 tasks.register('HelloNonUniformGravity', JavaExec) {
+    description 'Runs the HelloNonUniformGravity tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloNonUniformGravity'
 }
 tasks.register('HelloPin', JavaExec) {
+    description 'Runs the HelloPin tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloPin'
 }
@@ -162,30 +187,37 @@ tasks.register('HelloSoftRope', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSoftRope'
 }
 tasks.register('HelloSoftSoft', JavaExec) {
+    description 'Runs the HelloSoftSoft tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSoftSoft'
 }
 tasks.register('HelloSport', JavaExec) {
+    description 'Runs the HelloSport tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSport'
 }
 tasks.register('HelloSpring', JavaExec) {
+    description 'Runs the HelloSpring tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSpring'
 }
 tasks.register('HelloStaticBody', JavaExec) {
+    description 'Runs the HelloStaticBody tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloStaticBody'
 }
 tasks.register('HelloVehicle', JavaExec) {
+    description 'Runs the HelloVehicle tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloVehicle'
 }
 tasks.register('HelloWalk', JavaExec) {
+    description 'Runs the HelloWalk tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWalk'
 }
 tasks.register('HelloWind', JavaExec) {
+    description 'Runs the HelloWind tutorial app.'
     enableAssertions true
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWind'
 }
