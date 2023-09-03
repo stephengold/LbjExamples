@@ -31,11 +31,13 @@ package com.github.stephengold.sport.physics;
 
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.Filter;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.NormalsOption;
 import com.github.stephengold.sport.TextureKey;
 import com.github.stephengold.sport.UvsOption;
+import com.github.stephengold.sport.WrapFunction;
 import com.jme3.bullet.PhysicsSpace;
 import com.jme3.bullet.collision.PhysicsCollisionObject;
 import com.jme3.bullet.collision.shapes.Box2dShape;
@@ -60,7 +62,6 @@ import java.util.WeakHashMap;
 import jme3utilities.Validate;
 import jme3utilities.math.MyVector3f;
 import org.joml.Vector4f;
-import org.lwjgl.opengl.GL11C;
 
 /**
  * An application to visualize 3-D physics.
@@ -196,8 +197,8 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
             );
             programName = "Phong/Distant/Texture";
             textureKey = new TextureKey("procedural:///checkerboard?size=128",
-                    GL11C.GL_LINEAR, GL11C.GL_NEAREST_MIPMAP_LINEAR,
-                    GL11C.GL_REPEAT, GL11C.GL_REPEAT, true, 16f);
+                    Filter.Linear, Filter.NearestMipmapLinear,
+                    WrapFunction.Repeat, WrapFunction.Repeat, true, 16f);
 
         } else if (shape instanceof SphereCollisionShape) {
             meshingStrategy = new MeshingStrategy(-3,
@@ -208,7 +209,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
             programName = "Phong/Distant/Texture";
             textureKey = new TextureKey(
                     "procedural:///checkerboard?size=2&color0=999999ff",
-                    GL11C.GL_NEAREST, GL11C.GL_NEAREST);
+                    Filter.Nearest, Filter.Nearest);
 
         } else {
             programName = "Phong/Distant/Monochrome";

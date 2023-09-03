@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -31,14 +31,14 @@ package com.github.stephengold.sport.physics;
 
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.Filter;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.TextureKey;
+import com.github.stephengold.sport.WrapFunction;
 import com.jme3.bullet.CollisionSpace;
 import com.jme3.bullet.objects.PhysicsSoftBody;
 import jme3utilities.Validate;
-import org.lwjgl.opengl.GL11C;
-import org.lwjgl.opengl.GL12C;
 
 /**
  * Visualize the pins of a soft body.
@@ -73,10 +73,10 @@ public class PinsGeometry extends Geometry {
         super.setProgram("Unshaded/Sprite");
 
         String resourceName = "/Textures/shapes/pin.png";
-        int magFilter = GL11C.GL_LINEAR;
-        int minFilter = GL11C.GL_NEAREST_MIPMAP_LINEAR;
-        int wrapU = GL12C.GL_CLAMP_TO_EDGE;
-        int wrapV = GL12C.GL_CLAMP_TO_EDGE;
+        Filter magFilter = Filter.Linear;
+        Filter minFilter = Filter.NearestMipmapLinear;
+        WrapFunction wrapU = WrapFunction.ClampToEdge;
+        WrapFunction wrapV = WrapFunction.ClampToEdge;
         boolean mipmaps = true;
         float maxAniso = 1f;
         TextureKey textureKey = new TextureKey("classpath://" + resourceName,

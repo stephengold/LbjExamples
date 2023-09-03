@@ -98,16 +98,16 @@ class Texture {
         GL11C.glBindTexture(target, textureName);
         Utils.checkForOglError();
 
-        int magFilter = key.magFilter();
+        int magFilter = key.magFilter().code();
         setTexParameter(GL11C.GL_TEXTURE_MAG_FILTER, magFilter);
 
-        int minFilter = key.minFilter();
+        int minFilter = key.minFilter().code();
         setTexParameter(GL11C.GL_TEXTURE_MIN_FILTER, minFilter);
 
-        int wrapS = key.wrapU();
+        int wrapS = key.wrapU().code();
         setTexParameter(GL11C.GL_TEXTURE_WRAP_S, wrapS);
 
-        int wrapT = key.wrapV();
+        int wrapT = key.wrapV().code();
         setTexParameter(GL11C.GL_TEXTURE_WRAP_T, wrapT);
 
         float maxAniso = key.maxAniso();

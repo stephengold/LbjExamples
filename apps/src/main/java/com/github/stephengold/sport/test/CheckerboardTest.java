@@ -31,6 +31,7 @@ package com.github.stephengold.sport.test;
 
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.Filter;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.TextureKey;
@@ -38,7 +39,6 @@ import com.github.stephengold.sport.UvsOption;
 import com.github.stephengold.sport.mesh.RectangleMesh;
 import com.jme3.math.Vector3f;
 import org.joml.Vector4f;
-import org.lwjgl.opengl.GL11C;
 
 /**
  * A simple graphics test: display a checkerboard using a texture generated in
@@ -97,7 +97,7 @@ public class CheckerboardTest extends BaseApplication {
 
         TextureKey textureKey = new TextureKey(
                 "procedural:///checkerboard?size=2&color1=ff00ff",
-                GL11C.GL_NEAREST, GL11C.GL_NEAREST);
+                Filter.Nearest, Filter.Nearest);
         squareGeometry.setTexture(textureKey);
     }
 

@@ -31,13 +31,13 @@ package com.github.stephengold.sport.test;
 
 import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Constants;
+import com.github.stephengold.sport.Filter;
 import com.github.stephengold.sport.Geometry;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.TextureKey;
 import com.github.stephengold.sport.Topology;
+import com.github.stephengold.sport.WrapFunction;
 import com.jme3.math.Vector3f;
-import org.lwjgl.opengl.GL11C;
-import org.lwjgl.opengl.GL12C;
 
 /**
  * A simple graphics test: draw point sprites in model space.
@@ -81,10 +81,10 @@ public class SpriteTest extends BaseApplication {
         Mesh pointsMesh = new Mesh(Topology.PointList, p0, p1);
 
         String resourceName = "/Textures/shapes/pin.png";
-        int magFilter = GL11C.GL_LINEAR;
-        int minFilter = GL11C.GL_NEAREST_MIPMAP_LINEAR;
-        int wrapU = GL12C.GL_CLAMP_TO_EDGE;
-        int wrapV = GL12C.GL_CLAMP_TO_EDGE;
+        Filter magFilter = Filter.Linear;
+        Filter minFilter = Filter.NearestMipmapLinear;
+        WrapFunction wrapU = WrapFunction.ClampToEdge;
+        WrapFunction wrapV = WrapFunction.ClampToEdge;
         boolean mipmaps = true;
         float maxAniso = 1f;
         TextureKey textureKey = new TextureKey("classpath://" + resourceName,

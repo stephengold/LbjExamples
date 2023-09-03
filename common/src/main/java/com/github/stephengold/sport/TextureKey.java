@@ -45,9 +45,6 @@ import jme3utilities.Validate;
 import org.joml.Vector4fc;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11C;
-import org.lwjgl.opengl.GL12C;
-import org.lwjgl.opengl.GL13C;
-import org.lwjgl.opengl.GL14C;
 
 /**
  * Used to load and cache textures. Note: immutable.
@@ -64,34 +61,50 @@ public class TextureKey {
     final private boolean mipmaps;
     private static boolean mipmapsDefault = true;
     /**
+     * filter to use when magnifying
+     */
+    final private Filter magFilter;
+    /**
+     * default magnifying filter
+     */
+    private static Filter magFilterDefault = Filter.Linear;
+    /**
+     * filter to use when minifying
+     */
+    final private Filter minFilter;
+    /**
+     * default minifying filter
+     */
+    private static Filter minFilterDefault = Filter.NearestMipmapLinear;
+    /**
+     * default setting for the {@code flipAxes} parameter (not null)
+     */
+    private static FlipAxes flipAxesDefault = FlipAxes.noFlip;
+    /**
      * maximum degree of anisotropic filtering
      */
     final private float maxAniso;
     private static float maxAnisoDefault = 1f;
     /**
-     * filter to use when magnifying
-     */
-    final private int magFilter;
-    private static int magFilterDefault = GL11C.GL_LINEAR;
-    /**
-     * filter to use when minifying
-     */
-    final private int minFilter;
-    private static int minFilterDefault = GL11C.GL_NEAREST_MIPMAP_LINEAR;
-    /**
-     * wrap function code for the first (U) texture coordinate
-     */
-    final private int wrapU;
-    private static int wrapUDefault = GL11C.GL_REPEAT;
-    /**
-     * wrap function code for the 2nd (V) texture coordinate
-     */
-    final private int wrapV;
-    private static int wrapVDefault = GL11C.GL_REPEAT;
-    /**
      * URI to load/generate image data
      */
     final private URI uri;
+    /**
+     * wrap function for the first (U) texture coordinate
+     */
+    final private WrapFunction wrapU;
+    /**
+     * default for the U-axis wrap function
+     */
+    private static WrapFunction wrapUDefault = WrapFunction.Repeat;
+    /**
+     * wrap function for the 2nd (V) texture coordinate
+     */
+    final private WrapFunction wrapV;
+    /**
+     * default for the V-axis wrap function
+     */
+    private static WrapFunction wrapVDefault = WrapFunction.Repeat;
     // *************************************************************************
     // constructors
 
@@ -123,13 +136,13 @@ public class TextureKey {
      *
      * @param uriString unparsed URI to load/generate image data (not null, not
      * empty)
-     * @param magFilter OpenGL filter to use when magnifying (default=GL_LINEAR)
-     * @param minFilter OpenGL filter to use when minifying
-     * (default=GL_NEAREST_MIPMAP_LINEAR)
+     * @param magFilter the filter to use when magnifying (default=Linear)
+     * @param minFilter the filter to use when minifying
+     * (default=NearestMipmapLinear)
      */
-    public TextureKey(String uriString, int magFilter, int minFilter) {
-        this(uriString, magFilter, minFilter,
-                wrapUDefault, wrapVDefault, mipmapsDefault, maxAnisoDefault);
+    public TextureKey(String uriString, Filter magFilter, Filter minFilter) {
+        this(uriString, magFilter, minFilter, wrapUDefault, wrapVDefault,
+                mipmapsDefault, maxAnisoDefault);
     }
 
     /**
@@ -137,24 +150,28 @@ public class TextureKey {
      *
      * @param uriString unparsed URI to load/generate image data (not null, not
      * empty)
-     * @param magFilter OpenGL filter to use when magnifying (default=GL_LINEAR)
-     * @param minFilter OpenGL filter to use when minifying
-     * (default=GL_NEAREST_MIPMAP_LINEAR)
-     * @param wrapU wrap function for the first (U) texture coordinate
-     * (default=GL_REPEAT)
-     * @param wrapV wrap function for the 2nd (V) texture coordinate
-     * (default=GL_REPEAT)
+     * @param magFilter the filter to use when magnifying (not null,
+     * default=Linear)
+     * @param minFilter the filter to use when minifying (not null,
+     * default=NearestMipmapLinear)
+     * @param wrapU the wrap function for the first (U) texture coordinate (not
+     * null, default=Repeat)
+     * @param wrapV the wrap function for the 2nd (V) texture coordinate (not
+     * null, default=Repeat)
      * @param mipmaps true to generate MIP maps, false to skip (default=true)
      * @param maxAniso the maximum degree of anisotropic filtering (&ge;1,
      * default=1)
      */
-    public TextureKey(String uriString, int magFilter, int minFilter, int wrapU,
-            int wrapV, boolean mipmaps, float maxAniso) {
+    public TextureKey(String uriString, Filter magFilter, Filter minFilter,
+            WrapFunction wrapU, WrapFunction wrapV, boolean mipmaps,
+            float maxAniso) {
         Validate.nonEmpty(uriString, "path");
-        validateMagFilter(magFilter);
-        validateMinFilter(minFilter);
-        validateWrap(wrapU);
-        validateWrap(wrapV);
+        Validate.nonNull(magFilter, "mag filter");
+        Validate.require(
+                magFilter.isValidForMagnification(), "valid mag filter");
+        Validate.nonNull(minFilter, "min filter");
+        Validate.nonNull(wrapU, "wrap u");
+        Validate.nonNull(wrapV, "wrap v");
         Validate.inRange(maxAniso, "max anisotropy", 1f, Float.MAX_VALUE);
 
         // It's better to report URI errors now than during load()!
@@ -224,9 +241,9 @@ public class TextureKey {
     /**
      * Return the filter to use when magnifying.
      *
-     * @return the OpenGL filter code
+     * @return an enum value (not null)
      */
-    public int magFilter() {
+    public Filter magFilter() {
         return magFilter;
     }
 
@@ -242,9 +259,9 @@ public class TextureKey {
     /**
      * Return the filter to use when minifying.
      *
-     * @return the OpenGL filter code
+     * @return an enum value (not null)
      */
-    public int minFilter() {
+    public Filter minFilter() {
         return minFilter;
     }
 
@@ -260,11 +277,13 @@ public class TextureKey {
     /**
      * Alter the default magnification filter for new texture keys.
      *
-     * @param filter the OpenGL magnification filter code to be assigned
-     * (default=GL_LINEAR)
+     * @param filter the enum value of the filter to use (not null,
+     * default=Linear)
      */
-    public static void setDefaultMagFilter(int filter) {
-        validateMagFilter(filter);
+    public static void setDefaultMagFilter(Filter filter) {
+        Validate.nonNull(filter, "filter");
+        Validate.require(filter.isValidForMagnification(), "valid filter");
+
         magFilterDefault = filter;
     }
 
@@ -281,11 +300,11 @@ public class TextureKey {
     /**
      * Alter the default minification filter for new texture keys.
      *
-     * @param filter the OpenGL minification filter code to be assigned
-     * (default=GL_NEAREST_MIPMAP_LINEAR)
+     * @param filter the enum value of the filter to become the default (not
+     * null, default=GL_NEAREST_MIPMAP_LINEAR)
      */
-    public static void setDefaultMinFilter(int filter) {
-        validateMinFilter(filter);
+    public static void setDefaultMinFilter(Filter filter) {
+        Validate.nonNull(filter, "filter");
         minFilterDefault = filter;
     }
 
@@ -301,40 +320,42 @@ public class TextureKey {
     /**
      * Alter the default U-axis wrap function for new texture keys.
      *
-     * @param functionCode the OpenGL wrap function code to be assigned
-     * (default=GL_REPEAT)
+     * @param function the enum value of the function to become the default (not
+     * null, default=Repeat)
      */
-    public static void setDefaultWrapU(int functionCode) {
-        validateWrap(functionCode);
-        wrapUDefault = functionCode;
+    public static void setDefaultWrapU(WrapFunction function) {
+        Validate.nonNull(function, "function");
+        wrapUDefault = function;
     }
 
     /**
      * Alter the default V-axis wrap function for new texture keys.
      *
-     * @param functionCode the OpenGL wrap function code to be assigned
-     * (default=GL_REPEAT)
+     * @param function the enum value of the function to become the default (not
+     * null, default=Repeat)
      */
-    public static void setDefaultWrapV(int functionCode) {
-        validateWrap(functionCode);
-        wrapVDefault = functionCode;
+    public static void setDefaultWrapV(WrapFunction function) {
+        Validate.nonNull(function, "function");
+        wrapVDefault = function;
     }
 
     /**
-     * Return the wrap function for the 1st (U) texture coordinate.
+     * Return the wrap function for the first (U) texture coordinate.
      *
-     * @return the OpenGL wrap function code
+     * @return the enum value (not null)
      */
-    public int wrapU() {
+    public WrapFunction wrapU() {
+        assert wrapU != null;
         return wrapU;
     }
 
     /**
      * Return the wrap function for the 2nd (V) texture coordinate.
      *
-     * @return the OpenGL wrap function code
+     * @return the enum value (not null)
      */
-    public int wrapV() {
+    public WrapFunction wrapV() {
+        assert wrapV != null;
         return wrapV;
     }
     // *************************************************************************
@@ -380,10 +401,10 @@ public class TextureKey {
         int hash = uri.hashCode();
         hash = 707 * hash + (mipmaps ? 1 : 0);
         hash = 707 * hash + Float.hashCode(maxAniso);
-        hash = 707 * hash + magFilter;
-        hash = 707 * hash + minFilter;
-        hash = 707 * hash + wrapU;
-        hash = 707 * hash + wrapV;
+        hash = 707 * hash + magFilter.ordinal();
+        hash = 707 * hash + minFilter.ordinal();
+        hash = 707 * hash + wrapU.ordinal();
+        hash = 707 * hash + wrapV.ordinal();
 
         return hash;
     }
@@ -395,15 +416,12 @@ public class TextureKey {
      */
     @Override
     public String toString() {
-        String mag = Utils.describeCode(magFilter);
-        String min = Utils.describeCode(minFilter);
-        String wrap1 = Utils.describeCode(wrapU);
-        String wrap2 = Utils.describeCode(wrapV);
         String mm = mipmaps ? "+" : "-";
-        String result = String.format(
-                "TextureKey(%s%n"
-                + " mag=%s min=%s wrap(%s %s) %smipmaps maxAniso=%f)",
-                uri, mag, min, wrap1, wrap2, mm, maxAniso);
+        String quri = MyString.quote(uri.toString());
+        String result = String.format("TextureKey(%s%n"
+                + " mag=%s min=%s wrap(%s %s) %smipmaps maxAniso=%.1f)",
+                quri,
+                magFilter, minFilter, wrapU, wrapV, mm, maxAniso);
 
         return result;
     }
@@ -551,29 +569,6 @@ public class TextureKey {
     }
 
     /**
-     * Verify that the argument is a valid OpenGL code for a minification
-     * filter.
-     *
-     * @param filter the value to test
-     * @return true (for use in assertions)
-     * @throws IllegalArgumentException for an invalid code
-     */
-    private static boolean validateMinFilter(int filter) {
-        switch (filter) {
-            case GL11C.GL_NEAREST:
-            case GL11C.GL_LINEAR:
-            case GL11C.GL_NEAREST_MIPMAP_NEAREST:
-            case GL11C.GL_LINEAR_MIPMAP_NEAREST:
-            case GL11C.GL_NEAREST_MIPMAP_LINEAR:
-            case GL11C.GL_LINEAR_MIPMAP_LINEAR:
-                return true;
-
-            default:
-                throw new IllegalArgumentException("filter = " + filter);
-        }
-    }
-
-    /**
      * Verify that the argument is a valid URI for streaming data.
      *
      * @param uriString the string to test (not null)
@@ -641,26 +636,6 @@ public class TextureKey {
                     // do nothing
                 }
             }
-        }
-    }
-
-    /**
-     * Verify that the argument is a valid OpenGL code for a wrap function.
-     *
-     * @param wrap the value to test
-     * @return true (for use in assertions)
-     * @throws IllegalArgumentException for an invalid code
-     */
-    private static boolean validateWrap(int wrap) {
-        switch (wrap) {
-            case GL12C.GL_CLAMP_TO_EDGE:
-            case GL13C.GL_CLAMP_TO_BORDER:
-            case GL14C.GL_MIRRORED_REPEAT:
-            case GL11C.GL_REPEAT:
-                return true;
-
-            default:
-                throw new IllegalArgumentException("wrap = " + wrap);
         }
     }
 }
