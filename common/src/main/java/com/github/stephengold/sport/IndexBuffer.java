@@ -121,17 +121,6 @@ final public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
     }
 
     /**
-     * Clear the buffer. The read/write position is zeroed, and the limit is set
-     * to the capacity. The data in the buffer is unaffected.
-     *
-     * @return the (modified) current instance (for chaining)
-     */
-    public IndexBuffer clear() {
-        getBuffer().clear();
-        return this;
-    }
-
-    /**
      * Draw a sequence of geometric primitives using this IndexBuffer. This
      * includes generating the VBO (if that hasn't occurred yet) and updating
      * its data store (if needed).
@@ -241,7 +230,7 @@ final public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
         int maxIndex = Collections.max(indices);
         int maxVertices = 1 + maxIndex;
 
-        IndexBuffer result = new IndexBuffer(maxVertices, capacity);
+        IndexBuffer result = newInstance(maxVertices, capacity);
         for (int vIndex : indices) {
             result.put(vIndex);
         }
@@ -258,29 +247,6 @@ final public class IndexBuffer extends jme3utilities.lbj.IndexBuffer {
     public int position() {
         int result = getBuffer().position();
         return result;
-    }
-
-    /**
-     * Alter the buffer's read/write position. The data in the buffer is
-     * unaffected.
-     *
-     * @param newPosition the desired position (&ge;0, &le;limit)
-     * @return the (modified) current instance (for chaining)
-     */
-    public IndexBuffer position(int newPosition) {
-        getBuffer().position(newPosition);
-        return this;
-    }
-
-    /**
-     * Rewind the buffer. The read/write position is zeroed. The data in the
-     * buffer is unaffected.
-     *
-     * @return the (modified) current instance (for chaining)
-     */
-    public IndexBuffer rewind() {
-        getBuffer().rewind();
-        return this;
     }
 
     /**
