@@ -49,7 +49,7 @@ public enum Topology {
      * lines (edges), consecutive lines share a vertex, plus an implied line
      * connecting the last vertex to the first vertex
      */
-    LineLoop(Mesh.vpe, 0, GL11C.GL_LINE_LOOP),
+    LineLoop(Mesh.vpe, 1, GL11C.GL_LINE_LOOP),
     /**
      * lines (edges), consecutive lines share a vertex
      */
