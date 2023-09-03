@@ -73,18 +73,6 @@ public class CharacterShapeGeometry extends Geometry {
      * @param character the character to visualize (not null, alias created)
      * @param meshingStrategy how to generate meshes (not null)
      */
-    public CharacterShapeGeometry(PhysicsCharacter character,
-            String meshingStrategy) {
-        this(character, new MeshingStrategy(meshingStrategy));
-    }
-
-    /**
-     * Instantiate a Geometry to visualize the specified character and make the
-     * Geometry visible.
-     *
-     * @param character the character to visualize (not null, alias created)
-     * @param meshingStrategy how to generate meshes (not null)
-     */
     CharacterShapeGeometry(PhysicsCharacter character,
             MeshingStrategy meshingStrategy) {
         super();
