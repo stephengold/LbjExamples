@@ -32,7 +32,6 @@ package com.github.stephengold.sport;
 import com.jme3.math.FastMath;
 import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
-import jme3utilities.math.MyVector3f;
 import org.joml.Vector2fc;
 import org.joml.Vector3f;
 import org.joml.Vector3fc;
@@ -116,21 +115,20 @@ public class Camera {
     public com.jme3.math.Vector3f clipToWorld(
             Vector2fc clipXy, float clipZ, com.jme3.math.Vector3f storeResult) {
         Projection projection = BaseApplication.getProjection();
-        com.jme3.math.Vector3f result
+        com.jme3.math.Vector3f cameraXyz
                 = projection.clipToCamera(clipXy, clipZ, storeResult);
 
-        float right = result.x;
-        float up = result.y;
-        float forward = -result.z;
+        float right = cameraXyz.x;
+        float up = cameraXyz.y;
+        float forward = -cameraXyz.z;
 
-        result.set(eyeLocation.x, eyeLocation.y, eyeLocation.z);
-        MyVector3f.accumulateScaled(
-                result, Utils.toJmeVector(rightDirection), right);
-        MyVector3f.accumulateScaled(result, Utils.toJmeVector(upDirection), up);
-        MyVector3f.accumulateScaled(
-                result, Utils.toJmeVector(lookDirection), forward);
+        Vector3f worldXyz
+                = new Vector3f(eyeLocation.x, eyeLocation.y, eyeLocation.z);
+        worldXyz.fma(right, rightDirection);
+        worldXyz.fma(up, upDirection);
+        worldXyz.fma(forward, lookDirection);
 
-        return result;
+        return Utils.toJmeVector(worldXyz);
     }
 
     /**
