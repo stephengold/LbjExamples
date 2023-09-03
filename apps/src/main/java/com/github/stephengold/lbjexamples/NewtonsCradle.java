@@ -228,6 +228,14 @@ public class NewtonsCradle extends BasePhysicsApp<PhysicsSpace> {
                         }
                         return;
 
+                    case GLFW.GLFW_KEY_5:
+                    case GLFW.GLFW_KEY_F5:
+                    case GLFW.GLFW_KEY_KP_5:
+                        if (isPressed) {
+                            restartSimulation(5);
+                        }
+                        return;
+
                     case GLFW.GLFW_KEY_PAUSE:
                     case GLFW.GLFW_KEY_PERIOD:
                         if (isPressed) {
