@@ -59,10 +59,6 @@ public enum Topology {
      */
     PointList(1, 0, GL11C.GL_POINTS),
     /**
-     * quads that don't overlap
-     */
-    QuadList(4, 0, GL11C.GL_QUADS),
-    /**
      * triangles, all triangles in the mesh share the first vertex and
      * consecutive triangles share an additional vertex
      */
