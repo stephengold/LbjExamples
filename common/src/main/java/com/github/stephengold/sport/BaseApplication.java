@@ -84,14 +84,19 @@ abstract public class BaseApplication {
      * rendered (in other words, from back to front)
      */
     private static final Deque<Geometry> deferredQueue = new LinkedList<>();
-
-    private static float lastFrame;
     /**
      * convenient access to user input
      */
     private static InputManager inputManager;
-
-    private static int counter;
+    /**
+     * number of frames rendered since the most recent FPS update
+     */
+    private static int frameCount;
+    /**
+     * JVM time of the most recent FPS update (in nanoseconds) or null if no
+     * update yet
+     */
+    private static Long previousFpsUpdateNanoTime;
     /**
      * GLFW handle of the window used to render geometries
      */
@@ -110,6 +115,10 @@ abstract public class BaseApplication {
      * view-to-clip coordinate transform for rendering
      */
     private static Projection projection;
+    /**
+     * initial text for the window's title bar (not null)
+     */
+    private static String initialWindowTitle;
     // *************************************************************************
     // constructors
 
@@ -345,17 +354,15 @@ abstract public class BaseApplication {
         Internals.start();
 
         // Generate the initial text for the window's title bar:
-        String title;
-        if (appMajor == 0 && appMinor == 0 && appPatch == 0) {
-            title = appName;
-        } else {
-            title = String.format(
-                    "%s v%d.%d.%d", appName, appMajor, appMinor, appPatch);
+        initialWindowTitle = String.format("%s   %s", engineName, appName);
+        if (appMajor > 0 && appMinor > 0 && appPatch > 0) {
+            initialWindowTitle += String.format(
+                    " v%d.%d.%d", appMajor, appMinor, appPatch);
         }
 
         try {
             // Initialize this class:
-            initializeBase(title);
+            initializeBase();
 
             // Initialize the subclass.
             initialize();
@@ -438,24 +445,30 @@ abstract public class BaseApplication {
     }
 
     /**
-     * Invoked before each render to update the window title. Meant to be
-     * overridden.
+     * Invoked before each frame is rendered, to update the text in the window's
+     * title bar. Meant to be overridden.
      *
      * @see #setWindowTitle(java.lang.CharSequence)
      */
     protected void updateWindowTitle() {
-        float currentFrame = (float) GLFW.glfwGetTime();
-        float deltaTime = currentFrame - lastFrame;
-        ++counter;
-        if (deltaTime >= 1f / 10) {
-            int fps = (int) ((1f / deltaTime) * counter);
-            int ms = (int) ((deltaTime / counter) * 1000);
-            String title = getClass().getSimpleName()
-                    + " FPS : " + fps + " / ms : " + ms;
-            setWindowTitle(title);
+        long currentNanoTime = System.nanoTime();
+        if (previousFpsUpdateNanoTime == null) { // first time:
+            previousFpsUpdateNanoTime = currentNanoTime;
 
-            lastFrame = currentFrame;
-            counter = 0;
+        } else {
+            ++frameCount;
+            long nanoseconds = currentNanoTime - previousFpsUpdateNanoTime;
+            double milliseconds = 1e-6 * nanoseconds;
+            if (milliseconds > 200.) {
+                // Every 200 ms, update the FPS (frames per second) statistics:
+                int fps = (int) Math.round(1000. * frameCount / milliseconds);
+                String windowTitle
+                        = String.format("%s   %d FPS", initialWindowTitle, fps);
+                setWindowTitle(windowTitle);
+
+                frameCount = 0;
+                previousFpsUpdateNanoTime = currentNanoTime;
+            }
         }
     }
     // *************************************************************************
@@ -491,12 +504,9 @@ abstract public class BaseApplication {
 
     /**
      * Initialize this class.
-     *
-     * @param initialTitle the initial text for the window's title bar (not
-     * null)
      */
-    private void initializeBase(String initialTitle) {
-        initializeGlfw(initialTitle);
+    private void initializeBase() {
+        initializeGlfw();
 
         // Create and initialize the InputManager.
         inputManager = new InputManager(windowHandle);
@@ -536,11 +546,8 @@ abstract public class BaseApplication {
 
     /**
      * Initialize GLFW and create a window for the application.
-     *
-     * @param initialTitle the initial text for the window's title bar (not
-     * null)
      */
-    private static void initializeGlfw(String initialTitle) {
+    private static void initializeGlfw() {
         if (Internals.isDebuggingEnabled()) {
             Configuration.DEBUG.set(true);
             Configuration.DEBUG_FUNCTIONS.set(true);
@@ -563,8 +570,8 @@ abstract public class BaseApplication {
         // Create the window:
         int width = Internals.framebufferWidth();
         int height = Internals.framebufferHeight();
-        windowHandle = GLFW.glfwCreateWindow(
-                width, height, initialTitle, MemoryUtil.NULL, MemoryUtil.NULL);
+        windowHandle = GLFW.glfwCreateWindow(width, height, initialWindowTitle,
+                MemoryUtil.NULL, MemoryUtil.NULL);
         if (windowHandle == MemoryUtil.NULL) {
             throw new RuntimeException("Failed to create a GLFW window");
         }
