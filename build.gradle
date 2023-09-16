@@ -7,7 +7,7 @@ plugins {
 ext {
     // current versions of libraries:
     lbjVersion = '18.5.2'
-    lwjglVersion = '3.3.2'
+    lwjglVersion = '3.3.3'
 }
 
 subprojects {
