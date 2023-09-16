@@ -1,7 +1,11 @@
 // Gradle script to build the LbjExamples/apps sub-project
 
+// Note: "common.gradle" in the root project contains additional initialization
+//   for this project. This initialization is applied in the "build.gradle"
+//   of the root project.
+
 plugins {
-    id 'application' // to support building a Java application
+    id 'application' // to build a Java application
 }
 
 ext {
