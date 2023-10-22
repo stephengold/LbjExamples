@@ -240,7 +240,7 @@ Boolean includeLinux = os.isLinux()
 Boolean includeMacOsX = os.isMacOsX()
 Boolean includeWindows = os.isWindows()
 
-tasks.withType(JavaExec) { // Java runtime options:
+tasks.withType(JavaExec).configureEach { // Java runtime options:
     if (os.isMacOsX()) {
         jvmArgs '-XstartOnFirstThread' // required for GLFW on macOS
     }
