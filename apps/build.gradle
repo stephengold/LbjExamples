@@ -5,7 +5,7 @@
 //   of the root project.
 
 plugins {
-    id 'application' // to build a Java application
+    id 'application' // to build Java applications
 }
 
 ext {
@@ -21,7 +21,7 @@ ext {
     //libbulletjmeUrl = "file:///home/sgold/NetBeansProjects/Libbulletjme/dist/"
 }
 
-// tasks to run specific apps:
+// Register tasks to run specific applications:
 
 tasks.register('AppChooser', JavaExec) {
     description 'Runs the AppChooser app.'
@@ -316,7 +316,7 @@ dependencies {
     implementation project(':common')
 }
 
-// tasks to download/clean the native physics library for each platform:
+// Register tasks to download/clean the native physics library for each platform:
 
 registerPlatformTasks('Linux64',     '_libbulletjme.so')
 registerPlatformTasks('Linux_ARM32', '_libbulletjme.so')

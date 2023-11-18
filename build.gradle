@@ -23,7 +23,7 @@ tasks.register('checkstyle') {
     description 'Checks the style of all Java sourcecode.'
 }
 
-// cleanup tasks:
+// Register cleanup tasks:
 
 clean.dependsOn('cleanDocsBuild', 'cleanNodeModules')
 tasks.register('cleanDocsBuild', Delete) {
