@@ -14,7 +14,7 @@
 * xref:build.adoc[Build procedures]
 * xref:demos.adoc[Demo apps]
 * xref:lexicon.adoc[Type lexicon]
-* https://github.com/stephengold/Libbulletjme[Git repository]
+* https://github.com/stephengold/Libbulletjme[GitHub repository]
 ** https://github.com/stephengold/Libbulletjme/releases/latest[Latest release]
 ** https://github.com/stephengold/Libbulletjme/releases[Recent releases]
 ** https://github.com/stephengold/Libbulletjme/blob/master/README.md[ReadMe file]
