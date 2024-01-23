@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -45,6 +45,7 @@ import com.jme3.bullet.collision.shapes.Box2dShape;
 import com.jme3.bullet.collision.shapes.BoxCollisionShape;
 import com.jme3.bullet.collision.shapes.CapsuleCollisionShape;
 import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.collision.shapes.CustomConvexShape;
 import com.jme3.bullet.collision.shapes.HeightfieldCollisionShape;
 import com.jme3.bullet.collision.shapes.MultiSphere;
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape;
@@ -230,6 +231,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
                 meshingStrategy = new MeshingStrategy("low/Facet");
 
             } else if (shape instanceof CapsuleCollisionShape
+                    || shape instanceof CustomConvexShape
                     || shape instanceof HeightfieldCollisionShape
                     || shape instanceof MultiSphere) {
                 meshingStrategy = new MeshingStrategy("high/Smooth");
