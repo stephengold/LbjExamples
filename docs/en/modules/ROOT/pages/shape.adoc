@@ -183,6 +183,22 @@ Similarly, collisions between `GImpactCollisionShape` and `PlaneCollisionShape`
 objects are never detected.
 ====
 
+Furthermore, you can develop custom collision shapes in Java by extending the
+abstract {url-shape}/CustomConvexShape.html[`CustomConvexShape`] class.
+
+[cols="2*",grid="none"]
+|===
+
+|{url-shape}/CustomConvexShape.html[`CustomConvexShape`]
+
+{item} convex +
+{item} positive margin +
+{item} imprecise +
+{item} subclass determines scalability
+|image:CustomConvex.png[height=160]
+
+|===
+
 == Convex versus concave
 
 The _convex_ collision-shape classes are those
