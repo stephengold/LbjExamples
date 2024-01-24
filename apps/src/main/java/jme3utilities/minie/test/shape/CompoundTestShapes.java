@@ -156,6 +156,11 @@ final public class CompoundTestShapes {
      */
     public static CompoundCollisionShape makeLidlessBox(
             float iHeight, float iWidth, float iDepth, float wallThickness) {
+        Validate.positive(iHeight, "internal height");
+        Validate.positive(iWidth, "internal width");
+        Validate.positive(iDepth, "internal depth");
+        Validate.positive(wallThickness, "wall thickness");
+
         float ihHeight = iHeight / 2f;
         float ihWidth = iWidth / 2f;
         float ihDepth = iDepth / 2f;
