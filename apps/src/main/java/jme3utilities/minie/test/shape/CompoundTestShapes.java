@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2019-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2019-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -193,7 +193,7 @@ final public class CompoundTestShapes {
         Validate.positive(zLength, "length");
         Validate.inRange(arc, "arc", 0f, FastMath.TWO_PI);
         Validate.inRange(
-                numChildren, "number of children", 2, Integer.MAX_VALUE);
+                numChildren, "number of children", 3, Integer.MAX_VALUE);
 
         float halfLength = zLength / 2f;
         float outerR = innerR + thickness;
