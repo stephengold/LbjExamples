@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -36,6 +36,7 @@ import com.jme3.bullet.collision.shapes.CompoundCollisionShape;
 import com.jme3.bullet.collision.shapes.ConeCollisionShape;
 import com.jme3.bullet.collision.shapes.CylinderCollisionShape;
 import com.jme3.bullet.collision.shapes.HullCollisionShape;
+import com.jme3.bullet.collision.shapes.MinkowskiSum;
 import com.jme3.bullet.collision.shapes.MultiSphere;
 import com.jme3.bullet.collision.shapes.SimplexCollisionShape;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
@@ -120,6 +121,21 @@ public class ShapeGenerator extends Generator {
     }
 
     /**
+     * Generate a cone+box shape.
+     *
+     * @return a new Minkowski-sum shape
+     */
+    public MinkowskiSum nextConeBox() {
+        BoxCollisionShape box = nextBox();
+        float baseRadius = nextFloat(0.3f, 1f);
+        float height = nextFloat(0.5f, 1.5f);
+        ConeCollisionShape cone = new ConeCollisionShape(baseRadius, height);
+        MinkowskiSum result = new MinkowskiSum(cone, box);
+
+        return result;
+    }
+
+    /**
      * Generate a cylinder shape.
      *
      * @return a new shape (not null)
@@ -134,6 +150,21 @@ public class ShapeGenerator extends Generator {
         return result;
     }
 
+    /**
+     * Generate a cylinder+box shape.
+     *
+     * @return a new Minkowski-sum shape
+     */
+    public MinkowskiSum nextCylinderBox() {
+        BoxCollisionShape box = nextBox();
+        float baseRadius = nextFloat(0.3f, 1.5f);
+        float height = CollisionShape.getDefaultMargin();
+        CylinderCollisionShape cylinder = new CylinderCollisionShape(
+                baseRadius, height, MyVector3f.yAxis);
+        MinkowskiSum result = new MinkowskiSum(cylinder, box);
+
+        return result;
+    }
     /**
      * Generate a (gridiron) football.
      *
@@ -306,6 +337,36 @@ public class ShapeGenerator extends Generator {
     }
 
     /**
+     * Generate a rounded disc shape.
+     *
+     * @return a new Minkowski-sum shape
+     */
+    public MinkowskiSum nextRoundedDisc() {
+        float baseRadius = nextFloat(0.3f, 1.5f);
+        float height = nextFloat(0.5f, 1f);
+        CylinderCollisionShape thinDisc = new CylinderCollisionShape(
+                baseRadius, 0.04f, MyVector3f.yAxis);
+        SphereCollisionShape sphere = new SphereCollisionShape(height / 2f);
+        MinkowskiSum result = new MinkowskiSum(thinDisc, sphere);
+
+        return result;
+    }
+
+    /**
+     * Generate a flying-saucer shape.
+     *
+     * @return a new Minkowski-sum shape
+     */
+    public MinkowskiSum nextSaucer() {
+        float baseRadius = nextFloat(0.3f, 1f);
+        float height = nextFloat(0.3f, 1f);
+        ConeCollisionShape cone = new ConeCollisionShape(baseRadius, height);
+        MinkowskiSum result = new MinkowskiSum(cone, cone);
+
+        return result;
+    }
+
+    /**
      * Generate an instance of the named shape.
      *
      * @param shapeName the type of shape to generate (not null, not empty)
@@ -328,8 +389,16 @@ public class ShapeGenerator extends Generator {
                 result = nextCone();
                 break;
 
+            case "coneBox":
+                result = nextConeBox();
+                break;
+
             case "cylinder":
                 result = nextCylinder();
+                break;
+
+            case "cylinderBox":
+                result = nextCylinderBox();
                 break;
 
             case "football":
@@ -358,6 +427,14 @@ public class ShapeGenerator extends Generator {
 
             case "multiSphere":
                 result = nextMultiSphere();
+                break;
+
+            case "roundedDisc":
+                result = nextRoundedDisc();
+                break;
+
+            case "saucer":
+                result = nextSaucer();
                 break;
 
             case "sphere":
