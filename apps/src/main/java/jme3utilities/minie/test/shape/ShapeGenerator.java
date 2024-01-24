@@ -282,8 +282,8 @@ public class ShapeGenerator extends Generator {
         float ihHeight = nextFloat(0.7f, 2f);
         float ihWidth = 1.6f * ihHeight;
         float halfThickness = ihHeight * nextFloat(0.1f, 0.2f);
-        CompoundCollisionShape result = CompoundTestShapes
-                .makeFrame(ihHeight, ihWidth, halfDepth, halfThickness);
+        CompoundCollisionShape result = CompoundTestShapes.makeFrame(
+                ihHeight, ihWidth, halfDepth, halfThickness);
 
         return result;
     }
@@ -313,8 +313,9 @@ public class ShapeGenerator extends Generator {
         float arc = FastMath.PI;
         int numChildren = 20;
 
-        CompoundCollisionShape result = CompoundTestShapes
-                .makePipe(innerRadius, thickness, length, arc, numChildren);
+        CompoundCollisionShape result = CompoundTestShapes.makePipe(
+                innerRadius, thickness, length, arc, numChildren);
+
         return result;
     }
 
@@ -338,8 +339,8 @@ public class ShapeGenerator extends Generator {
     public HullCollisionShape nextHull() {
         int numVertices = nextInt(5, 20);
 
-        FloatBuffer buffer = BufferUtils
-                .createFloatBuffer(MyVector3f.numAxes * numVertices);
+        FloatBuffer buffer = BufferUtils.createFloatBuffer(
+                MyVector3f.numAxes * numVertices);
         buffer.put(0f).put(0f).put(0f);
         Vector3f tmpLocation = new Vector3f();
         for (int vertexI = 1; vertexI < numVertices; ++vertexI) {
@@ -371,8 +372,8 @@ public class ShapeGenerator extends Generator {
         float flangeWidth = nextFloat(1f, 2f);
         float beamHeight = nextFloat(1f, 2f);
         float thickness = nextFloat(0.1f, 0.3f);
-        CompoundCollisionShape result = CompoundTestShapes
-                .makeIBeam(length, flangeWidth, beamHeight, thickness);
+        CompoundCollisionShape result = CompoundTestShapes.makeIBeam(
+                length, flangeWidth, beamHeight, thickness);
 
         return result;
     }
@@ -387,8 +388,8 @@ public class ShapeGenerator extends Generator {
         float iWidth = nextFloat(2f, 4f);
         float iDepth = nextFloat(1f, 2f);
         float wallThickness = nextFloat(0.1f, 0.3f);
-        CompoundCollisionShape result = CompoundTestShapes
-                .makeLidlessBox(iHeight, iWidth, iDepth, wallThickness);
+        CompoundCollisionShape result = CompoundTestShapes.makeLidlessBox(
+                iHeight, iWidth, iDepth, wallThickness);
 
         return result;
     }
@@ -657,8 +658,8 @@ public class ShapeGenerator extends Generator {
         float thickness = internalLength * nextFloat(0.1f, 0.2f);
         float arc = FastMath.TWO_PI;
         int numSegments = 3;
-        CompoundCollisionShape result = CompoundTestShapes
-                .makePipe(innerR, thickness, depth, arc, numSegments);
+        CompoundCollisionShape result = CompoundTestShapes.makePipe(
+                innerR, thickness, depth, arc, numSegments);
 
         return result;
     }
