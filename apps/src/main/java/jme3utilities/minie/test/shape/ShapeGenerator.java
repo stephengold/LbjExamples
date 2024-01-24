@@ -80,6 +80,14 @@ public class ShapeGenerator extends Generator {
     final public static Logger logger
             = Logger.getLogger(ShapeGenerator.class.getName());
     // *************************************************************************
+    // constructors
+
+    /**
+     * Instantiate a generator.
+     */
+    public ShapeGenerator() { // explicit to avoid a warning from JDK 18 javadoc
+    }
+    // *************************************************************************
     // new methods exposed
 
     /**
