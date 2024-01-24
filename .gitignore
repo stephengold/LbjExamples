@@ -1,10 +1,7 @@
-# Ignore Gradle project-specific cache directory
+# Ignore Gradle's project-specific cache directory:
 /.gradle/
 
-/.idea/
-/.nb-gradle/
-
-# Ignore Gradle build output directories
+# Ignore Gradle's build output directories:
 /apps/build/
 /common/build/
 /docs/build/
@@ -13,3 +10,7 @@
 
 # JVM crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Ignore IDE-specific directories:
+/.idea/
+/.nb-gradle/
