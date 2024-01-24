@@ -83,8 +83,10 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
      * list of names known to ShapeGenerator
      */
     final private static String[] shapeNames = {
-        "box", "capsule", "cone", "cylinder", "football", "frame",
-        "halfPipe", "hull", "iBeam", "lidlessBox", "multiSphere", "sphere",
+        "box", "capsule", "cone", "coneBox", "customBox", "customCone",
+        "customCylinder", "cylinder", "cylinderBox", "ellipsoid", "football",
+        "frame", "frustum", "halfCylinder", "halfPipe", "hemisphere", "hull",
+        "iBeam", "lidlessBox", "multiSphere", "roundedDisc", "saucer", "sphere",
         "tetrahedron", "torus", "triangularFrame", "trident", "washer"
     };
     // *************************************************************************
