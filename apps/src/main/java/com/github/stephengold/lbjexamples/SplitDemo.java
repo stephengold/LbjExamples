@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -104,6 +104,10 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
      */
     private static Geometry splitterGeometry;
     /**
+     * how many times render() has been invoked
+     */
+    private static int renderCount;
+    /**
      * input signal: 1&rarr;rotate the splitting plane counter-clockwise
      */
     private static int signalCcw;
@@ -111,10 +115,6 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
      * input signal: 1&rarr;rotate the splitting plane clockwise
      */
     private static int signalCw;
-    /**
-     * how many times render() has been invoked
-     */
-    private static int renderCount;
     /**
      * timestamp of the previous render() if renderCount > 0
      */
