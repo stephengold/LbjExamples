@@ -103,6 +103,10 @@ tasks.register('HelloDeactivation', JavaExec) {
     description 'Runs the HelloDeactivation tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDeactivation'
 }
+tasks.register('HelloDoor', JavaExec) {
+    description 'Runs the HelloDoor tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDoor'
+}
 tasks.register('HelloDoubleEnded', JavaExec) {
     description 'Runs the HelloDoubleEnded tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDoubleEnded'

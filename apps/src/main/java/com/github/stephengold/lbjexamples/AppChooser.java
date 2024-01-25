@@ -35,6 +35,7 @@ import com.github.stephengold.lbjexamples.apps.HelloCloth;
 import com.github.stephengold.lbjexamples.apps.HelloContactResponse;
 import com.github.stephengold.lbjexamples.apps.HelloDamping;
 import com.github.stephengold.lbjexamples.apps.HelloDeactivation;
+import com.github.stephengold.lbjexamples.apps.HelloDoor;
 import com.github.stephengold.lbjexamples.apps.HelloDoubleEnded;
 import com.github.stephengold.lbjexamples.apps.HelloGhost;
 import com.github.stephengold.lbjexamples.apps.HelloJoint;
@@ -93,7 +94,7 @@ final class AppChooser extends JFrame {
      */
     public static void main(String[] arguments) {
         Logger.getLogger("").setLevel(Level.WARNING);
-        List<BaseApplication> apps = new ArrayList<>(46);
+        List<BaseApplication> apps = new ArrayList<>(48);
 
         apps.add(new AssimpTest());
         apps.add(new CheckerboardTest());
@@ -108,6 +109,7 @@ final class AppChooser extends JFrame {
         apps.add(new HelloDamping());
 
         apps.add(new HelloDeactivation());
+        apps.add(new HelloDoor());
         apps.add(new HelloDoubleEnded());
         apps.add(new HelloGhost());
         apps.add(new HelloJoint());
