@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -45,6 +45,7 @@ import com.github.stephengold.lbjexamples.apps.HelloMadMallet;
 import com.github.stephengold.lbjexamples.apps.HelloMassDistribution;
 import com.github.stephengold.lbjexamples.apps.HelloMinkowski;
 import com.github.stephengold.lbjexamples.apps.HelloMotor;
+import com.github.stephengold.lbjexamples.apps.HelloNewHinge;
 import com.github.stephengold.lbjexamples.apps.HelloNonUniformGravity;
 import com.github.stephengold.lbjexamples.apps.HelloPin;
 import com.github.stephengold.lbjexamples.apps.HelloRigidBody;
@@ -113,44 +114,45 @@ final class AppChooser extends JFrame {
         apps.add(new HelloDoubleEnded());
         apps.add(new HelloGhost());
         apps.add(new HelloJoint());
-        apps.add(new HelloKinematics());
 
+        apps.add(new HelloKinematics());
         apps.add(new HelloLimit());
         apps.add(new HelloMadMallet());
         apps.add(new HelloMassDistribution());
         apps.add(new HelloMinkowski());
-        apps.add(new HelloMotor());
 
+        apps.add(new HelloMotor());
+        apps.add(new HelloNewHinge());
         apps.add(new HelloNonUniformGravity());
         apps.add(new HelloPin());
         apps.add(new HelloRigidBody());
+
         apps.add(new HelloServo());
         apps.add(new HelloSoftBody());
-
         apps.add(new HelloSoftRope());
         apps.add(new HelloSoftSoft());
         apps.add(new HelloSport());
+
         apps.add(new HelloSpring());
         apps.add(new HelloStaticBody());
-
         apps.add(new HelloVehicle());
         apps.add(new HelloWalk());
         apps.add(new HelloWind());
+
         apps.add(new IcosphereTest());
         apps.add(new MouseTest());
-
         apps.add(new MouseTest2());
         apps.add(new NewtonsCradle());
         apps.add(new OctasphereTest());
+
         apps.add(new Pachinko());
         apps.add(new RainbowTest());
-
         apps.add(new SplitDemo());
         apps.add(new SpriteTest());
         apps.add(new TestGearJoint());
+
         apps.add(new TextureTest());
         apps.add(new ThousandCubes());
-
         apps.add(new Windlass());
 
         new AppChooser(apps);

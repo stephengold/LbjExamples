@@ -143,6 +143,10 @@ tasks.register('HelloMotor', JavaExec) {
     description 'Runs the HelloMotor tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMotor'
 }
+tasks.register('HelloNewHinge', JavaExec) {
+    description 'Runs the HelloNewHinge tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloNewHinge'
+}
 tasks.register('HelloNonUniformGravity', JavaExec) {
     description 'Runs the HelloNonUniformGravity tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloNonUniformGravity'
