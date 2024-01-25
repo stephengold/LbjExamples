@@ -148,15 +148,19 @@ tasks.register('HelloPin', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloPin'
 }
 tasks.register('HelloRigidBody', JavaExec) {
+    description 'Runs the HelloRigidBody tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
 }
 tasks.register('HelloServo', JavaExec) {
+    description 'Runs the HelloServo tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloServo'
 }
 tasks.register('HelloSoftBody', JavaExec) {
+    description 'Runs the HelloSoftBody tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSoftBody'
 }
 tasks.register('HelloSoftRope', JavaExec) {
+    description 'Runs the HelloSoftRope tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSoftRope'
 }
 tasks.register('HelloSoftSoft', JavaExec) {
