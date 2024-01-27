@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2023-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -34,7 +34,7 @@ import com.github.stephengold.sport.Utils;
 import com.github.stephengold.sport.Vertex;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-import java.util.List;
+import java.util.Collection;
 import org.joml.Vector2f;
 import org.joml.Vector2fc;
 import org.joml.Vector3f;
@@ -80,7 +80,8 @@ final public class AssimpUtils {
      * @param addVertices storage for vertex attributes (not null, added to)
      */
     public static void extractTriangles(String resourceName, int flags,
-            List<Integer> addVertexIndices, List<Vertex> addVertices) {
+            Collection<Integer> addVertexIndices,
+            Collection<Vertex> addVertices) {
         ByteBuffer pLoadedBytes = Utils.loadResourceAsBytes(resourceName);
 
         CharSequence hints = null;
@@ -108,7 +109,8 @@ final public class AssimpUtils {
      * @param addVertices storage for vertex attributes (not null, added to)
      */
     private static void processNode(AINode aiNode, PointerBuffer pMeshes,
-            List<Integer> addVertexIndices, List<Vertex> addVertices) {
+            Collection<Integer> addVertexIndices,
+            Collection<Vertex> addVertices) {
         if (aiNode.mMeshes() != null) {
             processNodeMeshes(aiNode, pMeshes, addVertexIndices, addVertices);
         }
@@ -133,7 +135,8 @@ final public class AssimpUtils {
      * @param addVertices storage for vertex attributes (not null, added to)
      */
     private static void processNodeMeshes(AINode aiNode, PointerBuffer pMeshes,
-            List<Integer> addVertexIndices, List<Vertex> addVertices) {
+            Collection<Integer> addVertexIndices,
+            Collection<Vertex> addVertices) {
         IntBuffer pMeshIndices = aiNode.mMeshes();
         if (pMeshIndices == null) {
             return;
@@ -155,8 +158,9 @@ final public class AssimpUtils {
      * @param addVertexIndices storage for vertex indices (added to if not null)
      * @param addVertices storage for vertex attributes (not null, added to)
      */
-    private static void processOneMesh(AIMesh aiMesh,
-            List<Integer> addVertexIndices, List<Vertex> addVertices) {
+    private static void processOneMesh(
+            AIMesh aiMesh, Collection<Integer> addVertexIndices,
+            Collection<Vertex> addVertices) {
         AIVector3D.Buffer pAiPositions = aiMesh.mVertices();
         int numVertices = pAiPositions.capacity();
 
