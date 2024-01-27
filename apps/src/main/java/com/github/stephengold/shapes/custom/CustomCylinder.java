@@ -198,6 +198,6 @@ public class CustomCylinder extends CustomConvexShape {
          */
         float ixz = rSquared / 4f + hSquared / 12f;
         float iy = 0.5f * rSquared;
-        this.setScaledInertia(ixz, iy, ixz);
+        setScaledInertia(ixz, iy, ixz);
     }
 }
