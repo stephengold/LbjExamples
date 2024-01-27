@@ -162,7 +162,7 @@ public class HelloNewHinge
 
         // Visualize the chassis.
         visualizeShape(chassis);
-        
+
         // Apply a steering angle of 6 degrees left (to the front wheels).
         for (RotationMotor motor : steer) {
             motor.set(MotorParam.ServoTarget, FastMath.PI / 30f);
