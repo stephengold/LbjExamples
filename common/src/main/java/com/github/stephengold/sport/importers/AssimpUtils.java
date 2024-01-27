@@ -29,6 +29,7 @@
  */
 package com.github.stephengold.sport.importers;
 
+import com.github.stephengold.sport.BaseApplication;
 import com.github.stephengold.sport.Mesh;
 import com.github.stephengold.sport.Utils;
 import com.github.stephengold.sport.Vertex;
@@ -42,6 +43,7 @@ import org.joml.Vector3fc;
 import org.lwjgl.PointerBuffer;
 import org.lwjgl.assimp.AIColor4D;
 import org.lwjgl.assimp.AIFace;
+import org.lwjgl.assimp.AILogStream;
 import org.lwjgl.assimp.AIMesh;
 import org.lwjgl.assimp.AINode;
 import org.lwjgl.assimp.AIScene;
@@ -84,6 +86,15 @@ final public class AssimpUtils {
             Collection<Vertex> addVertices) {
         ByteBuffer pLoadedBytes = Utils.loadResourceAsBytes(resourceName);
 
+        if (BaseApplication.isDebuggingEnabled()) {
+            AILogStream logStream = AILogStream.create();
+            String filename = null;
+            logStream = Assimp.aiGetPredefinedLogStream(
+                    Assimp.aiDefaultLogStream_STDOUT, filename, logStream);
+            Assimp.aiAttachLogStream(logStream);
+            Assimp.aiEnableVerboseLogging(true);
+        }
+
         CharSequence hints;
         int dotIndex = resourceName.lastIndexOf(".");
         if (dotIndex == -1) {
@@ -93,6 +104,7 @@ final public class AssimpUtils {
         }
         AIScene aiScene
                 = Assimp.aiImportFileFromMemory(pLoadedBytes, flags, hints);
+        Assimp.aiDetachAllLogStreams();
         if (aiScene == null || aiScene.mRootNode() == null) {
             String errorString = Assimp.aiGetErrorString();
             throw new RuntimeException(
