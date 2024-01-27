@@ -84,7 +84,13 @@ final public class AssimpUtils {
             Collection<Vertex> addVertices) {
         ByteBuffer pLoadedBytes = Utils.loadResourceAsBytes(resourceName);
 
-        CharSequence hints = null;
+        CharSequence hints;
+        int dotIndex = resourceName.lastIndexOf(".");
+        if (dotIndex == -1) {
+            hints = null;
+        } else {
+            hints = resourceName.substring(dotIndex + 1);
+        }
         AIScene aiScene
                 = Assimp.aiImportFileFromMemory(pLoadedBytes, flags, hints);
         if (aiScene == null || aiScene.mRootNode() == null) {
