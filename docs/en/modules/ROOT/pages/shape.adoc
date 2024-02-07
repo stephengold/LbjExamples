@@ -510,9 +510,23 @@ compound of hull shapes:
 
 [source,java]
 ----
+// using VHACD version 4:
+Vhacd4Parameters v4Parms = new Vhacd4Parameters();
+List<Vhacd4Hull> vhacd4Hulls = Vhacd4.compute(meshPositions, meshIndices, v4Parms);
+CompoundCollisionShape compound = new CompoundCollisionShape();
+for (Vhacd4Hull vhacdHull : vhacd4Hulls) {
+    HullCollisionShape hullShape = new HullCollisionShape(vhacdHull);
+    compound.addChildShape(hullShape);
+}
+
+// or alternatively, using classic VHACD:
 VHACDParameters parms = new VHACDParameters();
-CollisionShape shape
-        = CollisionShapeFactory.createVhacdShape(modelRoot, parms, null);
+List<VHACDHull> vhacdHulls = VHACD.compute(meshPositions, meshIndices, parms);
+CompoundCollisionShape compound2 = new CompoundCollisionShape();
+for (VHACDHull vhacdHull : vhacdHulls) {
+    HullCollisionShape hullShape = new HullCollisionShape(vhacdHull);
+    compound2.addChildShape(hullShape);
+}
 ----
 
 The V-HACD algorithm is costly to run, but for many applications it can
