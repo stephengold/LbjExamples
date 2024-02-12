@@ -6,7 +6,7 @@ plugins {
 
 ext {
     // current versions of libraries:
-    lbjVersion = '20.0.0'
+    lbjVersion = '20.1.0'
     lwjglVersion = '3.3.3'
     //lwjglVersion = '3.3.4-SNAPSHOT'
 }
