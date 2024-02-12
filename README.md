@@ -31,7 +31,7 @@ In addition to [Libbulletjme],
 it uses [LWJGL], [Assimp], [GLFW], [JOML], and [OpenGL].
 It has been tested on Windows, Linux, and macOS.
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 <a name="build"></a>
@@ -98,7 +98,7 @@ You can restore the project to a pristine state:
 
 Note:  these commands will delete any downloaded native libraries.
 
-[Jump to table of contents](#toc)
+[Jump to the table of contents](#toc)
 
 
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
