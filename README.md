@@ -47,6 +47,7 @@ It has been tested on Windows, Linux, and macOS.
    or "/usr/lib/jvm/java-8-openjdk-amd64/" or
    "/Library/Java/JavaVirtualMachines/liberica-jdk-17-full.jdk/Contents/Home" .)
   + using Bash or Zsh: `export JAVA_HOME="` *path to installation* `"`
+  + using Fish: `set -g JAVA_HOME "` *path to installation* `"`
   + using Windows Command Prompt: `set JAVA_HOME="` *path to installation* `"`
   + using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
 3. Download and extract the LbjExamples source code from GitHub:
@@ -54,7 +55,7 @@ It has been tested on Windows, Linux, and macOS.
     + `git clone https://github.com/stephengold/LbjExamples.git`
     + `cd LbjExamples`
 4. Run the [Gradle] wrapper:
-  + using Bash or PowerShell or Zsh: `./gradlew build`
+  + using Bash or Fish or PowerShell or Zsh: `./gradlew build`
   + using Windows Command Prompt: `.\gradlew build`
 
 ### Tutorials
@@ -63,7 +64,7 @@ The tutorial apps all have names starting with "Hello".
 For instance, the first tutorial app is named "HelloLibbulletjme".
 
 To execute "HelloLibbulletjme":
-+ using Bash or PowerShell or Zsh: `./gradlew HelloLibbulletjme`
++ using Bash or Fish or PowerShell or Zsh: `./gradlew HelloLibbulletjme`
 + using Windows Command Prompt: `.\gradlew HelloLibbulletjme`
 
 ### Demos
@@ -86,13 +87,13 @@ A Swing-based chooser application is included.
 However, it includes only the graphical apps and doesn't work yet on macOS.
 
 To run the chooser:
-+ using Bash or PowerShell or Zsh: `./gradlew AppChooser`
++ using Bash or Fish or PowerShell or Zsh: `./gradlew AppChooser`
 + using Windows Command Prompt: `.\gradlew AppChooser`
 
 ### Cleanup
 
 You can restore the project to a pristine state:
-+ using Bash or PowerShell or Zsh: `./gradlew clean`
++ using Bash or Fish or PowerShell or Zsh: `./gradlew clean`
 + using Windows Command Prompt: `.\gradlew clean`
 
 Note:  these commands will delete any downloaded native libraries.
