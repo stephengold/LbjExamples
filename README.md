@@ -47,11 +47,11 @@ It has been tested on Windows, Linux, and macOS.
    or "/usr/lib/jvm/java-8-openjdk-amd64/" or
    "/Library/Java/JavaVirtualMachines/liberica-jdk-17-full.jdk/Contents/Home" .)
   + using Bash or Zsh: `export JAVA_HOME="` *path to installation* `"`
-  + using Fish: `set -g JAVA_HOME "` *path to installation* `"`
+  + using [Fish]: `set -g JAVA_HOME "` *path to installation* `"`
   + using Windows Command Prompt: `set JAVA_HOME="` *path to installation* `"`
   + using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
 3. Download and extract the LbjExamples source code from GitHub:
-  + using Git:
+  + using [Git]:
     + `git clone https://github.com/stephengold/LbjExamples.git`
     + `cd LbjExamples`
 4. Run the [Gradle] wrapper:
@@ -103,6 +103,8 @@ Note:  these commands will delete any downloaded native libraries.
 
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
 [assimp]: https://www.assimp.org/ "The Asset Importer Library"
+[fish]: https://fishshell.com/ "Fish command-line shell"
+[git]: https://git-scm.com "Git"
 [glfw]: https://www.glfw.org "GLFW Library"
 [gradle]: https://gradle.org "Gradle Project"
 [java]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java programming language"
