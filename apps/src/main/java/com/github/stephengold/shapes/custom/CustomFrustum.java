@@ -34,7 +34,6 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import java.util.logging.Logger;
 import jme3utilities.math.MyMath;
-import jme3utilities.math.MyVector3f;
 
 /**
  * A collision shape for a conical frustum with uniform density. By convention,
@@ -108,7 +107,7 @@ public class CustomFrustum extends CustomConvexShape {
 
     /**
      * Test whether the specified scale factors can be applied to this shape.
-     * For a conical frustum, scaling must be uniform.
+     * For a conical frustum, scaling must preserve the circular cross section.
      *
      * @param scale the desired scale factor for each local axis (may be null,
      * unaffected)
@@ -116,9 +115,8 @@ public class CustomFrustum extends CustomConvexShape {
      */
     @Override
     public boolean canScale(Vector3f scale) {
-        boolean canScale
-                = super.canScale(scale) && MyVector3f.isScaleUniform(scale);
-        return canScale;
+        boolean result = super.canScale(scale) && scale.x == scale.z;
+        return result;
     }
 
     /**
@@ -211,8 +209,8 @@ public class CustomFrustum extends CustomConvexShape {
     public void setScale(Vector3f scale) {
         super.setScale(scale);
 
-        // super.setScale() has ensured that the scaling is uniform.
-        this.scaledHeight = scale.x * unscaledHeight;
+        // super.setScale() has verified that scale.x == scale.z
+        this.scaledHeight = scale.y * unscaledHeight;
         this.scaledA = scale.x * unscaledA;
         this.scaledB = scale.x * unscaledB;
 

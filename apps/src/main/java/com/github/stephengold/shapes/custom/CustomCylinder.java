@@ -33,7 +33,6 @@ import com.jme3.bullet.collision.shapes.CustomConvexShape;
 import com.jme3.math.Vector3f;
 import java.util.logging.Logger;
 import jme3utilities.math.MyMath;
-import jme3utilities.math.MyVector3f;
 import jme3utilities.math.MyVolume;
 
 /**
@@ -98,7 +97,7 @@ public class CustomCylinder extends CustomConvexShape {
 
     /**
      * Test whether the specified scale factors can be applied to this shape.
-     * For a cylinder, scaling must be uniform.
+     * For a cylinder, scaling must preserve the circular cross section.
      *
      * @param scale the desired scale factor for each local axis (may be null,
      * unaffected)
@@ -106,9 +105,8 @@ public class CustomCylinder extends CustomConvexShape {
      */
     @Override
     public boolean canScale(Vector3f scale) {
-        boolean canScale
-                = super.canScale(scale) && MyVector3f.isScaleUniform(scale);
-        return canScale;
+        boolean result = super.canScale(scale) && scale.x == scale.z;
+        return result;
     }
 
     /**
@@ -186,8 +184,8 @@ public class CustomCylinder extends CustomConvexShape {
     public void setScale(Vector3f scale) {
         super.setScale(scale);
 
-        // super.setScale() has verified that the scaling is uniform.
-        this.scaledHeight = scale.x * unscaledHeight;
+        // super.setScale() has verified that scale.x == scale.z
+        this.scaledHeight = scale.y * unscaledHeight;
         this.scaledRadius = scale.x * unscaledRadius;
 
         float hSquared = scaledHeight * scaledHeight;
