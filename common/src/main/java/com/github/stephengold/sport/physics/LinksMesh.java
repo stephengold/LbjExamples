@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -109,7 +109,7 @@ class LinksMesh extends Mesh {
 
         // Update the index buffer from links. TODO avoid copying indices
         softBody.copyLinks(copyIndices);
-        IndexBuffer indices = super.getIndexBuffer();
+        IndexBuffer indices = getIndexBuffer();
         for (int i = 0; i < vpe * numLinks; ++i) {
             int index = copyIndices.get(i);
             indices.put(i, index);

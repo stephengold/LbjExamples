@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -158,7 +158,7 @@ public class RigidBodyShapeGeometry extends Geometry {
             MeshingStrategy strategy = summary.meshingStrategy();
             this.summary = new ShapeSummary(shape, strategy);
             Mesh mesh = BasePhysicsApp.meshForShape(shape, summary);
-            super.setMesh(mesh);
+            setMesh(mesh);
         }
     }
 

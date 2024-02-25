@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -117,7 +117,7 @@ class SoftMesh extends Mesh {
             }
             softBody.copyLinks(links);
 
-            IndexBuffer indices = super.getIndexBuffer();
+            IndexBuffer indices = getIndexBuffer();
             for (int i = 0; i < 2 * numLinks; ++i) {
                 int index = links.get(i);
                 indices.put(i, index);

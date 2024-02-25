@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -105,7 +105,7 @@ public class LinksGeometry extends Geometry {
         boolean success = mesh.update();
         if (!success) {
             mesh = new LinksMesh(softBody);
-            super.setMesh(mesh);
+            setMesh(mesh);
         }
     }
 }
