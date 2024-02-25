@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -78,12 +78,15 @@ public class BoxOutlineMesh extends Mesh {
     /**
      * Instantiate an axis-aligned box.
      *
-     * @param x1 X coordinate of the first vertex
-     * @param y1 Y coordinate of the first vertex
-     * @param z1 Z coordinate of the first vertex
+     * @param x1 X coordinate of the first vertex (in mesh coordinates)
+     * @param y1 Y coordinate of the first vertex (in mesh coordinates)
+     * @param z1 Z coordinate of the first vertex (in mesh coordinates)
      * @param x2 X coordinate of the vertex diagonally opposite the first vertex
+     * (in mesh coordinates)
      * @param y2 Y coordinate of the vertex diagonally opposite the first vertex
+     * (in mesh coordinates)
      * @param z2 Z coordinate of the vertex diagonally opposite the first vertex
+     * (in mesh coordinates)
      */
     public BoxOutlineMesh(float x1, float y1, float z1,
             float x2, float y2, float z2) {
@@ -104,7 +107,8 @@ public class BoxOutlineMesh extends Mesh {
     // new methods exposed
 
     /**
-     * Return the shared mesh for a box extending from (-1,-1,-1) to (+1,+1,+1).
+     * Return the immutable shared mesh for a box extending from (-1,-1,-1) to
+     * (+1,+1,+1).
      *
      * @return the shared mesh (immutable)
      */
