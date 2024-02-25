@@ -58,6 +58,15 @@ public class HelloCustomShape extends BasePhysicsApp<PhysicsSpace> {
 
     final private Generator generator = new Generator();
     // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public HelloCustomShape() {
+        // do nothing
+    }
+    // *************************************************************************
     // new methods exposed
 
     /**

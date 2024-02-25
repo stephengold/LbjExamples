@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -51,6 +51,15 @@ public class MouseTest extends BaseApplication {
      * crosshairs in clipspace, controlled by the mouse
      */
     private static Geometry crosshairs;
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public MouseTest() {
+        // do nothing
+    }
     // *************************************************************************
     // new methods exposed
 

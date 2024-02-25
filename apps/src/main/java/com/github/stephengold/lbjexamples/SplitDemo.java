@@ -150,6 +150,15 @@ public class SplitDemo extends BasePhysicsApp<PhysicsSpace> {
      */
     final private static Vector3f world2 = new Vector3f();
     // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public SplitDemo() {
+        // do nothing
+    }
+    // *************************************************************************
     // new methods exposed
 
     /**

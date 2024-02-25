@@ -97,6 +97,15 @@ public class HelloDoor
      */
     final private static Vector3f mouseLocation = new Vector3f();
     // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public HelloDoor() {
+        // do nothing
+    }
+    // *************************************************************************
     // new methods exposed
 
     /**

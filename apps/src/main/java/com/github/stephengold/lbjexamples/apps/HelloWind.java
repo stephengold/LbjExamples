@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2019-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2019-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -95,6 +95,15 @@ public class HelloWind
      * temporary storage for velocity vectors
      */
     final private static Vector3f tmpVelocity = new Vector3f();
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public HelloWind() {
+        // do nothing
+    }
     // *************************************************************************
     // new methods exposed
 

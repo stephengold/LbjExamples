@@ -48,6 +48,17 @@ import com.jme3.math.Vector3f;
  * @author Stephen Gold sgold@sonic.net
  */
 public class HelloSport extends BasePhysicsApp<PhysicsSpace> {
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public HelloSport() {
+        // do nothing
+    }
+    // *************************************************************************
+    // new methods exposed
 
     /**
      * Main entry point for the HelloSport application.

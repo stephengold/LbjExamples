@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -46,6 +46,15 @@ import org.joml.Vector4f;
  * @author Stephen Gold sgold@sonic.net
  */
 public class IcosphereTest extends BaseApplication {
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public IcosphereTest() {
+        // do nothing
+    }
     // *************************************************************************
     // new methods exposed
 

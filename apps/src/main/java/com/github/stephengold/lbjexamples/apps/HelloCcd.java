@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -46,6 +46,15 @@ import com.jme3.math.Vector3f;
  * @author Stephen Gold sgold@sonic.net
  */
 public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public HelloCcd() {
+        // do nothing
+    }
     // *************************************************************************
     // new methods exposed
 

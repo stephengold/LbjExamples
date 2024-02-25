@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -82,6 +82,15 @@ public class HelloSpring
      * latest ground location indicated by the mouse cursor
      */
     final private static Vector3f mouseLocation = new Vector3f();
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public HelloSpring() {
+        // do nothing
+    }
     // *************************************************************************
     // new methods exposed
 

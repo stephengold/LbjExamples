@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -59,6 +59,15 @@ public class HelloKinematics
      * kinematic ball, orbiting the origin
      */
     private static PhysicsRigidBody kineBall;
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public HelloKinematics() {
+        // do nothing
+    }
     // *************************************************************************
     // new methods exposed
 

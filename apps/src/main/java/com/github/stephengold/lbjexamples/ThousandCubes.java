@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -95,6 +95,15 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
      * temporary storage for location vectors
      */
     final private Vector3f tmpLocation = new Vector3f();
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public ThousandCubes() {
+        // do nothing
+    }
     // *************************************************************************
     // new methods exposed
 

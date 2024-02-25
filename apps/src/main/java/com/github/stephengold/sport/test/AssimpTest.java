@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2023-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -62,6 +62,15 @@ public class AssimpTest extends BaseApplication {
             0f, 1f, 0f,
             0f, 0f, 1f,
             1f, 0f, 0f).transpose();
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public AssimpTest() {
+        // do nothing
+    }
     // *************************************************************************
     // new methods exposed
 

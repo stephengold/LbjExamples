@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2021-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2021-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -64,6 +64,15 @@ public class HelloMotor extends BasePhysicsApp<PhysicsSpace> {
      * motor being tested
      */
     private static RotationMotor motor;
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public HelloMotor() {
+        // do nothing
+    }
     // *************************************************************************
     // new methods exposed
 

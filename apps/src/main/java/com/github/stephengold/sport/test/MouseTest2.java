@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -56,6 +56,15 @@ public class MouseTest2 extends BaseApplication {
      * yellow ball at the near clipping plane, in cameraspace
      */
     private static Geometry nearBall;
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public MouseTest2() {
+        // do nothing
+    }
     // *************************************************************************
     // new methods exposed
 

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -54,6 +54,15 @@ public class DynamicMeshTest extends BaseApplication {
      * textured quad in clipspace
      */
     private static Geometry quadGeometry;
+    // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public DynamicMeshTest() {
+        // do nothing
+    }
     // *************************************************************************
     // new methods exposed
 

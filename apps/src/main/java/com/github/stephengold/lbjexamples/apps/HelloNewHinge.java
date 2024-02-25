@@ -74,6 +74,15 @@ public class HelloNewHinge
     final private static List<PhysicsRigidBody> drive = new ArrayList<>(2);
     private static PhysicsRigidBody chassis;
     // *************************************************************************
+    // constructors
+
+    /**
+     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     */
+    public HelloNewHinge() {
+        // do nothing
+    }
+    // *************************************************************************
     // new methods exposed
 
     /**
