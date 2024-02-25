@@ -88,7 +88,6 @@ import javax.swing.WindowConstants;
  * Choose an LbjExamples application to run.
  */
 final class AppChooser extends JFrame {
-
     /**
      * Main entry point for the AppChooser application.
      *

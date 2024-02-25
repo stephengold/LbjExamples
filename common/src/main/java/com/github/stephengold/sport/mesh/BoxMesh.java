@@ -91,8 +91,7 @@ public class BoxMesh extends Mesh {
      * @param z2 Z coordinate of the vertex diagonally opposite the first vertex
      * (in mesh coordinates)
      */
-    public BoxMesh(float x1, float y1, float z1,
-            float x2, float y2, float z2) {
+    public BoxMesh(float x1, float y1, float z1, float x2, float y2, float z2) {
         super(Topology.TriangleList, 36);
 
         VertexBuffer posBuffer = super.createPositions();
