@@ -91,7 +91,7 @@ public abstract class BasePhysicsApp<T extends PhysicsSpace>
     /**
      * space for physics simulation
      */
-    public T physicsSpace;
+    protected T physicsSpace;
     // *************************************************************************
     // constructors
 
