@@ -14,6 +14,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 8
+      - run: ./gradlew javadoc --console=plain --no-daemon --stacktrace
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --no-daemon --stacktrace
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --no-daemon --stacktrace
 
@@ -28,6 +29,7 @@ jobs:
           java-version: 11
       - uses: gradle/wrapper-validation-action@v2
       - run: mkdir ~/Downloads
+      - run: ./gradlew javadoc --console=plain --no-daemon --stacktrace
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --no-daemon --stacktrace
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --no-daemon --stacktrace
 
@@ -40,6 +42,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 17
+      - run: ./gradlew javadoc --console=plain --no-daemon --stacktrace
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --no-daemon --stacktrace
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --no-daemon --stacktrace
 
@@ -52,6 +55,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: 21
+      - run: ./gradlew javadoc --console=plain --no-daemon --stacktrace
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --no-daemon --stacktrace
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --no-daemon --stacktrace
         shell: bash
