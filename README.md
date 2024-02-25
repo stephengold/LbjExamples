@@ -2,7 +2,7 @@
 
 [The LbjExamples Project][project] provides
 documentation and example applications
-for the [Libbulletjme 3-D physics library][libbulletjme].
+for [the Libbulletjme 3-D physics library][libbulletjme].
 
 It contains 3 sub-projects:
 
@@ -11,7 +11,7 @@ It contains 3 sub-projects:
 3. docs: documentation for Libbulletjme, including the tutorial
 
 Complete source code (in [Java]) is provided under
-[a BSD 3-Clause license][license].
+[a 3-clause BSD license][license].
 
 
 <a name="toc"></a>
