@@ -55,7 +55,12 @@ import jme3utilities.math.noise.Generator;
  * @author Stephen Gold sgold@sonic.net
  */
 public class HelloCustomShape extends BasePhysicsApp<PhysicsSpace> {
+    // *************************************************************************
+    // fields
 
+    /**
+     * generate pseudo-random quaternions
+     */
     final private Generator generator = new Generator();
     // *************************************************************************
     // constructors
