@@ -59,7 +59,7 @@ public class HelloCustomShape extends BasePhysicsApp<PhysicsSpace> {
     // fields
 
     /**
-     * generate pseudo-random quaternions
+     * generate pseudo-random rotations
      */
     final private Generator generator = new Generator();
     // *************************************************************************

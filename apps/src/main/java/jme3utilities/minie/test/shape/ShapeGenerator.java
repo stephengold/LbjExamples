@@ -64,7 +64,7 @@ import jme3utilities.math.RectangularSolid;
 import jme3utilities.math.noise.Generator;
 
 /**
- * Generate pseudo-random collision shapes for use in MinieExamples.
+ * Generate pseudo-random collision shapes for use in LbjExamples.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -85,7 +85,7 @@ public class ShapeGenerator extends Generator {
     // constructors
 
     /**
-     * Instantiate a generator.
+     * Explicit no-arg constructor to avoid javadoc warnings from JDK 18+.
      */
     public ShapeGenerator() { // explicit to avoid a warning from JDK 18 javadoc
     }
