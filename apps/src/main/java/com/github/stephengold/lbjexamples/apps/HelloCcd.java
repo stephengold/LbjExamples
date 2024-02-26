@@ -50,7 +50,7 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
     // constructors
 
     /**
-     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     * Explicit no-arg constructor to avoid javadoc warnings from JDK 18+.
      */
     public HelloCcd() {
         // do nothing

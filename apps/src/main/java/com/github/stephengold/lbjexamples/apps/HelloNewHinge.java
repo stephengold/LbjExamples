@@ -77,7 +77,7 @@ public class HelloNewHinge
     // constructors
 
     /**
-     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     * Explicit no-arg constructor to avoid javadoc warnings from JDK 18+.
      */
     public HelloNewHinge() {
         // do nothing

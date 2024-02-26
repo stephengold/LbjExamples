@@ -63,7 +63,7 @@ public class HelloKinematics
     // constructors
 
     /**
-     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     * Explicit no-arg constructor to avoid javadoc warnings from JDK 18+.
      */
     public HelloKinematics() {
         // do nothing

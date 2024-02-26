@@ -119,7 +119,7 @@ public class Windlass
     // constructors
 
     /**
-     * A no-arg constructor to avoid javadoc warnings from JDK 18.
+     * Explicit no-arg constructor to avoid javadoc warnings from JDK 18+.
      */
     public Windlass() {
         // do nothing
