@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
  All rights reserved.
 
  Redistribution and use in source and binary forms, with or without
@@ -202,15 +202,17 @@ final public class Utils {
         try {
             while (true) {
                 int numBytesRead = inputStream.read(tmpArray);
-                if (numBytesRead == tmpArray.length) {
+                if (numBytesRead < 0) {
+                    break;
+
+                } else if (numBytesRead == tmpArray.length) {
                     result.put(tmpArray);
+
                 } else {
-                    assert numBytesRead >= 0 : numBytesRead;
                     for (int i = 0; i < numBytesRead; ++i) {
                         byte b = tmpArray[i];
                         result.put(b);
                     }
-                    break;
                 }
             }
             inputStream.close();
