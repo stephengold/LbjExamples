@@ -90,11 +90,11 @@ public class ThousandCubes extends BasePhysicsApp<PhysicsSpace> {
     /**
      * generate random colors
      */
-    final private Random random = new Random();
+    final private static Random random = new Random();
     /**
      * temporary storage for location vectors
      */
-    final private Vector3f tmpLocation = new Vector3f();
+    final private static Vector3f tmpLocation = new Vector3f();
     // *************************************************************************
     // constructors
 

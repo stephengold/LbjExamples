@@ -59,7 +59,7 @@ public class HelloCharacter
     /**
      * character being tested
      */
-    private PhysicsCharacter character;
+    private static PhysicsCharacter character;
     // *************************************************************************
     // constructors
 

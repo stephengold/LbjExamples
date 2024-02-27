@@ -58,7 +58,7 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
     /**
      * collision object for the dynamic ball
      */
-    private PhysicsRigidBody ball;
+    private static PhysicsRigidBody ball;
     // *************************************************************************
     // constructors
 

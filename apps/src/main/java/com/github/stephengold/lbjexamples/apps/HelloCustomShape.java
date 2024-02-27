@@ -61,7 +61,7 @@ public class HelloCustomShape extends BasePhysicsApp<PhysicsSpace> {
     /**
      * generate pseudo-random rotations
      */
-    final private Generator generator = new Generator();
+    final private static Generator generator = new Generator();
     // *************************************************************************
     // constructors
 
