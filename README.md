@@ -102,7 +102,7 @@ Note:  these commands will delete any downloaded native libraries.
 
 
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
-[assimp]: https://www.assimp.org/ "The Asset Importer Library"
+[assimp]: https://www.assimp.org/ "The Open Asset Importer Library"
 [fish]: https://fishshell.com/ "Fish command-line shell"
 [git]: https://git-scm.com "Git"
 [glfw]: https://www.glfw.org "GLFW Library"
