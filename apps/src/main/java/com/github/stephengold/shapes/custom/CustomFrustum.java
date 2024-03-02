@@ -33,6 +33,7 @@ import com.jme3.bullet.collision.shapes.CustomConvexShape;
 import com.jme3.math.FastMath;
 import com.jme3.math.Vector3f;
 import java.util.logging.Logger;
+import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 
 /**
@@ -97,6 +98,10 @@ public class CustomFrustum extends CustomConvexShape {
      */
     public CustomFrustum(float a, float b, float height) {
         super(halfExtents(a, b, height));
+
+        Validate.positive(a, "A radius");
+        Validate.positive(b, "B radius");
+        Validate.positive(height, "height");
 
         this.unscaledA = a;
         this.unscaledB = b;

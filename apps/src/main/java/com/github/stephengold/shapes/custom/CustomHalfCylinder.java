@@ -32,6 +32,7 @@ package com.github.stephengold.shapes.custom;
 import com.jme3.bullet.collision.shapes.CustomConvexShape;
 import com.jme3.math.Vector3f;
 import java.util.logging.Logger;
+import jme3utilities.Validate;
 import jme3utilities.math.MyMath;
 import jme3utilities.math.MyVolume;
 
@@ -96,6 +97,9 @@ public class CustomHalfCylinder extends CustomConvexShape {
      */
     public CustomHalfCylinder(float radius, float height) {
         super(halfExtents(radius, height));
+
+        Validate.positive(radius, "radius");
+        Validate.positive(height, "height");
 
         this.unscaledHeight = height;
         this.unscaledRadius = radius;
