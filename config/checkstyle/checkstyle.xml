@@ -47,6 +47,7 @@
         <property name="files" value="IcosphereMesh.java"/>
         <property name="lines" value="3"/>
     </module>
+
     <module name="TreeWalker">
         <module name="OuterTypeFilename"/>
         <module name="IllegalToken">
@@ -374,7 +375,7 @@
             <property name="scope" value="protected"/>
             <property name="tokens"
                       value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
-                      RECORD_DEF, ANNOTATION_DEF"/>
+                    RECORD_DEF, ANNOTATION_DEF"/>
             <property name="excludeScope" value="nothing"/>
         </module>
         <module name="JavadocStyle">
