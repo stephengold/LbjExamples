@@ -1,11 +1,11 @@
 = An overview of the demo applications
 :Project: Libbulletjme
 :experimental:
-:url-examples: https://github.com/stephengold/LbjExamples/tree/master/apps/src/main/java/com/github/stephengold/lbjexamples
+:url-examples: https://github.com/stephengold/sport/tree/master/apps/src/main/java/com/github/stephengold/sport/demo
 
 _Demo applications_ are provided to showcase certain features of {Project}.
 The following demos are found in
-{url-examples}[the com.github.stephengold.lbjexamples package of the "apps" sub-project]:
+{url-examples}[the com.github.stephengold.sport.demo package of the SPORT "apps" sub-project]:
 
 * {url-examples}/ConveyorDemo.java[`ConveyorDemo`]
   demonstrates contact-point modifications

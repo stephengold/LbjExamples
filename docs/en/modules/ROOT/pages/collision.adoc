@@ -4,7 +4,7 @@
 :page-pagination:
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki
-:url-examples: https://github.com/stephengold/LbjExamples/tree/master/apps/src/main/java/com/github/stephengold/lbjexamples
+:url-examples: https://github.com/stephengold/sport/tree/master/apps/src/main/java/com/github/stephengold/sport/demo
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
 During each simulation step, Bullet performs collision detection in 2 phases:
