@@ -26,7 +26,7 @@ Complete source code (in [Java]) is provided under
 
 ## About SPORT
 
-SPORT is a Simple Phyisics-ORienTed graphics engine written in Java 1.8.
+SPORT is a Simple Physics-ORienTed graphics engine written in Java 1.8.
 In addition to [Libbulletjme],
 it uses [LWJGL], [Assimp], [GLFW], [JOML], and [OpenGL].
 It has been tested on Windows, Linux, and macOS.
