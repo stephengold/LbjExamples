@@ -8,6 +8,14 @@ plugins {
     id 'application' // to build Java applications
 }
 
+application {
+    mainClass = 'com.github.stephengold.lbjexamples.AppChooser'
+}
+if (!hasProperty('mainClass')) {
+    ext.mainClass = application.mainClass
+}
+jar.manifest.attributes('Main-Class': application.mainClass)
+
 ext {
     // which BTF (buildType + flavor) of the native physics library to use:
     //btf = 'DebugSp'
@@ -274,14 +282,6 @@ tasks.withType(JavaExec).configureEach { // Java runtime options:
         dependsOn 'downloadWindows64'
     }
 }
-
-application {
-    mainClass = 'com.github.stephengold.lbjexamples.AppChooser'
-}
-if (!hasProperty('mainClass')) {
-    ext.mainClass = application.mainClass
-}
-jar.manifest.attributes('Main-Class': application.mainClass)
 
 dependencies {
     if (includeLinux) {
