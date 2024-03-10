@@ -6,7 +6,7 @@ for [the Libbulletjme 3-D physics library][libbulletjme].
 
 It contains 2 sub-projects:
 
-1. docs: documentation for Libbulletjme, including the tutorial
+1. docs: [Antora] documentation for Libbulletjme, including the tutorial
 2. apps: applications referenced in the tutorial
 
 The applications make use of [the SPORT graphics engine][sport],
@@ -54,7 +54,7 @@ To execute "HelloLibbulletjme":
 ### Chooser
 
 A Swing-based chooser application is included.
-However, it includes only the graphical apps and doesn't work yet on macOS.
+However, it includes only the graphical apps and doesn't work on macOS yet.
 
 To run the chooser:
 + using Bash or Fish or PowerShell or Zsh: `./gradlew AppChooser`
@@ -70,6 +70,7 @@ Note:  these commands will delete any downloaded native libraries.
 
 
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
+[antora]: https://antora.org/ "Antora documentation-site generator"
 [fish]: https://fishshell.com/ "Fish command-line shell"
 [git]: https://git-scm.com "Git"
 [github]: https://github.com "GitHub"
