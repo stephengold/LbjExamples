@@ -60,17 +60,6 @@ import com.github.stephengold.lbjexamples.apps.HelloVehicle;
 import com.github.stephengold.lbjexamples.apps.HelloWalk;
 import com.github.stephengold.lbjexamples.apps.HelloWind;
 import com.github.stephengold.sport.BaseApplication;
-import com.github.stephengold.sport.test.AssimpTest;
-import com.github.stephengold.sport.test.CheckerboardTest;
-import com.github.stephengold.sport.test.ClipspaceTest;
-import com.github.stephengold.sport.test.DynamicMeshTest;
-import com.github.stephengold.sport.test.IcosphereTest;
-import com.github.stephengold.sport.test.MouseTest;
-import com.github.stephengold.sport.test.MouseTest2;
-import com.github.stephengold.sport.test.OctasphereTest;
-import com.github.stephengold.sport.test.RainbowTest;
-import com.github.stephengold.sport.test.SpriteTest;
-import com.github.stephengold.sport.test.TextureTest;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.WindowEvent;
@@ -94,13 +83,7 @@ final class AppChooser extends JFrame {
      */
     public static void main(String[] arguments) {
         Logger.getLogger("").setLevel(Level.WARNING);
-        List<BaseApplication> apps = new ArrayList<>(49);
-
-        apps.add(new AssimpTest());
-        apps.add(new CheckerboardTest());
-        apps.add(new ClipspaceTest());
-        apps.add(new ConveyorDemo());
-        apps.add(new DynamicMeshTest());
+        List<BaseApplication> apps = new ArrayList<>(31);
 
         apps.add(new HelloCcd());
         apps.add(new HelloCharacter());
@@ -139,21 +122,6 @@ final class AppChooser extends JFrame {
         apps.add(new HelloWalk());
 
         apps.add(new HelloWind());
-        apps.add(new IcosphereTest());
-        apps.add(new MouseTest());
-        apps.add(new MouseTest2());
-        apps.add(new NewtonsCradle());
-
-        apps.add(new OctasphereTest());
-        apps.add(new Pachinko());
-        apps.add(new RainbowTest());
-        apps.add(new SplitDemo());
-        apps.add(new SpriteTest());
-
-        apps.add(new TestGearJoint());
-        apps.add(new TextureTest());
-        apps.add(new ThousandCubes());
-        apps.add(new Windlass());
 
         new AppChooser(apps);
     }

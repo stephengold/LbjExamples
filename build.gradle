@@ -9,6 +9,7 @@ ext {
     lbjVersion = '20.1.0'
     lwjglVersion = '3.3.3'
     //lwjglVersion = '3.3.4-SNAPSHOT'
+    sportVersion = '0.9.1'
 }
 
 subprojects {
@@ -20,7 +21,7 @@ configurations.configureEach {
 }
 
 tasks.register('checkstyle') {
-    dependsOn ':apps:checkstyleMain', ':common:checkstyleMain'
+    dependsOn ':apps:checkstyleMain'
     description 'Checks the style of all Java sourcecode.'
 }
 

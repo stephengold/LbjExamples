@@ -36,36 +36,6 @@ tasks.register('AppChooser', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.AppChooser'
 }
 
-// physics demos
-tasks.register('ConveyorDemo', JavaExec) {
-    description 'Runs the ConveyorDemo app.'
-    mainClass = 'com.github.stephengold.lbjexamples.ConveyorDemo'
-}
-tasks.register('NewtonsCradle', JavaExec) {
-    description 'Runs the NewtonsCradle demo app.'
-    mainClass = 'com.github.stephengold.lbjexamples.NewtonsCradle'
-}
-tasks.register('Pachinko', JavaExec) {
-    description 'Runs the Pachinko demo app.'
-    mainClass = 'com.github.stephengold.lbjexamples.Pachinko'
-}
-tasks.register('SplitDemo', JavaExec) {
-    description 'Runs the SplitDemo app.'
-    mainClass = 'com.github.stephengold.lbjexamples.SplitDemo'
-}
-tasks.register('TestGearJoint', JavaExec) {
-    description 'Runs the TestGearJoint app.'
-    mainClass = 'com.github.stephengold.lbjexamples.TestGearJoint'
-}
-tasks.register('ThousandCubes', JavaExec) {
-    description 'Runs the ThousandCubes demo app.'
-    mainClass = 'com.github.stephengold.lbjexamples.ThousandCubes'
-}
-tasks.register('Windlass', JavaExec) {
-    description 'Runs the Windlass demo app.'
-    mainClass = 'com.github.stephengold.lbjexamples.Windlass'
-}
-
 // physics console apps (no graphics)
 tasks.register('HelloLibbulletjme', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.console.HelloLibbulletjme'
@@ -208,52 +178,6 @@ tasks.register('HelloWind', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWind'
 }
 
-// graphics-only tests (no physics)
-tasks.register('AssimpTest', JavaExec) {
-    description 'Runs the Assimp test app.'
-    mainClass = 'com.github.stephengold.sport.test.AssimpTest'
-}
-tasks.register('CheckerboardTest', JavaExec) {
-    description 'Runs the checkerboard test app.'
-    mainClass = 'com.github.stephengold.sport.test.CheckerboardTest'
-}
-tasks.register('ClipspaceTest', JavaExec) {
-    description 'Runs the clipspace test app.'
-    mainClass = 'com.github.stephengold.sport.test.ClipspaceTest'
-}
-tasks.register('DynamicMeshTest', JavaExec) {
-    description 'Runs the dynamic-mesh test app.'
-    mainClass = 'com.github.stephengold.sport.test.DynamicMeshTest'
-}
-tasks.register('IcosphereTest', JavaExec) {
-    description 'Runs the icosphere test app.'
-    mainClass = 'com.github.stephengold.sport.test.IcosphereTest'
-}
-tasks.register('MouseTest', JavaExec) {
-    description 'Runs the first mouse test app.'
-    mainClass = 'com.github.stephengold.sport.test.MouseTest'
-}
-tasks.register('MouseTest2', JavaExec) {
-    description 'Runs the 2nd mouse test app.'
-    mainClass = 'com.github.stephengold.sport.test.MouseTest2'
-}
-tasks.register('OctasphereTest', JavaExec) {
-    description 'Runs the octasphere test app.'
-    mainClass = 'com.github.stephengold.sport.test.OctasphereTest'
-}
-tasks.register('RainbowTest', JavaExec) {
-    description 'Runs the rainbow test app.'
-    mainClass = 'com.github.stephengold.sport.test.RainbowTest'
-}
-tasks.register('SpriteTest', JavaExec) {
-    description 'Runs the sprite test app.'
-    mainClass = 'com.github.stephengold.sport.test.SpriteTest'
-}
-tasks.register('TextureTest', JavaExec) {
-    description 'Runs the texture test app.'
-    mainClass = 'com.github.stephengold.sport.test.TextureTest'
-}
-
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 OperatingSystem os = DefaultNativePlatform.currentOperatingSystem
 Boolean includeLinux = os.isLinux()
@@ -325,7 +249,7 @@ dependencies {
         runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows-x86"
     }
 
-    implementation project(':common')
+    implementation 'com.github.stephengold:sport:' + sportVersion
 }
 
 // Register tasks to download/clean the native physics library for each platform:

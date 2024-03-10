@@ -3,7 +3,6 @@
 
 # Ignore Gradle's build output directories:
 /apps/build/
-/common/build/
 /docs/build/
 
 /node_modules/

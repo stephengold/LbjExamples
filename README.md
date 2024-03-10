@@ -4,37 +4,18 @@
 documentation and example applications
 for [the Libbulletjme 3-D physics library][libbulletjme].
 
-It contains 3 sub-projects:
+It contains 2 sub-projects:
 
-1. apps: demos, tutorial examples, and non-automated test software
-2. common: the SPORT graphics engine
-3. docs: documentation for Libbulletjme, including the tutorial
+1. docs: documentation for Libbulletjme, including the tutorial
+2. apps: applications referenced in the tutorial
+
+The applications make use of [the SPORT graphics engine][sport],
+which was formerly a sub-project and
+is now a separate project at [GitHub].
 
 Complete source code (in [Java]) is provided under
 [a 3-clause BSD license][license].
 
-
-<a name="toc"></a>
-
-## Contents of this document
-
-+ [About SPORT](#about)
-+ [How to build and run SPORT from source](#build)
-
-
-<a name="about"></a>
-
-## About SPORT
-
-SPORT is a Simple Physics-ORienTed graphics engine written in Java 1.8.
-In addition to [Libbulletjme],
-it uses [LWJGL], [Assimp], [GLFW], [JOML], and [OpenGL].
-It has been tested on Windows, Linux, and macOS.
-
-[Jump to the table of contents](#toc)
-
-
-<a name="build"></a>
 
 ## How to build and run LbjExamples from source
 
@@ -70,20 +51,6 @@ To execute "HelloLibbulletjme":
 + using Bash or Fish or PowerShell or Zsh: `./gradlew HelloLibbulletjme`
 + using Windows Command Prompt: `.\gradlew HelloLibbulletjme`
 
-### Demos
-
-Seven demo applications are included:
-+ ConveyorDemo
-+ NewtonsCradle
-+ Pachinko
-+ SplitDemo
-+ TestGearJoint
-+ ThousandCubes
-+ Windlass
-
-Documentation for the demo apps is at
-https://stephengold.github.io/Libbulletjme/lbj-en/English/demos.html
-
 ### Chooser
 
 A Swing-based chooser application is included.
@@ -101,19 +68,14 @@ You can restore the project to a pristine state:
 
 Note:  these commands will delete any downloaded native libraries.
 
-[Jump to the table of contents](#toc)
-
 
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
-[assimp]: https://www.assimp.org/ "The Open Asset Importer Library"
 [fish]: https://fishshell.com/ "Fish command-line shell"
 [git]: https://git-scm.com "Git"
-[glfw]: https://www.glfw.org "GLFW Library"
+[github]: https://github.com "GitHub"
 [gradle]: https://gradle.org "Gradle Project"
 [java]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java programming language"
-[joml]: https://joml-ci.github.io/JOML "Java OpenGL Math Library"
 [libbulletjme]: https://stephengold.github.io/Libbulletjme/lbj-en/English/overview.html "Libbulletjme Project"
 [license]: https://github.com/stephengold/LbjExamples/blob/master/LICENSE "LbjExamples license"
-[lwjgl]: https://www.lwjgl.org "Lightweight Java Game Library"
-[opengl]: https://www.khronos.org/opengl "OpenGL API"
 [project]: https://github.com/stephengold/LbjExamples "LbjExamples Project"
+[sport]: https://github.com/stephengold/sport "SPORT Project"
