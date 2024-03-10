@@ -31,6 +31,7 @@ package com.github.stephengold.lbjexamples;
 import com.github.stephengold.lbjexamples.apps.HelloCcd;
 import com.github.stephengold.lbjexamples.apps.HelloCharacter;
 import com.github.stephengold.lbjexamples.apps.HelloCloth;
+import com.github.stephengold.lbjexamples.apps.HelloClothRigid;
 import com.github.stephengold.lbjexamples.apps.HelloContactResponse;
 import com.github.stephengold.lbjexamples.apps.HelloCustomShape;
 import com.github.stephengold.lbjexamples.apps.HelloDamping;
@@ -83,44 +84,45 @@ final class AppChooser extends JFrame {
      */
     public static void main(String[] arguments) {
         Logger.getLogger("").setLevel(Level.WARNING);
-        List<BaseApplication> apps = new ArrayList<>(31);
+        List<BaseApplication> apps = new ArrayList<>(32);
 
         apps.add(new HelloCcd());
         apps.add(new HelloCharacter());
         apps.add(new HelloCloth());
+        apps.add(new HelloClothRigid());
         apps.add(new HelloContactResponse());
-        apps.add(new HelloCustomShape());
 
+        apps.add(new HelloCustomShape());
         apps.add(new HelloDamping());
         apps.add(new HelloDeactivation());
         apps.add(new HelloDoor());
         apps.add(new HelloDoubleEnded());
-        apps.add(new HelloGhost());
 
+        apps.add(new HelloGhost());
         apps.add(new HelloJoint());
         apps.add(new HelloKinematics());
         apps.add(new HelloLimit());
         apps.add(new HelloMadMallet());
-        apps.add(new HelloMassDistribution());
 
+        apps.add(new HelloMassDistribution());
         apps.add(new HelloMinkowski());
         apps.add(new HelloMotor());
         apps.add(new HelloNewHinge());
         apps.add(new HelloNonUniformGravity());
-        apps.add(new HelloPin());
 
+        apps.add(new HelloPin());
         apps.add(new HelloRigidBody());
         apps.add(new HelloServo());
         apps.add(new HelloSoftBody());
         apps.add(new HelloSoftRope());
-        apps.add(new HelloSoftSoft());
 
+        apps.add(new HelloSoftSoft());
         apps.add(new HelloSport());
         apps.add(new HelloSpring());
         apps.add(new HelloStaticBody());
         apps.add(new HelloVehicle());
+        
         apps.add(new HelloWalk());
-
         apps.add(new HelloWind());
 
         new AppChooser(apps);
