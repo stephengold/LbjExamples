@@ -69,9 +69,17 @@ tasks.register('HelloCloth', JavaExec) {
     description 'Runs the HelloCloth tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCloth'
 }
+tasks.register('HelloClothRigid', JavaExec) {
+    description 'Runs the HelloClothRigid tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloClothRigid'
+}
 tasks.register('HelloContactResponse', JavaExec) {
     description 'Runs the HelloContactResponse tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloContactResponse'
+}
+tasks.register('HelloCustomShape', JavaExec) {
+    description 'Runs the HelloCustomShape tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCustomShape'
 }
 tasks.register('HelloDamping', JavaExec) {
     description 'Runs the HelloDamping tutorial app.'
