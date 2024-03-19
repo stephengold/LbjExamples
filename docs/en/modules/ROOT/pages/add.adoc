@@ -29,7 +29,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation 'com.github.stephengold:Libbulletjme:20.1.0'
+    implementation 'com.github.stephengold:Libbulletjme:20.2.0'
 }
 ----
 
@@ -52,7 +52,7 @@ Add to the project's "pom.xml" file:
 <dependency>
   <groupId>com.github.stephengold</groupId>
   <artifactId>Libbulletjme</artifactId>
-  <version>20.1.0</version>
+  <version>20.2.0</version>
 </dependency>
 ----
 
@@ -62,7 +62,7 @@ Download the {Project} library from GitHub:
 
 * https://github.com/stephengold/Libbulletjme/releases/latest
 
-You'll definitely need the class JAR ("Libbulletjme-20.1.0.jar")
+You'll definitely need the class JAR ("Libbulletjme-20.2.0.jar")
 and probably the "-sources" and "-javadoc" JARs as well.
 
 Open the project's properties in the NetBeans IDE:
@@ -74,15 +74,15 @@ Open the project's properties in the NetBeans IDE:
 . Add the Heart class JAR:
 .. Click on the btn:[Add JAR/Folder] button.
 .. Navigate to the download directory.
-.. Select the "Libbulletjme-20.1.0" file.
+.. Select the "Libbulletjme-20.2.0" file.
 .. Click on the btn:[Open] button.
 . (optional) Add JARs for javadoc and sources:
 .. Click on the btn:[Edit] button.
 .. Click on the btn:[Browse...] button to the right of "Javadoc:"
-.. Select the "Libbulletjme-20.1.0-javadoc.jar" file.
+.. Select the "Libbulletjme-20.2.0-javadoc.jar" file.
 .. Click on the btn:[Open] button.
 .. Click on the btn:[Browse...] button to the right of "Sources:"
-.. Select the "Libbulletjme-20.1.0-sources.jar" file.
+.. Select the "Libbulletjme-20.2.0-sources.jar" file.
 .. Click on the btn:[Open] button button again.
 .. Click on the btn:[OK] button to close the "Edit Jar Reference" dialog.
 . Click on the btn:[OK] button to exit the "Project Properties" dialog.
