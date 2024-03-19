@@ -121,7 +121,7 @@ final class AppChooser extends JFrame {
         apps.add(new HelloSpring());
         apps.add(new HelloStaticBody());
         apps.add(new HelloVehicle());
-        
+
         apps.add(new HelloWalk());
         apps.add(new HelloWind());
 
