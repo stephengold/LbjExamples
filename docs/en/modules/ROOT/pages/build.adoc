@@ -41,6 +41,8 @@ Here's the recommended procedure:
 ... save the ZIP file
 ... extract the contents of the saved ZIP file
 ... `cd` to the extracted directory
+. Cross-compilation using GCC requires the g++-multilib package:
+.. `sudo apt-get install g++-multilib`
 . Run the Gradle wrapper on the desktop build script:
 .. using Bash or Fish or PowerShell or Zsh: `./gradlew build`
 .. using Windows Command Prompt: `.\gradlew build`
