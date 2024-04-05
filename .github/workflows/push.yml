@@ -56,6 +56,8 @@ jobs:
           java-version: 21
       - uses: actions/checkout@v4
       - run: ./gradlew javadoc --console=plain --no-daemon --stacktrace
+        shell: bash
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --no-daemon --stacktrace
+        shell: bash
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --no-daemon --stacktrace
         shell: bash
