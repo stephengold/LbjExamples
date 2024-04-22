@@ -206,6 +206,9 @@ The following table documents those correspondences.
 |btSoftBody::Material
 |com.jme3.bullet.objects.infos.SoftBodyMaterial
 
+|btSoftBodyRigidBodyCollisionConfiguration
+|com.jme3.bullet.CollisionConfiguration
+
 |btSoftBodyWorldInfo
 |com.jme3.bullet.SoftBodyWorldInfo
 
