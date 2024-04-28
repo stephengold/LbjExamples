@@ -222,7 +222,7 @@ public class CustomSegment extends CustomConvexShape {
             y = 0.5f * (scaledYMax + scaledYMin);
         } else {
             y = scaledRadius * (dirY / dxyz);
-            y = clamp(y, scaledYMin, scaledYMax); // TODO use FastMath
+            y = FastMath.clamp(y, scaledYMin, scaledYMax);
         }
 
         // The distance from the local Y axis, in physics-space units:
@@ -328,18 +328,6 @@ public class CustomSegment extends CustomConvexShape {
     }
     // *************************************************************************
     // private methods
-
-    /**
-     * Take a float input and clamp it between min and max.
-     *
-     * @param input the value to be clamped
-     * @param min the minimum output value
-     * @param max the maximum output value
-     * @return clamped input
-     */
-    private static float clamp(float input, float min, float max) {
-        return (input < min) ? min : (input > max) ? max : input;
-    }
 
     /**
      * Return the half extents of a spherical segment around its center of mass.
