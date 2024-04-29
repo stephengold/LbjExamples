@@ -6,7 +6,7 @@ plugins {
 
 ext {
     // current versions of libraries:
-    lbjVersion = '21.0.0'
+    lbjVersion = '21.1.0'
     lwjglVersion = '3.3.3'
     //lwjglVersion = '3.3.4-SNAPSHOT'
     sportVersion = '0.9.4'
