@@ -121,8 +121,8 @@ public class CustomCone extends CustomConvexShape {
     // CustomConvexShape methods
 
     /**
-     * Test whether the specified scale factors can be applied to this shape.
-     * For a cone, scaling must preserve the circular cross section.
+     * Test whether the specified scale factors can be applied to the shape. For
+     * a cone, scaling must preserve the circular cross section.
      *
      * @param scale the desired scale factor for each local axis (may be null,
      * unaffected)

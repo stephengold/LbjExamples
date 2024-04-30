@@ -37,8 +37,8 @@ import jme3utilities.math.MyMath;
 
 /**
  * A collision shape for a elliptic paraboloid with a circular cap and uniform
- * density. By convention, the vertex lies on the -Y axis, and the center of the
- * cap lies on the +Y axis.
+ * density. By convention, the vertex lies on the local -Y axis, and the center
+ * of the cap lies on the local +Y axis.
  * <p>
  * This is an imprecise shape; margin always expands the shape.
  *
@@ -125,8 +125,8 @@ public class CustomParaboloid extends CustomConvexShape {
     // CustomConvexShape methods
 
     /**
-     * Test whether the specified scale factors can be applied to this shape.
-     * For this shape, scaling must preserve the circular cross section.
+     * Test whether the specified scale factors can be applied to the shape. For
+     * this shape, scaling must preserve the circular cross section.
      *
      * @param scale the desired scale factor for each local axis (may be null,
      * unaffected)

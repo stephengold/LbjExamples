@@ -137,8 +137,10 @@ public class CustomCylinder extends CustomConvexShape {
     // CustomConvexShape methods
 
     /**
-     * Test whether the specified scale factors can be applied to this shape.
-     * For a cylinder, scaling must preserve the circular cross section.
+     * Test whether the specified scale factors can be applied to the shape. For
+     * a cylinder, scaling must preserve the circular cross section.
+     *
+     * TODO allow general scaling
      *
      * @param scale the desired scale factor for each local axis (may be null,
      * unaffected)
