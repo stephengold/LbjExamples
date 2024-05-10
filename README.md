@@ -4,13 +4,13 @@
 documentation and example applications
 for [the Libbulletjme 3-D physics library][libbulletjme].
 
-It contains 2 sub-projects:
+It contains 2 subprojects:
 
 1. docs: [Antora] documentation for Libbulletjme, including the tutorial
 2. apps: applications referenced in the tutorial
 
 The applications make use of [the SPORT graphics engine][sport],
-which was formerly a sub-project and
+which was formerly a subproject and
 is now a separate project at [GitHub].
 
 Complete source code (in [Java]) is provided under
