@@ -1,6 +1,4 @@
-/*
- * settings.gradle: global settings shared by all LbjExamples subprojects
- */
+// global settings shared by all LbjExamples subprojects
 
 dependencyResolutionManagement {
     repositories {
