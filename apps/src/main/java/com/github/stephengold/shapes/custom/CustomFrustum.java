@@ -111,21 +111,11 @@ public class CustomFrustum extends CustomConvexShape {
     // new methods exposed
 
     /**
-     * Return the height of the frustum.
-     *
-     * @return the unscaled height (&gt;0)
-     */
-    public float getHeight() {
-        assert unscaledHeight > 0f : unscaledHeight;
-        return unscaledHeight;
-    }
-
-    /**
      * Return the radius of the "A" base.
      *
      * @return the unscaled radius (&gt;0)
      */
-    public float getA() {
+    public float aRadius() {
         assert unscaledA > 0f : unscaledA;
         return unscaledA;
     }
@@ -135,9 +125,19 @@ public class CustomFrustum extends CustomConvexShape {
      *
      * @return the unscaled radius (&gt;0)
      */
-    public float getB() {
+    public float bRadius() {
         assert unscaledB > 0f : unscaledB;
         return unscaledB;
+    }
+
+    /**
+     * Return the height of the frustum.
+     *
+     * @return the unscaled height (&gt;0)
+     */
+    public float height() {
+        assert unscaledHeight > 0f : unscaledHeight;
+        return unscaledHeight;
     }
     // *************************************************************************
     // CustomConvexShape methods
