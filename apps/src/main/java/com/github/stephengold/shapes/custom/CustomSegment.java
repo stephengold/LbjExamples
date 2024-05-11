@@ -40,6 +40,8 @@ import jme3utilities.math.MyVector3f;
  * A collision shape for a spherical segment with uniform density. By
  * convention, both bases are orthogonal to the local Y axis.
  * <p>
+ * {@code SphericalSegment} is probably more efficient.
+ * <p>
  * This is an imprecise shape; margin always expands the shape.
  *
  * @author Stephen Gold sgold@sonic.net

@@ -40,6 +40,8 @@ import jme3utilities.math.MyMath;
  * the local Y axis is the height axis, with the "A" base having y&lt;0 and the
  * "B" base having y&gt;0.
  * <p>
+ * {@code ConicalFrustum} is probably more efficient.
+ * <p>
  * This is an imprecise shape; margin always expands the shape.
  *
  * @author Stephen Gold sgold@sonic.net
