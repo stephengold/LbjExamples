@@ -295,7 +295,7 @@ with different margins:
 |image:margin6.png[height=160]
 |===
 
-Margin can also distorts a
+Margin can also distort a
 {url-shape}/CylinderCollisionShape.html[`CylinderCollisionShape`],
 but its effect there is more complicated:
 no effect for small margins and non-uniform distortion for large margins.
