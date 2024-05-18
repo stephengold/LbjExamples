@@ -17,7 +17,7 @@ if (!hasProperty('mainClass')) {
 jar.manifest.attributes('Main-Class': application.mainClass)
 
 ext {
-    // which BTF (buildType + flavor) of the native physics library to use:
+    // which BTF (buildType + flavor) of the native physics library to copy:
     //btf = 'DebugSp'
     btf = 'ReleaseSp'
 
