@@ -50,7 +50,10 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
     // constructors
 
     /**
-     * Explicit no-arg constructor to avoid javadoc warnings from JDK 18+.
+     * Instantiate the HelloMadMallet application.
+     * <p>
+     * This no-arg constructor was made explicit to avoid javadoc warnings from
+     * JDK 18+.
      */
     public HelloMadMallet() {
         // do nothing

@@ -57,7 +57,10 @@ public class HelloDeactivation
     // constructors
 
     /**
-     * Explicit no-arg constructor to avoid javadoc warnings from JDK 18+.
+     * Instantiate the HelloDeactivation application.
+     * <p>
+     * This no-arg constructor was made explicit to avoid javadoc warnings from
+     * JDK 18+.
      */
     public HelloDeactivation() {
         // do nothing

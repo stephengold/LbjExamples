@@ -67,7 +67,10 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
     // constructors
 
     /**
-     * Explicit no-arg constructor to avoid javadoc warnings from JDK 18+.
+     * Instantiate the HelloServo application.
+     * <p>
+     * This no-arg constructor was made explicit to avoid javadoc warnings from
+     * JDK 18+.
      */
     public HelloServo() {
         // do nothing

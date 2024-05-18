@@ -65,7 +65,10 @@ public class HelloCustomShape extends BasePhysicsApp<PhysicsSpace> {
     // constructors
 
     /**
-     * Explicit no-arg constructor to avoid javadoc warnings from JDK 18+.
+     * Instantiate the HelloCustomShape application.
+     * <p>
+     * This no-arg constructor was made explicit to avoid javadoc warnings from
+     * JDK 18+.
      */
     public HelloCustomShape() {
         // do nothing

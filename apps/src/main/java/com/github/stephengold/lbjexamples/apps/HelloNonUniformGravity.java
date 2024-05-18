@@ -63,7 +63,10 @@ public class HelloNonUniformGravity
     // constructors
 
     /**
-     * Explicit no-arg constructor to avoid javadoc warnings from JDK 18+.
+     * Instantiate the HelloNonUniformGravity application.
+     * <p>
+     * This no-arg constructor was made explicit to avoid javadoc warnings from
+     * JDK 18+.
      */
     public HelloNonUniformGravity() {
         // do nothing
