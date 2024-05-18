@@ -9,7 +9,7 @@ java {
 }
 
 checkstyle {
-    toolVersion '9.3'
+    toolVersion libs.versions.checkstyle.get()
 }
 
 tasks.withType(JavaCompile).configureEach { // Java compile-time options:
@@ -27,12 +27,12 @@ tasks.withType(JavaCompile).configureEach { // Java compile-time options:
 }
 
 dependencies {
-    implementation 'com.github.stephengold:Libbulletjme:' + lbjVersion
-    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+    implementation(libs.libbulletjme)
+    implementation platform(libs.lwjgl.bom)
 
-    implementation 'org.joml:joml:1.10.5'
-    implementation 'org.lwjgl:lwjgl'
-    implementation 'org.lwjgl:lwjgl-assimp'
-    implementation 'org.lwjgl:lwjgl-glfw'
-    implementation 'org.lwjgl:lwjgl-opengl'
+    implementation(libs.joml)
+    implementation(libs.lwjgl)
+    implementation(libs.lwjgl.assimp)
+    implementation(libs.lwjgl.glfw)
+    implementation(libs.lwjgl.opengl)
 }

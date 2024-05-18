@@ -4,14 +4,6 @@ plugins {
     id 'base' // to add a "clean" task to the root project
 }
 
-ext {
-    // current versions of libraries:
-    lbjVersion = '21.2.1'
-    lwjglVersion = '3.3.3'
-    //lwjglVersion = '3.3.4-SNAPSHOT'
-    sportVersion = '0.9.4'
-}
-
 subprojects {
     apply from: rootProject.file('common.gradle')
 }

@@ -23,6 +23,7 @@ ext {
 
     fs = System.getProperty('file.separator')
     downloadsDir = System.getProperty('user.home') + fs + 'Downloads' + fs
+    lbjVersion = libs.versions.libbulletjme.get()
 
     // URL from which native physics libraries should be copied:
     libbulletjmeUrl = "https://github.com/stephengold/Libbulletjme/releases/download/$lbjVersion/"
@@ -217,47 +218,47 @@ tasks.withType(JavaExec).configureEach { // Java runtime options:
 
 dependencies {
     if (includeLinux) {
-        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux"
-        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-linux"
-        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux"
-        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux"
+        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-linux")})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-linux")})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-linux")})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-linux")})
 
-        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux-arm32"
-        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-linux-arm32"
-        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux-arm32"
-        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux-arm32"
+        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-linux-arm32")})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-linux-arm32")})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-linux-arm32")})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-linux-arm32")})
 
-        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-linux-arm64"
-        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-linux-arm64"
-        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-linux-arm64"
-        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-linux-arm64"
+        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-linux-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-linux-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-linux-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-linux-arm64")})
     }
 
     if (includeMacOsX) {
-        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos"
-        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-macos"
-        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos"
-        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos"
+        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-macos")})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-macos")})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-macos")})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-macos")})
 
-        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-macos-arm64"
-        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-macos-arm64"
-        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-macos-arm64"
-        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-macos-arm64"
+        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-macos-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-macos-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-macos-arm64")})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-macos-arm64")})
     }
 
     if (includeWindows) {
-        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows"
-        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-windows"
-        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows"
-        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows"
+        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-windows")})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-windows")})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-windows")})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-windows")})
 
-        runtimeOnly "org.lwjgl:lwjgl:${lwjglVersion}:natives-windows-x86"
-        runtimeOnly "org.lwjgl:lwjgl-assimp:${lwjglVersion}:natives-windows-x86"
-        runtimeOnly "org.lwjgl:lwjgl-glfw:${lwjglVersion}:natives-windows-x86"
-        runtimeOnly "org.lwjgl:lwjgl-opengl:${lwjglVersion}:natives-windows-x86"
+        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-windows-x86")})
+        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-windows-x86")})
+        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-windows-x86")})
+        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-windows-x86")})
     }
 
-    implementation 'com.github.stephengold:sport:' + sportVersion
+    implementation(libs.sport)
 }
 
 // Register tasks to download/clean the native physics library for each platform:
