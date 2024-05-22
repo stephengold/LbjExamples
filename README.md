@@ -4,16 +4,17 @@
 documentation and example applications
 for [the Libbulletjme 3-D physics library][libbulletjme].
 
-It contains 2 subprojects:
+It contains 3 subprojects:
 
 1. docs: [Antora] documentation for Libbulletjme, including the tutorial
-2. apps: applications referenced in the tutorial
+2. apps: [Java] applications referenced in the tutorial
+3. kotlin-apps: [Kotlin] translations of certain apps
 
 The applications make use of [the SPORT graphics engine][sport],
 which was formerly a subproject and
 is now a separate project at [GitHub].
 
-Complete source code (in [Java]) is provided under
+Complete source code is provided under
 [a 3-clause BSD license][license].
 
 
@@ -48,8 +49,8 @@ The tutorial apps all have names starting with "Hello".
 For instance, the first tutorial app is named "HelloLibbulletjme".
 
 To execute "HelloLibbulletjme":
-+ using Bash or Fish or PowerShell or Zsh: `./gradlew HelloLibbulletjme`
-+ using Windows Command Prompt: `.\gradlew HelloLibbulletjme`
++ using Bash or Fish or PowerShell or Zsh: `./gradlew :apps:HelloLibbulletjme`
++ using Windows Command Prompt: `.\gradlew :apps:HelloLibbulletjme`
 
 ### Chooser
 
@@ -76,6 +77,7 @@ Note:  these commands will delete any downloaded native libraries.
 [github]: https://github.com "GitHub"
 [gradle]: https://gradle.org "Gradle Project"
 [java]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java programming language"
+[kotlin]: https://en.wikipedia.org/wiki/Kotlin_(programming_language) "Kotlin programming language"
 [libbulletjme]: https://stephengold.github.io/Libbulletjme/lbj-en/English/overview.html "Libbulletjme Project"
 [license]: https://github.com/stephengold/LbjExamples/blob/master/LICENSE "LbjExamples license"
 [project]: https://github.com/stephengold/LbjExamples "LbjExamples Project"
