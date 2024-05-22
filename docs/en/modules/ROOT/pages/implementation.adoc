@@ -20,7 +20,7 @@ to access their objects and methods.
 
 All {Cplusplus} source code in {Project}
 (a modified partial snapshot of Bullet, a snapshot of V-HACD, and some "glue code")
-resides in its "src/native" directory.
+resides in https://github.com/stephengold/Libbulletjme/tree/master/src/main/native[its "native" directory].
 Before instantiating physics objects,
 a {Project} application must {url-enwiki}/Dynamic_loading[dynamically load]
 a _native library_ of this code,

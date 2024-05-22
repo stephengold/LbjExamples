@@ -40,7 +40,7 @@ For 2-D physics, consider using http://www.dyn4j.org/[dyn4j] instead.
 
 {Project} and its documentation
 assume a certain level of proficiency with
-the Java programming language.
+{url-enwiki}/Java_(programming_language)[the Java programming language].
 This project isn't aimed at non-programmers,
 nor developers without prior Java experience.
 Similarly, some familiarity with 3-D graphics and vector math is assumed.
