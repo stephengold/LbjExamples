@@ -1,11 +1,17 @@
 // Gradle script to build the "apps" subproject of LbjExamples
 
-// Note: "common.gradle" in the root project contains additional initialization
-//   for this project. This initialization is applied in the "build.gradle"
-//   of the root project.
-
 plugins {
     id 'application' // to build JVM applications
+    id 'checkstyle'  // to analyze Java sourcecode for style violations
+}
+
+checkstyle {
+    toolVersion libs.versions.checkstyle.get()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 application {
@@ -15,6 +21,31 @@ if (!hasProperty('mainClass')) {
     ext.mainClass = application.mainClass
 }
 jar.manifest.attributes('Main-Class': application.mainClass)
+
+tasks.withType(JavaCompile).configureEach { // Java compile-time options:
+    options.compilerArgs << '-Xdiags:verbose'
+    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_20)) {
+        // Suppress warnings that source value 8 is obsolete.
+        options.compilerArgs << '-Xlint:-options'
+    }
+    options.compilerArgs << '-Xlint:unchecked'
+    options.deprecation = true // to provide detailed deprecation warnings
+    options.encoding = 'UTF-8'
+    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_1_10)) {
+        options.release = 8
+    }
+}
+
+dependencies {
+    implementation(libs.libbulletjme)
+    implementation platform(libs.lwjgl.bom)
+
+    implementation(libs.joml)
+    implementation(libs.lwjgl)
+    implementation(libs.lwjgl.assimp)
+    implementation(libs.lwjgl.glfw)
+    implementation(libs.lwjgl.opengl)
+}
 
 ext {
     // which BTF (buildType + flavor) of the native physics library to copy:

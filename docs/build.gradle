@@ -1,8 +1,8 @@
 // Gradle script to build the "docs" subproject of LbjExamples
 
-// Note: "common.gradle" in the root project contains additional initialization
-//   for this project. This initialization is applied in the "build.gradle"
-//   of the root project.
+plugins {
+    id 'java'
+}
 
 sourceSets.main.java {
     srcDir 'en' // for IDE access (no Java there)

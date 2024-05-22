@@ -4,10 +4,6 @@ plugins {
     id 'base' // to add a "clean" task to the root project
 }
 
-subprojects {
-    apply from: rootProject.file('common.gradle')
-}
-
 configurations.configureEach {
     resolutionStrategy.cacheChangingModulesFor 0, 'seconds' // to disable caching of snapshots
 }
