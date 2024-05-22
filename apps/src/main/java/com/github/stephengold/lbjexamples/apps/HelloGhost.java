@@ -215,7 +215,7 @@ public class HelloGhost
                         offset, cam.getRight(), right - left);
 
                 offset.y = 0f;
-                if (!MyVector3f.isZero(offset)) {
+                if (offset.length() > 0f) {
                     float scale = 7f * timeStep / offset.length();
                     offset.multLocal(scale);
                 }
