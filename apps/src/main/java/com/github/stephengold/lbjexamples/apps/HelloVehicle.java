@@ -108,8 +108,8 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
     @Override
     public void populateSpace() {
         // Add a static horizontal plane at y=-0.65 to represent the ground.
-        float planeY = -0.65f;
-        addPlane(planeY);
+        float groundY = -0.65f;
+        addPlane(groundY);
 
         // Create a wedge-shaped vehicle with a low center of gravity.
         // The local forward direction is +Z.

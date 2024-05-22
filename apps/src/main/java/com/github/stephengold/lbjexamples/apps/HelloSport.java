@@ -95,8 +95,8 @@ public class HelloSport extends BasePhysicsApp<PhysicsSpace> {
     @Override
     public void populateSpace() {
         // Add a static horizontal plane at y=-1.
-        float planeY = -1f;
-        Plane plane = new Plane(Vector3f.UNIT_Y, planeY);
+        float groundY = -1f;
+        Plane plane = new Plane(Vector3f.UNIT_Y, groundY);
         CollisionShape planeShape = new PlaneCollisionShape(plane);
         float mass = PhysicsBody.massForStatic;
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, mass);

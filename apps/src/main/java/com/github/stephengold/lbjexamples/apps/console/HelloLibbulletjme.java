@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2023, Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -96,8 +96,8 @@ final class HelloLibbulletjme {
      */
     private static void populateSpace() {
         // Add a static horizontal plane at y=-1.
-        float planeY = -1f;
-        Plane plane = new Plane(Vector3f.UNIT_Y, planeY);
+        float groundY = -1f;
+        Plane plane = new Plane(Vector3f.UNIT_Y, groundY);
         CollisionShape planeShape = new PlaneCollisionShape(plane);
         float mass = PhysicsBody.massForStatic;
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, mass);

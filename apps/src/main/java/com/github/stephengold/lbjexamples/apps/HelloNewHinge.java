@@ -180,8 +180,8 @@ public class HelloNewHinge
         }
 
         // Add a static plane to represent the ground.
-        float planeY = -radius - 0.35f;
-        addPlane(planeY);
+        float groundY = -radius - 0.35f;
+        addPlane(groundY);
     }
     // *************************************************************************
     // PhysicsTickListener methods
