@@ -46,6 +46,10 @@ tasks.register('HelloVehicle0', JavaExec) {
 }
 
 // physics tutorial apps (very simple)
+tasks.register('HelloContactResponse', JavaExec) {
+    description = 'Runs the Kotlin version of the HelloContactResponse tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloContactResponseKt'
+}
 tasks.register('HelloKinematics', JavaExec) {
     description = 'Runs the Kotlin version of the HelloKinematics tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloKinematicsKt'
