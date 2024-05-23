@@ -56,7 +56,7 @@ fun main() {
     // Load a native library from ~/Downloads directory.
     val dist = true // use distribution filenames
     val homePath = System.getProperty("user.home")
-    val downloadDirectory = new File(homePath, "Downloads")
+    val downloadDirectory = File(homePath, "Downloads")
     val buildType = "Release"
     val flavor = "Sp"
     NativeLibraryLoader.loadLibbulletjme(
