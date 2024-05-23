@@ -101,13 +101,13 @@ fun main() {
     val xOffset = 0.9f * halfWidth
     val axleDirection = Vector3f(-1f, 0f, 0f)
     val suspensionDirection = Vector3f(0f, -1f, 0f)
-    vehicle.addWheel( Vector3f(-xOffset, 0f, frontAxisZ),
+    vehicle.addWheel(Vector3f(-xOffset, 0f, frontAxisZ),
             suspensionDirection, axleDirection, restLength, radius, front)
-    vehicle.addWheel( Vector3f(xOffset, 0f, frontAxisZ),
+    vehicle.addWheel(Vector3f(xOffset, 0f, frontAxisZ),
             suspensionDirection, axleDirection, restLength, radius, front)
-    vehicle.addWheel( Vector3f(-xOffset, 0f, rearAxisZ),
+    vehicle.addWheel(Vector3f(-xOffset, 0f, rearAxisZ),
             suspensionDirection, axleDirection, restLength, radius, rear)
-    vehicle.addWheel( Vector3f(xOffset, 0f, rearAxisZ),
+    vehicle.addWheel(Vector3f(xOffset, 0f, rearAxisZ),
             suspensionDirection, axleDirection, restLength, radius, rear)
 
     physicsSpace.addCollisionObject(vehicle)
