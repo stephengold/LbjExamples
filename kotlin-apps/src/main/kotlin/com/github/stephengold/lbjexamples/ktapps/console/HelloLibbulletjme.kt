@@ -67,7 +67,7 @@ fun main() {
         updatePhysics(intervalSeconds = 0.02f)
 
         ball!!.getPhysicsLocation(location)
-        System.out.println(location)
+        println(location)
     }
 }
 
