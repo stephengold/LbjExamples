@@ -63,17 +63,20 @@ final class HelloLibbulletjme {
      */
     public static void main(String[] arguments) {
         // Load a native library from ~/Downloads directory.
+        boolean dist = true; // use distribution filenames
         String homePath = System.getProperty("user.home");
         File downloadDirectory = new File(homePath, "Downloads");
+        String buildType = "Release";
+        String flavor = "Sp";
         NativeLibraryLoader.loadLibbulletjme(
-                true, downloadDirectory, "Release", "Sp");
+                dist, downloadDirectory, buildType, flavor);
 
         physicsSpace = createSpace();
         populateSpace();
 
         float timeStep = 0.02f;
         Vector3f location = new Vector3f();
-        for (int i = 0; i < 50; ++i) {
+        for (int iteration = 0; iteration < 50; ++iteration) {
             updatePhysics(timeStep);
 
             ball.getPhysicsLocation(location);
@@ -118,7 +121,7 @@ final class HelloLibbulletjme {
      * @param intervalSeconds the time step to simulate (in seconds, &ge;0)
      */
     private static void updatePhysics(float intervalSeconds) {
-        int maxSteps = 0;
+        int maxSteps = 0; // for a single step of the specified duration
         physicsSpace.update(intervalSeconds, maxSteps);
     }
 }

@@ -162,7 +162,8 @@ To simulate a single 20-millisecond step:
 [source,java]
 ----
 float timeStep = 0.02f; // in seconds
-physicsSpace.update(timeStep, 0);
+int maxSteps = 0; // for a single step of the specified duration
+physicsSpace.update(timeStep, maxSteps);
 ----
 
 In real-time simulation, the interval between updates will vary.

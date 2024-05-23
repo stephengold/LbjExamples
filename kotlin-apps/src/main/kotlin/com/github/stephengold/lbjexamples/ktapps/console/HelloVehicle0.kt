@@ -54,15 +54,18 @@ import java.util.Collection
  */
 fun main() {
     // Load a native library from ~/Downloads directory.
+    val dist = true // use distribution filenames
     val homePath = System.getProperty("user.home")
-    val downloadDirectory = File(homePath, "Downloads")
+    val downloadDirectory = new File(homePath, "Downloads")
+    val buildType = "Release"
+    val flavor = "Sp"
     NativeLibraryLoader.loadLibbulletjme(
-        true, downloadDirectory, "Release", "Sp")
+            dist, downloadDirectory, buildType, flavor)
 
     // Create a PhysicsSpace using DBVT for broadphase.
     val physicsSpace = PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT)
-    
-    // Add a  horizontal plane at y=-0.65 to represent the ground.
+
+    // Add a static horizontal plane at y=-0.65 to represent the ground.
     val groundY = -0.65f
     val plane = Plane(Vector3f.UNIT_Y, groundY)
     val planeShape = PlaneCollisionShape(plane)
@@ -120,9 +123,9 @@ fun main() {
 
     // 150 iterations with a 16.7-msec timestep
     val timeStep = 1 / 60f
-    val maxSteps = 0
+    val maxSteps = 0 // for a single step of the specified duration
     val location = Vector3f()
-    for (i in 0 ..< 150) {
+    for (iteration in 0 ..< 150) {
         physicsSpace.update(timeStep, maxSteps)
         vehicle.getPhysicsLocation(location)
         println(location)

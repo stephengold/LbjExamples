@@ -63,10 +63,13 @@ final class HelloVehicle0 {
      */
     public static void main(String[] arguments) {
         // Load a native library from ~/Downloads directory.
+        boolean dist = true; // use distribution filenames
         String homePath = System.getProperty("user.home");
         File downloadDirectory = new File(homePath, "Downloads");
+        String buildType = "Release";
+        String flavor = "Sp";
         NativeLibraryLoader.loadLibbulletjme(
-                true, downloadDirectory, "Release", "Sp");
+                dist, downloadDirectory, buildType, flavor);
 
         // Create a PhysicsSpace using DBVT for broadphase.
         PhysicsSpace.BroadphaseType bPhase = PhysicsSpace.BroadphaseType.DBVT;
@@ -131,9 +134,10 @@ final class HelloVehicle0 {
 
         // 150 iterations with a 16.7-msec timestep
         float timeStep = 1 / 60f;
+        int maxSteps = 0; // for a single step of the specified duration
         Vector3f location = new Vector3f();
-        for (int i = 0; i < 150; ++i) {
-            physicsSpace.update(timeStep, 0);
+        for (int iteration = 0; iteration < 150; ++iteration) {
+            physicsSpace.update(timeStep, maxSteps);
             vehicle.getPhysicsLocation(location);
             System.out.println(location);
         }

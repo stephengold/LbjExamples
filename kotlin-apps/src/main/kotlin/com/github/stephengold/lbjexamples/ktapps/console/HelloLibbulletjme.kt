@@ -54,16 +54,19 @@ private var physicsSpace: PhysicsSpace? = null
  */
 fun main() {
     // Load a native library from ~/Downloads directory.
+    val dist = true // use distribution filenames
     val homePath = System.getProperty("user.home")
-    val downloadDirectory = File(homePath, "Downloads")
+    val downloadDirectory = new File(homePath, "Downloads")
+    val buildType = "Release"
+    val flavor = "Sp"
     NativeLibraryLoader.loadLibbulletjme(
-        true, downloadDirectory, "Release", "Sp")
+            dist, downloadDirectory, buildType, flavor)
 
     physicsSpace = createSpace()
     populateSpace()
 
     val location = Vector3f()
-    for (i in 0 ..< 50) {
+    for (iteration in 0 ..< 50) {
         updatePhysics(intervalSeconds = 0.02f)
 
         ball!!.getPhysicsLocation(location)
@@ -103,6 +106,6 @@ private fun populateSpace() {
  * intervalSeconds:  the time step to simulate (in seconds, >=0)
  */
 private fun updatePhysics(intervalSeconds : Float) {
-    val maxSteps = 0
+    val maxSteps = 0 // for a single step of the specified duration
     physicsSpace!!.update(intervalSeconds, maxSteps)
 }
