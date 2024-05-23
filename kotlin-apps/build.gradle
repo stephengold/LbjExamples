@@ -39,6 +39,9 @@ ext {
 tasks.register('HelloLibbulletjme', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.console.HelloLibbulletjmeKt'
 }
+tasks.register('HelloVehicle0', JavaExec) {
+    mainClass = 'com.github.stephengold.lbjexamples.ktapps.console.HelloVehicle0Kt'
+}
 
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 OperatingSystem os = DefaultNativePlatform.currentOperatingSystem
