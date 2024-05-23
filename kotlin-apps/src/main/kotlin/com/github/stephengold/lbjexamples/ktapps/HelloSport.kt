@@ -51,8 +51,8 @@ import com.jme3.math.Vector3f
  * Main entry point for the HelloSport application.
  */
 fun main() {
-    val application = HelloSport();
-    application.start();
+    val application = HelloSport()
+    application.start()
     /*
      * During initialization, BasePhysicsApp loads the native library from
      * the ~/Downloads directory and invokes createSpace() and populateSpace().
@@ -85,7 +85,7 @@ class HelloSport : BasePhysicsApp<PhysicsSpace>() {
         val ball = PhysicsRigidBody(ballShape, mass)
         physicsSpace!!.addCollisionObject(ball)
 
-        // Visualize the collision objects.
+        // Visualize both rigid bodies.
         visualizeShape(floor)
         visualizeShape(ball)
     }
@@ -97,6 +97,6 @@ class HelloSport : BasePhysicsApp<PhysicsSpace>() {
      * wallClockSeconds:  the amount of time to simulate (in seconds, >=0)
      */
     override fun updatePhysics(wallClockSeconds : Float) {
-        physicsSpace.update(wallClockSeconds);
+        physicsSpace.update(wallClockSeconds)
     }
 }

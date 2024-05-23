@@ -96,14 +96,14 @@ private fun populateSpace() {
     val radius = 0.3f
     val ballShape = SphereCollisionShape(radius)
     val mass = 1f
-    ball = PhysicsRigidBody(ballShape, mass)
+    val ball = PhysicsRigidBody(ballShape, mass)
     physicsSpace!!.addCollisionObject(ball)
 }
 
 /*
  * Advance the physics simulation by the specified amount.
  *
- * intervalSeconds:  the time step to simulate (in seconds, >=0)
+ * intervalSeconds:  the amount of time to simulate (in seconds, >=0)
  */
 private fun updatePhysics(intervalSeconds : Float) {
     val maxSteps = 0 // for a single step of the specified duration

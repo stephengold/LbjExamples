@@ -44,6 +44,8 @@ import com.jme3.math.Vector3f;
  * <li>gravity (continual downward force), and </li>
  * <li>contact response (avoid intersecting with other bodies).</li>
  * </ul>
+ * <p>
+ * Builds upon HelloSport.
  *
  * @author Stephen Gold sgold@sonic.net
  */
@@ -111,7 +113,7 @@ public class HelloRigidBody extends BasePhysicsApp<PhysicsSpace> {
         // Set ball #2 on a collision course with ball #1.
         ball2.applyCentralImpulse(new Vector3f(-25f, 0f, 0f));
 
-        // Visualize the rigid bodies.
+        // Visualize both rigid bodies.
         visualizeShape(ball1);
         visualizeShape(ball2);
     }

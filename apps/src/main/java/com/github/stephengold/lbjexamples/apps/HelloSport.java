@@ -72,7 +72,8 @@ public class HelloSport extends BasePhysicsApp<PhysicsSpace> {
         application.start();
         /*
          * During initialization, BasePhysicsApp loads the native library from
-         * ~/Downloads and invokes createSpace() and populateSpace().
+         * the ~/Downloads directory and invokes
+         * createSpace() and populateSpace().
          */
     }
     // *************************************************************************

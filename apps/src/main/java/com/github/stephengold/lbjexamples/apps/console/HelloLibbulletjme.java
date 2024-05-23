@@ -118,7 +118,7 @@ final class HelloLibbulletjme {
     /**
      * Advance the physics simulation by the specified amount.
      *
-     * @param intervalSeconds the time step to simulate (in seconds, &ge;0)
+     * @param intervalSeconds the amount of time to simulate (in seconds, &ge;0)
      */
     private static void updatePhysics(float intervalSeconds) {
         int maxSteps = 0; // for a single step of the specified duration
