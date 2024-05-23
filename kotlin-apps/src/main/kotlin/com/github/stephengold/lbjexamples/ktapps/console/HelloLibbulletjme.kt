@@ -77,7 +77,7 @@ fun main() {
 /*
  * Create the PhysicsSpace. Invoked once during initialization.
  */
-private fun createSpace() : PhysicsSpace {
+private fun createSpace(): PhysicsSpace {
     return PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT)
 }
 
@@ -105,7 +105,7 @@ private fun populateSpace() {
  *
  * intervalSeconds:  the amount of time to simulate (in seconds, >=0)
  */
-private fun updatePhysics(intervalSeconds : Float) {
+private fun updatePhysics(intervalSeconds: Float) {
     val maxSteps = 0 // for a single step of the specified duration
     physicsSpace!!.update(intervalSeconds, maxSteps)
 }

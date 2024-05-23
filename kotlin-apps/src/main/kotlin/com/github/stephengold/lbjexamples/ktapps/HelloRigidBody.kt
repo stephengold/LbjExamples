@@ -61,7 +61,7 @@ class HelloRigidBody : BasePhysicsApp<PhysicsSpace>() {
     /*
      * Create the PhysicsSpace. Invoked once during initialization.
      */
-    override fun createSpace() : PhysicsSpace {
+    override fun createSpace(): PhysicsSpace {
         return PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT)
     }
 
@@ -100,7 +100,7 @@ class HelloRigidBody : BasePhysicsApp<PhysicsSpace>() {
      * wallClockSeconds:  the elapsed wall-clock time since the previous
      * invocation of updatePhysics() (in seconds, >=0)
      */
-    override fun updatePhysics(wallClockSeconds : Float) {
+    override fun updatePhysics(wallClockSeconds: Float) {
         // For clarity, simulate at 1/10th normal speed.
         val simulateSeconds = 0.1f * wallClockSeconds
         physicsSpace.update(simulateSeconds)
