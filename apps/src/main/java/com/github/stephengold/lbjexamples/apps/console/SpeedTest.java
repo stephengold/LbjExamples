@@ -39,6 +39,8 @@ import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
 import com.jme3.system.NativeLibraryLoader;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jme3utilities.MyString;
 
 /**
@@ -97,6 +99,8 @@ final class SpeedTest {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
+        Logger.getLogger("").setLevel(Level.WARNING);
+
         // Parse and validate the command-line arguments.
         int numArguments = arguments.length;
         if (numArguments != 1) {
