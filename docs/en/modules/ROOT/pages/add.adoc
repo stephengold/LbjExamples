@@ -204,7 +204,7 @@ you should be able to launch tutorial apps from a command shell, like so:
 
 . `git clone https://github.com/stephengold/LbjExamples.git`
 . `cd LbjExamples`
-. `./gradlew HelloLibbulletjme`
+. `./gradlew :apps:HelloLibbulletjme`
 ====
 
 == Summary
