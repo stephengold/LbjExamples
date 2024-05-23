@@ -35,6 +35,8 @@ ext {
     //libbulletjmeUrl = "file:///home/sgold/NetBeansProjects/Libbulletjme/dist/"
 }
 
+// Register tasks to run specific applications:
+
 // physics console apps (no graphics)
 tasks.register('HelloLibbulletjme', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.console.HelloLibbulletjmeKt'

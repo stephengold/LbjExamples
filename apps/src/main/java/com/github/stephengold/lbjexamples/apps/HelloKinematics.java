@@ -121,7 +121,7 @@ public class HelloKinematics
         physicsSpace.addCollisionObject(kineBall);
         kineBall.setKinematic(true);
 
-        // Visualize the bodies.
+        // Visualize both rigid bodies.
         visualizeShape(dynaBall);
         visualizeShape(kineBall);
     }

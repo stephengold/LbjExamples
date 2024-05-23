@@ -97,7 +97,8 @@ class HelloRigidBody : BasePhysicsApp<PhysicsSpace>() {
      * Advance the physics simulation by the specified amount. Invoked during
      * each update.
      *
-     * wallClockSeconds:  the amount of time to simulate (in seconds, >=0)
+     * wallClockSeconds:  the elapsed wall-clock time since the previous
+     * invocation of updatePhysics() (in seconds, >=0)
      */
     override fun updatePhysics(wallClockSeconds : Float) {
         // For clarity, simulate at 1/10th normal speed.
