@@ -103,7 +103,7 @@ class HelloKinematics : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
      * Advance the physics simulation by the specified amount. Invoked during
      * each update.
      *
-     * wallClockSeconds: the elapsed wall-clock time since the previous
+     * wallClockSeconds:  the elapsed wall-clock time since the previous
      * invocation of updatePhysics() (in seconds, >=0)
      */
     override fun updatePhysics(wallClockSeconds: Float) {

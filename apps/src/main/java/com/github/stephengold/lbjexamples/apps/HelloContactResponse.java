@@ -130,7 +130,7 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         // Position the ball directly above the box.
         ball.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
 
-        // Visualize the physics objects.
+        // Visualize both rigid bodies.
         visualizeShape(ball);
         visualizeShape(box);
     }
