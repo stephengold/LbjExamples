@@ -87,8 +87,9 @@ final class HelloLibbulletjme {
      * @return a new instance
      */
     private static PhysicsSpace createSpace() {
-        PhysicsSpace.BroadphaseType bPhase = PhysicsSpace.BroadphaseType.DBVT;
-        return new PhysicsSpace(bPhase);
+        PhysicsSpace result
+                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+        return result;
     }
 
     /**
@@ -117,6 +118,7 @@ final class HelloLibbulletjme {
      * @param intervalSeconds the time step to simulate (in seconds, &ge;0)
      */
     private static void updatePhysics(float intervalSeconds) {
-        physicsSpace.update(intervalSeconds, 0);
+        int maxSteps = 0;
+        physicsSpace.update(intervalSeconds, maxSteps);
     }
 }
