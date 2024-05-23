@@ -39,9 +39,11 @@ ext {
 
 // physics console apps (no graphics)
 tasks.register('HelloLibbulletjme', JavaExec) {
+    description = 'Runs the Kotlin version of the HelloLibbulletjme console app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.console.HelloLibbulletjmeKt'
 }
 tasks.register('HelloVehicle0', JavaExec) {
+    description = 'Runs the Kotlin version of the HelloVehicle0 console app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.console.HelloVehicle0Kt'
 }
 

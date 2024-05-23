@@ -70,9 +70,11 @@ tasks.register('AppChooser', JavaExec) {
 
 // physics console apps (no graphics)
 tasks.register('HelloLibbulletjme', JavaExec) {
+    description = 'Runs the HelloLibbulletjme console app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.console.HelloLibbulletjme'
 }
 tasks.register('HelloVehicle0', JavaExec) {
+    description = 'Runs the HelloVehicle0 console app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.console.HelloVehicle0'
 }
 tasks.register('SpeedTest0', JavaExec) {
