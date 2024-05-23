@@ -155,7 +155,7 @@ is a SPORT app
 that demonstrates contact response.
 Things to notice while running the app:
 
-. The ball falls until it collides with the blue (static) box,
+. The ball falls until it collides with the gray (static) box,
   which provides a contact force to halt its motion and counteract gravity.
 . Press kbd:[E] to disable the ball's contact response.
 . Afterwards, the box no longer exerts any force on the ball.
