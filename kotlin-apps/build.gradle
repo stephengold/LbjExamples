@@ -52,6 +52,10 @@ tasks.register('HelloSport', JavaExec) {
     description 'Runs the HelloSport tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloSportKt'
 }
+tasks.register('HelloStaticBody', JavaExec) {
+    description 'Runs the HelloStaticBody tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloStaticBodyKt'
+}
 
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 OperatingSystem os = DefaultNativePlatform.currentOperatingSystem
