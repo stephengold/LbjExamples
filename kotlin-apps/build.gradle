@@ -43,6 +43,12 @@ tasks.register('HelloVehicle0', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.console.HelloVehicle0Kt'
 }
 
+// physics tutorial apps (very simple)
+tasks.register('HelloSport', JavaExec) {
+    description 'Runs the HelloSport tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloSportKt'
+}
+
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 OperatingSystem os = DefaultNativePlatform.currentOperatingSystem
 Boolean includeLinux = os.isLinux()
