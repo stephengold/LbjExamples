@@ -82,7 +82,7 @@ class HelloMassDistribution : BasePhysicsApp<PhysicsSpace>() {
         cam.setAzimuth(-3.05f)
     }
 
-    /**
+    /*
      * Populate the PhysicsSpace. Invoked once during initialization.
      */
     override fun populateSpace() {

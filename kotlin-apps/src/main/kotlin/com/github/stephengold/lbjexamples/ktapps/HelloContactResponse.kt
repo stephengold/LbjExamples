@@ -65,6 +65,9 @@ fun main() {
 private var ball : PhysicsRigidBody? = null
 
 class HelloContactResponse : BasePhysicsApp<PhysicsSpace>() {
+    // *************************************************************************
+    // BasePhysicsApp functions
+
     /*
      * Create the PhysicsSpace. Invoked once during initialization.
      */
@@ -118,6 +121,8 @@ class HelloContactResponse : BasePhysicsApp<PhysicsSpace>() {
     override fun updatePhysics(wallClockSeconds: Float) {
         physicsSpace.update(wallClockSeconds)
     }
+    // *************************************************************************
+    // private functions
 
     /*
      * Configure keyboard input during startup.
