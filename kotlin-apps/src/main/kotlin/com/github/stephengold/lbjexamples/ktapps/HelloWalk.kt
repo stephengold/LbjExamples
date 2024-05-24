@@ -78,7 +78,7 @@ private var character: PhysicsCharacter? = null
 
 class HelloWalk : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
     // *************************************************************************
-    // BasePhysicsApp functions
+    // BasePhysicsApp override functions
 
     /*
      * Create the PhysicsSpace. Invoked once during initialization.
@@ -119,7 +119,7 @@ class HelloWalk : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
         addTerrain()
     }
     // *************************************************************************
-    // PhysicsTickListener functions
+    // PhysicsTickListener override functions
 
     /*
      * Callback from Bullet, invoked just before each simulation step.

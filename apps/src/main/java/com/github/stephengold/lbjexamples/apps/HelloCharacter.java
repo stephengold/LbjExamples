@@ -127,7 +127,7 @@ public class HelloCharacter
         float y = -2f;
         PhysicsRigidBody ground = addSquare(halfExtent, y);
 
-        // Visualize the physics objects.
+        // Visualize both physics objects.
         visualizeShape(character);
         visualizeShape(ground);
     }

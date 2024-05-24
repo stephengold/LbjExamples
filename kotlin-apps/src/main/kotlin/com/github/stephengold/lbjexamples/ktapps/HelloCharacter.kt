@@ -65,7 +65,7 @@ var character: PhysicsCharacter? = null
 
 class HelloCharacter : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
     // *************************************************************************
-    // BasePhysicsApp functions
+    // BasePhysicsApp override functions
 
     /*
      * Create the PhysicsSpace. Invoked once during initialization.
@@ -107,7 +107,7 @@ class HelloCharacter : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
         visualizeShape(ground)
     }
     // *************************************************************************
-    // PhysicsTickListener functions
+    // PhysicsTickListener override functions
 
     /*
      * Callback from Bullet, invoked just before each simulation step.

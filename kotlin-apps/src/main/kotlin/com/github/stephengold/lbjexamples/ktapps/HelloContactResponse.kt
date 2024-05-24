@@ -65,7 +65,7 @@ private var ball : PhysicsRigidBody? = null
 
 class HelloContactResponse : BasePhysicsApp<PhysicsSpace>() {
     // *************************************************************************
-    // BasePhysicsApp functions
+    // BasePhysicsApp override functions
 
     /*
      * Create the PhysicsSpace. Invoked once during initialization.

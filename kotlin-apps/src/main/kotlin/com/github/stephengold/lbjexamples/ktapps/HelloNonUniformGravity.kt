@@ -65,7 +65,7 @@ private val tmpVector = Vector3f()
 class HelloNonUniformGravity :
         BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
     // *************************************************************************
-    // BasePhysicsApp functions
+    // BasePhysicsApp override functions
 
     /*
      * Create the PhysicsSpace. Invoked once during initialization.
@@ -121,7 +121,7 @@ class HelloNonUniformGravity :
         physicsSpace.update(wallClockSeconds)
     }
     // *************************************************************************
-    // PhysicsTickListener functions
+    // PhysicsTickListener override functions
 
     /*
      * Callback from Bullet, invoked just before each simulation step.

@@ -63,7 +63,7 @@ private var kineBall: PhysicsRigidBody? = null
 
 class HelloKinematics : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
     // *************************************************************************
-    // BasePhysicsApp functions
+    // BasePhysicsApp override functions
 
     /*
      * Create the PhysicsSpace. Invoked once during initialization.
@@ -112,7 +112,7 @@ class HelloKinematics : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
         physicsSpace.update(wallClockSeconds)
     }
     // *************************************************************************
-    // PhysicsTickListener functions
+    // PhysicsTickListener override functions
 
     /*
      * Callback from Bullet, invoked just before each simulation step.
