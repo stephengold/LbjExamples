@@ -64,6 +64,10 @@ tasks.register('HelloDamping', JavaExec) {
     description = 'Runs the Kotlin version of the HelloDamping tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloDampingKt'
 }
+tasks.register('HelloDoubleEnded', JavaExec) {
+    description = 'Runs the Kotlin version of the HelloDoubleEnded tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloDoubleEndedKt'
+}
 tasks.register('HelloJoint', JavaExec) {
     description = 'Runs the Kotlin version of the HelloJoint tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloJointKt'
