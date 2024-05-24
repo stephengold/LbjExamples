@@ -92,63 +92,63 @@ tasks.register('SpeedTest2', JavaExec) {
 
 // physics tutorial apps (very simple)
 tasks.register('HelloCcd', JavaExec) {
-    description 'Runs the HelloCcd tutorial app.'
+    description = 'Runs the HelloCcd tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCcd'
 }
 tasks.register('HelloCharacter', JavaExec) {
-    description 'Runs the HelloCharacter tutorial app.'
+    description = 'Runs the HelloCharacter tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCharacter'
 }
 tasks.register('HelloCloth', JavaExec) {
-    description 'Runs the HelloCloth tutorial app.'
+    description = 'Runs the HelloCloth tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCloth'
 }
 tasks.register('HelloClothRigid', JavaExec) {
-    description 'Runs the HelloClothRigid tutorial app.'
+    description = 'Runs the HelloClothRigid tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloClothRigid'
 }
 tasks.register('HelloContactResponse', JavaExec) {
-    description 'Runs the HelloContactResponse tutorial app.'
+    description = 'Runs the HelloContactResponse tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloContactResponse'
 }
 tasks.register('HelloCustomShape', JavaExec) {
-    description 'Runs the HelloCustomShape tutorial app.'
+    description = 'Runs the HelloCustomShape tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloCustomShape'
 }
 tasks.register('HelloDamping', JavaExec) {
-    description 'Runs the HelloDamping tutorial app.'
+    description = 'Runs the HelloDamping tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDamping'
 }
 tasks.register('HelloDeactivation', JavaExec) {
-    description 'Runs the HelloDeactivation tutorial app.'
+    description = 'Runs the HelloDeactivation tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDeactivation'
 }
 tasks.register('HelloDoor', JavaExec) {
-    description 'Runs the HelloDoor tutorial app.'
+    description = 'Runs the HelloDoor tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDoor'
 }
 tasks.register('HelloDoubleEnded', JavaExec) {
-    description 'Runs the HelloDoubleEnded tutorial app.'
+    description = 'Runs the HelloDoubleEnded tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloDoubleEnded'
 }
 tasks.register('HelloGhost', JavaExec) {
-    description 'Runs the HelloGhost tutorial app.'
+    description = 'Runs the HelloGhost tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloGhost'
 }
 tasks.register('HelloJoint', JavaExec) {
-    description 'Runs the HelloJoint tutorial app.'
+    description = 'Runs the HelloJoint tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloJoint'
 }
 tasks.register('HelloKinematics', JavaExec) {
-    description 'Runs the HelloKinematics tutorial app.'
+    description = 'Runs the HelloKinematics tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloKinematics'
 }
 tasks.register('HelloLimit', JavaExec) {
-    description 'Runs the HelloLimit tutorial app.'
+    description = 'Runs the HelloLimit tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloLimit'
 }
 tasks.register('HelloMadMallet', JavaExec) {
-    description 'Runs the HelloMadMallet tutorial app.'
+    description = 'Runs the HelloMadMallet tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMadMallet'
 }
 tasks.register('HelloMassDistribution', JavaExec) {
@@ -156,7 +156,7 @@ tasks.register('HelloMassDistribution', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMassDistribution'
 }
 tasks.register('HelloMinkowski', JavaExec) {
-    description 'Runs the HelloMinkowski tutorial app.'
+    description = 'Runs the HelloMinkowski tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloMinkowski'
 }
 tasks.register('HelloMotor', JavaExec) {
@@ -176,47 +176,47 @@ tasks.register('HelloPin', JavaExec) {
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloPin'
 }
 tasks.register('HelloRigidBody', JavaExec) {
-    description 'Runs the HelloRigidBody tutorial app.'
+    description = 'Runs the HelloRigidBody tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloRigidBody'
 }
 tasks.register('HelloServo', JavaExec) {
-    description 'Runs the HelloServo tutorial app.'
+    description = 'Runs the HelloServo tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloServo'
 }
 tasks.register('HelloSoftBody', JavaExec) {
-    description 'Runs the HelloSoftBody tutorial app.'
+    description = 'Runs the HelloSoftBody tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSoftBody'
 }
 tasks.register('HelloSoftRope', JavaExec) {
-    description 'Runs the HelloSoftRope tutorial app.'
+    description = 'Runs the HelloSoftRope tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSoftRope'
 }
 tasks.register('HelloSoftSoft', JavaExec) {
-    description 'Runs the HelloSoftSoft tutorial app.'
+    description = 'Runs the HelloSoftSoft tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSoftSoft'
 }
 tasks.register('HelloSport', JavaExec) {
-    description 'Runs the HelloSport tutorial app.'
+    description = 'Runs the HelloSport tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSport'
 }
 tasks.register('HelloSpring', JavaExec) {
-    description 'Runs the HelloSpring tutorial app.'
+    description = 'Runs the HelloSpring tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloSpring'
 }
 tasks.register('HelloStaticBody', JavaExec) {
-    description 'Runs the HelloStaticBody tutorial app.'
+    description = 'Runs the HelloStaticBody tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloStaticBody'
 }
 tasks.register('HelloVehicle', JavaExec) {
-    description 'Runs the HelloVehicle tutorial app.'
+    description = 'Runs the HelloVehicle tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloVehicle'
 }
 tasks.register('HelloWalk', JavaExec) {
-    description 'Runs the HelloWalk tutorial app.'
+    description = 'Runs the HelloWalk tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWalk'
 }
 tasks.register('HelloWind', JavaExec) {
-    description 'Runs the HelloWind tutorial app.'
+    description = 'Runs the HelloWind tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.apps.HelloWind'
 }
 

@@ -78,7 +78,8 @@ fun main() {
  * Create the PhysicsSpace. Invoked once during initialization.
  */
 private fun createSpace(): PhysicsSpace {
-    return PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT)
+    val result = PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT)
+    return result
 }
 
 /*
