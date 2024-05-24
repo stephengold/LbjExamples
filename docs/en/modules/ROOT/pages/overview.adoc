@@ -66,8 +66,9 @@ In particular:
 
 * `btRigidBodyConstructionInfo`
 * "additional damping" for rigid bodies
-* Bullet's debug drawer (but see the SPORT graphics engine in LbjExamples)
-* serialization (file loader)
+* Bullet's debug drawer (but see the https://github.com/stephengold/sport[SPORT]
+  and https://github.com/stephengold/V-Sport[V-Sport] graphics engines)
+* serialization (file loader) for classes other than `btOptimizedBvh`
 * certain constraints:
 ** `btFixedConstraint`
 ** `btUniversalConstraint`
