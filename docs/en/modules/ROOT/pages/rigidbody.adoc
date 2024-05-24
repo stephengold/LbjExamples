@@ -375,7 +375,7 @@ not the body's local axes.
 
 It's common for physics simulations to reach a
 {url-enwiki}/Steady_state[_steady state_] in which
-the some or all of the rigid bodies have stopped moving.
+the some or all bodies have stopped moving.
 If a dynamic rigid body doesn't move for 2 seconds,
 the simulator may automatically _deactivate_ it to reduce CPU consumption.
 

@@ -9,13 +9,13 @@ is simple, readable and complete.
 However, as a console app, its output is limited to text.
 
 Text provides scant insight into what the 3-D physics simulation is doing.
-For most people, pictures are far easier to understand.
+For most people, pictures are much easier to understand.
 
 For the purpose of this tutorial series,
 we've created a graphics engine named SPORT
 (the Simple Physics-ORienTed engine).
 SPORT enables us to visualize physics objects
-without cluttering up the physics code with too many rendering calls.
+without adding much code to the tutorial apps.
 It is open-source, written in Java, and available from
 https://github.com/stephengold/sport[GitHub] and
 https://central.sonatype.com/artifact/com.github.stephengold/sport[Maven Central].
@@ -31,7 +31,7 @@ Details to note:
   indicating that it will simulate a plain `PhysicsSpace`.
 . The app implements the 3 abstract methods of `BasePhysicsApp`
   (`createSpace`, `populateSpace`, and `updateSpace`),
-  all of which are invoked automatically.
+  which are all invoked automatically.
 . `BasePhysicsApp` automatically loads the Libbulletjme native library.
 . `BasePhysicsApp` provides:
 ..  the `physicsSpace` field to access the space and

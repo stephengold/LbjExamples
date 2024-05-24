@@ -54,14 +54,14 @@ disclaims liability for defects.
 Please don't use this software in safety-critical applications.
 
 Starting with version 16.1.0,
-{Project} is no longer compatible with the older versions of "libc"
-found on systems such as CentOS 7 and Ubuntu Xenial 16.04.
+{Project} is no longer compatible with old versions of the "libc" library
+found on systems such as CentOS 7 and Ubuntu 16.04 (Xenial).
 
 
 == What's missing
 
 Bullet is a large project, and
-Libbulletjme doesn't yet provide access to all of its features.
+Libbulletjme doesn't yet provide access to all its features.
 In particular:
 
 * `btRigidBodyConstructionInfo`
