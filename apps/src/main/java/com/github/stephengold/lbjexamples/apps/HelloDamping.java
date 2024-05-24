@@ -118,16 +118,17 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
         cube[1].setDamping(0f, 0.9f);
         cube[2].setDamping(0.9f, 0f);
         cube[3].setDamping(0.9f, 0.9f);
-
-        // Apply an off-center impulse to each cube,
-        // causing it to drift and spin.
+        /*
+         * Apply an off-center impulse to each cube,
+         * causing it to drift and spin.
+         */
         Vector3f impulse = new Vector3f(-1f, 0f, 0f);
         Vector3f offset = new Vector3f(0f, 1f, 1f);
         for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
             cube[cubeIndex].applyImpulse(impulse, offset);
         }
 
-        // Visualize the physics objects.
+        // Visualize all 4 rigid bodies.
         for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
             visualizeShape(cube[cubeIndex]);
         }

@@ -42,7 +42,7 @@ import com.jme3.math.Vector3f
  *
  * Builds upon HelloStaticBody.
  *
- * author: Stephen Gold sgold@sonic.net
+ * author:  Stephen Gold sgold@sonic.net
  */
 
 /*
@@ -63,6 +63,9 @@ private var elapsedTime = 0f
 private var kineBall: PhysicsRigidBody? = null
 
 class HelloKinematics : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
+    // *************************************************************************
+    // BasePhysicsApp functions
+
     /*
      * Create the PhysicsSpace. Invoked once during initialization.
      */
@@ -109,12 +112,14 @@ class HelloKinematics : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
     override fun updatePhysics(wallClockSeconds: Float) {
         physicsSpace.update(wallClockSeconds)
     }
+    // *************************************************************************
+    // PhysicsTickListener functions
 
     /*
      * Callback from Bullet, invoked just before each simulation step.
      *
-     * space: the space that's about to be stepped (not null)
-     * timeStep: the duration of the simulation step (in seconds, >=0)
+     * space:  the space that's about to be stepped (not null)
+     * timeStep:  the duration of the simulation step (in seconds, >=0)
      */
     override fun prePhysicsTick(space: PhysicsSpace, timeStep: Float) {
         // Make the kinematic ball orbit the origin.
@@ -133,8 +138,8 @@ class HelloKinematics : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
     /*
      * Callback from Bullet, invoked just after each simulation step.
      *
-     * space: the space that was just stepped (not null)
-     * timeStep: the duration of the simulation step (in seconds, >=0)
+     * space:  the space that was just stepped (not null)
+     * timeStep:  the duration of the simulation step (in seconds, >=0)
      */
     override fun physicsTick(space: PhysicsSpace, timeStep: Float) {
         // do nothing

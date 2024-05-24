@@ -46,7 +46,7 @@ import com.jme3.math.Vector3f
  *
  * Builds upon HelloSport.
  *
- * author: Stephen Gold sgold@sonic.net
+ * author:  Stephen Gold sgold@sonic.net
  */
 
 /*

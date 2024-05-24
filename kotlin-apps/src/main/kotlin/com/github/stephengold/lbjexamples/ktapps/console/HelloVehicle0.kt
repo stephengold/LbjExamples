@@ -46,7 +46,7 @@ import java.util.Collection
 /*
  * Drive a vehicle on a horizontal surface (non-graphical illustrative example).
  *
- * author: Stephen Gold sgold@sonic.net
+ * author:  Stephen Gold sgold@sonic.net
  */
 
 /*

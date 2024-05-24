@@ -40,7 +40,7 @@ import com.jme3.math.Vector3f
  *
  * Builds upon HelloRigidBody.
  *
- * author: Stephen Gold sgold@sonic.net
+ * author:  Stephen Gold sgold@sonic.net
  */
 
 /*
@@ -106,7 +106,7 @@ class HelloDamping : BasePhysicsApp<PhysicsSpace>() {
             c.applyImpulse(impulse, offset)
         }
 
-        // Visualize the rigid bodies.
+        // Visualize all 4 rigid bodies.
         for (c in cube) {
             visualizeShape(c)
         }

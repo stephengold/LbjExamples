@@ -119,7 +119,7 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
                 = new PhysicsRigidBody(discShape, PhysicsBody.massForStatic);
         physicsSpace.addCollisionObject(disc);
 
-        // Visualize the physics objects.
+        // Visualize all 3 physics objects.
         visualizeShape(ccdBall);
         visualizeShape(controlBall);
         visualizeShape(disc).setProgram("Unshaded/Monochrome");

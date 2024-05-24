@@ -48,7 +48,7 @@ import org.lwjgl.glfw.GLFW
  *
  * Builds upon HelloStaticBody.
  *
- * author: Stephen Gold sgold@sonic.net
+ * author:  Stephen Gold sgold@sonic.net
  */
 
 /*

@@ -44,7 +44,7 @@ import com.jme3.math.Vector3f
  *
  * Builds upon HelloLibbulletjme.
  *
- * author: Stephen Gold sgold@sonic.net
+ * author:  Stephen Gold sgold@sonic.net
  */
 
 /*

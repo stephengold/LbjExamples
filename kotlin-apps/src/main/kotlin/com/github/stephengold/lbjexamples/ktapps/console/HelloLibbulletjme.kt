@@ -43,7 +43,7 @@ import java.io.File
  * Drop a dynamic sphere onto a horizontal surface (non-graphical illustrative
  * example).
  *
- * author: Stephen Gold sgold@sonic.net
+ * author:  Stephen Gold sgold@sonic.net
  */
 
 private var ball: PhysicsRigidBody? = null

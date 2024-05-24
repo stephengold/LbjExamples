@@ -43,7 +43,7 @@ import jme3utilities.math.MyVector3f
  *
  * Builds upon HelloRigidBody.
  *
- * author: Stephen Gold sgold@sonic.net
+ * author:  Stephen Gold sgold@sonic.net
  */
 
 /*
@@ -65,6 +65,9 @@ private val tmpVector = Vector3f()
 
 class HelloNonUniformGravity :
         BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
+    // *************************************************************************
+    // BasePhysicsApp functions
+
     /*
      * Create the PhysicsSpace. Invoked once during initialization.
      */
@@ -118,6 +121,8 @@ class HelloNonUniformGravity :
     override fun updatePhysics(wallClockSeconds: Float) {
         physicsSpace.update(wallClockSeconds)
     }
+    // *************************************************************************
+    // PhysicsTickListener functions
 
     /*
      * Callback from Bullet, invoked just before each simulation step.
@@ -138,7 +143,7 @@ class HelloNonUniformGravity :
      * Callback from Bullet, invoked just after each simulation step.
      *
      * space:  the space that was just stepped (not null)
-     * timeStep: the duration of the simulation step (in seconds, >=0)
+     * timeStep:  the duration of the simulation step (in seconds, >=0)
      */
     override fun physicsTick(space: PhysicsSpace, timeStep: Float) {
         // do nothing
