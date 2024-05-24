@@ -30,7 +30,6 @@ package com.github.stephengold.lbjexamples.ktapps
 
 import com.github.stephengold.sport.physics.BasePhysicsApp
 import com.jme3.bullet.PhysicsSpace
-import com.jme3.bullet.collision.shapes.CollisionShape
 import com.jme3.bullet.collision.shapes.SphereCollisionShape
 import com.jme3.bullet.objects.PhysicsBody
 import com.jme3.bullet.objects.PhysicsRigidBody

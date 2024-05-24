@@ -29,7 +29,6 @@
 package com.github.stephengold.lbjexamples.ktapps.console
 
 import com.jme3.bullet.PhysicsSpace
-import com.jme3.bullet.collision.shapes.CollisionShape
 import com.jme3.bullet.collision.shapes.HullCollisionShape
 import com.jme3.bullet.collision.shapes.PlaneCollisionShape
 import com.jme3.bullet.objects.PhysicsBody

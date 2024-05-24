@@ -31,7 +31,6 @@ package com.github.stephengold.lbjexamples.ktapps
 import com.github.stephengold.sport.input.RotateMode
 import com.github.stephengold.sport.physics.BasePhysicsApp
 import com.jme3.bullet.PhysicsSpace
-import com.jme3.bullet.collision.shapes.CollisionShape
 import com.jme3.bullet.collision.shapes.CompoundCollisionShape
 import com.jme3.bullet.collision.shapes.CylinderCollisionShape
 import com.jme3.bullet.objects.PhysicsBody

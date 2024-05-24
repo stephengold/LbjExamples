@@ -32,7 +32,6 @@ import com.github.stephengold.sport.physics.BasePhysicsApp
 import com.github.stephengold.sport.physics.LocalAxisGeometry
 import com.jme3.bullet.PhysicsSpace
 import com.jme3.bullet.PhysicsTickListener
-import com.jme3.bullet.collision.shapes.CollisionShape
 import com.jme3.bullet.collision.shapes.SphereCollisionShape
 import com.jme3.bullet.objects.PhysicsRigidBody
 import com.jme3.math.Vector3f
