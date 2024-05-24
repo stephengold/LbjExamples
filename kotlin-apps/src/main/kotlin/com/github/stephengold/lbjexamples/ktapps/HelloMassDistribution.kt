@@ -113,7 +113,7 @@ class HelloMassDistribution : BasePhysicsApp<PhysicsSpace>() {
         malletShape.correctAxes(correction)
 
         // Create a dynamic body for the mallet.
-        val mass = handleMass + headMass;
+        val mass = handleMass + headMass
         val mallet = PhysicsRigidBody(malletShape, mass)
         mallet.setPhysicsLocation(Vector3f(0f, 4f, 0f))
 

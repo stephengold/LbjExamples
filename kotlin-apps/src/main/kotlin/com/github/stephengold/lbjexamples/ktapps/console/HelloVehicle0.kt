@@ -39,8 +39,6 @@ import com.jme3.math.Plane
 import com.jme3.math.Vector3f
 import com.jme3.system.NativeLibraryLoader
 import java.io.File
-import java.util.ArrayList
-import java.util.Collection
 
 /*
  * Drive a vehicle on a horizontal surface (non-graphical illustrative example).
@@ -68,8 +66,8 @@ fun main() {
     val groundY = -0.65f
     val plane = Plane(Vector3f.UNIT_Y, groundY)
     val planeShape = PlaneCollisionShape(plane)
-    var mass = PhysicsBody.massForStatic
-    val floor = PhysicsRigidBody(planeShape, mass)
+    val floorMass = PhysicsBody.massForStatic
+    val floor = PhysicsRigidBody(planeShape, floorMass)
     physicsSpace.addCollisionObject(floor)
 
     // Create a wedge-shaped vehicle with a low center of gravity.
@@ -79,7 +77,7 @@ fun main() {
     val tailZ = -0.7f          // offset from chassis center
     val undercarriageY = -0.1f // offset from chassis center
     val halfWidth = 0.4f
-    val cornerLocations = ArrayList<Vector3f>(6)
+    val cornerLocations = mutableListOf<Vector3f>()
     cornerLocations.add(Vector3f(+halfWidth, undercarriageY, noseZ))
     cornerLocations.add(Vector3f(-halfWidth, undercarriageY, noseZ))
     cornerLocations.add(Vector3f(+halfWidth, undercarriageY, tailZ))
@@ -87,8 +85,8 @@ fun main() {
     cornerLocations.add(Vector3f(+halfWidth, spoilerY, tailZ))
     cornerLocations.add(Vector3f(-halfWidth, spoilerY, tailZ))
     val wedgeShape = HullCollisionShape(cornerLocations)
-    mass = 5f
-    val vehicle = PhysicsVehicle(wedgeShape, mass)
+    val chassisMass = 5f
+    val vehicle = PhysicsVehicle(wedgeShape, chassisMass)
     vehicle.setSuspensionCompression(6f) // default=0.83
     vehicle.setSuspensionDamping(7f) // default=0.88
     vehicle.setSuspensionStiffness(150f) // default=5.88

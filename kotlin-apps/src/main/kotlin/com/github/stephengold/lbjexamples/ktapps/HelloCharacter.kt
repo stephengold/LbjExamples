@@ -61,7 +61,7 @@ fun main() {
 /*
  * character being tested
  */
-var character: PhysicsCharacter? = null
+private var character: PhysicsCharacter? = null
 
 class HelloCharacter : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
     // *************************************************************************

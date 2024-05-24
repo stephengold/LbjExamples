@@ -103,8 +103,8 @@ class HelloVehicle : BasePhysicsApp<PhysicsSpace>() {
         cornerLocations.add(Vector3f(+halfWidth, spoilerY, tailZ))
         cornerLocations.add(Vector3f(-halfWidth, spoilerY, tailZ))
         val wedgeShape = HullCollisionShape(cornerLocations)
-        val mass = 5f
-        val vehicle = PhysicsVehicle(wedgeShape, mass)
+        val chassisMass = 5f
+        val vehicle = PhysicsVehicle(wedgeShape, chassisMass)
         vehicle.setSuspensionCompression(6f) // default=0.83
         vehicle.setSuspensionDamping(7f)     // default=0.88
         vehicle.setSuspensionStiffness(150f) // default=5.88
