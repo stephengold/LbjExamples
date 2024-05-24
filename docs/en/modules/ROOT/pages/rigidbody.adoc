@@ -435,9 +435,10 @@ Things to notice while running the app:
 . The upper (dynamic) box falls until it collides with the lower (static) box,
   which provides a contact force to halt its motion and counteract gravity.
 . About 2 seconds after the upper box stops moving, it gets deactivated.
+. In SPORT, deactivated rigid bodies are conventionally colored gray.
 . After the application removes the lower box,
-  the upper box doesn't resuming falling.
-  Due to deactivation, it seems to be "stuck".
+  the upper box doesn't resume falling.
+  Due to deactivation, it appears to be "stuck".
 
 == Continuous collision detection
 
