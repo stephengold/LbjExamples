@@ -56,6 +56,14 @@ tasks.register('HelloCharacter', JavaExec) {
     description = 'Runs the Kotlin version of the HelloCharacter tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloCharacterKt'
 }
+tasks.register('HelloCloth', JavaExec) {
+    description = 'Runs the Kotlin version of the HelloCloth tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloClothKt'
+}
+tasks.register('HelloClothRigid', JavaExec) {
+    description = 'Runs the Kotlin version of the HelloClothRigid tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloClothRigidKt'
+}
 tasks.register('HelloContactResponse', JavaExec) {
     description = 'Runs the Kotlin version of the HelloContactResponse tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloContactResponseKt'
@@ -104,6 +112,10 @@ tasks.register('HelloMassDistribution', JavaExec) {
     description = 'Runs the Kotlin version of the HelloMassDistribution tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloMassDistributionKt'
 }
+tasks.register('HelloPin', JavaExec) {
+    description = 'Runs the Kotlin version of the HelloPin tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloPinKt'
+}
 tasks.register('HelloRigidBody', JavaExec) {
     description = 'Runs the Kotlin version of the HelloRigidBody tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloRigidBodyKt'
@@ -115,6 +127,14 @@ tasks.register('HelloServo', JavaExec) {
 tasks.register('HelloSoftBody', JavaExec) {
     description = 'Runs the Kotlin version of the HelloSoftBody tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloSoftBodyKt'
+}
+tasks.register('HelloSoftRope', JavaExec) {
+    description = 'Runs the Kotlin version of the HelloSoftRope tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloSoftRopeKt'
+}
+tasks.register('HelloSoftSoft', JavaExec) {
+    description = 'Runs the Kotlin version of the HelloSoftSoft tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloSoftSoftKt'
 }
 tasks.register('HelloSport', JavaExec) {
     description = 'Runs the Kotlin version of the HelloSport tutorial app.'
