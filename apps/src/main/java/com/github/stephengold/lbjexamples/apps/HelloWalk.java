@@ -108,12 +108,7 @@ public class HelloWalk
      */
     @Override
     public PhysicsSpace createSpace() {
-        PhysicsSpace result
-                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
-
-        // To enable the callbacks, register the application as a tick listener.
-        result.addTickListener(this);
-
+        PhysicsSpace result = configurePhysics();
         return result;
     }
 
@@ -264,5 +259,20 @@ public class HelloWalk
 
         // Set the background color to light blue.
         setBackgroundColor(Constants.SKY_BLUE);
+    }
+
+    /**
+     * Configure physics during startup.
+     *
+     * @return a new instance (not null)
+     */
+    private PhysicsSpace configurePhysics() {
+        PhysicsSpace result
+                = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+
+        // To enable the callbacks, register the application as a tick listener.
+        result.addTickListener(this);
+
+        return result;
     }
 }
