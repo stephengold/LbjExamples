@@ -152,7 +152,7 @@ public class HelloClothRigid extends BasePhysicsApp<PhysicsSoftSpace> {
             float x = (2 * xIndex - zLines + 1) * lineSpacing / 2f;
             for (int zIndex = 0; zIndex < xLines; ++zIndex) {
                 float z = (2 * zIndex - xLines + 1) * lineSpacing / 2f;
-                posBuffer.add(new Vector3f(x, 0, z));
+                posBuffer.add(new Vector3f(x, 0f, z));
             }
         }
 
@@ -187,8 +187,11 @@ public class HelloClothRigid extends BasePhysicsApp<PhysicsSoftSpace> {
                 }
             }
         }
-        Vector3f[] pos = new Vector3f[3 * numVertices];
-        int[] indices = indexBuffer.stream().mapToInt(i -> i).toArray();
-        return new IndexedMesh(posBuffer.toArray(pos), indices);
+
+        Vector3f[] posArray = posBuffer.toArray(new Vector3f[0]);
+        int[] indexArray = indexBuffer.stream().mapToInt(i -> i).toArray();
+        IndexedMesh result = new IndexedMesh(posArray, indexArray);
+
+        return result;
     }
 }
