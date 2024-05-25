@@ -127,8 +127,8 @@ By convention, the body connected to a single-ended
 In effect, the "A" end of a single-ended constraint
 connects to the physics space itself.
 
-NOTE: Different {url-api}/joints/Constraint.html[`Constraint`]
-subclasses use different end-naming conventions for single-ended constraints.
+NOTE: Certain other {url-api}/joints/Constraint.html[`Constraint`]
+subclasses use the opposite end-naming convention for single-ended constraints.
 
 There are 2 `New6Dof` constructors,
 one for a single-ended constraint:
@@ -238,7 +238,7 @@ NOTE: The limits of a rotational DOF are measured in radians.
 that demonstrates a single-ended `New6Dof` constraint
 with limited translation DOFs.
 The joint's translations are limited,
-confining the ball to a 6x6 horizontal square centered on the origin.
+confining the ball to a horizontal square centered on the origin.
 
 == Motors
 
