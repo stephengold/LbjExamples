@@ -123,9 +123,10 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
         PhysicsSoftBody cloth = new PhysicsSoftBody();
         NativeSoftBodyUtil.appendFromTriMesh(squareGrid, cloth);
         physicsSpace.addCollisionObject(cloth);
-
-        // Make the cloth flexible by altering the angular stiffness
-        // of its material.
+        /*
+         * Make the cloth flexible by reducing the angular stiffness
+         * of its material.
+         */
         SoftBodyMaterial mat = cloth.getSoftMaterial();
         mat.setAngularStiffness(0f); // default=1
         /*
@@ -138,7 +139,7 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
         // Translate the cloth upward to its starting location.
         cloth.applyTranslation(new Vector3f(0f, 2f, 0f));
 
-        // Visualize the soft body.
+        // Visualize the soft-body links:
         new LinksGeometry(cloth);
     }
 }

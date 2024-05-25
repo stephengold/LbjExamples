@@ -64,7 +64,7 @@ public class HelloClothRigid extends BasePhysicsApp<PhysicsSoftSpace> {
     // new methods exposed
 
     /**
-     * Main entry point for the HelloSoftBody application.
+     * Main entry point for the HelloClothRigid application.
      *
      * @param arguments array of command-line arguments (not null)
      */
@@ -122,8 +122,7 @@ public class HelloClothRigid extends BasePhysicsApp<PhysicsSoftSpace> {
 
         physicsSpace.addCollisionObject(cloth);
 
-
-        // Visualize the soft body.
+        // Visualize the soft-body faces:
         new FacesGeometry(cloth);
     }
     // *************************************************************************

@@ -179,7 +179,7 @@ class HelloLimit : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
      * Callback from Bullet, invoked just before each simulation step.
      *
      * space:  the space that's about to be stepped (not null)
-     * timeStep:  the duration of the simulation step (in seconds, &ge;0)
+     * timeStep:  the duration of the simulation step (in seconds, >=0)
      */
     override fun prePhysicsTick(space: PhysicsSpace, timeStep: Float) {
         // Reposition the paddle based on the mouse location.

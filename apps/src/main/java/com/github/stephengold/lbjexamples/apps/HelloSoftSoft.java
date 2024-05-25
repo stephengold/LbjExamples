@@ -147,7 +147,7 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         ball2.applyTranslation(new Vector3f(0f, 3f, 0f));
         ball2.setVelocity(new Vector3f(0f, -1f, 0f));
 
-        // Visualize the soft bodies.
+        // Visualize the soft-body faces:
         new FacesGeometry(ball1);
         new FacesGeometry(ball2);
     }

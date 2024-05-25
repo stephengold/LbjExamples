@@ -118,7 +118,7 @@ public class HelloSoftRope extends BasePhysicsApp<PhysicsSoftSpace> {
         int nodeIndex = 0;
         rope.setNodeMass(nodeIndex, PhysicsBody.massForStatic);
 
-        // Visualize the soft body.
+        // Visualize the soft-body links and pin:
         new LinksGeometry(rope);
         new PinsGeometry(rope);
     }

@@ -144,7 +144,7 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
         // Translate the cloth upward to its starting location.
         cloth.applyTranslation(new Vector3f(0f, 2f, 0f));
 
-        // Visualize the soft body.
+        // Visualize the soft-body links and pin:
         new LinksGeometry(cloth);
         new PinsGeometry(cloth);
     }
