@@ -269,8 +269,8 @@ public class HelloGhost
     private void configureInput() {
         getInputManager().add(new InputProcessor() {
             @Override
-            public void onKeyboard(int keyId, boolean isPressed) {
-                switch (keyId) {
+            public void onKeyboard(int glfwKeyId, boolean isPressed) {
+                switch (glfwKeyId) {
                     case GLFW.GLFW_KEY_SPACE:
                         jumpRequested = isPressed;
                         return;
@@ -289,7 +289,7 @@ public class HelloGhost
                         return;
                     default:
                 }
-                super.onKeyboard(keyId, isPressed);
+                super.onKeyboard(glfwKeyId, isPressed);
             }
         });
     }
