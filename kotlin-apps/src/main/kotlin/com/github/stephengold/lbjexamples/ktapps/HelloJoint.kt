@@ -48,7 +48,6 @@ import com.jme3.math.Matrix3f
 import com.jme3.math.Plane
 import com.jme3.math.Vector3f
 import jme3utilities.math.MyVector3f
-import org.joml.Vector2fc
 
 /*
  * A simple example of a PhysicsJoint.
