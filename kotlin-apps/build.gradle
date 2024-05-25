@@ -84,6 +84,10 @@ tasks.register('HelloLimit', JavaExec) {
     description = 'Runs the Kotlin version of the HelloLimit tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloLimitKt'
 }
+tasks.register('HelloMotor', JavaExec) {
+    description = 'Runs the Kotlin version of the HelloMotor tutorial app.'
+    mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloMotorKt'
+}
 tasks.register('HelloNonUniformGravity', JavaExec) {
     description = 'Runs the Kotlin version of the HelloNonUniformGravity tutorial app.'
     mainClass = 'com.github.stephengold.lbjexamples.ktapps.HelloNonUniformGravityKt'
