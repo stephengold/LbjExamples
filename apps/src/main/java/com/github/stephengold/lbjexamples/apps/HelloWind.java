@@ -283,7 +283,7 @@ public class HelloWind
 
                     default:
                 }
-                super.onKeyboard(keyId, isPressed);
+                super.onKeyboard(glfwKeyId, isPressed);
             }
         });
     }
