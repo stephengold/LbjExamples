@@ -1,0 +1,264 @@
+/*
+ Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+
+ 1. Redistributions of source code must retain the above copyright notice, this
+    list of conditions and the following disclaimer.
+
+ 2. Redistributions in binary form must reproduce the above copyright notice,
+    this list of conditions and the following disclaimer in the documentation
+    and/or other materials provided with the distribution.
+
+ 3. Neither the name of the copyright holder nor the names of its
+    contributors may be used to endorse or promote products derived from
+    this software without specific prior written permission.
+
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+package com.github.stephengold.lbjexamples.ktapps
+
+import com.github.stephengold.sport.Constants
+import com.github.stephengold.sport.Projection
+import com.github.stephengold.sport.TextureKey
+import com.github.stephengold.sport.input.RotateMode
+import com.github.stephengold.sport.physics.BasePhysicsApp
+import com.jme3.bullet.PhysicsSpace
+import com.jme3.bullet.PhysicsTickListener
+import com.jme3.bullet.RotationOrder
+import com.jme3.bullet.collision.shapes.BoxCollisionShape
+import com.jme3.bullet.collision.shapes.PlaneCollisionShape
+import com.jme3.bullet.collision.shapes.SphereCollisionShape
+import com.jme3.bullet.joints.New6Dof
+import com.jme3.bullet.joints.motors.MotorParam
+import com.jme3.bullet.objects.PhysicsBody
+import com.jme3.bullet.objects.PhysicsRigidBody
+import com.jme3.math.Matrix3f
+import com.jme3.math.Plane
+import com.jme3.math.Vector3f
+import jme3utilities.math.MyVector3f
+
+/*
+ * A simple example of a PhysicsJoint with springs.
+ *
+ * Builds upon HelloJoint.
+ *
+ * author:  Stephen Gold sgold@sonic.net
+ */
+
+/*
+ * Main entry point for the HelloSpring application.
+ */
+fun main() {
+    val application = HelloSpring()
+    application.start()
+}
+
+/*
+ * physics-space Y coordinate of the ground plane
+ */
+private val groundY = -2f
+/*
+ * half the height of the paddle (in physics-space units)
+ */
+private val paddleHalfHeight = 1f
+/*
+ * mouse-controlled kinematic paddle
+ */
+private var paddleBody: PhysicsRigidBody? = null
+/*
+ * latest ground location indicated by the mouse cursor
+ */
+private val mouseLocation = Vector3f()
+
+class HelloSpring : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
+    // *************************************************************************
+    // BasePhysicsApp override functions
+
+    /*
+     * Create the PhysicsSpace. Invoked once during initialization.
+     */
+    override fun createSpace(): PhysicsSpace {
+        val result = PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT)
+
+        // To enable the callbacks, register the application as a tick listener.
+        result.addTickListener(this)
+
+        // Reduce the time step for better accuracy.
+        result.setAccuracy(0.005f)
+
+        return result
+    }
+
+    /*
+     * Initialize the application. Invoked once.
+     */
+    override fun initialize() {
+        super.initialize()
+
+        configureCamera()
+        setLightDirection(7f, 3f, 5f)
+
+        // Disable VSync for more frequent mouse-position updates.
+        setVsync(false)
+    }
+
+    /*
+     * Populate the PhysicsSpace. Invoked once during initialization.
+     */
+    override fun populateSpace() {
+        // Add a static plane to represent the ground.
+        addPlane(groundY)
+
+        // Add a mouse-controlled kinematic paddle.
+        addPaddle()
+
+        // Add a dynamic ball.
+        val ballBody = addBall()
+
+        // Add a single-ended physics joint to constrain the ball's center.
+        val pivotInBall = Vector3f(0f, 0f, 0f)
+        val pivotInWorld = Vector3f(0f, 0f, 0f)
+        val rotInBall = Matrix3f.IDENTITY
+        val rotInPaddle = Matrix3f.IDENTITY
+        val joint = New6Dof(ballBody, pivotInBall, pivotInWorld,
+                rotInBall, rotInPaddle, RotationOrder.XYZ)
+        physicsSpace.addJoint(joint)
+
+        // Free the X and Z translation DOFs.
+        joint.set(MotorParam.LowerLimit, PhysicsSpace.AXIS_X, +1f)
+        joint.set(MotorParam.LowerLimit, PhysicsSpace.AXIS_Z, +1f)
+        joint.set(MotorParam.UpperLimit, PhysicsSpace.AXIS_X, -1f)
+        joint.set(MotorParam.UpperLimit, PhysicsSpace.AXIS_Z, -1f)
+
+        // Configure springs on the X and Z translation DOFs.
+        joint.enableSpring(PhysicsSpace.AXIS_X, true)
+        joint.enableSpring(PhysicsSpace.AXIS_Z, true)
+        joint.set(MotorParam.Stiffness, PhysicsSpace.AXIS_X, 25f)
+        joint.set(MotorParam.Stiffness, PhysicsSpace.AXIS_Z, 25f)
+
+        // Lock the Y translation at paddle height.
+        val paddleY = groundY + paddleHalfHeight
+        joint.set(MotorParam.LowerLimit, PhysicsSpace.AXIS_Y, paddleY)
+        joint.set(MotorParam.UpperLimit, PhysicsSpace.AXIS_Y, paddleY)
+    }
+
+    /*
+     * Callback invoked during each iteration of the main update loop.
+     */
+    override fun render() {
+        // Calculate the ground location (if any) indicated by the mouse cursor.
+        val screenXy = getInputManager().locateCursor()
+        if (screenXy != null) {
+            val nearLocation
+                    = cam.clipToWorld(screenXy, Projection.nearClipZ, null)
+            val farLocation
+                    = cam.clipToWorld(screenXy, Projection.farClipZ, null)
+            if (nearLocation.y > groundY && farLocation.y < groundY) {
+                val dy = nearLocation.y - farLocation.y
+                val t = (nearLocation.y - groundY) / dy
+                MyVector3f.lerp(t, nearLocation, farLocation, mouseLocation)
+            }
+        }
+        super.render()
+    }
+    // *************************************************************************
+    // PhysicsTickListener override functions
+
+    /*
+     * Callback from Bullet, invoked just before each simulation step.
+     *
+     * space:  the space that's about to be stepped (not null)
+     * timeStep:  the duration of the simulation step (in seconds, >=0)
+     */
+    override fun prePhysicsTick(space: PhysicsSpace, timeStep: Float) {
+        // Reposition the paddle based on the mouse location.
+        val bodyLocation = mouseLocation.add(0f, paddleHalfHeight, 0f)
+        paddleBody!!.setPhysicsLocation(bodyLocation)
+    }
+
+    /*
+     * Callback from Bullet, invoked just after each simulation step.
+     *
+     * space:  the space that was just stepped (not null)
+     * timeStep:  the duration of the simulation step (in seconds, >=0)
+     */
+    override fun physicsTick(space: PhysicsSpace, timeStep: Float) {
+        // do nothing
+    }
+    // *************************************************************************
+    // private functions
+
+    /*
+     * Create a dynamic rigid body with a sphere shape and add it to the space.
+     */
+    private fun addBall(): PhysicsRigidBody {
+        val radius = 0.4f
+        val shape = SphereCollisionShape(radius)
+
+        val mass = 0.2f
+        val result = PhysicsRigidBody(shape, mass)
+        physicsSpace.addCollisionObject(result)
+
+        // Disable sleep (deactivation).
+        result.setEnableSleep(false)
+
+        visualizeShape(result)
+
+        return result
+    }
+
+    /*
+     * Create a kinematic body with a box shape and add it to the space.
+     */
+    private fun addPaddle() {
+        val shape = BoxCollisionShape(0.3f, paddleHalfHeight, 1f)
+        paddleBody = PhysicsRigidBody(shape)
+        paddleBody!!.setKinematic(true)
+
+        physicsSpace.addCollisionObject(paddleBody)
+        visualizeShape(paddleBody)
+    }
+
+    /*
+     * Add a horizontal plane body to the space.
+     *
+     * y:  the desired elevation (in physics-space coordinates)
+     */
+    private fun addPlane(y: Float) {
+        val plane = Plane(Vector3f.UNIT_Y, y)
+        val shape = PlaneCollisionShape(plane)
+        val body = PhysicsRigidBody(shape, PhysicsBody.massForStatic)
+
+        physicsSpace.addCollisionObject(body)
+
+        // visualization
+        val resourceName = "/Textures/greenTile.png"
+        val maxAniso = 16f
+        val textureKey = TextureKey("classpath://" + resourceName, maxAniso)
+        visualizeShape(body, 0.1f)
+                .setSpecularColor(Constants.DARK_GRAY)
+                .setTexture(textureKey)
+    }
+
+    /*
+     * Configure the Camera and CIP during startup.
+     */
+    private fun configureCamera() {
+        getCameraInputProcessor().setRotationMode(RotateMode.None)
+
+        cam.setLocation(Vector3f(0f, 5f, 10f))
+        cam.setUpAngle(-0.6f)
+        cam.setAzimuth(-1.6f)
+    }
+}
