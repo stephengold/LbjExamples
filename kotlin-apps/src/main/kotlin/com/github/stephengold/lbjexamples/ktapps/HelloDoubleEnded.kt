@@ -102,7 +102,7 @@ class HelloDoubleEnded: BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
     }
 
     /*
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     override fun initialize() {
         super.initialize()

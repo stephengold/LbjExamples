@@ -89,7 +89,7 @@ class HelloWalk : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
     }
 
     /*
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     override fun initialize() {
         super.initialize()
@@ -219,7 +219,7 @@ class HelloWalk : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
         })
     }
 
-    /**
+    /*
      * Configure lighting and the background color.
      */
     private fun configureLighting() {

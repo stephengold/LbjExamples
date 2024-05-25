@@ -76,7 +76,7 @@ class HelloCharacter : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
     }
 
     /*
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     override fun initialize() {
         super.initialize()
@@ -138,7 +138,7 @@ class HelloCharacter : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
      * Add a horizontal square body to the space.
      *
      * halfExtent:  half of the desired side length
-     * y:  the desired elevation, in physics-space coordinates
+     * y:  the desired elevation (in physics-space coordinates)
      */
     private fun addSquare(halfExtent: Float, y: Float): PhysicsRigidBody {
         // Construct a static rigid body with a square shape.

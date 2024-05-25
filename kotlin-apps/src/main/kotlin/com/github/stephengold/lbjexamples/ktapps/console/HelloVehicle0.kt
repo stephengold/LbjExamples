@@ -88,7 +88,7 @@ fun main() {
     val chassisMass = 5f
     val vehicle = PhysicsVehicle(wedgeShape, chassisMass)
     vehicle.setSuspensionCompression(6f) // default=0.83
-    vehicle.setSuspensionDamping(7f) // default=0.88
+    vehicle.setSuspensionDamping(7f)     // default=0.88
     vehicle.setSuspensionStiffness(150f) // default=5.88
 
     // Add 4 wheels, 2 in the front (for steering) and 2 in the rear.
