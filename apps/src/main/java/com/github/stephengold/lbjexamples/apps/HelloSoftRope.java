@@ -122,12 +122,4 @@ public class HelloSoftRope extends BasePhysicsApp<PhysicsSoftSpace> {
         new LinksGeometry(rope);
         new PinsGeometry(rope);
     }
-
-    /**
-     * Update the window title. Invoked during each update.
-     */
-    @Override
-    public void updateWindowTitle() {
-        // do nothing
-    }
 }

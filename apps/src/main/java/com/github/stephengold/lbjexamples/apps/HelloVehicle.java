@@ -164,14 +164,6 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
         // Apply a constant acceleration (to the chassis).
         vehicle.accelerate(1f);
     }
-
-    /**
-     * Update the window title. Invoked during each update.
-     */
-    @Override
-    public void updateWindowTitle() {
-        // do nothing
-    }
     // *************************************************************************
     // private methods
 

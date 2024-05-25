@@ -216,14 +216,6 @@ public class HelloWind
         // Visualize the physics-space axes.
         visualizeAxes(null, 1f);
     }
-
-    /**
-     * Update the window title. Invoked during each update.
-     */
-    @Override
-    public void updateWindowTitle() {
-        // do nothing
-    }
     // *************************************************************************
     // PhysicsTickListener methods
 
@@ -279,8 +271,8 @@ public class HelloWind
     private void configureInput() {
         getInputManager().add(new InputProcessor() {
             @Override
-            public void onKeyboard(int keyId, boolean isPressed) {
-                switch (keyId) {
+            public void onKeyboard(int glfwKeyId, boolean isPressed) {
+                switch (glfwKeyId) {
                     case GLFW.GLFW_KEY_LEFT:
                         turnLeft = isPressed;
                         return;

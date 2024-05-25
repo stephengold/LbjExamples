@@ -174,14 +174,6 @@ public class HelloGhost
         visualizeShape(character);
         new AabbGeometry(character); // outline the character's AABB in white
     }
-
-    /**
-     * Update the window title. Invoked during each update.
-     */
-    @Override
-    public void updateWindowTitle() {
-        // do nothing
-    }
     // *************************************************************************
     // PhysicsTickListener methods
 

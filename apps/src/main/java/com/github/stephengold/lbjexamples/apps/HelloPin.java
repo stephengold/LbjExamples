@@ -148,12 +148,4 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
         new LinksGeometry(cloth);
         new PinsGeometry(cloth);
     }
-
-    /**
-     * Update the window title. Invoked during each update.
-     */
-    @Override
-    public void updateWindowTitle() {
-        // do nothing
-    }
 }

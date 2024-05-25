@@ -189,14 +189,6 @@ public class HelloJoint
         }
         super.render();
     }
-
-    /**
-     * Update the window title. Invoked during each update.
-     */
-    @Override
-    public void updateWindowTitle() {
-        // do nothing
-    }
     // *************************************************************************
     // PhysicsTickListener methods
 

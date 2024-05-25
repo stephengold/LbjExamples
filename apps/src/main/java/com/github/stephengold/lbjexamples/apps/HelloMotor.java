@@ -156,14 +156,6 @@ public class HelloMotor extends BasePhysicsApp<PhysicsSpace> {
         new ConstraintGeometry(joint, JointEnd.A).setDepthTest(false);
         new ConstraintGeometry(joint, JointEnd.B).setDepthTest(false);
     }
-
-    /**
-     * Update the window title. Invoked during each update.
-     */
-    @Override
-    public void updateWindowTitle() {
-        // do nothing
-    }
     // *************************************************************************
     // private methods
 

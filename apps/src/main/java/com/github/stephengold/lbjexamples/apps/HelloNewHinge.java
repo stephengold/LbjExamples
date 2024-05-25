@@ -212,14 +212,6 @@ public class HelloNewHinge
     public void physicsTick(PhysicsSpace space, float timeStep) {
         // do nothing
     }
-
-    /**
-     * Update the window title. Invoked during each update.
-     */
-    @Override
-    public void updateWindowTitle() {
-        // do nothing
-    }
     // *************************************************************************
     // private methods
 

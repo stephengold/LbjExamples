@@ -151,12 +151,4 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         new FacesGeometry(ball1);
         new FacesGeometry(ball2);
     }
-
-    /**
-     * Update the window title. Invoked during each update.
-     */
-    @Override
-    public void updateWindowTitle() {
-        // do nothing
-    }
 }

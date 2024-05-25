@@ -150,14 +150,6 @@ public class HelloWalk
         // Add a static heightmap to represent the ground.
         addTerrain();
     }
-
-    /**
-     * Update the window title. Invoked during each update.
-     */
-    @Override
-    public void updateWindowTitle() {
-        // do nothing
-    }
     // *************************************************************************
     // PhysicsTickListener methods
 
