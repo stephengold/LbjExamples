@@ -91,7 +91,7 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
     }
 
     /**
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     @Override
     public void initialize() {

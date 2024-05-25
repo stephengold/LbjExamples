@@ -129,7 +129,7 @@ public class HelloJoint
     }
 
     /**
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     @Override
     public void initialize() {
@@ -263,7 +263,7 @@ public class HelloJoint
     /**
      * Add a horizontal plane body to the space.
      *
-     * @param y (the desired elevation, in physics-space coordinates)
+     * @param y the desired elevation (in physics-space coordinates)
      */
     private void addPlane(float y) {
         Plane plane = new Plane(Vector3f.UNIT_Y, y);

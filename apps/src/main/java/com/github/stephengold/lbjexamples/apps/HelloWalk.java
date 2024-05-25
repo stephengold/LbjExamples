@@ -118,7 +118,7 @@ public class HelloWalk
     }
 
     /**
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     @Override
     public void initialize() {

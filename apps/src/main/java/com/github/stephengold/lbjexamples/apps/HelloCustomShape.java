@@ -106,7 +106,7 @@ public class HelloCustomShape extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     @Override
     public void initialize() {

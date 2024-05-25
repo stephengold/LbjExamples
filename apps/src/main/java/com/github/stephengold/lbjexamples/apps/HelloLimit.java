@@ -128,7 +128,7 @@ public class HelloLimit
     }
 
     /**
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     @Override
     public void initialize() {
@@ -279,8 +279,8 @@ public class HelloLimit
     /**
      * Add a horizontal square body to the space.
      *
-     * @param halfExtent (half of the desired side length)
-     * @param y (the desired elevation, in physics-space coordinates)
+     * @param halfExtent half of the desired side length
+     * @param y the desired elevation (in physics-space coordinates)
      * @return the new body (not null)
      */
     private PhysicsRigidBody addSquare(float halfExtent, float y) {

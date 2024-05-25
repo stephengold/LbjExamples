@@ -142,7 +142,7 @@ public class HelloWind
     }
 
     /**
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     @Override
     public void initialize() {

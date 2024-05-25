@@ -98,7 +98,7 @@ public class HelloCharacter
     }
 
     /**
-     * Initialize the application.
+     * Initialize the application. Invoked once.
      */
     @Override
     public void initialize() {
@@ -164,7 +164,7 @@ public class HelloCharacter
     /**
      * Add a horizontal square body to the space.
      *
-     * @param halfExtent (half of the desired side length)
+     * @param halfExtent half of the desired side length
      * @param y (the desired elevation, in physics-space coordinates)
      * @return the new body (not null)
      */
