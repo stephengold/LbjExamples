@@ -148,8 +148,7 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         mallet.setAngularDamping(0.9f);
 
         // The mallet's center has changed, so adjust its moment of inertia.
-        Vector3f inverseInertia
-                = new Vector3f(1f, 1f, 1f).divideLocal(inertiaVector);
+        Vector3f inverseInertia = Vector3f.UNIT_XYZ.divide(inertiaVector);
         mallet.setInverseInertiaLocal(inverseInertia);
 
         physicsSpace.addCollisionObject(mallet);

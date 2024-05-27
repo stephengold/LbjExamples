@@ -161,8 +161,8 @@ public class HelloGhost
         physicsSpace.addCollisionObject(character);
 
         // Add a plane to represent the ground.
-        float y = -2f;
-        addPlane(y);
+        float groundY = -2f;
+        addPlane(groundY);
 
         // Visualize the collision objects.
         new AabbGeometry(ghost);
