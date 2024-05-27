@@ -71,9 +71,9 @@ Additional mappings are specific to each application:
 * In `SplitDemo`:
 
 ** kbd:[Tab] convert all bodies to splittable shapes
-** kbd:[Home], kbd:[Numpad5] restart with a random rigid body
-** kbd:[Enter], kbd:[Numpad0], kbd:[Spacebar] split all shapes
-** kbd:[L bracket], kbd:[R bracket] rotate the splitting plane
+** kbd:[Home] and kbd:[Numpad5] restart with a random rigid body
+** kbd:[Enter], kbd:[Numpad0], and kbd:[Spacebar] split all shapes
+** kbd:[L bracket] and kbd:[R bracket] rotate the splitting plane
 
 * In `TestGearJoint`:
 
