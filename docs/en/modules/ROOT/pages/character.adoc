@@ -3,6 +3,7 @@
 :page-pagination:
 :pi: &#960;
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
+:url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
 A _physics character_ is a collision object
@@ -34,7 +35,7 @@ You can create a character by invoking the
 {url-api}/objects/PhysicsCharacter.html[`PhysicsCharacter`] constructor.
 This allows you to specify its collision shape and step height.
 
-{url-tutorial}/HelloCharacter.java[HelloCharacter] is a SPORT app
+{url-tutorial}/HelloCharacter.java[HelloCharacter] (also {url-kt}/HelloCharacter.kt[in Kotlin]) is a SPORT app
 that demonstrates the creation of a character,
 followed by automated jumps.
 Things to notice about the app:
@@ -55,7 +56,7 @@ To stop the character from walking, invoke `setWalkDirection(Vector3f.ZERO)`.
 
 NOTE: Despite its name, the walk direction need not be a unit vector.
 
-{url-tutorial}/HelloWalk.java[HelloWalk] demonstrates
+{url-tutorial}/HelloWalk.java[HelloWalk] (also {url-kt}/HelloWalk.kt[in Kotlin]) demonstrates
 keyboard-controlled motion of a physics character.
 Things to notice while running the app:
 

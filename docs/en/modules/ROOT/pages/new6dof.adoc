@@ -4,6 +4,7 @@
 :page-pagination:
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki
+:url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
 A _physics joint_ connects one physics body to another
@@ -183,7 +184,7 @@ Then you can specify `Matrix3f.IDENTITY` for each "rot" parameter.
 
 === Example apps
 
-{url-tutorial}/HelloJoint.java[HelloJoint] is a SPORT app
+{url-tutorial}/HelloJoint.java[HelloJoint] (also {url-kt}/HelloJoint.kt[in Kotlin]) is a SPORT app
 that demonstrates a single-ended `New6Dof` constraint.
 
 Things to notice while running the app:
@@ -194,7 +195,7 @@ Things to notice while running the app:
 . If you strike the ball with the paddle, it swings around, maintaining
   a constant distance from the pivot point.
 
-{url-tutorial}/HelloDoubleEnded.java[HelloDoubleEnded] is a SPORT app
+{url-tutorial}/HelloDoubleEnded.java[HelloDoubleEnded] (also {url-kt}/HelloDoubleEnded.kt[in Kotlin]) is a SPORT app
 that demonstrates a double-ended `New6Dof` constraint.
 
 Things to notice while running the app:
@@ -234,7 +235,7 @@ use the `set()` method with lowerLimit &gt; upperLimit.
 
 NOTE: The limits of a rotational DOF are measured in radians.
 
-{url-tutorial}/HelloLimit.java[HelloLimit] is a SPORT app
+{url-tutorial}/HelloLimit.java[HelloLimit] (also {url-kt}/HelloLimit.kt[in Kotlin]) is a SPORT app
 that demonstrates a single-ended `New6Dof` constraint
 with limited translation DOFs.
 The joint's translations are limited,
@@ -245,7 +246,7 @@ confining the ball to a horizontal square centered on the origin.
 Motors are used to apply forces to a constraint.
 In `New6Dof`, each DOF has its own motor, which is disabled by default.
 
-{url-tutorial}/HelloMotor.java[HelloMotor] is a SPORT app
+{url-tutorial}/HelloMotor.java[HelloMotor] (also {url-kt}/HelloMotor.kt[in Kotlin]) is a SPORT app
 that demonstrates a double-ended `New6Dof`
 with its Y-rotation motor enabled.
 
@@ -275,7 +276,7 @@ In `New6Dof`, each DOF has its own servo, which is disabled by default.
 
 NOTE: For a servo to be effective, its corresponding motor must also be enabled.
 
-{url-tutorial}/HelloServo.java[HelloServo] is a SPORT app
+{url-tutorial}/HelloServo.java[HelloServo] (also {url-kt}/HelloServo.kt[in Kotlin]) is a SPORT app
 that demonstrates a double-ended `New6Dof` constraint
 with its Y-rotation servo enabled.
 
@@ -305,7 +306,7 @@ and set its stiffness to a positive value.
 If desired, you can also configure
 the spring's equilibrium value and damping ratio.
 
-{url-tutorial}/HelloSpring.java[HelloSpring] is a SPORT app
+{url-tutorial}/HelloSpring.java[HelloSpring] (also {url-kt}/HelloSpring.kt[in Kotlin]) is a SPORT app
 that demonstrates a single-ended constraint with springs.
 
 Things to notice while running the app:

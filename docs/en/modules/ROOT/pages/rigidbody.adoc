@@ -5,6 +5,7 @@
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki
 :url-examples: https://github.com/stephengold/sport/blob/master/apps/src/main/java/com/github/stephengold/sport/demo
+:url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
 == The 5 familiar features
@@ -46,7 +47,7 @@ However, these last 3 features are optional and can easily be disabled.
 
 === HelloRigidBody
 
-{url-tutorial}/HelloRigidBody.java[HelloRigidBody] is a SPORT app
+{url-tutorial}/HelloRigidBody.java[HelloRigidBody] (also {url-kt}/HelloRigidBody.kt[in Kotlin]) is a SPORT app
 that demonstrates the 5 familiar features of rigid bodies.
 
 Things to notice while running the app:
@@ -73,7 +74,7 @@ as if its mass were infinite.
 
 NOTE: Java's `static` keyword is completely unrelated to physics.
 
-{url-tutorial}/HelloStaticBody.java[HelloStaticBody] is a SPORT app
+{url-tutorial}/HelloStaticBody.java[HelloStaticBody] (also {url-kt}/HelloStaticBody.kt[in Kotlin]) is a SPORT app
 that combines static and dynamic rigid bodies.
 Things to notice while running the app:
 
@@ -131,7 +132,7 @@ There's no direct way to instantiate a kinematic rigid body.
 The usual way is to instantiate a static or dynamic body and then convert it
 to kinematic using `rigidBody.setKinematic(true)`.
 
-{url-tutorial}/HelloKinematics.java[HelloKinematics] is a SPORT app
+{url-tutorial}/HelloKinematics.java[HelloKinematics] (also {url-kt}/HelloKinematics.kt[in Kotlin]) is a SPORT app
 that combines kinematic and dynamic rigid bodies.
 Things to notice while running the app:
 
@@ -150,7 +151,7 @@ When physics simulation detects a collision between
 To disable contact response for a particular rigid body,
 use `rigidBody.setContactResponse(false)`.
 
-{url-tutorial}/HelloContactResponse.java[HelloContactResponse]
+{url-tutorial}/HelloContactResponse.java[HelloContactResponse] (also {url-kt}/HelloContactResponse.kt[in Kotlin])
 is a SPORT app
 that demonstrates contact response.
 Things to notice while running the app:
@@ -239,7 +240,7 @@ float angularDamping = 0.2f;
 rigidBody.setDamping(linearDamping, angularDamping);
 ----
 
-{url-tutorial}/HelloDamping.java[HelloDamping] is a SPORT app
+{url-tutorial}/HelloDamping.java[HelloDamping] (also {url-kt}/HelloDamping.kt[in Kotlin]) is a SPORT app
 that demonstrates damping.
 Things to notice while running the app:
 
@@ -281,7 +282,7 @@ to which it's added, use `rigidBody.setProtectGravity(true)`.
 
 To simulate a non-uniform gravitational field,
 update the gravity of each body before each simulation step.
-{url-tutorial}/HelloNonUniformGravity.java[HelloNonUniformGravity]
+{url-tutorial}/HelloNonUniformGravity.java[HelloNonUniformGravity] (also {url-kt}/HelloNonUniformGravity.kt[in Kotlin])
 is a SPORT app
 that demonstrates this technique.
 The planet orbits a black hole whose location is indicated by colored arrows.
@@ -428,7 +429,7 @@ Puzzling behavior may occur if a deactivated body is:
 The deactivated body will seem to be "stuck"
 because the events listed above do not, by themselves, reactivate it.
 
-{url-tutorial}/HelloDeactivation.java[HelloDeactivation] is a SPORT app
+{url-tutorial}/HelloDeactivation.java[HelloDeactivation] (also {url-kt}/HelloDeactivation.kt[in Kotlin]) is a SPORT app
 that demonstrates deactivation.
 Things to notice while running the app:
 
@@ -483,7 +484,7 @@ if (rigidBody.isDynamic()) {
 }
 ----
 
-{url-tutorial}/HelloCcd.java[HelloCcd] is a SPORT app
+{url-tutorial}/HelloCcd.java[HelloCcd] (also {url-kt}/HelloCcd.kt[in Kotlin]) is a SPORT app
 that demonstrates CCD.
 Things to notice while running the app:
 

@@ -4,6 +4,7 @@
 :page-pagination:
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki
+:url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
 Adding {Project} to an existing Java project is a 7-step process:
@@ -179,7 +180,7 @@ physicsSpace.update(intervalSeconds);
 
 == HelloLibbulletjme
 
-{url-tutorial}/console/HelloLibbulletjme.java[HelloLibbulletjme]
+{url-tutorial}/console/HelloLibbulletjme.java[HelloLibbulletjme] (also {url-kt}/console/HelloLibbulletjme.kt[in Kotlin])
 is a complete console application (no graphics)
 that serves as a starting point for using Libbulletjme.
 

@@ -2,6 +2,7 @@
 :Project: Libbulletjme
 :page-pagination:
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
+:url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
 While rope, cloth, and foam rubber
@@ -108,7 +109,7 @@ The strength of this tendency depends on the configuration object's
 "pose matching" parameter, which defaults to zero.
 
 For a simple example of a soft body, see
-{url-tutorial}/HelloSoftBody.java[HelloSoftBody].
+{url-tutorial}/HelloSoftBody.java[HelloSoftBody] (also {url-kt}/HelloSoftBody.kt[in Kotlin]).
 
 
 == Soft-soft collisions
@@ -125,7 +126,7 @@ config.setCollisionFlags(oldFlags, ConfigFlag.VF_SS);
 ----
 
 For a simple example of a collision between 2 soft bodies, see
-{url-tutorial}/HelloSoftSoft.java[HelloSoftSoft].
+{url-tutorial}/HelloSoftSoft.java[HelloSoftSoft] (also {url-kt}/HelloSoftSoft.kt[in Kotlin]).
 
 
 == Solver iterations
@@ -168,7 +169,7 @@ softMaterial.setAngularStiffness(0f); // default=1
 ----
 
 For a simple example of cloth simulation, see
-{url-tutorial}/HelloCloth.java[HelloCloth].
+{url-tutorial}/HelloCloth.java[HelloCloth] (also {url-kt}/HelloCloth.kt[in Kotlin]).
 
 
 == Mass distribution
@@ -194,12 +195,12 @@ If a soft-body node has mass=0, it becomes _pinned_ (immovable, like a static
 rigid body).
 
 For a simple example of a pinned node, see
-{url-tutorial}/HelloPin.java[HelloPin.java].
+{url-tutorial}/HelloPin.java[HelloPin.java] (also {url-kt}/HelloPin.kt[in Kotlin]).
 
 
 == Simulating a rope
 
-{url-tutorial}/HelloSoftRope.java[HelloSoftRope] is a SPORT app
+{url-tutorial}/HelloSoftRope.java[HelloSoftRope] (also {url-kt}/HelloSoftRope.kt[in Kotlin]) is a SPORT app
 that demonstrates one way to simulate rope using a soft body.
 
 TODO: applying forces, anchors, soft joints, world info

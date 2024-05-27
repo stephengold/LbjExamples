@@ -5,6 +5,7 @@
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki
 :url-examples: https://github.com/stephengold/sport/tree/master/apps/src/main/java/com/github/stephengold/sport/demo
+:url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
 During each simulation step, Bullet performs collision detection in 2 phases:
@@ -61,7 +62,7 @@ aren't {url-enwiki}/Minimum_bounding_box[minimal].
 Approximations in Bullet make them somewhat larger than necessary.
 However, they are usually accurate enough to be useful.
 
-{url-tutorial}/HelloGhost.java[`HelloGhost`] is a SPORT app
+{url-tutorial}/HelloGhost.java[`HelloGhost`] (also {url-kt}/HelloGhost.kt[in Kotlin]) is a SPORT app
 that illustrates how a ghost could be used
 to detect a character entering/leaving a box-shaped zone.
 

@@ -1,6 +1,7 @@
 = Visualization using the SPORT graphics engine
 :experimental:
 :page-pagination:
+:url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
 The `HelloLibbulletjme` app
@@ -22,7 +23,7 @@ https://central.sonatype.com/artifact/com.github.stephengold/sport[Maven Central
 
 == HelloSport
 
-{url-tutorial}/HelloSport.java[HelloSport]
+{url-tutorial}/HelloSport.java[HelloSport] (also {url-kt}/HelloSport.kt[in Kotlin])
 is a direct conversion of `HelloLibbulletjme` into a SPORT app.
 
 Details to note:
