@@ -2,6 +2,7 @@
 
 plugins {
     id 'application' // to build JVM applications
+    alias(libs.plugins.download) // to retrieve files from URLs
     alias(libs.plugins.kotlin.jvm) // to compile Kotlin
 }
 
@@ -254,24 +255,8 @@ void registerPlatformTasks(String platform, String suffix) {
         delete downloadsDir + filename
     }
 
-    tasks.register('download' + platform, MyDownload) {
-        sourceUrl = libbulletjmeUrl + filename
-        target = file(downloadsDir + filename)
-    }
-}
-
-// helper class to wrap Ant download task:
-
-class MyDownload extends DefaultTask {
-    @Input
-    String sourceUrl
-
-    @OutputFile
-    File target
-
-    @TaskAction
-    void download() {
-        ant.get(src: sourceUrl, dest: target)
-        println sourceUrl
+    tasks.register('download' + platform, Download) {
+        src libbulletjmeUrl + filename
+        dest file(downloadsDir + filename)
     }
 }
