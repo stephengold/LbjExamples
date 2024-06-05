@@ -1,4 +1,5 @@
 = An introduction to rigid-body physics
+:Project: Libbulletjme
 :experimental:
 :page-pagination:
 :page-toclevels: 3
@@ -43,7 +44,7 @@ By default, rigid bodies also exhibit 3 other features of real-world objects:
 * They exhibit _contact response_:
   powerful forces prevent them from intersecting other bodies.
 
-However, these last 3 features are optional in Libbulletjme and can easily be disabled.
+However, these last 3 features are optional in {Project} and can easily be disabled.
 
 === HelloRigidBody
 
