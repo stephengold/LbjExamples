@@ -96,7 +96,7 @@ private fun populateSpace() {
     val radius = 0.3f
     val ballShape = SphereCollisionShape(radius)
     val mass = 1f
-    val ball = PhysicsRigidBody(ballShape, mass)
+    ball = PhysicsRigidBody(ballShape, mass)
     physicsSpace!!.addCollisionObject(ball)
 }
 
