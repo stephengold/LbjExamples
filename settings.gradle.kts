@@ -1,4 +1,4 @@
-// global build settings for the LbjExamples project
+// global build settings shared by all LbjExamples subprojects
 
 rootProject.name = "LbjExamples"
 
