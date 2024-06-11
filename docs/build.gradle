@@ -1,9 +1,0 @@
-// Gradle script to build the "docs" subproject of LbjExamples
-
-plugins {
-    id 'java'
-}
-
-sourceSets.main.java {
-    srcDir 'en' // for IDE access (no Java there)
-}
