@@ -13,6 +13,8 @@ checkstyle {
     toolVersion = libs.versions.checkstyle.get()
 }
 
+val javaVersion = JavaVersion.current()
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -29,14 +31,14 @@ tasks.named<Jar>("jar") {
 
 tasks.withType<JavaCompile>().all { // Java compile-time options:
     options.compilerArgs.add("-Xdiags:verbose")
-    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_20)) {
+    if (javaVersion.isCompatibleWith(JavaVersion.VERSION_20)) {
         // Suppress warnings that source value 8 is obsolete.
         options.compilerArgs.add("-Xlint:-options")
     }
     options.compilerArgs.add("-Xlint:unchecked")
     options.setDeprecation(true) // to provide detailed deprecation warnings
     options.encoding = "UTF-8"
-    if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_1_10)) {
+    if (javaVersion.isCompatibleWith(JavaVersion.VERSION_1_10)) {
         options.release = 8
     }
 }
