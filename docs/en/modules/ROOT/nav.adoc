@@ -24,7 +24,7 @@
 ** https://github.com/stephengold/Libbulletjme/issues[Issue tracker]
 ** https://github.com/stephengold/Libbulletjme/issues/new[Report an issue]
 * Library APIs (javadoc)
-** https://stephengold.github.io/Libbulletjme/javadoc/master[Master branch]
+** https://stephengold.github.io/Libbulletjme/javadoc/master["master" branch]
 * Libbulletjme at other sites
 ** https://repo1.maven.org/maven2/com/github/stephengold/Libbulletjme[Maven Central download]
 ** https://central.sonatype.com/search?q=Libbulletjme&namespace=com.github.stephengold[Maven Central search]
