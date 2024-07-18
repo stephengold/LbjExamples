@@ -54,7 +54,7 @@ To execute "HelloLibbulletjme":
 
 ### Chooser
 
-A Swing-based chooser application is included.
+A [Swing]-based chooser application is provided.
 However, it includes only the graphical apps and doesn't work on macOS yet.
 
 To run the chooser:
@@ -82,3 +82,4 @@ Note:  these commands will delete any downloaded native libraries.
 [license]: https://github.com/stephengold/LbjExamples/blob/master/LICENSE "LbjExamples license"
 [project]: https://github.com/stephengold/LbjExamples "LbjExamples Project"
 [sport]: https://github.com/stephengold/sport "SPORT Project"
+[swing]: https://en.wikipedia.org/wiki/Swing_(Java) "Swing toolkit"
