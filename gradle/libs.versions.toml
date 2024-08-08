@@ -9,7 +9,7 @@ lwjgl = "3.3.4"
 
 [libraries]
 
-joml = "org.joml:joml:1.10.7"
+joml = "org.joml:joml:1.10.8"
 libbulletjme = { module = "com.github.stephengold:Libbulletjme", version.ref = "libbulletjme" }
 lwjgl = { module = "org.lwjgl:lwjgl", version.ref = "lwjgl" }
 lwjgl-assimp = { module = "org.lwjgl:lwjgl-assimp", version.ref = "lwjgl" }
