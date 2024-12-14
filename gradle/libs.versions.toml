@@ -23,4 +23,4 @@ sport = "com.github.stephengold:sport:0.9.4"
 [plugins]
 
 download = { id = "de.undercouch.download", version = "5.6.0" }
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "2.0.21" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "2.1.0" }
