@@ -5,7 +5,7 @@
 checkstyle = "9.3"
 libbulletjme = "21.2.1"
 
-lwjgl = "3.3.5"
+lwjgl = "3.3.6"
 
 [libraries]
 
