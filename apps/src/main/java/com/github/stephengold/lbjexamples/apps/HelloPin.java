@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2019-2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2019-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -56,7 +56,10 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
     // constructors
 
     /**
-     * Explicit no-arg constructor to avoid javadoc warnings from JDK 18+.
+     * Instantiate the HelloPin application.
+     * <p>
+     * This no-arg constructor was made explicit to avoid javadoc warnings from
+     * JDK 18+.
      */
     public HelloPin() {
         // do nothing
