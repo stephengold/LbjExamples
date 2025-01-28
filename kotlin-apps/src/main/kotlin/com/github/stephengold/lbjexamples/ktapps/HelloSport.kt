@@ -53,8 +53,8 @@ fun main() {
     val application = HelloSport()
     application.start()
     /*
-     * During initialization, BasePhysicsApp loads the native library from
-     * the ~/Downloads directory and invokes createSpace() and populateSpace().
+     * During initialization, BasePhysicsApp loads the native library 
+     * and invokes createSpace() and populateSpace().
      */
 }
 

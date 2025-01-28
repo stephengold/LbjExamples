@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -37,8 +37,12 @@ import com.jme3.bullet.objects.PhysicsVehicle
 import com.jme3.math.FastMath
 import com.jme3.math.Plane
 import com.jme3.math.Vector3f
-import com.jme3.system.NativeLibraryLoader
-import java.io.File
+import electrostatic4j.snaploader.LibraryInfo;
+import electrostatic4j.snaploader.LoadingCriterion;
+import electrostatic4j.snaploader.NativeBinaryLoader;
+import electrostatic4j.snaploader.filesystem.DirectoryPath;
+import electrostatic4j.snaploader.platform.NativeDynamicLibrary;
+import electrostatic4j.snaploader.platform.util.PlatformPredicate;
 
 /*
  * Drive a vehicle on a horizontal surface (non-graphical illustrative example).
@@ -50,14 +54,28 @@ import java.io.File
  * Main entry point for the HelloVehicle0 application.
  */
 fun main() {
-    // Load a native library from ~/Downloads directory.
-    val dist = true // use distribution filenames
-    val homePath = System.getProperty("user.home")
-    val downloadDirectory = File(homePath, "Downloads")
-    val buildType = "Release"
-    val flavor = "Sp"
-    NativeLibraryLoader.loadLibbulletjme(
-            dist, downloadDirectory, buildType, flavor)
+    val info = LibraryInfo(
+            DirectoryPath("linux/x86-64/com/github/stephengold"),
+            "bulletjme", DirectoryPath.USER_DIR)
+    val loader = NativeBinaryLoader(info)
+    val libraries = arrayOf(
+        NativeDynamicLibrary("native/linux/arm64", PlatformPredicate.LINUX_ARM_64),
+        NativeDynamicLibrary("native/linux/arm32", PlatformPredicate.LINUX_ARM_32),
+        NativeDynamicLibrary("native/linux/x86_64", PlatformPredicate.LINUX_X86_64),
+        NativeDynamicLibrary("native/osx/arm64", PlatformPredicate.MACOS_ARM_64),
+        NativeDynamicLibrary("native/osx/x86_64", PlatformPredicate.MACOS_X86_64),
+        NativeDynamicLibrary("native/windows/x86_64", PlatformPredicate.WIN_X86_64)
+    )
+    loader.registerNativeLibraries(libraries).initPlatformLibrary()
+    loader.setLoggingEnabled(true)
+    loader.setRetryWithCleanExtraction(true)
+
+    // Load the Libbulletjme native library for this platform.
+    try {
+        loader.loadLibrary(LoadingCriterion.INCREMENTAL_LOADING)
+    } catch (exception: Exception) {
+        throw IllegalStateException("Failed to load the Libbulletjme library!")
+    }
 
     // Create a PhysicsSpace using DBVT for broadphase.
     val physicsSpace = PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT)

@@ -1,11 +1,9 @@
 // Gradle script to build the "kotlin-apps" subproject of LbjExamples
 
-import de.undercouch.gradle.tasks.download.Download
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 plugins {
     `application` // to build JVM applications
-    alias(libs.plugins.download) // to retrieve files from URLs
     alias(libs.plugins.kotlin.jvm) // to compile Kotlin
 }
 
@@ -18,29 +16,7 @@ tasks.named<Jar>("jar") {
     }
 }
 
-dependencies {
-    implementation(libs.libbulletjme)
-    implementation(platform(libs.lwjgl.bom))
-
-    implementation(libs.joml)
-    implementation(libs.lwjgl)
-    implementation(libs.lwjgl.assimp)
-    implementation(libs.lwjgl.glfw)
-    implementation(libs.lwjgl.opengl)
-}
-
-// which BTF (buildType + flavor) of the native physics library to copy:
-//val btf = "DebugSp"
-val btf = "ReleaseSp"
-
 val fs = System.getProperty("file.separator")
-val downloadsDir = System.getProperty("user.home") + fs + "Downloads" + fs
-
-val lbjVersion = libs.versions.libbulletjme.get()
-
-// URL from which native physics libraries should be copied:
-val libbulletjmeUrl = "https://github.com/stephengold/Libbulletjme/releases/download/$lbjVersion/"
-//val libbulletjmeUrl = "file:///home/sgold/NetBeansProjects/Libbulletjme/dist/"
 
 // Register tasks to run specific applications:
 
@@ -176,34 +152,26 @@ tasks.withType<JavaExec>().all { // JVM runtime options:
     classpath = sourceSets.main.get().getRuntimeClasspath()
     enableAssertions = true
     jvmArgs("-XX:+UseG1GC", "-XX:MaxGCPauseMillis=10")
-
-    if (includeLinux) {
-        dependsOn("downloadLinux64")
-        dependsOn("downloadLinux_ARM32")
-        dependsOn("downloadLinux_ARM64")
-    }
-    if (includeMacOsX) {
-        dependsOn("downloadMacOSX64")
-        dependsOn("downloadMacOSX_ARM64")
-    }
-    if (includeWindows) {
-        dependsOn("downloadWindows32")
-        dependsOn("downloadWindows64")
-    }
 }
+
+// which BFT (build flavor + type) of native physics libraries to include:
+val bft = providers.gradleProperty("bft").get()
 
 dependencies {
     if (includeLinux) {
+        runtimeOnly(variantOf(libs.libbulletjme.linux64){classifier(bft)})
         runtimeOnly(variantOf(libs.lwjgl){classifier("natives-linux")})
         runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-linux")})
         runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-linux")})
         runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-linux")})
 
+        runtimeOnly(variantOf(libs.libbulletjme.linuxarm32hf){classifier(bft)})
         runtimeOnly(variantOf(libs.lwjgl){classifier("natives-linux-arm32")})
         runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-linux-arm32")})
         runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-linux-arm32")})
         runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-linux-arm32")})
 
+        runtimeOnly(variantOf(libs.libbulletjme.linuxarm64){classifier(bft)})
         runtimeOnly(variantOf(libs.lwjgl){classifier("natives-linux-arm64")})
         runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-linux-arm64")})
         runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-linux-arm64")})
@@ -211,11 +179,13 @@ dependencies {
     }
 
     if (includeMacOsX) {
+        runtimeOnly(variantOf(libs.libbulletjme.macosx64){classifier(bft)})
         runtimeOnly(variantOf(libs.lwjgl){classifier("natives-macos")})
         runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-macos")})
         runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-macos")})
         runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-macos")})
 
+        runtimeOnly(variantOf(libs.libbulletjme.macosxarm64){classifier(bft)})
         runtimeOnly(variantOf(libs.lwjgl){classifier("natives-macos-arm64")})
         runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-macos-arm64")})
         runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-macos-arm64")})
@@ -223,50 +193,13 @@ dependencies {
     }
 
     if (includeWindows) {
+        runtimeOnly(variantOf(libs.libbulletjme.windows64){classifier(bft)})
         runtimeOnly(variantOf(libs.lwjgl){classifier("natives-windows")})
         runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-windows")})
         runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-windows")})
         runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-windows")})
-
-        runtimeOnly(variantOf(libs.lwjgl){classifier("natives-windows-x86")})
-        runtimeOnly(variantOf(libs.lwjgl.assimp){classifier("natives-windows-x86")})
-        runtimeOnly(variantOf(libs.lwjgl.glfw){classifier("natives-windows-x86")})
-        runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-windows-x86")})
     }
 
+    implementation(libs.jsnaploader)
     implementation(libs.sport)
-}
-
-// Register tasks to download/clean the native physics library for each platform:
-
-registerPlatformTasks("Linux64",      "_libbulletjme.so")
-registerPlatformTasks("Linux_ARM32",  "_libbulletjme.so")
-registerPlatformTasks("Linux_ARM64",  "_libbulletjme.so")
-
-registerPlatformTasks("MacOSX64",     "_libbulletjme.dylib")
-registerPlatformTasks("MacOSX_ARM64", "_libbulletjme.dylib")
-
-registerPlatformTasks("Windows32",    "_bulletjme.dll")
-registerPlatformTasks("Windows64",    "_bulletjme.dll")
-
-// helper method to register 'download' and 'clean' tasks:
-
-fun registerPlatformTasks(platform : String, suffix : String) {
-    val cleanTaskName = "clean" + platform
-    val filename = platform + btf + suffix
-    val filepath = "" + downloadsDir + filename
-
-    tasks.named("clean") {
-        dependsOn(cleanTaskName)
-    }
-
-    tasks.register<Delete>(cleanTaskName) {
-        delete(filepath)
-    }
-
-    tasks.register<Download>("download" + platform) {
-        src(libbulletjmeUrl + filename)
-        dest(filepath)
-        overwrite(false)
-    }
 }

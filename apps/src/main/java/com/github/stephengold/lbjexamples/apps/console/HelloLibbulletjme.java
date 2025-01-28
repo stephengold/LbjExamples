@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -36,8 +36,12 @@ import com.jme3.bullet.objects.PhysicsBody;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.math.Plane;
 import com.jme3.math.Vector3f;
-import com.jme3.system.NativeLibraryLoader;
-import java.io.File;
+import electrostatic4j.snaploader.LibraryInfo;
+import electrostatic4j.snaploader.LoadingCriterion;
+import electrostatic4j.snaploader.NativeBinaryLoader;
+import electrostatic4j.snaploader.filesystem.DirectoryPath;
+import electrostatic4j.snaploader.platform.NativeDynamicLibrary;
+import electrostatic4j.snaploader.platform.util.PlatformPredicate;
 
 /**
  * Drop a dynamic sphere onto a horizontal surface (non-graphical illustrative
@@ -62,14 +66,35 @@ final class HelloLibbulletjme {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        // Load a native library from ~/Downloads directory.
-        boolean dist = true; // use distribution filenames
-        String homePath = System.getProperty("user.home");
-        File downloadDirectory = new File(homePath, "Downloads");
-        String buildType = "Release";
-        String flavor = "Sp";
-        NativeLibraryLoader.loadLibbulletjme(
-                dist, downloadDirectory, buildType, flavor);
+        LibraryInfo info = new LibraryInfo(
+                new DirectoryPath("linux/x86-64/com/github/stephengold"),
+                "bulletjme", DirectoryPath.USER_DIR);
+        NativeBinaryLoader loader = new NativeBinaryLoader(info);
+        NativeDynamicLibrary[] libraries = new NativeDynamicLibrary[]{
+            new NativeDynamicLibrary("native/linux/arm64",
+            PlatformPredicate.LINUX_ARM_64),
+            new NativeDynamicLibrary("native/linux/arm32",
+            PlatformPredicate.LINUX_ARM_32),
+            new NativeDynamicLibrary("native/linux/x86_64",
+            PlatformPredicate.LINUX_X86_64),
+            new NativeDynamicLibrary("native/osx/arm64",
+            PlatformPredicate.MACOS_ARM_64),
+            new NativeDynamicLibrary("native/osx/x86_64",
+            PlatformPredicate.MACOS_X86_64),
+            new NativeDynamicLibrary("native/windows/x86_64",
+            PlatformPredicate.WIN_X86_64)
+        };
+        loader.registerNativeLibraries(libraries).initPlatformLibrary();
+        loader.setLoggingEnabled(true);
+        loader.setRetryWithCleanExtraction(true);
+
+        // Load the Libbulletjme native library for this platform.
+        try {
+            loader.loadLibrary(LoadingCriterion.INCREMENTAL_LOADING);
+        } catch (Exception exception) {
+            throw new IllegalStateException(
+                    "Failed to load the Libbulletjme library!");
+        }
 
         physicsSpace = createSpace();
         populateSpace();

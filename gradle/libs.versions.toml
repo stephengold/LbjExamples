@@ -3,20 +3,24 @@
 [versions]
 
 checkstyle = "9.3"
-libbulletjme = "21.2.1"
-
+libbulletjme = "22.0.1"
 lwjgl = "3.3.6"
 
 [libraries]
 
 joml = "org.joml:joml:1.10.8"
-libbulletjme = { module = "com.github.stephengold:Libbulletjme", version.ref = "libbulletjme" }
+jsnaploader = "io.github.electrostat-lab:snaploader:1.0.0-stable"
+libbulletjme-linux64 = { module = "com.github.stephengold:Libbulletjme-Linux64", version.ref = "libbulletjme" }
+libbulletjme-linuxarm32hf = { module = "com.github.stephengold:Libbulletjme-Linux_ARM32hf", version.ref = "libbulletjme" }
+libbulletjme-linuxarm64 = { module = "com.github.stephengold:Libbulletjme-Linux_ARM64", version.ref = "libbulletjme" }
+libbulletjme-macosx64 = { module = "com.github.stephengold:Libbulletjme-MacOSX64", version.ref = "libbulletjme" }
+libbulletjme-macosxarm64 = { module = "com.github.stephengold:Libbulletjme-MacOSX_ARM64", version.ref = "libbulletjme" }
+libbulletjme-windows64 = { module = "com.github.stephengold:Libbulletjme-Windows64", version.ref = "libbulletjme" }
 lwjgl = { module = "org.lwjgl:lwjgl", version.ref = "lwjgl" }
 lwjgl-assimp = { module = "org.lwjgl:lwjgl-assimp", version.ref = "lwjgl" }
-lwjgl-bom = { module = "org.lwjgl:lwjgl-bom", version.ref = "lwjgl" }
 lwjgl-glfw = { module = "org.lwjgl:lwjgl-glfw", version.ref = "lwjgl" }
 lwjgl-opengl = { module = "org.lwjgl:lwjgl-opengl", version.ref = "lwjgl" }
-sport = "com.github.stephengold:sport:0.9.4"
+sport = "com.github.stephengold:sport:0.9.5"
 
 [bundles]
 

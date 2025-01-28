@@ -67,8 +67,6 @@ You can restore the project to a pristine state:
 + using Bash or Fish or PowerShell or Zsh: `./gradlew clean`
 + using Windows Command Prompt: `.\gradlew clean`
 
-Note:  these commands will delete any downloaded native libraries.
-
 
 [adoptium]: https://adoptium.net/releases.html "Adoptium Project"
 [antora]: https://antora.org/ "Antora documentation-site generator"

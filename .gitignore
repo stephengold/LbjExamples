@@ -15,3 +15,8 @@ hs_err_pid*
 # Ignore IDE-specific directories:
 /.idea/
 /.nb-gradle/
+
+# Ignore extracted native libraries:
+*.dll
+*.dylib
+*.so
