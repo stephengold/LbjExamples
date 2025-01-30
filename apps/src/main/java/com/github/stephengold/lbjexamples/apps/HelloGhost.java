@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -164,7 +164,7 @@ public class HelloGhost
         float groundY = -2f;
         addPlane(groundY);
 
-        // Visualize the collision objects.
+        // Visualize both collision objects.
         new AabbGeometry(ghost);
         visualizeShape(character);
         new AabbGeometry(character); // outline the character's AABB in white

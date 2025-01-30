@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -109,7 +109,7 @@ public class HelloSport extends BasePhysicsApp<PhysicsSpace> {
         PhysicsRigidBody ball = new PhysicsRigidBody(ballShape, mass);
         physicsSpace.addCollisionObject(ball);
 
-        // Visualize the collision objects.
+        // Visualize both rigid bodies.
         visualizeShape(floor);
         visualizeShape(ball);
     }

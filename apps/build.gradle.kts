@@ -262,6 +262,6 @@ dependencies {
         runtimeOnly(variantOf(libs.lwjgl.opengl){classifier("natives-windows")})
     }
 
-    implementation(libs.jsnaploader)
+    implementation(libs.jsnaploader) // HelloLibbulletjme and HelloVehicle0 apps need access
     implementation(libs.sport)
 }
