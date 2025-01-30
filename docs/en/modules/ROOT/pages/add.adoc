@@ -7,10 +7,9 @@
 :url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
-Adding {Project} to an existing Java project is a 7-step process:
+Adding {Project} to an existing Java project is a 6-step process:
 
-. Add the JVM library to the classpath.
-. Download an appropriate native library.
+. Add libraries to the classpath.
 . Load the native library.
 . Create and configure a physics space.
 . Create and configure collision objects
@@ -18,11 +17,25 @@ Adding {Project} to an existing Java project is a 7-step process:
 . Simulate the physics space.
 . Test and tune as necessary.
 
-== Add JVM library to classpath
+== Add a libraries to classpath
 
-=== Gradle-built projects
+{Project} requires at least 2 libraries: a JVM library and a native library.
 
-Add to the project's "build.gradle" or "build.gradle.kts" file:
+Pre-built {Project} libraries are available from from Maven Central.
+
+Build types:  use "Debug" native libraries for development and troubleshooting,
+then switch to "Release" libraries for performance testing and production.
+
+Build flavors:  use "Dp" to simulate large worlds (>1000 units in diameter)
+otherwise use "Sp".
+
+=== Gradle-built Android projects
+
+{Project} comes pre-built for Android as a pair of AARs (one for each build type).
+Each AAR includes both the JVM library and all necessary native libraries.
+
+I suggest starting out with the Debug-flavored AAR.
+Add to the relevant "build.gradle" or "build.gradle.kts" file:
 
 [source,groovy]
 ----
@@ -30,85 +43,108 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    implementation("com.github.stephengold:Libbulletjme:21.2.1")
+    implementation(
+            group: "com.github.stephengold",
+            name: "Libbulletjme-Android",
+            version: "22.0.1",
+            classifier: "SpDebug",
+            ext: "aar"
+    )
 }
 ----
 
 For some older versions of Gradle,
 it's necessary to replace `implementation` with `compile`.
 
-=== Maven-built projects
+=== Gradle-built desktop projects
 
-Add to the project's "pom.xml" file:
+{Project} comes pre-built for desktops as a platform-independent JVM library
+plus a set of (separately-packaged) native libraries.
 
-[source,xml]
+Because of how releases are built,
+the desktop JVM library is released under 6 distinct names (artifact IDs).
+In contrast, each desktop native library is specific to a particular platform,
+build type, and flavor.
+
+I suggest starting with the platform-independent JVM library
+plus the "SpDebug" native library for your development environment.
+For a "Linux on x86_64" environment,
+add to the relevant "build.gradle" or "build.gradle.kts" file:
+
+[source,groovy]
 ----
-<repositories>
-    <repository>
-      <id>mvnrepository</id>
-      <url>https://repo1.maven.org/maven2/</url>
-    </repository>
-</repositories>
+repositories {
+    mavenCentral()
+}
+dependencies {
+    // JVM library:
+    implementation("com.github.stephengold:Libbulletjme-Windows64:22.0.1")
 
-<dependency>
-  <groupId>com.github.stephengold</groupId>
-  <artifactId>Libbulletjme</artifactId>
-  <version>21.2.1</version>
-</dependency>
+    // native libraries:
+    runtimeOnly("com.github.stephengold:Libbulletjme-Linux64:22.0.1:SpDebug")
+        // Native libraries for other platforms could be added.
+}
 ----
 
-=== Ant-built projects
+* For a 64-bit MS-Windows environment, replace "Linux64" with "Windows64".
+* For an "Apple silicon" Mac environment, replace "Linux64" with "MacOSX_ARM64".
 
-Download the {Project} library from GitHub:
-
-* https://github.com/stephengold/Libbulletjme/releases/latest
-
-You'll definitely need the class JAR ("Libbulletjme-21.2.1.jar")
-and probably the "-sources" and "-javadoc" JARs as well.
-
-Open the project's properties in the NetBeans IDE:
-
-. Right-click on the project (not its assets) in the "Projects" window.
-. Select menu:Properties[] to open the "Project Properties" dialog.
-. Under "Categories:", click on btn:[Libraries].
-. Click on the btn:[Compile] tab.
-. Add the Heart class JAR:
-.. Click on the btn:[Add JAR/Folder] button.
-.. Navigate to the download directory.
-.. Select the "Libbulletjme-21.2.1" file.
-.. Click on the btn:[Open] button.
-. (optional) Add JARs for javadoc and sources:
-.. Click on the btn:[Edit] button.
-.. Click on the btn:[Browse...] button to the right of "Javadoc:"
-.. Select the "Libbulletjme-21.2.1-javadoc.jar" file.
-.. Click on the btn:[Open] button.
-.. Click on the btn:[Browse...] button to the right of "Sources:"
-.. Select the "Libbulletjme-21.2.1-sources.jar" file.
-.. Click on the btn:[Open] button button again.
-.. Click on the btn:[OK] button to close the "Edit Jar Reference" dialog.
-. Click on the btn:[OK] button to exit the "Project Properties" dialog.
-
-== Download a native library
-
-Pre-built native libraries can be downloaded from GitHub:
-
-* https://github.com/stephengold/Libbulletjme/releases/latest
-
-You don't need all 56 native libraries.
-Start with the "DebugSp" library for your development environment,
-for instance:
-
-* "Linux64DebugSp_libbulletjme.so" for Linux on x86_64
-* "Windows64DebugSp_libbulletjme.so" for 64-bit Windows
+For some older versions of Gradle,
+it's necessary to replace `implementation` with `compile`.
 
 == Load the native library
 
-Load Libbulletjme's native library before instantiating any physics objects:
+You must load {Project}'s native library
+before instantiating any physics objects.
+
+=== Android projects
+
+Add to your physics initialization:
 
 [source,java]
 ----
-import com.jme3.system.NativeLibraryLoader;
-NativeLibraryLoader.loadLibbulletjme(true, downloadDirectory, "Debug", "Sp");
+System.loadLibrary("bulletjme");
+----
+
+=== Desktop projects
+
+The JSnapLoader library may be used for this purpose.
+Add to the relevant "build.gradle" or "build.gradle.kts" file:
+
+[source,groovy]
+----
+dependencies {
+    implementation("io.github.electrostat-lab:snaploader:1.0.0-stable")
+}
+----
+
+Add to your physics initialization:
+
+[source,java]
+----
+import electrostatic4j.snaploader.LibraryInfo;
+import electrostatic4j.snaploader.LoadingCriterion;
+import electrostatic4j.snaploader.NativeBinaryLoader;
+import electrostatic4j.snaploader.filesystem.DirectoryPath;
+import electrostatic4j.snaploader.platform.NativeDynamicLibrary;
+import electrostatic4j.snaploader.platform.util.PlatformPredicate;
+
+// ...
+
+LibraryInfo info = new LibraryInfo(
+        new DirectoryPath("linux/x86-64/com/github/stephengold"),
+        "bulletjme", DirectoryPath.USER_DIR);
+NativeBinaryLoader loader = new NativeBinaryLoader(info);
+NativeDynamicLibrary[] libraries = new NativeDynamicLibrary[]{
+    new NativeDynamicLibrary("native/linux/arm64", PlatformPredicate.LINUX_ARM_64),
+    new NativeDynamicLibrary("native/linux/arm32", PlatformPredicate.LINUX_ARM_32),
+    new NativeDynamicLibrary("native/linux/x86_64", PlatformPredicate.LINUX_X86_64),
+    new NativeDynamicLibrary("native/osx/arm64", PlatformPredicate.MACOS_ARM_64),
+    new NativeDynamicLibrary("native/osx/x86_64", PlatformPredicate.MACOS_X86_64),
+    new NativeDynamicLibrary("native/windows/x86_64", PlatformPredicate.WIN_X86_64)
+};
+loader.registerNativeLibraries(libraries).initPlatformLibrary();
+loader.loadLibrary(LoadingCriterion.INCREMENTAL_LOADING);
 ----
 
 == Create a physics space
@@ -186,7 +222,7 @@ that serves as a starting point for using Libbulletjme.
 
 It illustrates:
 
-. loading a native library from the "~/Downloads" directory
+. loading a native library
 . creating a `PhysicsSpace`
 . creating 2 collision objects and adding them to the space
 . simulating 50 steps

@@ -3,8 +3,8 @@
 
 {Project} is free, open-source software.
 
-While pre-built artifacts (including JARs and native libraries)
-can be downloaded from GitHub and the Maven Central Repository,
+While pre-built artifacts (including AARs and JARs)
+can be downloaded from the Maven Central Repository,
 some people prefer to build them from source.
 
 You can also build a local copy of the documentation (website content).
@@ -36,7 +36,7 @@ Here's the recommended procedure:
 .. using Git:
 ... `git clone https://github.com/stephengold/Libbulletjme.git`
 ... `cd Libbulletjme`
-... `git checkout -b latest 21.2.1`
+... `git checkout -b latest 22.0.1`
 .. using a web browser:
 ... browse to https://github.com/stephengold/Libbulletjme/releases/latest
 ... follow the "Source code (zip)" link
@@ -45,32 +45,37 @@ Here's the recommended procedure:
 ... `cd` to the extracted directory
 . Cross-compilation using GCC requires the g++-multilib package:
 .. `sudo apt-get install g++-multilib`
+. (optional) Edit the "gradle.properties" file to configure the build.
 . Run the Gradle wrapper on the desktop build script:
 .. using Bash or Fish or PowerShell or Zsh: `./gradlew build`
 .. using Windows Command Prompt: `.\gradlew build`
-. Building Android native libraries requires additional software:
-.. the Android SDK Tools
-.. version 23.1.7779620 of the Android Native Development Kit (NDK)
+. To build Android artifacts, you'll need to
+  install https://developer.android.com/studio[Android Studio]
+  and point the `ANDROID_HOME` environment variable to that installation.
 . Run the Gradle wrapper on the Android build script:
-.. using Bash or Fish or PowerShell or Zsh: `./gradlew copyToDist --build-file=android.gradle`
-.. using Windows Command Prompt: `.\gradlew copyToDist --build-file=android.gradle`
+.. using Bash or Fish or PowerShell or Zsh: `./gradlew -b android.gradle build`
+.. using Windows Command Prompt: `.\gradlew -b android.gradle build`
 
 After a successful build,
-artifacts and native libraries will be found in the "dist" directory.
+artifacts will be found in "build/libs" (desktop) and "build/outputs/aar" (Android).
 
 === Install artifacts
 
 You can install the built artifacts to your local Maven repository:
 
-* using Bash or Fish or PowerShell or Zsh: `./gradlew install`
-* using Windows Command Prompt: `.\gradlew install`
+* using Bash or Fish or PowerShell or Zsh: `./gradlew install;./gradlew -b android.gradle install`
+* using Windows Command Prompt:
+** `.\gradlew install`
+** `.\gradlew -b android.gradle install`
 
 === Cleanup
 
 After a build, you can restore the project to a pristine state:
 
-* using Bash or Fish or PowerShell or Zsh: `./gradlew clean`
-* using Windows Command Prompt: `.\gradlew clean`
+* using Bash or Fish or PowerShell or Zsh: `./gradlew clean;./gradlew -b android.gradle clean`
+* using Windows Command Prompt:
+** `.\gradlew clean`
+** `.\gradlew -b android.gradle clean`
 
 == Website content
 
