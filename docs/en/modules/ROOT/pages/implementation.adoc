@@ -40,8 +40,8 @@ count as distinct platforms!
 
 For each platform, {Project} builds 2 types of libraries:
 
-* "Debug" (for development use) and
-* "Release" (for production use).
+* "Debug" (for development, debugging, and functional testing) and
+* "Release" (for performance testing and production use).
 
 Furthermore, native libraries come in various flavors, including:
 
