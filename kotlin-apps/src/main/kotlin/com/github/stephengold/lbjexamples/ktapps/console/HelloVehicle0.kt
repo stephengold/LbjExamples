@@ -56,6 +56,7 @@ import electrostatic4j.snaploader.platform.util.PlatformPredicate;
 fun main() {
     val info = LibraryInfo(null, "bulletjme", DirectoryPath.USER_DIR);
     val loader = NativeBinaryLoader(info)
+
     val libraries = arrayOf(
         NativeDynamicLibrary("native/linux/arm64", PlatformPredicate.LINUX_ARM_64),
         NativeDynamicLibrary("native/linux/arm32", PlatformPredicate.LINUX_ARM_32),
@@ -64,8 +65,9 @@ fun main() {
         NativeDynamicLibrary("native/osx/x86_64", PlatformPredicate.MACOS_X86_64),
         NativeDynamicLibrary("native/windows/x86_64", PlatformPredicate.WIN_X86_64)
     )
-    loader.registerNativeLibraries(libraries).initPlatformLibrary()
-    loader.setLoggingEnabled(true)
+    loader.registerNativeLibraries(libraries)
+        .initPlatformLibrary()
+        .setLoggingEnabled(true)
     loader.setRetryWithCleanExtraction(true)
 
     // Load the Libbulletjme native library for this platform.
