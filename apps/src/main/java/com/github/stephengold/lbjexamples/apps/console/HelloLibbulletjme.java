@@ -90,7 +90,7 @@ final class HelloLibbulletjme {
 
         // Load the Libbulletjme native library for this platform.
         try {
-            loader.loadLibrary(LoadingCriterion.INCREMENTAL_LOADING);
+            loader.loadLibrary(LoadingCriterion.CLEAN_EXTRACTION);
         } catch (Exception exception) {
             throw new IllegalStateException(
                     "Failed to load the Libbulletjme library!");

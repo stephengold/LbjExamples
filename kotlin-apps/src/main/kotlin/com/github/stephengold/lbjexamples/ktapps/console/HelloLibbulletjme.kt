@@ -74,7 +74,7 @@ fun main() {
 
     // Load the Libbulletjme native library for this platform.
     try {
-        loader.loadLibrary(LoadingCriterion.INCREMENTAL_LOADING)
+        loader.loadLibrary(LoadingCriterion.CLEAN_EXTRACTION)
     } catch (exception: Exception) {
         throw IllegalStateException("Failed to load the Libbulletjme library!")
     }
