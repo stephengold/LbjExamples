@@ -66,9 +66,8 @@ final class HelloVehicle0 {
      * @param arguments array of command-line arguments (not null)
      */
     public static void main(String[] arguments) {
-        LibraryInfo info = new LibraryInfo(
-                new DirectoryPath("linux/x86-64/com/github/stephengold"),
-                "bulletjme", DirectoryPath.USER_DIR);
+        LibraryInfo info
+                = new LibraryInfo(null, "bulletjme", DirectoryPath.USER_DIR);
         NativeBinaryLoader loader = new NativeBinaryLoader(info);
         NativeDynamicLibrary[] libraries = new NativeDynamicLibrary[]{
             new NativeDynamicLibrary("native/linux/arm64",

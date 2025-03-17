@@ -56,9 +56,7 @@ private var physicsSpace: PhysicsSpace? = null
  * Main entry point for the HelloLibbulletjme application.
  */
 fun main() {
-    val info = LibraryInfo(
-            DirectoryPath("linux/x86-64/com/github/stephengold"),
-            "bulletjme", DirectoryPath.USER_DIR)
+    val info = LibraryInfo(null, "bulletjme", DirectoryPath.USER_DIR)
     val loader = NativeBinaryLoader(info)
     val libraries = arrayOf(
         NativeDynamicLibrary("native/linux/arm64", PlatformPredicate.LINUX_ARM_64),
