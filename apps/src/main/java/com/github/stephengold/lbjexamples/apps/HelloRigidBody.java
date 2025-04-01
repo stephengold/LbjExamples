@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -80,7 +80,7 @@ public class HelloRigidBody extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Create the PhysicsSpace. Invoked once during initialization.
      *
-     * @return a new instance
+     * @return a new object
      */
     @Override
     public PhysicsSpace createSpace() {
@@ -94,7 +94,7 @@ public class HelloRigidBody extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        // Create a CollisionShape for balls.
+        // Create a collision shape for balls.
         float ballRadius = 1f;
         CollisionShape ballShape = new SphereCollisionShape(ballRadius);
 

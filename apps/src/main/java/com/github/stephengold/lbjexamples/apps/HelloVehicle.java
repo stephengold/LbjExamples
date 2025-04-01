@@ -82,7 +82,7 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Create the PhysicsSpace. Invoked once during initialization.
      *
-     * @return a new instance
+     * @return a new object
      */
     @Override
     public PhysicsSpace createSpace() {
@@ -127,6 +127,7 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
         cornerLocations.add(new Vector3f(-halfWidth, spoilerY, tailZ));
         HullCollisionShape wedgeShape
                 = new HullCollisionShape(cornerLocations);
+
         float mass = 5f;
         PhysicsVehicle vehicle = new PhysicsVehicle(wedgeShape, mass);
         vehicle.setSuspensionCompression(6f); // default=0.83
@@ -180,6 +181,7 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
 
         physicsSpace.addCollisionObject(body);
 
+        // visualization
         String resourceName = "/Textures/greenTile.png";
         float maxAniso = 16f;
         TextureKey textureKey

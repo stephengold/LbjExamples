@@ -124,7 +124,7 @@ public class HelloWind
     /**
      * Create the PhysicsSpace. Invoked once during initialization.
      *
-     * @return a new instance
+     * @return a new object
      */
     @Override
     public PhysicsSoftSpace createSpace() {

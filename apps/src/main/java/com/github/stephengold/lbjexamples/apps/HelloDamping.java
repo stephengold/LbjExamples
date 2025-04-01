@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -73,7 +73,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
     /**
      * Create the PhysicsSpace. Invoked once during initialization.
      *
-     * @return a new instance
+     * @return a new object
      */
     @Override
     public PhysicsSpace createSpace() {
@@ -128,7 +128,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
             cube[cubeIndex].applyImpulse(impulse, offset);
         }
 
-        // Visualize all 4 rigid bodies.
+        // Visualize the shapes of all 4 cubes.
         for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
             visualizeShape(cube[cubeIndex]);
         }
