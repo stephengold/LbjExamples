@@ -42,11 +42,6 @@
         <property name="ignoreLines" value="2"/>
         <property name="fileExtensions" value="java"/>
     </module>
-    <module name="SuppressionSingleFilter">
-        <property name="checks" value="Header"/>
-        <property name="files" value="IcosphereMesh.java"/>
-        <property name="lines" value="3"/>
-    </module>
 
     <module name="TreeWalker">
         <module name="OuterTypeFilename"/>
