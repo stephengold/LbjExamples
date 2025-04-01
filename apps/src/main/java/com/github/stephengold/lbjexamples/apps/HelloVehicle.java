@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -136,20 +136,20 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
         // Add 4 wheels, 2 in the front (for steering) and 2 in the rear.
         boolean front = true;
         boolean rear = false;
-        float frontAxisZ = 0.7f * noseZ; // offset from chassis center
-        float rearAxisZ = 0.8f * tailZ; // offset from chassis center
+        float frontAxleZ = 0.7f * noseZ; // offset from chassis center
+        float rearAxleZ = 0.8f * tailZ; // offset from chassis center
         float radius = 0.3f; // of each tire
         float restLength = 0.2f; // of the suspension
         float xOffset = 0.9f * halfWidth;
         Vector3f axleDirection = new Vector3f(-1f, 0f, 0f);
         Vector3f suspensionDirection = new Vector3f(0f, -1f, 0f);
-        vehicle.addWheel(new Vector3f(-xOffset, 0f, frontAxisZ),
+        vehicle.addWheel(new Vector3f(-xOffset, 0f, frontAxleZ),
                 suspensionDirection, axleDirection, restLength, radius, front);
-        vehicle.addWheel(new Vector3f(xOffset, 0f, frontAxisZ),
+        vehicle.addWheel(new Vector3f(xOffset, 0f, frontAxleZ),
                 suspensionDirection, axleDirection, restLength, radius, front);
-        vehicle.addWheel(new Vector3f(-xOffset, 0f, rearAxisZ),
+        vehicle.addWheel(new Vector3f(-xOffset, 0f, rearAxleZ),
                 suspensionDirection, axleDirection, restLength, radius, rear);
-        vehicle.addWheel(new Vector3f(xOffset, 0f, rearAxisZ),
+        vehicle.addWheel(new Vector3f(xOffset, 0f, rearAxleZ),
                 suspensionDirection, axleDirection, restLength, radius, rear);
 
         physicsSpace.addCollisionObject(vehicle);
