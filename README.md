@@ -68,12 +68,12 @@ You can restore the project to a pristine state:
 + using Windows Command Prompt: `.\gradlew clean`
 
 
-[adoptium]: https://adoptium.net/releases.html "Adoptium Project"
-[antora]: https://antora.org/ "Antora documentation-site generator"
+[adoptium]: https://adoptium.net/releases.html "Adoptium"
+[antora]: https://antora.org/ "Antora site generator"
 [fish]: https://fishshell.com/ "Fish command-line shell"
-[git]: https://git-scm.com "Git"
+[git]: https://git-scm.com "Git version-control system"
 [github]: https://github.com "GitHub"
-[gradle]: https://gradle.org "Gradle Project"
+[gradle]: https://gradle.org "Gradle build tool"
 [java]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java programming language"
 [kotlin]: https://en.wikipedia.org/wiki/Kotlin_(programming_language) "Kotlin programming language"
 [libbulletjme]: https://stephengold.github.io/Libbulletjme/lbj-en/English/overview.html "Libbulletjme Project"
