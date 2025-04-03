@@ -1,5 +1,5 @@
 ---
-# component/version descriptor for the "lbj-en" source directory
+# descriptor of the "lbj-en" Antora component
 
 name: lbj-en
 title: The Libbulletjme project
