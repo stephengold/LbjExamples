@@ -14,8 +14,10 @@
 A _rigid body_ is a type of collision object
 that exhibits some familiar features of real-world objects, including:
 
-* _rigidity_: a fixed shape and
-* {url-enwiki}/Inertia[_inertia_]: resistance to changes of motion.
+* _rigidity_: a fixed shape, and
+* {url-enwiki}/Inertia[_inertia_]: resistance to changes of motion
+  (quantified by its mass
+  and {url-enwiki}/Moment_of_inertia[_moment of inertia_]).
 
 The {url-api}/objects/PhysicsRigidBody.html[`PhysicsRigidBody`] constructor
 allows you to specify the new body's mass and collision shape.
@@ -66,7 +68,7 @@ Things to notice while running the app:
 
 === Static rigid bodies
 
-Not all rigid bodies are dynamic.
+Not all rigid bodies move.
 To create a _static_ (non-moving) rigid body,
 specify `mass=0` in the constructor.
 Unlike a dynamic body,
@@ -81,7 +83,7 @@ Things to notice while running the app:
 
 . Two balls: the top one dynamic, the bottom one static.
 . The balls collide, generating contact forces
-  that alter the path of the dynamic ball.
+  that affect the motion of the dynamic ball.
 . The static ball stays fixed in place,
   unaffected by gravity and contact forces.
 . In SPORT, dynamic rigid bodies are conventionally colored magenta,
@@ -89,7 +91,7 @@ Things to notice while running the app:
 
 === Position
 
-Every rigid body occupies a _position_ in space, described by 2 properties:
+Every body occupies a _position_ described by 2 properties:
 
 * the _location_ of the body's center and
 * the body's _orientation_:
@@ -149,7 +151,7 @@ Things to notice while running the app:
 When physics simulation detects a collision between
 2 bodies that both have contact response, it applies contact forces.
 
-To disable contact response for a particular rigid body,
+To disable contact response for a specific rigid body,
 use `rigidBody.setContactResponse(false)`.
 
 {url-tutorial}/HelloContactResponse.java[HelloContactResponse] (also {url-kt}/HelloContactResponse.kt[in Kotlin])
@@ -170,20 +172,20 @@ On keyboards with other layouts, keys may be labeled differently.
 === Velocity
 
 Every dynamic body has a _velocity_ that quantifies its motion as of the
-end of the last simulation step (and the start of the next).
+end of the latest simulation step (and the start of the next).
 
 More precisely, it has 2 velocities: _linear velocity_ and _angular velocity_,
 both represented as 3-D vectors.
-The magnitude and direction of the linear velocity vector quantify the speed
-and direction at which the body's center is traveling through space (if at all).
-The magnitude and direction of the angular velocity vector quantify the
+The magnitude and direction of the linear-velocity vector quantify the speed
+and direction at which the body's center is moving through space (if at all).
+The magnitude and direction of the angular-velocity vector quantify the
 rate and axis direction of the body's spinning motion (if any).
 
-NOTE: Both velocities of a static body are zero.
+NOTE: The velocities of a static body are both zero.
 
-NOTE: Both velocities of a kinematic body are undefined.
+NOTE: The velocities of a kinematic body are both undefined.
 
-To alter the velocities of a dynamic rigid body,
+To directly alter the velocities of a dynamic rigid body,
 use its `setLinearVelocity()` and `setAngularVelocity()` methods.
 
 === Built-in forces
@@ -213,7 +215,7 @@ However, some forces are so commonplace that they are
 ==== Damping
 
 In the absence of external forces,
-inertia would keep the velocities of a dynamic body constant.
+inertia would keep the velocities of a body constant.
 In the real world, however,
 we're accustomed to seeing unpowered moving objects eventually come to rest.
 This behavior is often caused by _drag forces_ (such as air resistance)
@@ -258,7 +260,7 @@ Things to notice while running the app:
 In the real world,
 we're accustomed to seeing unsupported objects fall.
 This behavior is caused by _gravity_,
-a downward force that's proportional to mass (and thus causes a constant
+a downward force that's proportional to mass (so it causes a constant
 {url-enwiki}/Acceleration[acceleration]).
 
 To simulate this phenomenon, each body has a gravity vector
@@ -266,7 +268,7 @@ that quantifies the acceleration, assuming the body is dynamic.
 To configure a body's gravity, use `setGravity(accelerationVector)`.
 
 NOTE: If following the Y-up axes convention, the X and Z components of the
-vector should be zero, and its Y component should be *negative*.
+vector should be zero and its Y component should be *negative*.
 
 To disable gravity for a particular rigid body,
 use `rigidBody.setGravity(Vector3f.ZERO)`.
@@ -312,7 +314,7 @@ In reality, no collision is perfectly elastic.
 Elasticity is quantified by a _coefficient of restitution_,
 which ranges from zero (perfectly inelastic) to one (perfectly elastic).
 
-In simulation, collisions are inelastic by default.
+In {Project}, collisions are inelastic by default.
 (We saw this in {url-tutorial}/HelloRigidBody.java[HelloRigidBody.java].)
 Each rigid body has a _restitution parameter_, which defaults to zero.
 For each collision, the coefficient of restitution
@@ -373,16 +375,16 @@ body.setLinearFactor(new Vector3f(1f, 1f, 0f));  // default=(1, 1, 1)
 NOTE: Factors are defined in terms of world (physics-space) axes,
 not the body's local axes.
 
-== Deactivation
+=== Deactivation
 
 It's common for physics simulations to reach a
 {url-enwiki}/Steady_state[_steady state_] in which
 the some or all bodies have stopped moving.
 If a dynamic rigid body doesn't move for 2 seconds,
-the simulator may automatically _deactivate_ it to reduce CPU consumption.
+the simulator may automatically _deactivate_ it to reduce CPU utilization.
 
 To prevent a body from being deactivated,
-a certain amount of movement, either linear or angular,
+a certain amount of motion, either linear or angular,
 needs to occur every 2 seconds.
 Accessors are provided for these thresholds:
 
@@ -439,7 +441,7 @@ Things to notice while running the app:
 . About 2 seconds after the upper box stops moving, it gets deactivated.
 . In SPORT, deactivated rigid bodies are conventionally colored gray.
 . After the application removes the lower box,
-  the upper box doesn't resume falling.
+  the dynamic box doesn't resume its descent.
   Due to deactivation, it appears to be "stuck".
 
 == Continuous collision detection
@@ -522,7 +524,7 @@ a|No.
 a|No.
 a|Yes.
 
-a|Typical uses
+a|Typical use cases
 a|Non-moving objects such as floors, posts, terrain, and walls
 a|Application-controlled objects such as airships and elevators
 a|Physics-controlled objects such as balls, bricks, and ragdolls
@@ -537,9 +539,9 @@ a|`setMass(positive)` `setKinematic(false)`
   location, orientation, velocities (linear and angular),
   damping, gravity, restitution, friction, sleeping thresholds, CCD threshold,
   and swept-sphere radius.
-* Contact response is an optional feature.
+* Mobility, contact response, gravity, and friction are all optional features.
 * If a dynamic rigid body moves too slowly,
   it might get automatically deactivated after 2 seconds.
-* Continuous collision detection solves the problem
+* Continuous collision detection (CCD) solves the problem
   of fast-moving dynamic bodies passing through thin obstacles.
 * Continuous collision detection is disabled by default.
