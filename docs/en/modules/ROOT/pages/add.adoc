@@ -17,9 +17,9 @@ Adding {Project} to an existing Java project is a 6-step process:
 . Simulate the physics space.
 . Test and tune as necessary.
 
-== Add a libraries to classpath
+== Add libraries to classpath
 
-{Project} requires at least 2 libraries: a JVM library and a native library.
+{Project} requires both a JVM library and a native library.
 
 Pre-built {Project} libraries are available from from Maven Central.
 
@@ -34,7 +34,7 @@ otherwise use "Sp".
 {Project} comes pre-built for Android as a pair of AARs (one for each build type).
 Each AAR includes both the JVM library and all necessary native libraries.
 
-I suggest starting out with the Debug-flavored AAR.
+I suggest starting out with the Debug-type AAR.
 Add to the relevant "build.gradle" or "build.gradle.kts" file:
 
 [source,groovy]
@@ -66,7 +66,7 @@ the desktop JVM library is released under 6 distinct names (artifact IDs).
 In contrast, each desktop native library is specific to a particular platform,
 build type, and flavor.
 
-I suggest starting with the platform-independent JVM library
+I suggest starting with a JVM library
 plus the "SpDebug" native library for your development environment.
 For a "Linux on x86_64" environment,
 add to the relevant "build.gradle" or "build.gradle.kts" file:
@@ -87,7 +87,7 @@ dependencies {
 ----
 
 * For a 64-bit MS-Windows environment, replace "Linux64" with "Windows64".
-* For an "Apple silicon" Mac environment, replace "Linux64" with "MacOSX_ARM64".
+* For an "Apple silicon" MacOS environment, replace "Linux64" with "MacOSX_ARM64".
 
 For some older versions of Gradle,
 it's necessary to replace `implementation` with `compile`.
