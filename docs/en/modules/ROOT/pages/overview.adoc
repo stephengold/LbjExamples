@@ -2,7 +2,7 @@
 :Project: Libbulletjme
 :url-enwiki: https://en.wikipedia.org/wiki
 
-_{Project}_ is a 3-D {url-enwiki}/Physics_engine[physics simulation] library
+_{Project}_ is a {url-enwiki}/Physics_engine[physics-simulation] library
 for {url-enwiki}/Java_(programming_language)[Java].
 
 Use it to:
@@ -41,15 +41,15 @@ For 2-D physics, consider using http://www.dyn4j.org/[dyn4j] instead.
 {Project} and its documentation
 assume a certain level of proficiency with
 {url-enwiki}/Java_(programming_language)[the Java programming language].
-This project isn't aimed at non-programmers,
+The project isn't aimed at non-programmers,
 nor developers without prior Java experience.
-Similarly, some familiarity with 3-D graphics and vector math is assumed.
+Similarly, it assumes familiarity with vector math and 3-D computer graphics.
 
 While an understanding of classical mechanics is assumed,
 many of its technical terms are linked (at first use)
 to the relevant article in the English Wikipedia.
 
-https://raw.githubusercontent.com/stephengold/Libbulletjme/master/LICENSE[The library's mixed open-source license]
+https://raw.githubusercontent.com/stephengold/Libbulletjme/master/LICENSE[The project's mixed open-source license]
 disclaims liability for defects.
 Please don't use this software in safety-critical applications.
 
@@ -100,7 +100,7 @@ We welcome suggestions concerning the future development of {Project}.
 
 == Getting help
 
-For self-help, make use of
+For self-help, utilize
 xref:add.adoc[the tutorials],
 https://stephengold.github.io/Libbulletjme/javadoc/master[the javadoc], and
 https://github.com/stephengold/Libbulletjme[the source code].

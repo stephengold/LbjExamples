@@ -3,15 +3,15 @@
 
 {Project} is free, open-source software.
 
-While pre-built artifacts (including AARs and JARs)
+While pre-built library artifacts (including AARs and JARs)
 can be downloaded from the Maven Central Repository,
 some people prefer to build them from source.
 
-You can also build a local copy of the documentation (website content).
-This is useful if you are editing the content,
+You can also build a local copy of the documentation website (including HTML).
+This is useful if you are editing the documentation,
 or if your Internet access is limited or unreliable.
 
-== JARs and native libraries
+== Libraries
 
 Here's the recommended procedure:
 
@@ -19,13 +19,13 @@ Here's the recommended procedure:
 .. a https://adoptium.net/releases.html[Java Development Kit (JDK)],
   if you don't already have one, and
 .. one of the supported C++ compilers:
-... for Linux:  the https://gcc.gnu.org/[GNU Compiler Collection] or https://www.llvm.org[Clang]
-... for Windows:  https://visualstudio.microsoft.com[Microsoft Visual Studio]
+... for Linux:  https://gcc.gnu.org/[the GNU Compiler Collection] or https://www.llvm.org[Clang]
 ... for macOS:  https://developer.apple.com/xcode[Xcode]
-.. If you use GCC, you might need to install the "g++-multilib" package:
+... for Windows:  https://visualstudio.microsoft.com[Microsoft Visual Studio]
+.. If you use GCC, you might also need to install the "g++-multilib" package:
 ... `sudo apt install g++-multilib`
 . Point the `JAVA_HOME` environment variable to your JDK installation:
-  (The path might be something like "C:\Program Files\Java\jre1.8.0_301"
+  (The path might look something like "C:\Program Files\Java\jre1.8.0_301"
   or "/usr/lib/jvm/java-8-openjdk-amd64/" or
   "/Library/Java/JavaVirtualMachines/liberica-jdk-17-full.jdk/Contents/Home" .)
 .. using Bash or Zsh: `export JAVA_HOME="` *path to installation* `"`
