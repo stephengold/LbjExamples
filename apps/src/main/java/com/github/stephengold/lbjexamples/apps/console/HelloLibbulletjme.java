@@ -113,7 +113,7 @@ final class HelloLibbulletjme {
     /**
      * Create the PhysicsSpace. Invoked once during initialization.
      *
-     * @return a new instance
+     * @return a new object
      */
     private static PhysicsSpace createSpace() {
         PhysicsSpace result

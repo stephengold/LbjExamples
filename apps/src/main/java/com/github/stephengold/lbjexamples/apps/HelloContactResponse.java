@@ -43,7 +43,7 @@ import org.lwjgl.glfw.GLFW;
  * A simple demonstration of contact response.
  * <p>
  * Press the E key to disable the ball's contact response. Once this happens,
- * the blue (static) box no longer exerts any contact force on the ball. Gravity
+ * the gray (static) box no longer exerts any contact force on the ball. Gravity
  * takes over, and the ball falls through.
  * <p>
  * Builds upon HelloStaticBody.
