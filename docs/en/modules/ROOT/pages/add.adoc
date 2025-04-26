@@ -108,7 +108,8 @@ System.loadLibrary("bulletjme");
 
 === Desktop projects
 
-The JSnapLoader library may be used for this purpose.
+The https://github.com/Electrostat-Lab/jSnapLoader[JSnapLoader library]
+may be used for this purpose.
 Add to the relevant "build.gradle" or "build.gradle.kts" file:
 
 [source,groovy]

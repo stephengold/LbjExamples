@@ -29,7 +29,7 @@ Here's the recommended procedure:
   or "/usr/lib/jvm/java-8-openjdk-amd64/" or
   "/Library/Java/JavaVirtualMachines/liberica-jdk-17-full.jdk/Contents/Home" .)
 .. using Bash or Zsh: `export JAVA_HOME="` *path to installation* `"`
-.. using Fish: `set -g JAVA_HOME "` *path to installation* `"`
+.. using https://fishshell.com/[Fish]: `set -g JAVA_HOME "` *path to installation* `"`
 .. using Windows Command Prompt: `set JAVA_HOME="` *path to installation* `"`
 .. using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
 . Download and extract the {Project} source code from GitHub:
