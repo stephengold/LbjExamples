@@ -206,6 +206,7 @@ val os = DefaultNativePlatform.getCurrentOperatingSystem()
 val includeLinux = os.isLinux()
 val includeMacOsX = os.isMacOsX()
 val includeWindows = os.isWindows()
+val enableNativeAccess = JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_17)
 
 tasks.withType<JavaExec>().all { // JVM runtime options:
     if (os.isMacOsX()) {
@@ -213,6 +214,9 @@ tasks.withType<JavaExec>().all { // JVM runtime options:
     }
     classpath = sourceSets.main.get().getRuntimeClasspath()
     enableAssertions = true
+    if (enableNativeAccess) {
+        jvmArgs("--enable-native-access=ALL-UNNAMED") // suppress System::load() warning
+    }
     jvmArgs("-XX:+UseG1GC", "-XX:MaxGCPauseMillis=10")
 }
 
