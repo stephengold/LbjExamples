@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -105,7 +105,7 @@ class HelloContactResponse : BasePhysicsApp<PhysicsSpace>() {
         // Position the ball directly above the box.
         ball!!.setPhysicsLocation(Vector3f(0f, 4f, 0f))
 
-        // Visualize both rigid bodies.
+        // Visualize the shapes of both rigid bodies:
         visualizeShape(ball)
         visualizeShape(box)
     }

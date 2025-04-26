@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -102,7 +102,7 @@ class HelloCharacter : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
         val y = -2f
         val ground = addSquare(halfExtent, y)
 
-        // Visualize both physics objects.
+        // Visualize the shapes of both collision objects:
         visualizeShape(character)
         visualizeShape(ground)
     }

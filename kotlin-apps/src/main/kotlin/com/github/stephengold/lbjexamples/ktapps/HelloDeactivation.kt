@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -99,7 +99,7 @@ class HelloDeactivation : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
         bottomBody.setPhysicsLocation(Vector3f(0f, -2f, 0f))
         physicsSpace.addCollisionObject(bottomBody)
 
-        // Visualize the physics objects.
+        // Visualize the shapes of all 3 rigid bodies:
         visualizeShape(dynamicCube)
         visualizeShape(supportCube)
         visualizeShape(bottomBody)

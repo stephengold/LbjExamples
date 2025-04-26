@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -136,7 +136,7 @@ class HelloDoubleEnded: BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
                 rotInBall, rotInPaddle, RotationOrder.XYZ)
         physicsSpace.addJoint(joint)
 
-        // Visualize the physics joint.
+        // Visualize the physics joint:
         ConstraintGeometry(joint, JointEnd.A)
         ConstraintGeometry(joint, JointEnd.B)
     }

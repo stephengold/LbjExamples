@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -84,7 +84,7 @@ class HelloVehicle : BasePhysicsApp<PhysicsSpace>() {
      * Populate the PhysicsSpace. Invoked once during initialization.
      */
     override fun populateSpace() {
-        // Add a static horizontal plane at y=-0.65 to represent the ground.
+        // Add a static horizontal plane at y=-0.65 to represent the ground:
         val groundY = -0.65f
         addPlane(groundY)
 

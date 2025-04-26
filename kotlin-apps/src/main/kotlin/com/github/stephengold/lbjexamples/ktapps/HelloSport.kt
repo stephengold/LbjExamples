@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -71,21 +71,21 @@ class HelloSport : BasePhysicsApp<PhysicsSpace>() {
      * Populate the PhysicsSpace. Invoked once during initialization.
      */
     override fun populateSpace() {
-        // Add a static horizontal plane at y=-1.
+        // Add a static horizontal plane at y=-1:
         val groundY = -1f
         val plane = Plane(Vector3f.UNIT_Y, groundY)
         val planeShape = PlaneCollisionShape(plane)
         val floor = PhysicsRigidBody(planeShape, PhysicsBody.massForStatic)
         physicsSpace!!.addCollisionObject(floor)
 
-        // Add a sphere-shaped, dynamic, rigid body at the origin.
+        // Add a sphere-shaped, dynamic, rigid body at the origin:
         val radius = 0.3f
         val ballShape = SphereCollisionShape(radius)
         val mass = 1f
         val ball = PhysicsRigidBody(ballShape, mass)
         physicsSpace!!.addCollisionObject(ball)
 
-        // Visualize both rigid bodies.
+        // Visualize the shapes of both rigid bodies:
         visualizeShape(floor)
         visualizeShape(ball)
     }

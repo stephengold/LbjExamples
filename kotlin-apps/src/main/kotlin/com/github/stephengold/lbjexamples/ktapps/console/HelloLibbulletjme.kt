@@ -103,14 +103,14 @@ private fun createSpace(): PhysicsSpace {
  * Populate the PhysicsSpace. Invoked once during initialization.
  */
 private fun populateSpace() {
-    // Add a static horizontal plane at y=-1.
+    // Add a static horizontal plane at y=-1:
     val groundY = -1f
     val plane = Plane(Vector3f.UNIT_Y, groundY)
     val planeShape = PlaneCollisionShape(plane)
     val floor = PhysicsRigidBody(planeShape, PhysicsBody.massForStatic)
     physicsSpace!!.addCollisionObject(floor)
 
-    // Add a sphere-shaped, dynamic, rigid body at the origin.
+    // Add a sphere-shaped, dynamic, rigid body at the origin:
     val radius = 0.3f
     val ballShape = SphereCollisionShape(radius)
     val mass = 1f

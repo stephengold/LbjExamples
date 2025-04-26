@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -102,10 +102,10 @@ class HelloNonUniformGravity :
         planet!!.setPhysicsLocation(Vector3f(2f, 0f, 0f))
         planet!!.applyCentralImpulse(Vector3f(0f, -1f, 0f))
 
-        // Visualize the planet.
+        // Visualize the shape of the planet:
         visualizeShape(planet)
 
-        // Visualize axes to indicate the black hole's location.
+        // Visualize axes to indicate the black hole's location:
         LocalAxisGeometry(null, MyVector3f.xAxis, 1f)
         LocalAxisGeometry(null, MyVector3f.yAxis, 1f)
     }

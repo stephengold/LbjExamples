@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -96,7 +96,7 @@ class HelloKinematics : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
         physicsSpace.addCollisionObject(kineBall)
         kineBall!!.setKinematic(true)
 
-        // Visualize both rigid bodies.
+        // Visualize the shapes of both rigid bodies:
         visualizeShape(dynaBall)
         visualizeShape(kineBall)
     }

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -88,7 +88,7 @@ class HelloRigidBody : BasePhysicsApp<PhysicsSpace>() {
         // Set ball #2 on a collision course with ball #1.
         ball2.applyCentralImpulse(Vector3f(-25f, 0f, 0f))
 
-        // Visualize both rigid bodies.
+        // Visualize the shapes of both rigid bodies:
         visualizeShape(ball1)
         visualizeShape(ball2)
     }

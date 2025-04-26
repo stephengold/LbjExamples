@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -135,12 +135,12 @@ class HelloMassDistribution : BasePhysicsApp<PhysicsSpace>() {
         physicsSpace.addCollisionObject(disc)
         disc.setPhysicsLocation(Vector3f(0f, -3f, 0f))
 
-        // Visualize the mallet, including its local axes.
+        // Visualize the mallet, including its local axes:
         visualizeShape(mallet)
         val debugAxisLength = 1f
         visualizeAxes(mallet, debugAxisLength)
 
-        // Visualize the disc.
+        // Visualize the shape of the disc:
         visualizeShape(disc)
     }
 }

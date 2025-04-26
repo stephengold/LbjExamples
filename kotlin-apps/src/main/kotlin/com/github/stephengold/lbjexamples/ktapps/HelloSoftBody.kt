@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -114,7 +114,7 @@ class HelloSoftBody : BasePhysicsApp<PhysicsSoftSpace>() {
         // Translate the body to its start location.
         body.applyTranslation(Vector3f(0f, 3f, 0f))
 
-        // Visualize the soft body.
+        // Visualize the soft-body faces:
         FacesGeometry(body)
     }
     // *************************************************************************

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -138,7 +138,7 @@ class HelloGhost : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
         val y = -2f
         addPlane(y)
 
-        // Visualize the collision objects.
+        // Visualize the collision objects:
         AabbGeometry(ghost)
         visualizeShape(character)
         AabbGeometry(character) // outline the character's AABB in white

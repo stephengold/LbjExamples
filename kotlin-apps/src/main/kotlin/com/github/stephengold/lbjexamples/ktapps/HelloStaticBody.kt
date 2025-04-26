@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -81,7 +81,7 @@ class HelloStaticBody : BasePhysicsApp<PhysicsSpace>() {
         dynaBall.setPhysicsLocation(Vector3f(0f, 4f, 0f))
         statBall.setPhysicsLocation(Vector3f(0.1f, 0f, 0f))
 
-        // Visualize both rigid bodies.
+        // Visualize the shapes of both rigid bodies:
         visualizeShape(dynaBall)
         visualizeShape(statBall)
     }

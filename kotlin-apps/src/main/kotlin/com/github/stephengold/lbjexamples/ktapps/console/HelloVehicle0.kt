@@ -80,7 +80,7 @@ fun main() {
     // Create a PhysicsSpace using DBVT for broadphase.
     val physicsSpace = PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT)
 
-    // Add a static horizontal plane at y=-0.65 to represent the ground.
+    // Add a static horizontal plane at y=-0.65 to represent the ground:
     val groundY = -0.65f
     val plane = Plane(Vector3f.UNIT_Y, groundY)
     val planeShape = PlaneCollisionShape(plane)
