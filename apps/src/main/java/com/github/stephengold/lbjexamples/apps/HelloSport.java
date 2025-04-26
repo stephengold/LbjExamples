@@ -103,8 +103,8 @@ public class HelloSport extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(floor);
 
         // Add a sphere-shaped, dynamic, rigid body at the origin:
-        float radius = 0.3f;
-        CollisionShape ballShape = new SphereCollisionShape(radius);
+        float ballRadius = 0.3f;
+        CollisionShape ballShape = new SphereCollisionShape(ballRadius);
         mass = 1f;
         PhysicsRigidBody ball = new PhysicsRigidBody(ballShape, mass);
         physicsSpace.addCollisionObject(ball);
