@@ -128,7 +128,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
             cube[cubeIndex].applyImpulse(impulse, offset);
         }
 
-        // Visualize the shapes of all 4 cubes.
+        // Visualize the shapes of all 4 cubes:
         for (int cubeIndex = 0; cubeIndex < numCubes; ++cubeIndex) {
             visualizeShape(cube[cubeIndex]);
         }

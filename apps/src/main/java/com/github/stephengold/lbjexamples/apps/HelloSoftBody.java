@@ -134,7 +134,7 @@ public class HelloSoftBody extends BasePhysicsApp<PhysicsSoftSpace> {
         // Translate the body to its start location.
         body.applyTranslation(new Vector3f(0f, 3f, 0f));
 
-        // Visualize the soft body.
+        // Visualize the soft-body faces:
         new FacesGeometry(body);
     }
     // *************************************************************************

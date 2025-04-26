@@ -50,15 +50,22 @@ import electrostatic4j.snaploader.platform.util.PlatformPredicate;
  * @author Stephen Gold sgold@sonic.net
  */
 final class HelloLibbulletjme {
+    // *************************************************************************
+    // fields
 
     private static PhysicsRigidBody ball;
     private static PhysicsSpace physicsSpace;
+    // *************************************************************************
+    // constructors
 
     /**
      * A private constructor to inhibit instantiation of this class.
      */
     private HelloLibbulletjme() {
+        // do nothing
     }
+    // *************************************************************************
+    // new methods exposed
 
     /**
      * Main entry point for the HelloLibbulletjme application.
@@ -109,6 +116,8 @@ final class HelloLibbulletjme {
             System.out.println(location);
         }
     }
+    // *************************************************************************
+    // private methods
 
     /**
      * Create the PhysicsSpace. Invoked once during initialization.
@@ -125,7 +134,7 @@ final class HelloLibbulletjme {
      * Populate the PhysicsSpace. Invoked once during initialization.
      */
     private static void populateSpace() {
-        // Add a static horizontal plane at y=-1.
+        // Add a static horizontal plane at y=-1:
         float groundY = -1f;
         Plane plane = new Plane(Vector3f.UNIT_Y, groundY);
         CollisionShape planeShape = new PlaneCollisionShape(plane);
@@ -133,7 +142,7 @@ final class HelloLibbulletjme {
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, mass);
         physicsSpace.addCollisionObject(floor);
 
-        // Add a sphere-shaped, dynamic, rigid body at the origin.
+        // Add a sphere-shaped, dynamic, rigid body at the origin:
         float radius = 0.3f;
         CollisionShape ballShape = new SphereCollisionShape(radius);
         mass = 1f;

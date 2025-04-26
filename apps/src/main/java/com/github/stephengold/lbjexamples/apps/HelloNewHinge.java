@@ -171,7 +171,7 @@ public class HelloNewHinge
         addWheel(new Vector3f(xOffset, 0f, rearAxisZ),
                 suspensionDirection, axleDirection, restLength, radius, rear);
 
-        // Visualize the chassis.
+        // Visualize the shape of the chassis:
         visualizeShape(chassis);
 
         // Apply a steering angle of 6 degrees left (to the front wheels).

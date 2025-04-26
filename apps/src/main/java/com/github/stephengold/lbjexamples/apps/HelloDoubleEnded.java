@@ -166,7 +166,7 @@ public class HelloDoubleEnded
                 rotInBall, rotInPaddle, RotationOrder.XYZ);
         physicsSpace.addJoint(joint);
 
-        // Visualize the physics joint.
+        // Visualize the physics joint:
         new ConstraintGeometry(joint, JointEnd.A);
         new ConstraintGeometry(joint, JointEnd.B);
     }

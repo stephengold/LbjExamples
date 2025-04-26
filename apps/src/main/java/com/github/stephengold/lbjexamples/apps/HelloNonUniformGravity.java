@@ -126,7 +126,7 @@ public class HelloNonUniformGravity
         planet.setPhysicsLocation(new Vector3f(2f, 0f, 0f));
         planet.applyCentralImpulse(new Vector3f(0f, -1f, 0f));
 
-        // Visualize the planet.
+        // Visualize the shape of the planet:
         visualizeShape(planet);
 
         // Visualize axes to indicate the black hole's location.

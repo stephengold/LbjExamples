@@ -106,7 +106,7 @@ public class HelloStaticBody extends BasePhysicsApp<PhysicsSpace> {
         dynaBall.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
         statBall.setPhysicsLocation(new Vector3f(0.1f, 0f, 0f));
 
-        // Visualize both rigid bodies.
+        // Visualize the shapes of both rigid bodies:
         visualizeShape(dynaBall);
         visualizeShape(statBall);
     }

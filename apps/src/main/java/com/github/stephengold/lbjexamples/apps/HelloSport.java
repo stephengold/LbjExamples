@@ -94,7 +94,7 @@ public class HelloSport extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        // Add a static horizontal plane at y=-1.
+        // Add a static horizontal plane at y=-1:
         float groundY = -1f;
         Plane plane = new Plane(Vector3f.UNIT_Y, groundY);
         CollisionShape planeShape = new PlaneCollisionShape(plane);
@@ -102,14 +102,14 @@ public class HelloSport extends BasePhysicsApp<PhysicsSpace> {
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, mass);
         physicsSpace.addCollisionObject(floor);
 
-        // Add a sphere-shaped, dynamic, rigid body at the origin.
+        // Add a sphere-shaped, dynamic, rigid body at the origin:
         float radius = 0.3f;
         CollisionShape ballShape = new SphereCollisionShape(radius);
         mass = 1f;
         PhysicsRigidBody ball = new PhysicsRigidBody(ballShape, mass);
         physicsSpace.addCollisionObject(ball);
 
-        // Visualize both rigid bodies.
+        // Visualize the shapes of both rigid bodies:
         visualizeShape(floor);
         visualizeShape(ball);
     }

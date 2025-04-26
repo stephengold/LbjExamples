@@ -125,7 +125,7 @@ public class HelloDeactivation
         bottomBody.setPhysicsLocation(new Vector3f(0f, -2f, 0f));
         physicsSpace.addCollisionObject(bottomBody);
 
-        // Visualize all 3 physics objects.
+        // Visualize the shapes of all 3 rigid bodies:
         visualizeShape(dynamicCube);
         visualizeShape(supportCube);
         visualizeShape(bottomBody);

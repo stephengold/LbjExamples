@@ -148,7 +148,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         float debugAxisLength = 1f;
         visualizeAxes(mallet, debugAxisLength);
 
-        // Visualize the disc.
+        // Visualize the shape of the disc:
         visualizeShape(disc);
     }
 }

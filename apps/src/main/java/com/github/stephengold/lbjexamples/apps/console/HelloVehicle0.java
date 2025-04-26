@@ -53,12 +53,17 @@ import java.util.Collection;
  * @author Stephen Gold sgold@sonic.net
  */
 final class HelloVehicle0 {
+    // *************************************************************************
+    // constructors
 
     /**
      * A private constructor to inhibit instantiation of this class.
      */
     private HelloVehicle0() {
+        // do nothing
     }
+    // *************************************************************************
+    // new methods exposed
 
     /**
      * Main entry point for the HelloVehicle0 application.
@@ -101,7 +106,7 @@ final class HelloVehicle0 {
         PhysicsSpace.BroadphaseType bPhase = PhysicsSpace.BroadphaseType.DBVT;
         PhysicsSpace physicsSpace = new PhysicsSpace(bPhase);
 
-        // Add a static horizontal plane at y=-0.65 to represent the ground.
+        // Add a static horizontal plane at y=-0.65 to represent the ground:
         float groundY = -0.65f;
         Plane plane = new Plane(Vector3f.UNIT_Y, groundY);
         CollisionShape planeShape = new PlaneCollisionShape(plane);
