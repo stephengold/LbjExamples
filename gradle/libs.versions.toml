@@ -25,4 +25,4 @@ sport = "com.github.stephengold:sport:0.9.6"
 
 [plugins]
 
-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "2.1.20" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version = "2.1.21" }
