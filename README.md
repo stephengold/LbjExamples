@@ -72,7 +72,7 @@ You can restore the project to a pristine state:
 [antora]: https://antora.org/ "Antora site generator"
 [fish]: https://fishshell.com/ "Fish command-line shell"
 [git]: https://git-scm.com "Git version-control system"
-[github]: https://github.com "GitHub"
+[github]: https://en.wikipedia.org/wiki/GitHub "GitHub"
 [gradle]: https://gradle.org "Gradle build tool"
 [java]: https://en.wikipedia.org/wiki/Java_(programming_language) "Java programming language"
 [kotlin]: https://en.wikipedia.org/wiki/Kotlin_(programming_language) "Kotlin programming language"
