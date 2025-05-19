@@ -103,6 +103,8 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
     @Override
     public void initialize() {
         super.initialize();
+
+        setVsync(true);
         configureInput();
     }
 

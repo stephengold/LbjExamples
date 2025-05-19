@@ -119,6 +119,7 @@ public class HelloWalk
     public void initialize() {
         super.initialize();
 
+        setVsync(true);
         configureCamera();
         configureInput();
         configureLighting();

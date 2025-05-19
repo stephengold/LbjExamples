@@ -89,6 +89,15 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
     }
 
     /**
+     * Initialize the application. Invoked once.
+     */
+    @Override
+    public void initialize() {
+        super.initialize();
+        setVsync(true);
+    }
+
+    /**
      * Populate the PhysicsSpace. Invoked once during initialization.
      */
     @Override

@@ -90,6 +90,8 @@ public class HelloMinkowski extends BasePhysicsApp<PhysicsSpace> {
     @Override
     public void initialize() {
         super.initialize();
+
+        setVsync(true);
         getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
     }
 

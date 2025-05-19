@@ -93,6 +93,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
     @Override
     public void initialize() {
         super.initialize();
+        setVsync(true);
         getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
 
         // Position the camera for a good view.

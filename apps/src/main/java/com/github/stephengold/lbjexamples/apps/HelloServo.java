@@ -113,6 +113,7 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
     public void initialize() {
         super.initialize();
 
+        setVsync(true);
         configureCamera();
         configureInput();
         configureLighting();

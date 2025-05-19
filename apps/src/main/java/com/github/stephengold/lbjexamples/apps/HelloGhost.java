@@ -132,6 +132,7 @@ public class HelloGhost
     public void initialize() {
         super.initialize();
 
+        setVsync(true);
         configureCamera();
         configureInput();
         configureLighting();

@@ -100,6 +100,7 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
     @Override
     public void initialize() {
         super.initialize();
+        setVsync(true);
 
         // Relocate the camera.
         cam.setLocation(new Vector3f(0f, 1f, 8f));
