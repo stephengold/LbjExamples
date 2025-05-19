@@ -177,7 +177,7 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
         // Disable sleep (deactivation).
         result.setEnableSleep(false);
 
-        visualizeShape(result);
+        visualizeShape(result).setColor(Constants.YELLOW);
 
         return result;
     }
@@ -201,7 +201,7 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
 
         PhysicsRigidBody result = new PhysicsRigidBody(frameShape);
         physicsSpace.addCollisionObject(result);
-        visualizeShape(result);
+        visualizeShape(result).setColor(Constants.GREEN);
 
         return result;
     }
