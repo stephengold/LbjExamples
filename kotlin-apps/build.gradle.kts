@@ -141,15 +141,15 @@ tasks.register<JavaExec>("HelloWalk") {
 }
 
 val os = DefaultNativePlatform.getCurrentOperatingSystem()
-val includeLinux = os.isLinux()
-val includeMacOsX = os.isMacOsX()
-val includeWindows = os.isWindows()
+val includeLinux = os.isLinux
+val includeMacOsX = os.isMacOsX
+val includeWindows = os.isWindows
 
 tasks.withType<JavaExec>().all { // JVM runtime options:
-    if (os.isMacOsX()) {
+    if (os.isMacOsX) {
         jvmArgs("-XstartOnFirstThread") // required for GLFW on macOS
     }
-    classpath = sourceSets.main.get().getRuntimeClasspath()
+    classpath = sourceSets.main.get().runtimeClasspath
     enableAssertions = true
     jvmArgs("-XX:+UseG1GC", "-XX:MaxGCPauseMillis=10")
 }

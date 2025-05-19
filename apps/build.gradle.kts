@@ -34,8 +34,8 @@ tasks.withType<JavaCompile>().all { // Java compile-time options:
         options.compilerArgs.add("-Xlint:-options")
     }
     options.compilerArgs.add("-Xlint:unchecked")
-    options.setDeprecation(true) // to provide detailed deprecation warnings
     options.encoding = "UTF-8"
+    options.isDeprecation = true // to provide detailed deprecation warnings
     if (javaVersion.isCompatibleWith(JavaVersion.VERSION_1_10)) {
         options.release = 8
     }
@@ -203,16 +203,16 @@ tasks.register<JavaExec>("HelloWind") {
 }
 
 val os = DefaultNativePlatform.getCurrentOperatingSystem()
-val includeLinux = os.isLinux()
-val includeMacOsX = os.isMacOsX()
-val includeWindows = os.isWindows()
+val includeLinux = os.isLinux
+val includeMacOsX = os.isMacOsX
+val includeWindows = os.isWindows
 val enableNativeAccess = JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_17)
 
 tasks.withType<JavaExec>().all { // JVM runtime options:
-    if (os.isMacOsX()) {
+    if (os.isMacOsX) {
         jvmArgs("-XstartOnFirstThread") // required for GLFW on macOS
     }
-    classpath = sourceSets.main.get().getRuntimeClasspath()
+    classpath = sourceSets.main.get().runtimeClasspath
     enableAssertions = true
     if (enableNativeAccess) {
         jvmArgs("--enable-native-access=ALL-UNNAMED") // suppress System::load() warning
