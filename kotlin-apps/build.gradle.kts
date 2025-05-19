@@ -3,7 +3,7 @@
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
 plugins {
-    `application` // to build JVM applications
+    application // to build JVM applications
     alias(libs.plugins.kotlin.jvm) // to compile Kotlin
 }
 

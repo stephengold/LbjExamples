@@ -1,7 +1,7 @@
 // Gradle script to build the LbjExamples project
 
 plugins {
-    `base` // to add a "clean" task to the root project
+    base // to add a "clean" task to the root project
 }
 
 configurations.all {

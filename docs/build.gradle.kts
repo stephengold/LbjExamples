@@ -1,7 +1,7 @@
 // Gradle script to build the "docs" subproject of LbjExamples
 
 plugins {
-    `java`
+    java
 }
 
 sourceSets.main {
