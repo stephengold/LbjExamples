@@ -124,13 +124,13 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        // Add a dynamic, green frame.
+        // Add a dynamic, green doorframe:
         PhysicsRigidBody frameBody = addFrame();
 
-        // Add a dynamic, yellow box for the door.
+        // Add a dynamic, yellow box for the door:
         PhysicsRigidBody doorBody = addDoor();
 
-        // Add a double-ended physics joint to join the door to the frame.
+        // Add a double-ended physics joint to join the door to the frame:
         Vector3f pivotLocation = new Vector3f(-1f, 0f, 0f);
         Quaternion pivotOrientation = Quaternion.IDENTITY;
         New6Dof joint = New6Dof.newInstance(frameBody, doorBody,
@@ -265,7 +265,7 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
     private void configureLighting() {
         setLightDirection(7f, 3f, 5f);
 
-        // Set the background color to light blue.
+        // Set the background color to light blue:
         setBackgroundColor(Constants.SKY_BLUE);
     }
 }

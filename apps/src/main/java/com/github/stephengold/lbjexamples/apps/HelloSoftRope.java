@@ -98,31 +98,32 @@ public class HelloSoftRope extends BasePhysicsApp<PhysicsSoftSpace> {
         super.initialize();
         setVsync(true);
 
-        // Relocate the camera.
+        // Relocate the camera:
         cam.setLocation(new Vector3f(0f, 1f, 8f));
     }
 
     /**
-     * Populate the PhysicsSpace. Invoked once during initialization.
+     * Populate the PhysicsSpace with bodies. Invoked once during
+     * initialization.
      */
     @Override
     public void populateSpace() {
-        // Generate a subdivided line segment.
+        // Generate a subdivided line segment:
         int numSegments = 40;
         Vector3f endPoint1 = new Vector3f(0f, 4f, 0f);
         Vector3f endPoint2 = new Vector3f(2f, 4f, 2f);
         Mesh lineMesh = new DividedLine(endPoint1, endPoint2, numSegments);
 
-        // Create a soft body and add it to the physics space.
+        // Create a soft body and add it to the physics space:
         PhysicsSoftBody rope = new PhysicsSoftBody();
         NativeSoftBodyUtil.appendFromLineMesh(lineMesh, rope);
         physicsSpace.addCollisionObject(rope);
 
-        // Pin one of the end nodes by setting its mass to zero.
+        // Pin one of the end nodes by zeroing its mass:
         int nodeIndex = 0;
         rope.setNodeMass(nodeIndex, PhysicsBody.massForStatic);
 
-        // Visualize the soft-body links and pin:
+        // Visualize the soft-body links and the pin:
         new LinksGeometry(rope);
         new PinsGeometry(rope);
     }

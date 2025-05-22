@@ -1,4 +1,4 @@
-// Gradle script to build the "kotlin-apps" subproject of LbjExamples
+// Gradle script to build and run the "kotlin-apps" subproject of LbjExamples
 
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 

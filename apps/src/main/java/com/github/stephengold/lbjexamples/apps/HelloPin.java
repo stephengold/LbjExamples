@@ -102,12 +102,13 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
         super.initialize();
         setVsync(true);
 
-        // Relocate the camera.
+        // Relocate the camera:
         cam.setLocation(new Vector3f(0f, 1f, 8f));
     }
 
     /**
-     * Populate the PhysicsSpace. Invoked once during initialization.
+     * Populate the PhysicsSpace with bodies. Invoked once during
+     * initialization.
      */
     @Override
     public void populateSpace() {
@@ -119,17 +120,17 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
         physicsSpace.addCollisionObject(sphere);
         visualizeShape(sphere);
 
-        // Generate a subdivided square mesh with alternating diagonals.
+        // Generate a subdivided square mesh with alternating diagonals:
         int numLines = 41;
         float lineSpacing = 0.1f; // mesh units
         Mesh squareGrid = new ClothGrid(numLines, numLines, lineSpacing);
 
-        // Create a soft square and add it to the physics space.
+        // Create a soft square and add it to the physics space:
         PhysicsSoftBody cloth = new PhysicsSoftBody();
         NativeSoftBodyUtil.appendFromTriMesh(squareGrid, cloth);
         physicsSpace.addCollisionObject(cloth);
 
-        // Pin one of the corner nodes by setting its mass to zero.
+        // Pin one of the corner nodes by zeroing its mass:
         int nodeIndex = 0; // upper left corner
         cloth.setNodeMass(nodeIndex, PhysicsBody.massForStatic);
         /*

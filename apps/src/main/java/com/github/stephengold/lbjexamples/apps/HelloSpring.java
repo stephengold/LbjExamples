@@ -118,11 +118,11 @@ public class HelloSpring
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, register the application as a tick listener.
+        // To enable the callbacks, register this app as a tick listener:
         result.addTickListener(this);
 
-        // Reduce the time step for better accuracy.
-        result.setAccuracy(0.005f);
+        // Reduce the time step for better accuracy:
+        result.setAccuracy(0.005f); // seconds
 
         return result;
     }
@@ -137,7 +137,7 @@ public class HelloSpring
         configureCamera();
         setLightDirection(7f, 3f, 5f);
 
-        // Disable VSync for more frequent mouse-position updates.
+        // Disable VSync for more frequent mouse-position updates:
         setVsync(false);
     }
 
@@ -146,16 +146,16 @@ public class HelloSpring
      */
     @Override
     public void populateSpace() {
-        // Add a static plane to represent the ground.
+        // Add a static plane to represent the ground:
         addPlane(groundY);
 
-        // Add a mouse-controlled kinematic paddle.
+        // Add a mouse-controlled kinematic paddle:
         addPaddle();
 
-        // Add a dynamic ball.
+        // Add a dynamic ball:
         PhysicsRigidBody ballBody = addBall();
 
-        // Add a single-ended physics joint to constrain the ball's center.
+        // Add a single-ended physics joint to constrain the ball's center:
         Vector3f pivotInBall = new Vector3f(0f, 0f, 0f);
         Vector3f pivotInWorld = new Vector3f(0f, 0f, 0f);
         Matrix3f rotInBall = Matrix3f.IDENTITY;
@@ -164,26 +164,26 @@ public class HelloSpring
                 rotInBall, rotInPaddle, RotationOrder.XYZ);
         physicsSpace.addJoint(joint);
 
-        // Free the X and Z translation DOFs.
+        // Free the X and Z translation DOFs:
         joint.set(MotorParam.LowerLimit, PhysicsSpace.AXIS_X, +1f);
         joint.set(MotorParam.LowerLimit, PhysicsSpace.AXIS_Z, +1f);
         joint.set(MotorParam.UpperLimit, PhysicsSpace.AXIS_X, -1f);
         joint.set(MotorParam.UpperLimit, PhysicsSpace.AXIS_Z, -1f);
 
-        // Configure springs on the X and Z translation DOFs.
+        // Configure springs on the X and Z translation DOFs:
         joint.enableSpring(PhysicsSpace.AXIS_X, true);
         joint.enableSpring(PhysicsSpace.AXIS_Z, true);
         joint.set(MotorParam.Stiffness, PhysicsSpace.AXIS_X, 25f);
         joint.set(MotorParam.Stiffness, PhysicsSpace.AXIS_Z, 25f);
 
-        // Lock the Y translation at paddle height.
+        // Lock the Y translation at paddle height:
         float paddleY = groundY + paddleHalfHeight;
         joint.set(MotorParam.LowerLimit, PhysicsSpace.AXIS_Y, paddleY);
         joint.set(MotorParam.UpperLimit, PhysicsSpace.AXIS_Y, paddleY);
     }
 
     /**
-     * Callback invoked during each iteration of the main update loop.
+     * Callback invoked during each iteration of the render loop.
      */
     @Override
     public void render() {
@@ -289,7 +289,7 @@ public class HelloSpring
     }
 
     /**
-     * Configure the Camera and CIP during startup.
+     * Configure the Camera and CIP during initialization.
      */
     private static void configureCamera() {
         getCameraInputProcessor().setRotationMode(RotateMode.None);

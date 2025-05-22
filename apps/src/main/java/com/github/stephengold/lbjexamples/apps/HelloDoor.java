@@ -160,16 +160,16 @@ public class HelloDoor
      */
     @Override
     public void populateSpace() {
-        // Add a static plane to represent the ground.
+        // Add a static plane to represent the ground:
         addPlane(groundY);
 
-        // Add a static body for the door frame.
+        // Add a static body for the door frame:
         addDoorFrame();
 
-        // Add a dynamic body for the door.
+        // Add a dynamic body for the door:
         addDoor();
 
-        // Add a single-ended physics joint to constrain the door's motion.
+        // Add a single-ended physics joint to constrain the door's motion:
         Vector3f pivotInDoor = new Vector3f(-doorHalfWidth, 0f, 0f);
         Vector3f pivotInWorld = new Vector3f(-doorHalfWidth, 0f, 0f);
         HingeJoint joint = new HingeJoint(doorBody, pivotInDoor, pivotInWorld,
@@ -182,7 +182,7 @@ public class HelloDoor
         // Disable collisions between the door and the door frame.
         doorBody.addToIgnoreList(doorFrameBody);
 
-        // Add a kinematic, yellow ball.
+        // Add a kinematic, yellow ball:
         ballBody = addBall();
     }
 

@@ -1,4 +1,4 @@
-// Gradle script to build the "apps" subproject of LbjExamples
+// Gradle script to build and run the "apps" subproject of LbjExamples
 
 import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
 
