@@ -9,16 +9,19 @@ lwjgl = "3.3.6"
 [libraries]
 
 jsnaploader = "io.github.electrostat-lab:snaploader:1.1.1-stable"
+
 libbulletjme-linux64 = { module = "com.github.stephengold:Libbulletjme-Linux64", version.ref = "libbulletjme" }
 libbulletjme-linuxarm32hf = { module = "com.github.stephengold:Libbulletjme-Linux_ARM32hf", version.ref = "libbulletjme" }
 libbulletjme-linuxarm64 = { module = "com.github.stephengold:Libbulletjme-Linux_ARM64", version.ref = "libbulletjme" }
 libbulletjme-macosx64 = { module = "com.github.stephengold:Libbulletjme-MacOSX64", version.ref = "libbulletjme" }
 libbulletjme-macosxarm64 = { module = "com.github.stephengold:Libbulletjme-MacOSX_ARM64", version.ref = "libbulletjme" }
 libbulletjme-windows64 = { module = "com.github.stephengold:Libbulletjme-Windows64", version.ref = "libbulletjme" }
+
 lwjgl = { module = "org.lwjgl:lwjgl", version.ref = "lwjgl" }
 lwjgl-assimp = { module = "org.lwjgl:lwjgl-assimp", version.ref = "lwjgl" }
 lwjgl-glfw = { module = "org.lwjgl:lwjgl-glfw", version.ref = "lwjgl" }
 lwjgl-opengl = { module = "org.lwjgl:lwjgl-opengl", version.ref = "lwjgl" }
+
 sport = "com.github.stephengold:sport:0.9.6"
 
 [bundles]

@@ -126,8 +126,7 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
         cornerLocations.add(new Vector3f(-halfWidth, undercarriageY, tailZ));
         cornerLocations.add(new Vector3f(+halfWidth, spoilerY, tailZ));
         cornerLocations.add(new Vector3f(-halfWidth, spoilerY, tailZ));
-        HullCollisionShape wedgeShape
-                = new HullCollisionShape(cornerLocations);
+        HullCollisionShape wedgeShape = new HullCollisionShape(cornerLocations);
 
         float mass = 5f;
         PhysicsVehicle vehicle = new PhysicsVehicle(wedgeShape, mass);

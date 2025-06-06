@@ -65,6 +65,7 @@ Things to notice while running the app:
 . Press kbd:[W] to walk in the camera's forward direction.
 . Some of the mountains have slopes too steep for the character to climb.
 
+
 == Configuration
 
 === Gravity and up direction
