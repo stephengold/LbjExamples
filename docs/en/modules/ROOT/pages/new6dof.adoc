@@ -235,7 +235,7 @@ use the `set()` method with lowerLimit &gt; upperLimit.
 
 NOTE: The limits of a rotational DOF are measured in radians.
 
-{url-tutorial}/HelloLimit.java[HelloLimit] (also {url-kt}/HelloLimit.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloLimit.java[HelloLimit] (also {url-kt}/HelloLimit.kt[in Kotlin]) is a {Sport} app
 that demonstrates a single-ended `New6Dof` constraint
 with limited translation DOFs.
 The joint's translations are limited,
@@ -246,7 +246,7 @@ confining the ball to a horizontal square centered on the origin.
 Motors are used to apply forces to a constraint.
 In `New6Dof`, each DOF has its own motor, which is disabled by default.
 
-{url-tutorial}/HelloMotor.java[HelloMotor] (also {url-kt}/HelloMotor.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloMotor.java[HelloMotor] (also {url-kt}/HelloMotor.kt[in Kotlin]) is a {Sport} app
 that demonstrates a double-ended `New6Dof`
 with its Y-rotation motor enabled.
 

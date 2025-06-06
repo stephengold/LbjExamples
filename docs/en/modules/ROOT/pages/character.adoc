@@ -2,6 +2,7 @@
 :experimental:
 :page-pagination:
 :pi: &#960;
+:Sport: SPORT
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
@@ -44,7 +45,7 @@ Things to notice about the app:
   In this app, a capsule is used.
 . The `onGround()` method tests whether the character is supported
   by a solid surface (as opposed to jumping or falling).
-. In SPORT, characters that are jumping or falling are shown in pink,
+. In {Sport}, characters that are jumping or falling are shown in pink,
   while characters that are on ground are shown in brown.
 
 == Walking
