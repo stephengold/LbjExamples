@@ -8,7 +8,7 @@ For physics simulation and collision detection,
 a mature, open-source, 3-D physics simulator,
 released under https://github.com/bulletphysics/bullet3/blob/master/LICENSE.txt[a Zlib license].
 
-To enable efficient simulation of moving meshes,
+To enable efficient simulation of complex moving shapes,
 {Project} also incorporates Khaled Mamou's
 https://github.com/kmammou/v-hacd[Volumetric-Hierarchical Approximate Convex Decomposition _(V-HACD)_ algorithm].
 

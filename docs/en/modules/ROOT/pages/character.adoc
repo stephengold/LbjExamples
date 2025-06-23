@@ -61,7 +61,7 @@ NOTE: Despite its name, the walk direction need not be a unit vector.
 keyboard-controlled motion of a physics character.
 Things to notice while running the app:
 
-. Move the mouse to turn the camera.
+. Drag with the left mouse button to rotate the camera.
 . Press kbd:[Space bar] to jump.
 . Press kbd:[W] to walk in the camera's forward direction.
 . Some of the mountains have slopes too steep for the character to climb.

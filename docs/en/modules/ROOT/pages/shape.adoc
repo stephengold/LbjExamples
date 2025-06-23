@@ -516,7 +516,7 @@ should be your last resort!
 
 Faced with the task of simulating a non-convex rigid body
 (such as a cross or ring),
-it's best to decompose it into convex shapes that,
+it's best to decompose it into a small number of convex shapes that,
 when recombined, will approximate the desired behavior.
 
 There are various approaches,
@@ -529,11 +529,11 @@ into meshes that are convex or nearly so.
 
 == Automated decomposition
 
-For situations where manual decomposition is impractical,
+For situations where other decomposition approaches are impractical,
 {Project} incorporates Khaled Mamou's
 https://github.com/kmammou/v-hacd[Volumetric-Hierarchical Approximate Convex Decomposition (V-HACD) algorithm].
-V-HACD makes it easy to decompose a 3-D model into a
-compound of hull shapes:
+V-HACD makes it easy to decompose a 3-D mesh of triangles into a
+compound of convex-hull shapes:
 
 [source,java]
 ----
