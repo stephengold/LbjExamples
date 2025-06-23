@@ -17,7 +17,7 @@ Here's the recommended procedure:
 
 . Install build software:
 .. a https://adoptium.net/releases.html[Java Development Kit (JDK)],
-  if you don't already have one, and
+  version 8 or higher, and
 .. one of the supported C++ compilers:
 ... for Linux:  https://gcc.gnu.org/[the GNU Compiler Collection] or https://www.llvm.org[Clang]
 ... for macOS:  https://developer.apple.com/xcode[Xcode]
