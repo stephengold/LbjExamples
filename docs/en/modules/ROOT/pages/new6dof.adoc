@@ -2,6 +2,7 @@
 :Project: Libbulletjme
 :experimental:
 :page-pagination:
+:Sport: SPORT
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki
 :url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
@@ -187,7 +188,7 @@ Then you can specify `Matrix3f.IDENTITY` for each "rot" parameter.
 
 === Example apps
 
-{url-tutorial}/HelloJoint.java[HelloJoint] (also {url-kt}/HelloJoint.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloJoint.java[HelloJoint] (also {url-kt}/HelloJoint.kt[in Kotlin]) is a {Sport} app
 that demonstrates a single-ended `New6Dof` constraint.
 
 Things to notice while running the app:
@@ -198,7 +199,7 @@ Things to notice while running the app:
 . If you strike the ball with the paddle, it swings around, maintaining
   a constant distance from the pivot point.
 
-{url-tutorial}/HelloDoubleEnded.java[HelloDoubleEnded] (also {url-kt}/HelloDoubleEnded.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloDoubleEnded.java[HelloDoubleEnded] (also {url-kt}/HelloDoubleEnded.kt[in Kotlin]) is a {Sport} app
 that demonstrates a double-ended `New6Dof` constraint.
 
 Things to notice while running the app:
@@ -279,7 +280,7 @@ In `New6Dof`, each DOF has its own servo, which is disabled by default.
 
 NOTE: For a servo to be effective, its corresponding motor must also be enabled.
 
-{url-tutorial}/HelloServo.java[HelloServo] (also {url-kt}/HelloServo.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloServo.java[HelloServo] (also {url-kt}/HelloServo.kt[in Kotlin]) is a {Sport} app
 that demonstrates a double-ended `New6Dof` constraint
 with its Y-rotation servo enabled.
 
@@ -309,7 +310,7 @@ and set its stiffness to a positive value.
 If desired, you can also configure
 the spring's equilibrium value and damping ratio.
 
-{url-tutorial}/HelloSpring.java[HelloSpring] (also {url-kt}/HelloSpring.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloSpring.java[HelloSpring] (also {url-kt}/HelloSpring.kt[in Kotlin]) is a {Sport} app
 that demonstrates a single-ended constraint with springs.
 
 Things to notice while running the app:
