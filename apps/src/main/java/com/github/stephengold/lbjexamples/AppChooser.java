@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2024 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -77,6 +77,9 @@ import javax.swing.WindowConstants;
  * Choose an LbjExamples application to run.
  */
 final class AppChooser extends JFrame {
+    // *************************************************************************
+    // new methods exposed
+
     /**
      * Main entry point for the AppChooser application.
      *
@@ -127,7 +130,14 @@ final class AppChooser extends JFrame {
 
         new AppChooser(apps);
     }
+    // *************************************************************************
+    // private methods
 
+    /**
+     * Select and run one LbjExamples app from the specified list.
+     *
+     * @param apps the list of apps to choose from (not null, unaffected)
+     */
     private AppChooser(List<? extends BaseApplication> apps) {
         setTitle("LbjExamples AppChooser");
         setSize(500, 100);
