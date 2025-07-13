@@ -144,7 +144,15 @@ public class HelloClothRigid extends BasePhysicsApp<PhysicsSoftSpace> {
         visualizeShape(body);
     }
 
-    //Not very efficient, experimental code
+    /**
+     * Create an indexed mesh for generating a rectangle of cloth.
+     *
+     * @param xLines the desired number of grid lines parallel to the X axis
+     * @param zLines the desired number of grid lines parallel to the Z axis
+     * @param lineSpacing the desired initial distance between adjacent grid
+     * lines (in mesh units, &gt;0)
+     * @return a new mesh
+     */
     private static IndexedMesh createClothGrid(
             int xLines, int zLines, float lineSpacing) {
         int numVertices = xLines * zLines;
