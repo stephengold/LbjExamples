@@ -12,7 +12,7 @@ The following demos are found in
   image:conveyorDemo.png[height=80]
 * {url-examples}/NewtonsCradle.java[`NewtonsCradle`]
   demonstrates dynamic restitution and point-to-point joints +
-  image:newtonsCradle.png[height=80]
+  image:newtonsCradle.png[height=50]
 * {url-examples}/Pachinko.java[`Pachinko`]
   demonstrates compound collision shapes and 2-D physics +
   image:pachinko.png[height=100]
