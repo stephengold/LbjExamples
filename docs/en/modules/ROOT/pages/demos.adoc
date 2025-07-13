@@ -60,6 +60,7 @@ Additional mappings are specific to each application:
 ** kbd:[F2], kbd:[2], and kbd:[Numpad2] restart with 2 balls
 ** kbd:[F3], kbd:[3], and kbd:[Numpad3] restart with 3 balls
 ** kbd:[F4], kbd:[4], and kbd:[Numpad4] restart with 4 balls
+** kbd:[F5], kbd:[5], and kbd:[Numpad5] restart with 5 balls
 
 * In `Pachinko`:
 
