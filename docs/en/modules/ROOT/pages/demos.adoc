@@ -8,19 +8,26 @@ The following demos are found in
 {url-examples}[the com.github.stephengold.sport.demo package of the SPORT "apps" sub-project]:
 
 * {url-examples}/ConveyorDemo.java[`ConveyorDemo`]
-  demonstrates contact-point modifications
+  demonstrates contact-point modifications +
+  image:conveyorDemo.png[height=80]
 * {url-examples}/NewtonsCradle.java[`NewtonsCradle`]
-  demonstrates dynamic restitution and point-to-point joints
+  demonstrates dynamic restitution and point-to-point joints +
+  image:newtonsCradle.png[height=80]
 * {url-examples}/Pachinko.java[`Pachinko`]
-  demonstrates compound collision shapes and 2-D physics
+  demonstrates compound collision shapes and 2-D physics +
+  image:pachinko.png[height=100]
 * {url-examples}/SplitDemo.java[`SplitDemo`]
-  demonstrates dynamic splitting of rigid bodies
+  demonstrates dynamic splitting of rigid bodies +
+  image:splitDemo.png[height=80]
 * {url-examples}/TestGearJoint.java[`TestGearJoint`]
-  demonstrates a gear joint
+  demonstrates a gear joint +
+  image:testGearJoint.png[height=80]
 * {url-examples}/ThousandCubes.java[`ThousandCubes`]
-  demonstrates stacking cubes and launching projectiles
+  demonstrates stacking cubes and launching projectiles +
+  image:thousandCubes.png[height=100]
 * {url-examples}/Windlass.java[`Windlass`]
-  demonstrates rope simulation using rigid bodies
+  demonstrates rope simulation using rigid bodies +
+  image:windlass.png[height=100]
 
 == User interface
 
