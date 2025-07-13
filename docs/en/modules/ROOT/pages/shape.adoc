@@ -519,12 +519,13 @@ it's best to decompose it into a small number of convex shapes that,
 when recombined, will approximate the desired behavior.
 
 There are various approaches,
-depending how much the developer knows about the object's shape.
-If the model's mesh is generated procedurally, it may be possible
-to decompose it during the generation process.
-Or if the object is modeled in Blender,
-it may be practical to manually decompose it there
-into meshes that are convex or nearly so.
+depending how much you know about the body's shape.
+
+* If the model's mesh is generated procedurally, it may be convenient
+  to decompose it during the generation process.
+* If the mesh was crafted in a tool such as https://www.blender.org/[Blender],
+  it may be practical to manually decompose it there,
+  into sub-meshes that are convex or nearly so.
 
 == Automated decomposition
 
