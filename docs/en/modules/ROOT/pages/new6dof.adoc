@@ -189,7 +189,8 @@ Then you can specify `Matrix3f.IDENTITY` for each "rot" parameter.
 === Example apps
 
 {url-tutorial}/HelloJoint.java[HelloJoint] (also {url-kt}/HelloJoint.kt[in Kotlin]) is a {Sport} app
-that demonstrates a single-ended `New6Dof` constraint.
+that demonstrates a single-ended `New6Dof`
+simulating a point-to-point joint.
 
 Things to notice while running the app:
 
