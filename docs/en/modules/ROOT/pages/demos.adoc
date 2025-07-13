@@ -36,8 +36,10 @@ In most demos:
 * kbd:[C] dumps the camera's position to the console, and
 * kbd:[Esc] ends the application.
 
-For camera control, all demos use `Immediate` rotation mode.
-This means you can rotate the camera by simply moving the mouse.
+For camera control,
+all demos except `ThousandCubes` use `DragLMB` rotation mode.
+This means you can rotate the camera
+by dragging the mouse with the left button depressed.
 Furthermore:
 
 * kbd:[W] and kbd:[S] dolly the camera forward and back, respectively,
