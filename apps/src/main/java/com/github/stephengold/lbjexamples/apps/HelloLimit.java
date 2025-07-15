@@ -148,7 +148,7 @@ public class HelloLimit
     public void populateSpace() {
         // Add a static, green square to represent the ground:
         float halfExtent = 3f;
-        PhysicsRigidBody ground = addSquare(halfExtent, groundY);
+        final PhysicsRigidBody ground = addSquare(halfExtent, groundY);
 
         // Add a mouse-controlled kinematic paddle.
         addPaddle();
