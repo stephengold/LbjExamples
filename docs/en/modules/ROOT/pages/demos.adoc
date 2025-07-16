@@ -1,11 +1,12 @@
 = An overview of the demo applications
-:Project: Libbulletjme
 :experimental:
+:Project: Libbulletjme
+:Sport: SPORT
 :url-examples: https://github.com/stephengold/sport/tree/master/apps/src/main/java/com/github/stephengold/sport/demo
 
 _Demo applications_ are provided to showcase certain features of {Project}.
 The following demos are found in
-{url-examples}[the com.github.stephengold.sport.demo package of the SPORT "apps" sub-project]:
+{url-examples}[the com.github.stephengold.sport.demo package of the {Sport} "apps" sub-project]:
 
 * {url-examples}/ConveyorDemo.java[`ConveyorDemo`]
   demonstrates contact-point modifications +
@@ -28,6 +29,7 @@ The following demos are found in
 * {url-examples}/Windlass.java[`Windlass`]
   demonstrates rope simulation using rigid bodies +
   image:windlass.png[height=100]
+
 
 == User interface
 
