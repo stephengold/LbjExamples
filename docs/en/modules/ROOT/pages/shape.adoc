@@ -1,7 +1,7 @@
 = Choosing collision shapes
-:Project: Libbulletjme
 :item: &rarr;
 :page-pagination:
+:Project: Libbulletjme
 :url-enwiki: https://en.wikipedia.org/wiki
 :url-examples-shapes: https://github.com/stephengold/LbjExamples/tree/master/apps/src/main/java/com/github/stephengold/shapes
 :url-shape: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet/collision/shapes
@@ -246,6 +246,7 @@ _Concave_ is essentially the opposite of convex, except that compound shapes
 are regarded as neither convex nor concave.
 No shape is both convex *and* concave.
 To test whether a shape belongs to a concave class, use `shape.isConcave()`.
+
 
 == Margin
 

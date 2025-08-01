@@ -1,7 +1,8 @@
 = Managing collisions
-:Project: Libbulletjme
 :experimental:
 :page-pagination:
+:Project: Libbulletjme
+:Sport: SPORT
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki
 :url-examples: https://github.com/stephengold/sport/tree/master/apps/src/main/java/com/github/stephengold/sport/demo
@@ -62,7 +63,7 @@ aren't {url-enwiki}/Minimum_bounding_box[minimal].
 Approximations in Bullet make them somewhat larger than necessary.
 However, they are usually accurate enough to be useful.
 
-{url-tutorial}/HelloGhost.java[`HelloGhost`] (also {url-kt}/HelloGhost.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloGhost.java[`HelloGhost`] (also {url-kt}/HelloGhost.kt[in Kotlin]) is a {Sport} app
 that illustrates how a ghost could be used
 to detect a character entering/leaving a box-shaped zone.
 
@@ -164,7 +165,7 @@ To confirm intersection,
 use `ManifoldPoints.getDistance1()` to get the separation distance.
 When the distance is positive, there's no intersection.
 
-{url-examples}/ConveyorDemo.java[`ConveyorDemo`] is a SPORT app
+{url-examples}/ConveyorDemo.java[`ConveyorDemo`] is a {Sport} app
 that implements conveyor belts using contact-point modification.
 
 

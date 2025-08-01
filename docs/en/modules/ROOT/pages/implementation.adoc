@@ -14,6 +14,7 @@ https://github.com/kmammou/v-hacd[Volumetric-Hierarchical Approximate Convex Dec
 released under
 https://github.com/kmammou/v-hacd/blob/master/LICENSE[a 3-Clause BSD License].
 
+
 == Native libraries
 
 Bullet and V-HACD are written in {Cplusplus}, so {Project} uses
@@ -58,10 +59,12 @@ Furthermore, native libraries come in various flavors, including:
 All these native libraries share a common API,
 so a single JVM library suffices.
 
+
 == Collision objects, spaces, and shapes
 
 Collision detection is organized around _collision objects_
 that interact in the context of a _collision space_.
+
 Collision objects can be _soft_ (varying shape) or _rigid_ (non-varying shape).
 Rigid objects can be _mobile_ (moving) or _static_ (non-moving).
 And mobile objects can be _dynamic_ (driven by {url-enwiki}/Force[forces],
@@ -76,6 +79,7 @@ that describes the shape of its surface.
 Most collision shapes are _scalable_,
 allowing you to grow or shrink objects
 simply by varying the shape's scale factors.
+
 
 == Coordinate systems and units
 
@@ -97,6 +101,7 @@ Locations relative to a collision object's center and subject to its rotation
 are quantified using _local coordinates_.
 The documentation distinguishes _scaled local coordinates_ (measured in psu)
 from _shape coordinates_ (which depend on scale factors).
+
 
 == Discrete time and collision detection
 
