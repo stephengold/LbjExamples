@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC
-          "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
-          "https://checkstyle.org/dtds/configuration_1_3.dtd">
+    "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN"
+    "https://checkstyle.org/dtds/configuration_1_3.dtd">
 <!-- Checkstyle configuration for the LbjExamples project. -->
 
 <module name="Checker">
@@ -9,7 +9,7 @@
     <property name="fileExtensions" value="java, properties, xml"/>
     <property name="severity" value="error"/>
 
-    <!-- Check for headers:                       -->
+    <!-- Check for header:                        -->
     <!-- See https://checkstyle.org/checks/header -->
     <module name="Header">
         <property name="fileExtensions" value="java"/>
