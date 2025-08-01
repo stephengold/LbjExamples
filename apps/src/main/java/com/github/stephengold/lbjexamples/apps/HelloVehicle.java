@@ -112,7 +112,7 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
         float groundY = -0.65f;
         addPlane(groundY);
 
-        // Create a wedge-shaped vehicle with a low center of gravity.
+        // Create a wedge-shaped vehicle with a low center of gravity:
         // The local forward direction is +Z.
         float noseZ = 1.4f;           // offset from chassis center
         float spoilerY = 0.5f;        // offset from chassis center

@@ -134,7 +134,7 @@ final class SpeedTest {
             numThreads = argValue;
         }
 
-        // Make sure that assertions are disabled.
+        // Make sure that assertions are disabled:
         boolean assertionsEnabled = false;
         assert assertionsEnabled = true; // Note: intentional side effect.
         if (assertionsEnabled) {
@@ -142,14 +142,14 @@ final class SpeedTest {
             System.exit(-1);
         }
 
-        // Load a native library from ~/Downloads directory.
+        // Load a native library from ~/Downloads directory:
         String homePath = System.getProperty("user.home");
         File downloadDirectory = new File(homePath, "Downloads");
         String flavor = multiThreaded ? "SpMt" : "Sp";
         NativeLibraryLoader.loadLibbulletjme(
                 true, downloadDirectory, "Release", flavor);
 
-        // Create a PhysicsSpace using DBVT for broadphase.
+        // Create a PhysicsSpace using DBVT for broadphase:
         PhysicsSpace.BroadphaseType bPhase = PhysicsSpace.BroadphaseType.DBVT;
         physicsSpace = new PhysicsSpace(
                 Vector3f.ZERO, Vector3f.ZERO, bPhase, numThreads);
@@ -225,7 +225,7 @@ final class SpeedTest {
         PhysicsRigidBody floor = new PhysicsRigidBody(planeShape, mass);
         physicsSpace.addCollisionObject(floor);
 
-        // Add 1000 dynamic boxes.
+        // Add 1000 dynamic boxes:
         boxShape = new BoxCollisionShape(0.5f);
         for (int i = 0; i < 10; ++i) {
             for (int j = 0; j < 10; ++j) {

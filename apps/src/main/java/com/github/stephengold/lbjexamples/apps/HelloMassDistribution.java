@@ -140,21 +140,21 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         // Correct the shape.
         malletShape.correctAxes(correction);
 
-        // Create a dynamic body for the mallet.
+        // Create a dynamic body for the mallet:
         float mass = handleMass + headMass;
         PhysicsRigidBody mallet = new PhysicsRigidBody(malletShape, mass);
         mallet.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
 
-        // Increase the mallet's angular damping to stabilize it.
+        // Increase the mallet's angular damping to stabilize it:
         mallet.setAngularDamping(0.9f);
 
-        // The mallet's center has changed, so adjust its moment of inertia.
+        // The mallet's center has changed, so adjust its moment of inertia:
         Vector3f inverseInertia = Vector3f.UNIT_XYZ.divide(inertiaVector);
         mallet.setInverseInertiaLocal(inverseInertia);
 
         physicsSpace.addCollisionObject(mallet);
 
-        // Create a static disc and add it to the space.
+        // Create a static disc and add it to the space:
         float discRadius = 5f;
         float discThickness = 0.5f;
         CollisionShape discShape = new CylinderCollisionShape(
@@ -164,7 +164,7 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(disc);
         disc.setPhysicsLocation(new Vector3f(0f, -3f, 0f));
 
-        // Visualize the mallet, including its local axes.
+        // Visualize the mallet, including its local axes:
         visualizeShape(mallet);
         float debugAxisLength = 1f;
         visualizeAxes(mallet, debugAxisLength);

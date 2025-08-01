@@ -110,7 +110,7 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
      */
     @Override
     public void populateSpace() {
-        // Create a static, rigid sphere and add it to the physics space.
+        // Create a static, rigid sphere and add it to the physics space:
         float radius = 1f;
         SphereCollisionShape shape = new SphereCollisionShape(radius);
         PhysicsRigidBody sphere
@@ -123,7 +123,7 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
         float lineSpacing = 0.1f; // mesh units
         Mesh squareGrid = new ClothGrid(numLines, numLines, lineSpacing);
 
-        // Create a soft square and add it to the physics space.
+        // Create a soft square and add it to the physics space:
         PhysicsSoftBody cloth = new PhysicsSoftBody();
         NativeSoftBodyUtil.appendFromTriMesh(squareGrid, cloth);
         physicsSpace.addCollisionObject(cloth);

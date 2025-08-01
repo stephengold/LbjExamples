@@ -107,7 +107,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        // Construct a compound shape for the mallet.
+        // Construct a compound shape for the mallet:
         float headLength = 1f;
         float headRadius = 0.5f;
         Vector3f hes = new Vector3f(headLength / 2f, headRadius, headRadius);
@@ -124,7 +124,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         malletShape.addChildShape(handleShape, 0f, 0f, handleLength / 2f);
         malletShape.addChildShape(headShape, 0f, 0f, handleLength);
 
-        // Create a dynamic body for the mallet.
+        // Create a dynamic body for the mallet:
         float mass = 2f;
         PhysicsRigidBody mallet = new PhysicsRigidBody(malletShape, mass);
         mallet.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
@@ -134,7 +134,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
 
         physicsSpace.addCollisionObject(mallet);
 
-        // Create a static disc and add it to the space.
+        // Create a static disc and add it to the space:
         float discRadius = 5f;
         float discThickness = 0.5f;
         CollisionShape discShape = new CylinderCollisionShape(
@@ -144,7 +144,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(disc);
         disc.setPhysicsLocation(new Vector3f(0f, -3f, 0f));
 
-        // Visualize the mallet, including its local axes.
+        // Visualize the mallet, including its local axes:
         visualizeShape(mallet);
         float debugAxisLength = 1f;
         visualizeAxes(mallet, debugAxisLength);

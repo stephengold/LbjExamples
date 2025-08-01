@@ -91,11 +91,11 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        // Create a CollisionShape for unit cubes.
+        // Create a CollisionShape for unit cubes:
         float cubeHalfExtent = 0.5f;
         CollisionShape cubeShape = new BoxCollisionShape(cubeHalfExtent);
 
-        // Create 4 cubes (dynamic rigid bodies) and add them to the space.
+        // Create 4 cubes (dynamic rigid bodies) and add them to the space:
         int numCubes = 4;
         float cubeMass = 2f;
         PhysicsRigidBody[] cube = new PhysicsRigidBody[numCubes];

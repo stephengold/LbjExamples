@@ -101,7 +101,7 @@ public class HelloDeactivation
      */
     @Override
     public void populateSpace() {
-        // Create a dynamic cube and add it to the space.
+        // Create a dynamic cube and add it to the space:
         float boxHalfExtent = 0.5f;
         CollisionShape smallCubeShape = new BoxCollisionShape(boxHalfExtent);
         float boxMass = 1f;

@@ -114,7 +114,7 @@ public class HelloCharacter
      */
     @Override
     public void populateSpace() {
-        // Create a character with a capsule shape and add it to the space.
+        // Create a character with a capsule shape and add it to the space:
         float capsuleRadius = 0.5f;
         float capsuleHeight = 1f;
         CapsuleCollisionShape shape

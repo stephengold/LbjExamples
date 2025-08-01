@@ -148,7 +148,7 @@ public class HelloCustomShape extends BasePhysicsApp<PhysicsSpace> {
         addHalfCylinder(3f, 3f);
         addHemisphere(0f, 0f);
 
-        // Visualize shape of the disc:
+        // Visualize the shape of the disc:
         visualizeShape(disc);
     }
     // *************************************************************************

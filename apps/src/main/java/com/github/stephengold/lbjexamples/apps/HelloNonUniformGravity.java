@@ -110,11 +110,11 @@ public class HelloNonUniformGravity
      */
     @Override
     public void populateSpace() {
-        // Create a CollisionShape for the planet.
+        // Create a CollisionShape for the planet:
         float planetRadius = 0.1f;
         CollisionShape planetShape = new SphereCollisionShape(planetRadius);
 
-        // Create a planet (dynamic rigid body) and add it to the space.
+        // Create a planet (dynamic rigid body) and add it to the space:
         float planetMass = 1f; // physics mass unit = 10^25 kg
         planet = new PhysicsRigidBody(planetShape, planetMass);
         physicsSpace.addCollisionObject(planet);

@@ -130,7 +130,7 @@ public class HelloWalk
      */
     @Override
     public void populateSpace() {
-        // Create a character with a capsule shape and add it to the space.
+        // Create a character with a capsule shape and add it to the space:
         float capsuleRadius = 3f;
         float capsuleHeight = 4f;
         CapsuleCollisionShape shape
@@ -140,7 +140,7 @@ public class HelloWalk
         character.setGravity(60f);
         physicsSpace.addCollisionObject(character);
 
-        // Teleport the character to its initial location.
+        // Teleport the character to its initial location:
         character.setPhysicsLocation(new Vector3f(-73.6f, 19.09f, -45.58f));
 
         // Add a static heightmap to represent the ground:

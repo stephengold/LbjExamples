@@ -102,12 +102,13 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        // Create a CollisionShape for balls.
+        // Create a CollisionShape for balls:
         float ballRadius = 0.1f;
         CollisionShape ballShape = new SphereCollisionShape(ballRadius);
-
-        // Create 2 dynamic balls, one with CCD and one without,
-        // and add them to the space.
+        /*
+         * Create 2 dynamic balls, one with CCD and one without,
+         * and add them to the space:
+         */
         float mass = 1f;
         PhysicsRigidBody ccdBall = new PhysicsRigidBody(ballShape, mass);
         physicsSpace.addCollisionObject(ccdBall);
@@ -119,7 +120,7 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(controlBall);
         controlBall.setPhysicsLocation(new Vector3f(1f, 4f, 0f));
 
-        // Create a thin, static disc and add it to the space.
+        // Create a thin, static disc and add it to the space:
         float discRadius = 2f;
         float discThickness = 0.05f;
         CollisionShape discShape = new CylinderCollisionShape(

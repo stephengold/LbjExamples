@@ -94,7 +94,7 @@ final class HelloVehicle0 {
                 .setLoggingEnabled(true);
         loader.setRetryWithCleanExtraction(true);
 
-        // Load the Libbulletjme native library for this platform.
+        // Load the Libbulletjme native library for this platform:
         try {
             loader.loadLibrary(LoadingCriterion.CLEAN_EXTRACTION);
         } catch (Exception exception) {
@@ -102,7 +102,7 @@ final class HelloVehicle0 {
                     "Failed to load the Libbulletjme library!");
         }
 
-        // Create a PhysicsSpace using DBVT for broadphase.
+        // Create a PhysicsSpace using DBVT for broadphase:
         PhysicsSpace.BroadphaseType bPhase = PhysicsSpace.BroadphaseType.DBVT;
         PhysicsSpace physicsSpace = new PhysicsSpace(bPhase);
 
@@ -136,7 +136,7 @@ final class HelloVehicle0 {
         vehicle.setSuspensionDamping(7f); // default=0.88
         vehicle.setSuspensionStiffness(150f); // default=5.88
 
-        // Add 4 wheels, 2 in the front (for steering) and 2 in the rear.
+        // Add 4 wheels, 2 in the front (for steering) and 2 in the rear:
         boolean front = true;
         boolean rear = false;
         float frontAxisZ = 0.7f * noseZ; // offset from chassis center
@@ -160,7 +160,7 @@ final class HelloVehicle0 {
         // Apply a steering angle of 6 degrees left (to the front wheels).
         vehicle.steer(FastMath.PI / 30f);
 
-        // Apply a constant acceleration (to the chassis).
+        // Apply a constant acceleration (to the chassis):
         vehicle.accelerate(1f);
 
         // 150 iterations with a 16.7-msec timestep

@@ -153,7 +153,7 @@ public class HelloNewHinge
         chassis.setEnableSleep(false);
         physicsSpace.addCollisionObject(chassis);
 
-        // Add 4 wheels, 2 in the front (for steering) and 2 in the rear.
+        // Add 4 wheels, 2 in the front (for steering) and 2 in the rear:
         boolean front = true;
         boolean rear = false;
         float frontAxisZ = 0.7f * noseZ; // offset from chassis center
@@ -180,7 +180,7 @@ public class HelloNewHinge
             motor.set(MotorParam.ServoTarget, FastMath.PI / 30f);
         }
 
-        // Add a static plane to represent the ground.
+        // Add a static plane to represent the ground:
         float groundY = -radius - 0.35f;
         addPlane(groundY);
     }

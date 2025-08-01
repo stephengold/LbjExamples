@@ -112,7 +112,7 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
      */
     @Override
     public void populateSpace() {
-        // Create a static, rigid sphere and add it to the physics space.
+        // Create a static, rigid sphere and add it to the physics space:
         float radius = 1f;
         SphereCollisionShape shape = new SphereCollisionShape(radius);
         PhysicsRigidBody sphere
@@ -141,12 +141,12 @@ public class HelloPin extends BasePhysicsApp<PhysicsSoftSpace> {
         mat.setAngularStiffness(0f); // default=1
         /*
          * Improve simulation accuracy by increasing
-         * the number of position-solver iterations for the cloth.
+         * the number of position-solver iterations for the cloth:
          */
         SoftBodyConfig config = cloth.getSoftConfig();
         config.setPositionIterations(9);  // default=1
 
-        // Translate the cloth upward to its starting location.
+        // Translate the cloth upward to its starting location:
         cloth.applyTranslation(new Vector3f(0f, 2f, 0f));
 
         // Visualize the soft-body links and pin:

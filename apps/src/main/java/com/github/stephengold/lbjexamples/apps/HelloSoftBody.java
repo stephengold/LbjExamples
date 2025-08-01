@@ -112,12 +112,12 @@ public class HelloSoftBody extends BasePhysicsApp<PhysicsSoftSpace> {
     public void populateSpace() {
         addBox();
 
-        // A mesh is used to generate the shape and topology of the soft body.
+        // A mesh is used to generate the shape and topology of the soft body:
         int numRefinementIterations = 3;
         boolean indexed = true;
         Mesh mesh = new IcosphereMesh(numRefinementIterations, indexed);
 
-        // Create a soft ball and add it to the physics space.
+        // Create a soft ball and add it to the physics space:
         PhysicsSoftBody body = new PhysicsSoftBody();
         NativeSoftBodyUtil.appendFromTriMesh(mesh, body);
         physicsSpace.addCollisionObject(body);

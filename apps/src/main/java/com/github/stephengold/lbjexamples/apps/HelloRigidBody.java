@@ -94,11 +94,11 @@ public class HelloRigidBody extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        // Create a collision shape for balls.
+        // Create a collision shape for balls:
         float ballRadius = 1f;
         CollisionShape ballShape = new SphereCollisionShape(ballRadius);
 
-        // Create 2 balls (dynamic rigid bodies) and add them to the space.
+        // Create 2 balls (dynamic rigid bodies) and add them to the space:
         float ballMass = 2f;
         PhysicsRigidBody ball1 = new PhysicsRigidBody(ballShape, ballMass);
         physicsSpace.addCollisionObject(ball1);

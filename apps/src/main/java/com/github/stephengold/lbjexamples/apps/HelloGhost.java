@@ -143,7 +143,7 @@ public class HelloGhost
      */
     @Override
     public void populateSpace() {
-        // Create a ghost using a sphere shape and add it to the space.
+        // Create a ghost using a sphere shape and add it to the space:
         float sphereRadius = 10f;
         SphereCollisionShape sphereShape
                 = new SphereCollisionShape(sphereRadius);
@@ -151,7 +151,7 @@ public class HelloGhost
         ghost.setPhysicsLocation(new Vector3f(15f, 0f, -13f));
         physicsSpace.addCollisionObject(ghost);
 
-        // Create a character with a capsule shape and add it to the space.
+        // Create a character with a capsule shape and add it to the space:
         float capsuleRadius = 3f;
         float capsuleHeight = 4f;
         CapsuleCollisionShape shape

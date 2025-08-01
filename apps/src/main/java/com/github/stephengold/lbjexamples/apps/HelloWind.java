@@ -162,20 +162,20 @@ public class HelloWind
      */
     @Override
     public void populateSpace() {
-        // Generate a subdivided rectangle mesh with alternating diagonals.
+        // Generate a subdivided rectangle mesh with alternating diagonals:
         int xLines = 20;
         int zLines = 2 * xLines; // 2x as wide as it is tall
         float width = 2f;
         float lineSpacing = width / zLines;
         Mesh mesh = new ClothGrid(xLines, zLines, lineSpacing);
 
-        // Create a soft rectangle for the flag.
+        // Create a soft rectangle for the flag:
         flag = new PhysicsSoftBody();
         NativeSoftBodyUtil.appendFromTriMesh(mesh, flag);
         flag.setMargin(0.1f);
         flag.setMass(1f);
 
-        // Pin the left edge of the flag.
+        // Pin the left edge of the flag:
         int nodeIndex = 0; // upper left corner
         flag.setNodeMass(nodeIndex, PhysicsBody.massForStatic);
         nodeIndex = xLines - 1; // lower left corner
@@ -210,14 +210,14 @@ public class HelloWind
 
         physicsSpace.addCollisionObject(flag);
 
-        // Visualize the flag.
+        // Visualize the flag:
         new FacesGeometry(flag).setBackCulling(false);
         new PinsGeometry(flag);
 
-        // Visualize the wind velocity.
+        // Visualize the wind velocity:
         new WindVelocityGeometry(flag);
 
-        // Visualize the physics-space axes.
+        // Visualize the physics-space axes:
         visualizeAxes(null, 1f);
     }
     // *************************************************************************

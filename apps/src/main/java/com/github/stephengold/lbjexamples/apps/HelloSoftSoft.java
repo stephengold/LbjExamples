@@ -118,7 +118,7 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         int numRefinementIterations = 3;
         Mesh sphere = new IcosphereMesh(numRefinementIterations, true);
 
-        // Create 2 squishy balls and add them to the physics space.
+        // Create 2 squishy balls and add them to the physics space:
         PhysicsSoftBody ball1 = new PhysicsSoftBody();
         NativeSoftBodyUtil.appendFromTriMesh(sphere, ball1);
         physicsSpace.addCollisionObject(ball1);
@@ -135,7 +135,7 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         ball1.setPose(setVolumePose, setFramePose);
         ball2.setPose(setVolumePose, setFramePose);
 
-        // Enable pose matching to make the balls bouncy.
+        // Enable pose matching to make the balls bouncy:
         SoftBodyConfig config1 = ball1.getSoftConfig();
         config1.set(Sbcp.PoseMatching, 0.01f); // default = 0
         SoftBodyConfig config2 = ball2.getSoftConfig();
@@ -147,7 +147,7 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         config1.setCollisionFlags(ConfigFlag.VF_SS); // default = SDF_RS
         config2.setCollisionFlags(ConfigFlag.VF_SS);
 
-        // Translate ball2 upward and put it on a collision course with ball1.
+        // Translate ball2 upward and put it on a collision course with ball1:
         ball2.applyTranslation(new Vector3f(0f, 3f, 0f));
         ball2.setVelocity(new Vector3f(0f, -1f, 0f));
 
