@@ -238,8 +238,8 @@ boolean isConvex = shape.isConvex();
 assert convexClass == isConvex;
 ----
 
-NOTE: In this context, "convex" is a property of classes, not instances.
-While specific *instances* of non-convex classes have the convex property,
+NOTE: In {Project}, "convex" is a property of classes, not objects.
+While specific *instances* of non-convex classes possess the convex property,
 those classes don't guarantee it for *all* instances.
 
 _Concave_ is essentially the opposite of convex, except that compound shapes
@@ -522,7 +522,7 @@ when recombined, will approximate the desired behavior.
 There are various approaches,
 depending how much you know about the body's shape.
 
-* If the model's mesh is generated procedurally, it may be convenient
+* If the mesh was generated procedurally, it may be convenient
   to decompose it during the generation process.
 * If the mesh was crafted in a tool such as https://www.blender.org/[Blender],
   it may be practical to manually decompose it there,
