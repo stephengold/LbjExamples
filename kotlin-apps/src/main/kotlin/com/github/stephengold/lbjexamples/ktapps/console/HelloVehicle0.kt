@@ -37,12 +37,12 @@ import com.jme3.bullet.objects.PhysicsVehicle
 import com.jme3.math.FastMath
 import com.jme3.math.Plane
 import com.jme3.math.Vector3f
-import electrostatic4j.snaploader.LibraryInfo;
-import electrostatic4j.snaploader.LoadingCriterion;
-import electrostatic4j.snaploader.NativeBinaryLoader;
-import electrostatic4j.snaploader.filesystem.DirectoryPath;
-import electrostatic4j.snaploader.platform.NativeDynamicLibrary;
-import electrostatic4j.snaploader.platform.util.PlatformPredicate;
+import electrostatic4j.snaploader.LibraryInfo
+import electrostatic4j.snaploader.LoadingCriterion
+import electrostatic4j.snaploader.NativeBinaryLoader
+import electrostatic4j.snaploader.filesystem.DirectoryPath
+import electrostatic4j.snaploader.platform.NativeDynamicLibrary
+import electrostatic4j.snaploader.platform.util.PlatformPredicate
 
 /*
  * Drive a vehicle on a horizontal surface (non-graphical illustrative example).
