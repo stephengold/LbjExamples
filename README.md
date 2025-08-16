@@ -6,13 +6,12 @@ for [the Libbulletjme 3-D physics library][libbulletjme].
 
 It contains 3 subprojects:
 
-1. docs: [Antora] documentation for Libbulletjme, including the tutorial
-2. apps: [Java] applications referenced in the tutorial
-3. kotlin-apps: [Kotlin] translations of certain apps
+1. docs: [Antora] documentation for Libbulletjme, including a tutorial
+2. apps: sample applications referred to in the tutorial, written in [Java]
+3. kotlin-apps: sample applications in [Kotlin]
 
-The applications make use of [the SPORT graphics engine][sport],
-which was formerly a subproject and
-is now a separate project at [GitHub].
+The sample applications utilize [the SPORT graphics engine][sport],
+which was formerly a subproject and is now a separate project at [GitHub].
 
 Complete source code is provided under
 [a 3-clause BSD license][license].
@@ -79,5 +78,5 @@ You can restore the project to a pristine state:
 [libbulletjme]: https://stephengold.github.io/Libbulletjme/lbj-en/English/overview.html "Libbulletjme Project"
 [license]: https://github.com/stephengold/LbjExamples/blob/master/LICENSE "LbjExamples license"
 [project]: https://github.com/stephengold/LbjExamples "LbjExamples Project"
-[sport]: https://github.com/stephengold/sport "SPORT Project"
+[sport]: https://github.com/stephengold/sport "SPORT graphics engine"
 [swing]: https://en.wikipedia.org/wiki/Swing_(Java) "Swing toolkit"
