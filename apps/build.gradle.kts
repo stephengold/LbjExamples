@@ -41,8 +41,6 @@ tasks.withType<JavaCompile>().all { // Java compile-time options:
     }
 }
 
-val fs = System.getProperty("file.separator")
-
 // Register tasks to run specific applications:
 
 tasks.register<JavaExec>("AppChooser") {

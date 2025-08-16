@@ -16,8 +16,6 @@ tasks.named<Jar>("jar") {
     }
 }
 
-val fs = System.getProperty("file.separator")
-
 // Register tasks to run specific applications:
 
 // physics console apps (no graphics)
