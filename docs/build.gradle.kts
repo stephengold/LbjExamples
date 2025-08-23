@@ -1,11 +1,11 @@
 // Gradle script to build the "docs" subproject of LbjExamples
 
 plugins {
-    java
+    java // for sourceSets
 }
 
 sourceSets.main {
-    java {
-        srcDir("en") // for IDE access (no Java there)
+    resources {
+        srcDir("en") // for NetBeans access
     }
 }
