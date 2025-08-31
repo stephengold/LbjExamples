@@ -2,7 +2,7 @@
 
 [versions]
 
-checkstyle = "11.0.0"
+checkstyle = "11.0.1"
 libbulletjme = "22.0.1"
 lwjgl = "3.3.6"
 
