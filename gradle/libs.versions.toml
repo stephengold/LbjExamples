@@ -3,7 +3,7 @@
 [versions]
 
 checkstyle = "11.0.1"
-libbulletjme = "22.0.1"
+libbulletjme = "22.0.3"
 lwjgl = "3.3.6"
 
 [libraries]
