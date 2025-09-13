@@ -57,34 +57,40 @@ Here's the recommended procedure:
 After a successful build,
 artifacts will be found in "build/libs" (desktop) and "build/outputs/aar" (Android).
 
-=== Install artifacts
+=== Local installation
 
-You can install the built artifacts to your local Maven repository:
+Once you've successfully built one or more libraries,
+You can install them to your local Maven repository.
 
-* using Bash or Fish or PowerShell or Zsh: `./gradlew install;./gradlew -b android.gradle install`
-* using Windows Command Prompt:
-** `.\gradlew install`
-** `.\gradlew -b android.gradle install`
+. using Bash or Fish or PowerShell or Zsh: `./gradlew install;./gradlew -b android.gradle install`
+. using Windows Command Prompt:
+.. `.\gradlew install`
+.. `.\gradlew -b android.gradle install`
 
-=== Cleanup
+== Website
 
-After a build, you can restore the project to a pristine state:
+. Download and extract the LbjExamples source code from GitHub:
+.. using Git:
+... `git clone https://github.com/stephengold/LbjExamples.git`
+... `cd LbjExamples`
+.. using a web browser:
+... browse to https://github.com/stephengold/LbjExamples/archive/refs/heads/master.zip
+... extract the contents of the downloaded ZIP file
+... `cd` to the extracted directory
+. Edit "docs/playbook.yml" and replace "/home/sgold/NetBeansProjects/LbjExamples"
+  with an absolute path to your extracted directory (2 places).
+. https://docs.antora.org/antora/latest/install-and-run-quickstart/#install-nodejs[Install Node.js]
+. Install Antora: `npm i -D -E @antora/cli@3.1`
+. Run Antora: `npx antora docs/playbook.yml`
+
+After a successful build,
+your local site copy will be found in the "docs/build/site" directory.
+
+== Cleanup
+
+At any time, you can restore the project to a pristine state:
 
 * using Bash or Fish or PowerShell or Zsh: `./gradlew clean;./gradlew -b android.gradle clean`
 * using Windows Command Prompt:
 ** `.\gradlew clean`
 ** `.\gradlew -b android.gradle clean`
-
-== Website content
-
-. Download and extract the source code from GitHub:
-.. `git clone https://github.com/stephengold/LbjExamples.git`
-.. `cd LbjExamples`
-. Edit "docs/playbook.yml" and replace "/home/sgold/NetBeansProjects/LbjExamples"
-  with an absolute path to your checkout directory (2 places).
-. https://docs.antora.org/antora/latest/install-and-run-quickstart/#install-nodejs[Install Node.js]
-. Run Antora:
-.. `npx antora docs/playbook.yml`
-
-After a successful build,
-the local copy of the site will be found in the "docs/build/site" directory.
