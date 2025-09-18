@@ -45,14 +45,14 @@ jobs:
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --stacktrace
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --stacktrace
 
-  Java23-Windows:
+  Java25-Windows:
     if: contains(toJson(github.event.commits), '[ci skip] ') == false
     runs-on: windows-2025
     steps:
       - uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
-          java-version: 23
+          distribution: 'liberica'
+          java-version: 25
       - uses: actions/checkout@v5
       - run: ./gradlew javadoc --console=plain --stacktrace
         shell: bash
