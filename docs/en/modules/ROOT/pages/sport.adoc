@@ -1,6 +1,7 @@
 = Visualization using the SPORT graphics engine
 :experimental:
 :page-pagination:
+:Sport: SPORT
 :url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
@@ -13,9 +14,9 @@ Text provides scant insight into what the physics simulation is doing.
 For most people, pictures are much easier to understand.
 
 For the purpose of this tutorial series,
-we've created a graphics engine named SPORT
+we've created a graphics engine named {Sport}
 (the Simple Physics-ORienTed engine).
-SPORT enables us to visualize physics objects
+{Sport} enables us to visualize physics objects
 without adding much code to the tutorial apps.
 It is open-source, written in Java, and available from
 https://github.com/stephengold/sport[GitHub] and
@@ -24,7 +25,7 @@ https://central.sonatype.com/artifact/com.github.stephengold/sport[Maven Central
 == HelloSport
 
 {url-tutorial}/HelloSport.java[HelloSport] (also {url-kt}/HelloSport.kt[in Kotlin])
-is a direct conversion of `HelloLibbulletjme` into a SPORT app.
+is a direct conversion of `HelloLibbulletjme` into a {Sport} app.
 
 Details to note:
 
@@ -46,10 +47,10 @@ and play a brief animation of a sphere falling onto a horizontal surface.
 
 Pressing kbd:[Esc] should close the window and terminate the app.
 
-Hereafter, all our tutorial apps will use SPORT.
-Additional features of SPORT will be introduced as needed.
+Hereafter, all the tutorial apps will use {Sport}.
+Additional features of {Sport} will be introduced as needed.
 
 == Summary
 
-* SPORT is a graphics engine, created specifically for Libbulletjme tutorials.
-* SPORT provides a simple toolkit for visualizing 3-D physics.
+* {Sport} is a graphics engine, created specifically for Libbulletjme tutorials.
+* {Sport} provides a simple toolkit for visualizing 3-D physics.

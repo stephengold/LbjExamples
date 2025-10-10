@@ -1,8 +1,9 @@
 = An introduction to rigid-body physics
-:Project: Libbulletjme
 :experimental:
 :page-pagination:
 :page-toclevels: 3
+:Project: Libbulletjme
+:Sport: SPORT
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki
 :url-examples: https://github.com/stephengold/sport/blob/master/apps/src/main/java/com/github/stephengold/sport/demo
@@ -51,7 +52,7 @@ However, these last 3 features are optional in {Project} and can easily be disab
 
 === HelloRigidBody
 
-{url-tutorial}/HelloRigidBody.java[HelloRigidBody] (also {url-kt}/HelloRigidBody.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloRigidBody.java[HelloRigidBody] (also {url-kt}/HelloRigidBody.kt[in Kotlin]) is a {Sport} app
 that demonstrates the 5 familiar features of rigid bodies.
 
 Things to notice while running the app:
@@ -79,7 +80,7 @@ as if its mass were infinite.
 
 NOTE: Java's `static` keyword is completely unrelated to physics.
 
-{url-tutorial}/HelloStaticBody.java[HelloStaticBody] (also {url-kt}/HelloStaticBody.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloStaticBody.java[HelloStaticBody] (also {url-kt}/HelloStaticBody.kt[in Kotlin]) is a {Sport} app
 that combines static and dynamic rigid bodies.
 Things to notice while running the app:
 
@@ -88,7 +89,7 @@ Things to notice while running the app:
   that affect the motion of the dynamic ball.
 . The static ball stays fixed in place,
   unaffected by gravity and contact forces.
-. In SPORT, dynamic rigid bodies are conventionally colored magenta,
+. In {Sport}, dynamic rigid bodies are conventionally colored magenta,
   while non-dynamic ones are shown in gray.
 
 === Position
@@ -137,7 +138,7 @@ There's no direct way to instantiate a kinematic rigid body.
 The usual way is to instantiate a static or dynamic body and then convert it
 to kinematic using `rigidBody.setKinematic(true)`.
 
-{url-tutorial}/HelloKinematics.java[HelloKinematics] (also {url-kt}/HelloKinematics.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloKinematics.java[HelloKinematics] (also {url-kt}/HelloKinematics.kt[in Kotlin]) is a {Sport} app
 that combines kinematic and dynamic rigid bodies.
 Things to notice while running the app:
 
@@ -157,7 +158,7 @@ To disable contact response for a specific rigid body,
 use `rigidBody.setContactResponse(false)`.
 
 {url-tutorial}/HelloContactResponse.java[HelloContactResponse] (also {url-kt}/HelloContactResponse.kt[in Kotlin])
-is a SPORT app
+is a {Sport} app
 that demonstrates contact response.
 Things to notice while running the app:
 
@@ -166,7 +167,7 @@ Things to notice while running the app:
 . Press kbd:[E] to disable the ball's contact response.
 . Afterwards, the box no longer exerts any force on the ball.
   Gravity takes over, and the ball falls through the box.
-. In SPORT, non-responsive rigid bodies are shown in yellow.
+. In {Sport}, non-responsive rigid bodies are shown in yellow.
 
 NOTE: This documentation assumes a keyboard with the "US" (QWERTY) layout.
 On keyboards with other layouts, keys may be labeled differently.
@@ -245,7 +246,7 @@ float angularDamping = 0.2f;
 rigidBody.setDamping(linearDamping, angularDamping);
 ----
 
-{url-tutorial}/HelloDamping.java[HelloDamping] (also {url-kt}/HelloDamping.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloDamping.java[HelloDamping] (also {url-kt}/HelloDamping.kt[in Kotlin]) is a {Sport} app
 that demonstrates damping.
 Things to notice while running the app:
 
@@ -288,7 +289,7 @@ to which it's added, use `rigidBody.setProtectGravity(true)`.
 To simulate a non-uniform gravitational field,
 update the gravity of each body before each simulation step.
 {url-tutorial}/HelloNonUniformGravity.java[HelloNonUniformGravity] (also {url-kt}/HelloNonUniformGravity.kt[in Kotlin])
-is a SPORT app
+is a {Sport} app
 that demonstrates this technique.
 The planet orbits a black hole whose location is indicated by colored arrows.
 
@@ -434,14 +435,14 @@ Puzzling behavior may occur if a deactivated body is:
 The deactivated body will seem to be "stuck"
 because the events listed above do not, by themselves, reactivate it.
 
-{url-tutorial}/HelloDeactivation.java[HelloDeactivation] (also {url-kt}/HelloDeactivation.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloDeactivation.java[HelloDeactivation] (also {url-kt}/HelloDeactivation.kt[in Kotlin]) is a {Sport} app
 that demonstrates deactivation.
 Things to notice while running the app:
 
 . The upper (dynamic) box falls until it collides with the lower (static) box,
   which provides a contact force to halt its motion and counteract gravity.
 . About 2 seconds after the upper box stops moving, it gets deactivated.
-. In SPORT, deactivated rigid bodies are conventionally colored gray.
+. In {Sport}, deactivated rigid bodies are conventionally colored gray.
 . After the application removes the lower box,
   the dynamic box doesn't resume its descent.
   Due to deactivation, it appears to be "stuck".
@@ -490,7 +491,7 @@ if (rigidBody.isDynamic()) {
 }
 ----
 
-{url-tutorial}/HelloCcd.java[HelloCcd] (also {url-kt}/HelloCcd.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloCcd.java[HelloCcd] (also {url-kt}/HelloCcd.kt[in Kotlin]) is a {Sport} app
 that demonstrates CCD.
 Things to notice while running the app:
 

@@ -1,6 +1,7 @@
 = An introduction to vehicle physics
 :experimental:
 :page-pagination:
+:Sport: SPORT
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
@@ -38,7 +39,7 @@ Before adding it to a physics space, you should add wheels to it.
 For stability, a vehicle needs at least 3 wheels, and the chassis center of mass
 should be located between the wheels, roughly speaking.
 
-{url-tutorial}/HelloVehicle.java[HelloVehicle] (also {url-kt}/HelloVehicle.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloVehicle.java[HelloVehicle] (also {url-kt}/HelloVehicle.kt[in Kotlin]) is a {Sport} app
 that demonstrates the direct creation of a vehicle,
 followed by automated steering and acceleration.
 Things to notice while running the app:

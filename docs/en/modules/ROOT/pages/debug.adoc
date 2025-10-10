@@ -1,6 +1,7 @@
 = Troubleshooting physics issues
-:Project: Libbulletjme
 :page-pagination:
+:Project: Libbulletjme
+:Sport: SPORT
 
 {Project} uses `assert` statements to verify assumptions made while coding.
 During development, Java assertions should be enabled using:
@@ -17,9 +18,9 @@ such as "com.github.stephengold:Libbulletjme-Linux64:22.0.3:SpDebug".
 
 Many physics issues can be diagnosed visually.
 For instance, if you neglect to add a collision object to the physics space,
-SPORT will automatically omit it from the visualization.
+{Sport} will automatically omit it from the visualization.
 
-SPORT can be used to visualize:
+{Sport} can be used to visualize:
 
 * collision shapes,
 * vehicle wheels,
@@ -31,7 +32,7 @@ SPORT can be used to visualize:
 === Color conventions
 
 When visualizing a collision shape,
-SPORT uses colors to distinguish different types of collision objects:
+{Sport} uses colors to distinguish different types of collision objects:
 
 * yellow for an object without contact response,
   including any ghost object,
@@ -41,23 +42,23 @@ SPORT uses colors to distinguish different types of collision objects:
 * brown for a character that's grounded, and
 * pink for a character (with contact response) that isn't grounded.
 
-When visualizing a physics joint, SPORT uses:
+When visualizing a physics joint, {Sport} uses:
 
 * green for a "A" end and
 * red for a "B" end.
 
-When visualizing a soft body, SPORT uses:
+When visualizing a soft body, {Sport} uses:
 
 * red for the faces and
 * orange for the links.
 
-When visualizing coordinate axes, SPORT uses:
+When visualizing coordinate axes, {Sport} uses:
 
 * red for the +X axis,
 * green for the +Y axis, and
 * blue for the +Z axis.
 
-When visualizing bounding boxes, SPORT uses:
+When visualizing bounding boxes, {Sport} uses:
 
 * red for a ghost object whose overlapping count has increased,
 * green for a ghost whose count has decreased,
@@ -162,5 +163,5 @@ or the child shapes in each compound collision shape.
 == Summary
 
 * During development, enable Java assertions and use debug-enabled libraries.
-* SPORT visualization can be used to diagnose issues.
+* {Sport} visualization can be used to diagnose issues.
 * To obtain detailed information about scenes and physics, use a dumper.

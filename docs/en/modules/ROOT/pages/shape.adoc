@@ -2,6 +2,7 @@
 :item: &rarr;
 :page-pagination:
 :Project: Libbulletjme
+:Sport: SPORT
 :url-enwiki: https://en.wikipedia.org/wiki
 :url-examples-shapes: https://github.com/stephengold/LbjExamples/tree/master/apps/src/main/java/com/github/stephengold/shapes
 :url-shape: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet/collision/shapes
@@ -358,7 +359,7 @@ the center of mass and principal axes.
 At the very least,
 the shape's center should be located well inside its convex hull.
 
-{url-tutorial}/HelloMadMallet.java[HelloMadMallet] (also {url-kt}/HelloMadMallet.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloMadMallet.java[HelloMadMallet] (also {url-kt}/HelloMadMallet.kt[in Kotlin]) is a {Sport} app
 that demonstrates the effect of an implausibly centered shape.
 Things to notice while running the app:
 
@@ -389,7 +390,7 @@ the `principalAxes()` and `correctAxes()` methods
 may be used to adjust its center and axes for a specific mass distribution.
 
 {url-tutorial}/HelloMassDistribution.java[HelloMassDistribution] (also {url-kt}/HelloMassDistribution.kt[in Kotlin])
-is a SPORT app
+is a {Sport} app
 that demonstrates the use of `principalAxes()` and `correctAxes()`.
 Things to notice while running the app:
 

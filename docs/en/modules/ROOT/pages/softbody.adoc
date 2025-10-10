@@ -1,6 +1,7 @@
 = An introduction to soft-body physics
-:Project: Libbulletjme
 :page-pagination:
+:Project: Libbulletjme
+:Sport: SPORT
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
@@ -200,7 +201,7 @@ For a simple example of a pinned node, see
 
 == Simulating a rope
 
-{url-tutorial}/HelloSoftRope.java[HelloSoftRope] (also {url-kt}/HelloSoftRope.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloSoftRope.java[HelloSoftRope] (also {url-kt}/HelloSoftRope.kt[in Kotlin]) is a {Sport} app
 that demonstrates one way to simulate rope using a soft body.
 
 TODO: applying forces, anchors, soft joints, world info
@@ -208,7 +209,7 @@ TODO: applying forces, anchors, soft joints, world info
 
 == Aerodynamics
 
-{url-tutorial}/HelloWind.java[HelloWind] is a SPORT app
+{url-tutorial}/HelloWind.java[HelloWind] is a {Sport} app
 that simulates the effect of wind on a flag.
 
 Things notice while running the app:

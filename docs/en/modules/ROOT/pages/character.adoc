@@ -37,7 +37,7 @@ You can create a character by invoking the
 {url-api}/objects/PhysicsCharacter.html[`PhysicsCharacter`] constructor.
 This allows you to specify its collision shape and step height.
 
-{url-tutorial}/HelloCharacter.java[HelloCharacter] (also {url-kt}/HelloCharacter.kt[in Kotlin]) is a SPORT app
+{url-tutorial}/HelloCharacter.java[HelloCharacter] (also {url-kt}/HelloCharacter.kt[in Kotlin]) is a {Sport} app
 that demonstrates the creation of a character,
 followed by automated jumps.
 Things to notice about the app:
