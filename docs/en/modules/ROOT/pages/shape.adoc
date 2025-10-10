@@ -11,6 +11,7 @@
 A _collision shape_
 describes the shape and size of a collision object such as a rigid body.
 
+
 == The 19 shape classes
 
 The examples so far have all used spheres, cubes, and/or cylinders.
@@ -201,6 +202,7 @@ Similarly, collisions between `GImpactCollisionShape` and `PlaneCollisionShape`
 objects are never detected.
 ====
 
+
 == Custom shape classes
 
 Furthermore, you can define new shape classes by extending the
@@ -221,6 +223,7 @@ abstract {url-shape}/CustomConvexShape.html[`CustomConvexShape`] class:
 
 Examples of this are found in
 {url-examples-shapes}/custom[the `com.github.stephengold.shapes.custom` package].
+
 
 == Convex versus concave
 
@@ -266,6 +269,7 @@ For shapes with positive margin, the default thickness is 0.04 physics-space uni
 NOTE: While methods are provided to alter margins (and the default margin),
 doing so is not recommended.
 
+
 == Precise versus imprecise
 
 A _precise shape_ is a collision shape whose _effective shape_
@@ -309,6 +313,7 @@ or by moving its defining vertices inward (for a simplex or hull shape).
 
 Another possible workaround would be to scale the physics space
 so as to make the effects of margin less obvious.
+
 
 == Suitability for dynamic bodies
 
@@ -396,6 +401,7 @@ Things to notice while running the app:
 NOTE: The `principalAxes()` method relies on each child having an accurate
 center, axes, and moment of inertia.
 
+
 == Scaling
 
 Some applications require collision shapes that are _scalable_
@@ -430,6 +436,7 @@ if (shape.canScale(newScale)) {
     shape.setScale(newScale);
 }
 ----
+
 
 == Choosing a shape
 
@@ -528,6 +535,7 @@ depending how much you know about the body's shape.
   it may be practical to manually decompose it there,
   into sub-meshes that are convex or nearly so.
 
+
 == Automated decomposition
 
 For situations where other decomposition approaches are impractical,
@@ -561,6 +569,7 @@ The V-HACD algorithm is costly to run, but for many applications it can
 be run in advance and the output stored until needed.
 During simulation, the resulting shape will usually be much more efficient
 than a GImpact shape.
+
 
 == Summary
 

@@ -6,6 +6,7 @@
 This page acts as a holding area for tutorial material that's waiting
 to be organized.
 
+
 == Startup message
 
 By default, the native library prints a startup message to `System.out`.
@@ -15,6 +16,7 @@ Once the library is loaded (but not started) you can disable this message:
 ----
 NativeLibrary.setStartupMessageEnabled(false);
 ----
+
 
 == Library versions and properties
 
@@ -55,6 +57,7 @@ CollisionShape.setDefaultMargin(0.1f);
 ----
 
 NOTE: The Bullet Manual advises against changing the default margin.
+
 
 == Broadphase types
 

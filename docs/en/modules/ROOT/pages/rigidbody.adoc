@@ -9,6 +9,7 @@
 :url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
 :url-tutorial: https://github.com/stephengold/LbjExamples/blob/master/apps/src/main/java/com/github/stephengold/lbjexamples/apps
 
+
 == The 5 familiar features
 
 A _rigid body_ is a type of collision object
@@ -63,6 +64,7 @@ Things to notice while running the app:
   that alter the balls' motions but not their shapes.
 .. The ball on the right loses half its horizontal velocity.
 .. The ball on the left begins moving leftward as it falls.
+
 
 == Configuring rigid bodies
 
@@ -444,6 +446,7 @@ Things to notice while running the app:
   the dynamic box doesn't resume its descent.
   Due to deactivation, it appears to be "stuck".
 
+
 == Continuous collision detection
 
 A common issue with discrete-time physics simulation
@@ -502,6 +505,7 @@ For some applications (such as simulation of fast-moving ragdolls),
 testing for dynamic-dynamic collisions is undesirable.
 You can disable dynamic-dynamic CCD
 by invoking `physicsSpace.setCcdWithStaticOnly(true)`.
+
 
 == Summary
 

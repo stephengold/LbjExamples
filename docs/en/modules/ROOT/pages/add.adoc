@@ -17,6 +17,7 @@ Adding {Project} to an existing Java project is a 6-step process:
 . Simulate the physics space.
 . Test and tune as necessary.
 
+
 == Add libraries to classpath
 
 {Project} requires both a JVM library and a native library.
@@ -92,6 +93,7 @@ dependencies {
 For some older versions of Gradle,
 it's necessary to replace `implementation` with `compile`.
 
+
 == Load the native library
 
 You must load {Project}'s native library
@@ -147,6 +149,7 @@ loader.registerNativeLibraries(libraries).initPlatformLibrary();
 loader.loadLibrary(LoadingCriterion.CLEAN_EXTRACTION);
 ----
 
+
 == Create a physics space
 
 There are many constructors and options.
@@ -157,6 +160,7 @@ Here's the simplest way:
 import com.jme3.bullet.PhysicsSpace;
 PhysicsSpace physicsSpace = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 ----
+
 
 == Create and add objects
 
@@ -192,6 +196,7 @@ physicsSpace.addCollisionObject(ghost1);
 physicsSpace.addCollisionObject(body1);
 ----
 
+
 == Simulate the physics space
 
 To simulate a single 20-millisecond step:
@@ -213,6 +218,7 @@ using the configured step size:
 ----
 physicsSpace.update(intervalSeconds);
 ----
+
 
 == HelloLibbulletjme
 
@@ -244,6 +250,7 @@ you should be able to launch tutorial apps from a command shell, like so:
 . `cd LbjExamples`
 . `./gradlew :apps:HelloLibbulletjme`
 ====
+
 
 == Summary
 

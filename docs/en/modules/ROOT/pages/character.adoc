@@ -30,6 +30,7 @@ and its motion is controlled very differently from a dynamic body.
 Instead of applying forces or directly updating the character's velocities,
 the app should specify when and how the character should walk and jump.
 
+
 == Creation
 
 You can create a character by invoking the
@@ -47,6 +48,7 @@ Things to notice about the app:
   by a solid surface (as opposed to jumping or falling).
 . In {Sport}, characters that are jumping or falling are shown in pink,
   while characters that are on ground are shown in brown.
+
 
 == Walking
 
@@ -141,6 +143,7 @@ As with a rigid body, you can disable the contact response of a character using
 
 Disabling a character's contact response
 will compel it to fall, at least until contact response is re-enabled.
+
 
 == Summary
 

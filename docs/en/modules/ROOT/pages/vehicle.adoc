@@ -28,6 +28,7 @@ Instead of applying forces or directly updating the vehicle's velocities,
 an app using a physics vehicle
 should specify when and how the vehicle accelerates, steers, and brakes.
 
+
 == Creation
 
 You can create a vehicle without wheels by invoking the

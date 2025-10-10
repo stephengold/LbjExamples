@@ -12,6 +12,7 @@ Similarly, native-code assertions should be enabled during development,
 by loading a native library of the "debug" type,
 such as "com.github.stephengold:Libbulletjme-Linux64:22.0.3:SpDebug".
 
+
 == Visualization
 
 Many physics issues can be diagnosed visually.
@@ -62,6 +63,7 @@ When visualizing bounding boxes, SPORT uses:
 * green for a ghost whose count has decreased,
 * yellow for a ghost whose count is unchanged, and
 * white for a non-ghost collision object.
+
 
 == An introduction to `PhysicsDumper`
 
@@ -155,6 +157,7 @@ dumper.setEnabled(DumpFlags.JointsInSpaces, true); // default=false
 
 Other dump flags can be set to describe the nodes or clusters in each soft body
 or the child shapes in each compound collision shape.
+
 
 == Summary
 
