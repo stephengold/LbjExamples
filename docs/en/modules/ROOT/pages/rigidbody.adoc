@@ -271,7 +271,7 @@ that quantifies the acceleration, assuming the body is dynamic.
 To configure a body's gravity, use `setGravity(accelerationVector)`.
 
 NOTE: If following the Y-up axes convention, the X and Z components of the
-vector should be zero and its Y component should be *negative*.
+vector should be zero, and its Y component should be *negative*.
 
 To disable gravity for a particular rigid body,
 use `rigidBody.setGravity(Vector3f.ZERO)`.

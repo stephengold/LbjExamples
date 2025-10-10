@@ -62,7 +62,7 @@ so a single JVM library suffices.
 
 == Collision objects, spaces, and shapes
 
-Collision detection is organized around _collision objects_ amd _physics joints_
+Collision detection is organized around _collision objects_ and _physics joints_
 that interact in the context of a _collision space_.
 
 Collision objects can be _soft_ (varying shape) or _rigid_ (non-varying shape).
