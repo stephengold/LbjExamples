@@ -1,7 +1,7 @@
 = An introduction to New6Dof constraints
-:Project: Libbulletjme
 :experimental:
 :page-pagination:
+:Project: Libbulletjme
 :Sport: SPORT
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki

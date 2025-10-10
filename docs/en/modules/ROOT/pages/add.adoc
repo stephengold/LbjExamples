@@ -1,7 +1,7 @@
 = How to add Libbulletjme to an existing project
-:Project: Libbulletjme
 :experimental:
 :page-pagination:
+:Project: Libbulletjme
 :url-api: https://stephengold.github.io/Libbulletjme/javadoc/master/com/jme3/bullet
 :url-enwiki: https://en.wikipedia.org/wiki
 :url-kt: https://github.com/stephengold/LbjExamples/blob/master/kotlin-apps/src/main/kotlin/com/github/stephengold/lbjexamples/ktapps
