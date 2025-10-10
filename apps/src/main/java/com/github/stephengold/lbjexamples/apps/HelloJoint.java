@@ -119,10 +119,10 @@ public class HelloJoint
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, register the application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener:
         result.addTickListener(this);
 
-        // Reduce the time step for better accuracy.
+        // Reduce the time step for better accuracy:
         result.setAccuracy(0.005f);
 
         return result;
@@ -138,7 +138,7 @@ public class HelloJoint
         configureCamera();
         setLightDirection(7f, 3f, 5f);
 
-        // Disable VSync for more frequent mouse-position updates.
+        // Disable VSync for more frequent mouse-position updates:
         setVsync(false);
     }
 
@@ -147,16 +147,16 @@ public class HelloJoint
      */
     @Override
     public void populateSpace() {
-        // Add a static plane to represent the ground.
+        // Add a static plane to represent the ground:
         addPlane(groundY);
 
-        // Add a mouse-controlled kinematic paddle.
+        // Add a mouse-controlled kinematic paddle:
         addPaddle();
 
-        // Add a dynamic ball.
+        // Add a dynamic ball:
         PhysicsRigidBody ballBody = addBall();
 
-        // Add a single-ended physics joint to constrain the ball's motion.
+        // Add a single-ended physics joint to constrain the ball's motion:
         Vector3f pivotInBall = new Vector3f(0f, 3f, 0f);
         Vector3f pivotInWorld = new Vector3f(0f, groundY + 4f, 0f);
         Matrix3f rotInBall = Matrix3f.IDENTITY;
@@ -165,7 +165,7 @@ public class HelloJoint
                 rotInBall, rotInWorld, RotationOrder.XYZ);
         physicsSpace.addJoint(joint);
 
-        // Visualize the physics joint.
+        // Visualize the physics joint:
         new ConstraintGeometry(joint, JointEnd.B);
     }
 
@@ -174,7 +174,7 @@ public class HelloJoint
      */
     @Override
     public void render() {
-        // Calculate the ground location (if any) indicated by the mouse cursor.
+        // Calculate the ground location (if any) indicated by the mouse cursor:
         Vector2fc screenXy = getInputManager().locateCursor();
         if (screenXy != null) {
             Vector3f nearLocation
@@ -200,7 +200,7 @@ public class HelloJoint
      */
     @Override
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
-        // Reposition the paddle based on the mouse location.
+        // Reposition the paddle based on the mouse location:
         Vector3f bodyLocation = mouseLocation.add(0f, paddleHalfHeight, 0f);
         paddleBody.setPhysicsLocation(bodyLocation);
     }
@@ -231,7 +231,7 @@ public class HelloJoint
         PhysicsRigidBody result = new PhysicsRigidBody(shape, mass);
         physicsSpace.addCollisionObject(result);
 
-        // Disable sleep (deactivation).
+        // Disable sleep (deactivation):
         result.setEnableSleep(false);
 
         visualizeShape(result);

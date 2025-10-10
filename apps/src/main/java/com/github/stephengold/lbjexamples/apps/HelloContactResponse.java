@@ -113,7 +113,7 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        // Add a static box to the space, to serve as a horizontal platform.
+        // Add a static box to the space, to serve as a horizontal platform:
         float boxHalfExtent = 3f;
         CollisionShape boxShape = new BoxCollisionShape(boxHalfExtent);
         PhysicsRigidBody box
@@ -121,7 +121,7 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(box);
         box.setPhysicsLocation(new Vector3f(0f, -4f, 0f));
 
-        // Add a dynamic ball to the space.
+        // Add a dynamic ball to the space:
         float ballRadius = 1f;
         CollisionShape ballShape = new SphereCollisionShape(ballRadius);
         float ballMass = 2f;
@@ -129,7 +129,7 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(ball);
         assert ball.isContactResponse();
 
-        // Position the ball directly above the box.
+        // Position the ball directly above the box:
         ball.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
 
         // Visualize the shapes of both rigid bodies:
@@ -160,10 +160,10 @@ public class HelloContactResponse extends BasePhysicsApp<PhysicsSpace> {
             public void onKeyboard(int glfwKeyId, boolean isPressed) {
                 if (glfwKeyId == GLFW.GLFW_KEY_E) {
                     if (isPressed) {
-                        // Disable the ball's contact response.
+                        // Disable the ball's contact response:
                         ball.setContactResponse(false);
 
-                        // Activate the ball in case it got deactivated.
+                        // Activate the ball in case it got deactivated:
                         ball.activate();
                     }
                     return;

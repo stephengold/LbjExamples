@@ -96,7 +96,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         setVsync(true);
         getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
 
-        // Position the camera for a good view.
+        // Position the camera for a good view:
         cam.setLocation(new Vector3f(10f, -2.75f, 0f));
         cam.setUpAngle(0.05f);
         cam.setAzimuth(-3.05f);
@@ -129,7 +129,7 @@ public class HelloMadMallet extends BasePhysicsApp<PhysicsSpace> {
         PhysicsRigidBody mallet = new PhysicsRigidBody(malletShape, mass);
         mallet.setPhysicsLocation(new Vector3f(0f, 4f, 0f));
 
-        // Increase the mallet's angular damping to stabilize it.
+        // Increase the mallet's angular damping to stabilize it:
         mallet.setAngularDamping(0.9f);
 
         physicsSpace.addCollisionObject(mallet);

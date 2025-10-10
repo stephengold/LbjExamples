@@ -100,7 +100,7 @@ public class HelloMinkowski extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        // Add a static rigid body with a cone shape.
+        // Add a static rigid body with a cone shape:
         float radius = 1f;
         float height = 1f;
         ConeCollisionShape coneShape = new ConeCollisionShape(radius, height);
@@ -110,7 +110,7 @@ public class HelloMinkowski extends BasePhysicsApp<PhysicsSpace> {
         physicsSpace.addCollisionObject(cone);
         visualizeShape(cone);
 
-        // Add a static rigid body with a Minkowski-sum shape.
+        // Add a static rigid body with a Minkowski-sum shape:
         MinkowskiSum sumShape = new MinkowskiSum(coneShape, coneShape);
         PhysicsRigidBody sum
                 = new PhysicsRigidBody(sumShape, PhysicsBody.massForStatic);

@@ -118,10 +118,10 @@ public class HelloLimit
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, register the application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener:
         result.addTickListener(this);
 
-        // Reduce the time step for better accuracy.
+        // Reduce the time step for better accuracy:
         result.setAccuracy(0.005f);
 
         return result;
@@ -150,10 +150,10 @@ public class HelloLimit
         float halfExtent = 3f;
         final PhysicsRigidBody ground = addSquare(halfExtent, groundY);
 
-        // Add a mouse-controlled kinematic paddle.
+        // Add a mouse-controlled kinematic paddle:
         addPaddle();
 
-        // Add a dynamic ball.
+        // Add a dynamic ball:
         PhysicsRigidBody ballBody = addBall();
 
         // Add a single-ended physics joint to constrain the ball's center:
@@ -176,7 +176,7 @@ public class HelloLimit
         joint.set(MotorParam.LowerLimit, PhysicsSpace.AXIS_Y, paddleY);
         joint.set(MotorParam.UpperLimit, PhysicsSpace.AXIS_Y, paddleY);
 
-        // Visualize the ground.
+        // Visualize the ground:
         visualizeShape(ground)
                 .setColor(Constants.GREEN)
                 .setSpecularColor(Constants.DARK_GRAY);
@@ -244,10 +244,10 @@ public class HelloLimit
         PhysicsRigidBody result = new PhysicsRigidBody(shape, mass);
         physicsSpace.addCollisionObject(result);
 
-        // Apply angular damping to reduce the ball's tendency to spin.
+        // Apply angular damping to reduce the ball's tendency to spin:
         result.setAngularDamping(0.6f);
 
-        // Disable sleep (deactivation).
+        // Disable sleep (deactivation):
         result.setEnableSleep(false);
 
         visualizeShape(result);
@@ -276,7 +276,7 @@ public class HelloLimit
      * @return the new body (not null)
      */
     private PhysicsRigidBody addSquare(float halfExtent, float y) {
-        // Construct a static rigid body with a square shape.
+        // Construct a static rigid body with a square shape:
         Box2dShape shape = new Box2dShape(halfExtent);
         PhysicsRigidBody result
                 = new PhysicsRigidBody(shape, PhysicsBody.massForStatic);
@@ -288,7 +288,7 @@ public class HelloLimit
                 = new Quaternion().fromAngles(-FastMath.HALF_PI, 0f, 0f);
         result.setPhysicsRotation(rotate90);
 
-        // Translate it to the desired elevation.
+        // Translate it to the desired elevation:
         result.setPhysicsLocation(new Vector3f(0f, y, 0f));
 
         return result;
@@ -311,7 +311,7 @@ public class HelloLimit
     private void configureLighting() {
         setLightDirection(7f, 3f, 5f);
 
-        // Set the background color to light blue.
+        // Set the background color to light blue:
         setBackgroundColor(Constants.SKY_BLUE);
     }
 }

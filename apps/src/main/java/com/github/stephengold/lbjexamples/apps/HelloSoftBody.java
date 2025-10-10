@@ -101,7 +101,7 @@ public class HelloSoftBody extends BasePhysicsApp<PhysicsSoftSpace> {
         super.initialize();
         setVsync(true);
 
-        // Relocate the camera.
+        // Relocate the camera:
         cam.setLocation(new Vector3f(0f, 1f, 8f));
     }
 
@@ -129,11 +129,11 @@ public class HelloSoftBody extends BasePhysicsApp<PhysicsSoftSpace> {
         boolean setFramePose = true;
         body.setPose(setVolumePose, setFramePose);
 
-        // Enable pose matching to make the body bouncy.
+        // Enable pose matching to make the body bouncy:
         SoftBodyConfig config = body.getSoftConfig();
         config.set(Sbcp.PoseMatching, 0.05f);
 
-        // Translate the body to its start location.
+        // Translate the body to its start location:
         body.applyTranslation(new Vector3f(0f, 3f, 0f));
 
         // Visualize the soft-body faces:

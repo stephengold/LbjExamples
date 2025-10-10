@@ -123,7 +123,7 @@ public class HelloCharacter
         character = new PhysicsCharacter(shape, stepHeight);
         physicsSpace.addCollisionObject(character);
 
-        // Add a square to represent the ground.
+        // Add a square to represent the ground:
         float halfExtent = 4f;
         float y = -2f;
         PhysicsRigidBody ground = addSquare(halfExtent, y);
@@ -143,7 +143,7 @@ public class HelloCharacter
      */
     @Override
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
-        // If the character is touching the ground, cause it to jump.
+        // If the character is touching the ground, cause it to jump:
         if (character.onGround()) {
             character.jump();
         }
@@ -170,19 +170,19 @@ public class HelloCharacter
      * @return the new body (not null)
      */
     private PhysicsRigidBody addSquare(float halfExtent, float y) {
-        // Construct a static rigid body with a square shape.
+        // Construct a static rigid body with a square shape:
         Box2dShape shape = new Box2dShape(halfExtent);
         PhysicsRigidBody result
                 = new PhysicsRigidBody(shape, PhysicsBody.massForStatic);
 
         physicsSpace.addCollisionObject(result);
 
-        // Rotate it 90 degrees to a horizontal orientation.
+        // Rotate it 90 degrees to a horizontal orientation:
         Quaternion rotate90
                 = new Quaternion().fromAngles(-FastMath.HALF_PI, 0f, 0f);
         result.setPhysicsRotation(rotate90);
 
-        // Translate it to the desired elevation.
+        // Translate it to the desired elevation:
         result.setPhysicsLocation(new Vector3f(0f, y, 0f));
 
         return result;
@@ -197,7 +197,7 @@ public class HelloCharacter
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, register the application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener:
         result.addTickListener(this);
 
         return result;

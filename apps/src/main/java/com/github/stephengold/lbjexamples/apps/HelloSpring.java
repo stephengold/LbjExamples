@@ -187,7 +187,7 @@ public class HelloSpring
      */
     @Override
     public void render() {
-        // Calculate the ground location (if any) indicated by the mouse cursor.
+        // Calculate the ground location (if any) indicated by the mouse cursor:
         Vector2fc screenXy = getInputManager().locateCursor();
         if (screenXy != null) {
             Vector3f nearLocation
@@ -214,7 +214,7 @@ public class HelloSpring
      */
     @Override
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
-        // Reposition the paddle based on the mouse location.
+        // Reposition the paddle based on the mouse location:
         Vector3f bodyLocation = mouseLocation.add(0f, paddleHalfHeight, 0f);
         paddleBody.setPhysicsLocation(bodyLocation);
     }
@@ -245,7 +245,7 @@ public class HelloSpring
         PhysicsRigidBody result = new PhysicsRigidBody(shape, mass);
         physicsSpace.addCollisionObject(result);
 
-        // Disable sleep (deactivation).
+        // Disable sleep (deactivation):
         result.setEnableSleep(false);
 
         visualizeShape(result);

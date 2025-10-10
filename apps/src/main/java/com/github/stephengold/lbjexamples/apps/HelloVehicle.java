@@ -111,9 +111,10 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
         // Add a static horizontal plane at y=-0.65 to represent the ground:
         float groundY = -0.65f;
         addPlane(groundY);
-
-        // Create a wedge-shaped vehicle with a low center of gravity:
-        // The local forward direction is +Z.
+        /*
+         * Create a wedge-shaped vehicle with a low center of gravity.
+         * The local forward direction is +Z.
+         */
         float noseZ = 1.4f;           // offset from chassis center
         float spoilerY = 0.5f;        // offset from chassis center
         float tailZ = -0.7f;          // offset from chassis center
@@ -134,7 +135,7 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
         vehicle.setSuspensionDamping(7f); // default=0.88
         vehicle.setSuspensionStiffness(150f); // default=5.88
 
-        // Add 4 wheels, 2 in the front (for steering) and 2 in the rear.
+        // Add 4 wheels, 2 in the front (for steering) and 2 in the rear:
         boolean front = true;
         boolean rear = false;
         float frontAxleZ = 0.7f * noseZ; // offset from chassis center
@@ -159,10 +160,10 @@ public class HelloVehicle extends BasePhysicsApp<PhysicsSpace> {
         visualizeShape(vehicle);
         visualizeWheels(vehicle);
 
-        // Apply a steering angle of 6 degrees left (to the front wheels).
+        // Apply a steering angle of 6 degrees left (to the front wheels):
         vehicle.steer(FastMath.PI / 30f);
 
-        // Apply a constant acceleration (to the chassis).
+        // Apply a constant acceleration (to the chassis):
         vehicle.accelerate(1f);
     }
     // *************************************************************************

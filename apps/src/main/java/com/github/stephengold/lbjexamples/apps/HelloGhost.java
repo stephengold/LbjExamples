@@ -181,18 +181,18 @@ public class HelloGhost
      */
     @Override
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
-        // Clear any motion from the previous simulation step.
+        // Clear any motion from the previous simulation step:
         character.setWalkDirection(Vector3f.ZERO);
         /*
          * If the character is touching the ground,
-         * cause it respond to keyboard input.
+         * cause it respond to keyboard input:
          */
         if (character.onGround()) {
             if (jumpRequested) {
                 character.jump();
 
             } else {
-                // Walk as directed.
+                // Walk as directed:
                 Vector3f offset = cam.getDirection();
                 float backward = walkBackward ? 1f : 0f;
                 float forward = walkForward ? 1f : 0f;
@@ -296,7 +296,7 @@ public class HelloGhost
     private void configureLighting() {
         setLightDirection(7f, 3f, 5f);
 
-        // Set the background color to light blue.
+        // Set the background color to light blue:
         setBackgroundColor(Constants.SKY_BLUE);
     }
 
@@ -309,7 +309,7 @@ public class HelloGhost
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, register the application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener:
         result.addTickListener(this);
 
         return result;

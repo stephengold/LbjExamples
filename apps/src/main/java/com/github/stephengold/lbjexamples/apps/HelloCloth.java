@@ -101,7 +101,7 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
         super.initialize();
         setVsync(true);
 
-        // Relocate the camera.
+        // Relocate the camera:
         cam.setLocation(new Vector3f(0f, 1f, 8f));
     }
 
@@ -118,7 +118,7 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
         physicsSpace.addCollisionObject(sphere);
         visualizeShape(sphere);
 
-        // Generate a subdivided square mesh with alternating diagonals.
+        // Generate a subdivided square mesh with alternating diagonals:
         int numLines = 41;
         float lineSpacing = 0.1f; // mesh units
         Mesh squareGrid = new ClothGrid(numLines, numLines, lineSpacing);
@@ -129,18 +129,18 @@ public class HelloCloth extends BasePhysicsApp<PhysicsSoftSpace> {
         physicsSpace.addCollisionObject(cloth);
         /*
          * Make the cloth flexible by reducing the angular stiffness
-         * of its material.
+         * of its material:
          */
         SoftBodyMaterial mat = cloth.getSoftMaterial();
         mat.setAngularStiffness(0f); // default=1
         /*
          * Improve simulation accuracy by increasing
-         * the number of position-solver iterations for the cloth.
+         * the number of position-solver iterations for the cloth:
          */
         SoftBodyConfig config = cloth.getSoftConfig();
         config.setPositionIterations(9);  // default=1
 
-        // Translate the cloth upward to its starting location.
+        // Translate the cloth upward to its starting location:
         cloth.applyTranslation(new Vector3f(0f, 2f, 0f));
 
         // Visualize the soft-body links:

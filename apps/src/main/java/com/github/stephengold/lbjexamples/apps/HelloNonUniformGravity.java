@@ -96,10 +96,10 @@ public class HelloNonUniformGravity
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, register the application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener:
         result.addTickListener(this);
 
-        // Reduce the time step for better accuracy.
+        // Reduce the time step for better accuracy:
         result.setAccuracy(0.005f);
 
         return result;
@@ -119,17 +119,17 @@ public class HelloNonUniformGravity
         planet = new PhysicsRigidBody(planetShape, planetMass);
         physicsSpace.addCollisionObject(planet);
 
-        // Prevent deactivation of the planet.
+        // Prevent deactivation of the planet:
         planet.setEnableSleep(false);
 
-        // Kick the planet into orbit around the central black hole.
+        // Kick the planet into orbit around the central black hole:
         planet.setPhysicsLocation(new Vector3f(2f, 0f, 0f));
         planet.applyCentralImpulse(new Vector3f(0f, -1f, 0f));
 
         // Visualize the shape of the planet:
         visualizeShape(planet);
 
-        // Visualize axes to indicate the black hole's location.
+        // Visualize axes to indicate the black hole's location:
         new LocalAxisGeometry(null, MyVector3f.xAxis, 1f);
         new LocalAxisGeometry(null, MyVector3f.yAxis, 1f);
     }
@@ -156,7 +156,7 @@ public class HelloNonUniformGravity
      */
     @Override
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
-        // Calculate the gravitational acceleration GM/r^2.
+        // Calculate the gravitational acceleration GM/r^2 :
         planet.getPhysicsLocation(tmpVector);
         float r2 = tmpVector.lengthSquared(); //squared distance from black hole
         MyVector3f.normalizeLocal(tmpVector);

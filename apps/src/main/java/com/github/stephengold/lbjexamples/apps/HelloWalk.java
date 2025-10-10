@@ -202,7 +202,7 @@ public class HelloWalk
         float maxHeight = 51f;
         float[] heightArray = Utils.toHeightArray(image, maxHeight);
 
-        // Construct a static rigid body based on the array of heights.
+        // Construct a static rigid body based on the array of heights:
         CollisionShape shape = new HeightfieldCollisionShape(heightArray);
         PhysicsRigidBody body
                 = new PhysicsRigidBody(shape, PhysicsBody.massForStatic);
@@ -223,7 +223,7 @@ public class HelloWalk
         getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
         getProjection().setFovyDegrees(30f);
 
-        // Bring the near plane closer to reduce clipping.
+        // Bring the near plane closer to reduce clipping:
         getProjection().setZClip(0.1f, 1_000f);
     }
 
@@ -241,7 +241,7 @@ public class HelloWalk
 
                     case GLFW.GLFW_KEY_W:
                         walkRequested = isPressed;
-                        // This overrides the CameraInputProcessor.
+                        // This overrides the CameraInputProcessor:
                         return;
 
                     default:
@@ -258,7 +258,7 @@ public class HelloWalk
         setLightColor(0.3f, 0.3f, 0.3f);
         setLightDirection(7f, 3f, 5f);
 
-        // Set the background color to light blue.
+        // Set the background color to light blue:
         setBackgroundColor(Constants.SKY_BLUE);
     }
 
@@ -271,7 +271,7 @@ public class HelloWalk
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, register the application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener:
         result.addTickListener(this);
 
         return result;

@@ -100,7 +100,7 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // For clarity, disable gravity.
+        // For clarity, disable gravity:
         result.setGravity(Vector3f.ZERO);
 
         return result;
@@ -141,17 +141,17 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
         int yRotationDof = 3 + PhysicsSpace.AXIS_Y;
         int zRotationDof = 3 + PhysicsSpace.AXIS_Z;
 
-        // Lock the X and Z rotation DOFs.
+        // Lock the X and Z rotation DOFs:
         joint.set(MotorParam.LowerLimit, xRotationDof, 0f);
         joint.set(MotorParam.LowerLimit, zRotationDof, 0f);
         joint.set(MotorParam.UpperLimit, xRotationDof, 0f);
         joint.set(MotorParam.UpperLimit, zRotationDof, 0f);
 
-        // Limit the Y rotation DOF.
+        // Limit the Y rotation DOF:
         joint.set(MotorParam.LowerLimit, yRotationDof, 0f);
         joint.set(MotorParam.UpperLimit, yRotationDof, 1.2f);
 
-        // Enable the motor for Y rotation.
+        // Enable the motor for Y rotation:
         motor = joint.getRotationMotor(PhysicsSpace.AXIS_Y);
         motor.set(MotorParam.TargetVelocity, 0.4f);
         motor.setMotorEnabled(true);
@@ -175,7 +175,7 @@ public class HelloServo extends BasePhysicsApp<PhysicsSpace> {
         PhysicsRigidBody result = new PhysicsRigidBody(shape, mass);
         physicsSpace.addCollisionObject(result);
 
-        // Disable sleep (deactivation).
+        // Disable sleep (deactivation):
         result.setEnableSleep(false);
 
         visualizeShape(result).setColor(Constants.YELLOW);

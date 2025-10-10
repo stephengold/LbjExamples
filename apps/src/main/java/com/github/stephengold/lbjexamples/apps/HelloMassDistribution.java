@@ -100,7 +100,7 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         setVsync(true);
         getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
 
-        // Position the camera for a good view.
+        // Position the camera for a good view:
         cam.setLocation(new Vector3f(10f, -2.75f, 0f));
         cam.setUpAngle(0.05f);
         cam.setAzimuth(-3.05f);
@@ -111,7 +111,7 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void populateSpace() {
-        // Construct a compound shape for the mallet.
+        // Construct a compound shape for the mallet:
         float headLength = 1f;
         float headRadius = 0.5f;
         Vector3f hes = new Vector3f(headLength / 2f, headRadius, headRadius);
@@ -128,7 +128,7 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         malletShape.addChildShape(handleShape, 0f, 0f, handleLength / 2f);
         malletShape.addChildShape(headShape, 0f, 0f, handleLength);
 
-        // Calculate a correction to put 75% of the mass in the head.
+        // Calculate a correction to put 75% of the mass in the head:
         float handleMass = 0.5f;
         float headMass = 1.5f;
         FloatBuffer massDistribution = BufferUtils.createFloatBuffer(
@@ -137,7 +137,7 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         Transform correction = malletShape.principalAxes(
                 massDistribution, null, inertiaVector);
 
-        // Correct the shape.
+        // Correct the shape:
         malletShape.correctAxes(correction);
 
         // Create a dynamic body for the mallet:

@@ -88,7 +88,7 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         PhysicsSoftSpace result = new PhysicsSoftSpace(
                 worldMin, worldMax, PhysicsSpace.BroadphaseType.DBVT);
 
-        // Set gravity to zero.
+        // Set gravity to zero:
         result.setGravity(Vector3f.ZERO); // default = (0,-9.81,0)
 
         return result;
@@ -102,7 +102,7 @@ public class HelloSoftSoft extends BasePhysicsApp<PhysicsSoftSpace> {
         super.initialize();
         setVsync(true);
 
-        // Relocate the camera.
+        // Relocate the camera:
         cam.setLocation(new Vector3f(0f, 1f, 8f));
     }
 

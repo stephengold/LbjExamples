@@ -148,7 +148,7 @@ public class HelloKinematics
      */
     @Override
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
-        // Make the kinematic ball orbit the origin.
+        // Make the kinematic ball orbit the origin:
         float orbitalPeriod = 0.8f; // seconds
         float phaseAngle = elapsedTime * FastMath.TWO_PI / orbitalPeriod;
 

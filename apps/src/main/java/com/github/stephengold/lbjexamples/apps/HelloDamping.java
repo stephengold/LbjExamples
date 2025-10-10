@@ -80,7 +80,7 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // For clarity, disable gravity.
+        // For clarity, disable gravity:
         result.setGravity(Vector3f.ZERO);
 
         return result;
@@ -103,24 +103,24 @@ public class HelloDamping extends BasePhysicsApp<PhysicsSpace> {
             cube[cubeIndex] = new PhysicsRigidBody(cubeShape, cubeMass);
             physicsSpace.addCollisionObject(cube[cubeIndex]);
 
-            // Disable sleep (deactivation) for clarity.
+            // Disable sleep (deactivation) for clarity:
             cube[cubeIndex].setEnableSleep(false);
         }
 
-        // Locate the cubes 4 psu apart, center to center.
+        // Locate the cubes 4 psu apart, center to center:
         cube[0].setPhysicsLocation(new Vector3f(0f, +2f, 0f));
         cube[1].setPhysicsLocation(new Vector3f(4f, +2f, 0f));
         cube[2].setPhysicsLocation(new Vector3f(0f, -2f, 0f));
         cube[3].setPhysicsLocation(new Vector3f(4f, -2f, 0f));
 
-        // Give each cube its own set of damping parameters (linear, angular).
+        // Give each cube its own set of damping parameters (linear, angular):
         cube[0].setDamping(0f, 0f);
         cube[1].setDamping(0f, 0.9f);
         cube[2].setDamping(0.9f, 0f);
         cube[3].setDamping(0.9f, 0.9f);
         /*
          * Apply an off-center impulse to each cube,
-         * causing it to drift and spin.
+         * causing it to drift and spin:
          */
         Vector3f impulse = new Vector3f(-1f, 0f, 0f);
         Vector3f offset = new Vector3f(0f, 1f, 1f);
