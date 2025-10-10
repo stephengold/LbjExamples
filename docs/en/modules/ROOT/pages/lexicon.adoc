@@ -1,4 +1,4 @@
-== Lexicon of type names
+= Lexicon of type names
 :page-pagination:
 
 When reading the documentation for the native code,
