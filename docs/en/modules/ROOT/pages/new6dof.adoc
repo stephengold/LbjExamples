@@ -248,7 +248,7 @@ NOTE: The limits of a rotational DOF are measured in radians.
 that demonstrates a single-ended `New6Dof` constraint
 with limited translation DOFs.
 The joint's translations are limited,
-confining the ball to a horizontal square centered on the origin.
+confining the ball to a 6x6 horizontal square centered on the origin.
 
 
 == Motors

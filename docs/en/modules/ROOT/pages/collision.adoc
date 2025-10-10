@@ -130,7 +130,9 @@ to disable collisions between the ends of a joint.
 
 === Using a dynamic filter
 
-{Project} invokes `space.needsCollision()` for each AABB overlap
+For each collision group in a space,
+you can register a collision-group listener.
+{Project} invokes the collision-group listeners for each AABB overlap
 that isn't suppressed by collision groups or ignore lists.
 The default implementation returns `true`, meaning "process this overlap".
 

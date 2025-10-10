@@ -105,7 +105,7 @@ from _shape coordinates_ (which depend on scale factors).
 
 == Discrete time and collision detection
 
-Physics simulation occurs in discrete steps of short duration.
+Within a physics space, simulation occurs in discrete steps of short duration.
 While it's possible to vary these durations from step to step,
 a fixed duration (or _time step_) tends to yield more reproducible results.
 
