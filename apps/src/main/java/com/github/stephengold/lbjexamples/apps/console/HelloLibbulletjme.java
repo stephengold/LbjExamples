@@ -96,7 +96,7 @@ final class HelloLibbulletjme {
                 .setLoggingEnabled(true);
         loader.setRetryWithCleanExtraction(true);
 
-        // Load the Libbulletjme native library for this platform.
+        // Load the Libbulletjme native library for this platform:
         try {
             loader.loadLibrary(LoadingCriterion.CLEAN_EXTRACTION);
         } catch (Exception exception) {

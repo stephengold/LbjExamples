@@ -157,7 +157,7 @@ final class HelloVehicle0 {
 
         physicsSpace.addCollisionObject(vehicle);
 
-        // Apply a steering angle of 6 degrees left (to the front wheels).
+        // Apply a steering angle of 6 degrees left (to the front wheels):
         vehicle.steer(FastMath.PI / 30f);
 
         // Apply a constant acceleration (to the chassis):

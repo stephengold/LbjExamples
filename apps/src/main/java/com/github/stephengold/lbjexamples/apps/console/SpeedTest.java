@@ -102,7 +102,7 @@ final class SpeedTest {
     public static void main(String[] arguments) {
         Logger.getLogger("").setLevel(Level.WARNING);
 
-        // Parse and validate the command-line arguments.
+        // Parse and validate the command-line arguments:
         int numArguments = arguments.length;
         if (numArguments != 1) {
             System.out.println("Wrong number of arguments:  " + numArguments);
@@ -158,7 +158,7 @@ final class SpeedTest {
         populateSpace();
         long startTime = System.nanoTime();
 
-        // Simulate 20 seconds of physics, launching a ball every second.
+        // Simulate 20 seconds of physics, launching a ball every second:
         CollisionShape launchShape = new SphereCollisionShape(0.5f);
         float timeStep = 1 / 60f;
         for (int iLaunch = 0; iLaunch < 20; ++iLaunch) {

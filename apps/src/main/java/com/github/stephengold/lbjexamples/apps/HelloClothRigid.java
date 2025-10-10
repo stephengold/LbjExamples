@@ -98,7 +98,7 @@ public class HelloClothRigid extends BasePhysicsApp<PhysicsSoftSpace> {
         super.initialize();
         setVsync(true);
 
-        // Relocate the camera.
+        // Relocate the camera:
         cam.setLocation(new Vector3f(0f, 1f, 8f));
     }
 

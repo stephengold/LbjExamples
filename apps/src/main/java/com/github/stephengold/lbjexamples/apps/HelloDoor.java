@@ -132,7 +132,7 @@ public class HelloDoor
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // To enable the callbacks, register the application as a tick listener.
+        // To enable the callbacks, register the application as a tick listener:
         result.addTickListener(this);
 
         // Reduce the time step for better accuracy:
@@ -151,7 +151,7 @@ public class HelloDoor
         configureCamera();
         setLightDirection(7f, 3f, 5f);
 
-        // Disable VSync for more frequent mouse-position updates.
+        // Disable VSync for more frequent mouse-position updates:
         setVsync(false);
     }
 
@@ -191,7 +191,7 @@ public class HelloDoor
      */
     @Override
     public void render() {
-        // Calculate the ground location (if any) indicated by the mouse cursor.
+        // Calculate the ground location (if any) indicated by the mouse cursor:
         Vector2fc screenXy = getInputManager().locateCursor();
         if (screenXy != null) {
             Vector3f nearLocation

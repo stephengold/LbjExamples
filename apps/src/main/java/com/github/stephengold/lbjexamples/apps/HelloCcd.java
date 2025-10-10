@@ -82,7 +82,7 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
 
-        // Increase gravity to make the balls fall faster.
+        // Increase gravity to make the balls fall faster:
         result.setGravity(new Vector3f(0f, -100f, 0f));
 
         return result;
@@ -144,7 +144,7 @@ public class HelloCcd extends BasePhysicsApp<PhysicsSpace> {
      */
     @Override
     public void updatePhysics(float wallClockSeconds) {
-        // For clarity, simulate at 1/10th normal speed.
+        // For clarity, simulate at 1/10th normal speed:
         float simulateSeconds = 0.1f * wallClockSeconds;
         physicsSpace.update(simulateSeconds);
     }

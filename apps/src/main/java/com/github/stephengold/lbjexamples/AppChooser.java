@@ -145,7 +145,7 @@ final class AppChooser extends JFrame {
         setLocationRelativeTo(null);
         Container contentPane = getContentPane();
 
-        // Add a ComboBox to select one app.
+        // Add a ComboBox to select one app:
         JComboBox<String> comboBox = new JComboBox<>();
         for (BaseApplication app : apps) {
             String appName = app.getClass().getSimpleName();
@@ -153,7 +153,7 @@ final class AppChooser extends JFrame {
         }
         contentPane.add(BorderLayout.CENTER, comboBox);
 
-        // Add a JButton to start the selected app.
+        // Add a JButton to start the selected app:
         JButton startButton = new JButton("Start the selected app");
         startButton.addActionListener(actionEvent -> {
             setVisible(false);
