@@ -82,7 +82,7 @@ You can install them to your local Maven repository.
 . Edit "docs/playbook.yml" and replace "/home/sgold/NetBeansProjects/LbjExamples"
   with an absolute path to your extracted directory (2 places).
 . https://docs.antora.org/antora/latest/install-and-run-quickstart/#install-nodejs[Install Node.js]
-. Install Antora: `npm i -D -E @antora/cli@3.1`
+. Install Antora: `npm i -D -E antora`
 . Run Antora: `npx antora docs/playbook.yml`
 
 After a successful build,
