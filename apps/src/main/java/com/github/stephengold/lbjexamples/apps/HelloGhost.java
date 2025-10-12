@@ -161,14 +161,14 @@ public class HelloGhost
         character.setGravity(4f);
         physicsSpace.addCollisionObject(character);
 
+        // Add a plane to represent the ground.
+        float groundY = -2f;
+        addPlane(groundY);
+
         // Visualize both collision objects:
         new AabbGeometry(ghost);
         visualizeShape(character);
         new AabbGeometry(character); // outline the character's AABB in white
-
-        // Add a plane to represent the ground:
-        float groundY = -2f;
-        addPlane(groundY);
     }
     // *************************************************************************
     // PhysicsTickListener methods

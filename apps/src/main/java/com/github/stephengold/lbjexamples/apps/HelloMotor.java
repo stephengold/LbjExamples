@@ -208,8 +208,8 @@ public class HelloMotor extends BasePhysicsApp<PhysicsSpace> {
      */
     private static void configureCamera() {
         CameraInputProcessor cip = getCameraInputProcessor();
-        cip.setRotationMode(RotateMode.DragLMB);
         cip.setMoveSpeed(5f);
+        cip.setRotationMode(RotateMode.DragLMB);
 
         cam.setAzimuth(-1.56f)
                 .setLocation(0f, 1.5f, 4f)
