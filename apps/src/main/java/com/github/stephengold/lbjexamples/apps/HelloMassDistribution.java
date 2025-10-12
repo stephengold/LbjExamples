@@ -101,9 +101,9 @@ public class HelloMassDistribution extends BasePhysicsApp<PhysicsSpace> {
         getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
 
         // Position the camera for a good view:
-        cam.setLocation(new Vector3f(10f, -2.75f, 0f));
-        cam.setUpAngle(0.05f);
-        cam.setAzimuth(-3.05f);
+        cam.setAzimuth(-3.05f)
+                .setLocation(10f, -2.75f, 0f)
+                .setUpAngle(0.05f);
     }
 
     /**

@@ -115,9 +115,9 @@ public class HelloCustomShape extends BasePhysicsApp<PhysicsSpace> {
         getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
 
         // Position the camera for a good view:
-        cam.setLocation(new Vector3f(10f, 4f, -3.3f));
-        cam.setUpAngle(-0.61f);
-        cam.setAzimuth(2.77f);
+        cam.setAzimuth(2.77f)
+                .setLocation(10f, 4f, -3.3f)
+                .setUpAngle(-0.61f);
     }
 
     /**

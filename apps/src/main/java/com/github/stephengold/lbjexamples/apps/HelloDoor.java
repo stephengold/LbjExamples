@@ -321,7 +321,7 @@ public class HelloDoor
      * Position the camera during startup.
      */
     private void configureCamera() {
-        cam.setLocation(new Vector3f(0f, 12f, 10f));
+        cam.setLocation(0f, 12f, 10f);
         cam.setLookDirection(new org.joml.Vector3f(-0.01f, -0.76f, -0.65f));
     }
 }

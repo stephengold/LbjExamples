@@ -253,9 +253,9 @@ public class HelloGhost
      */
     private static void configureCamera() {
         getCameraInputProcessor().setRotationMode(RotateMode.DragLMB);
-        cam.setAzimuth(-1.9f);
-        cam.setLocation(new Vector3f(35f, 35f, 60f));
-        cam.setUpAngle(-0.5f);
+        cam.setAzimuth(-1.9f)
+                .setLocation(35f, 35f, 60f)
+                .setUpAngle(-0.5f);
         getProjection().setFovyDegrees(30f);
     }
 
