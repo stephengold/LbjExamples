@@ -15,7 +15,7 @@ jobs:
           java-version: 17
       - uses: actions/checkout@v5
       - uses: gradle/actions/wrapper-validation@v5
-      - run: ./gradlew javadoc --console=plain --stacktrace
+      - run: ./gradlew build javadoc install --console=plain --stacktrace
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --stacktrace
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --stacktrace
 
@@ -28,7 +28,7 @@ jobs:
           distribution: 'zulu'
           java-version: 17
       - uses: actions/checkout@v5
-      - run: ./gradlew javadoc --console=plain --stacktrace
+      - run: ./gradlew build javadoc install --console=plain --stacktrace
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --stacktrace
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --stacktrace
 
@@ -41,7 +41,7 @@ jobs:
           distribution: 'zulu'
           java-version: 21
       - uses: actions/checkout@v5
-      - run: ./gradlew javadoc --console=plain --stacktrace
+      - run: ./gradlew build javadoc install --console=plain --stacktrace
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --stacktrace
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --stacktrace
 
@@ -54,7 +54,7 @@ jobs:
           distribution: 'zulu'
           java-version: 23
       - uses: actions/checkout@v5
-      - run: ./gradlew javadoc --console=plain --stacktrace
+      - run: ./gradlew build javadoc install --console=plain --stacktrace
         shell: bash
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --stacktrace
         shell: bash
