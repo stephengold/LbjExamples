@@ -86,7 +86,7 @@ You can install them to your local Maven repository.
 . Run Antora: `npx antora docs/playbook.yml`
 
 After a successful build,
-your local site copy will be found in the "docs/build/site" directory.
+your local copy of the site will be found in "docs/build/site".
 
 
 == Cleanup
