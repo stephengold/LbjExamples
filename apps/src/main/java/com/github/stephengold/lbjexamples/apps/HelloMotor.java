@@ -99,6 +99,8 @@ public class HelloMotor extends BasePhysicsApp<PhysicsSpace> {
     public PhysicsSpace createSpace() {
         PhysicsSpace result
                 = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+
+        // For clarity, disable gravity:
         result.setGravity(Vector3f.ZERO);
 
         return result;
