@@ -71,6 +71,9 @@ public class HelloNewHinge
      * drive wheels
      */
     final private static List<PhysicsRigidBody> drive = new ArrayList<>(2);
+    /**
+     * main body of the vehicle
+     */
     private static PhysicsRigidBody chassis;
     // *************************************************************************
     // constructors

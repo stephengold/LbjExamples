@@ -51,7 +51,13 @@ public class HelloDeactivation
     // *************************************************************************
     // fields
 
+    /**
+     * falling cube body
+     */
     private static PhysicsRigidBody dynamicCube;
+    /**
+     * static cube body providing temporary support
+     */
     private static PhysicsRigidBody supportCube;
     // *************************************************************************
     // constructors
