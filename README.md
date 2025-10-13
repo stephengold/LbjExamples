@@ -8,7 +8,7 @@ It contains 3 subprojects:
 
 1. docs: [Antora] documentation for Libbulletjme, including a tutorial
 2. apps: sample applications referred to in the tutorial, written in [Java]
-3. kotlin-apps: sample applications in [Kotlin]
+3. kotlin-apps: sample applications ported to [Kotlin]
 
 The sample applications utilize [the SPORT graphics engine][sport],
 which was formerly a subproject and is now a separate project at [GitHub].
