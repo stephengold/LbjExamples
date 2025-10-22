@@ -37,9 +37,7 @@
     <module name="FileLength">
         <property name="max" value="1300"/>
     </module>
-    <module name="LineLength">
-        <property name="fileExtensions" value="java"/>
-    </module>
+    <module name="LineLength"/>
 
     <!-- Checks for whitespace:                       -->
     <!-- See https://checkstyle.org/checks/whitespace -->
@@ -121,7 +119,7 @@
         <module name="IllegalInstantiation"/>
         <module name="IllegalThrows"/>
         <module name="IllegalToken">
-            <property name="tokens" value="LITERAL_NATIVE, POST_DEC, POST_INC, STATIC_IMPORT"/>
+            <property name="tokens" value="LITERAL_NATIVE, POST_DEC, POST_INC, STATIC_IMPORT, LABELED_STAT"/>
         </module>
         <module name="IllegalTokenText">
             <property name="format" value="\\u00(09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)"/>
@@ -168,9 +166,7 @@
         <module name="JavadocTagContinuationIndentation">
             <property name="offset" value="0"/>
         </module>
-        <module name="JavadocVariable">
-            <property name="accessModifiers" value="public, protected, package"/>
-        </module>
+        <module name="JavadocVariable"/>
         <module name="MissingJavadocMethod">
             <property name="allowedAnnotations" value=""/>
             <property name="scope" value="private"/>
