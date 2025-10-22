@@ -53,7 +53,13 @@ final class HelloLibbulletjme {
     // *************************************************************************
     // fields
 
+    /**
+     * body that represents a falling ball
+     */
     private static PhysicsRigidBody ball;
+    /**
+     * 3-D space for physics simulation
+     */
     private static PhysicsSpace physicsSpace;
     // *************************************************************************
     // constructors
