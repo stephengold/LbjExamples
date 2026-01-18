@@ -4,7 +4,7 @@
 
 checkstyle = "12.3.1"
 libbulletjme = "22.0.3"
-lwjgl = "3.3.6"
+lwjgl = "3.4.0"
 
 [libraries]
 
@@ -22,7 +22,7 @@ lwjgl-assimp = { module = "org.lwjgl:lwjgl-assimp", version.ref = "lwjgl" }
 lwjgl-glfw = { module = "org.lwjgl:lwjgl-glfw", version.ref = "lwjgl" }
 lwjgl-opengl = { module = "org.lwjgl:lwjgl-opengl", version.ref = "lwjgl" }
 
-sport = "com.github.stephengold:sport:0.9.7"
+sport = "com.github.stephengold:sport:0.9.8"
 
 [bundles]
 
