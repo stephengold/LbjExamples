@@ -51,7 +51,7 @@ jobs:
     steps:
       - uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
+          distribution: 'liberica'
           java-version: 25
       - uses: actions/checkout@v6
       - run: ./gradlew build javadoc install --console=plain --stacktrace
