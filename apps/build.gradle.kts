@@ -27,7 +27,7 @@ tasks.named<Jar>("jar") {
     }
 }
 
-tasks.withType<JavaCompile>().all { // Java compile-time options:
+tasks.withType<JavaCompile>().configureEach { // Java compile-time options:
     options.compilerArgs.add("-Xdiags:verbose")
     if (javaVersion.isCompatibleWith(JavaVersion.VERSION_20)) {
         // Suppress warnings that source value 8 is obsolete.
@@ -206,7 +206,7 @@ val includeMacOsX = os.isMacOsX
 val includeWindows = os.isWindows
 val enableNativeAccess = JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_17)
 
-tasks.withType<JavaExec>().all { // JVM runtime options:
+tasks.withType<JavaExec>().configureEach { // JVM runtime options:
     if (os.isMacOsX) {
         jvmArgs("-XstartOnFirstThread") // required for GLFW on macOS
     }

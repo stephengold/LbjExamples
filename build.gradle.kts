@@ -4,7 +4,7 @@ plugins {
     base // to add a "clean" task to the root project
 }
 
-configurations.all {
+configurations.configureEach {
     resolutionStrategy.cacheChangingModulesFor(0, "seconds") // to disable caching of snapshots
 }
 
