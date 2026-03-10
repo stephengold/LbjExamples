@@ -32,6 +32,7 @@
 * Projects using Libbulletjme
 ** https://stephengold.github.io/Minie[Minie]
 ** https://dynamx.fr/[DynamX]
+** https://github.com/stephengold/LbjDroid[LbjDroid]
 ** https://github.com/stephengold/LbjExamples[LbjExamples]
 ** https://github.com/stephengold/macana[Macana]
 ** https://github.com/stephengold/sport[SPORT]
