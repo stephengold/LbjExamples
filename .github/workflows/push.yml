@@ -48,14 +48,14 @@ jobs:
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --stacktrace
         shell: bash
 
-  Java26-MacOS:
+  Java25-MacOS:
     if: contains(toJson(github.event.commits), '[ci skip] ') == false
     runs-on: macos-26-intel
     steps:
       - uses: actions/setup-java@v5
         with:
           distribution: 'liberica'
-          java-version: 26
+          java-version: 25
       - uses: actions/checkout@v6
       - run: ./gradlew build javadoc install --console=plain --stacktrace
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --stacktrace
