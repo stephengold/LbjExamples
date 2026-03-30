@@ -47,7 +47,7 @@ dependencies {
     implementation(
             group: "com.github.stephengold",
             name: "Libbulletjme-Android",
-            version: "22.0.3",
+            version: "23.0.0",
             classifier: "SpDebug",
             ext: "aar"
     )
@@ -79,10 +79,10 @@ repositories {
 }
 dependencies {
     // JVM library:
-    implementation("com.github.stephengold:Libbulletjme-Windows64:22.0.3")
+    implementation("com.github.stephengold:Libbulletjme-Windows64:23.0.0")
 
     // native libraries:
-    runtimeOnly("com.github.stephengold:Libbulletjme-Linux64:22.0.3:SpDebug")
+    runtimeOnly("com.github.stephengold:Libbulletjme-Linux64:23.0.0:SpDebug")
         // Native libraries for other platforms could be added.
 }
 ----
@@ -117,7 +117,7 @@ Add to the relevant "build.gradle" or "build.gradle.kts" file:
 [source,groovy]
 ----
 dependencies {
-    implementation("io.github.electrostat-lab:snaploader:1.0.0-stable")
+    implementation("io.github.electrostat-lab:snaploader:1.1.1-stable")
 }
 ----
 

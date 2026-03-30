@@ -11,7 +11,7 @@ During development, Java assertions should be enabled using:
 
 Similarly, native-code assertions should be enabled during development,
 by loading a native library of the "debug" type,
-such as "com.github.stephengold:Libbulletjme-Linux64:22.0.3:SpDebug".
+such as "com.github.stephengold:Libbulletjme-Linux64:23.0.0:SpDebug".
 
 
 == Visualization
