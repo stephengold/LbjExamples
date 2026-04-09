@@ -32,6 +32,7 @@
 * Projects using Libbulletjme
 ** https://stephengold.github.io/Minie[Minie]
 ** https://dynamx.fr/[DynamX]
+** https://www.curseforge.com/minecraft/mc-mods/avatar-legend-reforged[Avatar: Legend Reforged]
 ** https://github.com/stephengold/LbjDroid[LbjDroid]
 ** https://github.com/stephengold/LbjExamples[LbjExamples]
 ** https://github.com/stephengold/macana[Macana]
