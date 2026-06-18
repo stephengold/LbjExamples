@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -242,7 +242,7 @@ class HelloJoint : BasePhysicsApp<PhysicsSpace>(), PhysicsTickListener {
      * Configure the Camera and CIP during startup.
      */
     private fun configureCamera() {
-        getCameraInputProcessor().setRotationMode(RotateMode.None)
+        getCameraInputProcessor().setRotationMode(RotateMode.Off)
 
         cam.setLocation(Vector3f(0f, 5f, 10f))
         cam.setUpAngle(-0.6f)
