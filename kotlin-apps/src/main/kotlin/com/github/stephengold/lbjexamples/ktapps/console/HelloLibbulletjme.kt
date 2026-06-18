@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2024-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2024-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -65,6 +65,7 @@ fun main() {
         NativeDynamicLibrary("native/linux/x86_64", PlatformPredicate.LINUX_X86_64),
         NativeDynamicLibrary("native/osx/arm64", PlatformPredicate.MACOS_ARM_64),
         NativeDynamicLibrary("native/osx/x86_64", PlatformPredicate.MACOS_X86_64),
+        NativeDynamicLibrary("native/windows/arm64", PlatformPredicate.WIN_ARM_64),
         NativeDynamicLibrary("native/windows/x86_64", PlatformPredicate.WIN_X86_64)
     )
     loader.registerNativeLibraries(libraries)
