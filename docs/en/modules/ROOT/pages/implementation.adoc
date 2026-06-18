@@ -38,9 +38,6 @@ for 11 different platforms:
 * macOS (x86-64 and ARM64), and
 * Android (armeabi-v7a, arm64-v8a, x86, and x86_64).
 
-NOTE: 32-bit and 64-bit versions of the same operating system
-count as distinct platforms!
-
 For each platform, {Project} builds 2 types of libraries:
 
 * "Debug" (for development, debugging, and functional testing) and
