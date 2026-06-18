@@ -18,7 +18,7 @@ Here's the recommended procedure:
 
 . Install build software:
 .. a https://adoptium.net/releases.html[Java Development Kit (JDK)],
-  version 8 or higher, and
+  version 17 or higher, and
 .. one of the supported C++ compilers:
 ... for Linux:  https://gcc.gnu.org/[the GNU Compiler Collection] or https://www.llvm.org[Clang]
 ... for macOS:  https://developer.apple.com/xcode[Xcode]
@@ -37,7 +37,7 @@ Here's the recommended procedure:
 .. using https://git-scm.com[Git]:
 ... `git clone https://github.com/stephengold/Libbulletjme.git`
 ... `cd Libbulletjme`
-... `git checkout -b latest 23.0.0`
+... `git checkout -b latest 23.0.1`
 .. using a web browser:
 ... browse to https://github.com/stephengold/Libbulletjme/releases/latest
 ... follow the "Source code (zip)" link
@@ -51,9 +51,12 @@ Here's the recommended procedure:
 . To build Android artifacts, you'll need to
   install https://developer.android.com/studio[Android Studio]
   and point the `ANDROID_HOME` environment variable to that installation.
+. Install the Android build script:
+.. using Bash or Fish or PowerShell or Zsh: `cp android.gradle build.gradle`
+.. using Windows Command Prompt: `copy android.gradle build.gradle`
 . Run the Gradle wrapper on the Android build script:
-.. using Bash or Fish or PowerShell or Zsh: `./gradlew -b android.gradle build`
-.. using Windows Command Prompt: `.\gradlew -b android.gradle build`
+.. using Bash or Fish or PowerShell or Zsh: `./gradlew build`
+.. using Windows Command Prompt: `.\gradlew build`
 
 After a successful build,
 artifacts will be found in "build/libs" (desktop) and "build/outputs/aar" (Android).
@@ -87,13 +90,3 @@ You can install them to your local Maven repository.
 
 After a successful build,
 your local copy of the site will be found in "docs/build/site".
-
-
-== Cleanup
-
-At any time, you can restore the project to a pristine state:
-
-* using Bash or Fish or PowerShell or Zsh: `./gradlew clean;./gradlew -b android.gradle clean`
-* using Windows Command Prompt:
-** `.\gradlew clean`
-** `.\gradlew -b android.gradle clean`
