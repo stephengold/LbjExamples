@@ -19,6 +19,19 @@ jobs:
       - run: ./gradlew :apps:HelloLibbulletjme --console=plain --stacktrace
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --stacktrace
 
+  Java21-Linux_ARM64:
+    if: contains(toJson(github.event.commits), '[ci skip] ') == false
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: 21
+      - uses: actions/checkout@v6
+      - run: ./gradlew build javadoc install --console=plain --stacktrace
+      - run: ./gradlew :apps:HelloLibbulletjme --console=plain --stacktrace
+      - run: ./gradlew :apps:HelloVehicle0 --console=plain --stacktrace
+
   Java21-MacOSX_ARM64:
     if: contains(toJson(github.event.commits), '[ci skip] ') == false
     runs-on: macos-26
