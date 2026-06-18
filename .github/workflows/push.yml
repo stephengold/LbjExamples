@@ -48,6 +48,22 @@ jobs:
       - run: ./gradlew :apps:HelloVehicle0 --console=plain --stacktrace
         shell: bash
 
+  Java25-Windows_ARM64:
+    if: contains(toJson(github.event.commits), '[ci skip] ') == false
+    runs-on: windows-11-arm
+    steps:
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'liberica'
+          java-version: 25
+      - uses: actions/checkout@v6
+      - run: ./gradlew build javadoc install --console=plain --stacktrace
+        shell: bash
+      - run: ./gradlew :apps:HelloLibbulletjme --console=plain --stacktrace
+        shell: bash
+      - run: ./gradlew :apps:HelloVehicle0 --console=plain --stacktrace
+        shell: bash
+
   Java25-MacOS:
     if: contains(toJson(github.event.commits), '[ci skip] ') == false
     runs-on: macos-26-intel
