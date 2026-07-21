@@ -68,7 +68,7 @@ You can restore the project to a pristine state:
 + using Windows Command Prompt: `.\gradlew clean`
 
 
-[adoptium]: https://adoptium.net/releases.html "Adoptium"
+[adoptium]: https://adoptium.net/temurin/releases/ "Adoptium Project"
 [antora]: https://antora.org/ "Antora site generator"
 [fish]: https://fishshell.com/ "Fish command-line shell"
 [git]: https://git-scm.com "Git version-control system"
