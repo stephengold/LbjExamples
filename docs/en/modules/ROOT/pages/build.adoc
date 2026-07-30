@@ -1,4 +1,5 @@
 = How to build Libbulletjme from source
+:Cplusplus: C&#43;&#43;
 :Project: Libbulletjme
 
 {Project} is free, open-source software.
@@ -19,7 +20,7 @@ Here's the recommended procedure:
 . Install build software:
 .. a https://adoptium.net/temurin/releases/[Java Development Kit (JDK)],
   version 21 or higher, and
-.. one of the supported C++ compilers:
+.. one of the supported {Cplusplus} compilers:
 ... for Linux:  https://gcc.gnu.org/[the GNU Compiler Collection] or https://www.llvm.org[Clang]
 ... for macOS:  https://developer.apple.com/xcode[Xcode]
 ... for Windows:  https://visualstudio.microsoft.com[Microsoft Visual Studio]
@@ -65,7 +66,7 @@ artifacts will be found in "build/libs" (desktop) and "build/outputs/aar" (Andro
 === Local installation
 
 Once you've successfully built one or more libraries,
-You can install them to your local Maven repository.
+you can install them to your local Maven repository.
 
 . using Bash or Fish or PowerShell or Zsh: `./gradlew install`
 . using Windows Command Prompt: `.\gradlew install`
@@ -88,4 +89,4 @@ You can install them to your local Maven repository.
 . Run Antora: `npx antora docs/playbook.yml`
 
 After a successful build,
-your local copy of the site will be found in "docs/build/site".
+your local copy of the site will be found in the "docs/build/site" directory.

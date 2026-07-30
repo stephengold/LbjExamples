@@ -10,7 +10,8 @@ It contains 3 subprojects:
 2. apps: sample applications referred to in the tutorial, written in [Java]
 3. kotlin-apps: sample applications ported to [Kotlin]
 
-The sample applications utilize [the SPORT graphics engine][sport],
+or visualization, many of the sample applications utilize
+[the SPORT graphics engine][sport],
 which was formerly a subproject and is now a separate project at [GitHub].
 
 Complete source code is provided under
