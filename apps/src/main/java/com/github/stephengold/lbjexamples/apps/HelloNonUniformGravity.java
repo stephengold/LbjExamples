@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2020-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2020-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -158,7 +158,8 @@ public class HelloNonUniformGravity
     public void prePhysicsTick(PhysicsSpace space, float timeStep) {
         // Calculate the gravitational acceleration GM/r^2 :
         planet.getPhysicsLocation(tmpVector);
-        float r2 = tmpVector.lengthSquared(); //squared distance from black hole
+        float r2
+                = tmpVector.lengthSquared(); // squared distance from black hole
         MyVector3f.normalizeLocal(tmpVector);
         tmpVector.multLocal(-3f / r2);
         planet.setGravity(tmpVector);
