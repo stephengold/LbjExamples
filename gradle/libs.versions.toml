@@ -2,7 +2,7 @@
 
 [versions]
 
-checkstyle = "14.1.0"
+checkstyle = "14.3.0"
 lbj = "23.1.2"
 lwjgl = "3.4.3"
 
