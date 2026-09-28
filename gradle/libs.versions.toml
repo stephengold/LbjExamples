@@ -3,20 +3,20 @@
 [versions]
 
 checkstyle = "14.1.0"
-libbulletjme = "23.1.2"
+lbj = "23.1.2"
 lwjgl = "3.4.3"
 
 [libraries]
 
 jsnaploader = "io.github.electrostat-lab:snaploader:1.1.1-stable"
 
-libbulletjme-linux64 = { module = "com.github.stephengold:Libbulletjme-Linux64", version.ref = "libbulletjme" }
-libbulletjme-linuxarm32hf = { module = "com.github.stephengold:Libbulletjme-Linux_ARM32hf", version.ref = "libbulletjme" }
-libbulletjme-linuxarm64 = { module = "com.github.stephengold:Libbulletjme-Linux_ARM64", version.ref = "libbulletjme" }
-libbulletjme-macosx64 = { module = "com.github.stephengold:Libbulletjme-MacOSX64", version.ref = "libbulletjme" }
-libbulletjme-macosxarm64 = { module = "com.github.stephengold:Libbulletjme-MacOSX_ARM64", version.ref = "libbulletjme" }
-libbulletjme-windows64 = { module = "com.github.stephengold:Libbulletjme-Windows64", version.ref = "libbulletjme" }
-libbulletjme-windowsarm64 = { module = "com.github.stephengold:Libbulletjme-Windows_ARM64", version.ref = "libbulletjme" }
+libbulletjme-linux64 = { module = "com.github.stephengold:Libbulletjme-Linux64", version.ref = "lbj" }
+libbulletjme-linuxarm32hf = { module = "com.github.stephengold:Libbulletjme-Linux_ARM32hf", version.ref = "lbj" }
+libbulletjme-linuxarm64 = { module = "com.github.stephengold:Libbulletjme-Linux_ARM64", version.ref = "lbj" }
+libbulletjme-macosx64 = { module = "com.github.stephengold:Libbulletjme-MacOSX64", version.ref = "lbj" }
+libbulletjme-macosxarm64 = { module = "com.github.stephengold:Libbulletjme-MacOSX_ARM64", version.ref = "lbj" }
+libbulletjme-windows64 = { module = "com.github.stephengold:Libbulletjme-Windows64", version.ref = "lbj" }
+libbulletjme-windowsarm64 = { module = "com.github.stephengold:Libbulletjme-Windows_ARM64", version.ref = "lbj" }
 
 lwjgl = { module = "org.lwjgl:lwjgl", version.ref = "lwjgl" }
 lwjgl-assimp = { module = "org.lwjgl:lwjgl-assimp", version.ref = "lwjgl" }
