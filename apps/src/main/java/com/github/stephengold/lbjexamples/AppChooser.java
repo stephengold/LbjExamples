@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2022-2025 Stephen Gold and Yanis Boudiaf
+ Copyright (c) 2022-2026 Stephen Gold and Yanis Boudiaf
 
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -145,7 +145,7 @@ final class AppChooser extends JFrame {
         setLocationRelativeTo(null);
         Container contentPane = getContentPane();
 
-        // Add a ComboBox to select one app:
+        // Add a combo box to select one app:
         JComboBox<String> comboBox = new JComboBox<>();
         for (BaseApplication app : apps) {
             String appName = app.getClass().getSimpleName();
@@ -153,7 +153,7 @@ final class AppChooser extends JFrame {
         }
         contentPane.add(BorderLayout.CENTER, comboBox);
 
-        // Add a JButton to start the selected app:
+        // Add a button to start the selected app:
         JButton startButton = new JButton("Start the selected app");
         startButton.addActionListener(actionEvent -> {
             setVisible(false);
