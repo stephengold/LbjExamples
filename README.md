@@ -38,7 +38,7 @@ Complete source code is provided under
   + using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
 3. Download and extract the LbjExamples source code from GitHub:
   + using [Git]:
-    + `git clone https://github.com/stephengold/LbjExamples.git`
+    + `git clone https://github.com/stephengold/LbjExamples`
     + `cd LbjExamples`
 4. Run the [Gradle] wrapper:
   + using Bash or Fish or PowerShell or Zsh: `./gradlew build`

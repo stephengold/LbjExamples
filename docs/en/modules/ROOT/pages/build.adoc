@@ -37,7 +37,7 @@ Here's the recommended procedure:
 .. using PowerShell: `$env:JAVA_HOME = '` *path to installation* `'`
 . Download and extract the {Project} source code from GitHub:
 .. using https://git-scm.com[Git]:
-... `git clone https://github.com/stephengold/Libbulletjme.git`
+... `git clone https://github.com/stephengold/Libbulletjme`
 ... `cd Libbulletjme`
 ... `git checkout -b latest 23.1.2`
 .. using a web browser:
@@ -76,7 +76,7 @@ you can install them to your local Maven repository.
 
 . Download and extract the LbjExamples source code from GitHub:
 .. using Git:
-... `git clone https://github.com/stephengold/LbjExamples.git`
+... `git clone https://github.com/stephengold/LbjExamples`
 ... `cd LbjExamples`
 .. using a web browser:
 ... browse to https://github.com/stephengold/LbjExamples/archive/refs/heads/master.zip
