@@ -33,6 +33,12 @@ https://github.com/Simsilica/SimMath[the SimMath library].
 
 == Caveats
 
+Maintenance of the official Bullet Physics repository ceased in October 2025.
+For now, {Project} continues to be maintained.
+However, long-term projects should plan to transition
+to another 3-D physics engine
+such as https://stephengold.github.io/jolt-jni-docs[Jolt JNI].
+
 {Project}'s focus is on simulating
 {url-enwiki}/Classical_mechanics[classical mechanics]
 in just enough detail to add verisimilitude to 3-D games.
